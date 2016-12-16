@@ -53,30 +53,24 @@ class SocketRequestManage: NSObject {
     }
 
     func notifyResponsePacket(_ packet: SocketDataPacket) {
-        if packet.operate_code == SocketConst.OPCode.chatReceiveMessage.rawValue {
-            let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
-            DispatchQueue.main.async(execute: {[weak self] in
-                self?.receiveChatMsgBlock?(response)
-            })
-        }
-        else {
-            objc_sync_enter(self)
-            _sessionId = packet.session_id
-            let socketReqeust = socketRequests[packet.request_id]
-            socketRequests.removeValue(forKey: packet.request_id)
-            objc_sync_exit(self)
-            let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
-            if (packet.type == SocketConst.type.error.rawValue) {
-                let dict:NSDictionary? = response.responseJson()
-                var errorCode: Int? = dict?["error_"] as? Int
-                if errorCode == nil {
-                    errorCode = -1;
-                }
-                socketReqeust?.onError(errorCode)
-            } else {
-                socketReqeust?.onComplete(response)
+        
+        objc_sync_enter(self)
+        _sessionId = packet.session_id
+        let socketReqeust = socketRequests[packet.request_id]
+        socketRequests.removeValue(forKey: packet.request_id)
+        objc_sync_exit(self)
+        let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
+        if (packet.type == SocketConst.type.error.rawValue) {
+            let dict:NSDictionary? = response.responseJson()
+            var errorCode: Int? = dict?["error_"] as? Int
+            if errorCode == nil {
+                errorCode = -1;
             }
+            socketReqeust?.onError(errorCode)
+        } else {
+            socketReqeust?.onComplete(response)
         }
+        
     }
     
     

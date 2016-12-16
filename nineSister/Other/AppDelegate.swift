@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate ,GeTuiSdkDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
-        appearance()
+//        appearance()
         pushMessageRegister()
         umapp()
         return true
@@ -87,12 +87,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate ,GeTuiSdkDelegate {
     fileprivate func appearance() {
         let navigationBar:UINavigationBar = UINavigationBar.appearance() as UINavigationBar;
         navigationBar.setBackgroundImage(UIImage(named: "head_bg"), for: .default)
-        
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.black];
         navigationBar.isTranslucent = false;
-        navigationBar.tintColor = UIColor.black;
+        navigationBar.tintColor = UIColor.white;
         UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(0, -60), for:.default);
-        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent;
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default;
         UITableView.appearance().backgroundColor = AppConst.Color.C6;
         SVProgressHUD.setDefaultStyle(SVProgressHUDStyle.dark)
         //        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Gradient)
