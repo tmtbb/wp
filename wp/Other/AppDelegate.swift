@@ -11,10 +11,11 @@ import UIKit
 import SVProgressHUD
 import Fabric
 import Crashlytics
+import Alamofire
  
 @UIApplicationMain
 
-class AppDelegate: UIResponder, UIApplicationDelegate ,GeTuiSdkDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDelegate {
 
     var window: UIWindow?
 
@@ -24,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate ,GeTuiSdkDelegate {
 //        appearance()
         pushMessageRegister()
         umapp()
+        wechat()
         return true
     }
 
@@ -84,7 +86,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate ,GeTuiSdkDelegate {
         
     }
     
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        WXApi.handleOpen(url, delegate: self)
+        return true
+    }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        WXApi.handleOpen(url, delegate: self)
+        return true
+    }
+    
     fileprivate func appearance() {
+        
         let navigationBar:UINavigationBar = UINavigationBar.appearance() as UINavigationBar;
         navigationBar.setBackgroundImage(UIImage(named: "head_bg"), for: .default)
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.black];
@@ -98,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate ,GeTuiSdkDelegate {
         SVProgressHUD.setMinimumDismissTimeInterval(2)
     }
 
-    fileprivate func umapp(){
+    fileprivate func umapp() {
         
         UMAnalyticsConfig.sharedInstance().appKey = AppConst.UMAppkey
         UMAnalyticsConfig.sharedInstance().channelId = ""
@@ -110,6 +123,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate ,GeTuiSdkDelegate {
         MobClick.setEncryptEnabled(true)
         //使用集成测试服务
         MobClick.setLogEnabled(true)
+    }
+    
+    //MARK: --Wechat
+    fileprivate func wechat() {
+        
+        WXApi.registerApp("wxe9eb1211f11f0d02")
+    }
+    func onResp(_ resp: BaseResp!) {
+        //微信登录返回
+        if resp.isKind(of: SendAuthResp.classForCoder()) {
+            let authResp:SendAuthResp = resp as! SendAuthResp
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: NSNumber.init(value: resp.errCode), userInfo:nil)
+            if authResp.errCode == 0{
+                let param = [SocketConst.Key.appid : AppConst.WechatKey.Appid,
+                             SocketConst.Key.code : authResp.code,
+                             SocketConst.Key.secret : AppConst.WechatKey.Secret,
+                             SocketConst.Key.grant_type : "authorization_code"]
+                Alamofire.request(AppConst.WechatKey.AccessTokenUrl, method: .get, parameters: param, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (result) in
+                    
+                })
+            }
+            return
+        }
     }
 }
 
