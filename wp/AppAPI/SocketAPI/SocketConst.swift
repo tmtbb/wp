@@ -31,5 +31,12 @@ class SocketConst: NSObject {
         static let order_status = "order_status_"
         static let change_type = "change_type_"
         static let skills = "skills_"
+        //WXKey
+        static let appid = "appid"
+        static let secret = "secret"
+        static let code = "code"
+        static let grant_type = "grant_type"
     }
+    
+    
 }

@@ -31,10 +31,26 @@
             </objects>
             <point key="canvasLocation" x="-143" y="-743"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="AkG-qg-kwh">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d3M-Cl-jy0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="AtV-31-VPY" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VUW-Uc-ds6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="B3w-gW-dIN" kind="relationship" relationship="rootViewController" id="WdQ-2O-8s7"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-1826" y="-123"/>
+        </scene>
         <!--首页-->
         <scene sceneID="DMI-DH-Qr7">
             <objects>
-                <tableViewController id="B3w-gW-dIN" sceneMemberID="viewController">
+                <tableViewController id="B3w-gW-dIN" customClass="HomeVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="wfU-wt-AQJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
