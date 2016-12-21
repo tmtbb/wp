@@ -14,9 +14,11 @@ target 'wp' do
     pod 'Qiniu', '~> 7.1'
     pod 'FMDB', '~> 2.6.2'
     pod 'GTSDK', '~> 1.4.3'
+    pod 'SideMenuController'
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'UMengAnalytics-NO-IDFA'
+    pod 'Charts'
     #pod 'XCGLogger'
     #pod 'SnapKit'
 end

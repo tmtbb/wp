@@ -94,11 +94,10 @@ class BaseSocketAPI: NSObject {
                  let array:[Any]? = dict?[listName] as? [Any]
                 if array != nil  {
                     complete?(try! OEZJsonModelAdapter.models(of: modelClass, fromJSONArray: array) as AnyObject?)
-                    return ;
                 }
             }
-            
-            }, error: error)
+            return nil
+        }, error: error)
     }
 
 }

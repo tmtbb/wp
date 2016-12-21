@@ -8,8 +8,8 @@
 
 import UIKit
 
-typealias CompleteBlock = (AnyObject?) ->()
-typealias ErrorBlock = (NSError) ->()
+typealias CompleteBlock = (AnyObject?) ->()?
+typealias ErrorBlock = (NSError) ->()?
 
 class AppConst {
     
@@ -22,6 +22,10 @@ class AppConst {
         static let C4 = UIColor(rgbHex:0xaaaaaa)
         static let C5 = UIColor(rgbHex:0xe2e2e2)
         static let C6 = UIColor(rgbHex:0xf2f2f2)
+        //wp
+        static let CMain = UIColor(rgbHex: 0xe9573f)
+        static let CGreen = UIColor(rgbHex: 0x009944)
+        
     };
      class SystemFont {
         static let S1 = UIFont.systemFont(ofSize: 18)
