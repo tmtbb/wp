@@ -12,6 +12,7 @@ class SocketConst: NSObject {
     enum OPCode:UInt16 {
         // 心跳包
         case heart = 1000
+        case GetImageToken = 1047
     }
     enum type:UInt8 {
         case error = 0

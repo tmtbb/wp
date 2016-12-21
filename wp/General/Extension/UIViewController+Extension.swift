@@ -59,30 +59,6 @@ extension UIViewController {
 
     
     
-    /**
-     缓存图片
-     
-     - parameter image:     图片
-     - parameter imageName: 图片名
-     - returns: 图片沙盒路径
-     */
-    func cacheImage(_ image: UIImage ,imageName: String) -> String {
-        let data = UIImageJPEGRepresentation(image, 0.5)
-        let homeDirectory = NSHomeDirectory()
-        let documentPath = homeDirectory + "/Documents/"
-        let fileManager: FileManager = FileManager.default
-        do {
-            try fileManager.createDirectory(atPath: documentPath, withIntermediateDirectories: true, attributes: nil)
-        }
-        catch _ {
-        }
-        let key = "\(imageName).png"
-        fileManager.createFile(atPath: documentPath + key, contents: data, attributes: nil)
-        //得到选择后沙盒中图片的完整路径
-        let filePath: String = String(format: "%@%@", documentPath, key)
-        return filePath
-    }
-    
     func didActionTel(_ telPhone:String) {
         let alert = UIAlertController.init(title: "呼叫", message: telPhone, preferredStyle: .alert)
         let ensure = UIAlertAction.init(title: "确定", style: .default, handler: { (action: UIAlertAction) in
