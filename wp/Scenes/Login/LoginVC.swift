@@ -19,11 +19,13 @@ class LoginVC: BaseTableViewController {
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        NotificationCenter.default.removeObserver(self)
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     //MARK: --DATA
     func initData() {
-        NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: nil)
     }
     //MARK: --UI
     func initUI() {
