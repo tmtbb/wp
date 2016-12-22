@@ -13,7 +13,7 @@ class BaseModel: OEZModel {
         return "_";
     }
     deinit {
-//        XCGLogger.debug(" \(self)")
+        
     }
 }
 
