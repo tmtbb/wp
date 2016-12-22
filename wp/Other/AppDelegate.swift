@@ -22,9 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
-//        appearance()
-        pushMessageRegister()
-        umapp()
+        appearance()
+//        pushMessageRegister()
+//        umapp()
         wechat()
         return true
     }
@@ -99,15 +99,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     fileprivate func appearance() {
         
         let navigationBar:UINavigationBar = UINavigationBar.appearance() as UINavigationBar;
-        navigationBar.setBackgroundImage(UIImage(named: "head_bg"), for: .default)
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.black];
+        navigationBar.setBackgroundImage(UIImage(named: "rule-3"), for: .default)
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
         navigationBar.isTranslucent = false;
         navigationBar.tintColor = UIColor.white;
         UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(0, -60), for:.default);
-        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default;
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent;
         UITableView.appearance().backgroundColor = AppConst.Color.C6;
         SVProgressHUD.setDefaultStyle(SVProgressHUDStyle.dark)
-        //        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.Gradient)
         SVProgressHUD.setMinimumDismissTimeInterval(2)
     }
 

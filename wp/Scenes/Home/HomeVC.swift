@@ -24,9 +24,10 @@ class HomeVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
+        navigationController?.addSideMenuButton()
+        self.title = "首页"
         let homeStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
         let loginNav:BaseNavigationController = homeStoryboard.instantiateViewController(withIdentifier: "LoginNav") as! BaseNavigationController
-//        let loginVC = loginNav.viewControllers.first
         present(loginNav, animated: true, completion: nil)
     }
     
