@@ -99,7 +99,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     fileprivate func appearance() {
         
         let navigationBar:UINavigationBar = UINavigationBar.appearance() as UINavigationBar;
-        navigationBar.setBackgroundImage(UIImage(named: "rule-3"), for: .default)
+        navigationBar.setBackgroundImage(UIImage.init(named: "nav_color"), for: .any, barMetrics: .default)
+        navigationBar.shadowImage = UIImage.init(named: "nav_clear")
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
         navigationBar.isTranslucent = false;
         navigationBar.tintColor = UIColor.white;
