@@ -10,6 +10,11 @@ import UIKit
 import SnapKit
 import Alamofire
 class HomeVC: BaseTableViewController {
+    
+    @IBOutlet weak var contentView: UIView!
+    
+    
+    
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,10 +75,11 @@ class HomeVC: BaseTableViewController {
     
     //MARK: --DATA
     func initData() {
-        
     }
     //MARK: --UI
     func initUI() {
+//        contentView.backgroundColor = UIColor(rgbHex: 0xe9573f)
+        
         navigationController?.addSideMenuButton()
         self.title = "首页"
         let homeStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
@@ -143,6 +149,7 @@ class HomeVC: BaseTableViewController {
 //        navigationController?.pushViewController(myMessageVC, animated: true)
 //    }
     
+ 
 }
 
 extension HomeVC:CSCycleViewDelegate,CSSinglerViewDelegate {
