@@ -20,5 +20,5 @@ target 'wp' do
     pod 'UMengAnalytics-NO-IDFA'
     pod 'Charts'
     #pod 'XCGLogger'
-    #pod 'SnapKit'
+    pod 'SnapKit'
 end
