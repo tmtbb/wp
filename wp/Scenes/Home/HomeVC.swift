@@ -28,7 +28,6 @@ class HomeVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
-        contentView.backgroundColor = UIColor(rgbHex: 0xe9573f)
         
         navigationController?.addSideMenuButton()
         self.title = "首页"

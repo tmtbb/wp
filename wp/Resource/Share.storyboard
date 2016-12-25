@@ -29,7 +29,7 @@
         <!--晒单-->
         <scene sceneID="sOJ-PE-r0P">
             <objects>
-                <tableViewController id="V2h-0q-TVt" sceneMemberID="viewController">
+                <tableViewController id="V2h-0q-TVt" customClass="ShareVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="F39-P8-X7m">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -267,10 +267,10 @@
             </objects>
             <point key="canvasLocation" x="336.80000000000001" y="260.41979010494754"/>
         </scene>
-        <!--Table View Controller-->
+        <!--FriendVC-->
         <scene sceneID="dJp-aY-pgv">
             <objects>
-                <tableViewController id="PtS-0i-7cG" sceneMemberID="viewController">
+                <tableViewController id="PtS-0i-7cG" customClass="FriendVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="K9w-7B-1H8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -444,7 +444,7 @@
                                                     <rect key="frame" x="130" y="28" width="227" height="70"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="par-qd-QwO">
-                                                            <rect key="frame" x="0.0" y="0.0" width="114" height="70"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="113.5" height="70"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总收益" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xe0-Pl-mke">
                                                                     <rect key="frame" x="34" y="5" width="46" height="18"/>
@@ -479,22 +479,22 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Tg-33-T50">
-                                                            <rect key="frame" x="114" y="0.0" width="113" height="70"/>
+                                                            <rect key="frame" x="113.5" y="0.0" width="113.5" height="70"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fni-1g-jze">
-                                                                    <rect key="frame" x="46" y="5" width="21" height="18"/>
+                                                                    <rect key="frame" x="46.5" y="5" width="21" height="18"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <color key="textColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0eF-Xg-yVn">
-                                                                    <rect key="frame" x="46" y="28" width="21" height="18"/>
+                                                                    <rect key="frame" x="46.5" y="28" width="21" height="18"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <color key="textColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0G-Fr-ByE">
-                                                                    <rect key="frame" x="46" y="51" width="21" height="18"/>
+                                                                    <rect key="frame" x="46.5" y="51" width="21" height="18"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <color key="textColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -1203,7 +1203,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FWG-4f-myc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1309.5999999999999" y="259.52023988005999"/>
+            <point key="canvasLocation" x="1228" y="260"/>
         </scene>
     </scenes>
     <resources>
