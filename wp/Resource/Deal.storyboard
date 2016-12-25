@@ -288,7 +288,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="XTq-6N-gwI"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <state key="normal" title="Button">
+                                                    <state key="normal" title="分时线">
                                                         <color key="titleColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="selected">
@@ -302,7 +302,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="5Gh-3u-2rr"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <state key="normal" title="Button">
+                                                    <state key="normal" title="15分钟线">
                                                         <color key="titleColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="selected">
@@ -316,7 +316,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="oFd-K6-6PO"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <state key="normal" title="Button">
+                                                    <state key="normal" title="60分钟线">
                                                         <color key="titleColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="selected">
@@ -330,7 +330,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="n6D-dE-0fJ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <state key="normal" title="Button">
+                                                    <state key="normal" title="日时线">
                                                         <color key="titleColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <state key="selected">
@@ -562,6 +562,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="交易" id="o4a-Pk-irG"/>
+                    <connections>
+                        <outlet property="closeLabel" destination="TPy-00-z3n" id="jPa-mc-Ub4"/>
+                        <outlet property="downLabel" destination="oV9-Gm-RlS" id="hkt-9p-Wkk"/>
+                        <outlet property="highLabel" destination="l3m-IE-j6z" id="Mn7-Zb-Hs5"/>
+                        <outlet property="lowLabel" destination="FUN-KC-IJu" id="mJf-s3-Vgs"/>
+                        <outlet property="myMoneyLabel" destination="aBV-h8-qLg" id="bdr-OP-zeB"/>
+                        <outlet property="myQuanLabel" destination="0kJ-wL-gpi" id="TU9-Lf-onV"/>
+                        <outlet property="openLabel" destination="0Wr-dq-kJZ" id="uDV-y6-pyN"/>
+                        <outlet property="priceLabel" destination="vcb-qj-9FF" id="fhy-W6-xfi"/>
+                        <outlet property="upLabel" destination="Cmz-A5-jh9" id="rgL-iV-147"/>
+                        <outlet property="winLabel" destination="pei-u9-IE6" id="FEy-wY-EfG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vmh-bT-c5Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
