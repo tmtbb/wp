@@ -127,4 +127,16 @@ class AppConst {
         static let Secret = "Secret"
         static let ErrorCode = "ErrorCode" 
     }
+    
+    class NotifyDefine {
+        
+        static let jumpToMyMessage = "jumpToMyMessage"
+        static let jumpToMyAttention = "jumpToMyAttention"
+        static let jumpToMyPush = "jumpToMyPush"
+        static let jumpToMyBask = "jumpToMyBask"
+        static let jumpToDeal = "jumpToDeal"
+        static let jumpToFeedback = "jumpToFeedback"
+        static let jumpToProductGrade = "jumpToProductGrade"
+        static let jumpToAttentionUs = "jumpToAttentionUs"
+    }
 }
