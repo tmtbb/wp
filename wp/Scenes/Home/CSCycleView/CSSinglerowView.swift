@@ -47,7 +47,7 @@ class CSSinglerowView: UIView {
     //MARK: -- 懒加载
     
     fileprivate var contentSource : [String]? = [String]()
-    fileprivate var tagSource : [String]? = [String]()
+//    fileprivate var tagSource : [String]? = [String]()
     
     
     fileprivate lazy var collectionView : UICollectionView = {[weak self] in
@@ -73,7 +73,9 @@ class CSSinglerowView: UIView {
         self.style = scrollStyle
         self.time = roundTime
         self.contentSource = contentSource
-        self.tagSource = tagSource
+//        self.tagSource = tagSource
+        //点击事件
+        self.isUserInteractionEnabled = true
         setupUI()
     }
     
@@ -165,6 +167,8 @@ extension CSSinglerowView : UICollectionViewDelegate {
         print("点击了第\(indexPath.row % contentSource!.count)个数据")
         self.delegate?.singlerView(self, selectedIndex: indexPath.row % contentSource!.count)
     }
+    
+
     
 }
 //MARK: -- 时间控制器

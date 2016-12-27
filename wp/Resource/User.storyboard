@@ -54,7 +54,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="安全等级" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWT-8a-nM8">
-                                                    <frame key="frameInset" minX="87" minY="75" width="79" height="14"/>
+                                                    <frame key="frameInset" minX="87" minY="75" width="47" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
@@ -412,6 +412,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="用户中心" id="qng-Cp-TZF"/>
+                    <connections>
+                        <outlet property="iconImage" destination="gAB-jC-Ywa" id="Uzw-Km-oGu"/>
+                        <outlet property="integralLabel" destination="PnB-zf-2wH" id="X6o-pj-vVP"/>
+                        <outlet property="nameLabel" destination="8ny-bf-MJw" id="GgV-oQ-Q9O"/>
+                        <outlet property="propertyLabel" destination="pgO-xb-AcF" id="Kpx-An-glG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAH-PF-P7i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -419,14 +425,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon-11.png" width="28" height="28"/>
-        <image name="icon-12.png" width="28" height="24"/>
-        <image name="icon-13.png" width="28" height="28"/>
-        <image name="icon-14.png" width="28" height="28"/>
-        <image name="icon-15.png" width="28" height="28"/>
-        <image name="icon-16.png" width="28" height="19"/>
-        <image name="icon-2.png" width="22" height="22"/>
-        <image name="next.png" width="14" height="24"/>
-        <image name="sud.png" width="22" height="22"/>
+        <image name="icon-11.png" width="14" height="14"/>
+        <image name="icon-12.png" width="14" height="12"/>
+        <image name="icon-13.png" width="14" height="14"/>
+        <image name="icon-14.png" width="14" height="14"/>
+        <image name="icon-15.png" width="14" height="14"/>
+        <image name="icon-16.png" width="14" height="9"/>
+        <image name="icon-2.png" width="11" height="11"/>
+        <image name="next.png" width="7" height="12"/>
+        <image name="sud.png" width="11" height="11"/>
     </resources>
 </document>

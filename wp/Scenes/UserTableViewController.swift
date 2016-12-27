@@ -10,6 +10,11 @@ import UIKit
 import SideMenuController
 class UserTableViewController: BaseTableViewController {
     
+    @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet var nameLabel: UITableView!
+    @IBOutlet weak var propertyLabel: UILabel!
+    @IBOutlet weak var integralLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -23,8 +28,6 @@ class UserTableViewController: BaseTableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-   
-
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 0
@@ -39,6 +42,7 @@ class UserTableViewController: BaseTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let section =  indexPath.section
         switch section {
         case 0:
@@ -58,7 +62,7 @@ class UserTableViewController: BaseTableViewController {
             sideMenuController?.toggle()
             print("我的晒单")
         case 4:
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToFeedback), object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToDeal), object: nil, userInfo: nil)
             sideMenuController?.toggle()
             print("交易明细")
         case 5:
@@ -75,6 +79,7 @@ class UserTableViewController: BaseTableViewController {
             print("关注我们")
         default: break
         }
+       tableView.deselectRow(at: indexPath, animated: true)
     }
     
    
