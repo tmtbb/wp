@@ -51,7 +51,7 @@ class HomeVC: BaseTableViewController {
         informLabel.font = UIFont.systemFont(ofSize: 12)
         informLabel.textColor = UIColor(rgbHex: 0x666666)
         sunView.addSubview(informLabel)
-        
+
         informLabel.snp.makeConstraints { (make) in
             make.top.equalTo(cycleView.snp.bottom).offset(11)
             make.left.equalTo(hornImage.snp.right).offset(10)
@@ -64,7 +64,6 @@ class HomeVC: BaseTableViewController {
         
         singlerView.delegate = self
         sunView .addSubview(singlerView)
-        
         singlerView.snp.makeConstraints { (make) in
             make.top.equalTo(cycleView.snp.bottom).offset(2)
             make.left.equalTo(informLabel.snp.right).offset(27)
