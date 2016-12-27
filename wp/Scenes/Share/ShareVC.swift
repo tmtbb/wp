@@ -9,7 +9,6 @@
 import UIKit
 
 class ShareVCCell: UITableViewCell {
-    
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -40,6 +39,7 @@ class ShareVC: BaseListTableViewController {
     func initUI() {
         tableView.rowHeight = 66
         rankTypeBtnTapped(dayBtn)
+    
     }
     //MARK: --昨天之星，上周名人，月度名人
     @IBAction func rankTypeBtnTapped(_ sender: UIButton) {
