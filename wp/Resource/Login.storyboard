@@ -14,7 +14,7 @@
         <scene sceneID="Q89-V2-iLs">
             <objects>
                 <navigationController storyboardIdentifier="LoginNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aJr-KO-sqX" customClass="LoginNav" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="KMh-c8-DPG">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KMh-c8-DPG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -177,7 +177,7 @@
         <!--注册-->
         <scene sceneID="XcL-mC-ytd">
             <objects>
-                <tableViewController id="JUo-86-sd7" sceneMemberID="viewController">
+                <tableViewController id="JUo-86-sd7" customClass="RegisterVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="z0i-al-t7j">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -220,6 +220,9 @@
                                                         <constraint firstAttribute="width" constant="100" id="bpL-sv-y8d"/>
                                                     </constraints>
                                                     <state key="normal" title="验证码"/>
+                                                    <connections>
+                                                        <action selector="changeCodePicture:" destination="JUo-86-sd7" eventType="touchUpInside" id="MNd-P1-RmU"/>
+                                                    </connections>
                                                 </button>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wi4-P9-ynH">
                                                     <rect key="frame" x="10" y="5" width="196" height="40"/>
@@ -254,6 +257,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <state key="normal" title="获取语音验证码"/>
+                                                    <connections>
+                                                        <action selector="requestVoiceCode:" destination="JUo-86-sd7" eventType="touchUpInside" id="zgh-bB-UYx"/>
+                                                    </connections>
                                                 </button>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入语音验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Qr-Op-XbX">
                                                     <rect key="frame" x="10" y="5" width="196" height="40"/>
@@ -284,6 +290,9 @@
                                                     <rect key="frame" x="10" y="5" width="355" height="40"/>
                                                     <color key="backgroundColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="下一步"/>
+                                                    <connections>
+                                                        <action selector="registerBtnTapped:" destination="JUo-86-sd7" eventType="touchUpInside" id="Epv-Op-ZYv"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -304,7 +313,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="注册" id="ZF2-vz-fQ1"/>
                     <connections>
-                        <segue destination="aHU-WV-JEW" kind="push" id="kiW-Rz-POO"/>
+                        <outlet property="codeBtn" destination="bL8-nx-CXy" id="coo-uq-75p"/>
+                        <outlet property="codeText" destination="wi4-P9-ynH" id="rXa-AA-h2p"/>
+                        <outlet property="nextBtn" destination="sX4-wW-A5F" id="ov3-GG-Rsk"/>
+                        <outlet property="phoneText" destination="dFW-Qe-MLH" id="axH-gH-59s"/>
+                        <outlet property="voiceCodeBtn" destination="7Kk-iG-CXs" id="xPU-RO-96I"/>
+                        <outlet property="voiceCodeText" destination="0Qr-Op-XbX" id="q1A-4F-LxH"/>
+                        <segue destination="aHU-WV-JEW" kind="push" identifier="PwdVC" id="kiW-Rz-POO"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g0W-SR-1Zy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -314,7 +329,7 @@
         <!--设定交易密码-->
         <scene sceneID="qfZ-QU-VBT">
             <objects>
-                <tableViewController id="aHU-WV-JEW" sceneMemberID="viewController">
+                <tableViewController id="aHU-WV-JEW" customClass="PwdVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tVx-TX-mQh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -329,7 +344,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PdR-KK-fsY">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入交易密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PdR-KK-fsY">
                                                     <rect key="frame" x="10" y="5" width="355" height="40"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -351,7 +366,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J5c-AE-NO8">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请确认输入交易密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J5c-AE-NO8">
                                                     <rect key="frame" x="10" y="5" width="355" height="40"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -374,7 +389,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击确定，即同意用户协议" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qth-G3-SLt">
-                                                    <rect key="frame" x="107.5" y="20" width="159.5" height="16"/>
+                                                    <rect key="frame" x="107" y="20" width="160" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -386,6 +401,9 @@
                                                         <constraint firstAttribute="height" constant="40" id="uPY-ee-QNh"/>
                                                     </constraints>
                                                     <state key="normal" title="下一步"/>
+                                                    <connections>
+                                                        <action selector="nextBtnTapped:" destination="aHU-WV-JEW" eventType="touchUpInside" id="KNM-Ne-Cfn"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -407,7 +425,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="设定交易密码" id="u9q-YK-jdF"/>
                     <connections>
-                        <segue destination="Cm7-Pd-msz" kind="push" id="xtK-Wb-LVg"/>
+                        <outlet property="nextBtn" destination="WpO-ag-cCo" id="9VY-Lc-mMT"/>
+                        <outlet property="pwdText" destination="PdR-KK-fsY" id="8Aj-St-qV3"/>
+                        <outlet property="repwdText" destination="J5c-AE-NO8" id="cE4-GW-1c8"/>
+                        <segue destination="Cm7-Pd-msz" kind="push" identifier="NickNameVC" id="xtK-Wb-LVg"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Uf-Mw-MBW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -417,7 +438,7 @@
         <!--设定昵称-->
         <scene sceneID="RYm-0Y-MLl">
             <objects>
-                <tableViewController id="Cm7-Pd-msz" sceneMemberID="viewController">
+                <tableViewController id="Cm7-Pd-msz" customClass="NickNameVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="sgI-kG-RMd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -458,6 +479,9 @@
                                                     <rect key="frame" x="10" y="5" width="355" height="40"/>
                                                     <color key="backgroundColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="完成"/>
+                                                    <connections>
+                                                        <action selector="finishBtnTapped:" destination="Cm7-Pd-msz" eventType="touchUpInside" id="ovA-0J-Qyr"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -477,6 +501,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="设定昵称" id="zTS-gP-gDa"/>
+                    <connections>
+                        <outlet property="finishBtn" destination="Ilt-gb-quG" id="rgb-bD-f8M"/>
+                        <outlet property="nickNameText" destination="G3S-GA-vDT" id="ey3-dF-rW0"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NYA-oL-dCd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

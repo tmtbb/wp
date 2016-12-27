@@ -9,5 +9,5 @@
 import UIKit
 
 class DealSocketApi: BaseSocketAPI, DealApi {
-
+    
 }
