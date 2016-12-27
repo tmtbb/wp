@@ -39,7 +39,6 @@ class ShareVC: BaseListTableViewController {
     func initUI() {
         tableView.rowHeight = 66
         rankTypeBtnTapped(dayBtn)
-    
     }
     //MARK: --昨天之星，上周名人，月度名人
     @IBAction func rankTypeBtnTapped(_ sender: UIButton) {

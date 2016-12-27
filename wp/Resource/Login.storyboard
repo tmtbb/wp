@@ -10,11 +10,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Login Nav-->
+        <!--Navigation Controller-->
         <scene sceneID="Q89-V2-iLs">
             <objects>
-                <navigationController storyboardIdentifier="LoginNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aJr-KO-sqX" customClass="LoginNav" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="KMh-c8-DPG">
+                <navigationController storyboardIdentifier="LoginNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aJr-KO-sqX" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KMh-c8-DPG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -156,16 +156,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="登录" id="k8b-uC-nF5">
-                        <barButtonItem key="leftBarButtonItem" title="返回" id="je0-nR-Jcx">
-                            <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="ri2-oT-mhK">
                             <connections>
-                                <action selector="backItemTapped:" destination="IdH-9P-vUT" id="gJd-wl-dxq"/>
+                                <action selector="cancelBtnTapped:" destination="IdH-9P-vUT" id="uc8-5R-iTL"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="注册" id="Yvm-Ps-NHf">
-                            <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <barButtonItem key="rightBarButtonItem" title="注册" id="6Qj-XE-yVb">
                             <connections>
-                                <segue destination="JUo-86-sd7" kind="push" id="FeZ-Pc-9r6"/>
+                                <segue destination="JUo-86-sd7" kind="push" id="2bh-YC-fFW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

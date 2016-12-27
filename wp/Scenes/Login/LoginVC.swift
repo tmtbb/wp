@@ -25,7 +25,7 @@ class LoginVC: BaseTableViewController {
     }
     //MARK: --DATA
     func initData() {
-            NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: nil)
     }
     //MARK: --UI
     func initUI() {
@@ -39,7 +39,6 @@ class LoginVC: BaseTableViewController {
         WXApi.send(req)
     }
     func errorCode(_ notice: NSNotification) {
-        
         if let errorCode: Int = notice.object as? Int{
             if errorCode == -4{
                 
@@ -60,8 +59,7 @@ class LoginVC: BaseTableViewController {
     @IBAction func sinaBtnTapped(_ sender: UIButton) {
         
     }
-    //MARK: --Nav
-    @IBAction func backItemTapped(_ sender: Any) {
+    @IBAction func cancelBtnTapped(_ sender: Any) {
         dismissController()
     }
 }
