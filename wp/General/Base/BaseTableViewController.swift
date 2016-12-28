@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 class BaseTableViewController: UITableViewController , TableViewHelperProtocol {
     
     var tableViewHelper:TableViewHelper = TableViewHelper();

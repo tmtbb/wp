@@ -21,4 +21,5 @@ target 'wp' do
     pod 'Charts'
     #pod 'XCGLogger'
     pod 'SnapKit'
+    pod 'RealmSwift'
 end

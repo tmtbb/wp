@@ -29,8 +29,9 @@ class NickNameVC: BaseTableViewController {
     }
     //MARK: --Function
     @IBAction func finishBtnTapped(_ sender: Any) {
-        dismissController()
+        if checkTextFieldEmpty([nickNameText]){
+            dismissController()
+        }
     }
-    
 
 }

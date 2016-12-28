@@ -9,5 +9,6 @@
 import Foundation
 
 protocol DealApi{
-    
+    //获取分时接口
+    func minDealInfo(type: Int, complete: CompleteBlock?, error:ErrorBlock?);
 }

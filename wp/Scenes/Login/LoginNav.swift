@@ -12,7 +12,6 @@ class LoginNav: BaseNavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
 }
