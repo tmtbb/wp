@@ -10,6 +10,9 @@ import UIKit
 
 class LoginVC: BaseTableViewController {
     
+    @IBOutlet weak var phoneText: UITextField!
+    @IBOutlet weak var pwdText: UITextField!
+    
     var loginComplete: CompleteBlock?
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
@@ -31,7 +34,14 @@ class LoginVC: BaseTableViewController {
     func initUI() {
         
     }
-    //wechat
+    //MARK: --手机号登录
+    @IBAction func loginBtnTapped(_ sender: UIButton) {
+        if checkTextFieldEmpty([phoneText,pwdText]){
+            dismissController()
+        }
+    }
+    
+    //MARK: --微信登录
     @IBAction func wechatBtnTapped(_ sender: UIButton) {
         let req = SendAuthReq.init()
         req.scope = AppConst.WechatKey.Scope
@@ -39,6 +49,7 @@ class LoginVC: BaseTableViewController {
         WXApi.send(req)
     }
     func errorCode(_ notice: NSNotification) {
+        
         if let errorCode: Int = notice.object as? Int{
             if errorCode == -4{
                 
@@ -55,10 +66,11 @@ class LoginVC: BaseTableViewController {
         }
         
     }
-    //sina
+    //MARK: --新浪登录
     @IBAction func sinaBtnTapped(_ sender: UIButton) {
         
     }
+    //取消登录
     @IBAction func cancelBtnTapped(_ sender: Any) {
         dismissController()
     }

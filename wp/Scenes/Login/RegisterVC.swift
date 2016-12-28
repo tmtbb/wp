@@ -30,15 +30,22 @@ class RegisterVC: BaseTableViewController {
     }
     //获取图片验证码
     @IBAction func changeCodePicture(_ sender: UIButton) {
-        
+        if checkTextFieldEmpty([phoneText]) {
+            
+        }
     }
     //获取声音验证码
     @IBAction func requestVoiceCode(_ sender: UIButton) {
-        
+        if checkTextFieldEmpty([phoneText]) {
+            
+        }
     }
     //注册
     @IBAction func registerBtnTapped(_ sender: Any) {
-        performSegue(withIdentifier: PwdVC.className(), sender: nil)
+        
+        if checkTextFieldEmpty([phoneText,codeText,voiceCodeText]){
+            performSegue(withIdentifier: PwdVC.className(), sender: nil)
+        }
     }
     //MARK: --UI
     func initUI() {

@@ -33,12 +33,22 @@ class FriendVC: BaseTableViewController {
         initData()
         initUI()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        translucent(clear: true)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        translucent(clear: false)
+    }
     //MARK: --DATA
     func initData() {
         itemBtnTapped(totalBenifityBtn)
     }
     //MARK: --UI
     func initUI() {
+        tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
+        
         
     }
     //MARK: --总收益/好友晒单/好友推单

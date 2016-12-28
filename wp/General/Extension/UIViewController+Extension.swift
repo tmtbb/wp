@@ -41,7 +41,7 @@ extension UIViewController {
         SVProgressHUD.show(withStatus: status)
     }
     
-    //MARK: -Common function
+    //检查text是否为空
     func checkTextFieldEmpty(_ array:[UITextField]) -> Bool {
         for  textField in array {
             if NSString.isEmpty(textField.text)  {
@@ -51,14 +51,12 @@ extension UIViewController {
         }
         return true
     }
-    
+    //关闭模态视图控制器
     func dismissController() {
         view.endEditing(true)
         dismiss(animated: true, completion: nil)
     }
-
-    
-    
+    //打电话
     func didActionTel(_ telPhone:String) {
         let alert = UIAlertController.init(title: "呼叫", message: telPhone, preferredStyle: .alert)
         let ensure = UIAlertAction.init(title: "确定", style: .default, handler: { (action: UIAlertAction) in
@@ -70,6 +68,11 @@ extension UIViewController {
         alert.addAction(ensure)
         alert.addAction(cancel)
         present(alert, animated: true, completion: nil)
-        
+    }
+    //导航栏透明
+    func translucent(clear: Bool) {
+        let navImageName = clear ? "nav_clear" : "nav_color"
+        navigationController?.navigationBar.setBackgroundImage(UIImage.init(named: navImageName), for: .any, barMetrics: .default)
+        navigationController?.navigationBar.isTranslucent = clear;
     }
 }

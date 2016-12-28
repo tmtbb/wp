@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SVProgressHUD
 class PwdVC: BaseTableViewController {
 
     @IBOutlet weak var pwdText: UITextField!
@@ -30,7 +30,17 @@ class PwdVC: BaseTableViewController {
     }
     //MARK: --Function
     @IBAction func nextBtnTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: NickNameVC.className(), sender: nil)
+        if checkTextFieldEmpty([pwdText,repwdText]){
+            if pwdText.text != repwdText.text{
+                SVProgressHUD.showErrorMessage(ErrorMessage: "两次输入密码不一致，请重新输入", ForDuration: 1.5, completion: { 
+                    pwdText.text = ""
+                    repwdText.text = ""
+                })
+                return
+            }
+            
+            performSegue(withIdentifier: NickNameVC.className(), sender: nil)
+        }
     }
 
 }

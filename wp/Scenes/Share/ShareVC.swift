@@ -31,14 +31,29 @@ class ShareVC: BaseListTableViewController {
         initData()
         initUI()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        translucent(clear: true)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        translucent(clear: false)
+    }
     //MARK: --DATA
     func initData() {
+        
+    }
+    
+    override func didRequest() {
         didRequestComplete([""] as AnyObject)
     }
+    
+    
     //MARK: --UI
     func initUI() {
         tableView.rowHeight = 66
         rankTypeBtnTapped(dayBtn)
+        tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
     }
     //MARK: --昨天之星，上周名人，月度名人
     @IBAction func rankTypeBtnTapped(_ sender: UIButton) {
