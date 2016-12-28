@@ -33,8 +33,8 @@ class PwdVC: BaseTableViewController {
         if checkTextFieldEmpty([pwdText,repwdText]){
             if pwdText.text != repwdText.text{
                 SVProgressHUD.showErrorMessage(ErrorMessage: "两次输入密码不一致，请重新输入", ForDuration: 1.5, completion: { 
-                    pwdText.text = ""
-                    repwdText.text = ""
+                    self.pwdText.text = ""
+                    self.repwdText.text = ""
                 })
                 return
             }

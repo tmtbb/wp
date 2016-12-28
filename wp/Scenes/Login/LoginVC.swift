@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SVProgressHUD
 class LoginVC: BaseTableViewController {
     
     @IBOutlet weak var phoneText: UITextField!
@@ -36,7 +36,12 @@ class LoginVC: BaseTableViewController {
     }
     //MARK: --手机号登录
     @IBAction func loginBtnTapped(_ sender: UIButton) {
+    
         if checkTextFieldEmpty([phoneText,pwdText]){
+            if isTelNumber(num: phoneText.text!) == false{
+                SVProgressHUD.showErrorMessage(ErrorMessage: "手机号格式错误", ForDuration: 1, completion: nil)
+                return
+            }
             dismissController()
         }
     }

@@ -10,6 +10,13 @@ import UIKit
 
 typealias CompleteBlock = (AnyObject?) ->()?
 typealias ErrorBlock = (NSError) ->()?
+//MARK: --正则表达
+func isTelNumber(num: String)->Bool
+{
+    let predicate:NSPredicate = NSPredicate(format: "SELF MATCHES %@", "^1[3|4|5|7|8][0-9]\\d{8}$")
+    return predicate.evaluate(with: num)
+}
+
 
 class AppConst {
     
@@ -91,4 +98,7 @@ class AppConst {
         static let jumpToProductGrade = "jumpToProductGrade"
         static let jumpToAttentionUs = "jumpToAttentionUs"
     }
+    
+    
+  
 }
