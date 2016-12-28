@@ -8,12 +8,46 @@
 
 import UIKit
 
-class ProductGradeController: UIViewController {
+class ProductGradeController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        showTabBarWithAnimationDuration(durationTime: 0)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        hideTabBarWithAnimationDuration()
+    }
+    //MARK: -- 隐藏tabBar导航栏
+    func hideTabBarWithAnimationDuration() {
+        let tabBar = self.tabBarController?.tabBar
+        let parent = tabBar?.superview
+        let content = parent?.subviews[0]
+        let window = parent?.superview
+        
+        var tabFrame = tabBar?.frame
+        tabFrame?.origin.y = (window?.bounds)!.maxY
+        tabBar?.frame = tabFrame!
+        content?.frame = (window?.bounds)!
+    }
+    
+    func showTabBarWithAnimationDuration(durationTime:CGFloat) {
+        let tabBar = self.tabBarController?.tabBar
+        let parent = tabBar?.superview
+        let content = parent?.subviews[0]
+        let window = parent?.superview
+        var tabFrame = tabBar?.frame
+        tabFrame?.origin.y = (window?.bounds)!.maxY - ((tabBar?.frame)?.height)!
+        tabBar?.frame = tabFrame!
+        
+        var contentFrame = content?.frame
+        contentFrame?.size.height -= (tabFrame?.size.height)!
+        
     }
 
     override func didReceiveMemoryWarning() {
