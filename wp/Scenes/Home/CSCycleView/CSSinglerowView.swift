@@ -175,16 +175,8 @@ extension CSSinglerowView : UICollectionViewDelegate {
 extension CSSinglerowView {
     
     fileprivate func addSinglerViewTimer() {
-        weak var weakSelf = self//解决循环引用
-        
-        if #available(iOS 10.0, *) {
-            singlerTimer = Timer(timeInterval: time!, repeats: true, block: {(timer) in
-                weakSelf!.scrollToNextPage()
-            })
-        } else {
-            singlerTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(scrollToNextPage), userInfo: nil, repeats: true)
-        }
-        RunLoop.main.add(singlerTimer!, forMode: .commonModes)
+        singlerTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(scrollToNextPage), userInfo: nil, repeats: true)
+
     }
     
     fileprivate func removeSinglerViewTimer() {

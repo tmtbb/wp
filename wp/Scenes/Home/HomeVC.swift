@@ -80,8 +80,7 @@ class HomeVC: BaseTableViewController {
         navigationController?.addSideMenuButton()
         self.title = "首页"
         let homeStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
-        let loginNav:BaseNavigationController = homeStoryboard.instantiateViewController(withIdentifier: "LoginNav") as! BaseNavigationController
-        present(loginNav, animated: true, completion: nil)
+        present(homeStoryboard.instantiateInitialViewController()!, animated: true, completion: nil)
         
     }
     //MARK: --UITableViewDelegate

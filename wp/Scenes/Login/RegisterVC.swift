@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SVProgressHUD
 class RegisterVC: BaseTableViewController {
     
     @IBOutlet weak var phoneText: UITextField!
@@ -30,15 +30,34 @@ class RegisterVC: BaseTableViewController {
     }
     //获取图片验证码
     @IBAction func changeCodePicture(_ sender: UIButton) {
-        
+        if checkoutText(){
+            
+        }
     }
     //获取声音验证码
     @IBAction func requestVoiceCode(_ sender: UIButton) {
-        
+        if checkoutText(){
+            
+        }
     }
     //注册
     @IBAction func registerBtnTapped(_ sender: Any) {
-        performSegue(withIdentifier: PwdVC.className(), sender: nil)
+        if checkoutText(){
+            if checkTextFieldEmpty([phoneText,codeText,voiceCodeText]){
+                performSegue(withIdentifier: PwdVC.className(), sender: nil)
+            }
+        }
+    }
+    
+    func checkoutText() -> Bool {
+        if checkTextFieldEmpty([phoneText]) {
+            if isTelNumber(num: phoneText.text!) == false{
+                SVProgressHUD.showErrorMessage(ErrorMessage: "手机号格式错误", ForDuration: 1, completion: nil)
+                return false
+            }
+            return true
+        }
+        return true
     }
     //MARK: --UI
     func initUI() {

@@ -9,5 +9,10 @@
 import UIKit
 
 class DealSocketApi: BaseSocketAPI, DealApi {
+    //获取分时接口
+    func minDealInfo(type: Int, complete: CompleteBlock?, error:ErrorBlock?){
+        let packet = SocketDataPacket.init(opcode: .minDealInfo, dict: [SocketConst.Key.type : type as AnyObject])
+        startRequest(packet, complete: complete, error: error)
+    }
     
 }

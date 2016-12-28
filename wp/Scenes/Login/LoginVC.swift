@@ -7,8 +7,11 @@
 //
 
 import UIKit
-
+import SVProgressHUD
 class LoginVC: BaseTableViewController {
+    
+    @IBOutlet weak var phoneText: UITextField!
+    @IBOutlet weak var pwdText: UITextField!
     
     var loginComplete: CompleteBlock?
     //MARK: --LIFECYCLE
@@ -25,13 +28,25 @@ class LoginVC: BaseTableViewController {
     }
     //MARK: --DATA
     func initData() {
-            NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: nil)
     }
     //MARK: --UI
     func initUI() {
         
     }
-    //wechat
+    //MARK: --手机号登录
+    @IBAction func loginBtnTapped(_ sender: UIButton) {
+    
+        if checkTextFieldEmpty([phoneText,pwdText]){
+            if isTelNumber(num: phoneText.text!) == false{
+                SVProgressHUD.showErrorMessage(ErrorMessage: "手机号格式错误", ForDuration: 1, completion: nil)
+                return
+            }
+            dismissController()
+        }
+    }
+    
+    //MARK: --微信登录
     @IBAction func wechatBtnTapped(_ sender: UIButton) {
         let req = SendAuthReq.init()
         req.scope = AppConst.WechatKey.Scope
@@ -56,12 +71,12 @@ class LoginVC: BaseTableViewController {
         }
         
     }
-    //sina
+    //MARK: --新浪登录
     @IBAction func sinaBtnTapped(_ sender: UIButton) {
         
     }
-    //MARK: --Nav
-    @IBAction func backItemTapped(_ sender: Any) {
+    //取消登录
+    @IBAction func cancelBtnTapped(_ sender: Any) {
         dismissController()
     }
 }

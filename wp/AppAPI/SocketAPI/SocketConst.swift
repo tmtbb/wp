@@ -12,7 +12,10 @@ class SocketConst: NSObject {
     enum OPCode:UInt16 {
         // 心跳包
         case heart = 1000
-        case GetImageToken = 1047
+        // 获取图片上传token
+        case imageToken = 1047
+        // 获取分时信息
+        case minDealInfo = 1001
     }
     enum type:UInt8 {
         case error = 0
@@ -32,6 +35,7 @@ class SocketConst: NSObject {
         static let order_status = "order_status_"
         static let change_type = "change_type_"
         static let skills = "skills_"
+        static let type = "type"
         //WXKey
         static let appid = "appid"
         static let secret = "secret"

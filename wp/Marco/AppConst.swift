@@ -10,6 +10,13 @@ import UIKit
 
 typealias CompleteBlock = (AnyObject?) ->()?
 typealias ErrorBlock = (NSError) ->()?
+//MARK: --正则表达
+func isTelNumber(num: String)->Bool
+{
+    let predicate:NSPredicate = NSPredicate(format: "SELF MATCHES %@", "^1[3|4|5|7|8][0-9]\\d{8}$")
+    return predicate.evaluate(with: num)
+}
+
 
 class AppConst {
     
@@ -37,54 +44,6 @@ class AppConst {
     };
     
     class Event {
-        static let login = "login"
-        static let sign_btn = "sign_btn"
-        static let sign_confrim = "sign_confrim"
-        static let sign_last = "sign_last"
-        static let sign_next = "sign_next"
-        static let bank_add = "bank_add"
-        static let bank_select = "bank_select"
-        static let drawcash = "drawcash"
-        static let drawcash_pwd = "drawcash_pwd"
-        static let drawcash_total = "drawcash_total"
-        static let message_send = "message_send"
-        static let order_accept = "order_accept"
-        static let order_aply = "order_aply"
-        static let order_unaply = "order_unaply"
-        static let order_chat = "order_chat"
-        static let order_list = "order_list"
-        static let order_refuse = "order_refuse"
-        static let server_add = "server_add"
-        static let server_addPicture = "server_addPicture"
-        static let server_beauty = "server_beauty"
-        static let server_cancelAdd = "server_cancelAdd"
-        static let server_mark = "server_mark"
-        static let server_next = "server_next"
-        static let server_picture = "server_picture"
-        static let server_sure = "server_sure"
-        static let server_delete = "server_delete"
-        static let server_update = "server_update"
-        static let server_start = "server_start"
-        static let server_end = "server_end"
-        static let server_type = "server_type"
-        static let server_price = "server_price"
-        static let share_eat = "share_eat"
-        static let share_fun = "share_fun"
-        static let share_hotel = "share_hotel"
-        static let share_phone = "share_phone"
-        static let share_travel = "share_travel"
-        static let skillshare_comment = "skillshare_comment"
-        static let skillshare_detail = "skillshare_detail"
-        static let user_anthuser = "user_anthuser"
-        static let user_location = "user_location"
-        static let user_logout = "user_logout"
-        static let user_nickname = "user_nickname"
-        static let user_question = "user_question"
-        static let user_resetpwd = "user_resetpwd"
-        static let user_sex = "user_sex"
-        static let user_version = "user_version"
-        static let user_icon = "user_icon"
-        static let user_clearcache = "user_clearcache"
     }
     
     class Network {
@@ -139,4 +98,7 @@ class AppConst {
         static let jumpToProductGrade = "jumpToProductGrade"
         static let jumpToAttentionUs = "jumpToAttentionUs"
     }
+    
+    
+  
 }

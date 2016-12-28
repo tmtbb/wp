@@ -160,15 +160,16 @@ extension CSCycleView {
     
     fileprivate func addCycleTimer() {
         //        cycleTimer = Timer(timeInterval: 3.0, target: self, selector: #selector(scrollToNextPage), userInfo: nil, repeats: true)
-        weak var weakSelf = self//解决循环引用
-        if #available(iOS 10.0, *) {
-            cycleTimer = Timer(timeInterval: 3.0, repeats: true, block: {(timer) in
-                weakSelf!.scrollToNextPage()
-            })
-        } else {
-            // Fallback on earlier versions
-        }
-        RunLoop.main.add(cycleTimer!, forMode: .commonModes)
+//        weak var weakSelf = self//解决循环引用
+//        if #available(iOS 10.0, *) {
+//            cycleTimer = Timer(timeInterval: 3.0, repeats: true, block: {(timer) in
+//                weakSelf!.scrollToNextPage()
+//            })
+//        } else {
+//            // Fallback on earlier versions
+//        }
+//        RunLoop.main.add(cycleTimer!, forMode: .commonModes)
+        cycleTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(scrollToNextPage), userInfo: nil, repeats: true)
     }
     fileprivate func removeCycleTimer() {
         cycleTimer?.invalidate()//移除

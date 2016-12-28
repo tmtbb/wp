@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Login Nav-->
+        <!--Navigation Controller-->
         <scene sceneID="Q89-V2-iLs">
             <objects>
-                <navigationController storyboardIdentifier="LoginNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aJr-KO-sqX" customClass="LoginNav" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aJr-KO-sqX" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KMh-c8-DPG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -51,7 +51,7 @@
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 </textField>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入用户手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gfn-g1-tBk">
                                                     <rect key="frame" x="28" y="74" width="319" height="44"/>
@@ -60,7 +60,7 @@
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZdZ-ZV-XXd">
                                                     <rect key="frame" x="301" y="180" width="54" height="20"/>
@@ -71,6 +71,9 @@
                                                     <state key="normal" title="忘记密码">
                                                         <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <segue destination="JUo-86-sd7" kind="push" id="aEJ-ne-3CV"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -99,6 +102,9 @@
                                                         <constraint firstAttribute="height" constant="44" id="92P-NL-0bG"/>
                                                     </constraints>
                                                     <state key="normal" title="登录"/>
+                                                    <connections>
+                                                        <action selector="loginBtnTapped:" destination="IdH-9P-vUT" eventType="touchUpInside" id="jR4-fP-42g"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -156,19 +162,21 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="登录" id="k8b-uC-nF5">
-                        <barButtonItem key="leftBarButtonItem" title="返回" id="je0-nR-Jcx">
-                            <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="ri2-oT-mhK">
                             <connections>
-                                <action selector="backItemTapped:" destination="IdH-9P-vUT" id="gJd-wl-dxq"/>
+                                <action selector="cancelBtnTapped:" destination="IdH-9P-vUT" id="uc8-5R-iTL"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="注册" id="Yvm-Ps-NHf">
-                            <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <barButtonItem key="rightBarButtonItem" title="注册" id="6Qj-XE-yVb">
                             <connections>
-                                <segue destination="JUo-86-sd7" kind="push" id="FeZ-Pc-9r6"/>
+                                <segue destination="JUo-86-sd7" kind="push" id="2bh-YC-fFW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="phoneText" destination="Gfn-g1-tBk" id="skb-wr-6fB"/>
+                        <outlet property="pwdText" destination="UQI-xa-vte" id="9SQ-vp-trG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hjg-A2-9Ci" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -196,7 +204,7 @@
                                                     <rect key="frame" x="10" y="5" width="355" height="40"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -265,7 +273,7 @@
                                                     <rect key="frame" x="10" y="5" width="196" height="40"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -348,7 +356,7 @@
                                                     <rect key="frame" x="10" y="5" width="355" height="40"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -370,7 +378,7 @@
                                                     <rect key="frame" x="10" y="5" width="355" height="40"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -515,4 +523,7 @@
         <image name="alipay" width="16" height="16"/>
         <image name="wechat-pay.png" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="aEJ-ne-3CV"/>
+    </inferredMetricsTieBreakers>
 </document>
