@@ -164,7 +164,7 @@ extension CSSinglerowView : UICollectionViewDataSource {
 extension CSSinglerowView : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("点击了第\(indexPath.row % contentSource!.count)个数据")
+
         self.delegate?.singlerView(self, selectedIndex: indexPath.row % contentSource!.count)
     }
     
@@ -182,7 +182,7 @@ extension CSSinglerowView {
                 weakSelf!.scrollToNextPage()
             })
         } else {
-            // Fallback on earlier versions
+            singlerTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(scrollToNextPage), userInfo: nil, repeats: true)
         }
         RunLoop.main.add(singlerTimer!, forMode: .commonModes)
     }
