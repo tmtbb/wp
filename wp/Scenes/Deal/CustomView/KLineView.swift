@@ -42,11 +42,32 @@ class KLineView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        initMiuChartView()
         initLineChartData()
-        initBarChartData()
         initCandleStickData()
     }
 
+    //MARK: --miuCharts
+    func initMiuChartView() {
+        //无图例
+        min15Charts.legend.setCustom(entries: [])
+        miuCharts.legend.setCustom(entries: [])
+        hourCharts.legend.setCustom(entries: [])
+        dayCharts.legend.setCustom(entries: [])
+        
+        //无数据
+        min15Charts.noDataText = "暂无数据"
+        miuCharts.noDataText = "暂无数据"
+        hourCharts.noDataText = "暂无数据"
+        dayCharts.noDataText = "暂无数据"
+        
+        //x轴
+        miuCharts.xAxis.labelPosition = .bottom
+        min15Charts.xAxis.labelPosition = .bottom
+        hourCharts.xAxis.labelPosition = .bottom
+        dayCharts.xAxis.labelPosition = .bottom
+    }
+    
     func initLineChartData() {
         let lineCount = [7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0]
         let L = [1.0,2.0,3.0,4.0,5.0,4.0,3.0,2.0,1.0,1.0]
@@ -83,7 +104,7 @@ class KLineView: UIView {
         
         let combinData: CombinedChartData = CombinedChartData.init()
         combinData.lineData = data
-        min15Charts.data = combinData
+        miuCharts.data = combinData
     }
     
     func initCandleStickData() {
@@ -95,7 +116,7 @@ class KLineView: UIView {
         
         var entrys: [CandleChartDataEntry] = []
         for  i  in 0...H.count-1 {
-            let entry = CandleChartDataEntry.init(x: Double(i), shadowH: H[i], shadowL: L[i], open: O[i], close: C[i])
+            let entry = CandleChartDataEntry.init(x: Double(i+1), shadowH: H[i], shadowL: L[i], open: O[i], close: C[i])
             entrys.append(entry)
         }
         
@@ -109,26 +130,11 @@ class KLineView: UIView {
         let data: CandleChartData = CandleChartData.init(dataSets: dataSets)
         let combinData: CombinedChartData = CombinedChartData.init()
         combinData.candleData = data
-        miuCharts.data = combinData
-    }
-    
-    
-    func initBarChartData() {
-        
-        let values = [20.0, 4.0, 6.0]
-        var barEntrys: [BarChartDataEntry] = []
-        for (index, value) in values.enumerated() {
-            let barEntry: BarChartDataEntry = BarChartDataEntry.init(x: Double(index), yValues: [value], label: "title\(index)")
-            barEntrys.append(barEntry)
-        }
-        let set: BarChartDataSet = BarChartDataSet.init(values: barEntrys, label: nil)
-        set.colors = [UIColor.red,UIColor.blue,UIColor.purple]
-        let dataSets: [IChartDataSet] = [set]
-        let data: BarChartData = BarChartData.init(dataSets: dataSets)
-        let combinData: CombinedChartData = CombinedChartData.init()
-        combinData.barData = data
+        min15Charts.data = combinData
         hourCharts.data = combinData
+        dayCharts.data = combinData
     }
-
+    
+  
     
 }
