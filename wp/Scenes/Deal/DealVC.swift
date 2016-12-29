@@ -23,6 +23,7 @@ class DealVC: BaseTableViewController {
     @IBOutlet weak var upDownView: UIView!
     @IBOutlet weak var winRateConstraint: NSLayoutConstraint!
     @IBOutlet weak var kLineView: KLineView!
+    @IBOutlet weak var minBtn: UIButton!
     private var klineBtn: UIButton?
     
     //MARK: --LIFECYCLE
@@ -38,7 +39,7 @@ class DealVC: BaseTableViewController {
     
     //MARK: --UI
     func initUI() {
-        
+        timeBtnTapped(minBtn)
     }
     //MARK: --KlineView and Btns
     @IBAction func timeBtnTapped(_ sender: UIButton) {
