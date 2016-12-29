@@ -7,14 +7,14 @@
 //
 
 import UIKit
-import RealmSwift
-class UserInfo: Object {
+//import RealmSwift
+class UserInfo: NSObject {
    dynamic var userName: String?
    dynamic var userPhone: String?
    dynamic var userId: Int = 0
    dynamic var headerUrl: String?
    
-    override static func primaryKey() -> String?{
-        return "userId"
-    }
+//    override static func primaryKey() -> String?{
+//        return "userId"
+//    }
 }

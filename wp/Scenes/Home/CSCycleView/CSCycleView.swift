@@ -191,7 +191,7 @@ extension CSCycleView {
         if (delegate != nil) {
             delegate?.clickedCycleView(self, selectedIndex: pageControl.currentPage)
         }
-        print("点击了第: \(pageControl.currentPage)页")
+        
     }
 }
 

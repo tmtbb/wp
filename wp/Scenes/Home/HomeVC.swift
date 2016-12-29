@@ -25,24 +25,19 @@ class HomeVC: BaseTableViewController {
         registerNotify()
         initData()
         initUI()
+        let images: [String] = ["1", "1", "1"]
+        let contentSourceArray: [String] = ["这是一条重大新闻","吃货节到了钱包准备好了吗","独家福利来就送!"]
+        tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray)
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.tableHeaderView = setupHeaderView()
-        
-    }
-    
     //MARK: --HeaderView
-    func setupHeaderView () -> (UIView) {
+    func setupHeaderView (cycleImage:[String],contentSourceArray:[String]) -> (UIView) {
         let sunView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 170))
-        let images: [String] = ["1", "1", "1"]
         //创建无限轮播
-        let cycleView = CSCycleView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 135), images: images, titles: [])
+        let cycleView = CSCycleView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 135), images: cycleImage, titles: [])
         cycleView.delegate = self;
         sunView.addSubview(cycleView)
         
@@ -64,7 +59,6 @@ class HomeVC: BaseTableViewController {
             make.top.equalTo(cycleView.snp.bottom).offset(11)
             make.left.equalTo(hornImage.snp.right).offset(10)
         }
-        let contentSourceArray: [String] = ["这是一条重大新闻","吃货节到了钱包准备好了吗","独家福利来就送!"]
         let singlerView = CSSinglerowView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 30), scrollStyle: .up, roundTime: 2, contentSource: contentSourceArray, tagSource: [] )
         singlerView.backColor = UIColor.clear
         singlerView.delegate = self
@@ -117,45 +111,37 @@ class HomeVC: BaseTableViewController {
     func jumpToMyMessageController() {
         
         performSegue(withIdentifier: MyMessageController.className(), sender: nil)
-        hideTabBarWithAnimationDuration()
     }
     func jumpToMyAttentionController() {
         
         performSegue(withIdentifier: MyAttentionController.className(), sender: nil)
-        hideTabBarWithAnimationDuration()
     }
     func jumpToMyPushController() {
         
         performSegue(withIdentifier: MyPushController.className(), sender: nil)
-        hideTabBarWithAnimationDuration()
     }
     func jumpToMyBaskController() {
         
         performSegue(withIdentifier: MyBaskController.className(), sender: nil)
-        hideTabBarWithAnimationDuration()
     }
     func jumpToDealController() {
         
         performSegue(withIdentifier: DealController.className(), sender: nil)
-        hideTabBarWithAnimationDuration()
     }
     func jumpToFeedbackController() {
         
         let feedbackVC = FeedbackController()
         navigationController?.pushViewController(feedbackVC, animated: true)
-        hideTabBarWithAnimationDuration()
     }
     func jumpToProductGradeController() {
         
         let productGradeVC = ProductGradeController()
         navigationController?.pushViewController(productGradeVC, animated: true)
-        hideTabBarWithAnimationDuration()
     }
     func jumpToAttentionUsController() {
         
         let attentionUsVC = AttentionUsController()
         navigationController?.pushViewController(attentionUsVC, animated: true)
-        hideTabBarWithAnimationDuration()
     }
     //MARK: -- 跳转到交易tabBar上
     @IBAction func dealDidButton(_ sender: AnyObject) {
@@ -166,18 +152,6 @@ class HomeVC: BaseTableViewController {
     }
     @IBAction func historyMaster(_ sender: Any) {
         tabBarController?.selectedIndex = 2
-    }
-    //MARK: -- 隐藏tabBar导航栏
-    func hideTabBarWithAnimationDuration() {
-        let tabBar = self.tabBarController?.tabBar
-        let parent = tabBar?.superview
-        let content = parent?.subviews[0]
-        let window = parent?.superview
-        
-        var tabFrame = tabBar?.frame
-        tabFrame?.origin.y = (window?.bounds)!.maxY
-        tabBar?.frame = tabFrame!
-        content?.frame = (window?.bounds)!
     }
     
 }
