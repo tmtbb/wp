@@ -21,7 +21,7 @@ class MyAttentionController: BaseTableViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        showTabBarWithAnimationDuration(durationTime: 0)
+        showTabBarWithAnimationDuration()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -40,7 +40,7 @@ class MyAttentionController: BaseTableViewController {
         content?.frame = (window?.bounds)!
     }
     
-    func showTabBarWithAnimationDuration(durationTime:CGFloat) {
+    func showTabBarWithAnimationDuration() {
         let tabBar = self.tabBarController?.tabBar
         let parent = tabBar?.superview
         let content = parent?.subviews[0]

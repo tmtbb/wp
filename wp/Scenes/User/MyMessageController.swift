@@ -1,5 +1,5 @@
 //
-//  AttentionUsController.swift
+//  MyMessageController.swift
 //  wp
 //
 //  Created by macbook air on 16/12/23.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AttentionUsController: BaseTableViewController {
+class MyMessageController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,7 +17,7 @@ class AttentionUsController: BaseTableViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        showTabBarWithAnimationDuration(durationTime: 0)
+        showTabBarWithAnimationDuration()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -35,8 +35,8 @@ class AttentionUsController: BaseTableViewController {
         tabBar?.frame = tabFrame!
         content?.frame = (window?.bounds)!
     }
-    
-    func showTabBarWithAnimationDuration(durationTime:CGFloat) {
+    //MARK: -- 展示tabBar导航栏
+    func showTabBarWithAnimationDuration() {
         let tabBar = self.tabBarController?.tabBar
         let parent = tabBar?.superview
         let content = parent?.subviews[0]

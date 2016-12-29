@@ -1,5 +1,5 @@
 //
-//  MyPushController.swift
+//  MyBaskController.swift
 //  wp
 //
 //  Created by macbook air on 16/12/23.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyPushController: BaseTableViewController {
+class MyBaskController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,7 @@ class MyPushController: BaseTableViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        showTabBarWithAnimationDuration(durationTime: 0)
+        showTabBarWithAnimationDuration()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -40,7 +40,7 @@ class MyPushController: BaseTableViewController {
         content?.frame = (window?.bounds)!
     }
     
-    func showTabBarWithAnimationDuration(durationTime:CGFloat) {
+    func showTabBarWithAnimationDuration() {
         let tabBar = self.tabBarController?.tabBar
         let parent = tabBar?.superview
         let content = parent?.subviews[0]

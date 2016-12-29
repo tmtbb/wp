@@ -7,13 +7,13 @@
 //
 
 import UIKit
-import RealmSwift
+//import RealmSwift
 class UserModel: BaseModel  {
     private static var model: UserModel = UserModel()
     class func share() -> UserModel {
         return model
     }
-    
+
     var currenUser: UserInfo?
     // 获取某个用户信息
     class func userInfo(userId: Int) -> UserInfo {
@@ -32,5 +32,6 @@ class UserModel: BaseModel  {
             realm.add(user, update: true)
         }
     }
+
     
 }

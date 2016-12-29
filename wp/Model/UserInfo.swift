@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 import RealmSwift
 class UserInfo: Object {
    dynamic var uName: String?
@@ -17,4 +18,5 @@ class UserInfo: Object {
     override static func primaryKey() -> String?{
         return "uId"
     }
+
 }
