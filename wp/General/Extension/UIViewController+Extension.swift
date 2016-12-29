@@ -40,6 +40,16 @@ extension UIViewController {
     func showWithStatus(_ status: String!) {
         SVProgressHUD.show(withStatus: status)
     }
+    //检查是否已登录
+    func checkLogin() -> Bool {
+        if UserModel.share().currenUser == nil {
+            let homeStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
+            present(homeStoryboard.instantiateInitialViewController()!, animated: true, completion: nil)
+            return false
+        }else{
+            return true
+        }
+    }
     
     //检查text是否为空
     func checkTextFieldEmpty(_ array:[UITextField]) -> Bool {

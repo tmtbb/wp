@@ -23,6 +23,7 @@ class DealVC: BaseTableViewController {
     @IBOutlet weak var upDownView: UIView!
     @IBOutlet weak var winRateConstraint: NSLayoutConstraint!
     @IBOutlet weak var kLineView: KLineView!
+    @IBOutlet weak var minBtn: UIButton!
     private var klineBtn: UIButton?
     
     //MARK: --LIFECYCLE
@@ -38,7 +39,7 @@ class DealVC: BaseTableViewController {
     
     //MARK: --UI
     func initUI() {
-        
+        timeBtnTapped(minBtn)
     }
     //MARK: --KlineView and Btns
     @IBAction func timeBtnTapped(_ sender: UIButton) {
@@ -50,14 +51,19 @@ class DealVC: BaseTableViewController {
         kLineView.selectIndex = sender.tag
         sender.isSelected = true
         sender.backgroundColor = AppConst.Color.CMain
-    
         klineBtn = sender
     }
+    
     
     //MARK: --买涨/买跌
     @IBAction func dealBtnTapped(_ sender: UIButton) {
         DealModel.share().dealUp = sender.tag == 1 
     }
     
-  
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == BuyVC.className() {
+            return checkLogin()
+        }
+        return true
+    }
 }

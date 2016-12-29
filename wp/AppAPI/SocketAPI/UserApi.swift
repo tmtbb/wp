@@ -9,5 +9,7 @@
 import Foundation
 
 protocol UserApi {
+    //设置用户信息
+    func userInfo(user: UserInfo, complete: CompleteBlock?, error: ErrorBlock?)
     
 }

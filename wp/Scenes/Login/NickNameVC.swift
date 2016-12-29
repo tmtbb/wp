@@ -30,7 +30,10 @@ class NickNameVC: BaseTableViewController {
     //MARK: --Function
     @IBAction func finishBtnTapped(_ sender: Any) {
         if checkTextFieldEmpty([nickNameText]){
-            dismissController()
+            let user = UserInfo()
+            AppAPIHelper.user().userInfo(user: user , complete: { [weak self](result) -> ()? in
+                self?.dismissController()
+            }, error: errorBlockFunc())
         }
     }
 

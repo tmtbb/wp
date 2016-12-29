@@ -48,9 +48,36 @@ class FriendVC: BaseTableViewController {
     //MARK: --UI
     func initUI() {
         tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
-        
-        
+        initBenifityBarChartUI()
+        initBenifityBarChartData()
     }
+    //MARK: --最近5单交易
+    func initBenifityBarChartUI() {
+        benifityBarChart.legend.setCustom(entries: [])
+        benifityBarChart.noDataText = "暂无数据"
+        //x轴
+        benifityBarChart.xAxis.labelPosition = .bottom
+        benifityBarChart.xAxis.gridColor = UIColor.clear
+        //y轴
+        benifityBarChart.leftAxis.gridColor = UIColor.clear
+        benifityBarChart.rightAxis.gridColor = UIColor.clear
+    }
+
+    func initBenifityBarChartData() {
+        let values = [20.0, 4.0, 6.0, 25.0, 13.0]
+        let times = ["10:00","11:00","12:00","13:00","14:00"]
+        var barEntrys: [BarChartDataEntry] = []
+        for (index, value) in values.enumerated() {
+            let barEntry: BarChartDataEntry = BarChartDataEntry.init(x: Double(index), yValues: [value], label: "title\(index)")
+            barEntrys.append(barEntry)
+        }
+        let set: BarChartDataSet = BarChartDataSet.init(values: barEntrys, label: nil)
+        set.colors = [UIColor.red,UIColor.blue,UIColor.purple]
+        let dataSets: [IChartDataSet] = [set]
+        let data: BarChartData = BarChartData.init(dataSets: dataSets)
+        benifityBarChart.data = data
+    }
+
     //MARK: --总收益/好友晒单/好友推单
     @IBAction func itemBtnTapped(_ sender: UIButton) {
         if let btn = lastTypeBtn {
@@ -65,7 +92,9 @@ class FriendVC: BaseTableViewController {
     }
     //MARK: --推单通知
     @IBAction func recommendBtnTapped(_ sender: Any) {
-        
+        if checkLogin(){
+            
+        }
     }
     //MARK: --Tableview's delegate and datasource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

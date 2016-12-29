@@ -16,6 +16,17 @@ class SocketConst: NSObject {
         case imageToken = 1047
         // 获取分时信息
         case minDealInfo = 1001
+        // 登录
+        case login = 1002
+        // 注册
+        case register = 1003
+        // 重设密码
+        case repwd = 1004
+        // 声音验证码
+        case voiceCode = 1005
+        // 设置用户信息
+        case userInfo = 1006
+        
     }
     enum type:UInt8 {
         case error = 0
@@ -36,10 +47,12 @@ class SocketConst: NSObject {
         static let change_type = "change_type_"
         static let skills = "skills_"
         static let type = "type"
-        //WXKey
+        static let phone = "phone"
+        static let pwd = "pwd"
+        static let code = "code"
+        static let voiceCode = "voiceCode"
         static let appid = "appid"
         static let secret = "secret"
-        static let code = "code"
         static let grant_type = "grant_type"
     }
     
