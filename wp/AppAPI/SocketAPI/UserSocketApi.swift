@@ -10,4 +10,10 @@ import UIKit
 
 class UserSocketApi: BaseSocketAPI, UserApi {
 
+    //设置用户信息
+    func userInfo(user: UserInfo, complete: CompleteBlock?, error: ErrorBlock?){
+        let param = [SocketConst.Key.uid : UserModel.share().currenUser?.uId]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .userInfo, dict: param as [String : AnyObject])
+        startRequest(packet, complete: complete, error: error)
+    }
 }

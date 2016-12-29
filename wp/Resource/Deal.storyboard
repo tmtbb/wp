@@ -507,7 +507,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="dealBtnTapped:" destination="uOf-ZX-fb0" eventType="touchUpInside" id="DAe-Nd-mkf"/>
-                                                        <segue destination="MJH-q6-3Uk" kind="push" id="PhY-rH-7MK"/>
+                                                        <segue destination="MJH-q6-3Uk" kind="push" identifier="BuyVC" id="PhY-rH-7MK"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aw1-SY-sDQ">
@@ -521,7 +521,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="dealBtnTapped:" destination="uOf-ZX-fb0" eventType="touchUpInside" id="k1E-qE-qol"/>
-                                                        <segue destination="MJH-q6-3Uk" kind="push" id="UMs-bu-H11"/>
+                                                        <segue destination="MJH-q6-3Uk" kind="push" identifier="BuyVC" id="UMs-bu-H11"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -2359,6 +2359,6 @@
         <image name="wain.png" width="10" height="10"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UMs-bu-H11"/>
+        <segue reference="PhY-rH-7MK"/>
     </inferredMetricsTieBreakers>
 </document>

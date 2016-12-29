@@ -85,8 +85,6 @@ class HomeVC: BaseTableViewController {
     func initUI() {
         navigationController?.addSideMenuButton()
         self.title = "首页"
-        let homeStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
-        present(homeStoryboard.instantiateInitialViewController()!, animated: true, completion: nil)
         
     }
     //MARK: --UITableViewDelegate

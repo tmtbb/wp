@@ -24,6 +24,8 @@ class SocketConst: NSObject {
         case repwd = 1004
         // 声音验证码
         case voiceCode = 1005
+        // 设置用户信息
+        case userInfo = 1006
         
     }
     enum type:UInt8 {

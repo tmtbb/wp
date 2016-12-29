@@ -65,7 +65,9 @@ class FriendVC: BaseTableViewController {
     }
     //MARK: --推单通知
     @IBAction func recommendBtnTapped(_ sender: Any) {
-        
+        if checkLogin(){
+            
+        }
     }
     //MARK: --Tableview's delegate and datasource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
