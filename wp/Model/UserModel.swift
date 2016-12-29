@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 class UserModel: BaseModel  {
     private static var model: UserModel = UserModel()
-    class func share() -> BaseModel {
+    class func share() -> UserModel {
         return model
     }
     

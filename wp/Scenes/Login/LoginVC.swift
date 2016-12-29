@@ -42,7 +42,10 @@ class LoginVC: BaseTableViewController {
                 SVProgressHUD.showErrorMessage(ErrorMessage: "手机号格式错误", ForDuration: 1, completion: nil)
                 return
             }
-            dismissController()
+            AppAPIHelper.login().login(phone: phoneText.text!, pwd: pwdText.text!, complete: { [weak self](result) -> ()? in
+                //存储用户信息
+                self?.dismissController()
+            }, error: errorBlockFunc())
         }
     }
     
