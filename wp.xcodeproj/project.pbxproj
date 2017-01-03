@@ -208,6 +208,8 @@
 		BFC81E9E1DFA9E6600ADC291 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFC81E9D1DFA9E6600ADC291 /* UMMobClick.framework */; };
 		BFD70FDD1E10F5B700930E8C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD70FDC1E10F5B700930E8C /* UserModel.swift */; };
 		BFD70FDF1E10F5D700930E8C /* DealModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD70FDE1E10F5D700930E8C /* DealModel.swift */; };
+		D0302B531E1B86DF007D3F2B /* FlowDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0302B511E1B86DF007D3F2B /* FlowDetails.swift */; };
+		D0302B541E1B86DF007D3F2B /* FlowOrdersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0302B521E1B86DF007D3F2B /* FlowOrdersList.swift */; };
 		D03831421E1344F400D54295 /* AttentionUsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03831391E1344F400D54295 /* AttentionUsController.swift */; };
 		D03831431E1344F400D54295 /* DealController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D038313A1E1344F400D54295 /* DealController.swift */; };
 		D03831441E1344F400D54295 /* FeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D038313B1E1344F400D54295 /* FeedbackController.swift */; };
@@ -445,6 +447,8 @@
 		BFC81E9D1DFA9E6600ADC291 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UMMobClick.framework; path = "Pods/UMengAnalytics-NO-IDFA/umsdk_IOS_analyics_no-idfa_v4.1.5/UMMobClick.framework"; sourceTree = "<group>"; };
 		BFD70FDC1E10F5B700930E8C /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BFD70FDE1E10F5D700930E8C /* DealModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealModel.swift; sourceTree = "<group>"; };
+		D0302B511E1B86DF007D3F2B /* FlowDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowDetails.swift; sourceTree = "<group>"; };
+		D0302B521E1B86DF007D3F2B /* FlowOrdersList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowOrdersList.swift; sourceTree = "<group>"; };
 		D03831391E1344F400D54295 /* AttentionUsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttentionUsController.swift; sourceTree = "<group>"; };
 		D038313A1E1344F400D54295 /* DealController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealController.swift; sourceTree = "<group>"; };
 		D038313B1E1344F400D54295 /* FeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackController.swift; sourceTree = "<group>"; };
@@ -463,15 +467,6 @@
 		D0C5146A1E0BE199005454F4 /* CSMenuViewSubCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMenuViewSubCell.swift; sourceTree = "<group>"; };
 		D0C5146B1E0BE199005454F4 /* CSMenuViewSubCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSMenuViewSubCell.xib; sourceTree = "<group>"; };
 		D0C5146C1E0BE199005454F4 /* CSSinglerowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSinglerowView.swift; sourceTree = "<group>"; };
-
-		D0DD4C381E0D050000ED959B /* MyAttentionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAttentionController.swift; path = wp/Scenes/MyAttentionController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C3A1E0D052000ED959B /* MyPushController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyPushController.swift; path = wp/Scenes/MyPushController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C3C1E0D054200ED959B /* MyBaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyBaskController.swift; path = wp/Scenes/MyBaskController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C3E1E0D057700ED959B /* DealController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DealController.swift; path = wp/Scenes/DealController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C401E0D05B700ED959B /* FeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackController.swift; path = wp/Scenes/FeedbackController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C421E0D05FF00ED959B /* ProductGradeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductGradeController.swift; path = wp/Scenes/ProductGradeController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C441E0D062600ED959B /* AttentionUsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttentionUsController.swift; path = wp/Scenes/AttentionUsController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C461E0D07CB00ED959B /* MyMessageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyMessageController.swift; path = wp/Scenes/MyMessageController.swift; sourceTree = SOURCE_ROOT; };
 		DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -816,6 +811,8 @@
 				BFAC33071E128FF1008EF3D3 /* ShareModel.swift */,
 				BFAC33091E129128008EF3D3 /* UserInfo.swift */,
 				BFAC331E1E135FC1008EF3D3 /* DealInfo.swift */,
+				D0302B521E1B86DF007D3F2B /* FlowOrdersList.swift */,
+				D0302B511E1B86DF007D3F2B /* FlowDetails.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1385,7 +1382,7 @@
 				BF062B4B1E04DF5200618B1B /* HomeVC.swift in Sources */,
 				BF5E24821E10BE1E00B5C07A /* KLineView.swift in Sources */,
 				D0C5146F1E0BE199005454F4 /* CSMenuView.swift in Sources */,
-				D0DD4C451E0D062600ED959B /* AttentionUsController.swift in Sources */,
+				D0302B531E1B86DF007D3F2B /* FlowDetails.swift in Sources */,
 				BF2F64291E038DFE00917FA1 /* SocketRequest.swift in Sources */,
 				BF2F64371E038DFE00917FA1 /* TableViewHelper.swift in Sources */,
 				D0C514751E0BE199005454F4 /* CSSinglerowView.swift in Sources */,
@@ -1396,8 +1393,8 @@
 				BF9CD7521E0A573400194A32 /* DealSocketApi.swift in Sources */,
 				BF2F642D1E038DFE00917FA1 /* BaseTableViewController.swift in Sources */,
 				BF0479331E0FBDD400C511E7 /* RegisterVC.swift in Sources */,
-				D0C5145B1E0BB699005454F4 /* UserTableViewController.swift in Sources */,
 				BF9CD74E1E0A570100194A32 /* UserSocketApi.swift in Sources */,
+				D0302B541E1B86DF007D3F2B /* FlowOrdersList.swift in Sources */,
 				D0C5146E1E0BE199005454F4 /* CSCycleView.swift in Sources */,
 				BF9CD75F1E0A6CE300194A32 /* UIImage+Extension.swift in Sources */,
 				D03831491E1344F400D54295 /* ProductGradeController.swift in Sources */,
