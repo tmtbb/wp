@@ -53,6 +53,7 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate {
 
 
     func onPacketData(_ data: Data) {
+   
         let packet: SocketDataPacket = SocketDataPacket(socketData: data as NSData)
         SocketRequestManage.shared.notifyResponsePacket(packet)
 //        XCGLogger.debug("onPacketData:\(packet.packetHead.type) \(packet.packetHead.packet_length) \(packet.packetHead.operate_code)")

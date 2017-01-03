@@ -10,13 +10,18 @@ import UIKit
 
 import RealmSwift
 class UserInfo: Object {
-   dynamic var uName: String?
-   dynamic var uPhone: String?
-   dynamic var uId: Int = 0
-   dynamic var headerUrl: String?
+
+    dynamic var id: Int = 0
+    dynamic var screenName: String?
+    dynamic var memberId: String?
+    dynamic var memberName: String?
+    dynamic var agentId: String?
+    dynamic var agentName: String?
+    dynamic var avatarLarge: String?
+    dynamic var balance: Int = 0
    
     override static func primaryKey() -> String?{
-        return "uId"
+        return "id"
     }
 
 }

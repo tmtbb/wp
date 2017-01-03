@@ -20,7 +20,7 @@ class SocketRequestManage: NSObject {
     fileprivate var _socketHelper:APISocketHelper?
     fileprivate var _sessionId:UInt64 = 0
     var receiveChatMsgBlock:CompleteBlock?
-    
+    var operate_code = 0
     func start() {
         _lastHeardBeatTime = timeNow()
         _lastConnectedTime = timeNow()
@@ -53,6 +53,22 @@ class SocketRequestManage: NSObject {
     }
 
     func notifyResponsePacket(_ packet: SocketDataPacket) {
+        
+        if AppConst.isMock {
+            let path = Bundle.main.path(forResource: "mockData", ofType: "plist")
+            let dataDic = NSMutableDictionary.init(contentsOfFile: path!)
+            let opcode = SocketRequestManage.shared.operate_code
+            let requestDic = dataDic?["\(opcode)"]
+            
+            objc_sync_enter(self)
+            _sessionId = packet.session_id
+            let socketReqeust = socketRequests[packet.request_id]
+            socketRequests.removeValue(forKey: packet.request_id)
+            objc_sync_exit(self)
+            
+            socketReqeust?.onComplete(requestDic as AnyObject!)
+            return
+        }
         
         objc_sync_enter(self)
         _sessionId = packet.session_id
@@ -111,6 +127,7 @@ class SocketRequestManage: NSObject {
         socketReqeust.complete = complete;
         packet.request_id = reqeustId;
         packet.session_id = _sessionId;
+        operate_code = Int(packet.operate_code)
         objc_sync_enter(self)
         socketRequests[packet.request_id] = socketReqeust;
         objc_sync_exit(self)

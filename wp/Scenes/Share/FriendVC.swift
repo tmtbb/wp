@@ -8,6 +8,8 @@
 
 import UIKit
 import Charts
+
+
 class FriendVC: BaseTableViewController {
     //头部
     @IBOutlet weak var headerImage: UIImageView!
@@ -58,23 +60,32 @@ class FriendVC: BaseTableViewController {
         //x轴
         benifityBarChart.xAxis.labelPosition = .bottom
         benifityBarChart.xAxis.gridColor = UIColor.clear
+//        benifityBarChart.
         //y轴
         benifityBarChart.leftAxis.gridColor = UIColor.clear
         benifityBarChart.rightAxis.gridColor = UIColor.clear
+        
+        
     }
 
     func initBenifityBarChartData() {
         let values = [20.0, 4.0, 6.0, 25.0, 13.0]
-        let times = ["10:00","11:00","12:00","13:00","14:00"]
+        
+        let times: [String] = ["10:00","11:00","12:00","13:00","14:00"]
+        let formatter: ChartFormatter = ChartFormatter.init(values: times)
         var barEntrys: [BarChartDataEntry] = []
+        let xaxis: XAxis = XAxis.init()
         for (index, value) in values.enumerated() {
             let barEntry: BarChartDataEntry = BarChartDataEntry.init(x: Double(index), yValues: [value], label: "title\(index)")
             barEntrys.append(barEntry)
+            formatter.stringForValue(Double(index), axis: xaxis)
         }
+        xaxis.valueFormatter = formatter
+        benifityBarChart.xAxis.valueFormatter = xaxis.valueFormatter
         let set: BarChartDataSet = BarChartDataSet.init(values: barEntrys, label: nil)
         set.colors = [UIColor.red,UIColor.blue,UIColor.purple]
         let dataSets: [IChartDataSet] = [set]
-        let data: BarChartData = BarChartData.init(dataSets: dataSets)
+        let data: BarChartData = BarChartData(dataSets: dataSets)
         benifityBarChart.data = data
     }
 
