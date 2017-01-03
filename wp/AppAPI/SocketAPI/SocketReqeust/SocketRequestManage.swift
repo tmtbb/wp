@@ -65,6 +65,7 @@ class SocketRequestManage: NSObject {
             let socketReqeust = socketRequests[packet.request_id]
             socketRequests.removeValue(forKey: packet.request_id)
             objc_sync_exit(self)
+            
             socketReqeust?.onComplete(requestDic as AnyObject!)
             return
         }

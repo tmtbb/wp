@@ -19,7 +19,7 @@ class SocketConst: NSObject {
         // 登录
         case login = 1001
         // 注册
-        case register = 1003
+        case register = 1021
         // 重设密码
         case repwd = 1004
         // 声音验证码
