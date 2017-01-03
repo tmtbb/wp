@@ -90,7 +90,7 @@ class SocketDataPacket {
         let data = try? JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions.prettyPrinted)
         self.init( opcode: opcode, data: data,type: type)
     }
-    //MARK: --MU
+    
     init(socketData: NSData) {
         memset(&packetHead,0, MemoryLayout<SocketPacketHead>.size)
         (socketData as NSData).getBytes(&packetHead, length: MemoryLayout<SocketPacketHead>.size)

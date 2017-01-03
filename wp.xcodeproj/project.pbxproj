@@ -76,6 +76,8 @@
 		BF2F644B1E038DFE00917FA1 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF2F64141E038DFE00917FA1 /* Login.storyboard */; };
 		BF2F644C1E038DFE00917FA1 /* Share.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF2F64151E038DFE00917FA1 /* Share.storyboard */; };
 		BF2F644D1E038DFE00917FA1 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF2F64161E038DFE00917FA1 /* User.storyboard */; };
+		BF3AD87F1E16301F00524997 /* ChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AD87E1E16301F00524997 /* ChartFormatter.swift */; };
+		BF3AD8811E1B73FE00524997 /* mockData.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF3AD8801E1B73FE00524997 /* mockData.plist */; };
 		BF5E24801E10B00700B5C07A /* MyDealTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5E247F1E10B00700B5C07A /* MyDealTableView.swift */; };
 		BF5E24821E10BE1E00B5C07A /* KLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5E24811E10BE1E00B5C07A /* KLineView.swift */; };
 		BF8648D51E023AA600D9EFB4 /* libGeTuiSdk-1.4.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8648D21E023A6900D9EFB4 /* libGeTuiSdk-1.4.3.a */; };
@@ -310,6 +312,8 @@
 		BF2F64151E038DFE00917FA1 /* Share.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Share.storyboard; sourceTree = "<group>"; };
 		BF2F64161E038DFE00917FA1 /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
 		BF2F644F1E038E5B00917FA1 /* bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bridge.h; sourceTree = "<group>"; };
+		BF3AD87E1E16301F00524997 /* ChartFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartFormatter.swift; sourceTree = "<group>"; };
+		BF3AD8801E1B73FE00524997 /* mockData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mockData.plist; sourceTree = "<group>"; };
 		BF5E247F1E10B00700B5C07A /* MyDealTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDealTableView.swift; sourceTree = "<group>"; };
 		BF5E24811E10BE1E00B5C07A /* KLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KLineView.swift; sourceTree = "<group>"; };
 		BF8648D11E023A6900D9EFB4 /* GeTuiSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeTuiSdk.h; sourceTree = "<group>"; };
@@ -463,15 +467,6 @@
 		D0C5146A1E0BE199005454F4 /* CSMenuViewSubCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMenuViewSubCell.swift; sourceTree = "<group>"; };
 		D0C5146B1E0BE199005454F4 /* CSMenuViewSubCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSMenuViewSubCell.xib; sourceTree = "<group>"; };
 		D0C5146C1E0BE199005454F4 /* CSSinglerowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSinglerowView.swift; sourceTree = "<group>"; };
-
-		D0DD4C381E0D050000ED959B /* MyAttentionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAttentionController.swift; path = wp/Scenes/MyAttentionController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C3A1E0D052000ED959B /* MyPushController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyPushController.swift; path = wp/Scenes/MyPushController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C3C1E0D054200ED959B /* MyBaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyBaskController.swift; path = wp/Scenes/MyBaskController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C3E1E0D057700ED959B /* DealController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DealController.swift; path = wp/Scenes/DealController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C401E0D05B700ED959B /* FeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackController.swift; path = wp/Scenes/FeedbackController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C421E0D05FF00ED959B /* ProductGradeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductGradeController.swift; path = wp/Scenes/ProductGradeController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C441E0D062600ED959B /* AttentionUsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttentionUsController.swift; path = wp/Scenes/AttentionUsController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C461E0D07CB00ED959B /* MyMessageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyMessageController.swift; path = wp/Scenes/MyMessageController.swift; sourceTree = SOURCE_ROOT; };
 		DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -578,6 +573,7 @@
 			children = (
 				BF2F64101E038DFE00917FA1 /* city.plist */,
 				BF2F64121E038DFE00917FA1 /* errorcode.plist */,
+				BF3AD8801E1B73FE00524997 /* mockData.plist */,
 			);
 			name = plist;
 			sourceTree = "<group>";
@@ -816,6 +812,7 @@
 				BFAC33071E128FF1008EF3D3 /* ShareModel.swift */,
 				BFAC33091E129128008EF3D3 /* UserInfo.swift */,
 				BFAC331E1E135FC1008EF3D3 /* DealInfo.swift */,
+				BF3AD87E1E16301F00524997 /* ChartFormatter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1231,6 +1228,7 @@
 				BFC1E6811E0D1BC2004A2AFC /* sud-2.png in Resources */,
 				BFC1E67F1E0D1BC2004A2AFC /* smile.png in Resources */,
 				BFC1E6281E0D1BC2004A2AFC /* back-2@2x.png in Resources */,
+				BF3AD8811E1B73FE00524997 /* mockData.plist in Resources */,
 				BFC1E63A1E0D1BC2004A2AFC /* icon-2@2x.png in Resources */,
 				BFC1E6361E0D1BC2004A2AFC /* icon-13@2x.png in Resources */,
 				BFC1E65B1E0D1BC2004A2AFC /* back-1.png in Resources */,
@@ -1385,7 +1383,6 @@
 				BF062B4B1E04DF5200618B1B /* HomeVC.swift in Sources */,
 				BF5E24821E10BE1E00B5C07A /* KLineView.swift in Sources */,
 				D0C5146F1E0BE199005454F4 /* CSMenuView.swift in Sources */,
-				D0DD4C451E0D062600ED959B /* AttentionUsController.swift in Sources */,
 				BF2F64291E038DFE00917FA1 /* SocketRequest.swift in Sources */,
 				BF2F64371E038DFE00917FA1 /* TableViewHelper.swift in Sources */,
 				D0C514751E0BE199005454F4 /* CSSinglerowView.swift in Sources */,
@@ -1396,7 +1393,6 @@
 				BF9CD7521E0A573400194A32 /* DealSocketApi.swift in Sources */,
 				BF2F642D1E038DFE00917FA1 /* BaseTableViewController.swift in Sources */,
 				BF0479331E0FBDD400C511E7 /* RegisterVC.swift in Sources */,
-				D0C5145B1E0BB699005454F4 /* UserTableViewController.swift in Sources */,
 				BF9CD74E1E0A570100194A32 /* UserSocketApi.swift in Sources */,
 				D0C5146E1E0BE199005454F4 /* CSCycleView.swift in Sources */,
 				BF9CD75F1E0A6CE300194A32 /* UIImage+Extension.swift in Sources */,
@@ -1412,6 +1408,7 @@
 				BF2F64321E038DFE00917FA1 /* UIFont+Extension.swift in Sources */,
 				BF2F642C1E038DFE00917FA1 /* BaseCustomTableViewController.swift in Sources */,
 				BF062B4F1E04E01100618B1B /* LoginNav.swift in Sources */,
+				BF3AD87F1E16301F00524997 /* ChartFormatter.swift in Sources */,
 				BF2F64251E038DFE00917FA1 /* BaseSocketAPI.swift in Sources */,
 				D03831431E1344F400D54295 /* DealController.swift in Sources */,
 				BF2F64341E038DFE00917FA1 /* UITableView+Extension.swift in Sources */,

@@ -7,7 +7,16 @@
 //
 
 import UIKit
-
-class ChartFormatter: NSObject {
-
+import Charts
+class ChartFormatter: NSObject, IAxisValueFormatter {
+    fileprivate var values: [String]?
+    public init(values: [String]){
+        super.init()
+        self.values = values
+    }
+    
+    public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        let index = Int(value)
+        return values![index]
+    }
 }

@@ -42,28 +42,15 @@ class LoginVC: BaseTableViewController {
                 SVProgressHUD.showErrorMessage(ErrorMessage: "手机号格式错误", ForDuration: 1, completion: nil)
                 return
             }
-            //测试用
-            if phoneText.text == "18600000000" && pwdText.text == "0" {
-                let user: UserInfo = UserInfo()
-                user.uId = 0
-                user.uPhone = phoneText.text
-                user.uName = "木头"
-                user.headerUrl = "http://ofr5nvpm7.bkt.clouddn.com/jingdian1482292847.34718.png"
-                UserModel.upateUserInfo(user: user)
-                UserModel.share().currenUser = UserModel.userInfo(userId: 0)
-                dismissController()
-            }else{
-                 SVProgressHUD.showErrorMessage(ErrorMessage: "帐号密码错误", ForDuration: 1, completion: nil)
-            }
-            
-            
-            return
+            //登录
             AppAPIHelper.login().login(phone: phoneText.text!, pwd: pwdText.text!, complete: { [weak self](result) -> ()? in
                 //存储用户信息
                 self?.dismissController()
             }, error: errorBlockFunc())
         }
     }
+    
+    
     
     //MARK: --微信登录
     @IBAction func wechatBtnTapped(_ sender: UIButton) {

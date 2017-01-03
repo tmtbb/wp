@@ -72,7 +72,7 @@ class RegisterVC: BaseTableViewController {
             return
             
             if checkTextFieldEmpty([phoneText,codeText,voiceCodeText]){
-                AppAPIHelper.login().register(phone: phoneText.text!, code: codeText.text!, voiceCode: voiceCodeText.text!, complete: { [weak self](result) -> ()? in
+                AppAPIHelper.login().register(phone: phoneText.text!, code: codeText.text!, pwd: voiceCodeText.text!, complete: { [weak self](result) -> ()? in
                    self?.performSegue(withIdentifier: PwdVC.className(), sender: nil)
                 }, error: errorBlockFunc())
             }

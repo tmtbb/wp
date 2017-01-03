@@ -8,8 +8,6 @@
 //
 
 import UIKit
-
-
 extension String {
     func trim() -> String {
         return  self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -44,7 +42,7 @@ extension String {
 
     func sha256() -> String {
         let data: Data = self.data(using: .utf8)!
-        
+    
         var hash = [UInt8](repeating: 0,  count: Int(CC_SHA256_DIGEST_LENGTH))
         data.withUnsafeBytes {
             _ = CC_SHA256($0, CC_LONG(data.count), &hash)
@@ -57,5 +55,10 @@ extension String {
             str = ""
         }
         return str!
+    }
+    
+    public static func ip() -> String {
+        var addresses = [String]()
+        return ""
     }
 }

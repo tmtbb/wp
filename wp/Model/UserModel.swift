@@ -13,12 +13,13 @@ class UserModel: BaseModel  {
     class func share() -> UserModel {
         return model
     }
-
+    var registerUser: UserInfo?
     var currenUser: UserInfo?
+    
     // 获取某个用户信息
     class func userInfo(userId: Int) -> UserInfo {
         let realm = try! Realm()
-        let user = realm.objects(UserInfo.self).filter("uId = \(userId)").first
+        let user = realm.objects(UserInfo.self).filter("id = \(userId)").first
         if user != nil{
             return user!
         }else{
@@ -32,6 +33,6 @@ class UserModel: BaseModel  {
             realm.add(user, update: true)
         }
     }
-
+    // 删除用户信息
     
 }

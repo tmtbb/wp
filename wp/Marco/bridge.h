@@ -32,5 +32,6 @@ struct SocketPacketHead {
 #import "WXApi.h"
 #import "WXApiObject.h"
 #import <CommonCrypto/CommonDigest.h>
+#import <sys/utsname.h>
 //#import <CommonCrypto/CommonCrytor.h>
 /* nineSister_Bridging_Header_h */
