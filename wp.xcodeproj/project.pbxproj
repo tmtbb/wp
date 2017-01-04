@@ -10,6 +10,9 @@
 		2FFBC4EC1DF8EF190039A0E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */; };
 		67563DCFE7C11C493D5E3BE0 /* Pods_wp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */; };
 		B02DB25C1DF985B70044F910 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B02DB25B1DF985B70044F910 /* libsqlite3.tbd */; };
+		B058E36E1E1D40DA0046720D /* SocketHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058E36D1E1D40DA0046720D /* SocketHelper.swift */; };
+		B058E3701E1D429F0046720D /* LocalSocketHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058E36F1E1D429F0046720D /* LocalSocketHelper.swift */; };
+		B058E3721E1D45800046720D /* testsocket.plist in Resources */ = {isa = PBXBuildFile; fileRef = B058E3711E1D45800046720D /* testsocket.plist */; };
 		B08673461DE5C4C0008DD8A1 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B08673451DE5C4C0008DD8A1 /* libstdc++.tbd */; };
 		BF0479331E0FBDD400C511E7 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0479321E0FBDD400C511E7 /* RegisterVC.swift */; };
 		BF0479351E0FBE4600C511E7 /* PwdVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0479341E0FBE4600C511E7 /* PwdVC.swift */; };
@@ -239,6 +242,9 @@
 		2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		34A71E9057EC9BB492D14F0B /* Pods-wp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wp/Pods-wp.debug.xcconfig"; sourceTree = "<group>"; };
 		B02DB25B1DF985B70044F910 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		B058E36D1E1D40DA0046720D /* SocketHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketHelper.swift; sourceTree = "<group>"; };
+		B058E36F1E1D429F0046720D /* LocalSocketHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSocketHelper.swift; sourceTree = "<group>"; };
+		B058E3711E1D45800046720D /* testsocket.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = testsocket.plist; sourceTree = "<group>"; };
 		B08673431DE5C4B6008DD8A1 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B08673451DE5C4C0008DD8A1 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		B0CF59DD1DE5BEC300C40C9C /* wp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -589,6 +595,7 @@
 			children = (
 				BF2F64101E038DFE00917FA1 /* city.plist */,
 				BF2F64121E038DFE00917FA1 /* errorcode.plist */,
+				B058E3711E1D45800046720D /* testsocket.plist */,
 				BF3AD8801E1B73FE00524997 /* mockData.plist */,
 			);
 			name = plist;
@@ -715,6 +722,8 @@
 				BF2F63DC1E038DFE00917FA1 /* SocketRequest.swift */,
 				BF2F63DD1E038DFE00917FA1 /* SocketRequestManage.swift */,
 				BF2F63DE1E038DFE00917FA1 /* SocketResponse.swift */,
+				B058E36D1E1D40DA0046720D /* SocketHelper.swift */,
+				B058E36F1E1D429F0046720D /* LocalSocketHelper.swift */,
 			);
 			path = SocketReqeust;
 			sourceTree = "<group>";
@@ -1206,6 +1215,7 @@
 				BFC1E6341E0D1BC2004A2AFC /* icon-11@2x.png in Resources */,
 				BFC1E6491E0D1BC2004A2AFC /* rule-3@2x.png in Resources */,
 				BFC1E6831E0D1BC2004A2AFC /* three.png in Resources */,
+				B058E3721E1D45800046720D /* testsocket.plist in Resources */,
 				BF2F64431E038DFE00917FA1 /* Info.plist in Resources */,
 				BFC1E6661E0D1BC2004A2AFC /* dz.png in Resources */,
 				BFC1E6571E0D1BC2004A2AFC /* winRate@2x.png in Resources */,
@@ -1387,6 +1397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B058E3701E1D429F0046720D /* LocalSocketHelper.swift in Sources */,
 				BF9CD75D1E0A57FD00194A32 /* CommenSocketApi.swift in Sources */,
 				BF2CEA3E1E1CE26900EEA99E /* OpenPositionModel.swift in Sources */,
 				BF062B491E04DF0A00618B1B /* LoginVC.swift in Sources */,
@@ -1439,6 +1450,7 @@
 				BF43EAD51E1D17FA0014B0EE /* HistoryDealVC.swift in Sources */,
 				BF2F642C1E038DFE00917FA1 /* BaseCustomTableViewController.swift in Sources */,
 				BF062B4F1E04E01100618B1B /* LoginNav.swift in Sources */,
+				B058E36E1E1D40DA0046720D /* SocketHelper.swift in Sources */,
 				BF3AD87F1E16301F00524997 /* ChartFormatter.swift in Sources */,
 				BF2F64251E038DFE00917FA1 /* BaseSocketAPI.swift in Sources */,
 				D03831431E1344F400D54295 /* DealController.swift in Sources */,

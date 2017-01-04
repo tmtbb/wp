@@ -10,7 +10,7 @@ import UIKit
 import CocoaAsyncSocket
 //import XCGLogger
 import SVProgressHUD
-class APISocketHelper:NSObject, GCDAsyncSocketDelegate {
+class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
     var socket: GCDAsyncSocket?;
     var dispatch_queue: DispatchQueue!;
     var mutableData: NSMutableData = NSMutableData();
