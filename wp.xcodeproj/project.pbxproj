@@ -10,6 +10,9 @@
 		2FFBC4EC1DF8EF190039A0E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */; };
 		67563DCFE7C11C493D5E3BE0 /* Pods_wp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */; };
 		B02DB25C1DF985B70044F910 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B02DB25B1DF985B70044F910 /* libsqlite3.tbd */; };
+		B058E36E1E1D40DA0046720D /* SocketHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058E36D1E1D40DA0046720D /* SocketHelper.swift */; };
+		B058E3701E1D429F0046720D /* LocalSocketHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058E36F1E1D429F0046720D /* LocalSocketHelper.swift */; };
+		B058E3721E1D45800046720D /* testsocket.plist in Resources */ = {isa = PBXBuildFile; fileRef = B058E3711E1D45800046720D /* testsocket.plist */; };
 		B08673461DE5C4C0008DD8A1 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B08673451DE5C4C0008DD8A1 /* libstdc++.tbd */; };
 		BF0479331E0FBDD400C511E7 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0479321E0FBDD400C511E7 /* RegisterVC.swift */; };
 		BF0479351E0FBE4600C511E7 /* PwdVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0479341E0FBE4600C511E7 /* PwdVC.swift */; };
@@ -229,6 +232,9 @@
 		2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		34A71E9057EC9BB492D14F0B /* Pods-wp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wp/Pods-wp.debug.xcconfig"; sourceTree = "<group>"; };
 		B02DB25B1DF985B70044F910 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		B058E36D1E1D40DA0046720D /* SocketHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketHelper.swift; sourceTree = "<group>"; };
+		B058E36F1E1D429F0046720D /* LocalSocketHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSocketHelper.swift; sourceTree = "<group>"; };
+		B058E3711E1D45800046720D /* testsocket.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = testsocket.plist; sourceTree = "<group>"; };
 		B08673431DE5C4B6008DD8A1 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B08673451DE5C4C0008DD8A1 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		B0CF59DD1DE5BEC300C40C9C /* wp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -463,15 +469,6 @@
 		D0C5146A1E0BE199005454F4 /* CSMenuViewSubCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMenuViewSubCell.swift; sourceTree = "<group>"; };
 		D0C5146B1E0BE199005454F4 /* CSMenuViewSubCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSMenuViewSubCell.xib; sourceTree = "<group>"; };
 		D0C5146C1E0BE199005454F4 /* CSSinglerowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSinglerowView.swift; sourceTree = "<group>"; };
-
-		D0DD4C381E0D050000ED959B /* MyAttentionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAttentionController.swift; path = wp/Scenes/MyAttentionController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C3A1E0D052000ED959B /* MyPushController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyPushController.swift; path = wp/Scenes/MyPushController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C3C1E0D054200ED959B /* MyBaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyBaskController.swift; path = wp/Scenes/MyBaskController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C3E1E0D057700ED959B /* DealController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DealController.swift; path = wp/Scenes/DealController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C401E0D05B700ED959B /* FeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackController.swift; path = wp/Scenes/FeedbackController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C421E0D05FF00ED959B /* ProductGradeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductGradeController.swift; path = wp/Scenes/ProductGradeController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C441E0D062600ED959B /* AttentionUsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttentionUsController.swift; path = wp/Scenes/AttentionUsController.swift; sourceTree = SOURCE_ROOT; };
-		D0DD4C461E0D07CB00ED959B /* MyMessageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyMessageController.swift; path = wp/Scenes/MyMessageController.swift; sourceTree = SOURCE_ROOT; };
 		DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -578,6 +575,7 @@
 			children = (
 				BF2F64101E038DFE00917FA1 /* city.plist */,
 				BF2F64121E038DFE00917FA1 /* errorcode.plist */,
+				B058E3711E1D45800046720D /* testsocket.plist */,
 			);
 			name = plist;
 			sourceTree = "<group>";
@@ -700,6 +698,8 @@
 				BF2F63DC1E038DFE00917FA1 /* SocketRequest.swift */,
 				BF2F63DD1E038DFE00917FA1 /* SocketRequestManage.swift */,
 				BF2F63DE1E038DFE00917FA1 /* SocketResponse.swift */,
+				B058E36D1E1D40DA0046720D /* SocketHelper.swift */,
+				B058E36F1E1D429F0046720D /* LocalSocketHelper.swift */,
 			);
 			path = SocketReqeust;
 			sourceTree = "<group>";
@@ -1185,6 +1185,7 @@
 				BFC1E6341E0D1BC2004A2AFC /* icon-11@2x.png in Resources */,
 				BFC1E6491E0D1BC2004A2AFC /* rule-3@2x.png in Resources */,
 				BFC1E6831E0D1BC2004A2AFC /* three.png in Resources */,
+				B058E3721E1D45800046720D /* testsocket.plist in Resources */,
 				BF2F64431E038DFE00917FA1 /* Info.plist in Resources */,
 				BFC1E6661E0D1BC2004A2AFC /* dz.png in Resources */,
 				BFC1E6571E0D1BC2004A2AFC /* winRate@2x.png in Resources */,
@@ -1365,6 +1366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B058E3701E1D429F0046720D /* LocalSocketHelper.swift in Sources */,
 				BF9CD75D1E0A57FD00194A32 /* CommenSocketApi.swift in Sources */,
 				BF062B491E04DF0A00618B1B /* LoginVC.swift in Sources */,
 				BF0479371E0FBE7200C511E7 /* NickNameVC.swift in Sources */,
@@ -1385,7 +1387,6 @@
 				BF062B4B1E04DF5200618B1B /* HomeVC.swift in Sources */,
 				BF5E24821E10BE1E00B5C07A /* KLineView.swift in Sources */,
 				D0C5146F1E0BE199005454F4 /* CSMenuView.swift in Sources */,
-				D0DD4C451E0D062600ED959B /* AttentionUsController.swift in Sources */,
 				BF2F64291E038DFE00917FA1 /* SocketRequest.swift in Sources */,
 				BF2F64371E038DFE00917FA1 /* TableViewHelper.swift in Sources */,
 				D0C514751E0BE199005454F4 /* CSSinglerowView.swift in Sources */,
@@ -1396,7 +1397,6 @@
 				BF9CD7521E0A573400194A32 /* DealSocketApi.swift in Sources */,
 				BF2F642D1E038DFE00917FA1 /* BaseTableViewController.swift in Sources */,
 				BF0479331E0FBDD400C511E7 /* RegisterVC.swift in Sources */,
-				D0C5145B1E0BB699005454F4 /* UserTableViewController.swift in Sources */,
 				BF9CD74E1E0A570100194A32 /* UserSocketApi.swift in Sources */,
 				D0C5146E1E0BE199005454F4 /* CSCycleView.swift in Sources */,
 				BF9CD75F1E0A6CE300194A32 /* UIImage+Extension.swift in Sources */,
@@ -1412,6 +1412,7 @@
 				BF2F64321E038DFE00917FA1 /* UIFont+Extension.swift in Sources */,
 				BF2F642C1E038DFE00917FA1 /* BaseCustomTableViewController.swift in Sources */,
 				BF062B4F1E04E01100618B1B /* LoginNav.swift in Sources */,
+				B058E36E1E1D40DA0046720D /* SocketHelper.swift in Sources */,
 				BF2F64251E038DFE00917FA1 /* BaseSocketAPI.swift in Sources */,
 				D03831431E1344F400D54295 /* DealController.swift in Sources */,
 				BF2F64341E038DFE00917FA1 /* UITableView+Extension.swift in Sources */,
