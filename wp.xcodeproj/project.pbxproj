@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2FFBC4EC1DF8EF190039A0E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */; };
 		67563DCFE7C11C493D5E3BE0 /* Pods_wp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */; };
+		A046BF781E1CDFFB0035A4FA /* WithDrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */; };
 		B02DB25C1DF985B70044F910 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B02DB25B1DF985B70044F910 /* libsqlite3.tbd */; };
 		B08673461DE5C4C0008DD8A1 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B08673451DE5C4C0008DD8A1 /* libstdc++.tbd */; };
 		BF0479331E0FBDD400C511E7 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0479321E0FBDD400C511E7 /* RegisterVC.swift */; };
@@ -230,6 +231,7 @@
 /* Begin PBXFileReference section */
 		2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		34A71E9057EC9BB492D14F0B /* Pods-wp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wp/Pods-wp.debug.xcconfig"; sourceTree = "<group>"; };
+		A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawalVC.swift; sourceTree = "<group>"; };
 		B02DB25B1DF985B70044F910 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		B08673431DE5C4B6008DD8A1 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B08673451DE5C4C0008DD8A1 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -241,7 +243,7 @@
 		BF0479361E0FBE7200C511E7 /* NickNameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NickNameVC.swift; sourceTree = "<group>"; };
 		BF0479381E0FBEC300C511E7 /* DealVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealVC.swift; sourceTree = "<group>"; };
 		BF04793A1E0FBF2E00C511E7 /* BuyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyVC.swift; sourceTree = "<group>"; };
-		BF04793C1E0FBF5000C511E7 /* RechargeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RechargeVC.swift; sourceTree = "<group>"; };
+		BF04793C1E0FBF5000C511E7 /* RechargeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RechargeVC.swift; path = ../../Deal/RechargeVC.swift; sourceTree = "<group>"; };
 		BF04793E1E0FBF9E00C511E7 /* ShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareVC.swift; sourceTree = "<group>"; };
 		BF0479401E0FBFD300C511E7 /* FriendVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendVC.swift; sourceTree = "<group>"; };
 		BF0629D01E04DC7E00618B1B /* AmrCodecFMWK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmrCodecFMWK.framework; sourceTree = "<group>"; };
@@ -526,6 +528,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A046BF731E1CDEF30035A4FA /* RechageVC */ = {
+			isa = PBXGroup;
+			children = (
+				BF04793C1E0FBF5000C511E7 /* RechargeVC.swift */,
+			);
+			path = RechageVC;
+			sourceTree = "<group>";
+		};
+		A046BF761E1CDFEB0035A4FA /* WithDrawalVC */ = {
+			isa = PBXGroup;
+			children = (
+				A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */,
+			);
+			path = WithDrawalVC;
+			sourceTree = "<group>";
+		};
 		B0CF59D41DE5BEC300C40C9C = {
 			isa = PBXGroup;
 			children = (
@@ -611,7 +629,6 @@
 				BF5E247E1E10AF6B00B5C07A /* CustomView */,
 				BF0479381E0FBEC300C511E7 /* DealVC.swift */,
 				BF04793A1E0FBF2E00C511E7 /* BuyVC.swift */,
-				BF04793C1E0FBF5000C511E7 /* RechargeVC.swift */,
 			);
 			path = Deal;
 			sourceTree = "<group>";
@@ -642,6 +659,8 @@
 		BF062B451E04DEC900618B1B /* Share */ = {
 			isa = PBXGroup;
 			children = (
+				A046BF761E1CDFEB0035A4FA /* WithDrawalVC */,
+				A046BF731E1CDEF30035A4FA /* RechageVC */,
 				BFAC32841E1239C7008EF3D3 /* CustomView */,
 				BF04793E1E0FBF9E00C511E7 /* ShareVC.swift */,
 				BF0479401E0FBFD300C511E7 /* FriendVC.swift */,
@@ -1418,6 +1437,7 @@
 				D03831481E1344F400D54295 /* MyPushController.swift in Sources */,
 				BF04793F1E0FBF9E00C511E7 /* ShareVC.swift in Sources */,
 				BF2F643C1E038DFE00917FA1 /* RBStoryboardPopoverSegue.m in Sources */,
+				A046BF781E1CDFFB0035A4FA /* WithDrawalVC.swift in Sources */,
 				BF2F64301E038DFE00917FA1 /* String+Extension.swift in Sources */,
 				D038314A1E1344F400D54295 /* UserTableViewController.swift in Sources */,
 				BF2F64281E038DFE00917FA1 /* SocketDataPacket.swift in Sources */,

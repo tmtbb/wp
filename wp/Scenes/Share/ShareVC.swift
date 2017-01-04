@@ -15,25 +15,25 @@ class ShareVCCell: UITableViewCell {
     
     
     var delegate: VistorLoginViewDelegate?
-    /// 头像
+    /****左边的图片******/
     @IBOutlet weak var iconImage: UIImageView!
-    ///  头像
+    /****头像******/
     @IBOutlet weak var userImage: UIImageView!
-    ///  姓名
+    /****姓名******/
     @IBOutlet weak var nameLabel: UILabel!
-    ///  类型
+    /****类型******/
     @IBOutlet weak var typeLabel: UILabel!
-    ///  时间
+    /****时间******/
     @IBOutlet weak var timeLabel: UILabel!
-    ///  收益
+    /****收益******/
     @IBOutlet weak var benifityLabel: UILabel!
     
     
-    
-//    override func update(_ data: Any!) {
-//        let dataModel = data as! TestModel
-//        nameLabel.text = dataModel.name
-//    }
+    ///更新 cell列表
+    //    override func update(_ data: Any!) {
+    //        let dataModel = data as! TestModel
+    //        nameLabel.text = dataModel.name
+    //    }
 }
 
 class ShareVC: BaseListTableViewController {
@@ -60,20 +60,17 @@ class ShareVC: BaseListTableViewController {
     func initData() {
         
     }
-    
+    //MARK: --网络请求方法
     override func didRequest() {
-         self.didRequestComplete([""] as AnyObject)
+        self.didRequestComplete([""] as AnyObject)
         
-        AppAPIHelper.share().getData(userId: "122222", phone: "121323", complete: { [weak self](result) -> ()? in
-//            self?.reloadda(parm: result as! NSDictionary)
-            
-           
-            return nil
-            
-            }, error: errorBlockFunc())
+        //注释掉  请求接口有的时候再打开
+        //        AppAPIHelper.share().getShareData(userId: "123", phone: "15306559323", selectIndex: "1223", pageNumber: "0", complete: { (result ) -> ()? in
+        //
+        //            return nil
+        //        }, error: errorBlockFunc())
         
-
-//        didRequestComplete([model,model,model] as AnyObject)
+        
     }
     
     
@@ -85,7 +82,10 @@ class ShareVC: BaseListTableViewController {
         tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
     }
     //MARK: --昨天之星，上周名人，月度名人
+    
     @IBAction func rankTypeBtnTapped(_ sender: UIButton) {
+        
+        
         if let btn = lastTypeBtn {
             btn.isSelected = false
             btn.backgroundColor = UIColor.white
@@ -95,5 +95,5 @@ class ShareVC: BaseListTableViewController {
         lastTypeBtn = sender
     }
     
-   
+    
 }

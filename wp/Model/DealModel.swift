@@ -14,6 +14,7 @@ class DealModel: BaseModel {
         return model
     }
     
+    
     var dealUp: Bool = true
     
 }

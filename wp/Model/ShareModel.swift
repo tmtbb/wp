@@ -14,10 +14,26 @@ class ShareModel: BaseModel {
         return model
     }
     
-    func Transfrom(_ requestData: NSDictionary) -> DealModel {
-        
-        
-        return DealModel.share();
-    }
+    /*姓名*/
+    var name  = ""
+    
+    /*类别*/
+    var type = ""
+    
+    /*时间*/
+    var time  = ""
+    
+    /*收益*/
+    var benifity  = ""
+    
+    /*头像*/
+    var userHeaderImg = ""
+    
+    /*姓名*/
+    var iconImg  = ""
+    
+    /*状态*/
+    var status = ""
     
 }
+

@@ -10,13 +10,14 @@ import UIKit
 
 class ShareSocketApi: BaseSocketAPI, ShareApi {
     
-    //
-    func getData(userId : String, phone: String, complete: CompleteBlock?, error: ErrorBlock?){
-        let param: [String: Any] = [SocketConst.Key.uid: UserModel.share().currenUser?.id ?? 0,
+    // 我的晒单网络请求
+    func getShareData(userId : String, phone: String,selectIndex: String,pageNumber: String, complete: CompleteBlock?, error: ErrorBlock?){
+        let param: [String: Any] = [SocketConst.Key.uid: UserModel.share().currenUser?.id  ?? 0,
                                     SocketConst.Key.pwd: userId,
                                     SocketConst.Key.code: phone]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .repwd, dict: param as [String : AnyObject])
-        startRequest(packet, complete: complete, error: error)
+//        startRequest(packet, complete: complete, error: error)
+        startModelRequest(packet, modelClass: ShareModel.self, complete: complete, error: error)
     }
 
 }

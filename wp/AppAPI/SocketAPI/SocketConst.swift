@@ -27,6 +27,9 @@ class SocketConst: NSObject {
         // 设置用户信息
         case userInfo = 1006
         
+        // 我的晒单
+        case UserShare = 1007
+        
     }
     enum type:UInt8 {
         case error = 0
