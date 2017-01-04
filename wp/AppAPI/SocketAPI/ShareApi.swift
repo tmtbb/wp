@@ -9,5 +9,5 @@
 import Foundation
 
 protocol ShareApi {
-    
+     func getData(userId : String, phone: String, complete: CompleteBlock?, error: ErrorBlock?)
 }

@@ -13,4 +13,11 @@ class ShareModel: BaseModel {
     class func share() -> ShareModel{
         return model
     }
+    
+    func Transfrom(_ requestData: NSDictionary) -> DealModel {
+        
+        
+        return DealModel.share();
+    }
+    
 }

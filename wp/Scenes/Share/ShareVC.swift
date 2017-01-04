@@ -7,15 +7,33 @@
 //
 
 import UIKit
-
+protocol VistorLoginViewDelegate:NSObjectProtocol {
+    //设置协议方法
+    func visitorViewRegisterViewSelected()
+}
 class ShareVCCell: UITableViewCell {
+    
+    
+    var delegate: VistorLoginViewDelegate?
+    /// 头像
     @IBOutlet weak var iconImage: UIImageView!
+    ///  头像
     @IBOutlet weak var userImage: UIImageView!
+    ///  姓名
     @IBOutlet weak var nameLabel: UILabel!
+    ///  类型
     @IBOutlet weak var typeLabel: UILabel!
+    ///  时间
     @IBOutlet weak var timeLabel: UILabel!
+    ///  收益
     @IBOutlet weak var benifityLabel: UILabel!
     
+    
+    
+//    override func update(_ data: Any!) {
+//        let dataModel = data as! TestModel
+//        nameLabel.text = dataModel.name
+//    }
 }
 
 class ShareVC: BaseListTableViewController {
@@ -25,7 +43,6 @@ class ShareVC: BaseListTableViewController {
     @IBOutlet weak var monthBtn: UIButton!
     private var lastTypeBtn: UIButton?
     
-    //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         initData()
@@ -45,12 +62,23 @@ class ShareVC: BaseListTableViewController {
     }
     
     override func didRequest() {
-        didRequestComplete([""] as AnyObject)
+        
+        AppAPIHelper.share().getData(userId: "122222", phone: "121323", complete: { [weak self](result) -> ()? in
+//            self?.reloadda(parm: result as! NSDictionary)
+            
+            self?.didRequestComplete([""] as AnyObject)
+            return nil
+            
+            }, error: errorBlockFunc())
+        
+
+//        didRequestComplete([model,model,model] as AnyObject)
     }
     
     
     //MARK: --UI
     func initUI() {
+        
         tableView.rowHeight = 66
         rankTypeBtnTapped(dayBtn)
         tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
