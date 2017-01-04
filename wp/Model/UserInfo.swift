@@ -9,6 +9,34 @@
 import UIKit
 
 import RealmSwift
+class UserInfoModel: BaseModel {
+    
+    var id: Int = 0
+    var screenName: String?
+    var memberId: String?
+    var memberName: String?
+    var agentId: String?
+    var agentName: String?
+    var avatarLarge: String?
+    var balance: Int = 0
+    
+    func convertToUserInfo() -> UserInfo {
+    
+        let user = UserInfo()
+        let r = Mirror.init(reflecting: user)
+        let mr = Mirror.init(reflecting: self)
+        for mrChild in mr.children {
+            for var rChild in r.children {
+                if rChild.label == mrChild.label {
+                   rChild.value = mrChild.value
+                }
+            }
+        }
+        return user
+    }
+    
+}
+
 class UserInfo: Object {
 
     dynamic var id: Int = 0
@@ -23,5 +51,6 @@ class UserInfo: Object {
     override static func primaryKey() -> String?{
         return "id"
     }
-
 }
+
+

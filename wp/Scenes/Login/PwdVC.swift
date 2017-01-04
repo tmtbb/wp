@@ -37,8 +37,9 @@ class PwdVC: BaseTableViewController {
                     self.repwdText.text = ""
                 })
                 return
+            }else{
+                
             }
-            
         }
     }
 

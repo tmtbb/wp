@@ -14,8 +14,8 @@ class UserModel: BaseModel  {
         return model
     }
     var registerUser: UserInfo?
-    var currenUser: UserInfo?
-    
+    var currentUser: UserInfo?
+    var currentUserId: Int = 0
     // 获取某个用户信息
     class func userInfo(userId: Int) -> UserInfo {
         let realm = try! Realm()
@@ -27,12 +27,15 @@ class UserModel: BaseModel  {
         }
     }
     // 更新用户信息
-    class func upateUserInfo(user: UserInfo){
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(user, update: true)
+    class func upateUserInfo(userObject: AnyObject){
+        if let model = userObject as? UserInfoModel {
+            let user = model.convertToUserInfo()
+            let realm = try! Realm()
+            try! realm.write {
+                realm.add(user, update: true)
+            }
         }
     }
-    // 删除用户信息
+    // 登录
     
 }

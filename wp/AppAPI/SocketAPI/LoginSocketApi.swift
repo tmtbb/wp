@@ -30,7 +30,7 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
     }
     //重置密码
     func repwd( pwd: String, code: String, complete: CompleteBlock?, error: ErrorBlock?){
-        let param: [String: Any] = [SocketConst.Key.uid: UserModel.share().currenUser?.id ?? 0,
+        let param: [String: Any] = [SocketConst.Key.uid: UserModel.share().currentUser?.id ?? 0,
                                     SocketConst.Key.pwd: pwd,
                                     SocketConst.Key.code: code]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .repwd, dict: param as [String : AnyObject])
