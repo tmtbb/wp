@@ -37,11 +37,9 @@ class PwdVC: BaseTableViewController {
                     self.repwdText.text = ""
                 })
                 return
+            }else{
+                
             }
-            
-            AppAPIHelper.login().repwd(pwd: pwdText.text!, complete: { [weak self](result) -> ()? in
-                self?.performSegue(withIdentifier: NickNameVC.className(), sender: nil)
-            }, error: errorBlockFunc())
         }
     }
 

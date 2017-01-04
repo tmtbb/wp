@@ -13,12 +13,13 @@ class UserModel: BaseModel  {
     class func share() -> UserModel {
         return model
     }
-
-    var currenUser: UserInfo?
+    var registerUser: UserInfo?
+    var currentUser: UserInfo?
+    var token: String?
     // 获取某个用户信息
     class func userInfo(userId: Int) -> UserInfo {
         let realm = try! Realm()
-        let user = realm.objects(UserInfo.self).filter("uId = \(userId)").first
+        let user = realm.objects(UserInfo.self).filter("id = \(userId)").first
         if user != nil{
             return user!
         }else{
@@ -26,12 +27,15 @@ class UserModel: BaseModel  {
         }
     }
     // 更新用户信息
-    class func upateUserInfo(user: UserInfo){
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(user, update: true)
+    class func upateUserInfo(userObject: AnyObject){
+        if let model = userObject as? UserInfoModel {
+            let user = model.convertToUserInfo()
+            let realm = try! Realm()
+            try! realm.write {
+                realm.add(user, update: true)
+            }
         }
     }
-
+    // 登录
     
 }

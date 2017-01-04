@@ -10,7 +10,7 @@ import UIKit
 //import XCGLogger
 class BaseModel: OEZModel {
     override class func jsonKeyPostfix(_ name: String!) -> String! {
-        return "_";
+        return "";
     }
     deinit {
         

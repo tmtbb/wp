@@ -9,14 +9,48 @@
 import UIKit
 
 import RealmSwift
+class UserInfoModel: BaseModel {
+    
+    var id: Int = 0
+    var screenName: String?
+    var memberId: String?
+    var memberName: String?
+    var agentId: String?
+    var agentName: String?
+    var avatarLarge: String?
+    var balance: Int = 0
+    
+    func convertToUserInfo() -> UserInfo {
+    
+        let user = UserInfo()
+        let r = Mirror.init(reflecting: user)
+        let mr = Mirror.init(reflecting: self)
+        for mrChild in mr.children {
+            for var rChild in r.children {
+                if rChild.label == mrChild.label {
+                   rChild.value = mrChild.value
+                }
+            }
+        }
+        return user
+    }
+    
+}
+
 class UserInfo: Object {
-   dynamic var uName: String?
-   dynamic var uPhone: String?
-   dynamic var uId: Int = 0
-   dynamic var headerUrl: String?
+
+    dynamic var id: Int = 0
+    dynamic var screenName: String?
+    dynamic var memberId: String?
+    dynamic var memberName: String?
+    dynamic var agentId: String?
+    dynamic var agentName: String?
+    dynamic var avatarLarge: String?
+    dynamic var balance: Int = 0
    
     override static func primaryKey() -> String?{
-        return "uId"
+        return "id"
     }
-
 }
+
+

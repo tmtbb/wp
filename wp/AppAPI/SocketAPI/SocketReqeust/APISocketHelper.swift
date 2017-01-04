@@ -53,6 +53,7 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
 
 
     func onPacketData(_ data: Data) {
+   
         let packet: SocketDataPacket = SocketDataPacket(socketData: data as NSData)
         SocketRequestManage.shared.notifyResponsePacket(packet)
 //        XCGLogger.debug("onPacketData:\(packet.packetHead.type) \(packet.packetHead.packet_length) \(packet.packetHead.operate_code)")
@@ -96,7 +97,7 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
         return 0
     }
 
-    @objc func socketDidDisconnect(_ sock: GCDAsyncSocket, withError err: NSError?) {
+    @objc func socketDidDisconnect(_ sock: GCDAsyncSocket, withError err: Error?) {
 //        XCGLogger.error("socketDidDisconnect:\(err)")
 //        self.performSelector(#selector(APISocketHelper.connect), withObject: nil, afterDelay: 5)
 //        SVProgressHUD.showErrorMessage(ErrorMessage: "连接失败，5秒后重连", ForDuration: 5) {[weak self] in

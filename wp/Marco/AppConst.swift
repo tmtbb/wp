@@ -48,13 +48,13 @@ class AppConst {
     
     class Network {
         #if false //是否测试环境
-        static let TcpServerIP:String = "103.40.192.101";
-        static let TcpServerPort:UInt16 = 10001;
-        static let TttpHostUrl:String = "http://61.147.114.78";
+        static let TcpServerIP:String = "192.168.8.131";
+        static let TcpServerPort:UInt16 = 30001;
+        static let TttpHostUrl:String = "http://192.168.8.131";
         #else
-        static let TcpServerIP:String = "103.40.192.101";
-        static let TcpServerPort:UInt16 = 10001;
-        static let HttpHostUrl:String = "http://61.147.114.78";
+        static let TcpServerIP:String = "192.168.8.131";
+        static let TcpServerPort:UInt16 = 30001;
+        static let HttpHostUrl:String = "http://192.168.8.131";
         #endif
         static let TimeoutSec:UInt16 = 10
         static let qiniuHost = "http://ofr5nvpm7.bkt.clouddn.com/"
@@ -78,6 +78,8 @@ class AppConst {
     
     static let UMAppkey = "584a3eb345297d271600127e"
     
+    static let isMock = false
+    
     class WechatKey {
         static let Scope = "snsapi_userinfo"
         static let State = "wpstate"
@@ -97,6 +99,9 @@ class AppConst {
         static let jumpToFeedback = "jumpToFeedback"
         static let jumpToProductGrade = "jumpToProductGrade"
         static let jumpToAttentionUs = "jumpToAttentionUs"
+        static let BingPhoneVCToPwdVC = "BingPhoneVCToPwdVC"
+        static let LoginToBingPhoneVC = "LoginToBingPhoneVC"
+        static let RegisterToBingPhoneVC = "RegisterToBingPhoneVC"
     }
     
     
