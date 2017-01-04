@@ -34,7 +34,20 @@ class SocketConst: NSObject {
         case flowDetails = 1009
         //银行卡列表
         case bankcardList = 1010
-        
+        //仓位列表
+        case currentDeals = 2000
+        //仓位详情
+        case currentDealDetail = 2001
+        //历史仓位列表
+        case historyDeals = 2002
+        //历史仓位详情
+        case historyDealDetail = 2003
+        //建仓
+        case buildDeal = 2004
+        //平仓
+        case sellOutDeal = 2005
+        //修改持仓
+        case changeDeal = 2006
     }
     enum type:UInt8 {
         case error = 0
@@ -62,7 +75,6 @@ class SocketConst: NSObject {
         static let appid = "appid"
         static let secret = "secret"
         static let grant_type = "grant_type"
-        static let token = "token"
         static let flowType = "flowType"
         static let startPos = "startPos"
         static let countNuber = "count"
@@ -86,6 +98,11 @@ class SocketConst: NSObject {
         static let bld = "bld"
         static let password = "password"
         static let withdrawld = "withdrawld"
+        static let id = "id"
+        static let positionId = "positionId"
+        static let token = "token"
+        static let position = "position"
+        static let price = "price"
     }
     
     

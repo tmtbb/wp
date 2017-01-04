@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11761" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="aJr-KO-sqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11761" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="aJr-KO-sqX">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -124,11 +124,12 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nTS-WN-BJK">
                                                     <rect key="frame" x="122" y="36" width="44" height="44"/>
+                                                    <color key="backgroundColor" red="0.44326636904761907" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="eHf-VP-UUk"/>
                                                         <constraint firstAttribute="height" constant="44" id="rnd-CT-Wi3"/>
                                                     </constraints>
-                                                    <state key="normal" image="wechat-pay.png"/>
+                                                    <state key="normal" image="default-head.png"/>
                                                     <connections>
                                                         <action selector="wechatBtnTapped:" destination="IdH-9P-vUT" eventType="touchUpInside" id="onJ-LV-4c3"/>
                                                     </connections>
@@ -139,7 +140,7 @@
                                                         <constraint firstAttribute="width" constant="44" id="K7L-kc-Lna"/>
                                                         <constraint firstAttribute="height" constant="44" id="UZy-ke-JsF"/>
                                                     </constraints>
-                                                    <state key="normal" image="alipay"/>
+                                                    <state key="normal" image="default-head.png"/>
                                                     <connections>
                                                         <action selector="sinaBtnTapped:" destination="IdH-9P-vUT" eventType="touchUpInside" id="I7n-fi-yn7"/>
                                                     </connections>
@@ -176,6 +177,7 @@
                     <connections>
                         <outlet property="phoneText" destination="Gfn-g1-tBk" id="skb-wr-6fB"/>
                         <outlet property="pwdText" destination="UQI-xa-vte" id="9SQ-vp-trG"/>
+                        <segue destination="GEb-xv-Ecl" kind="push" identifier="LoginToBingPhoneVC" id="mZx-ns-mMd"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hjg-A2-9Ci" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -328,6 +330,7 @@
                         <outlet property="voiceCodeBtn" destination="7Kk-iG-CXs" id="xPU-RO-96I"/>
                         <outlet property="voiceCodeText" destination="0Qr-Op-XbX" id="q1A-4F-LxH"/>
                         <segue destination="aHU-WV-JEW" kind="push" identifier="PwdVC" id="kiW-Rz-POO"/>
+                        <segue destination="GEb-xv-Ecl" kind="push" identifier="RegisterToBingPhoneVC" id="gCO-m9-kNz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g0W-SR-1Zy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -518,12 +521,123 @@
             </objects>
             <point key="canvasLocation" x="2207" y="107"/>
         </scene>
+        <!--绑定手机号-->
+        <scene sceneID="CdQ-XL-S3d">
+            <objects>
+                <tableViewController id="GEb-xv-Ecl" customClass="BingPhoneVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="OTC-2x-Gy9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="vaV-0E-23b">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="45" id="3Ct-Iu-GcO">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Ct-Iu-GcO" id="lAF-IR-yb0">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BIb-8g-aaQ">
+                                                    <rect key="frame" x="10" y="5" width="355" height="40"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="BIb-8g-aaQ" firstAttribute="top" secondItem="lAF-IR-yb0" secondAttribute="top" constant="5" id="IPt-un-T6y"/>
+                                                <constraint firstAttribute="trailing" secondItem="BIb-8g-aaQ" secondAttribute="trailing" constant="10" id="QnH-Xh-FIY"/>
+                                                <constraint firstAttribute="bottom" secondItem="BIb-8g-aaQ" secondAttribute="bottom" id="nlq-P9-TEK"/>
+                                                <constraint firstItem="BIb-8g-aaQ" firstAttribute="leading" secondItem="lAF-IR-yb0" secondAttribute="leading" constant="10" id="vfJ-Ie-zRi"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="45" id="FpN-Of-pMB">
+                                        <rect key="frame" x="0.0" y="45" width="375" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FpN-Of-pMB" id="icF-Ui-dDp">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a13-ja-wox">
+                                                    <rect key="frame" x="256" y="5" width="100" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="fvD-Pp-Jph"/>
+                                                    </constraints>
+                                                    <state key="normal" title="验证码"/>
+                                                    <connections>
+                                                        <action selector="requestVoiceCode:" destination="GEb-xv-Ecl" eventType="touchUpInside" id="p2I-AK-NMf"/>
+                                                    </connections>
+                                                </button>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ho8-MX-S9Z">
+                                                    <rect key="frame" x="10" y="5" width="196" height="40"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="a13-ja-wox" secondAttribute="trailing" constant="19" id="BUe-O1-exi"/>
+                                                <constraint firstItem="ho8-MX-S9Z" firstAttribute="top" secondItem="icF-Ui-dDp" secondAttribute="top" constant="5" id="DfG-lv-lzr"/>
+                                                <constraint firstAttribute="bottom" secondItem="ho8-MX-S9Z" secondAttribute="bottom" id="e5J-6q-wxA"/>
+                                                <constraint firstAttribute="bottom" secondItem="a13-ja-wox" secondAttribute="bottom" id="gtJ-U8-C8d"/>
+                                                <constraint firstItem="a13-ja-wox" firstAttribute="leading" secondItem="ho8-MX-S9Z" secondAttribute="trailing" constant="50" id="iVT-Vs-eqp"/>
+                                                <constraint firstItem="ho8-MX-S9Z" firstAttribute="leading" secondItem="icF-Ui-dDp" secondAttribute="leading" constant="10" id="kpV-aH-aC3"/>
+                                                <constraint firstItem="a13-ja-wox" firstAttribute="top" secondItem="icF-Ui-dDp" secondAttribute="top" constant="5" id="wdH-x3-foW"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="45" id="xKi-Ha-CwM">
+                                        <rect key="frame" x="0.0" y="90" width="375" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xKi-Ha-CwM" id="Gi7-nu-goc">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Li-bR-vhH">
+                                                    <rect key="frame" x="10" y="5" width="355" height="40"/>
+                                                    <color key="backgroundColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" title="下一步"/>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="2Li-bR-vhH" firstAttribute="leading" secondItem="Gi7-nu-goc" secondAttribute="leading" constant="10" id="UDI-gn-T9v"/>
+                                                <constraint firstAttribute="bottom" secondItem="2Li-bR-vhH" secondAttribute="bottom" id="kvp-XH-ja8"/>
+                                                <constraint firstItem="2Li-bR-vhH" firstAttribute="top" secondItem="Gi7-nu-goc" secondAttribute="top" constant="5" id="s4Z-to-sxP"/>
+                                                <constraint firstAttribute="trailing" secondItem="2Li-bR-vhH" secondAttribute="trailing" constant="10" id="tCf-g0-fmj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="GEb-xv-Ecl" id="N2G-iu-iYb"/>
+                            <outlet property="delegate" destination="GEb-xv-Ecl" id="8bD-nj-H6n"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="绑定手机号" id="sKa-63-YqD"/>
+                    <connections>
+                        <outlet property="codeBtn" destination="a13-ja-wox" id="xE2-dh-IqM"/>
+                        <outlet property="codeText" destination="ho8-MX-S9Z" id="UUx-Cx-3K3"/>
+                        <outlet property="nextBtn" destination="2Li-bR-vhH" id="yl9-FW-2ec"/>
+                        <outlet property="phoneText" destination="BIb-8g-aaQ" id="YsT-c2-GLl"/>
+                        <segue destination="aHU-WV-JEW" kind="push" identifier="BingPhoneVCToPwdVC" id="Hlj-3v-O0g"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9J4-Jk-t7e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1430" y="-608"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="alipay" width="16" height="16"/>
-        <image name="wechat-pay.png" width="25" height="25"/>
+        <image name="default-head.png" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Hlj-3v-O0g"/>
+        <segue reference="gCO-m9-kNz"/>
         <segue reference="aEJ-ne-3CV"/>
     </inferredMetricsTieBreakers>
 </document>

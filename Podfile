@@ -22,4 +22,5 @@ target 'wp' do
     #pod 'XCGLogger'
     pod 'SnapKit'
     pod 'RealmSwift'
+    #pod 'ReactiveCocoa'
 end
