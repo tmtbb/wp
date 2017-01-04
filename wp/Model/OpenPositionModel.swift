@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OpenPositionModel: BaseModel {
+class PositionModel: BaseModel {
     var positionId:Int = 0      //仓位id
     var id:Int = 0              //用户id
     var code:String?            //商品代码
@@ -28,4 +28,5 @@ class OpenPositionModel: BaseModel {
     var closeType:Int = 0       //平仓类型	1:普通平仓; 2:自动平仓; 3:爆仓平仓; 4:收盘平仓; 5:强制平仓
     var isDeferred:Int = 0      //是否过夜
     var deferred:Int = 0        //累计过夜费
+    var token:String?           //累计过夜费
 }

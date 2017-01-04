@@ -15,7 +15,7 @@ class UserModel: BaseModel  {
     }
     var registerUser: UserInfo?
     var currentUser: UserInfo?
-    var currentUserId: Int = 0
+    var token: String?
     // 获取某个用户信息
     class func userInfo(userId: Int) -> UserInfo {
         let realm = try! Realm()
