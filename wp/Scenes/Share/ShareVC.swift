@@ -62,11 +62,12 @@ class ShareVC: BaseListTableViewController {
     }
     
     override func didRequest() {
+         self.didRequestComplete([""] as AnyObject)
         
         AppAPIHelper.share().getData(userId: "122222", phone: "121323", complete: { [weak self](result) -> ()? in
 //            self?.reloadda(parm: result as! NSDictionary)
             
-            self?.didRequestComplete([""] as AnyObject)
+           
             return nil
             
             }, error: errorBlockFunc())
