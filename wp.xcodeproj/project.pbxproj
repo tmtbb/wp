@@ -211,6 +211,10 @@
 		BFC81E9E1DFA9E6600ADC291 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFC81E9D1DFA9E6600ADC291 /* UMMobClick.framework */; };
 		BFD70FDD1E10F5B700930E8C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD70FDC1E10F5B700930E8C /* UserModel.swift */; };
 		BFD70FDF1E10F5D700930E8C /* DealModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD70FDE1E10F5D700930E8C /* DealModel.swift */; };
+		D0302B531E1B86DF007D3F2B /* FlowDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0302B511E1B86DF007D3F2B /* FlowDetails.swift */; };
+		D0302B541E1B86DF007D3F2B /* FlowOrdersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0302B521E1B86DF007D3F2B /* FlowOrdersList.swift */; };
+		D0302B791E1C94DE007D3F2B /* CreditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0302B771E1C94DE007D3F2B /* CreditModel.swift */; };
+		D0302B7A1E1C94DE007D3F2B /* WithdrawModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0302B781E1C94DE007D3F2B /* WithdrawModel.swift */; };
 		D03831421E1344F400D54295 /* AttentionUsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03831391E1344F400D54295 /* AttentionUsController.swift */; };
 		D03831431E1344F400D54295 /* DealController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D038313A1E1344F400D54295 /* DealController.swift */; };
 		D03831441E1344F400D54295 /* FeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D038313B1E1344F400D54295 /* FeedbackController.swift */; };
@@ -451,6 +455,10 @@
 		BFC81E9D1DFA9E6600ADC291 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UMMobClick.framework; path = "Pods/UMengAnalytics-NO-IDFA/umsdk_IOS_analyics_no-idfa_v4.1.5/UMMobClick.framework"; sourceTree = "<group>"; };
 		BFD70FDC1E10F5B700930E8C /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BFD70FDE1E10F5D700930E8C /* DealModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealModel.swift; sourceTree = "<group>"; };
+		D0302B511E1B86DF007D3F2B /* FlowDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowDetails.swift; sourceTree = "<group>"; };
+		D0302B521E1B86DF007D3F2B /* FlowOrdersList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowOrdersList.swift; sourceTree = "<group>"; };
+		D0302B771E1C94DE007D3F2B /* CreditModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditModel.swift; sourceTree = "<group>"; };
+		D0302B781E1C94DE007D3F2B /* WithdrawModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithdrawModel.swift; sourceTree = "<group>"; };
 		D03831391E1344F400D54295 /* AttentionUsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttentionUsController.swift; sourceTree = "<group>"; };
 		D038313A1E1344F400D54295 /* DealController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealController.swift; sourceTree = "<group>"; };
 		D038313B1E1344F400D54295 /* FeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackController.swift; sourceTree = "<group>"; };
@@ -831,6 +839,10 @@
 				BFAC33071E128FF1008EF3D3 /* ShareModel.swift */,
 				BFAC33091E129128008EF3D3 /* UserInfo.swift */,
 				BFAC331E1E135FC1008EF3D3 /* DealInfo.swift */,
+				D0302B521E1B86DF007D3F2B /* FlowOrdersList.swift */,
+				D0302B511E1B86DF007D3F2B /* FlowDetails.swift */,
+				D0302B771E1C94DE007D3F2B /* CreditModel.swift */,
+				D0302B781E1C94DE007D3F2B /* WithdrawModel.swift */,
 				BF3AD87E1E16301F00524997 /* ChartFormatter.swift */,
 			);
 			path = Model;
@@ -1402,6 +1414,7 @@
 				BF062B4B1E04DF5200618B1B /* HomeVC.swift in Sources */,
 				BF5E24821E10BE1E00B5C07A /* KLineView.swift in Sources */,
 				D0C5146F1E0BE199005454F4 /* CSMenuView.swift in Sources */,
+				D0302B531E1B86DF007D3F2B /* FlowDetails.swift in Sources */,
 				BF2F64291E038DFE00917FA1 /* SocketRequest.swift in Sources */,
 				BF2F64371E038DFE00917FA1 /* TableViewHelper.swift in Sources */,
 				D0C514751E0BE199005454F4 /* CSSinglerowView.swift in Sources */,
@@ -1412,7 +1425,10 @@
 				BF9CD7521E0A573400194A32 /* DealSocketApi.swift in Sources */,
 				BF2F642D1E038DFE00917FA1 /* BaseTableViewController.swift in Sources */,
 				BF0479331E0FBDD400C511E7 /* RegisterVC.swift in Sources */,
+				D0302B7A1E1C94DE007D3F2B /* WithdrawModel.swift in Sources */,
 				BF9CD74E1E0A570100194A32 /* UserSocketApi.swift in Sources */,
+				D0302B791E1C94DE007D3F2B /* CreditModel.swift in Sources */,
+				D0302B541E1B86DF007D3F2B /* FlowOrdersList.swift in Sources */,
 				D0C5146E1E0BE199005454F4 /* CSCycleView.swift in Sources */,
 				BF9CD75F1E0A6CE300194A32 /* UIImage+Extension.swift in Sources */,
 				D03831491E1344F400D54295 /* ProductGradeController.swift in Sources */,

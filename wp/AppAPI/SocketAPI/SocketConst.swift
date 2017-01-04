@@ -26,6 +26,14 @@ class SocketConst: NSObject {
         case voiceCode = 1005
         // 设置用户信息
         case userInfo = 1006
+        //设置账号信息
+        case accountNews = 1007
+        //流水列表
+        case flowList = 1008
+        //流水详情
+        case flowDetails = 1009
+        //银行卡列表
+        case bankcardList = 1010
         
         // 我的晒单
         case UserShare = 1007
@@ -57,10 +65,30 @@ class SocketConst: NSObject {
         static let appid = "appid"
         static let secret = "secret"
         static let grant_type = "grant_type"
+        static let token = "token"
+        static let flowType = "flowType"
+        static let startPos = "startPos"
+        static let countNuber = "count"
+        static let flowld = "flowld"
+        static let bank = "bank"
+        static let branchBank = "branchBank"
+        static let province = "province"
+        static let city = "city"
+        static let cardNo = "cardNo"
+        static let name = "name"
+        static let bankId = "bankId"
+        static let vCode = "vCode"
         static let source = "source"
         static let memberId = "memberId"
         static let agentId = "agentId"
         static let recommend = "recommend"
+        static let status = "status"
+        static let pos = "pos"
+        static let rid = "rid"
+        static let money = "money"
+        static let bld = "bld"
+        static let password = "password"
+        static let withdrawld = "withdrawld"
     }
     
     
