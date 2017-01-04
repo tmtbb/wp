@@ -31,6 +31,7 @@ class SocketRequestManage: NSObject {
 #else
         _socketHelper = LocalSocketHelper()
 #endif
+        
         _socketHelper?.connect()
     }
     
