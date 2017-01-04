@@ -23,4 +23,14 @@ protocol UserApi {
     func bingcard(id: Int64, token: String, bank: String, branchBank: String, province: String, city: String, cardNo: String, name:String, complete: CompleteBlock?, error: ErrorBlock?)
     //解绑银行卡
     func unbindcard(id: Int64, token: String, bankId: Int32, vCode:Int32, complete: CompleteBlock?, error: ErrorBlock?)
+    //充值列表
+    func creditlist(id: Int64, token: String, status: String, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
+    //充值详情
+    func creditdetail(id: Int64, token: String, rid: Int64, complete: CompleteBlock?, error: ErrorBlock?)
+    //银行卡提现
+    func withdrawcash(id: Int64, token: String, money: Double, bld: Int64, password: String, complete: CompleteBlock?, error: ErrorBlock?)
+    //提现列表
+    func withdrawlist(id: Int64, token: String, status: String, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
+    //提现详情
+    func withdrawdetail(id: Int64, token: String, withdrawld: Int64, complete: CompleteBlock?, error: ErrorBlock?)
 }

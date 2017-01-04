@@ -77,4 +77,51 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
+    //充值列表
+    func creditlist(id: Int64, token: String, status: String, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?){
+        let param = [SocketConst.Key.uid: id,
+                     SocketConst.Key.token: token,
+                     SocketConst.Key.status: status,
+                     SocketConst.Key.pos: pos,
+                     SocketConst.Key.countNuber: count] as [String : Any]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject])
+        startRequest(packet, complete: complete, error: error)
+    }
+    //充值详情
+    func creditdetail(id: Int64, token: String, rid: Int64, complete: CompleteBlock?, error: ErrorBlock?){
+        let param: [String : Any] = [SocketConst.Key.uid: id,
+                                     SocketConst.Key.token: token,
+                                     SocketConst.Key.rid: rid]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject])
+        startRequest(packet, complete: complete, error: error)
+    }
+    //银行卡提现
+    func withdrawcash(id: Int64, token: String, money: Double, bld: Int64, password: String, complete: CompleteBlock?, error: ErrorBlock?){
+        let param: [String : Any] = [SocketConst.Key.uid: id,
+                                     SocketConst.Key.token: token,
+                                     SocketConst.Key.money: money,
+                                     SocketConst.Key.bld: bld,
+                                     SocketConst.Key.password: password]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject])
+        startRequest(packet, complete: complete, error: error)
+    }
+    //提现列表
+    func withdrawlist(id: Int64, token: String, status: String, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?){
+        let param = [SocketConst.Key.uid: id,
+                     SocketConst.Key.token: token,
+                     SocketConst.Key.status: status,
+                     SocketConst.Key.pos: pos,
+                     SocketConst.Key.countNuber: count] as [String : Any]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject])
+        startRequest(packet, complete: complete, error: error)
+    }
+    //提现详情
+    func withdrawdetail(id: Int64, token: String, withdrawld: Int64, complete: CompleteBlock?, error: ErrorBlock?){
+        let param: [String : Any] = [SocketConst.Key.uid: id,
+                                     SocketConst.Key.token: token,
+                                     SocketConst.Key.withdrawld: withdrawld]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject])
+        startRequest(packet, complete: complete, error: error)
+    }
+
 }

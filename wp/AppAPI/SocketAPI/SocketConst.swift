@@ -79,6 +79,13 @@ class SocketConst: NSObject {
         static let memberId = "memberId"
         static let agentId = "agentId"
         static let recommend = "recommend"
+        static let status = "status"
+        static let pos = "pos"
+        static let rid = "rid"
+        static let money = "money"
+        static let bld = "bld"
+        static let password = "password"
+        static let withdrawld = "withdrawld"
     }
     
     

@@ -9,12 +9,12 @@
 import UIKit
 
 class FlowOrdersList: BaseModel {
-    var flowId: Int64 = 0
-    var flowType: Int32 = 0
-    var flowName: String?
-    var inOut: Int32 = 0
-    var amount: Double = 0.0
-    var balance: Double = 0.0
-    var flowTime: Int64 = 0
-    var comment: String?
+    dynamic var flowId: Int64 = 0
+    dynamic var flowType: Int32 = 0
+    dynamic var flowName: String?
+    dynamic var inOut: Int32 = 0
+    dynamic var amount: Double = 0.0
+    dynamic var balance: Double = 0.0
+    dynamic var flowTime: Int64 = 0
+    dynamic var comment: String?
 }
