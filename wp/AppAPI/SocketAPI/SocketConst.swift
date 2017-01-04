@@ -15,11 +15,11 @@ class SocketConst: NSObject {
         // 获取图片上传token
         case imageToken = 1047
         // 获取分时信息
-        case minDealInfo = 1001
+        case minDealInfo = 10001
         // 登录
-        case login = 1002
+        case login = 1001
         // 注册
-        case register = 1003
+        case register = 1021
         // 重设密码
         case repwd = 1004
         // 声音验证码
@@ -57,12 +57,11 @@ class SocketConst: NSObject {
         static let type = "type"
         static let phone = "phone"
         static let pwd = "pwd"
-        static let code = "code"
+        static let code = "vCode"
         static let voiceCode = "voiceCode"
         static let appid = "appid"
         static let secret = "secret"
         static let grant_type = "grant_type"
-        
         static let token = "token"
         static let flowType = "flowType"
         static let startPos = "startPos"
@@ -76,6 +75,10 @@ class SocketConst: NSObject {
         static let name = "name"
         static let bankId = "bankId"
         static let vCode = "vCode"
+        static let source = "source"
+        static let memberId = "memberId"
+        static let agentId = "agentId"
+        static let recommend = "recommend"
     }
     
     

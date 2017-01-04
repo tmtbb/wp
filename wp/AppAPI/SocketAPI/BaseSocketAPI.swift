@@ -20,7 +20,7 @@ class BaseSocketAPI: NSObject {
     func startRequest(_ packet: SocketDataPacket, complete: CompleteBlock?, error: ErrorBlock?) {
         SocketRequestManage.shared.startJsonRequest(packet,complete: {  (response) in
             complete?((response as? SocketJsonResponse)?.responseJsonObject())
-            },error: error)
+        },error: error)
     }
     
 

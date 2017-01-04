@@ -39,17 +39,14 @@ class RegisterVC: BaseTableViewController {
     //获取声音验证码
     @IBAction func requestVoiceCode(_ sender: UIButton) {
         if checkoutText(){
-            self.voiceCodeBtn.isEnabled = false
-            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateBtnTitle), userInfo: nil, repeats: true)
-            return
-            
-//            AppAPIHelper.login().voiceCode(phone: phoneText.text!, complete: { [weak self](result) -> ()? in
-//                if let strongSelf = self{
-//                    strongSelf.voiceCodeBtn.isEnabled = false
-//                    strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updateBtnTitle), userInfo: nil, repeats: true)
-//                }
-//                return nil
-//            }, error: errorBlockFunc())
+        
+            AppAPIHelper.login().voiceCode(phone: phoneText.text!, complete: { [weak self](result) -> ()? in
+                if let strongSelf = self{
+                    strongSelf.voiceCodeBtn.isEnabled = false
+                    strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updateBtnTitle), userInfo: nil, repeats: true)
+                }
+                return nil
+            }, error: errorBlockFunc())
         }
     }
     func updateBtnTitle() {
@@ -68,11 +65,8 @@ class RegisterVC: BaseTableViewController {
     //注册
     @IBAction func registerBtnTapped(_ sender: Any) {
         if checkoutText(){
-            performSegue(withIdentifier: PwdVC.className(), sender: nil)
-            return
-            
             if checkTextFieldEmpty([phoneText,codeText,voiceCodeText]){
-                AppAPIHelper.login().register(phone: phoneText.text!, code: codeText.text!, voiceCode: voiceCodeText.text!, complete: { [weak self](result) -> ()? in
+                AppAPIHelper.login().register(phone: phoneText.text!, code: codeText.text!, pwd: voiceCodeText.text!, complete: { [weak self](result) -> ()? in
                    self?.performSegue(withIdentifier: PwdVC.className(), sender: nil)
                 }, error: errorBlockFunc())
             }
