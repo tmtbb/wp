@@ -6,7 +6,8 @@
 #import <Foundation/Foundation.h>
 
 
-@interface OEZModel : NSObject
+
+@interface NSObject (NSObjectModelCategory)
 /**
  *  属性名与json映射字典
  *
@@ -25,6 +26,34 @@
  *  @return
  */
 + (NSString*)jsonKeyPostfix:(NSString*) name;
+/**
+ *  数组属性model class
+ */
+//+ (Class) arrayModleClass;
+@end
+
+
+
+
+@interface OEZModel : NSObject
+/**
+ *  属性名与json映射字典
+ *
+ *  @return
+ */
+//+ (NSDictionary *) jsonKeysByPropertyKey;
+/**
+ *  排除填充属性名字典
+ *
+ *  @return
+ */
+//+ (NSArray*) debarsByPropertyKey;
+/**
+ *  字段统一后缀
+ *
+ *  @return
+ */
+//+ (NSString*)jsonKeyPostfix:(NSString*) name;
 /**
  *  数组属性model class
  */
