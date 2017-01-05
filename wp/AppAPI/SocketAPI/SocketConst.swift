@@ -17,11 +17,11 @@ class SocketConst: NSObject {
         // 获取分时信息
         case minDealInfo = 10001
         // 登录
-        case login = 1001
+        case login = 3003
         // 注册
-        case register = 1021
+        case register = 3001
         // 重设密码
-        case repwd = 1004
+        case repwd = 3005
         // 声音验证码
         case voiceCode = 1005
         // 设置用户信息
@@ -66,7 +66,7 @@ class SocketConst: NSObject {
     }
     enum type:UInt8 {
         case error = 0
-        case user = 1
+        case user = 3
         case chat = 2
     }
     

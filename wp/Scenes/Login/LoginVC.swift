@@ -24,6 +24,11 @@ class LoginVC: BaseTableViewController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    //MARK: --NAV
+    @IBAction func loginNavItemTapped(_ sender: Any) {
+        UserModel.share().forgetPwd = false
+        performSegue(withIdentifier: RegisterVC.className(), sender: nil)
+    }
     //MARK: --DATA
     func initData() {
         NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: nil)
@@ -83,6 +88,10 @@ class LoginVC: BaseTableViewController {
             performSegue(withIdentifier: AppConst.NotifyDefine.LoginToBingPhoneVC, sender: nil)
         }
         
+    }
+    //MARK: --忘记密码
+    @IBAction func forgetPwdBtnTapped(_ sender: Any) {
+        UserModel.share().forgetPwd = true
     }
     //MARK: --新浪登录
     @IBAction func sinaBtnTapped(_ sender: UIButton) {

@@ -72,7 +72,8 @@
                                                         <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="JUo-86-sd7" kind="push" id="aEJ-ne-3CV"/>
+                                                        <action selector="forgetPwdBtnTapped:" destination="IdH-9P-vUT" eventType="touchUpInside" id="njc-5b-8Pr"/>
+                                                        <segue destination="JUo-86-sd7" kind="push" id="Ps5-RR-Stu"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -170,7 +171,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="注册" id="6Qj-XE-yVb">
                             <connections>
-                                <segue destination="JUo-86-sd7" kind="push" id="2bh-YC-fFW"/>
+                                <action selector="loginNavItemTapped:" destination="IdH-9P-vUT" id="Xfo-xn-ls5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -178,6 +179,7 @@
                         <outlet property="phoneText" destination="Gfn-g1-tBk" id="skb-wr-6fB"/>
                         <outlet property="pwdText" destination="UQI-xa-vte" id="9SQ-vp-trG"/>
                         <segue destination="GEb-xv-Ecl" kind="push" identifier="LoginToBingPhoneVC" id="mZx-ns-mMd"/>
+                        <segue destination="JUo-86-sd7" kind="push" identifier="RegisterVC" id="i8q-fM-lW7"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hjg-A2-9Ci" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -636,8 +638,8 @@
         <image name="default-head.png" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Hlj-3v-O0g"/>
+        <segue reference="i8q-fM-lW7"/>
+        <segue reference="kiW-Rz-POO"/>
         <segue reference="gCO-m9-kNz"/>
-        <segue reference="aEJ-ne-3CV"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -26,7 +26,7 @@ class PwdVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
-        
+        self.title = UserModel.share().forgetPwd ? "重置密码":"注册"
     }
     //MARK: --Function
     @IBAction func nextBtnTapped(_ sender: UIButton) {
@@ -38,7 +38,38 @@ class PwdVC: BaseTableViewController {
                 })
                 return
             }else{
+                //重置密码
+                if UserModel.share().forgetPwd {
+                    SVProgressHUD.showProgressMessage(ProgressMessage: "重置中...")
+                    let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
+                    AppAPIHelper.login().repwd(pwd: password, code: UserModel.share().code!, complete: { [weak self](result) -> ()? in
+                        SVProgressHUD.showWainningMessage(WainningMessage: "重置成功", ForDuration: 1, completion: { 
+                            self?.navigationController?.popToRootViewController(animated: true)
+                        })
+                        return nil
+                    }, error: errorBlockFunc())
+                    return
+                }
                 
+                //注册
+                SVProgressHUD.showProgressMessage(ProgressMessage: "注册中...")
+                let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
+                AppAPIHelper.login().register(phone: UserModel.share().phone!, code: UserModel.share().code!, pwd: password, complete: { [weak self](result) -> ()? in
+                    SVProgressHUD.dismiss()
+                    if result != nil {
+                        if let code: Int = result?["result"] as! Int?{
+                            if code == 0{
+                                SVProgressHUD.showErrorMessage(ErrorMessage: "用户已注册", ForDuration: 1, completion: nil)
+                                return nil
+                            }
+                        }
+                        self?.performSegue(withIdentifier: NickNameVC.className(), sender: nil)
+                    }else{
+                        SVProgressHUD.showErrorMessage(ErrorMessage: "登录失败，请稍后再试", ForDuration: 1, completion: nil)
+                    }
+                    return nil
+                    }, error: errorBlockFunc())
+
             }
         }
     }

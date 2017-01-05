@@ -15,6 +15,11 @@ class UserModel: BaseModel  {
     }
     var registerUser: UserInfo?
     var currentUser: UserInfo?
+    var code:String?
+    var phone:String?
+    var forgetPwd:Bool = false
+    
+    
     static var token: String?
     static var currentUserId: Int = 0
     // 获取某个用户信息
@@ -39,6 +44,7 @@ class UserModel: BaseModel  {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
             }
         }
+        
     }
     // 登录
     
