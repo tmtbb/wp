@@ -15,24 +15,27 @@ class RechargeListVCCell: UITableViewCell {
     
     //姓名lb
     @IBOutlet weak var timeLb: UILabel!
+    
     //充值金额
     @IBOutlet weak var moneyCountLb: UILabel!
+    
     //状态
     @IBOutlet weak var statusLb: UILabel!
     
     
     // 刷新cell
     func update(_ data: Any!) {
-//        let dataModel = data as! RechargeListModel
+        //        let dataModel = data as! RechargeListModel
         
-//        print(dataModel.id)
-//        nameLb.text =  "\(dataModel.id)"
+        //        print(dataModel.id)
+        //        nameLb.text =  "\(dataModel.id)"
         //    }
         
-      
+        
     }
     
 }
+
 class RechargeListVC: BasePageListTableViewController {
     
     /**定义全局的数组装 model**/
@@ -43,19 +46,18 @@ class RechargeListVC: BasePageListTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
     }
     //测试充值列表
     override func didRequest(_ pageIndex : Int) {
         
-        AppAPIHelper.user().creditlist(id: Int64(UserModel.currentUserId), token: UserModel.token!, status: "", pos: 0, count: 10, complete: {[weak self] (result) -> ()? in
+        AppAPIHelper.user().creditlist(status: "", pos: 0, count: 10, complete: { (result) -> ()? in
             
-//            var arr = result?["depositsinfo"]
-            self?.didRequestComplete(result)
+            //            self?.didRequestComplete(result)
             return nil
         }, error: errorBlockFunc())
         
     }
 }
 
-    
+

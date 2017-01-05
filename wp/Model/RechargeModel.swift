@@ -9,14 +9,14 @@
 
 import UIKit
 //充值详情Model
-class RechargeModel: BaseModel {
+class RechargeDetailModel: BaseModel {
     
     
      // 充值订单流水号  
     dynamic var rid: Int64 = 0
      // 用户id
     dynamic var id: Int64 = 0
-     //充值金额 
+     // 充值金额 
     dynamic var amount: Double = 0
      // 入金时间  
     dynamic var depositTime: Int64 = 0
@@ -28,11 +28,14 @@ class RechargeModel: BaseModel {
     dynamic var status: Int8 = 0
     
 }
+
+
 //返回充值列表的Model
 class RechargeListModel: BaseModel {
     
     //返回的列表的key
     var depositsinfo : [RechargeListModel]?
+    
      // 充值订单流水号   
     var rid: Int64 = 0
      // 用户id   
