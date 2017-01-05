@@ -27,6 +27,7 @@ class LoginVC: BaseTableViewController {
     //MARK: --DATA
     func initData() {
         NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loginSuccess), name: Notification.Name(rawValue:AppConst.NotifyDefine.UpdateUserInfo), object: nil)
     }
     //MARK: --UI
     func initUI() {
@@ -42,12 +43,11 @@ class LoginVC: BaseTableViewController {
             }
             //登录
             SVProgressHUD.showProgressMessage(ProgressMessage: "登录中...")
-            AppAPIHelper.login().login(phone: phoneText.text!, pwd: pwdText.text!, complete: { [weak self]( result) -> ()? in
+            AppAPIHelper.login().login(phone: phoneText.text!, pwd: pwdText.text!, complete: { ( result) -> ()? in
                 SVProgressHUD.dismiss()
                 //存储用户信息
                 if result != nil{
                     UserModel.upateUserInfo(userObject: result!)
-                    self?.dismissController()
                 }else{
                     SVProgressHUD.showErrorMessage(ErrorMessage: "登录失败，请稍后再试", ForDuration: 1, completion: nil)
                 }
@@ -56,7 +56,10 @@ class LoginVC: BaseTableViewController {
         }
     }
     
-    
+    func loginSuccess() {
+        UserModel.share().currentUser = UserModel.userInfo(userId: UserModel.currentUserId)
+        dismissController()
+    }
     
     //MARK: --微信登录
     @IBAction func wechatBtnTapped(_ sender: UIButton) {
