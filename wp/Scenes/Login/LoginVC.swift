@@ -54,6 +54,7 @@ class LoginVC: BaseTableViewController {
                 return nil
             }, error: errorBlockFunc())
         }
+        
     }
     
     func loginSuccess() {
