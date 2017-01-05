@@ -12,7 +12,7 @@ class LocalSocketHelper: NSObject , SocketHelper {
     
     static var testsocketDict:NSDictionary?;
     
-    class func socketData(_ code:Int) ->Data {
+    class func socketData(_ code:Int) ->Data? {
         if testsocketDict == nil {
             if let bundlePath = Bundle.main.path(forResource: "testsocket", ofType: "plist") {
                 testsocketDict = NSDictionary(contentsOfFile: bundlePath)
@@ -21,7 +21,7 @@ class LocalSocketHelper: NSObject , SocketHelper {
         let key:String = String(format: "%d", code)
         if testsocketDict?.object(forKey: key) != nil {
             let json:String = testsocketDict!.object(forKey: key) as! String
-            return json.data(using: .utf8)
+            return json.data(using: .utf8)!
         }
         return nil
     }
@@ -41,8 +41,9 @@ class LocalSocketHelper: NSObject , SocketHelper {
     
     func sendData(_ data: Data) {
         let packet: SocketDataPacket = SocketDataPacket(socketData: data as NSData)
-        if let data = LocalSocketHelper.socketData(packet.operate_code) {
-            packet.data = data;
+        if let data = LocalSocketHelper.socketData(Int(packet.operate_code)) {
+            packet.data = data
+            packet.data_length = UInt16(data.count)
             SocketRequestManage.shared.notifyResponsePacket(packet)
         }
     }
