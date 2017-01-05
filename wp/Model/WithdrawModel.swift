@@ -38,7 +38,7 @@ class WithdrawModel: BaseModel {
     dynamic var comment: String?
     // 状态	1-处理中，2-成功，3-失败
     dynamic var status: Int8 = 0
-   
+
 }
 // 提现列表的model
 class WithdrawListModel: BaseModel {
