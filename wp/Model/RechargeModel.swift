@@ -36,7 +36,7 @@ class RechargeListModel: BaseModel {
      // 充值订单流水号   
     dynamic var rid: Int64 = 0
      // 用户id   
-    dynamic var id: Int64 = 0
+    dynamic var id:  Int64 = 0
      // 入金时间  
     dynamic var depositTime : Int64 = 0
      // 入金方式 1.微信 2.银行卡  

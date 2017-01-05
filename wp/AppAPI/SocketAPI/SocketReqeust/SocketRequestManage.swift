@@ -26,7 +26,7 @@ class SocketRequestManage: NSObject {
         _lastConnectedTime = timeNow()
         stop()
         _timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(didActionTimer), userInfo: nil, repeats: true)
-#if true
+#if false
         _socketHelper = APISocketHelper()
 #else
         _socketHelper = LocalSocketHelper()
@@ -58,22 +58,6 @@ class SocketRequestManage: NSObject {
     }
 
     func notifyResponsePacket(_ packet: SocketDataPacket) {
-        
-        if AppConst.isMock {
-            let path = Bundle.main.path(forResource: "mockData", ofType: "plist")
-            let dataDic = NSMutableDictionary.init(contentsOfFile: path!)
-            let opcode = SocketRequestManage.shared.operate_code
-            let requestDic = dataDic?["\(opcode)"]
-            
-            objc_sync_enter(self)
-            _sessionId = packet.session_id
-            let socketReqeust = socketRequests[packet.request_id]
-            socketRequests.removeValue(forKey: packet.request_id)
-            objc_sync_exit(self)
-            
-            socketReqeust?.onComplete(requestDic as AnyObject!)
-            return
-        }
         
         objc_sync_enter(self)
         _sessionId = packet.session_id

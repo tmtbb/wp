@@ -15,7 +15,8 @@ class UserModel: BaseModel  {
     }
     var registerUser: UserInfo?
     var currentUser: UserInfo?
-    var token: String?
+    static var token: String?
+    static var currentUserId: Int = 0
     // 获取某个用户信息
     class func userInfo(userId: Int) -> UserInfo {
         let realm = try! Realm()
@@ -29,10 +30,13 @@ class UserModel: BaseModel  {
     // 更新用户信息
     class func upateUserInfo(userObject: AnyObject){
         if let model = userObject as? UserInfoModel {
+            token = model.token
+            currentUserId = model.userinfo?.id ?? 0
             let user = model.convertToUserInfo()
             let realm = try! Realm()
             try! realm.write {
                 realm.add(user, update: true)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
             }
         }
     }

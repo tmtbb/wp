@@ -85,8 +85,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.pos: pos,
                      SocketConst.Key.countNuber: count] as [String : Any]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .rechageList, dict: param as [String : AnyObject])
-//        startRequest(packet, complete: complete, error: error)
-        
+        startRequest(packet, complete: complete, error: error)
     }
     //充值详情
     func creditdetail(id: Int64, token: String, rid: Int64, complete: CompleteBlock?, error: ErrorBlock?){

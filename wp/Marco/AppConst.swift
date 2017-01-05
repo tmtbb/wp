@@ -78,7 +78,9 @@ class AppConst {
     
     static let UMAppkey = "584a3eb345297d271600127e"
     
+
     static let isMock = false
+
 
     class WechatKey {
         static let Scope = "snsapi_userinfo"
@@ -99,6 +101,7 @@ class AppConst {
         static let jumpToFeedback = "jumpToFeedback"
         static let jumpToProductGrade = "jumpToProductGrade"
         static let jumpToAttentionUs = "jumpToAttentionUs"
+        static let UpdateUserInfo = "UpdateUserInfo"
         static let BingPhoneVCToPwdVC = "BingPhoneVCToPwdVC"
         static let LoginToBingPhoneVC = "LoginToBingPhoneVC"
         static let RegisterToBingPhoneVC = "RegisterToBingPhoneVC"
