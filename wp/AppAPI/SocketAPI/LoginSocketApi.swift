@@ -15,7 +15,7 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
                                     SocketConst.Key.pwd: pwd.sha256(),
                                     SocketConst.Key.source: 1]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .login, dict: param as [String : AnyObject])
-        startRequest(packet, complete: complete, error: error)
+        startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
     }
     //注册
     func register(phone: String, code: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?){
