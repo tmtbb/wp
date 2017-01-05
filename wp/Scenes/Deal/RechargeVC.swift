@@ -30,6 +30,9 @@ class RechargeVC: BaseTableViewController {
     
     @IBOutlet weak var rechargeTypeCell: UITableViewCell!
     
+    
+    
+    
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +41,12 @@ class RechargeVC: BaseTableViewController {
     }
     //MARK: --DATA
     func initData() {
+        
+//        AppAPIHelper.user().creditlist(id: Int64(UserModel.currentUserId), token: UserModel.token!, status: "", pos: 0, count: 10, complete: { [weak self](result) -> ()? in
+//        
+//            self?.dataArry = result?.dataArry
+//        return nil
+//     }, error: errorBlockFunc())
         
     }
     //MARK: --UI
