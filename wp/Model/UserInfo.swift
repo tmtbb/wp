@@ -10,7 +10,7 @@ import UIKit
 
 import RealmSwift
 class UserInfoModel: BaseModel {
-    
+    var userinfo: UserInfoModel?
     var id: Int = 0
     var screenName: String?
     var memberId: String?
@@ -19,6 +19,7 @@ class UserInfoModel: BaseModel {
     var agentName: String?
     var avatarLarge: String?
     var balance: Int = 0
+    var token: String?
     
     func convertToUserInfo() -> UserInfo {
     
