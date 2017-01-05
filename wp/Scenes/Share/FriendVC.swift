@@ -11,22 +11,40 @@ import Charts
 
 
 class FriendVC: BaseTableViewController {
-    //头部
+    
+    /* ------------------- 头部 ------------------*/
+    /*用户头像*/
     @IBOutlet weak var headerImage: UIImageView!
+    /*背景图片*/
     @IBOutlet weak var bgImage: UIImageView!
+    /*消息内容*/
     @IBOutlet weak var wainningText: UITextField!
-    //总收益
+    
+    
+    /* ------------------------------------------*/
+    /*总收益Btn*/
     @IBOutlet weak var totalBenifityBtn: UIButton!
+    /*总收益Lb*/
     @IBOutlet weak var totalBenifityLabel: UILabel!
+    /*本月收益Lb*/
     @IBOutlet weak var monthBenifityLabel: UILabel!
+    /*周收益Lb*/
     @IBOutlet weak var weekBenifityLabel: UILabel!
+    /*表格视图*/
     @IBOutlet weak var benifityBarChart: BarChartView!
-    //好友晒单
+    
+    /* ------------------------------------------*/
+    /*好友晒单*/
     @IBOutlet weak var shareCountLabel: UILabel!
+    /*本月分享晒单数目*/
     @IBOutlet weak var monthShareLabel: UILabel!
+    /*周分享晒单数目*/
     @IBOutlet weak var weekShareLabel: UILabel!
+    /*本天分享晒单数目*/
     @IBOutlet weak var dayShareLabel: UILabel!
+    /*判断点击的数目刷新区的row的行数*/
     private var index: NSInteger = 0
+    /*判断点击的btn*/
     private var lastTypeBtn: UIButton?
     
     //MARK: --LIFECYCLE
@@ -39,7 +57,8 @@ class FriendVC: BaseTableViewController {
         super.viewWillAppear(animated)
         translucent(clear: true)
     }
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool)
+    {
         super.viewWillDisappear(animated)
         translucent(clear: false)
     }
@@ -60,14 +79,14 @@ class FriendVC: BaseTableViewController {
         //x轴
         benifityBarChart.xAxis.labelPosition = .bottom
         benifityBarChart.xAxis.gridColor = UIColor.clear
-//        benifityBarChart.
+        //        benifityBarChart.
         //y轴
         benifityBarChart.leftAxis.gridColor = UIColor.clear
         benifityBarChart.rightAxis.gridColor = UIColor.clear
         
         
     }
-
+    /* 刷新列表页数据 */
     func initBenifityBarChartData() {
         let values = [20.0, 4.0, 6.0, 25.0, 13.0]
         
@@ -88,7 +107,7 @@ class FriendVC: BaseTableViewController {
         let data: BarChartData = BarChartData(dataSets: dataSets)
         benifityBarChart.data = data
     }
-
+    
     //MARK: --总收益/好友晒单/好友推单
     @IBAction func itemBtnTapped(_ sender: UIButton) {
         if let btn = lastTypeBtn {
@@ -107,10 +126,13 @@ class FriendVC: BaseTableViewController {
             
         }
     }
+    
     //MARK: --Tableview's delegate and datasource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == index{
+            
             return section == 2 ? 3:2
+            
         }else{
             return 0
         }

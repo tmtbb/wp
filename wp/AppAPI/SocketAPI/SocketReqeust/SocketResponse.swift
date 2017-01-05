@@ -37,7 +37,7 @@ class SocketJsonResponse: SocketResponse {
     
     func responseJson<T:NSObject>() ->T? {
         var object = responseJsonObject()
-        if object != nil && T.isKind(of: BaseModel.self) {
+        if object != nil && T.isKind(of: NSObject.self) {
             object = responseModel(T.classForCoder())
         }
         return object as? T

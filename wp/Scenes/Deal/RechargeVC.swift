@@ -10,12 +10,24 @@ import UIKit
 
 class RechargeVC: BaseTableViewController {
     
+    /**用户账号**/
     @IBOutlet weak var userIdText: UITextField!
+    
+     /**余额**/
     @IBOutlet weak var moneyText: UITextField!
+    
+     /**银行卡号**/
     @IBOutlet weak var bankNumText: UITextField!
+    
+     /**充值金额**/
     @IBOutlet weak var rechargeMoneyLabel: UILabel!
+    
+    /**充值方式**/
     @IBOutlet weak var rechargeTypeLabel: UILabel!
+    
+    /**自定义cell**/
     @IBOutlet weak var rechargeMoneyCell: UITableViewCell!
+    
     @IBOutlet weak var rechargeTypeCell: UITableViewCell!
     
     //MARK: --LIFECYCLE

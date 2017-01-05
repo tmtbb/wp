@@ -84,7 +84,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.status: status,
                      SocketConst.Key.pos: pos,
                      SocketConst.Key.countNuber: count] as [String : Any]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .creditlist, dict: param as [String : AnyObject])
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .rechageList, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
     //充值详情
@@ -92,7 +92,8 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         let param: [String : Any] = [SocketConst.Key.uid: UserModel.share().currentUser?.id ?? 0,
                                      SocketConst.Key.token: UserModel.token ?? "",
                                      SocketConst.Key.rid: rid]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .creditdetail, dict: param as [String : AnyObject])
+
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .rechage, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
     //银行卡提现
@@ -102,7 +103,8 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                                      SocketConst.Key.money: money,
                                      SocketConst.Key.bld: bld,
                                      SocketConst.Key.password: password]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .withdrawcash, dict: param as [String : AnyObject])
+
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .withdrawCash, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
     //提现列表
@@ -112,7 +114,8 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.status: status,
                      SocketConst.Key.pos: pos,
                      SocketConst.Key.countNuber: count] as [String : Any]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .withdrawlist, dict: param as [String : AnyObject])
+
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .withdrawList, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
     //提现详情
