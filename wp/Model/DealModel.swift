@@ -13,7 +13,9 @@ class DealModel: BaseModel {
     class func share() -> DealModel{
         return model
     }
+
     dynamic var selectDealModel: PositionModel?
+
     var dealUp: Bool = true
     
     

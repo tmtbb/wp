@@ -78,6 +78,10 @@ class AppConst {
     
     static let UMAppkey = "584a3eb345297d271600127e"
     
+
+    static let isMock = false
+
+
     class WechatKey {
         static let Scope = "snsapi_userinfo"
         static let State = "wpstate"
