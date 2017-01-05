@@ -14,25 +14,9 @@ class ShareModel: BaseModel {
         return model
     }
     
-    /*姓名*/
-     var name  : String?
     
-    /*类别*/
-      var type : String?
-    
-    /*时间*/
-     var time  : String?
-    /*收益*/
-     var benifity : String?
-    
-    /*头像*/
-     var userHeaderImg : String?
-    
-    /*姓名*/
-     var iconImg  : String?
-    
-    /*状态*/
-      var status : String?
     
 }
+
+
 

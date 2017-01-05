@@ -12,7 +12,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
 
     //设置用户信息
     func userInfo(user: UserInfo, complete: CompleteBlock?, error: ErrorBlock?){
-        let param = [SocketConst.Key.uid : UserModel.share().currenUser?.id]
+        let param = [SocketConst.Key.uid : UserModel.share().currentUser?.id]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .userInfo, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
@@ -84,15 +84,16 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.status: status,
                      SocketConst.Key.pos: pos,
                      SocketConst.Key.countNuber: count] as [String : Any]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject])
-        startRequest(packet, complete: complete, error: error)
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .rechageList, dict: param as [String : AnyObject])
+//        startRequest(packet, complete: complete, error: error)
+        
     }
     //充值详情
     func creditdetail(id: Int64, token: String, rid: Int64, complete: CompleteBlock?, error: ErrorBlock?){
         let param: [String : Any] = [SocketConst.Key.uid: id,
                                      SocketConst.Key.token: token,
                                      SocketConst.Key.rid: rid]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject])
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .rechage, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
     //银行卡提现
@@ -102,7 +103,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                                      SocketConst.Key.money: money,
                                      SocketConst.Key.bld: bld,
                                      SocketConst.Key.password: password]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject])
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .withdrawCash, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
     //提现列表
@@ -112,7 +113,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.status: status,
                      SocketConst.Key.pos: pos,
                      SocketConst.Key.countNuber: count] as [String : Any]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject])
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .withdrawList, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
     //提现详情

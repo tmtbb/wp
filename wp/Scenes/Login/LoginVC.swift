@@ -12,8 +12,6 @@ class LoginVC: BaseTableViewController {
     
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var pwdText: UITextField!
-    
-    var loginComplete: CompleteBlock?
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +41,17 @@ class LoginVC: BaseTableViewController {
                 return
             }
             //登录
-            AppAPIHelper.login().login(phone: phoneText.text!, pwd: pwdText.text!, complete: { [weak self](result) -> ()? in
+            SVProgressHUD.showProgressMessage(ProgressMessage: "登录中...")
+            AppAPIHelper.login().login(phone: phoneText.text!, pwd: pwdText.text!, complete: { [weak self]( result) -> ()? in
+                SVProgressHUD.dismiss()
                 //存储用户信息
-                self?.dismissController()
+                if result != nil{
+                    UserModel.upateUserInfo(userObject: result!)
+                    self?.dismissController()
+                }else{
+                    SVProgressHUD.showErrorMessage(ErrorMessage: "登录失败，请稍后再试", ForDuration: 1, completion: nil)
+                }
+                return nil
             }, error: errorBlockFunc())
         }
     }
@@ -70,10 +76,8 @@ class LoginVC: BaseTableViewController {
                 
                 return
             }
-            dismissController()
-            if loginComplete != nil{
-                loginComplete!("" as AnyObject?)
-            }
+            //第三方登录成功
+            performSegue(withIdentifier: AppConst.NotifyDefine.LoginToBingPhoneVC, sender: nil)
         }
         
     }

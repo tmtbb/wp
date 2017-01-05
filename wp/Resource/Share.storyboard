@@ -579,9 +579,6 @@
                                                 <constraint firstItem="K6m-km-36o" firstAttribute="top" secondItem="cgH-Z6-pzN" secondAttribute="top" id="zaz-86-Qyp"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="lHC-78-uEj" kind="push" id="e9A-1x-kuq"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="150" id="8Xt-ef-qke">
                                         <rect key="frame" x="0.0" y="385" width="375" height="150"/>
@@ -1258,7 +1255,6 @@
         <!--提现-->
         <scene sceneID="SPO-O3-Gy8">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="e9r-XJ-aln" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="提现" id="lHC-78-uEj" customClass="WithDrawalVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="252" sectionHeaderHeight="28" sectionFooterHeight="28" id="H7X-zG-Dbj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -1290,6 +1286,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="8dh-jv-ozM"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e9r-XJ-aln" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2949.5999999999999" y="-87.706146926536732"/>
         </scene>

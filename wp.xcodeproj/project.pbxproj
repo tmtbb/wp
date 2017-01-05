@@ -10,7 +10,12 @@
 		2FFBC4EC1DF8EF190039A0E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */; };
 		67563DCFE7C11C493D5E3BE0 /* Pods_wp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */; };
 		A046BF781E1CDFFB0035A4FA /* WithDrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */; };
+		A0B5D45A1E1DDCC60029C7BA /* RechargeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */; };
+		A0B5D45C1E1DE14B0029C7BA /* SortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */; };
 		B02DB25C1DF985B70044F910 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B02DB25B1DF985B70044F910 /* libsqlite3.tbd */; };
+		B058E36E1E1D40DA0046720D /* SocketHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058E36D1E1D40DA0046720D /* SocketHelper.swift */; };
+		B058E3701E1D429F0046720D /* LocalSocketHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058E36F1E1D429F0046720D /* LocalSocketHelper.swift */; };
+		B058E3721E1D45800046720D /* testsocket.plist in Resources */ = {isa = PBXBuildFile; fileRef = B058E3711E1D45800046720D /* testsocket.plist */; };
 		B08673461DE5C4C0008DD8A1 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B08673451DE5C4C0008DD8A1 /* libstdc++.tbd */; };
 		BF0479331E0FBDD400C511E7 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0479321E0FBDD400C511E7 /* RegisterVC.swift */; };
 		BF0479351E0FBE4600C511E7 /* PwdVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0479341E0FBE4600C511E7 /* PwdVC.swift */; };
@@ -35,6 +40,8 @@
 		BF062B4B1E04DF5200618B1B /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF062B4A1E04DF5200618B1B /* HomeVC.swift */; };
 		BF062B4D1E04DFE500618B1B /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF062B4C1E04DFE500618B1B /* BaseNavigationController.swift */; };
 		BF062B4F1E04E01100618B1B /* LoginNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF062B4E1E04E01100618B1B /* LoginNav.swift */; };
+		BF2CEA3C1E1CCA9A00EEA99E /* BingPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2CEA3B1E1CCA9A00EEA99E /* BingPhoneVC.swift */; };
+		BF2CEA3E1E1CE26900EEA99E /* OpenPositionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2CEA3D1E1CE26900EEA99E /* OpenPositionModel.swift */; };
 		BF2F64241E038DFE00917FA1 /* AppAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F63D51E038DFE00917FA1 /* AppAPIHelper.swift */; };
 		BF2F64251E038DFE00917FA1 /* BaseSocketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F63D71E038DFE00917FA1 /* BaseSocketAPI.swift */; };
 		BF2F64261E038DFE00917FA1 /* SocketConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F63D81E038DFE00917FA1 /* SocketConst.swift */; };
@@ -79,6 +86,8 @@
 		BF2F644D1E038DFE00917FA1 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF2F64161E038DFE00917FA1 /* User.storyboard */; };
 		BF3AD87F1E16301F00524997 /* ChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AD87E1E16301F00524997 /* ChartFormatter.swift */; };
 		BF3AD8811E1B73FE00524997 /* mockData.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF3AD8801E1B73FE00524997 /* mockData.plist */; };
+		BF43EAD31E1D17D80014B0EE /* DealDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43EAD21E1D17D80014B0EE /* DealDetailVC.swift */; };
+		BF43EAD51E1D17FA0014B0EE /* HistoryDealVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF43EAD41E1D17F90014B0EE /* HistoryDealVC.swift */; };
 		BF5E24801E10B00700B5C07A /* MyDealTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5E247F1E10B00700B5C07A /* MyDealTableView.swift */; };
 		BF5E24821E10BE1E00B5C07A /* KLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5E24811E10BE1E00B5C07A /* KLineView.swift */; };
 		BF8648D51E023AA600D9EFB4 /* libGeTuiSdk-1.4.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8648D21E023A6900D9EFB4 /* libGeTuiSdk-1.4.3.a */; };
@@ -236,7 +245,12 @@
 		2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		34A71E9057EC9BB492D14F0B /* Pods-wp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wp/Pods-wp.debug.xcconfig"; sourceTree = "<group>"; };
 		A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawalVC.swift; sourceTree = "<group>"; };
+		A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RechargeModel.swift; sourceTree = "<group>"; };
+		A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortModel.swift; sourceTree = "<group>"; };
 		B02DB25B1DF985B70044F910 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		B058E36D1E1D40DA0046720D /* SocketHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketHelper.swift; sourceTree = "<group>"; };
+		B058E36F1E1D429F0046720D /* LocalSocketHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSocketHelper.swift; sourceTree = "<group>"; };
+		B058E3711E1D45800046720D /* testsocket.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = testsocket.plist; sourceTree = "<group>"; };
 		B08673431DE5C4B6008DD8A1 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B08673451DE5C4C0008DD8A1 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		B0CF59DD1DE5BEC300C40C9C /* wp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -268,6 +282,8 @@
 		BF062B4A1E04DF5200618B1B /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		BF062B4C1E04DFE500618B1B /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		BF062B4E1E04E01100618B1B /* LoginNav.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginNav.swift; sourceTree = "<group>"; };
+		BF2CEA3B1E1CCA9A00EEA99E /* BingPhoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BingPhoneVC.swift; sourceTree = "<group>"; };
+		BF2CEA3D1E1CE26900EEA99E /* OpenPositionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenPositionModel.swift; sourceTree = "<group>"; };
 		BF2F63D51E038DFE00917FA1 /* AppAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPIHelper.swift; sourceTree = "<group>"; };
 		BF2F63D71E038DFE00917FA1 /* BaseSocketAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseSocketAPI.swift; sourceTree = "<group>"; };
 		BF2F63D81E038DFE00917FA1 /* SocketConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketConst.swift; sourceTree = "<group>"; };
@@ -320,6 +336,8 @@
 		BF2F644F1E038E5B00917FA1 /* bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bridge.h; sourceTree = "<group>"; };
 		BF3AD87E1E16301F00524997 /* ChartFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartFormatter.swift; sourceTree = "<group>"; };
 		BF3AD8801E1B73FE00524997 /* mockData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mockData.plist; sourceTree = "<group>"; };
+		BF43EAD21E1D17D80014B0EE /* DealDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealDetailVC.swift; sourceTree = "<group>"; };
+		BF43EAD41E1D17F90014B0EE /* HistoryDealVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryDealVC.swift; sourceTree = "<group>"; };
 		BF5E247F1E10B00700B5C07A /* MyDealTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDealTableView.swift; sourceTree = "<group>"; };
 		BF5E24811E10BE1E00B5C07A /* KLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KLineView.swift; sourceTree = "<group>"; };
 		BF8648D11E023A6900D9EFB4 /* GeTuiSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeTuiSdk.h; sourceTree = "<group>"; };
@@ -599,6 +617,7 @@
 			children = (
 				BF2F64101E038DFE00917FA1 /* city.plist */,
 				BF2F64121E038DFE00917FA1 /* errorcode.plist */,
+				B058E3711E1D45800046720D /* testsocket.plist */,
 				BF3AD8801E1B73FE00524997 /* mockData.plist */,
 			);
 			name = plist;
@@ -637,6 +656,8 @@
 				BF5E247E1E10AF6B00B5C07A /* CustomView */,
 				BF0479381E0FBEC300C511E7 /* DealVC.swift */,
 				BF04793A1E0FBF2E00C511E7 /* BuyVC.swift */,
+				BF43EAD21E1D17D80014B0EE /* DealDetailVC.swift */,
+				BF43EAD41E1D17F90014B0EE /* HistoryDealVC.swift */,
 			);
 			path = Deal;
 			sourceTree = "<group>";
@@ -660,6 +681,7 @@
 				BF0479321E0FBDD400C511E7 /* RegisterVC.swift */,
 				BF0479341E0FBE4600C511E7 /* PwdVC.swift */,
 				BF0479361E0FBE7200C511E7 /* NickNameVC.swift */,
+				BF2CEA3B1E1CCA9A00EEA99E /* BingPhoneVC.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -723,6 +745,8 @@
 				BF2F63DC1E038DFE00917FA1 /* SocketRequest.swift */,
 				BF2F63DD1E038DFE00917FA1 /* SocketRequestManage.swift */,
 				BF2F63DE1E038DFE00917FA1 /* SocketResponse.swift */,
+				B058E36D1E1D40DA0046720D /* SocketHelper.swift */,
+				B058E36F1E1D429F0046720D /* LocalSocketHelper.swift */,
 			);
 			path = SocketReqeust;
 			sourceTree = "<group>";
@@ -837,6 +861,7 @@
 				BFD70FDC1E10F5B700930E8C /* UserModel.swift */,
 				BFD70FDE1E10F5D700930E8C /* DealModel.swift */,
 				BFAC33071E128FF1008EF3D3 /* ShareModel.swift */,
+				A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */,
 				BFAC33091E129128008EF3D3 /* UserInfo.swift */,
 				BFAC331E1E135FC1008EF3D3 /* DealInfo.swift */,
 				D0302B521E1B86DF007D3F2B /* FlowOrdersList.swift */,
@@ -844,6 +869,8 @@
 				D0302B771E1C94DE007D3F2B /* CreditModel.swift */,
 				D0302B781E1C94DE007D3F2B /* WithdrawModel.swift */,
 				BF3AD87E1E16301F00524997 /* ChartFormatter.swift */,
+				BF2CEA3D1E1CE26900EEA99E /* OpenPositionModel.swift */,
+				A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1213,6 +1240,7 @@
 				BFC1E6341E0D1BC2004A2AFC /* icon-11@2x.png in Resources */,
 				BFC1E6491E0D1BC2004A2AFC /* rule-3@2x.png in Resources */,
 				BFC1E6831E0D1BC2004A2AFC /* three.png in Resources */,
+				B058E3721E1D45800046720D /* testsocket.plist in Resources */,
 				BF2F64431E038DFE00917FA1 /* Info.plist in Resources */,
 				BFC1E6661E0D1BC2004A2AFC /* dz.png in Resources */,
 				BFC1E6571E0D1BC2004A2AFC /* winRate@2x.png in Resources */,
@@ -1394,7 +1422,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B058E3701E1D429F0046720D /* LocalSocketHelper.swift in Sources */,
 				BF9CD75D1E0A57FD00194A32 /* CommenSocketApi.swift in Sources */,
+				BF2CEA3E1E1CE26900EEA99E /* OpenPositionModel.swift in Sources */,
 				BF062B491E04DF0A00618B1B /* LoginVC.swift in Sources */,
 				BF0479371E0FBE7200C511E7 /* NickNameVC.swift in Sources */,
 				BF9CD74C1E0A553400194A32 /* LoginApi.swift in Sources */,
@@ -1418,6 +1448,7 @@
 				BF2F64291E038DFE00917FA1 /* SocketRequest.swift in Sources */,
 				BF2F64371E038DFE00917FA1 /* TableViewHelper.swift in Sources */,
 				D0C514751E0BE199005454F4 /* CSSinglerowView.swift in Sources */,
+				BF2CEA3C1E1CCA9A00EEA99E /* BingPhoneVC.swift in Sources */,
 				BFC1E5BD1E0D1820004A2AFC /* UIView+Extension.swift in Sources */,
 				BF04793B1E0FBF2E00C511E7 /* BuyVC.swift in Sources */,
 				BF2F64261E038DFE00917FA1 /* SocketConst.swift in Sources */,
@@ -1441,8 +1472,10 @@
 				BF5E24801E10B00700B5C07A /* MyDealTableView.swift in Sources */,
 				D0C514731E0BE199005454F4 /* CSMenuViewSubCell.swift in Sources */,
 				BF2F64321E038DFE00917FA1 /* UIFont+Extension.swift in Sources */,
+				BF43EAD51E1D17FA0014B0EE /* HistoryDealVC.swift in Sources */,
 				BF2F642C1E038DFE00917FA1 /* BaseCustomTableViewController.swift in Sources */,
 				BF062B4F1E04E01100618B1B /* LoginNav.swift in Sources */,
+				B058E36E1E1D40DA0046720D /* SocketHelper.swift in Sources */,
 				BF3AD87F1E16301F00524997 /* ChartFormatter.swift in Sources */,
 				BF2F64251E038DFE00917FA1 /* BaseSocketAPI.swift in Sources */,
 				D03831431E1344F400D54295 /* DealController.swift in Sources */,
@@ -1459,8 +1492,10 @@
 				BF2F64281E038DFE00917FA1 /* SocketDataPacket.swift in Sources */,
 				BF0479351E0FBE4600C511E7 /* PwdVC.swift in Sources */,
 				BF2F64331E038DFE00917FA1 /* UIScreen+Extension.swift in Sources */,
+				A0B5D45A1E1DDCC60029C7BA /* RechargeModel.swift in Sources */,
 				BF2F64271E038DFE00917FA1 /* APISocketHelper.swift in Sources */,
 				BF9CD7541E0A574100194A32 /* ShareSocketApi.swift in Sources */,
+				A0B5D45C1E1DE14B0029C7BA /* SortModel.swift in Sources */,
 				BFAC331F1E135FC1008EF3D3 /* DealInfo.swift in Sources */,
 				BF2F642A1E038DFE00917FA1 /* SocketRequestManage.swift in Sources */,
 				BFA73BAA1E0B9D070079934F /* SideVC.swift in Sources */,
@@ -1472,6 +1507,7 @@
 				BF2F642F1E038DFE00917FA1 /* NSDateExt.swift in Sources */,
 				BF9CD7501E0A572300194A32 /* HomeSocketApi.swift in Sources */,
 				D0C5146D1E0BE199005454F4 /* CSCycleCell.swift in Sources */,
+				BF43EAD31E1D17D80014B0EE /* DealDetailVC.swift in Sources */,
 				BF062B4D1E04DFE500618B1B /* BaseNavigationController.swift in Sources */,
 				BF2F642E1E038DFE00917FA1 /* SegmentedViewController.swift in Sources */,
 				BFD70FDF1E10F5D700930E8C /* DealModel.swift in Sources */,

@@ -17,7 +17,7 @@ class SocketRequestManage: NSObject {
     fileprivate var _lastHeardBeatTime:TimeInterval!
     fileprivate var _lastConnectedTime:TimeInterval!
     fileprivate var _reqeustId:UInt32 = 10000
-    fileprivate var _socketHelper:APISocketHelper?
+    fileprivate var _socketHelper:SocketHelper?
     fileprivate var _sessionId:UInt64 = 0
     var receiveChatMsgBlock:CompleteBlock?
     var operate_code = 0
@@ -26,7 +26,12 @@ class SocketRequestManage: NSObject {
         _lastConnectedTime = timeNow()
         stop()
         _timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(didActionTimer), userInfo: nil, repeats: true)
+#if true
         _socketHelper = APISocketHelper()
+#else
+        _socketHelper = LocalSocketHelper()
+#endif
+        
         _socketHelper?.connect()
     }
     

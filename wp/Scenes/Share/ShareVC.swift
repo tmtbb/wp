@@ -70,11 +70,11 @@ class ShareVC: BaseListTableViewController {
         didRequestComplete([""] as AnyObject)
         
         //注释掉  请求接口有的时候再打开
-//        AppAPIHelper.share().getShareData(userId: "123", phone: "15306559323", selectIndex: "1223", pageNumber: "0", complete: { (result ) -> ()? in
-//            
-//            return nil
-//        }, error: errorBlockFunc())
-        
+        AppAPIHelper.share().getShareData(userId: "123", phone: "15306559323", selectIndex: "1223", pageNumber: "0", complete: { (result ) -> ()? in
+            
+            return nil
+        }, error: errorBlockFunc())
+        print(errorBlockFunc)
         
     }
     
