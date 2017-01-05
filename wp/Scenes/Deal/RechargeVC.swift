@@ -30,6 +30,9 @@ class RechargeVC: BaseTableViewController {
     
     @IBOutlet weak var rechargeTypeCell: UITableViewCell!
     
+    
+    
+    
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
