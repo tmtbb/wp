@@ -34,6 +34,20 @@ class SocketConst: NSObject {
         case flowDetails = 1009
         //银行卡列表
         case bankcardList = 1010
+
+        
+        
+        // 我的晒单
+        case userShare = 10010
+         // 充值列表
+        case rechageList = 10011
+        // 充值详情
+        case rechage = 10012
+        // 提现列表
+        case withdrawList = 10013
+        // 提现
+        case withdrawCash = 10014
+        
         //仓位列表
         case currentDeals = 2000
         //仓位详情
@@ -48,6 +62,7 @@ class SocketConst: NSObject {
         case sellOutDeal = 2005
         //修改持仓
         case changeDeal = 2006
+
     }
     enum type:UInt8 {
         case error = 0

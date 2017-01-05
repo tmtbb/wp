@@ -13,4 +13,10 @@ class ShareModel: BaseModel {
     class func share() -> ShareModel{
         return model
     }
+    
+    
+    
 }
+
+
+
