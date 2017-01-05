@@ -9,6 +9,8 @@
 import Foundation
 
 protocol ShareApi {
-    //  我的晒单网络请求
+    
+     /**我的晒单网络请求**/
      func getShareData(userId : String, phone: String,selectIndex: String,pageNumber: String, complete: CompleteBlock?, error: ErrorBlock?)
+
 }

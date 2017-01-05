@@ -43,10 +43,15 @@ class ShareVC: BaseListTableViewController {
     @IBOutlet weak var monthBtn: UIButton!
     private var lastTypeBtn: UIButton?
     
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         initData()
         initUI()
+        
+      
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -62,13 +67,13 @@ class ShareVC: BaseListTableViewController {
     }
     //MARK: --网络请求方法
     override func didRequest() {
-        self.didRequestComplete([""] as AnyObject)
+        didRequestComplete([""] as AnyObject)
         
         //注释掉  请求接口有的时候再打开
-        //        AppAPIHelper.share().getShareData(userId: "123", phone: "15306559323", selectIndex: "1223", pageNumber: "0", complete: { (result ) -> ()? in
-        //
-        //            return nil
-        //        }, error: errorBlockFunc())
+//        AppAPIHelper.share().getShareData(userId: "123", phone: "15306559323", selectIndex: "1223", pageNumber: "0", complete: { (result ) -> ()? in
+//            
+//            return nil
+//        }, error: errorBlockFunc())
         
         
     }

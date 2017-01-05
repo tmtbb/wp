@@ -8,14 +8,20 @@
 
 import UIKit
 
-class WithDrawalVC: BaseTableViewController {
+class WithDrawalVC: BasePageListTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
        
+        title = "提现"
+        
+        
     }
-
+    override func didRequest(_ pageIndex : Int) {
+        super.didRequestComplete([""] as AnyObject)
+    
+//
+    }
    
 
 }

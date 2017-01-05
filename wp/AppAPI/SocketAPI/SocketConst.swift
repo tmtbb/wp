@@ -36,7 +36,7 @@ class SocketConst: NSObject {
         case bankcardList = 1010
         
         // 我的晒单
-        case UserShare = 1007
+        case UserShare = 10010
         
     }
     enum type:UInt8 {

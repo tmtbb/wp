@@ -15,25 +15,24 @@ class ShareModel: BaseModel {
     }
     
     /*姓名*/
-    var name  = ""
+     var name  : String?
     
     /*类别*/
-    var type = ""
+      var type : String?
     
     /*时间*/
-    var time  = ""
-    
+     var time  : String?
     /*收益*/
-    var benifity  = ""
+     var benifity : String?
     
     /*头像*/
-    var userHeaderImg = ""
+     var userHeaderImg : String?
     
     /*姓名*/
-    var iconImg  = ""
+     var iconImg  : String?
     
     /*状态*/
-    var status = ""
+      var status : String?
     
 }
 

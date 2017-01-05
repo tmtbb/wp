@@ -162,7 +162,7 @@
                                 <rect key="frame" x="0.0" y="242" width="375" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8D5-6O-WfJ" id="q06-zv-lQf">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="87.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="87"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TC-fI-rcE">
@@ -580,7 +580,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="QBZ-D3-G0O" kind="push" id="WDw-S6-0ER"/>
+                                            <segue destination="lHC-78-uEj" kind="push" id="e9A-1x-kuq"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="150" id="8Xt-ef-qke">
@@ -1258,17 +1258,18 @@
         <!--提现-->
         <scene sceneID="SPO-O3-Gy8">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e9r-XJ-aln" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="提现" id="lHC-78-uEj" customClass="WithDrawalVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="204" sectionHeaderHeight="28" sectionFooterHeight="28" id="H7X-zG-Dbj">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="252" sectionHeaderHeight="28" sectionFooterHeight="28" id="H7X-zG-Dbj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TestVCCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="TestVCCell" rowHeight="204" id="dCA-bM-vvs">
-                                <rect key="frame" x="0.0" y="28" width="375" height="204"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="WithDrawalVCCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="WithDrawalVCCell" rowHeight="252" id="dCA-bM-vvs">
+                                <rect key="frame" x="0.0" y="28" width="375" height="252"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dCA-bM-vvs" id="BRd-a8-hJg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="203"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="251"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ick-c3-HMK">
@@ -1283,15 +1284,14 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="lHC-78-uEj" id="8EC-sH-5pd"/>
-                            <outlet property="delegate" destination="lHC-78-uEj" id="P0M-l2-8yu"/>
+                            <outlet property="dataSource" destination="lHC-78-uEj" id="ghK-cd-U39"/>
+                            <outlet property="delegate" destination="lHC-78-uEj" id="Vca-Fa-AAA"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="8dh-jv-ozM"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="e9r-XJ-aln" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2950" y="-87"/>
+            <point key="canvasLocation" x="2949.5999999999999" y="-87.706146926536732"/>
         </scene>
         <!--充值-->
         <scene sceneID="rxu-p5-eZD">
