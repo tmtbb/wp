@@ -33,7 +33,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.startPos: startPos,
                      SocketConst.Key.countNuber: count] as [String : Any]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .flowList, dict: param as [String : AnyObject])
-        startRequest(packet, complete: complete, error: error)
+        startModelsRequest(packet, listName: "orders", modelClass: FlowOrdersList.self, complete: complete, error: error)
     }
     //流水详情
     func flowDetails(flowld: Int64, flowType: Int8, complete: CompleteBlock?, error: ErrorBlock?){
@@ -43,7 +43,8 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.flowld: flowld,
                      SocketConst.Key.flowType: flowType] as [String : Any]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .flowDetails, dict: param as [String : AnyObject])
-        startRequest(packet, complete: complete, error: error)
+        startModelRequest(packet, modelClass: FlowDetails.self, complete: complete, error: error)
+    
     }
     //银行卡列表
     func bankcardList(complete: CompleteBlock?, error: ErrorBlock?){
@@ -127,7 +128,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         let param: [String : Any] = [SocketConst.Key.uid: UserModel.share().currentUser?.id ?? 0,
                                      SocketConst.Key.token: UserModel.token ?? "",
                                      SocketConst.Key.withdrawld: withdrawld]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .withdrawdetail, dict: param as [String : AnyObject])
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .withdrawDetail, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
     
