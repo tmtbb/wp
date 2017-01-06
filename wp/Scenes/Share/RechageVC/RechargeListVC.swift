@@ -40,7 +40,7 @@ class RechargeListVCCell: UITableViewCell {
 class RechargeListVC: BasePageListTableViewController {
     
     /**定义全局的数组装 model**/
-    var data :  RechargeListModel!
+//    var data :  RechargeListModel!
     
     /** 用来判断刷新列表页第几页 **/
     var pageNumber : Int = 0
@@ -56,9 +56,9 @@ class RechargeListVC: BasePageListTableViewController {
         
         AppAPIHelper.user().creditlist(status: "", pos: 0, count: 10, complete: { [weak self](result) -> ()? in
             
-            self?.data  =  result as! RechargeListModel!
+//            self?.data  =  result as! RechargeListModel!
             
-            self?.didRequestComplete(self?.data.depositsinfo as AnyObject?)
+            self?.didRequestComplete(result)
             
             return nil
             

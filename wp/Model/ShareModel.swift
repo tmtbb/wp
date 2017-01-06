@@ -14,6 +14,8 @@ class ShareModel: BaseModel {
         return model
     }
     
+    //定义全局的字典 用来传值
+    var shareData = Dictionary<String, String>()
     
     
 }

@@ -8,7 +8,7 @@
 //
 
 import UIKit
-//充值详情Model
+//  充值详情Model
 class RechargeDetailModel: BaseModel {
     
     
@@ -28,14 +28,16 @@ class RechargeDetailModel: BaseModel {
     dynamic var status: Int8 = 0
     
 }
-//返回充值列表的Model
+
+
+// 返回充值列表的Model
 class RechargeListModel: BaseModel {
     
     //返回的列表的key
-    var depositsinfo : [RechargeListModel]?
-     // 充值订单流水号   
+    var depositsinfo : [RechargeListModel]!
+     // 充值订单流水号
     dynamic var rid: Int64 = 0
-     // 用户id   
+     // 用户id
     dynamic var id: Int64 = 0
      // 入金时间  
     dynamic var depositTime : Int64 = 0
@@ -46,5 +48,17 @@ class RechargeListModel: BaseModel {
      // 1-处理中，2-成功，3-失败	  
     dynamic var status: Int8 = 0
    
+    //
+    class func depositsinfoModelClass() ->AnyClass {
+        return  [RechargeListModel].self as!  AnyClass
+    }
     
 }
+
+
+
+
+
+
+//  
+
