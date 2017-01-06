@@ -10,6 +10,7 @@ import UIKit
 import SVProgressHUD
 class LoginVC: BaseTableViewController {
     
+    
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var pwdText: UITextField!
     //MARK: --LIFECYCLE

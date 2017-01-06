@@ -13,13 +13,13 @@ class RechargeVC: BaseTableViewController {
     /**用户账号**/
     @IBOutlet weak var userIdText: UITextField!
     
-     /**余额**/
+    /**余额**/
     @IBOutlet weak var moneyText: UITextField!
     
-     /**银行卡号**/
+    /**银行卡号**/
     @IBOutlet weak var bankNumText: UITextField!
     
-     /**充值金额**/
+    /**充值金额**/
     @IBOutlet weak var rechargeMoneyLabel: UILabel!
     
     /**充值方式**/
@@ -27,11 +27,26 @@ class RechargeVC: BaseTableViewController {
     
     /**自定义cell**/
     @IBOutlet weak var rechargeMoneyCell: UITableViewCell!
-    
+    /**自定义cell**/
     @IBOutlet weak var rechargeTypeCell: UITableViewCell!
     
+    /**用户账号**/
+    var dataModel : RechargeDetailModel!
     
-    
+    //网络请求
+    override func didRequest() {
+        
+        AppAPIHelper.user().creditdetail(rid:1111000011, complete: { [weak self](result) -> ()? in
+            
+            self?.dataModel = result as! RechargeDetailModel!
+            
+            let str  = (self?.dataModel.depositName)!
+             print(str)
+        
+            return nil
+        }, error: errorBlockFunc())
+        
+    }
     
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
@@ -41,11 +56,13 @@ class RechargeVC: BaseTableViewController {
     }
     //MARK: --DATA
     func initData() {
-        
+          didRequest()
+    
     }
+    
     //MARK: --UI
     func initUI() {
-        
+      
     }
     //自动识别银行卡
     @IBAction func bankNumBtnTapped(_ sender: UIButton) {
@@ -68,4 +85,20 @@ class RechargeVC: BaseTableViewController {
             return
         }
     }
+}
+// 选择支付方式 的view
+class ChoosePayType: UIView {
+    
+        override init(frame: CGRect) {
+  
+        super.init(frame: frame)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    
+    
 }
