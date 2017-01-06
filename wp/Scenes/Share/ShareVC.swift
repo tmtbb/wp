@@ -30,10 +30,10 @@ class ShareVCCell: UITableViewCell {
     
     
     ///更新 cell列表
-//         func update(_ data: Any!) {
+         func update(_ data: Any!) {
 //            let dataModel = data as! TestModel
 //            nameLabel.text = dataModel.name
-//        }
+        }
 }
 
 class ShareVC: BaseListTableViewController {
@@ -67,7 +67,7 @@ class ShareVC: BaseListTableViewController {
     }
     //MARK: --网络请求方法
     override func didRequest() {
-        didRequestComplete([""] as AnyObject)
+        didRequestComplete(["",""] as AnyObject)
         
         //注释掉  请求接口有的时候再打开
 //        AppAPIHelper.share().getShareData(userId: "123", phone: "15306559323", selectIndex: "1223", pageNumber: "0", complete: { (result ) -> ()? in
