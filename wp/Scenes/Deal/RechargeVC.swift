@@ -30,8 +30,23 @@ class RechargeVC: BaseTableViewController {
     
     @IBOutlet weak var rechargeTypeCell: UITableViewCell!
     
+    /**用户账号**/
+    var dataModel : RechargeDetailModel!
     
-    
+    //网络请求
+    override func didRequest() {
+        
+        AppAPIHelper.user().creditdetail(rid:1111000011, complete: { [weak self](result) -> ()? in
+            
+            self?.dataModel = result as! RechargeDetailModel!
+            
+            let str  = (self?.dataModel.depositName)!
+             print(str)
+        
+            return nil
+        }, error: errorBlockFunc())
+        
+    }
     
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
@@ -41,11 +56,11 @@ class RechargeVC: BaseTableViewController {
     }
     //MARK: --DATA
     func initData() {
-        
+          didRequest()
     }
     //MARK: --UI
     func initUI() {
-        
+      
     }
     //自动识别银行卡
     @IBAction func bankNumBtnTapped(_ sender: UIButton) {
