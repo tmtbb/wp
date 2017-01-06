@@ -53,7 +53,7 @@ class SocketConst: NSObject {
          // 充值列表
         case rechageList = 10011
         // 充值详情
-        case rechage = 10012
+        case recharge = 10012
         // 提现列表
         case withdrawList = 10013
         // 提现

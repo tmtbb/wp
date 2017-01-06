@@ -81,6 +81,8 @@ extension UIViewController {
     }
     //导航栏透明
     func translucent(clear: Bool) {
+        
+    
         let navImageName = clear ? "nav_clear" : "nav_color"
         navigationController?.navigationBar.setBackgroundImage(UIImage.init(named: navImageName), for: .any, barMetrics: .default)
         navigationController?.navigationBar.isTranslucent = clear;

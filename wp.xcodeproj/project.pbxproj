@@ -11,6 +11,8 @@
 		67563DCFE7C11C493D5E3BE0 /* Pods_wp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */; };
 		A046BF781E1CDFFB0035A4FA /* WithDrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */; };
 		A08CB39B1E1E1A8A004BE44B /* RechargeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08CB39A1E1E1A8A004BE44B /* RechargeListVC.swift */; };
+		A08CB39D1E1E43DE004BE44B /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A08CB39C1E1E43DE004BE44B /* Reveal.framework */; };
+		A08CB3A11E1E5387004BE44B /* WithDrawaListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08CB3A01E1E5387004BE44B /* WithDrawaListVC.swift */; };
 		A0B5D45A1E1DDCC60029C7BA /* RechargeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */; };
 		A0B5D45C1E1DE14B0029C7BA /* SortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */; };
 		B02DB25C1DF985B70044F910 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B02DB25B1DF985B70044F910 /* libsqlite3.tbd */; };
@@ -247,6 +249,8 @@
 		34A71E9057EC9BB492D14F0B /* Pods-wp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wp/Pods-wp.debug.xcconfig"; sourceTree = "<group>"; };
 		A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawalVC.swift; sourceTree = "<group>"; };
 		A08CB39A1E1E1A8A004BE44B /* RechargeListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RechargeListVC.swift; sourceTree = "<group>"; };
+		A08CB39C1E1E43DE004BE44B /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		A08CB3A01E1E5387004BE44B /* WithDrawaListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawaListVC.swift; sourceTree = "<group>"; };
 		A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RechargeModel.swift; sourceTree = "<group>"; };
 		A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortModel.swift; sourceTree = "<group>"; };
 		B02DB25B1DF985B70044F910 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -512,6 +516,7 @@
 				BF0629E31E04DC7E00618B1B /* WQConnectorBundle.framework in Frameworks */,
 				BF0629E11E04DC7E00618B1B /* UTDID.framework in Frameworks */,
 				BF0629E61E04DC7E00618B1B /* YWFeedbackFMWK.framework in Frameworks */,
+				A08CB39D1E1E43DE004BE44B /* Reveal.framework in Frameworks */,
 				B02DB25C1DF985B70044F910 /* libsqlite3.tbd in Frameworks */,
 				BFA9FAB31DF6AEBF00E2A67C /* Crashlytics.framework in Frameworks */,
 				BF0629E01E04DC7E00618B1B /* AmrCodecFMWK.framework in Frameworks */,
@@ -569,13 +574,26 @@
 			isa = PBXGroup;
 			children = (
 				A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */,
+				A08CB3A01E1E5387004BE44B /* WithDrawaListVC.swift */,
 			);
 			path = WithDrawalVC;
+			sourceTree = "<group>";
+		};
+		A0C283FF1E1F4D9900A97707 /* ShareModel */ = {
+			isa = PBXGroup;
+			children = (
+				BFAC33071E128FF1008EF3D3 /* ShareModel.swift */,
+				A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */,
+				D0302B781E1C94DE007D3F2B /* WithdrawModel.swift */,
+				A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */,
+			);
+			name = ShareModel;
 			sourceTree = "<group>";
 		};
 		B0CF59D41DE5BEC300C40C9C = {
 			isa = PBXGroup;
 			children = (
+				A08CB39C1E1E43DE004BE44B /* Reveal.framework */,
 				BF2F63D31E038DFE00917FA1 /* wp */,
 				B0CF59DE1DE5BEC300C40C9C /* Products */,
 				568B61F3BC4BD4BB15E8999D /* Pods */,
@@ -862,18 +880,15 @@
 			isa = PBXGroup;
 			children = (
 				BF2F64061E038DFE00917FA1 /* BaseModel.swift */,
+				A0C283FF1E1F4D9900A97707 /* ShareModel */,
 				BFD70FDC1E10F5B700930E8C /* UserModel.swift */,
 				BFD70FDE1E10F5D700930E8C /* DealModel.swift */,
-				BFAC33071E128FF1008EF3D3 /* ShareModel.swift */,
-				A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */,
 				BFAC33091E129128008EF3D3 /* UserInfo.swift */,
 				D0302B521E1B86DF007D3F2B /* FlowOrdersList.swift */,
 				D0302B511E1B86DF007D3F2B /* FlowDetails.swift */,
 				D0302B771E1C94DE007D3F2B /* CreditModel.swift */,
-				D0302B781E1C94DE007D3F2B /* WithdrawModel.swift */,
 				BF3AD87E1E16301F00524997 /* ChartFormatter.swift */,
 				BF2CEA3D1E1CE26900EEA99E /* OpenPositionModel.swift */,
-				A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1505,6 +1520,7 @@
 				BFA73BAA1E0B9D070079934F /* SideVC.swift in Sources */,
 				D03831441E1344F400D54295 /* FeedbackController.swift in Sources */,
 				BFAC32861E123A2E008EF3D3 /* ShareTableView.swift in Sources */,
+				A08CB3A11E1E5387004BE44B /* WithDrawaListVC.swift in Sources */,
 				BF9CD7591E0A57C200194A32 /* CommenApi.swift in Sources */,
 				BF2F643A1E038DFE00917FA1 /* RBStoryboardLink.m in Sources */,
 				BF2F642B1E038DFE00917FA1 /* SocketResponse.swift in Sources */,
@@ -1660,6 +1676,7 @@
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/SMSSDK/SMS_SDK",
 					"$(PROJECT_DIR)/wp/Library/Alipay",
 					"$(PROJECT_DIR)/wp/Library/BCFeedback",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = wp/Other/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1718,6 +1735,7 @@
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/SMSSDK/SMS_SDK",
 					"$(PROJECT_DIR)/wp/Library/Alipay",
 					"$(PROJECT_DIR)/wp/Library/BCFeedback",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = wp/Other/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
