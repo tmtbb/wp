@@ -29,12 +29,42 @@ class RechargeDetailModel: BaseModel {
     
 }
 
-
+//{
+//    "depositsinfo": [
+//    {
+//    "rid": 10000002,
+//    "id": 10001,
+//    "amount": 100.1,
+//    "depositTime": 1483422506,
+//    "depositType": 1,
+//    "depositName": "微信",
+//    "status": 1
+//    },
+//    {
+//    "rid": 10000002,
+//    "id": 10001,
+//    "amount": 100.1,
+//    "depositTime": 1483422506,
+//    "depositType": 1,
+//    "depositName": "微信",
+//    "status": 1
+//    },
+//    {
+//    "rid": 10000002,
+//    "id": 10001,
+//    "amount": 100.1,
+//    "depositTime": 1483422506,
+//    "depositType": 1,
+//    "depositName": "微信",
+//    "status": 1
+//    }
+//    ]
+//}
 // 返回充值列表的Model
 class RechargeListModel: BaseModel {
     
     //返回的列表的key
-    var depositsinfo : [RechargeListModel]!
+    var depositsinfo : [RechargeListModel]?
      // 充值订单流水号
     dynamic var rid: Int64 = 0
      // 用户id
@@ -45,20 +75,50 @@ class RechargeListModel: BaseModel {
     dynamic var depositType: Int8 = 0
      // 微信  
     dynamic var depositName: String?
-     // 1-处理中，2-成功，3-失败	  
+     // 1-处理中，2-成功，3-失败	
+    
     dynamic var status: Int8 = 0
    
-    //
     class func depositsinfoModelClass() ->AnyClass {
         return  [RechargeListModel].self as!  AnyClass
     }
     
 }
 
+//{
+//    "depositsinfo": [
+//    {
+//    "rid": 10000002,
+//    "id": 10001,
+//    "amount": 100.1,
+//    "depositTime": 1483422506,
+//    "depositType": 1,
+//    "depositName": "微信",
+//    "status": 1
+//    },
+//    {
+//    "rid": 10000002,
+//    "id": 10001,
+//    "amount": 100.1,
+//    "depositTime": 1483422506,
+//    "depositType": 1,
+//    "depositName": "微信",
+//    "status": 1
+//    },
+//    {
+//    "rid": 10000002,
+//    "id": 10001,
+//    "amount": 100.1,
+//    "depositTime": 1483422506,
+//    "depositType": 1,
+//    "depositName": "微信",
+//    "status": 1
+//    }
+//    ]
+//}
+//
 
 
 
-
-
-//  
+//
 
