@@ -30,10 +30,10 @@ class ShareVCCell: UITableViewCell {
     
     
     ///更新 cell列表
-    //    override func update(_ data: Any!) {
-    //        let dataModel = data as! TestModel
-    //        nameLabel.text = dataModel.name
-    //    }
+//         func update(_ data: Any!) {
+//            let dataModel = data as! TestModel
+//            nameLabel.text = dataModel.name
+//        }
 }
 
 class ShareVC: BaseListTableViewController {

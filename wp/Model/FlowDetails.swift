@@ -10,6 +10,12 @@ import UIKit
 
 class FlowDetails: BaseModel {
     
+    dynamic var basic: Basic?
+    
+    dynamic var flowdetail: Custom?                 //根据flow Type不同而返回不同
+    
+}
+class Basic: NSObject {
     dynamic var id: Int64 = 0                       //用户id
     dynamic var flowId: Int64 = 0                   //订单流水号
     dynamic var flowType: Int32 = 0                 //订单类型
@@ -19,11 +25,9 @@ class FlowDetails: BaseModel {
     dynamic var balance: Double = 0.0               //账户余额
     dynamic var flowTime:Int64 = 0                  //订单时间
     dynamic var comment: String?                    //备注
-    dynamic var flowDetail:Custom?                  //根据flow Type不同而返回不同
-    
 }
 
-class Custom: BaseModel {
+class Custom: NSObject {
     
     //flowType = 1 入金流水时返回
     dynamic var depositType: String?                //入金方式
