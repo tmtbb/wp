@@ -43,7 +43,8 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.flowld: flowld,
                      SocketConst.Key.flowType: flowType] as [String : Any]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .flowDetails, dict: param as [String : AnyObject])
-        startRequest(packet, complete: complete, error: error)
+        startModelRequest(packet, modelClass: FlowDetails.self, complete: complete, error: error)
+    
     }
     //银行卡列表
     func bankcardList(complete: CompleteBlock?, error: ErrorBlock?){
