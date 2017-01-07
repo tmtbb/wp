@@ -38,22 +38,14 @@ class SocketConst: NSObject {
         case bingcard = 1011
         //解绑银行卡
         case unbindcard = 1012
-        //充值列表
-        case creditlist = 1013
-        //充值详情
-        case creditdetail = 1014
-        //银行卡提现
-        case withdrawcash = 1015
-        //提现列表
-        case withdrawlist = 1016
         //提现详情
-        case withdrawdetail = 1017
+        case withdrawDetail = 1017
         // 我的晒单
         case userShare = 10010
          // 充值列表
         case rechageList = 10011
         // 充值详情
-        case rechage = 10012
+        case recharge = 10012
         // 提现列表
         case withdrawList = 10013
         // 提现
