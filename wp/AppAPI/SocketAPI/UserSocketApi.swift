@@ -87,7 +87,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.countNuber: count] as [String : Any]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .rechageList, dict: param as [String : AnyObject])
        
-        startModelsRequest(packet, modelClass: RechargeListModel.self, complete: complete, error: error)
+        startModelRequest(packet, modelClass: RechargeListModel.self, complete: complete, error: error) 
        
     }
     //充值详情

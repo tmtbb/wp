@@ -14,18 +14,18 @@ class SortModel: BaseModel {
     var listItem  :  [ListSortModel]?
     
     //排名 
-    dynamic var sort  :  String?
+      var sort  :  String?
    
     
 }
 
 class ListSortModel: BaseModel {
     
-   dynamic var name  :   String?               //姓名
-   dynamic var type  :   String?               //类别
-   dynamic var time  :   String?               //时间
-   dynamic var benifity  :  String?            //收益
-   dynamic var userHeaderImg  :  String?       //头像
-   dynamic var iconImg  :  String?             //姓名
-   dynamic var status  :   String?             //状态
+     var name  :   String?               //姓名
+     var type  :   String?               //类别
+     var time  :   String?               //时间
+     var benifity  :  String?            //收益
+     var userHeaderImg  :  String?       //头像
+     var iconImg  :  String?             //姓名
+     var status  :   String?             //状态
 }

@@ -14,6 +14,11 @@
 		A08CB3A11E1E5387004BE44B /* WithDrawaListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08CB3A01E1E5387004BE44B /* WithDrawaListVC.swift */; };
 		A0B5D45A1E1DDCC60029C7BA /* RechargeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */; };
 		A0B5D45C1E1DE14B0029C7BA /* SortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */; };
+		A0C284011E1FAE1600A97707 /* BindingBankVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C284001E1FAE1600A97707 /* BindingBankVC.swift */; };
+		A0C284091E1FB00D00A97707 /* FullBankInfomationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C284081E1FB00D00A97707 /* FullBankInfomationVC.swift */; };
+		A0C2840B1E1FB24400A97707 /* ValidationPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2840A1E1FB24400A97707 /* ValidationPhoneVC.swift */; };
+		A0C2840D1E1FBCA700A97707 /* SuccessWithdrawVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2840C1E1FBCA700A97707 /* SuccessWithdrawVC.swift */; };
+		A0C2840F1E1FBD1A00A97707 /* SuccessChargeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2840E1E1FBD1A00A97707 /* SuccessChargeVC.swift */; };
 		B02DB25C1DF985B70044F910 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B02DB25B1DF985B70044F910 /* libsqlite3.tbd */; };
 		B058E36E1E1D40DA0046720D /* SocketHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058E36D1E1D40DA0046720D /* SocketHelper.swift */; };
 		B058E3701E1D429F0046720D /* LocalSocketHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058E36F1E1D429F0046720D /* LocalSocketHelper.swift */; };
@@ -251,6 +256,11 @@
 		A08CB3A01E1E5387004BE44B /* WithDrawaListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawaListVC.swift; sourceTree = "<group>"; };
 		A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RechargeModel.swift; sourceTree = "<group>"; };
 		A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortModel.swift; sourceTree = "<group>"; };
+		A0C284001E1FAE1600A97707 /* BindingBankVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingBankVC.swift; sourceTree = "<group>"; };
+		A0C284081E1FB00D00A97707 /* FullBankInfomationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullBankInfomationVC.swift; sourceTree = "<group>"; };
+		A0C2840A1E1FB24400A97707 /* ValidationPhoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationPhoneVC.swift; sourceTree = "<group>"; };
+		A0C2840C1E1FBCA700A97707 /* SuccessWithdrawVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessWithdrawVC.swift; sourceTree = "<group>"; };
+		A0C2840E1E1FBD1A00A97707 /* SuccessChargeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessChargeVC.swift; sourceTree = "<group>"; };
 		B02DB25B1DF985B70044F910 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		B058E36D1E1D40DA0046720D /* SocketHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketHelper.swift; sourceTree = "<group>"; };
 		B058E36F1E1D429F0046720D /* LocalSocketHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSocketHelper.swift; sourceTree = "<group>"; };
@@ -563,6 +573,11 @@
 			children = (
 				BF04793C1E0FBF5000C511E7 /* RechargeVC.swift */,
 				A08CB39A1E1E1A8A004BE44B /* RechargeListVC.swift */,
+				A0C284001E1FAE1600A97707 /* BindingBankVC.swift */,
+				A0C2840A1E1FB24400A97707 /* ValidationPhoneVC.swift */,
+				A0C284081E1FB00D00A97707 /* FullBankInfomationVC.swift */,
+				A0C2840C1E1FBCA700A97707 /* SuccessWithdrawVC.swift */,
+				A0C2840E1E1FBD1A00A97707 /* SuccessChargeVC.swift */,
 			);
 			path = RechageVC;
 			sourceTree = "<group>";
@@ -1446,9 +1461,11 @@
 				BF2F643D1E038DFE00917FA1 /* RBStoryboardPushSegue.m in Sources */,
 				A08CB39B1E1E1A8A004BE44B /* RechargeListVC.swift in Sources */,
 				BF04793D1E0FBF5000C511E7 /* RechargeVC.swift in Sources */,
+				A0C2840F1E1FBD1A00A97707 /* SuccessChargeVC.swift in Sources */,
 				BF2F643F1E038DFE00917FA1 /* UIViewController+RBStoryboardLink.m in Sources */,
 				BF062B471E04DEC900618B1B /* MainTabBarController.swift in Sources */,
 				BF9CD7461E0A549900194A32 /* DealApi.swift in Sources */,
+				A0C284011E1FAE1600A97707 /* BindingBankVC.swift in Sources */,
 				BF2F64411E038DFE00917FA1 /* BaseModel.swift in Sources */,
 				D03831471E1344F400D54295 /* MyMessageController.swift in Sources */,
 				BF2F64351E038DFE00917FA1 /* UIViewController+Extension.swift in Sources */,
@@ -1487,6 +1504,7 @@
 				BF5E24801E10B00700B5C07A /* MyDealTableView.swift in Sources */,
 				D0C514731E0BE199005454F4 /* CSMenuViewSubCell.swift in Sources */,
 				BF2F64321E038DFE00917FA1 /* UIFont+Extension.swift in Sources */,
+				A0C2840B1E1FB24400A97707 /* ValidationPhoneVC.swift in Sources */,
 				BF43EAD51E1D17FA0014B0EE /* HistoryDealVC.swift in Sources */,
 				BF2F642C1E038DFE00917FA1 /* BaseCustomTableViewController.swift in Sources */,
 				BF062B4F1E04E01100618B1B /* LoginNav.swift in Sources */,
@@ -1512,10 +1530,12 @@
 				BF9CD7541E0A574100194A32 /* ShareSocketApi.swift in Sources */,
 				A0B5D45C1E1DE14B0029C7BA /* SortModel.swift in Sources */,
 				BFAC331F1E135FC1008EF3D3 /* DealInfo.swift in Sources */,
+				A0C2840D1E1FBCA700A97707 /* SuccessWithdrawVC.swift in Sources */,
 				BF2F642A1E038DFE00917FA1 /* SocketRequestManage.swift in Sources */,
 				BFA73BAA1E0B9D070079934F /* SideVC.swift in Sources */,
 				D03831441E1344F400D54295 /* FeedbackController.swift in Sources */,
 				BFAC32861E123A2E008EF3D3 /* ShareTableView.swift in Sources */,
+				A0C284091E1FB00D00A97707 /* FullBankInfomationVC.swift in Sources */,
 				A08CB3A11E1E5387004BE44B /* WithDrawaListVC.swift in Sources */,
 				BF9CD7591E0A57C200194A32 /* CommenApi.swift in Sources */,
 				BF2F643A1E038DFE00917FA1 /* RBStoryboardLink.m in Sources */,
