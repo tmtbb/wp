@@ -34,9 +34,20 @@ class SocketConst: NSObject {
         case flowDetails = 1009
         //银行卡列表
         case bankcardList = 1010
-
-        
-        
+        //银行卡详情
+        case bingcard = 1011
+        //解绑银行卡
+        case unbindcard = 1012
+        //充值列表
+        case creditlist = 1013
+        //充值详情
+        case creditdetail = 1014
+        //银行卡提现
+        case withdrawcash = 1015
+        //提现列表
+        case withdrawlist = 1016
+        //提现详情
+        case withdrawdetail = 1017
         // 我的晒单
         case userShare = 10010
          // 充值列表
@@ -47,7 +58,6 @@ class SocketConst: NSObject {
         case withdrawList = 10013
         // 提现
         case withdrawCash = 10014
-        
         //仓位列表
         case currentDeals = 2000
         //仓位详情
@@ -62,6 +72,9 @@ class SocketConst: NSObject {
         case sellOutDeal = 2005
         //修改持仓
         case changeDeal = 2006
+        //测试
+        case test = 20000
+        
 
     }
     enum type:UInt8 {
@@ -75,7 +88,7 @@ class SocketConst: NSObject {
         static let count = "count_"
         static let share_id = "share_id_"
         static let page_type = "page_type_"
-        static let uid = "uid_"
+        static let uid = "id"
         static let from_uid = "from_uid_"
         static let to_uid = "to_uid_"
         static let order_id = "order_id_"
@@ -101,7 +114,6 @@ class SocketConst: NSObject {
         static let cardNo = "cardNo"
         static let name = "name"
         static let bankId = "bankId"
-        static let vCode = "vCode"
         static let source = "source"
         static let memberId = "memberId"
         static let agentId = "agentId"

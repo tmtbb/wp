@@ -20,14 +20,21 @@ class HomeVC: BaseTableViewController {
     @IBOutlet weak var variation: UILabel!
     
     //MARK: --LIFECYCLE
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        translucent(clear: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerNotify()
         initData()
         initUI()
+        self.title = ""
         let images: [String] = ["1", "1", "1"]
         let contentSourceArray: [String] = ["这是一条重大新闻","吃货节到了钱包准备好了吗","独家福利来就送!"]
         tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray)
+        tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0) 
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -70,6 +77,16 @@ class HomeVC: BaseTableViewController {
             make.width.equalTo(300)
         }
         return sunView
+    }
+    //MARK: --DATA
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        if offsetY > 64 {
+            translucent(clear: false)
+        }
+        if offsetY < 64 {
+            translucent(clear: true)
+        }
     }
     
     //MARK: --DATA

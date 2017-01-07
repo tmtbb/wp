@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dgh-Id-UDr">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11761" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dgh-Id-UDr">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,7 +30,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="an5-md-1bd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2828" y="-125"/>
+            <point key="canvasLocation" x="-2836" y="-222"/>
         </scene>
         <!--Storyboard Link-->
         <scene sceneID="1tO-Rs-k41">
@@ -51,13 +51,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n9a-o2-5lx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1863" y="749"/>
+            <point key="canvasLocation" x="-1854" y="635"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AkG-qg-kwh">
             <objects>
                 <navigationController id="AtV-31-VPY" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="VUW-Uc-ds6">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VUW-Uc-ds6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -67,9 +67,9 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3M-Cl-jy0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1862" y="-125"/>
+            <point key="canvasLocation" x="-1886" y="-222"/>
         </scene>
-        <!--首页-->
+        <!--HomeVC-->
         <scene sceneID="DMI-DH-Qr7">
             <objects>
                 <tableViewController id="B3w-gW-dIN" customClass="HomeVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
@@ -373,13 +373,59 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Section-4" id="lzH-RY-H25">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="3Sy-Ba-Qli">
+                                        <rect key="frame" x="0.0" y="323" width="375" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Sy-Ba-Qli" id="aTZ-eH-MGB">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ii4-92-QgV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Ii4-92-QgV" firstAttribute="leading" secondItem="aTZ-eH-MGB" secondAttribute="leading" id="6XB-2q-1IW"/>
+                                                <constraint firstItem="Ii4-92-QgV" firstAttribute="top" secondItem="aTZ-eH-MGB" secondAttribute="top" id="75j-dg-RmJ"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ii4-92-QgV" secondAttribute="bottom" id="DKr-9z-FOU"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ii4-92-QgV" secondAttribute="trailing" id="eiq-uF-CBZ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Section-5" id="9VT-os-m4B">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="i8e-eL-v2q">
+                                        <rect key="frame" x="0.0" y="451" width="375" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="i8e-eL-v2q" id="AQc-3N-bsu">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="ALh-U4-qHw">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="ALh-U4-qHw" secondAttribute="trailing" id="cZC-0w-geo"/>
+                                                <constraint firstItem="ALh-U4-qHw" firstAttribute="leading" secondItem="AQc-3N-bsu" secondAttribute="leading" id="hVG-Av-Nmk"/>
+                                                <constraint firstAttribute="bottom" secondItem="ALh-U4-qHw" secondAttribute="bottom" id="nIY-1R-Bra"/>
+                                                <constraint firstItem="ALh-U4-qHw" firstAttribute="top" secondItem="AQc-3N-bsu" secondAttribute="top" id="ySv-EY-n58"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="B3w-gW-dIN" id="gi6-Eb-68p"/>
                             <outlet property="delegate" destination="B3w-gW-dIN" id="sbQ-bc-9E9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="首页" id="bNI-BL-mNB"/>
+                    <navigationItem key="navigationItem" id="bNI-BL-mNB"/>
                     <connections>
                         <outlet property="gradient" destination="l3P-hs-gAB" id="h8B-fq-q3t"/>
                         <outlet property="highestPrice" destination="eka-K6-PHg" id="2i0-vk-fui"/>

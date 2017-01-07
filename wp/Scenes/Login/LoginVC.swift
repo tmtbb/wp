@@ -47,8 +47,9 @@ class LoginVC: BaseTableViewController {
                 return
             }
             //登录
+            let password = ((pwdText.text! + AppConst.sha256Key).sha256()+phoneText.text!).sha256()
             SVProgressHUD.showProgressMessage(ProgressMessage: "登录中...")
-            AppAPIHelper.login().login(phone: phoneText.text!, pwd: pwdText.text!, complete: { ( result) -> ()? in
+            AppAPIHelper.login().login(phone: phoneText.text!, pwd: password, complete: { ( result) -> ()? in
                 SVProgressHUD.dismiss()
                 //存储用户信息
                 if result != nil{
@@ -62,7 +63,7 @@ class LoginVC: BaseTableViewController {
     }
     
     func loginSuccess() {
-        UserModel.share().currentUser = UserModel.userInfo(userId: UserModel.currentUserId)
+        UserModel.share().currentUser = UserModel.getCurrentUser()
         dismissController()
     }
     

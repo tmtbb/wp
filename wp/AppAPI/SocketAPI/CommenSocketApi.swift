@@ -12,4 +12,8 @@ class CommenSocketApi: BaseSocketAPI, CommenApi {
     func imageToken(complete: CompleteBlock?, error: ErrorBlock?) {
         startRequest(SocketDataPacket.init(opcode: .imageToken), complete: complete, error: error)
     }
+    //测试
+    func test(complete: CompleteBlock?, error:ErrorBlock?){
+       startModelRequest(SocketDataPacket.init(opcode: .test), modelClass: TestModel.self, complete: complete, error: error)
+    }
 }

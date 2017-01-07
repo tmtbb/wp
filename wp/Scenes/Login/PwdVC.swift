@@ -65,7 +65,7 @@ class PwdVC: BaseTableViewController {
                         }
                         self?.performSegue(withIdentifier: NickNameVC.className(), sender: nil)
                     }else{
-                        SVProgressHUD.showErrorMessage(ErrorMessage: "登录失败，请稍后再试", ForDuration: 1, completion: nil)
+                        SVProgressHUD.showErrorMessage(ErrorMessage: "注册失败，请稍后再试", ForDuration: 1, completion: nil)
                     }
                     return nil
                     }, error: errorBlockFunc())

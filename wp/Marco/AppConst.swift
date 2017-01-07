@@ -74,6 +74,7 @@ class AppConst {
         static let RegisterPhoneError = "输入的手机号已注册"
     }
     
+    
     enum Action:UInt {
         case callPhone = 10001
         case handleOrder = 11001
@@ -102,6 +103,7 @@ class AppConst {
         static let BingPhoneVCToPwdVC = "BingPhoneVCToPwdVC"
         static let LoginToBingPhoneVC = "LoginToBingPhoneVC"
         static let RegisterToBingPhoneVC = "RegisterToBingPhoneVC"
+        static let HistoryDealDetailVC = "HistoryDealDetailVC"
     }
     
     

@@ -12,10 +12,10 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
     //登录
     func login(phone: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?){
         let param: [String: Any] = [SocketConst.Key.phone: phone,
-                                    SocketConst.Key.pwd: pwd.sha256(),
+                                    SocketConst.Key.pwd: pwd,
                                     SocketConst.Key.source: 1]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .login, dict: param as [String : AnyObject])
-        startModelRequest(packet, modelClass: UserInfo.self, complete: complete, error: error)
+        startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
     }
     //注册
     func register(phone: String, code: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?){
@@ -30,7 +30,7 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
     }
     //重置密码
     func repwd( pwd: String, code: String, complete: CompleteBlock?, error: ErrorBlock?){
-        let param: [String: Any] = [SocketConst.Key.uid: UserModel.share().currentUser?.id ?? 0,
+        let param: [String: Any] = [SocketConst.Key.uid: UserModel.share().currentUser?.uid ?? 0,
                                     SocketConst.Key.pwd: pwd,
                                     SocketConst.Key.code: code]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .repwd, dict: param as [String : AnyObject])

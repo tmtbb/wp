@@ -8,36 +8,60 @@
 
 import UIKit
 import RealmSwift
+
 class UserModel: BaseModel  {
     private static var model: UserModel = UserModel()
     class func share() -> UserModel {
         return model
     }
     var registerUser: UserInfo?
-    var currentUser: UserInfo?
+    var currentUser: UserInfo? = UserModel.getCurrentUser()
     var code:String?
     var phone:String?
     var forgetPwd:Bool = false
-    
-    
     static var token: String?
     static var currentUserId: Int = 0
     // 获取某个用户信息
-    class func userInfo(userId: Int) -> UserInfo {
+    class func userInfo(userId: Int) -> UserInfo? {
+        if userId == 0 {
+            return nil
+        }
+        
         let realm = try! Realm()
-        let user = realm.objects(UserInfo.self).filter("id = \(userId)").first
+        let filterStr = "uid = \(userId)"
+        let user = realm.objects(UserInfo.self).filter(filterStr).first
         if user != nil{
             return user!
         }else{
-            return UserInfo()
+            return nil
         }
     }
+    
+    //获取当前用户
+    class func getCurrentUser() -> UserInfo? {
+        let id: Int? = UserDefaults.standard.value(forKey: SocketConst.Key.id) as? Int
+        if id == 0 || id == nil{
+            return nil
+        }
+        let user = UserModel.userInfo(userId:id!)
+        if user != nil {
+            return user
+        }else{
+            return nil
+        }
+    }
+    
     // 更新用户信息
     class func upateUserInfo(userObject: AnyObject){
         if let model = userObject as? UserInfoModel {
+            let path = NSHomeDirectory()
+            print(path)
             token = model.token
-            currentUserId = model.userinfo?.id ?? 0
-            let user = model.convertToUserInfo()
+            let user: UserInfo = UserInfo()
+            model.userinfo?.convertToTargetObject(user)
+            currentUserId = user.uid
+            UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
+            
             let realm = try! Realm()
             try! realm.write {
                 realm.add(user, update: true)
