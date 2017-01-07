@@ -11,6 +11,7 @@ import UIKit
 class WithDrawalVC: BasePageListTableViewController {
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
        
         title = "提现"

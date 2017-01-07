@@ -33,7 +33,8 @@ class WithDrawaListVC: BasePageListTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        title = "提现列表"
         
     }
     

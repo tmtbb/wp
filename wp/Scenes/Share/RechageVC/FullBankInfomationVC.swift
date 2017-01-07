@@ -19,11 +19,14 @@ class FullBankInfomationVC: BaseTableViewController {
     
     
     override func viewDidLoad() {
+        
+        title = "输入银行卡信息"
+        
         super.viewDidLoad()
 
       
     }
-    // 网络请求
+     //MARK: 网络请求
     override func didRequest() {
         
         AppAPIHelper.user().creditdetail(rid:1111000011, complete: { (result) -> ()? in
