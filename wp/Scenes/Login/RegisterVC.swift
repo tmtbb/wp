@@ -11,6 +11,7 @@ import UIKit
 import SVProgressHUD
 class RegisterVC: BaseTableViewController {
     
+    @IBOutlet weak var phoneView: UIView!
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var codeText: UITextField!
     @IBOutlet weak var codeBtn: UIButton!
@@ -86,6 +87,8 @@ class RegisterVC: BaseTableViewController {
     //MARK: --UI
     func initUI() {
         self.title = UserModel.share().forgetPwd ? "重置密码":"注册"
+        phoneView.layer.borderWidth = 0.5
+        phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
     }
 
 }

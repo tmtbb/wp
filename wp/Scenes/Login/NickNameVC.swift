@@ -21,6 +21,7 @@ class NickNameVC: BaseTableViewController {
     }
     //MARK: --DATA
     func initData() {
+        //更新用户信息(登录)
         
     }
     //MARK: --UI
@@ -30,10 +31,12 @@ class NickNameVC: BaseTableViewController {
     //MARK: --Function
     @IBAction func finishBtnTapped(_ sender: Any) {
         if checkTextFieldEmpty([nickNameText]){
-            let user = UserInfo()
-            AppAPIHelper.user().userInfo(user: user , complete: { [weak self](result) -> ()? in
-                self?.dismissController()
-            }, error: errorBlockFunc())
+//            let user = UserInfo()
+//            AppAPIHelper.user().userInfo(user: user , complete: { [weak self](result) -> ()? in
+//                self?.dismissController()
+//            }, error: errorBlockFunc())
+            UserModel.share().currentUser?.nickname = nickNameText.text
+            dismissController()
         }
     }
 

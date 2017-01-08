@@ -47,9 +47,7 @@ class DealVC: BaseTableViewController {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "selectDealModel" {
             if DealModel.share().type == .btnTapped {
-                AppAPIHelper.commen().test(complete: { (result) -> ()? in
-                    print(result ?? "nothing")
-                }, error: errorBlockFunc())
+                UserDefaults.standard.removeObject(forKey: SocketConst.Key.id)
                 return
             }
             

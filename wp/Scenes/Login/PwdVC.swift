@@ -63,6 +63,7 @@ class PwdVC: BaseTableViewController {
                                 return nil
                             }
                         }
+                        self?.fetchUserInfo(phone: UserModel.share().phone!, pwd: password)
                         self?.performSegue(withIdentifier: NickNameVC.className(), sender: nil)
                     }else{
                         SVProgressHUD.showErrorMessage(ErrorMessage: "注册失败，请稍后再试", ForDuration: 1, completion: nil)
@@ -72,6 +73,19 @@ class PwdVC: BaseTableViewController {
 
             }
         }
+    }
+    
+    func fetchUserInfo(phone: String, pwd: String) {
+        AppAPIHelper.login().login(phone: phone, pwd: pwd, complete: { ( result) -> ()? in
+            SVProgressHUD.dismiss()
+            //存储用户信息
+            if result != nil{
+                UserModel.upateUserInfo(userObject: result!)
+            }else{
+                SVProgressHUD.showErrorMessage(ErrorMessage: "更新用户信息失败", ForDuration: 1, completion: nil)
+            }
+            return nil
+        }, error: errorBlockFunc())
     }
 
 }

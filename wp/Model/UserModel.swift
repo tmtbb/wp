@@ -70,6 +70,6 @@ class UserModel: BaseModel  {
         }
         
     }
-    // 登录
+    // 删除
     
 }

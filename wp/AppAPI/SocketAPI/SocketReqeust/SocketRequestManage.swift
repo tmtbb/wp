@@ -61,8 +61,6 @@ class SocketRequestManage: NSObject {
         
         objc_sync_enter(self)
         _sessionId = packet.session_id
-//        let socketReqeust = socketRequests[packet.request_id]
-//        socketRequests.removeValue(forKey: packet.request_id)
         let socketReqeust = socketRequests[UInt32(packet.session_id)]
         socketRequests.removeValue(forKey: UInt32(packet.session_id))
         objc_sync_exit(self)
@@ -120,10 +118,8 @@ class SocketRequestManage: NSObject {
         packet.session_id = _sessionId;
         operate_code = Int(packet.operate_code)
         objc_sync_enter(self)
-//        socketRequests[packet.request_id] = socketReqeust;
         socketRequests[UInt32(packet.session_id)] = socketReqeust;
         objc_sync_exit(self)
-//        XCGLogger.debug("Request \(packet.operate_code) \(packet.request_id) \(packet.session_id)")
         sendRequest(packet)
     }
     

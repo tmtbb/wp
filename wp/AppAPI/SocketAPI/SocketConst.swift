@@ -64,9 +64,6 @@ class SocketConst: NSObject {
         case sellOutDeal = 2005
         //修改持仓
         case changeDeal = 2006
-        //测试
-        case test = 20000
-        
 
     }
     enum type:UInt8 {
