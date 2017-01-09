@@ -65,13 +65,9 @@ class SocketRequestManage: NSObject {
         socketRequests.removeValue(forKey: UInt32(packet.session_id))
         objc_sync_exit(self)
         let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
-        if (packet.type == SocketConst.type.error.rawValue) {
-            let dict:NSDictionary? = response.responseJson()
-            var errorCode: Int? = dict?["error_"] as? Int
-            if errorCode == nil {
-                errorCode = -1;
-            }
-            socketReqeust?.onError(errorCode)
+        let statusCode:Int = response.statusCode;
+        if ( statusCode < 0) {
+            socketReqeust?.onError(statusCode)
         } else {
             socketReqeust?.onComplete(response)
         }

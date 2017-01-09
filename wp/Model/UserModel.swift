@@ -40,7 +40,7 @@ class UserModel: BaseModel  {
     //获取当前用户
     class func getCurrentUser() -> UserInfo? {
         let id: Int? = UserDefaults.standard.value(forKey: SocketConst.Key.id) as? Int
-        if id == 0 || id == nil{
+        if id == nil{
             return nil
         }
         let user = UserModel.userInfo(userId:id!)
@@ -57,18 +57,16 @@ class UserModel: BaseModel  {
             let path = NSHomeDirectory()
             print(path)
             token = model.token
-            let user: UserInfo = UserInfo()
-            model.userinfo?.convertToTargetObject(user)
-            currentUserId = user.uid
-            UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
-            
-            let realm = try! Realm()
-            try! realm.write {
-                realm.add(user, update: true)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
+            if let user = model.userinfo {
+                currentUserId = user.uid
+                UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.add(user, update: true)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
+                }
             }
         }
-        
     }
     // 删除
     

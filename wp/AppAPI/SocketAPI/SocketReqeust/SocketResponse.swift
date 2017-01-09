@@ -10,9 +10,9 @@ import UIKit
 
 class SocketResponse {
     fileprivate var body:SocketDataPacket?
-    var statusCode:UInt16? {
+    var statusCode:Int {
         get {
-            return body?.operate_code
+            return Int(body!.operate_code)
         }
     }
     
@@ -26,18 +26,34 @@ class SocketResponse {
 }
 
 class SocketJsonResponse: SocketResponse {
+    private var _jsonOjbect:AnyObject?;
     
+    override var statusCode: Int {
+        get{
+            let dict:NSDictionary? = responseJsonObject() as? NSDictionary
+            var errorCode: Int = 0;
+            if(  dict != nil && dict?["errorCode"] != nil ) {
+                errorCode =  dict?["errorCode"] as! Int;
+            }
+            else {
+                errorCode = 0;
+            }
+            return errorCode;
+        }
+    }
     func responseJsonObject() -> AnyObject? {
         if body?.data?.count == 0  {
             return nil
         }
-        
-        return try! JSONSerialization.jsonObject(with: body!.data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject?
+        if _jsonOjbect == nil {
+            _jsonOjbect = try! JSONSerialization.jsonObject(with: body!.data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject?
+        }
+        return _jsonOjbect
     }
     
     func responseJson<T:NSObject>() ->T? {
         var object = responseJsonObject()
-        if object != nil && T.isKind(of: NSObject.self) {
+        if object != nil && !(T.isKind(of: NSDictionary.self)) && T.isKind(of: NSObject.self) {
             object = responseModel(T.classForCoder())
         }
         return object as? T

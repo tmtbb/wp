@@ -10,19 +10,8 @@ import UIKit
 
 import RealmSwift
 class UserInfoModel: BaseModel {
-    var userinfo: UserInfoModel?
+    var userinfo: UserInfo?
     var token: String?
-    var uid: Int = 0
-    var screenName: String?
-    var memberId: String?
-    var memberName: String?
-    var agentId: String?
-    var agentName: String?
-    var avatarLarge: String?
-    var balance: Int = 0
-    var gender: Int = 0
-    var nickname: String?
-    var phone: String?
 }
 
 class UserInfo: Object {
