@@ -15,25 +15,20 @@ class ShareVCCell: UITableViewCell {
     
     
     var delegate: VistorLoginViewDelegate?
-    /****左边的图片******/
-    @IBOutlet weak var iconImage: UIImageView!
-    /****头像******/
-    @IBOutlet weak var userImage: UIImageView!
-    /****姓名******/
-    @IBOutlet weak var nameLabel: UILabel!
-    /****类型******/
-    @IBOutlet weak var typeLabel: UILabel!
-    /****时间******/
-    @IBOutlet weak var timeLabel: UILabel!
-    /****收益******/
-    @IBOutlet weak var benifityLabel: UILabel!
+    
+    @IBOutlet weak var iconImage: UIImageView!            // 左边的图片
+    @IBOutlet weak var userImage: UIImageView!            // 头像
+    @IBOutlet weak var nameLabel: UILabel!                // 姓名
+    @IBOutlet weak var typeLabel: UILabel!                // 类型
+    @IBOutlet weak var timeLabel: UILabel!                // 时间
+    @IBOutlet weak var benifityLabel: UILabel!           // 收益
     
     
-    ///更新 cell列表
-         func update(_ data: Any!) {
-//            let dataModel = data as! TestModel
-//            nameLabel.text = dataModel.name
-        }
+    //   更新 cell列表
+    func update(_ data: Any!) {
+        //            let dataModel = data as! TestModel
+        //            nameLabel.text = dataModel.name
+    }
 }
 
 class ShareVC: BaseListTableViewController {
@@ -43,14 +38,13 @@ class ShareVC: BaseListTableViewController {
     @IBOutlet weak var monthBtn: UIButton!
     private var lastTypeBtn: UIButton?
     
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         initData()
         initUI()
-        
-      
+    
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -70,11 +64,11 @@ class ShareVC: BaseListTableViewController {
         didRequestComplete(["",""] as AnyObject)
         
         //注释掉  请求接口有的时候再打开
-//        AppAPIHelper.share().getShareData(userId: "123", phone: "15306559323", selectIndex: "1223", pageNumber: "0", complete: { (result ) -> ()? in
-//            
-//            return nil
-//        }, error: errorBlockFunc())
-//        print(errorBlockFunc)
+        //        AppAPIHelper.share().getShareData(userId: "123", phone: "15306559323", selectIndex: "1223", pageNumber: "0", complete: { (result ) -> ()? in
+        //
+        //            return nil
+        //        }, error: errorBlockFunc())
+        //        print(errorBlockFunc)
         
     }
     

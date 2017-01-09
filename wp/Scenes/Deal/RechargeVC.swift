@@ -20,7 +20,7 @@ class RechargeVC: BaseTableViewController {
     @IBOutlet weak var bankNumText: UITextField!
     
     /**充值金额**/
-    @IBOutlet weak var rechargeMoneyLabel: UILabel!
+    @IBOutlet weak var rechargeMoneyLabel: UITextField!
     
     /**充值方式**/
     @IBOutlet weak var rechargeTypeLabel: UILabel!
@@ -51,6 +51,7 @@ class RechargeVC: BaseTableViewController {
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "充值"
         initData()
         initUI()
     }
@@ -71,6 +72,13 @@ class RechargeVC: BaseTableViewController {
     //提交
     @IBAction func submitBtnTapped(_ sender: UIButton) {
         
+        let  story  =  UIStoryboard.init(name: "Share", bundle: nil)
+        
+        let new  = story.instantiateViewController(withIdentifier: "MyWealtVC") 
+        
+        self.navigationController?.pushViewController(new, animated: true)
+        
+        
     }
     //table's datasource and delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -86,7 +94,7 @@ class RechargeVC: BaseTableViewController {
         }
     }
 }
-// 选择支付方式 的view
+//MARK: 选择支付方式 的view
 class ChoosePayType: UIView {
     
         override init(frame: CGRect) {

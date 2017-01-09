@@ -15,7 +15,7 @@ class BindingBankVCCell: OEZTableViewCell {
 
 class BindingBankVC: BaseListTableViewController {
     
-    //添加银行卡
+   //MARK:  添加银行卡
     @IBAction func addBank(_ sender: Any) {
         
         
@@ -24,8 +24,11 @@ class BindingBankVC: BaseListTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "绑定银行卡"
         
     }
+    
+    //MARK:  网络请求
     override func didRequest() {
         
         AppAPIHelper.user().creditdetail(rid:1111000011, complete: { [weak self](result) -> ()? in
@@ -35,7 +38,7 @@ class BindingBankVC: BaseListTableViewController {
         
     }
     
-    //实现银行卡左滑删除的代理
+    //MARK: 实现银行卡左滑删除的代理
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         //        let more = UITableViewRowAction(style: .normal, title: "More") { action, index in
         //        }

@@ -9,14 +9,22 @@
 import UIKit
 class WithDrawaListVCCell: UITableViewCell {
     
-    //姓名lb
-    @IBOutlet weak var nameLb: UILabel!
+    // 时间lb
+    @IBOutlet weak var minuteLb: UILabel!
     
-    //姓名lb
+    // 时间lb
     @IBOutlet weak var timeLb: UILabel!
     
-    //充值金额
-    @IBOutlet weak var moneyCountLb: UILabel!
+    // 银行图片
+    @IBOutlet weak var bankLogo: UIImageView!
+    
+    // 提现金额
+    @IBOutlet weak var moneyLb: UILabel!
+    
+    //  提现至
+    @IBOutlet weak var withDrawTo: UILabel!
+    //状态
+    @IBOutlet weak var statusBtn: UIButton!
     
     //状态
     @IBOutlet weak var statusLb: UILabel!
@@ -33,7 +41,8 @@ class WithDrawaListVC: BasePageListTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        title = "提现记录"
         
     }
     
@@ -41,13 +50,10 @@ class WithDrawaListVC: BasePageListTableViewController {
         
         AppAPIHelper.user().withdrawlist(status: "", pos: 0, count: 10, complete: { [weak self](result) -> ()? in
             
-            self?.didRequestComplete(result)
+            self?.didRequestComplete(["",""] as AnyObject?)
             return nil
             }, error: errorBlockFunc())
         
-    }
-
- 
-  
+    }  
 
 }

@@ -15,11 +15,8 @@ class ValidationPhoneVC: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+       title = "输入手机号"
+        
     }
     override func didRequest() {
         
@@ -29,6 +26,7 @@ class ValidationPhoneVC: BaseTableViewController {
             }, error: errorBlockFunc())
         
     }
+    //MARK: --点击发送验证码
     @IBAction func requestVoiceCode(_ sender: UIButton) {
           self.voiceCodeBtn.isEnabled = false
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateBtnTitle), userInfo: nil, repeats: true)

@@ -99,11 +99,13 @@ class AppConst {
         static let jumpToFeedback = "jumpToFeedback"
         static let jumpToProductGrade = "jumpToProductGrade"
         static let jumpToAttentionUs = "jumpToAttentionUs"
+        static let jumpToMyWealtVC = "jumpToMyWealtVC"
         static let UpdateUserInfo = "UpdateUserInfo"
         static let BingPhoneVCToPwdVC = "BingPhoneVCToPwdVC"
         static let LoginToBingPhoneVC = "LoginToBingPhoneVC"
         static let RegisterToBingPhoneVC = "RegisterToBingPhoneVC"
         static let HistoryDealDetailVC = "HistoryDealDetailVC"
+
     }
     
     
