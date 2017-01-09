@@ -29,10 +29,11 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
         startRequest(packet, complete: complete, error: error)
     }
     //重置密码
-    func repwd( pwd: String, code: String, complete: CompleteBlock?, error: ErrorBlock?){
-        let param: [String: Any] = [SocketConst.Key.uid: UserModel.share().currentUser?.uid ?? 0,
+    func repwd(phone: String, type: Int, pwd: String, code: String, complete: CompleteBlock?, error: ErrorBlock?){
+        let param: [String: Any] = [SocketConst.Key.phone: phone,
                                     SocketConst.Key.pwd: pwd,
-                                    SocketConst.Key.code: code]
+                                    SocketConst.Key.code: code,
+                                    SocketConst.Key.type: type]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .repwd, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }

@@ -168,7 +168,7 @@ extension CSCycleView {
         } else {
             // Fallback on earlier versions
         }
-        RunLoop.main.add(cycleTimer!, forMode: .commonModes)
+//        RunLoop.main.add(cycleTimer!, forMode: .commonModes)
     }
     fileprivate func removeCycleTimer() {
         cycleTimer?.invalidate()//移除

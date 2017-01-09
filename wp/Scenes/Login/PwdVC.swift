@@ -39,12 +39,13 @@ class PwdVC: BaseTableViewController {
                 return
             }else{
                 //重置密码
-                if UserModel.share().forgetPwd {
-                    SVProgressHUD.showProgressMessage(ProgressMessage: "重置中...")
+                if true || UserModel.share().forgetPwd {
+                    SVProgressHUD.showProgressMessage(ProgressMessage: "设定中...")
                     let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
-                    AppAPIHelper.login().repwd(pwd: password, code: UserModel.share().code!, complete: { [weak self](result) -> ()? in
-                        SVProgressHUD.showWainningMessage(WainningMessage: "重置成功", ForDuration: 1, completion: { 
-                            self?.navigationController?.popToRootViewController(animated: true)
+                    AppAPIHelper.login().repwd(phone: UserModel.share().phone!, type: 1,  pwd: password, code: UserModel.share().code!, complete: { [weak self](result) -> ()? in
+                        SVProgressHUD.showWainningMessage(WainningMessage: "设定成功", ForDuration: 1, completion: {
+//                            self?.navigationController?.popToRootViewController(animated: true)
+                            self?.performSegue(withIdentifier: NickNameVC.className(), sender: nil)
                         })
                         return nil
                     }, error: errorBlockFunc())
@@ -52,7 +53,7 @@ class PwdVC: BaseTableViewController {
                 }
                 
                 //注册
-                SVProgressHUD.showProgressMessage(ProgressMessage: "注册中...")
+                SVProgressHUD.showProgressMessage(ProgressMessage: "设置中...")
                 let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
                 AppAPIHelper.login().register(phone: UserModel.share().phone!, code: UserModel.share().code!, pwd: password, complete: { [weak self](result) -> ()? in
                     SVProgressHUD.dismiss()
@@ -64,7 +65,7 @@ class PwdVC: BaseTableViewController {
                             }
                         }
                         self?.fetchUserInfo(phone: UserModel.share().phone!, pwd: password)
-                        self?.performSegue(withIdentifier: NickNameVC.className(), sender: nil)
+                       
                     }else{
                         SVProgressHUD.showErrorMessage(ErrorMessage: "注册失败，请稍后再试", ForDuration: 1, completion: nil)
                     }

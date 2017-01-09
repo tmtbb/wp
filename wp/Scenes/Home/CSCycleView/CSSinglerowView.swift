@@ -180,7 +180,7 @@ extension CSSinglerowView {
         } else {
             // Fallback on earlier versions
         }
-        RunLoop.main.add(singlerTimer!, forMode: .commonModes)
+//        RunLoop.main.add(singlerTimer!, forMode: .commonModes)
     }
     
     fileprivate func removeSinglerViewTimer() {
