@@ -26,7 +26,7 @@ class PwdVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
-        self.title = UserModel.share().forgetPwd ? "重置密码":"注册"
+        
     }
     //MARK: --Function
     @IBAction func nextBtnTapped(_ sender: UIButton) {
@@ -46,6 +46,7 @@ class PwdVC: BaseTableViewController {
                         SVProgressHUD.showWainningMessage(WainningMessage: "设定成功", ForDuration: 1, completion: {
 //                            self?.navigationController?.popToRootViewController(animated: true)
                             self?.performSegue(withIdentifier: NickNameVC.className(), sender: nil)
+                            self?.fetchUserInfo(phone: UserModel.share().phone!, pwd: password)
                         })
                         return nil
                     }, error: errorBlockFunc())
