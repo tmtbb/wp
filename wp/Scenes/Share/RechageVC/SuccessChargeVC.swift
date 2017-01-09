@@ -13,18 +13,16 @@ class SuccessChargeVC: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        title = "充值成功"
     }
 
     override func didReceiveMemoryWarning() {
+        
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+      
     }
-
+    
+    //MARK: --网络请求
     override func didRequest() {
         
         AppAPIHelper.user().creditdetail(rid:1111000011, complete: { (result) -> ()? in

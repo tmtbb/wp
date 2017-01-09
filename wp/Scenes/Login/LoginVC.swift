@@ -11,6 +11,8 @@ import SVProgressHUD
 class LoginVC: BaseTableViewController {
     
     
+    @IBOutlet weak var pwdView: UIView!
+    @IBOutlet weak var phoneView: UIView!
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var pwdText: UITextField!
     //MARK: --LIFECYCLE
@@ -21,17 +23,22 @@ class LoginVC: BaseTableViewController {
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    //MARK: --DATA
+        //MARK: --DATA
     func initData() {
         NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(loginSuccess), name: Notification.Name(rawValue:AppConst.NotifyDefine.UpdateUserInfo), object: nil)
     }
     //MARK: --UI
     func initUI() {
+        phoneView.layer.borderWidth = 0.5
+        phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
+        pwdView.layer.borderWidth = 0.5
+        pwdView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
         
     }
     //MARK: --手机号登录
@@ -43,8 +50,9 @@ class LoginVC: BaseTableViewController {
                 return
             }
             //登录
+            let password = ((pwdText.text! + AppConst.sha256Key).sha256()+phoneText.text!).sha256()
             SVProgressHUD.showProgressMessage(ProgressMessage: "登录中...")
-            AppAPIHelper.login().login(phone: phoneText.text!, pwd: pwdText.text!, complete: { ( result) -> ()? in
+            AppAPIHelper.login().login(phone: phoneText.text!, pwd: password, complete: { ( result) -> ()? in
                 SVProgressHUD.dismiss()
                 //存储用户信息
                 if result != nil{
@@ -59,7 +67,7 @@ class LoginVC: BaseTableViewController {
     }
     
     func loginSuccess() {
-        UserModel.share().currentUser = UserModel.userInfo(userId: UserModel.currentUserId)
+        UserModel.share().currentUser = UserModel.getCurrentUser()
         dismissController()
     }
     
@@ -85,6 +93,15 @@ class LoginVC: BaseTableViewController {
             performSegue(withIdentifier: AppConst.NotifyDefine.LoginToBingPhoneVC, sender: nil)
         }
         
+    }
+
+    //MARK: --忘记密码
+    @IBAction func forgetPwdBtnTapped(_ sender: UIButton) {
+        UserModel.share().forgetPwd = true
+    }
+    //MARK: --快速注册
+    @IBAction func registerBtnTapped(_ sender: UIButton) {
+        UserModel.share().forgetPwd = false
     }
     //MARK: --新浪登录
     @IBAction func sinaBtnTapped(_ sender: UIButton) {

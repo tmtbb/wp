@@ -11,6 +11,7 @@ import UIKit
 import SVProgressHUD
 class RegisterVC: BaseTableViewController {
     
+    @IBOutlet weak var phoneView: UIView!
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var codeText: UITextField!
     @IBOutlet weak var codeBtn: UIButton!
@@ -66,16 +67,9 @@ class RegisterVC: BaseTableViewController {
     @IBAction func registerBtnTapped(_ sender: Any) {
         if checkoutText(){
             if checkTextFieldEmpty([phoneText,codeText,voiceCodeText]){
-                SVProgressHUD.showProgressMessage(ProgressMessage: "注册中...")
-                AppAPIHelper.login().register(phone: phoneText.text!, code: codeText.text!, pwd: voiceCodeText.text!, complete: { [weak self](result) -> ()? in
-                    SVProgressHUD.dismiss()
-                    if result != nil {
-                        self?.performSegue(withIdentifier: PwdVC.className(), sender: nil)
-                    }else{
-                        SVProgressHUD.showErrorMessage(ErrorMessage: "登录失败，请稍后再试", ForDuration: 1, completion: nil)
-                    }
-                    return nil
-                }, error: errorBlockFunc())
+                performSegue(withIdentifier: PwdVC.className(), sender: nil)
+                UserModel.share().code = codeText.text
+                UserModel.share().phone = phoneText.text
             }
         }
     }
@@ -92,7 +86,9 @@ class RegisterVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
-        
+        self.title = UserModel.share().forgetPwd ? "重置密码":"注册"
+        phoneView.layer.borderWidth = 0.5
+        phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
     }
 
 }

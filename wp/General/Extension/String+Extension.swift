@@ -48,17 +48,22 @@ extension String {
             _ = CC_SHA256($0, CC_LONG(data.count), &hash)
         }
         
-        let strData = Data.init(bytes: hash)
-        
-        var str = String.init(data: strData, encoding: .utf8)
-        if str == nil{
-            str = ""
+        let hexBytes = hash.map { String(format: "%02hhx", $0) }
+        return hexBytes.joined()
+    }
+    
+    func sha1() -> String {
+        let data = self.data(using: String.Encoding.utf8)!
+        var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
+        data.withUnsafeBytes {
+            _ = CC_SHA1($0, CC_LONG(data.count), &digest)
         }
-        return str!
+        let hexBytes = digest.map { String(format: "%02hhx", $0) }
+        return hexBytes.joined()
     }
     
     public static func ip() -> String {
-        var addresses = [String]()
+//        var addresses = [String]()
         return ""
     }
 }

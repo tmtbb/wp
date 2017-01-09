@@ -26,7 +26,7 @@ class SocketRequestManage: NSObject {
         _lastConnectedTime = timeNow()
         stop()
         _timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(didActionTimer), userInfo: nil, repeats: true)
-#if false
+#if true
         _socketHelper = APISocketHelper()
 #else
         _socketHelper = LocalSocketHelper()
@@ -61,8 +61,8 @@ class SocketRequestManage: NSObject {
         
         objc_sync_enter(self)
         _sessionId = packet.session_id
-        let socketReqeust = socketRequests[packet.request_id]
-        socketRequests.removeValue(forKey: packet.request_id)
+        let socketReqeust = socketRequests[UInt32(packet.session_id)]
+        socketRequests.removeValue(forKey: UInt32(packet.session_id))
         objc_sync_exit(self)
         let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
         if (packet.type == SocketConst.type.error.rawValue) {
@@ -118,9 +118,8 @@ class SocketRequestManage: NSObject {
         packet.session_id = _sessionId;
         operate_code = Int(packet.operate_code)
         objc_sync_enter(self)
-        socketRequests[packet.request_id] = socketReqeust;
+        socketRequests[UInt32(packet.session_id)] = socketReqeust;
         objc_sync_exit(self)
-//        XCGLogger.debug("Request \(packet.operate_code) \(packet.request_id) \(packet.session_id)")
         sendRequest(packet)
     }
     

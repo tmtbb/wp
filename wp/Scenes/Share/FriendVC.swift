@@ -12,40 +12,24 @@ import Charts
 
 class FriendVC: BaseTableViewController {
     
-    /* ------------------- 头部 ------------------*/
-    /*用户头像*/
-    @IBOutlet weak var headerImage: UIImageView!
-    /*背景图片*/
-    @IBOutlet weak var bgImage: UIImageView!
-    /*消息内容*/
-    @IBOutlet weak var wainningText: UITextField!
+  
     
+    @IBOutlet weak var headerImage: UIImageView!             //用户头像
+    @IBOutlet weak var bgImage: UIImageView!                 //背景图片
+    @IBOutlet weak var wainningText: UITextField!            //消息内容
     
-    /* ------------------------------------------*/
-    /*总收益Btn*/
-    @IBOutlet weak var totalBenifityBtn: UIButton!
-    /*总收益Lb*/
-    @IBOutlet weak var totalBenifityLabel: UILabel!
-    /*本月收益Lb*/
-    @IBOutlet weak var monthBenifityLabel: UILabel!
-    /*周收益Lb*/
-    @IBOutlet weak var weekBenifityLabel: UILabel!
-    /*表格视图*/
-    @IBOutlet weak var benifityBarChart: BarChartView!
+    @IBOutlet weak var totalBenifityBtn: UIButton!           //总收益Btn
+    @IBOutlet weak var totalBenifityLabel: UILabel!          //总收益Lb
+    @IBOutlet weak var monthBenifityLabel: UILabel!          //本月收益Lb
+    @IBOutlet weak var weekBenifityLabel: UILabel!          //周收益Lb
+    @IBOutlet weak var benifityBarChart: BarChartView!      //表格视图
     
-    /* ------------------------------------------*/
-    /*好友晒单*/
-    @IBOutlet weak var shareCountLabel: UILabel!
-    /*本月分享晒单数目*/
-    @IBOutlet weak var monthShareLabel: UILabel!
-    /*周分享晒单数目*/
-    @IBOutlet weak var weekShareLabel: UILabel!
-    /*本天分享晒单数目*/
-    @IBOutlet weak var dayShareLabel: UILabel!
-    /*判断点击的数目刷新区的row的行数*/
-    private var index: NSInteger = 0
-    /*判断点击的btn*/
-    private var lastTypeBtn: UIButton?
+    @IBOutlet weak var shareCountLabel: UILabel!            //好友晒单
+    @IBOutlet weak var monthShareLabel: UILabel!            //本月分享晒单数目
+    @IBOutlet weak var weekShareLabel: UILabel!             //周分享晒单数目
+    @IBOutlet weak var dayShareLabel: UILabel!              //本天分享晒单数目
+    private var index: NSInteger = 0                        //判断点击的数目刷新区的row的行数
+    private var lastTypeBtn: UIButton?                      //判断点击的btn
     
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
@@ -86,7 +70,7 @@ class FriendVC: BaseTableViewController {
         
         
     }
-    /* 刷新列表页数据 */
+     // 刷新列表页数据  
     func initBenifityBarChartData() {
         let values = [20.0, 4.0, 6.0, 25.0, 13.0]
         

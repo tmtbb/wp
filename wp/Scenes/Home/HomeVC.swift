@@ -84,15 +84,10 @@ class HomeVC: BaseTableViewController {
         }
         return sunView
     }
-    //MARK: --DATA
+    //MARK: --监听滑动
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-//        if offsetY >= 100 {
-//            translucent(clear: false)
-//        }
-//        if offsetY < 100 {
-//            translucent(clear: true)
-//        }
+//        let offsetY = scrollView.contentOffset.y
+        
     }
     
     //MARK: --DATA
@@ -165,8 +160,9 @@ class HomeVC: BaseTableViewController {
         let attentionUsVC = AttentionUsController()
         navigationController?.pushViewController(attentionUsVC, animated: true)
     }
+    //通知跳转到资金页面
     func jumpToMyWealtVC() {
-        
+      
     }
     
     //MARK: -- 跳转到交易tabBar上

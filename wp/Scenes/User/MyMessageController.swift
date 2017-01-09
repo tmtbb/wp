@@ -16,8 +16,17 @@ class MyMessageController: BaseTableViewController {
         // Do any additional setup after loading the view.
         translucent(clear: false)
         tableView.tableFooterView = setupFooterView()
+        let backBtn = UIButton(type: .custom)
+        backBtn.frame = CGRect(x: 15, y: 5, width: 38, height: 38)
+        backBtn.setTitle("返回", for: .normal)
+        backBtn.setTitleColor(UIColor.white, for: .normal)
+        backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
+        
     }
-    
+    func backDidClick() {
+        navigationController?.popToRootViewController(animated: true)
+    }
     func setupFooterView()->(UIView) {
         let footerView =  UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         footerView.backgroundColor = UIColor(rgbHex: 0xE9573E)
@@ -37,6 +46,8 @@ class MyMessageController: BaseTableViewController {
     }
     //监听退出登录按钮
     func quitEnterClick() {
+        userLogout()
+        navigationController?.popToRootViewController(animated: true)
         print("退出登录")
     }
     
