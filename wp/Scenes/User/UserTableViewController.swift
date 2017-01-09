@@ -18,8 +18,7 @@ class UserTableViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-      tableView.backgroundColor = UIColor.orange
-      tableView.separatorColor = UIColor.white
+      
         tableView.isScrollEnabled = false
     }
 
@@ -29,26 +28,26 @@ class UserTableViewController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
-        }
-        if section == 1 {
+        if section == 5 {
            
-            return 5
+            return 10
         }
-        else {
-            return 2
-        }
+        return 0
     }
+    @IBAction func myPropertyDidClick(_ sender: Any) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil, userInfo: nil)
+    }
+    
+    @IBAction func myMessageDidClick(_ sender: Any) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyMessage), object: nil, userInfo: nil)
+        sideMenuController?.toggle()
+    }
+    
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let section =  indexPath.section
         switch section {
-        case 0:
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyMessage), object: nil, userInfo: nil)
-            sideMenuController?.toggle()
-            print("个人资料")
         case 1:
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyAttention), object: nil, userInfo: nil)
             sideMenuController?.toggle()
@@ -82,9 +81,6 @@ class UserTableViewController: BaseTableViewController {
        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    @IBAction func loginOut(_ sender: UIButton) {
-        userLogout()
-        sideMenuController?.toggle()
-    }
+  
    
 }

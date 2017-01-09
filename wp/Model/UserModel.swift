@@ -40,7 +40,7 @@ class UserModel: BaseModel  {
     //获取当前用户
     class func getCurrentUser() -> UserInfo? {
         let id: Int? = UserDefaults.standard.value(forKey: SocketConst.Key.id) as? Int
-        if id == 0 || id == nil{
+        if id == nil{
             return nil
         }
         let user = UserModel.userInfo(userId:id!)
