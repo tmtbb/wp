@@ -242,6 +242,12 @@
 		D03831481E1344F400D54295 /* MyPushController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D038313F1E1344F400D54295 /* MyPushController.swift */; };
 		D03831491E1344F400D54295 /* ProductGradeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03831401E1344F400D54295 /* ProductGradeController.swift */; };
 		D038314A1E1344F400D54295 /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03831411E1344F400D54295 /* UserTableViewController.swift */; };
+		D06074F51E233DE70028EB32 /* MyAttentionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06074F31E233DE70028EB32 /* MyAttentionCell.swift */; };
+		D06074F61E233DE70028EB32 /* MyAttentionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06074F41E233DE70028EB32 /* MyAttentionCell.xib */; };
+		D06074F91E23576B0028EB32 /* MyPushCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06074F71E23576B0028EB32 /* MyPushCell.swift */; };
+		D06074FA1E23576B0028EB32 /* MyPushCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06074F81E23576B0028EB32 /* MyPushCell.xib */; };
+		D060751B1E236B3B0028EB32 /* DealPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D060751A1E236B3B0028EB32 /* DealPasswordVC.swift */; };
+		D060751D1E236B5F0028EB32 /* EnterPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D060751C1E236B5F0028EB32 /* EnterPasswordVC.swift */; };
 		D0C5146D1E0BE199005454F4 /* CSCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C514631E0BE199005454F4 /* CSCycleCell.swift */; };
 		D0C5146E1E0BE199005454F4 /* CSCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C514641E0BE199005454F4 /* CSCycleView.swift */; };
 		D0C5146F1E0BE199005454F4 /* CSMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C514661E0BE199005454F4 /* CSMenuView.swift */; };
@@ -504,6 +510,12 @@
 		D038313F1E1344F400D54295 /* MyPushController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPushController.swift; sourceTree = "<group>"; };
 		D03831401E1344F400D54295 /* ProductGradeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductGradeController.swift; sourceTree = "<group>"; };
 		D03831411E1344F400D54295 /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
+		D06074F31E233DE70028EB32 /* MyAttentionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAttentionCell.swift; sourceTree = "<group>"; };
+		D06074F41E233DE70028EB32 /* MyAttentionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyAttentionCell.xib; sourceTree = "<group>"; };
+		D06074F71E23576B0028EB32 /* MyPushCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPushCell.swift; sourceTree = "<group>"; };
+		D06074F81E23576B0028EB32 /* MyPushCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyPushCell.xib; sourceTree = "<group>"; };
+		D060751A1E236B3B0028EB32 /* DealPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealPasswordVC.swift; sourceTree = "<group>"; };
+		D060751C1E236B5F0028EB32 /* EnterPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterPasswordVC.swift; sourceTree = "<group>"; };
 		D0C514631E0BE199005454F4 /* CSCycleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSCycleCell.swift; sourceTree = "<group>"; };
 		D0C514641E0BE199005454F4 /* CSCycleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSCycleView.swift; sourceTree = "<group>"; };
 		D0C514661E0BE199005454F4 /* CSMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMenuView.swift; sourceTree = "<group>"; };
@@ -1177,6 +1189,7 @@
 		D03831381E1344F400D54295 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				D06074F21E233CF00028EB32 /* CustomView */,
 				A0A2E5C41E22666E0091D913 /* Mywealth */,
 				D03831411E1344F400D54295 /* UserTableViewController.swift */,
 				D038313E1E1344F400D54295 /* MyMessageController.swift */,
@@ -1187,8 +1200,21 @@
 				D038313B1E1344F400D54295 /* FeedbackController.swift */,
 				D03831401E1344F400D54295 /* ProductGradeController.swift */,
 				D03831391E1344F400D54295 /* AttentionUsController.swift */,
+				D060751A1E236B3B0028EB32 /* DealPasswordVC.swift */,
+				D060751C1E236B5F0028EB32 /* EnterPasswordVC.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		D06074F21E233CF00028EB32 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				D06074F31E233DE70028EB32 /* MyAttentionCell.swift */,
+				D06074F41E233DE70028EB32 /* MyAttentionCell.xib */,
+				D06074F71E23576B0028EB32 /* MyPushCell.swift */,
+				D06074F81E23576B0028EB32 /* MyPushCell.xib */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		D0C514621E0BE199005454F4 /* CSCycleView */ = {
@@ -1390,6 +1416,7 @@
 				BFC1E6821E0D1BC2004A2AFC /* sud.png in Resources */,
 				BFC1E6671E0D1BC2004A2AFC /* horn.png in Resources */,
 				BFC1E6531E0D1BC2004A2AFC /* two@2x.png in Resources */,
+				D06074FA1E23576B0028EB32 /* MyPushCell.xib in Resources */,
 				BFC1E6301E0D1BC2004A2AFC /* detail@2x.png in Resources */,
 				BFC1E66E1E0D1BC2004A2AFC /* icon-2.png in Resources */,
 				BFC1E6791E0D1BC2004A2AFC /* rmb-1.png in Resources */,
@@ -1402,6 +1429,7 @@
 				BF2F644B1E038DFE00917FA1 /* Login.storyboard in Resources */,
 				BFC1E67A1E0D1BC2004A2AFC /* rmb.png in Resources */,
 				BFC1E6481E0D1BC2004A2AFC /* rule-2@2x.png in Resources */,
+				D06074F61E233DE70028EB32 /* MyAttentionCell.xib in Resources */,
 				BFC1E65E1E0D1BC2004A2AFC /* bank@3x.png in Resources */,
 				BFC1E6311E0D1BC2004A2AFC /* dz-hover@2x.png in Resources */,
 				BFC1E62A1E0D1BC2004A2AFC /* bank@2x.png in Resources */,
@@ -1509,6 +1537,7 @@
 				BF2F64291E038DFE00917FA1 /* SocketRequest.swift in Sources */,
 				BF2F64371E038DFE00917FA1 /* TableViewHelper.swift in Sources */,
 				D0C514751E0BE199005454F4 /* CSSinglerowView.swift in Sources */,
+				D06074F51E233DE70028EB32 /* MyAttentionCell.swift in Sources */,
 				BF2CEA3C1E1CCA9A00EEA99E /* BingPhoneVC.swift in Sources */,
 				BF9BE4A21E1FA10800DB5F1A /* BaseMode+Extension.swift in Sources */,
 				BFC1E5BD1E0D1820004A2AFC /* UIView+Extension.swift in Sources */,
@@ -1517,6 +1546,7 @@
 				D0C514711E0BE199005454F4 /* CSMenuViewCell.swift in Sources */,
 				BF9CD7521E0A573400194A32 /* DealSocketApi.swift in Sources */,
 				BF2F642D1E038DFE00917FA1 /* BaseTableViewController.swift in Sources */,
+				D060751D1E236B5F0028EB32 /* EnterPasswordVC.swift in Sources */,
 				BF0479331E0FBDD400C511E7 /* RegisterVC.swift in Sources */,
 				D0302B7A1E1C94DE007D3F2B /* WithdrawModel.swift in Sources */,
 				BF9CD74E1E0A570100194A32 /* UserSocketApi.swift in Sources */,
@@ -1576,7 +1606,9 @@
 				D0C5146D1E0BE199005454F4 /* CSCycleCell.swift in Sources */,
 				BF43EAD31E1D17D80014B0EE /* DealDetailVC.swift in Sources */,
 				BF062B4D1E04DFE500618B1B /* BaseNavigationController.swift in Sources */,
+				D06074F91E23576B0028EB32 /* MyPushCell.swift in Sources */,
 				BF2F642E1E038DFE00917FA1 /* SegmentedViewController.swift in Sources */,
+				D060751B1E236B3B0028EB32 /* DealPasswordVC.swift in Sources */,
 				BFD70FDF1E10F5D700930E8C /* DealModel.swift in Sources */,
 				BF2F643B1E038DFE00917FA1 /* RBStoryboardModalSegue.m in Sources */,
 				BF2F64311E038DFE00917FA1 /* SVProgressHUDExt.swift in Sources */,
