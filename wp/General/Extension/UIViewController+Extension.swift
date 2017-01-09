@@ -50,6 +50,12 @@ extension UIViewController {
             return true
         }
     }
+    //退出登录
+    func userLogout() {
+        UserDefaults.standard.removeObject(forKey: SocketConst.Key.uid)
+        UserModel.share().currentUser = nil
+        tabBarController?.selectedIndex = 0
+    }
     
     //检查text是否为空
     func checkTextFieldEmpty(_ array:[UITextField]) -> Bool {

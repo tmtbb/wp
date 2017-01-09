@@ -82,5 +82,9 @@ class UserTableViewController: BaseTableViewController {
        tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    @IBAction func loginOut(_ sender: UIButton) {
+        userLogout()
+        sideMenuController?.toggle()
+    }
    
 }

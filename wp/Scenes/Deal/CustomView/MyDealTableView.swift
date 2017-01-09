@@ -15,10 +15,13 @@ protocol CellDelegate: NSObjectProtocol {
 class MyDealCell: UITableViewCell {
     var model: PositionModel? {
         didSet{
-            dealNameLabel.text = model?.name
-            countLabel.text = "\(model?.amount)G"
-            priceLabel.text = "\(model?.openPrice)"
-            winLabel.text = "\(model?.grossProfit)"
+            if model == nil {
+                return
+            }
+            dealNameLabel.text = model!.name
+            countLabel.text = "\(model!.amount)G"
+            priceLabel.text = "\(model!.openPrice)"
+            winLabel.text = "\(model!.grossProfit)"
         }
     }
     weak var delegate: CellDelegate?
@@ -61,9 +64,16 @@ class MyDealTableView: UITableView, UITableViewDelegate, UITableViewDataSource, 
         let cell: MyDealCell = tableView.dequeueReusableCell(withIdentifier: "dealCell") as! MyDealCell
         let model = dealTableData?[indexPath.row]
         cell.model = model
+        cell.delegate = self
         return cell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = dealTableData?[indexPath.row]
+        DealModel.share().type = .cellTapped
+        DealModel.share().selectDealModel = model
+    }
     func cellBtnTapped(model: PositionModel) {
+        DealModel.share().type = .btnTapped
         DealModel.share().selectDealModel = model
     }
 }

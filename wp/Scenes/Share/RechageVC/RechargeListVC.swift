@@ -54,13 +54,10 @@ class RechargeListVC: BasePageListTableViewController {
     }
     //测试充值列表
     override func didRequest(_ pageIndex : Int) {
-        
-        AppAPIHelper.user().creditlist(status: "", pos: 0, count: 10, complete: { [weak self](result) -> ()? in
-            
-            let  model = result as! RechargeListModel!
-            
-            self?.didRequestComplete(model?.depositsinfo as AnyObject?)
-            
+
+        AppAPIHelper.user().creditlist(status: "", pos: 0, count: 10, complete: {[weak self] (result) -> ()? in
+            self?.didRequestComplete(result)
+
             return nil
             
         }, error: errorBlockFunc())
