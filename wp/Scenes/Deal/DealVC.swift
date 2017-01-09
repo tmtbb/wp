@@ -46,8 +46,14 @@ class DealVC: BaseTableViewController {
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "selectDealModel" {
-            if let _: PositionModel = change?[.newKey] as! PositionModel? {
-                
+            if DealModel.share().type == .btnTapped {
+                UserDefaults.standard.removeObject(forKey: SocketConst.Key.id)
+                return
+            }
+            
+            if DealModel.share().type == .cellTapped {
+                performSegue(withIdentifier: DealDetailVC.className(), sender: nil)
+                return
             }
         }
     }
@@ -61,7 +67,7 @@ class DealVC: BaseTableViewController {
                 self?.dealTable.dealTableData = resultModel
             }
             return nil
-            }, error: errorBlockFunc())
+        }, error: errorBlockFunc())
     }
     
     //MARK: --UI

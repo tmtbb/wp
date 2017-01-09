@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11761" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Wui-kV-Unx">
-
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -745,7 +743,7 @@
                                                                 <outlet property="priceLabel" destination="Yx6-z0-85B" id="7ff-YM-oWB"/>
                                                                 <outlet property="sellBtn" destination="5Zm-jO-hUp" id="maj-lU-gNK"/>
                                                                 <outlet property="winLabel" destination="RHT-Vj-8pW" id="JCX-V7-Vgz"/>
-                                                                <segue destination="rIG-Yw-hXh" kind="push" trigger="accessoryAction" id="FFR-m0-2sx"/>
+                                                                <segue destination="rIG-Yw-hXh" kind="push" identifier="DealDetailVC" trigger="accessoryAction" id="FFR-m0-2sx"/>
                                                             </connections>
                                                         </tableViewCell>
                                                     </prototypes>
@@ -804,7 +802,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gfQ-uF-OXi" id="4zN-pa-VfH">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -833,7 +831,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QKJ-RG-OaG" id="xGU-fH-LOd">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xin-pF-YRy">
@@ -906,7 +904,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.90196078430000004" green="0.90588235289999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
-                                    <segue destination="rIG-Yw-hXh" kind="push" trigger="accessoryAction" id="Zxc-nK-7bq"/>
+                                    <segue destination="rIG-Yw-hXh" kind="push" identifier="HistoryDealDetailVC" trigger="accessoryAction" id="Zxc-nK-7bq"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -2072,7 +2070,6 @@
             </objects>
             <point key="canvasLocation" x="1128.8" y="259.52023988005999"/>
         </scene>
-
         <!--充值-->
         <scene sceneID="Utp-qR-EH5">
             <objects>
@@ -2484,13 +2481,18 @@
             </objects>
             <point key="canvasLocation" x="1892" y="260"/>
         </scene>
-
     </scenes>
     <resources>
+        <image name="bank.png" width="15" height="12"/>
+        <image name="bankNum.png" width="15" height="11"/>
+        <image name="bankRead.png" width="14" height="15"/>
+        <image name="banner.png" width="320" height="138"/>
         <image name="detail.png" width="12" height="12"/>
         <image name="next.png" width="7" height="12"/>
         <image name="quan.png" width="14" height="11"/>
         <image name="rmb.png" width="12" height="13"/>
+        <image name="sud-2.png" width="15" height="15"/>
+        <image name="sud.png" width="11" height="11"/>
         <image name="wain.png" width="10" height="10"/>
     </resources>
     <inferredMetricsTieBreakers>

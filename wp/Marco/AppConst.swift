@@ -19,6 +19,10 @@ func isTelNumber(num: String)->Bool
 
 
 class AppConst {
+    static let DefaultPageSize = 15
+    static let UMAppkey = "584a3eb345297d271600127e"
+    static let isMock = false
+    static let sha256Key = "t1@s#df!"
     
     class Color {
         static let C0 = UIColor(rgbHex:0x131f32)
@@ -69,18 +73,12 @@ class AppConst {
         static let PhoneFormat = "^1[3|4|5|7|8][0-9]\\d{8}$"
         static let RegisterPhoneError = "输入的手机号已注册"
     }
-    static let DefaultPageSize = 15
+    
     
     enum Action:UInt {
         case callPhone = 10001
         case handleOrder = 11001
     }
-    
-    static let UMAppkey = "584a3eb345297d271600127e"
-    
-
-    static let isMock = false
-
 
     class WechatKey {
         static let Scope = "snsapi_userinfo"
@@ -105,6 +103,7 @@ class AppConst {
         static let BingPhoneVCToPwdVC = "BingPhoneVCToPwdVC"
         static let LoginToBingPhoneVC = "LoginToBingPhoneVC"
         static let RegisterToBingPhoneVC = "RegisterToBingPhoneVC"
+        static let HistoryDealDetailVC = "HistoryDealDetailVC"
     }
     
     

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import SVProgressHUD
+
 class BaseTableViewController: UITableViewController , TableViewHelperProtocol {
     
     var tableViewHelper:TableViewHelper = TableViewHelper();
@@ -25,6 +27,7 @@ class BaseTableViewController: UITableViewController , TableViewHelperProtocol {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         MobClick.beginLogPageView(NSStringFromClass(self.classForCoder))
+        SVProgressHUD.dismiss()
     }
     //MARK:TableViewHelperProtocol
     func isCacheCellHeight() -> Bool {
