@@ -31,11 +31,11 @@ class CSSinglerowView: UIView {
     //背景颜色
     var backColor : UIColor? {
         didSet {
-            collectionView.backgroundColor = UIColor.clear
+            collectionView.backgroundColor = backColor
         }
     }
-    var contentTextColor : UIColor = UIColor(rgbHex: 0x666666)
-    var contentFont : UIFont = .systemFont(ofSize: 12)
+    var contentTextColor : UIColor = .white
+    var contentFont : UIFont = .systemFont(ofSize: 13)
     var tagFont : UIFont = .systemFont(ofSize: 11)
     var tagTextColor : UIColor = .red
     var tagBackgroundColor : UIColor = UIColor(red: 230/255, green: 130/255, blue: 110/255, alpha: 1)
@@ -47,7 +47,7 @@ class CSSinglerowView: UIView {
     //MARK: -- 懒加载
     
     fileprivate var contentSource : [String]? = [String]()
-//    fileprivate var tagSource : [String]? = [String]()
+    fileprivate var tagSource : [String]? = [String]()
     
     
     fileprivate lazy var collectionView : UICollectionView = {[weak self] in
@@ -73,9 +73,7 @@ class CSSinglerowView: UIView {
         self.style = scrollStyle
         self.time = roundTime
         self.contentSource = contentSource
-//        self.tagSource = tagSource
-        //点击事件
-        self.isUserInteractionEnabled = true
+        self.tagSource = tagSource
         setupUI()
     }
     
@@ -138,25 +136,25 @@ extension CSSinglerowView : UICollectionViewDataSource {
         cell.contentLabel?.textColor = contentTextColor
         cell.contentLabel?.text = contentSource![indexPath.row % contentSource!.count]
         cell.contentLabel?.font = contentFont
-//        if tagSource!.count > 0 {
-//            
-//            cell.tagLabel?.font = tagFont
-//            cell.tagLabel?.text = tagSource![indexPath.row % tagSource!.count]
-//            if tagBackgroundColors!.count > 0 {
-//                cell.tagLabel?.backgroundColor = tagBackgroundColors![indexPath.row % tagBackgroundColors!.count]
-//            }else {
-//                cell.tagLabel?.backgroundColor = tagBackgroundColor
-//            }
-//            if tagTextColors!.count > 0 {
-//                cell.tagLabel?.textColor = tagTextColors![indexPath.row % tagTextColors!.count]
-//            }else {
-//                cell.tagLabel?.textColor = tagTextColor
-//            }
-//        }else {
-//            cell.tagLabel?.removeFromSuperview()
-
-//        }
-//                    cell.contentLabel?.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
+        if tagSource!.count > 0 {
+            
+            cell.tagLabel?.font = tagFont
+            cell.tagLabel?.text = tagSource![indexPath.row % tagSource!.count]
+            if tagBackgroundColors!.count > 0 {
+                cell.tagLabel?.backgroundColor = tagBackgroundColors![indexPath.row % tagBackgroundColors!.count]
+            }else {
+                cell.tagLabel?.backgroundColor = tagBackgroundColor
+            }
+            if tagTextColors!.count > 0 {
+                cell.tagLabel?.textColor = tagTextColors![indexPath.row % tagTextColors!.count]
+            }else {
+                cell.tagLabel?.textColor = tagTextColor
+            }
+        }else {
+            cell.tagLabel?.removeFromSuperview()
+            cell.contentLabel?.frame = CGRect(x: 5, y: 0, width: self.bounds.width, height: self.bounds.height)
+        }
+        
         return cell
     }
 }
@@ -164,19 +162,25 @@ extension CSSinglerowView : UICollectionViewDataSource {
 extension CSSinglerowView : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        print("点击了第\(indexPath.row % contentSource!.count)个数据")
         self.delegate?.singlerView(self, selectedIndex: indexPath.row % contentSource!.count)
     }
-    
-
     
 }
 //MARK: -- 时间控制器
 extension CSSinglerowView {
     
     fileprivate func addSinglerViewTimer() {
-        singlerTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(scrollToNextPage), userInfo: nil, repeats: true)
-
+        weak var weakSelf = self//解决循环引用
+        
+        if #available(iOS 10.0, *) {
+            singlerTimer = Timer(timeInterval: time!, repeats: true, block: {(timer) in
+                weakSelf!.scrollToNextPage()
+            })
+        } else {
+            // Fallback on earlier versions
+        }
+        RunLoop.main.add(singlerTimer!, forMode: .commonModes)
     }
     
     fileprivate func removeSinglerViewTimer() {
@@ -214,13 +218,13 @@ class CSSinglerowCell: UICollectionViewCell {
         
         return label
         }()
-//    lazy var tagLabel : UILabel? = {[weak self] in
-//        let label = UILabel(frame: CGRect(x: 3, y: (self!.bounds.height - 16) / 2, width: 40, height: 16))
-//        label.layer.cornerRadius = 7
-//        label.layer.masksToBounds = true
-//        label.textAlignment = .center
-//        return label
-//        }()
+    lazy var tagLabel : UILabel? = {[weak self] in
+        let label = UILabel(frame: CGRect(x: self!.bounds.width - 43, y: (self!.bounds.height - 16) / 2, width: 40, height: 16))
+        label.layer.cornerRadius = 7
+        label.layer.masksToBounds = false
+        label.textAlignment = .center
+        return label
+        }()
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupContentUI()
@@ -234,7 +238,7 @@ class CSSinglerowCell: UICollectionViewCell {
     
     func setupContentUI() {
         contentView.addSubview(contentLabel!)
-//        contentView.addSubview(tagLabel!)
+        contentView.addSubview(tagLabel!)
     }
     
 }
