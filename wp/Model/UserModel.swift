@@ -57,25 +57,16 @@ class UserModel: BaseModel  {
             let path = NSHomeDirectory()
             print(path)
             token = model.token
-            let user: UserInfo = UserInfo()
-            model.userinfo?.convertToTargetObject(user)
-            currentUserId = user.uid
-            UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
-            
-            let realm = try! Realm()
-            try! realm.write {
-                realm.add(user, update: true)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
+            if let user = model.userinfo {
+                currentUserId = user.uid
+                UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.add(user, update: true)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
+                }
             }
-//            if let user = model.userinfo {
-//                let realm = try! Realm()
-//                try! realm.write {
-//                    realm.add(user, update: true)
-//                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
-//                }
-//            }
         }
-        
     }
     // 删除
     

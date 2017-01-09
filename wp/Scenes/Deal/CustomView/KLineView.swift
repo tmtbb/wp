@@ -13,6 +13,8 @@ class KLineView: UIView {
     @IBOutlet weak var min15Charts: CombinedChartView!
     @IBOutlet weak var hourCharts: CombinedChartView!
     @IBOutlet weak var dayCharts: CombinedChartView!
+    
+    
     var selectIndex: NSInteger!{
         didSet{
             switch selectIndex {
@@ -49,23 +51,22 @@ class KLineView: UIView {
 
     //MARK: --miuCharts
     func initMiuChartView() {
-        //无图例
-        min15Charts.legend.setCustom(entries: [])
-        miuCharts.legend.setCustom(entries: [])
-        hourCharts.legend.setCustom(entries: [])
-        dayCharts.legend.setCustom(entries: [])
         
-        //无数据
-        min15Charts.noDataText = "暂无数据"
-        miuCharts.noDataText = "暂无数据"
-        hourCharts.noDataText = "暂无数据"
-        dayCharts.noDataText = "暂无数据"
+        for charts in self.subviews {
+            if charts.isKind(of:BarLineChartViewBase.self) {
+                let chartsView = charts as! BarLineChartViewBase
+                chartsView.legend.setCustom(entries: [])
+                chartsView.noDataText = "暂无数据"
+                chartsView.xAxis.labelPosition = .bottom
+                chartsView.xAxis.drawGridLinesEnabled = false
+                chartsView.leftAxis.labelFont = UIFont.systemFont(ofSize: 0)
+                chartsView.leftAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
+                chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
+                
+            }
+        }
         
-        //x轴
-        miuCharts.xAxis.labelPosition = .bottom
-        min15Charts.xAxis.labelPosition = .bottom
-        hourCharts.xAxis.labelPosition = .bottom
-        dayCharts.xAxis.labelPosition = .bottom
+        
     }
     
     func initLineChartData() {
@@ -101,23 +102,24 @@ class KLineView: UIView {
         set2.colors = [UIColor.green]
         
         let data: LineChartData  = LineChartData.init(dataSets: [set,set1,set2])
-        
+        miuCharts.data = data
         let combinData: CombinedChartData = CombinedChartData.init()
         combinData.lineData = data
-        miuCharts.data = combinData
+        
+        
     }
     
     func initCandleStickData() {
         
-        let H = [7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0]
-        let L = [1.0,2.0,3.0,4.0,5.0,4.0,3.0,2.0,1.0,1.0]
-        let O = [3.0,4.0,5.0,6.0,7.0,6.0,5.0,4.0,3.0,2.0]
-        let C = [7.0,6.0,4.0,5.0,3.0,4.0,5.0,6.0,7.0,2.0]
+        let H = [0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,0]
+        let L = [0,1.0,2.0,3.0,4.0,5.0,4.0,3.0,2.0,1.0,1.0,0]
+        let O = [0,3.0,4.0,5.0,6.0,7.0,6.0,5.0,4.0,3.0,2.0,0]
+        let C = [0,7.0,6.0,4.0,5.0,3.0,4.0,5.0,6.0,7.0,2.0,0]
         
         var entrys: [CandleChartDataEntry] = []
         for  i  in 0...H.count-1 {
             let entry = CandleChartDataEntry.init(x: Double(i+1), shadowH: H[i], shadowL: L[i], open: O[i], close: C[i])
-            entrys.append(entry)
+            entrys.append(i == 0 ? CandleChartDataEntry() : entry)
         }
         
         let set: CandleChartDataSet = CandleChartDataSet.init(values: entrys, label: nil)
