@@ -20,7 +20,7 @@ class RechargeVC: BaseTableViewController {
     @IBOutlet weak var bankNumText: UITextField!
     
     /**充值金额**/
-    @IBOutlet weak var rechargeMoneyLabel: UILabel!
+    @IBOutlet weak var rechargeMoneyLabel: UITextField!
     
     /**充值方式**/
     @IBOutlet weak var rechargeTypeLabel: UILabel!

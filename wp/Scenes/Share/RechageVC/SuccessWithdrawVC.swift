@@ -10,6 +10,15 @@ import UIKit
 
 class SuccessWithdrawVC: BaseTableViewController {
 
+    // 银行名称
+    @IBOutlet weak var bankName: UILabel!
+    
+    // 提现金额
+    @IBOutlet weak var moneyAccount: UILabel!
+    
+    // 状态
+    @IBOutlet weak var status: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,7 +28,7 @@ class SuccessWithdrawVC: BaseTableViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+       
     }
 
     override func didRequest() {

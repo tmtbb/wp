@@ -16,12 +16,13 @@ class MyWealtVC: BaseListTableViewController {
     
     
     var monthLb  : UILabel = UILabel()
-     override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
-      //注册cell
+        //注册cell
         
-        
-      
+        title  = "我的资产"
+        print("%f",NSStringFromCGRect(tableView.frame))
+        tableView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height-60)
         headerView = UIView.init(frame:CGRect.init(x: 0, y: 0, width:self.view.frame.size.width, height: 40))
         
         
@@ -30,79 +31,42 @@ class MyWealtVC: BaseListTableViewController {
         
         headerView.addSubview(monthLb)
         
+        
+        
     }
     override func didRequest() {
-              didRequestComplete([] as AnyObject)
-//        
-//        //注释掉  请求接口有的时候再打开
-//        //        AppAPIHelper.share().getShareData(userId: "123", phone: "15306559323", selectIndex: "1223", pageNumber: "0", complete: { (result ) -> ()? in
-//        //
-//        //            return nil
-//        //        }, error: errorBlockFunc())
-//        //        print(errorBlockFunc)
-//        
-//        
-  }
-        override func numberOfSections(in tableView: UITableView) -> Int{
+        didRequestComplete([] as AnyObject)
+        //
+        //        //注释掉  请求接口有的时候再打开
+        //        //        AppAPIHelper.share().getShareData(userId: "123", phone: "15306559323", selectIndex: "1223", pageNumber: "0", complete: { (result ) -> ()? in
+        //        //
+        //        //            return nil
+        //        //        }, error: errorBlockFunc())
+        //        //        print(errorBlockFunc)
+        //
+        //
+    }
     
-            return 10
-     }
-
-  
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
-        return 10
-    }
-
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        
-        if section == 0 {
-            headerView = UIView.init(frame:CGRect.init(x: 0, y: 0, width:self.view.frame.size.width, height: 40))
-            
-            
-            monthLb = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
-            monthLb.text = "12 月"
-            
-            headerView.addSubview(monthLb)
-            
-            self.monthLb.text = "本月收益"
-            return headerView
-            
-        }
-        if section == 1 {
-            
-            headerView = UIView.init(frame:CGRect.init(x: 0, y: 0, width:self.view.frame.size.width, height: 40))
-            
-            
-            monthLb = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
-            monthLb.text = "12 月"
-            
-            headerView.addSubview(monthLb)
-            self.monthLb.text = "12"
-            return headerView
-            
-        }
-        
-        return headerView
-    }
-    override   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-    
-        return 40
-    }
-   override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
-    
-        return 0.1
-        
-    }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyWealtVCCell", for: indexPath)
-
-
-        return cell
+        return 1
     }
     
-
-
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return self.view.frame.size.height-131-50
+        
+        
+    }
+    
+    @IBAction func recharge(_ sender: Any) {
+        
+        self.performSegue(withIdentifier: "PushToRechage", sender: nil )
+    }
+    
+    @IBAction func withDraw(_ sender: Any) {
+        //PushWithdraw
+        
+        self.performSegue(withIdentifier: "PushWithdraw", sender: nil )
+    }
 }

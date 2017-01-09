@@ -13,6 +13,7 @@
 		A046BF781E1CDFFB0035A4FA /* WithDrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */; };
 		A08CB39B1E1E1A8A004BE44B /* RechargeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08CB39A1E1E1A8A004BE44B /* RechargeListVC.swift */; };
 		A08CB3A11E1E5387004BE44B /* WithDrawaListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08CB3A01E1E5387004BE44B /* WithDrawaListVC.swift */; };
+		A0A2E5C61E22669B0091D913 /* MyWealthTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A2E5C51E22669B0091D913 /* MyWealthTableView.swift */; };
 		A0B5D45A1E1DDCC60029C7BA /* RechargeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */; };
 		A0B5D45C1E1DE14B0029C7BA /* SortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */; };
 		A0C284011E1FAE1600A97707 /* BindingBankVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C284001E1FAE1600A97707 /* BindingBankVC.swift */; };
@@ -256,6 +257,7 @@
 		A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawalVC.swift; sourceTree = "<group>"; };
 		A08CB39A1E1E1A8A004BE44B /* RechargeListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RechargeListVC.swift; sourceTree = "<group>"; };
 		A08CB3A01E1E5387004BE44B /* WithDrawaListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawaListVC.swift; sourceTree = "<group>"; };
+		A0A2E5C51E22669B0091D913 /* MyWealthTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWealthTableView.swift; sourceTree = "<group>"; };
 		A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RechargeModel.swift; sourceTree = "<group>"; };
 		A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortModel.swift; sourceTree = "<group>"; };
 		A0C284001E1FAE1600A97707 /* BindingBankVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingBankVC.swift; sourceTree = "<group>"; };
@@ -591,6 +593,15 @@
 				A0C2840C1E1FBCA700A97707 /* SuccessWithdrawVC.swift */,
 			);
 			path = WithDrawalVC;
+			sourceTree = "<group>";
+		};
+		A0A2E5C41E22666E0091D913 /* Mywealth */ = {
+			isa = PBXGroup;
+			children = (
+				A01CE17E1E212A0100543E12 /* MyWealtVC.swift */,
+				A0A2E5C51E22669B0091D913 /* MyWealthTableView.swift */,
+			);
+			name = Mywealth;
 			sourceTree = "<group>";
 		};
 		A0C283FF1E1F4D9900A97707 /* ShareModel */ = {
@@ -1150,6 +1161,7 @@
 		D03831381E1344F400D54295 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				A0A2E5C41E22666E0091D913 /* Mywealth */,
 				D03831411E1344F400D54295 /* UserTableViewController.swift */,
 				D038313E1E1344F400D54295 /* MyMessageController.swift */,
 				D038313C1E1344F400D54295 /* MyAttentionController.swift */,
@@ -1159,7 +1171,6 @@
 				D038313B1E1344F400D54295 /* FeedbackController.swift */,
 				D03831401E1344F400D54295 /* ProductGradeController.swift */,
 				D03831391E1344F400D54295 /* AttentionUsController.swift */,
-				A01CE17E1E212A0100543E12 /* MyWealtVC.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1544,6 +1555,7 @@
 				BF2F643A1E038DFE00917FA1 /* RBStoryboardLink.m in Sources */,
 				BF2F642B1E038DFE00917FA1 /* SocketResponse.swift in Sources */,
 				BF2F642F1E038DFE00917FA1 /* NSDateExt.swift in Sources */,
+				A0A2E5C61E22669B0091D913 /* MyWealthTableView.swift in Sources */,
 				BF9CD7501E0A572300194A32 /* HomeSocketApi.swift in Sources */,
 				D0C5146D1E0BE199005454F4 /* CSCycleCell.swift in Sources */,
 				BF43EAD31E1D17D80014B0EE /* DealDetailVC.swift in Sources */,
