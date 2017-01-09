@@ -32,11 +32,11 @@ class SocketJsonResponse: SocketResponse {
         get{
             let dict:NSDictionary? = responseJsonObject() as? NSDictionary
             var errorCode: Int = 0;
-            if( dict != nil ) {
+            if(  dict != nil && dict?["errorCode"] != nil ) {
                 errorCode =  dict?["errorCode"] as! Int;
             }
             else {
-                errorCode = -1;
+                errorCode = 0;
             }
             return errorCode;
         }
