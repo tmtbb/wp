@@ -7,6 +7,9 @@
 //
 
 import UIKit
+//进入下个界面的
+let pushFullbankInformation:String = "pushFullbankInformation"
+//pushInputPhone
 //银行卡视图 cell
 class BindingBankVCCell: OEZTableViewCell {
     
@@ -15,13 +18,7 @@ class BindingBankVCCell: OEZTableViewCell {
 
 class BindingBankVC: BaseListTableViewController {
     
-   //MARK:  添加银行卡
-    @IBAction func addBank(_ sender: Any) {
-        
-        
-                
-    }
-    override func viewDidLoad() {
+      override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "绑定银行卡"
@@ -32,12 +29,19 @@ class BindingBankVC: BaseListTableViewController {
     override func didRequest() {
         
         AppAPIHelper.user().creditdetail(rid:1111000011, complete: { [weak self](result) -> ()? in
-            self?.didRequestComplete(result)
+            self?.didRequestComplete(["",""] as AnyObject)
             return nil
         }, error: errorBlockFunc())
         
     }
-    
+    //MARK:  添加银行卡
+    @IBAction func addBank(_ sender: Any) {
+        
+        self.performSegue(withIdentifier: pushFullbankInformation, sender: nil)
+        
+        
+    }
+
     //MARK: 实现银行卡左滑删除的代理
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         //        let more = UITableViewRowAction(style: .normal, title: "More") { action, index in

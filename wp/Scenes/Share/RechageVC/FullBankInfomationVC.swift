@@ -8,6 +8,9 @@
 
 import UIKit
 
+//进入输入手机号界面
+ let pushInputPhone:String = "pushInputPhone"
+//pushInputPhone
 class FullBankInfomationVC: BaseTableViewController {
 
     // 自动识别
@@ -26,16 +29,23 @@ class FullBankInfomationVC: BaseTableViewController {
 
       
     }
+    @IBAction func nextInputPhone(_ sender: Any) {
+        
+        self.performSegue(withIdentifier: pushInputPhone, sender: nil)
+    }
      //MARK: 网络请求
     override func didRequest() {
         
-        AppAPIHelper.user().creditdetail(rid:1111000011, complete: { (result) -> ()? in
-            //              self?.didRequestComplete(result)
-            return nil
-            }, error: errorBlockFunc())
+//        AppAPIHelper.user().creditdetail(rid:1111000011, complete: { (result) -> ()? in
+//            //              self?.didRequestComplete(result)
+//            return nil
+//            }, error: errorBlockFunc())
         
     }
-
+    override   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        
+        return 2
+    }
     
 
 }

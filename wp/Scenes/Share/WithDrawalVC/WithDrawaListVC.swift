@@ -45,7 +45,7 @@ class WithDrawaListVC: BasePageListTableViewController {
         title = "提现记录"
         
     }
-    
+    //PushWithDrawDetail
     override func didRequest(_ pageIndex : Int) {
         
         AppAPIHelper.user().withdrawlist(status: "", pos: 0, count: 10, complete: { [weak self](result) -> ()? in
@@ -54,6 +54,13 @@ class WithDrawaListVC: BasePageListTableViewController {
             return nil
             }, error: errorBlockFunc())
         
-    }  
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+    
+        self.performSegue(withIdentifier: "PushWithDrawDetail", sender: nil)
+    
+    
+    }
 
 }
