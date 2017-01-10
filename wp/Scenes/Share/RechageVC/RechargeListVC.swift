@@ -8,32 +8,36 @@
 //
 
 import UIKit
-//OEZTableViewCell  UItableViewCell
+//OEZTableViewCell  
 class RechargeListVCCell: OEZTableViewCell {
     
-    // 姓名Lb
-    @IBOutlet weak var nameLb: UILabel!
+    @IBOutlet weak var weekLb: UILabel!            // 姓名Lb
+    @IBOutlet weak var timeLb: UILabel!            // 时间Lb
+    @IBOutlet weak var moneyCountLb: UILabel!      // 充值金额Lb
+    @IBOutlet weak var statusLb: UIButton!         // 状态Lb
+    @IBOutlet weak var minuteLb: UIButton!         // 分秒
+    @IBOutlet weak var bankLogo: UIImageView!      // 银行卡图片
     
-    // 时间Lb
-    @IBOutlet weak var timeLb: UILabel!
+    @IBOutlet weak var withDrawto: UILabel!
     
-    // 充值金额Lb
-    @IBOutlet weak var moneyCountLb: UILabel!
-    
-    // 状态Lb
-    @IBOutlet weak var statusLb: UILabel!
-    
-    
-   
     
     // 刷新cell
     override func update(_ data: Any!) {
         
-//        let model =  data as! RechargeListModel
-//        //打印输出 model.rid
-//        let  s =  String(format: "%x", model.rid)
-//        print(s)
-//        moneyCountLb.text = s;
+        
+        let model = data as! Model
+        
+        self.moneyCountLb.text = model.money
+        
+        self.withDrawto.text = model.depositType == 1 ? "提现至微信" :"提现至银行卡"
+        
+        self.timeLb.text = "\(model.depositTime)"
+        
+        //        let model =  data as! RechargeListModel
+        //        //打印输出 model.rid
+        //        let  s =  String(format: "%x", model.rid)
+        //        print(s)
+        //        moneyCountLb.text = s;
         
         
     }
@@ -43,15 +47,16 @@ class RechargeListVCCell: OEZTableViewCell {
 
 class RechargeListVC: BasePageListTableViewController {
     
-    /**定义全局的数组装 model**/
+    //定义全局的数组装 model
     // var data :  RechargeListModel!
     
     //用来接收偏移量
-     var contentoffset = CGFloat()
+    var contentoffset = CGFloat()
     /** 用来判断刷新列表页第几页 **/
     var pageNumber : Int = 0
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        // 监听选择月份的按钮触发事件
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: ShareModel().selectType), object: nil)
     }
     override func viewDidLoad() {
@@ -60,13 +65,13 @@ class RechargeListVC: BasePageListTableViewController {
         title = "充值列表"
         
         // 监听
-         NotificationCenter.default.addObserver(self, selector: #selector(vaulechange(_:)), name: NSNotification.Name(rawValue: ShareModel().selectMonth), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(vaulechange(_:)), name: NSNotification.Name(rawValue: ShareModel().selectMonth), object: nil)
         
     }
     func vaulechange(_ notice: NSNotification) {
         
         let errorCode: Int = (notice.object as? Int)!
-         self.tableView.isScrollEnabled = true  
+        self.tableView.isScrollEnabled = true
         print(errorCode)
         
         
@@ -75,7 +80,10 @@ class RechargeListVC: BasePageListTableViewController {
     override func didRequest(_ pageIndex : Int) {
         
         AppAPIHelper.user().creditlist(status: "", pos: 0, count: 10, complete: {[weak self] (result) -> ()? in
-           self?.didRequestComplete(["",""] as AnyObject)
+            
+            
+            let Model : RechargeListModel = result as! RechargeListModel
+            self?.didRequestComplete(Model.depositsinfo as AnyObject)
             
             return nil
             
@@ -83,13 +91,7 @@ class RechargeListVC: BasePageListTableViewController {
         
     }
     
-    //MARK: ---tableView代理
-    
-    override  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 10
-    }
-    
+    //MARK: ---tableView delegate和datasourcec
     override  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let  headerView  = UIView ()
@@ -103,18 +105,19 @@ class RechargeListVC: BasePageListTableViewController {
             
             monthLb.textColor = UIColor.init(hexString: "333333")
             
-            monthLb.font = UIFont.systemFont(ofSize: 15)
+            monthLb.font = UIFont.systemFont(ofSize: 16)
             
             headerView.addSubview(monthLb)
             
             
             let dateBtn :UIButton  = UIButton.init(type: UIButtonType.custom)
-
-//            dateBtn.setTitle("", for: <#T##UIControlState#>)
-            dateBtn.frame = CGRect.init(x: self.view.frame.size.width-100, y: 10, width: 80, height: 20)
             
-            dateBtn.backgroundColor = UIColor.red
-            dateBtn.setTitle("月份", for: UIControlState.normal)
+            //            dateBtn.setTitle("", for: <#T##UIControlState#>)
+            dateBtn.frame = CGRect.init(x: self.view.frame.size.width-80, y: 8, width: 23, height: 23)
+            
+            dateBtn.setBackgroundImage(UIImage.init(named: "calendar"), for: UIControlState.normal)
+            
+            //            dateBtn.setTitle("月份", for: UIControlState.normal)
             
             dateBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             
@@ -125,7 +128,7 @@ class RechargeListVC: BasePageListTableViewController {
             return headerView
             
         }
-      
+        
         
         return headerView
     }
@@ -140,24 +143,26 @@ class RechargeListVC: BasePageListTableViewController {
         
     }
     override func scrollViewDidScroll(_ scrollView: UIScrollView){
-    
-     contentoffset   = scrollView.contentOffset.y
+        
+        contentoffset   = scrollView.contentOffset.y
         
         
     }
-    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        
+    }
     //MARK: ---视图添加
-
+    
     func chooseDate(){
         
-    
+        
         let customer : CustomeAlertView = CustomeAlertView.init(frame: CGRect.init(x: 0, y: contentoffset, width: self.view.frame.size.width, height: self.view.frame.size.height))
-
-          self.tableView.isScrollEnabled = false
-          self.view.addSubview(customer)
+        
+        self.tableView.isScrollEnabled = false
+        self.view.addSubview(customer)
         
         
-//        appdele.window?.addSubview(customer)
+        //        appdele.window?.addSubview(customer)
         
     }
     

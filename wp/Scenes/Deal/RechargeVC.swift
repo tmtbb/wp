@@ -9,6 +9,7 @@
 import UIKit
 
 class RechargeVC: BaseTableViewController {
+    @IBOutlet weak var arrow: UIImageView!
     
     //用户账户
     @IBOutlet weak var userIdText: UITextField!
@@ -36,13 +37,12 @@ class RechargeVC: BaseTableViewController {
     //网络请求
     override func didRequest() {
         
-        //        AppAPIHelper.user().creditdetail(rid:1111000011, complete: { [weak self](result) -> ()? in
-        //
-        //
-        //            print(str)
-        //
-        //            return nil
-        //            }, error: errorBlockFunc())
+                AppAPIHelper.user().creditdetail(rid:1111000011, complete: { [weak self](result) -> ()? in
+        
+        
+//                         
+                    return nil
+                    }, error: errorBlockFunc())
         
     }
        //MARK: --UI
@@ -51,6 +51,8 @@ class RechargeVC: BaseTableViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: ShareModel().selectType), object: nil)
     }
     func initUI(){
+        
+        arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
         // 设置 提现记录按钮
         let btn : UIButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 70, height: 30))
         
@@ -70,6 +72,7 @@ class RechargeVC: BaseTableViewController {
         
         
     }
+    //MARK: --属性的变化
     func vaulechange(_ notice: NSNotification) {
         
          let errorCode: Int = (notice.object as? Int)!
@@ -153,6 +156,14 @@ class RechargeVC: BaseTableViewController {
         
         if(indexPath.section==1){
             if(indexPath.row == 3){
+                
+                if selectRow == true {
+                
+                     arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
+                }else{
+                 arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*1.5))
+                
+                }
                 selectRow = !selectRow
                  tableView.reloadSections(IndexSet.init(integer: 2), with: UITableViewRowAnimation.fade)
             }

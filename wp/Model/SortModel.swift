@@ -11,7 +11,7 @@ import UIKit
 class SortModel: BaseModel {
   
     //返回数据的model 
-    var listItem  :  [ListSortModel]?
+    var listItem  :  [ListSortModel]!
     
     //排名 
       var sort  :  String?

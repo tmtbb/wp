@@ -9,15 +9,26 @@
 import UIKit
 
 class ValidationPhoneVC: BaseTableViewController {
+    
+    //验证码数字
+    @IBOutlet weak var code: UITextField!
+    
+    // 银行卡交验信息
+    @IBOutlet weak var information: UILabel!
+    
+    // 发送验证码
     @IBOutlet weak var voiceCodeBtn: UIButton!
+    // 定时器
     private var timer: Timer?
+    // 定时器倒计时时间
     private var codeTime = 60
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       title = "输入手机号"
+       title = "验证手机号"
         
     }
+    // 网络请求
     override func didRequest() {
         
         AppAPIHelper.user().creditdetail(rid:1111000011, complete: { (result) -> ()? in
@@ -31,6 +42,7 @@ class ValidationPhoneVC: BaseTableViewController {
           self.voiceCodeBtn.isEnabled = false
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateBtnTitle), userInfo: nil, repeats: true)
     }
+    // 更新倒计时时间
     func updateBtnTitle() {
         if codeTime == 0 {
             voiceCodeBtn.isEnabled = true
