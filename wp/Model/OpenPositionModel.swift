@@ -11,9 +11,9 @@ import UIKit
 class PositionModel: BaseModel {
     var positionId:Int = 0      //仓位id
     var id:Int = 0              //用户id
-    var code:String?            //商品代码
-    var typeCode:String?        //商品类型代码
-    var name:String?            //产品名称
+    var code:String = ""            //商品代码
+    var typeCode:String = ""        //商品类型代码
+    var name:String = ""            //产品名称
     var buySell:Int = 0         //买卖方向	(1-买,2-卖)
     var amount:Int = 0          //持仓手数
     var openPrice:Int = 0       //建仓价格
@@ -28,5 +28,5 @@ class PositionModel: BaseModel {
     var closeType:Int = 0       //平仓类型	1:普通平仓; 2:自动平仓; 3:爆仓平仓; 4:收盘平仓; 5:强制平仓
     var isDeferred:Int = 0      //是否过夜
     var deferred:Int = 0        //累计过夜费
-    var token:String?           //累计过夜费
+    var token:String = ""           //累计过夜费
 }

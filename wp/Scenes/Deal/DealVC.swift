@@ -25,6 +25,7 @@ class DealVC: BaseTableViewController {
     @IBOutlet weak var kLineView: KLineView!
     @IBOutlet weak var minBtn: UIButton!
     @IBOutlet weak var dealTable: MyDealTableView!
+    @IBOutlet weak var titleView: ProductTitleView!
     private var klineBtn: UIButton?
     
     
@@ -41,7 +42,9 @@ class DealVC: BaseTableViewController {
     func initData() {
         //初始化持仓数据
         initDealTableData()
-
+        //初始化下商品数据
+        initProductData()
+        //持仓点击
         DealModel.share().addObserver(self, forKeyPath: "selectDealModel", options: .new, context: nil)
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -58,7 +61,16 @@ class DealVC: BaseTableViewController {
             }
         }
     }
-    //持仓列表数据
+    // 当前列表数据
+    func initProductData() {
+        AppAPIHelper.deal().products(pid: 0, complete: { [weak self](result) -> ()? in
+            if let products: [ProductModel] = result as! [ProductModel]?{
+                self?.titleView.products = products
+            }
+            return nil
+        }, error: errorBlockFunc())
+    }
+    // 持仓列表数据
     func initDealTableData() {
         AppAPIHelper.deal().currentDeals(complete: { [weak self](result) -> ()? in
             if result == nil{
@@ -76,6 +88,10 @@ class DealVC: BaseTableViewController {
         timeBtnTapped(minBtn)
         
     }
+    
+    //MARK: --商品选择
+  
+    
     //MARK: --KlineView and Btns
     @IBAction func timeBtnTapped(_ sender: UIButton) {
         if let btn = klineBtn {

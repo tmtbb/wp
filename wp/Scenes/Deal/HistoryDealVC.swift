@@ -17,7 +17,7 @@ class HistoryDealCell: OEZTableViewCell{
     
     override func update(_ data: Any!) {
         if let model: PositionModel = data as! PositionModel? {
-            nameLabel.text = "\(model.name!)\(model.openCost)(元/千克)"
+            nameLabel.text = "\(model.name)\(model.openCost)(元/千克)"
             timeLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.positionTime)), format: "yyyy.MM.dd HH:mm:ss")
             priceLabel.text = "\(model.openPrice)元/100g"
             winLabel.text = model.limit > 0 ? "止盈\(model.limit*10)%" : "止盈无"
