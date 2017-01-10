@@ -9,16 +9,97 @@
 import UIKit
 
 class MyBaskController: BaseTableViewController {
-
+    
+    let pushNumber = UILabel()
+    let pushToday = UILabel()
+    let pushWeek = UILabel()
+    let pushMonthly = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        tableView.tableHeaderView = setupHeaderView()
+        let backBtn = UIButton(type: .custom)
+        backBtn.frame = CGRect(x: 15, y: 5, width: 38, height: 38)
+        backBtn.setTitle("返回", for: .normal)
+        backBtn.setTitleColor(UIColor.white, for: .normal)
+        backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
+        
     }
+    func backDidClick() {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    func setupHeaderView()->(UIView) {
+        let bigSumView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60))
+        let sumView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        sumView.backgroundColor = UIColor(rgbHex:0xFFFFFF)
+        let imageView = UIImageView(image: UIImage(named: "icon-13.png"))
+        let grayView = UIView()
+        sumView.addSubview(pushNumber)
+        sumView.addSubview(pushToday)
+        sumView.addSubview(pushWeek)
+        sumView.addSubview(pushMonthly)
+        sumView.addSubview(imageView)
+        bigSumView.addSubview(sumView)
+        bigSumView.addSubview(grayView)
+        imageView.snp.makeConstraints { (make) in
+            make.left.equalTo(sumView).offset(18)
+            make.top.equalTo(sumView).offset(17)
+            make.width.equalTo(17)
+            make.height.equalTo(17)
+        }
+        pushNumber.snp.makeConstraints { (make) in
+            make.left.equalTo(imageView.snp.right).offset(8)
+            make.top.equalTo(sumView).offset(18)
+            make.height.equalTo(15)
+        }
+        pushNumber.text = "晒单总数: 20"
+        pushNumber.sizeToFit()
+        pushNumber.font = UIFont.systemFont(ofSize: 16)
+        pushNumber.textColor = UIColor(rgbHex:0x333333)
+        //本月
+        pushMonthly.snp.makeConstraints { (make) in
+            make.right.equalTo(sumView).offset(-18)
+            make.top.equalTo(sumView).offset(18)
+            make.height.equalTo(15)
+        }
+        pushMonthly.text = "本月8"
+        pushMonthly.sizeToFit()
+        pushMonthly.font = UIFont.systemFont(ofSize: 16)
+        pushMonthly.textColor = UIColor(rgbHex:0x333333)
+        //本周
+        pushWeek.snp.makeConstraints { (make) in
+            make.right.equalTo(pushMonthly.snp.left).offset(-20)
+            make.top.equalTo(pushMonthly)
+            make.height.equalTo(15)
+        }
+        pushWeek.text = "本月3"
+        pushWeek.sizeToFit()
+        pushWeek.font = UIFont.systemFont(ofSize: 16)
+        pushWeek.textColor = UIColor(rgbHex:0x333333)
+        //本日
+        pushToday.snp.makeConstraints { (make) in
+            make.right.equalTo(pushWeek.snp.left).offset(-20)
+            make.top.equalTo(pushMonthly)
+            make.height.equalTo(15)
+        }
+        pushToday.text = "今日3"
+        pushToday.sizeToFit()
+        pushToday.font = UIFont.systemFont(ofSize: 16)
+        pushToday.textColor = UIColor(rgbHex:0x333333)
+        //灰色的线
+        grayView.snp.makeConstraints { (make) in
+            make.top.equalTo(sumView.snp.bottom)
+            make.left.equalTo(bigSumView)
+            make.right.equalTo(bigSumView)
+            make.bottom.equalTo(bigSumView)
+        }
+        grayView.backgroundColor = UIColor(rgbHex:0xF6F7FB)
+        
+        return bigSumView
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarWithAnimationDuration()
@@ -26,6 +107,8 @@ class MyBaskController: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTabBarWithAnimationDuration()
+        translucent(clear: false)
+
     }
     //MARK: -- 隐藏tabBar导航栏
     func hideTabBarWithAnimationDuration() {
