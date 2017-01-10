@@ -26,7 +26,8 @@ class WithDrawalVC: BaseTableViewController {
     @IBOutlet weak var nameTd: UITextField!
     //  银行卡号
     @IBOutlet weak var bankNumberLb: UITextField!
-    
+    //  全部提现
+    @IBOutlet weak var withDrawAll: UIButton!
     @IBOutlet weak var codeTd: UITextField!
     
     override func viewDidLoad() {
@@ -52,22 +53,19 @@ class WithDrawalVC: BaseTableViewController {
         
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
+      
         
-        // 将发送验证码切圆角
-        voiceCodeBtn.clipsToBounds = true
-        
-        voiceCodeBtn.layer.cornerRadius = 3
         
 
     }
-    // MARK -
+    // MARK: -进入提现列表
     func withDrawList(){
         
     self.performSegue(withIdentifier: "PushTolist", sender: nil)
     
     }
    
-    // 提现
+      //MARK: -提现
     @IBAction func withDraw(_ sender: Any) {
         
         self.performSegue(withIdentifier: "SuccessWithdrawVC", sender: nil)
@@ -92,7 +90,7 @@ class WithDrawalVC: BaseTableViewController {
         }
         voiceCodeBtn.isEnabled = false
         codeTime = codeTime - 1
-        let title: String = "\(codeTime)秒后重新发送"
+        let title: String = "\(codeTime)S"
         voiceCodeBtn.setTitle(title, for: .normal)
     }
     

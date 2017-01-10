@@ -121,7 +121,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.countNuber: count] as [String : Any]
         
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .withdrawList, dict: param as [String : AnyObject])
-        startRequest(packet, complete: complete, error: error)
+         startModelRequest(packet, modelClass: WithdrawListModel.self, complete: complete, error: error)
     }
     //提现详情
     func withdrawdetail(withdrawld: Int64, complete: CompleteBlock?, error: ErrorBlock?){

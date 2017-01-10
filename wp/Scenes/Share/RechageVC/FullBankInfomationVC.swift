@@ -13,12 +13,14 @@ import UIKit
 //pushInputPhone
 class FullBankInfomationVC: BaseTableViewController {
 
-    // 自动识别
-    @IBOutlet weak var AutomaticFd: UITextField!
+
     
     // 银行预留手机号
-    @IBOutlet weak var phone: UITextField!
+    @IBOutlet weak var bankNumber: UITextField!
     
+    // 持卡人姓名
+    @IBOutlet weak var name: UITextField!
+   
     
     
     override func viewDidLoad() {
@@ -31,7 +33,12 @@ class FullBankInfomationVC: BaseTableViewController {
     }
     @IBAction func nextInputPhone(_ sender: Any) {
         
-        self.performSegue(withIdentifier: pushInputPhone, sender: nil)
+        
+        if checkTextFieldEmpty([name,bankNumber]){
+             self.performSegue(withIdentifier: pushInputPhone, sender: nil)
+            return
+        }
+       
     }
      //MARK: 网络请求
     override func didRequest() {
@@ -42,10 +49,6 @@ class FullBankInfomationVC: BaseTableViewController {
 //            }, error: errorBlockFunc())
         
     }
-    override   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
-        return 2
-    }
-    
 
 }

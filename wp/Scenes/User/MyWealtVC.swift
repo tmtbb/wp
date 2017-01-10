@@ -14,22 +14,22 @@ class MyWealtVCCell: UITableViewCell {
 class MyWealtVC: BaseListTableViewController {
     var headerView : UIView = UIView()
     
+    // 提现按钮
+    @IBOutlet weak var withDraw: UIButton!
+    
+    // 充值按钮
+    @IBOutlet weak var recharge: UIButton!
     
     var monthLb  : UILabel = UILabel()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //注册cell
         
         title  = "我的资产"
         print("%f",NSStringFromCGRect(tableView.frame))
-        tableView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height-60)
-        headerView = UIView.init(frame:CGRect.init(x: 0, y: 0, width:self.view.frame.size.width, height: 40))
         
-        
-        monthLb = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
-        monthLb.text = "12 月"
-        
-        headerView.addSubview(monthLb)
         
         
         
@@ -61,12 +61,17 @@ class MyWealtVC: BaseListTableViewController {
     
     @IBAction func recharge(_ sender: Any) {
         
+        recharge.isSelected = true
+        withDraw.isSelected = false
         self.performSegue(withIdentifier: "PushToRechage", sender: nil )
     }
     
     @IBAction func withDraw(_ sender: Any) {
-        //PushWithdraw
         
+        recharge.isSelected = false
+        withDraw.isSelected = true
         self.performSegue(withIdentifier: "PushWithdraw", sender: nil )
     }
+    
+    
 }
