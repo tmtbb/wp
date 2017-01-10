@@ -52,7 +52,7 @@ class DealVC: BaseTableViewController {
             }
             
             if DealModel.share().type == .cellTapped {
-                performSegue(withIdentifier: DealDetailVC.className(), sender: nil)
+                
                 return
             }
         }

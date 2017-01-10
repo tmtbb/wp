@@ -8,6 +8,20 @@
 
 import UIKit
 
-class HistoryDealVC: BaseTableViewController {
+class HistoryDealVC: BasePageListTableViewController {
+    //MARK: --LIFECYCLE
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initData()
+        initUI()
+    }
+    //MARK: --DATA
+    func initData() {
+        
+    }
+    //MARK: --UI
+    func initUI() {
+    
+    }
 
 }
