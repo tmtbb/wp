@@ -14,7 +14,7 @@ protocol LoginApi {
     //注册
     func register(phone: String, code: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?)
     //重置密码
-    func repwd( pwd: String, code: String, complete: CompleteBlock?, error: ErrorBlock?)
+    func repwd(phone: String, type: Int, pwd: String, code: String, complete: CompleteBlock?, error: ErrorBlock?)
     //获取声音验证码
     func voiceCode(phone: String, complete: CompleteBlock?, error: ErrorBlock?)
 }

@@ -26,15 +26,12 @@ class NickNameVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
-        
+        navigationItem.leftBarButtonItem = nil
+        navigationItem.hidesBackButton = true
     }
     //MARK: --Function
     @IBAction func finishBtnTapped(_ sender: Any) {
         if checkTextFieldEmpty([nickNameText]){
-//            let user = UserInfo()
-//            AppAPIHelper.user().userInfo(user: user , complete: { [weak self](result) -> ()? in
-//                self?.dismissController()
-//            }, error: errorBlockFunc())
             UserModel.share().currentUser?.nickname = nickNameText.text
             dismissController()
         }

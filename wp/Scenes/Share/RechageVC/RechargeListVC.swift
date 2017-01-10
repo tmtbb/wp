@@ -1,3 +1,4 @@
+
 //
 //  RechargeListvc.swift
 //  wp
@@ -23,14 +24,16 @@ class RechargeListVCCell: OEZTableViewCell {
     @IBOutlet weak var statusLb: UILabel!
     
     
+   
+    
     // 刷新cell
     override func update(_ data: Any!) {
         
-        let model =  data as! RechargeListModel
-        //打印输出 model.rid
-        let  s =  String(format: "%x", model.rid)
-        print(s)
-        moneyCountLb.text = s;
+//        let model =  data as! RechargeListModel
+//        //打印输出 model.rid
+//        let  s =  String(format: "%x", model.rid)
+//        print(s)
+//        moneyCountLb.text = s;
         
         
     }
@@ -43,66 +46,127 @@ class RechargeListVC: BasePageListTableViewController {
     /**定义全局的数组装 model**/
     // var data :  RechargeListModel!
     
+    //用来接收偏移量
+     var contentoffset = CGFloat()
     /** 用来判断刷新列表页第几页 **/
     var pageNumber : Int = 0
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: ShareModel().selectType), object: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "充值列表"
         
+        // 监听
+         NotificationCenter.default.addObserver(self, selector: #selector(vaulechange(_:)), name: NSNotification.Name(rawValue: ShareModel().selectMonth), object: nil)
+        
+    }
+    func vaulechange(_ notice: NSNotification) {
+        
+        let errorCode: Int = (notice.object as? Int)!
+         self.tableView.isScrollEnabled = true  
+        print(errorCode)
+        
+        
     }
     //测试充值列表
     override func didRequest(_ pageIndex : Int) {
-
+        
         AppAPIHelper.user().creditlist(status: "", pos: 0, count: 10, complete: {[weak self] (result) -> ()? in
-            self?.didRequestComplete(result)
-
+           self?.didRequestComplete(["",""] as AnyObject)
+            
             return nil
             
-        }, error: errorBlockFunc())
+            }, error: errorBlockFunc())
         
     }
     
-//    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-//       
-//    }
+    //MARK: ---tableView代理
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        let more = UITableViewRowAction(style: .normal, title: "More") { action, index in
-//        }
-//        more.backgroundColor = UIColor.lightGray
-//        
-//        let favorite = UITableViewRowAction(style: .normal, title: "Favorite") { action, index in
-//            //
-//        }
-//        favorite.backgroundColor = UIColor.orange
+    override  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let share = UITableViewRowAction(style: .normal, title: "删除") { action, index in
+        return 10
+    }
+    
+    override  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let  headerView  = UIView ()
+        if section == 0 {
+            let  headerView  : UIView = UIView.init(frame:CGRect.init(x: 0, y: 0, width:self.view.frame.size.width, height: 40))
             
-            print("1111")
+            headerView.backgroundColor = UIColor.groupTableViewBackground
+            
+            let  monthLb  :  UILabel = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
+            monthLb.text = "2017 年 01 月"
+            
+            monthLb.textColor = UIColor.init(hexString: "333333")
+            
+            monthLb.font = UIFont.systemFont(ofSize: 15)
+            
+            headerView.addSubview(monthLb)
+            
+            
+            let dateBtn :UIButton  = UIButton.init(type: UIButtonType.custom)
+
+//            dateBtn.setTitle("", for: <#T##UIControlState#>)
+            dateBtn.frame = CGRect.init(x: self.view.frame.size.width-100, y: 10, width: 80, height: 20)
+            
+            dateBtn.backgroundColor = UIColor.red
+            dateBtn.setTitle("月份", for: UIControlState.normal)
+            
+            dateBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+            
+            dateBtn.addTarget(self, action: #selector(chooseDate), for: UIControlEvents.touchUpInside)
+            
+            
+            headerView.addSubview(dateBtn)
+            return headerView
+            
         }
+      
         
-//        let newsahre = UITableViewRowActionz
-        share.backgroundColor = UIColor.blue
+        return headerView
+    }
+    
+    override   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
         
-        return [share]
+        return 40
+    }
+    override  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
+        
+        return 0.1
+        
+    }
+    override func scrollViewDidScroll(_ scrollView: UIScrollView){
+    
+     contentoffset   = scrollView.contentOffset.y
+        
+        
+    }
+    
+    //MARK: ---视图添加
+
+    func chooseDate(){
+        
+    
+        let customer : CustomeAlertView = CustomeAlertView.init(frame: CGRect.init(x: 0, y: contentoffset, width: self.view.frame.size.width, height: self.view.frame.size.height))
+
+          self.tableView.isScrollEnabled = false
+          self.view.addSubview(customer)
+        
+        
+//        appdele.window?.addSubview(customer)
+        
     }
     
     
-    
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-   
-//    
-//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//     
-//    }
-   
-    
-   
 }
+
+
+
+
+
 
 
