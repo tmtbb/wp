@@ -19,11 +19,16 @@ class DealModel: BaseModel {
     class func share() -> DealModel{
         return model
     }
+    var dealDic: [String: AnyObject]?
+    
     //点击类型
     var type:SeletedType = .btnTapped
     //所选择的持仓模型
     dynamic var selectDealModel: PositionModel?
     //买涨买跌
     var dealUp: Bool = true
+    //是否是持仓详情
+    var isDealDetail: Bool = false
+    
     
 }

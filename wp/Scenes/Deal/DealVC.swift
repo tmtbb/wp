@@ -52,7 +52,8 @@ class DealVC: BaseTableViewController {
             }
             
             if DealModel.share().type == .cellTapped {
-                
+                DealModel.share().isDealDetail = true
+                        performSegue(withIdentifier: BuyVC.className(), sender: nil)
                 return
             }
         }
@@ -73,6 +74,7 @@ class DealVC: BaseTableViewController {
     //MARK: --UI
     func initUI() {
         timeBtnTapped(minBtn)
+        
     }
     //MARK: --KlineView and Btns
     @IBAction func timeBtnTapped(_ sender: UIButton) {
@@ -89,7 +91,9 @@ class DealVC: BaseTableViewController {
     
     //MARK: --买涨/买跌
     @IBAction func dealBtnTapped(_ sender: UIButton) {
-        DealModel.share().dealUp = sender.tag == 1 
+        DealModel.share().dealUp = sender.tag == 1
+        DealModel.share().isDealDetail = false
+        performSegue(withIdentifier: BuyVC.className(), sender: nil)
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
