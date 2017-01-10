@@ -29,8 +29,10 @@ class MyMessageController: BaseTableViewController {
     }
     func setupFooterView()->(UIView) {
         let footerView =  UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        footerView.backgroundColor = UIColor(rgbHex: 0xE9573E)
         let footerBtn = UIButton()
+        footerBtn.backgroundColor = UIColor(rgbHex: 0xE9573E)
+        footerBtn.layer.cornerRadius = 10
+        footerBtn.layer.masksToBounds = true
         footerBtn.setTitle("退出登录", for: .normal)
         footerBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         footerBtn.contentHorizontalAlignment = .center
@@ -39,7 +41,7 @@ class MyMessageController: BaseTableViewController {
         footerView.addSubview(footerBtn)
         footerBtn.snp.makeConstraints { (make) in
             make.left.equalTo(footerView).offset(15)
-            make.right.equalTo(footerView).offset(15)
+            make.right.equalTo(footerView).offset(-15)
             make.top.bottom.equalTo(footerView)
         }
         return footerView
@@ -99,20 +101,21 @@ class MyMessageController: BaseTableViewController {
         contentFrame?.size.height -= (tabFrame?.size.height)!
         
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 3 {
+            performSegue(withIdentifier: DealPasswordVC.className(), sender: nil)
+        }
+        if indexPath.section == 4{
+             performSegue(withIdentifier: EnterPasswordVC.className(), sender: nil)
+        }
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
