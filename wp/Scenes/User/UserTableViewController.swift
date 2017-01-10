@@ -11,15 +11,31 @@ import SideMenuController
 class UserTableViewController: BaseTableViewController {
     
     @IBOutlet weak var iconImage: UIImageView!
-    @IBOutlet var nameLabel: UITableView!
-    @IBOutlet weak var propertyLabel: UILabel!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    //资金
+    @IBOutlet weak var propertyNumber: UILabel!
+    @IBOutlet weak var yuanLabel: UILabel!
+    //积分
     @IBOutlet weak var integralLabel: UILabel!
+    @IBOutlet weak var fenLabel: UILabel!
+    //未登录时的占位
+    @IBOutlet weak var concealLabel: UILabel!
+    @IBOutlet weak var placeholderLabel: UILabel!
+    //登录
+    @IBOutlet weak var loginBtn: UIButton!
+    //注册
+    @IBOutlet weak var register: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-      
+      propertyNumber.isHidden = true
+        integralLabel.isHidden = true
+        nameLabel.isHidden = true
+        yuanLabel.isHidden = true
+        fenLabel.isHidden = true
         tableView.isScrollEnabled = false
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,15 +50,27 @@ class UserTableViewController: BaseTableViewController {
         }
         return 0
     }
-    @IBAction func myPropertyDidClick(_ sender: Any) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil, userInfo: nil)
+    //登录按钮
+    @IBAction func enterDidClick(_ sender: Any) {
+    }
+    //注册按钮
+    @IBAction func registerDidClick(_ sender: Any) {
     }
     
+    //我的资产
+    @IBAction func myPropertyDidClick(_ sender: Any) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil, userInfo: nil)
+        print("我的资产")
+    }
+    //个人中心
     @IBAction func myMessageDidClick(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyMessage), object: nil, userInfo: nil)
         sideMenuController?.toggle()
     }
-    
+    //我的积分
+    @IBAction func myIntegral(_ sender: Any) {
+        print("我的积分")
+    }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

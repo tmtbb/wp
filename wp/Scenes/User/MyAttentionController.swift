@@ -7,18 +7,51 @@
 //
 
 import UIKit
-
+private let originalCellId = "MyAttentionCell"
 class MyAttentionController: BaseTableViewController {
 
+    var attentionNumber = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        tableView.tableHeaderView = setupHeaderView()
+        let originalNib = UINib(nibName: "MyAttentionCell", bundle: nil)
+        tableView.register(originalNib, forCellReuseIdentifier: originalCellId)
+        let backBtn = UIButton(type: .custom)
+        backBtn.frame = CGRect(x: 15, y: 5, width: 38, height: 38)
+        backBtn.setTitle("返回", for: .normal)
+        backBtn.setTitleColor(UIColor.white, for: .normal)
+        backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
+        
     }
+    func backDidClick() {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    //MARK: -- tableHeaderView
+    func setupHeaderView() -> (UIView){
+        let sumView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 49))
+        let attentionHint = UILabel()
+        attentionHint.text = "关注的人数:"
+        attentionHint.font = UIFont.systemFont(ofSize: 16)
+        sumView.addSubview(attentionHint)
+        attentionHint.snp.makeConstraints { (make) in
+            make.left.equalTo(sumView).offset(15)
+            make.top.equalTo(sumView).offset(20)
+            make.height.equalTo(15)
+        }
+        sumView.addSubview(attentionNumber)
+        attentionNumber.snp.makeConstraints { (make) in
+            make.left.equalTo(attentionHint.snp.right).offset(2)
+            make.top.equalTo(attentionHint)
+            make.height.equalTo(attentionHint)
+        }
+        attentionNumber.text = " 5"
+        attentionNumber.font = UIFont.systemFont(ofSize: 16)
+        return sumView
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarWithAnimationDuration()
@@ -26,6 +59,7 @@ class MyAttentionController: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTabBarWithAnimationDuration()
+        translucent(clear: false)
     }
     //MARK: -- 隐藏tabBar导航栏
     func hideTabBarWithAnimationDuration() {
@@ -62,23 +96,26 @@ class MyAttentionController: BaseTableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 20
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: originalCellId, for: indexPath) as! MyAttentionCell
+        let index = indexPath.item
+        cell.nuberLabel.text = "\(index + 1)"
+        
         return cell
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 56
+    }
 
     /*
     // Override to support conditional editing of the table view.
