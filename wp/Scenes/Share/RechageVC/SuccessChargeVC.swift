@@ -9,19 +9,18 @@
 import UIKit
 
 class SuccessChargeVC: BaseTableViewController {
-
+    
+    // 银行名称
+    @IBOutlet weak var bankName: UILabel!
+    // 金额
+    @IBOutlet weak var account: UILabel!
+    // 状态
+    @IBOutlet weak var status: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = "充值成功"
     }
-
-    override func didReceiveMemoryWarning() {
-        
-        super.didReceiveMemoryWarning()
-      
-    }
-    
     //MARK: --网络请求
     override func didRequest() {
         
@@ -31,5 +30,5 @@ class SuccessChargeVC: BaseTableViewController {
         }, error: errorBlockFunc())
         
     }
-
+    
 }

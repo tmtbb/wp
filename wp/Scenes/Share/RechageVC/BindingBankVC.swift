@@ -7,18 +7,22 @@
 //
 
 import UIKit
-//进入下个界面的
+//  进入下个界面的key
 let pushFullbankInformation:String = "pushFullbankInformation"
-//pushInputPhone
 //银行卡视图 cell
 class BindingBankVCCell: OEZTableViewCell {
     
+    // 刷新cell
+    override func update(_ data: Any!) {
+        
+        
+    }
 }
 
 
 class BindingBankVC: BaseListTableViewController {
     
-      override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "绑定银行卡"
@@ -31,7 +35,7 @@ class BindingBankVC: BaseListTableViewController {
         AppAPIHelper.user().creditdetail(rid:1111000011, complete: { [weak self](result) -> ()? in
             self?.didRequestComplete(["",""] as AnyObject)
             return nil
-        }, error: errorBlockFunc())
+            }, error: errorBlockFunc())
         
     }
     //MARK:  添加银行卡
@@ -41,31 +45,38 @@ class BindingBankVC: BaseListTableViewController {
         
         
     }
-
+    
     //MARK: 实现银行卡左滑删除的代理
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        //        let more = UITableViewRowAction(style: .normal, title: "More") { action, index in
-        //        }
-        //        more.backgroundColor = UIColor.lightGray
-        //
-        //        let favorite = UITableViewRowAction(style: .normal, title: "Favorite") { action, index in
-        //            //
-        //        }
-        //        favorite.backgroundColor = UIColor.orange
+        
         
         let share = UITableViewRowAction(style: .normal, title: "删除") { action, index in
             
-            print("1111")
+            
         }
-        
-        //        let newsahre = UITableViewRowActionz
-        share.backgroundColor = UIColor.blue
+        share.backgroundColor = UIColor.red
         
         return [share]
     }
     
-    
-    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        
+        return 2
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+        
+        return 15
+    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        let cell : BindingBankVCCell = tableView.dequeueReusableCell(withIdentifier: "BindingBankVCCell") as! BindingBankVCCell
+        
+        return cell
+        
+    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        
+        return 1
+    }
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
