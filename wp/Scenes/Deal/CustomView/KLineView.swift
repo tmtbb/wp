@@ -13,7 +13,7 @@ class KLineView: UIView {
     @IBOutlet weak var min15Charts: CombinedChartView!
     @IBOutlet weak var hourCharts: CombinedChartView!
     @IBOutlet weak var dayCharts: CombinedChartView!
-    
+    var dayEntrys: [CandleChartDataEntry] = []
     
     var selectIndex: NSInteger!{
         didSet{
@@ -36,6 +36,15 @@ class KLineView: UIView {
         }
     }
     
+    enum KType: Int {
+        case miu = 1   //1分钟
+        case miu5 = 2  //5分钟
+        case miu15 = 3 //15分钟
+        case miu30 = 4 //30分钟
+        case miu60 = 5 //60分钟
+        case day = 6   //日K线
+    }
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -46,7 +55,7 @@ class KLineView: UIView {
         super.awakeFromNib()
         initMiuChartView()
         initLineChartData()
-        initCandleStickData()
+        initDayKChartData()
     }
 
     //MARK: --miuCharts
@@ -59,12 +68,16 @@ class KLineView: UIView {
                 chartsView.noDataText = "暂无数据"
                 chartsView.xAxis.labelPosition = .bottom
                 chartsView.xAxis.drawGridLinesEnabled = false
+                chartsView.xAxis.axisMinimum = 0
                 chartsView.leftAxis.labelFont = UIFont.systemFont(ofSize: 0)
                 chartsView.leftAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 
             }
         }
+        
+        dayCharts.xAxis.axisMaximum = 30
+        
         
         
     }
@@ -108,35 +121,51 @@ class KLineView: UIView {
         
         
     }
-    
-    func initCandleStickData() {
+    //MARK: --日K线
+    func initDayCandleStickData() {
         
-        let H = [0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,0]
-        let L = [0,1.0,2.0,3.0,4.0,5.0,4.0,3.0,2.0,1.0,1.0,0]
-        let O = [0,3.0,4.0,5.0,6.0,7.0,6.0,5.0,4.0,3.0,2.0,0]
-        let C = [0,7.0,6.0,4.0,5.0,3.0,4.0,5.0,6.0,7.0,2.0,0]
-        
-        var entrys: [CandleChartDataEntry] = []
-        for  i  in 0...H.count-1 {
-            let entry = CandleChartDataEntry.init(x: Double(i+1), shadowH: H[i], shadowL: L[i], open: O[i], close: C[i])
-            entrys.append(i == 0 ? CandleChartDataEntry() : entry)
-        }
-        
-        let set: CandleChartDataSet = CandleChartDataSet.init(values: entrys, label: nil)
-        set.shadowColor = UIColor.red
-        set.increasingColor = UIColor.red
-        set.decreasingColor = UIColor.blue
-        set.neutralColor = UIColor.red
+        let set: CandleChartDataSet = CandleChartDataSet.init(values: dayEntrys, label: nil)
+        set.increasingColor = UIColor.init(rgbHex: 0xE9573f)
+        set.decreasingColor = UIColor.init(rgbHex: 0x009944)
         set.increasingFilled = true
+        set.shadowColorSameAsCandle = true
+        set.formLineWidth = 5
         let dataSets: [IChartDataSet] = [set]
         let data: CandleChartData = CandleChartData.init(dataSets: dataSets)
         let combinData: CombinedChartData = CombinedChartData.init()
         combinData.candleData = data
-        min15Charts.data = combinData
-        hourCharts.data = combinData
         dayCharts.data = combinData
     }
     
-  
+    func initDayKChartData(){
+        let param = KChartParam()
+        if let model: ProductModel = DealModel.share().selectProduct{
+            param.id = UserModel.currentUserId
+            param.token = UserModel.token!
+            param.goodType = model.typeCode
+            param.exchange_name = model.exchange_name
+            param.platform_name = model.platform_name
+            param.chartType = KType.day.rawValue
+        }
+        AppAPIHelper.deal().kChartsData(param: param, complete: { [weak self](result) -> ()? in
+            if let models: [KChartModel] = result as? [KChartModel]{
+                for index in 0...models.count-1{
+                    let model = models[index%models.count]
+                    let location = Double(index+1)
+                    let entry = self?.convertModelToCandleDataEntry(model: model, location:location)
+                    self?.dayEntrys.append(entry!)
+                    self?.initDayCandleStickData()
+                }
+            }
+            return nil
+        }, error: nil)
+    }
+    
+    func convertModelToCandleDataEntry(model: KChartModel, location:Double) -> CandleChartDataEntry {
+        
+        let entry = CandleChartDataEntry.init(x:location, shadowH: model.highPrice, shadowL: model.lowPrice, open: model.openPrice, close: model.closePrice)
+        
+        return entry
+    }
     
 }

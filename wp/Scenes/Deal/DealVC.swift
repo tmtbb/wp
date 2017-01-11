@@ -141,6 +141,12 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         sender.isSelected = true
         sender.backgroundColor = AppConst.Color.CMain
         klineBtn = sender
+        
+        if sender.tag == 4 {
+            kLineView.initDayKChartData()
+            return
+        }
+        
     }
     
     //MARK: --买涨/买跌

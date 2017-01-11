@@ -74,8 +74,8 @@
 		BF062B4F1E04E01100618B1B /* LoginNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF062B4E1E04E01100618B1B /* LoginNav.swift */; };
 		BF0C4E1C1E24BA0100FA4B4A /* KChartParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C4E1B1E24BA0100FA4B4A /* KChartParam.swift */; };
 		BF0C4E1E1E24BC6600FA4B4A /* KChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C4E1D1E24BC6600FA4B4A /* KChartModel.swift */; };
-		BF0C4E241E24DB9000FA4B4A /* ProductTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0C4E231E24DB9000FA4B4A /* ProductTitleView.swift */; };
 		BF1454811E24B3AF00A15761 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1454801E24B3AF00A15761 /* ProductModel.swift */; };
+		BF259A4B1E26009F00276997 /* ProductTitleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF259A4A1E26009F00276997 /* ProductTitleItem.swift */; };
 		BF2CEA3C1E1CCA9A00EEA99E /* BingPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2CEA3B1E1CCA9A00EEA99E /* BingPhoneVC.swift */; };
 		BF2CEA3E1E1CE26900EEA99E /* OpenPositionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2CEA3D1E1CE26900EEA99E /* OpenPositionModel.swift */; };
 		BF2F64241E038DFE00917FA1 /* AppAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F63D51E038DFE00917FA1 /* AppAPIHelper.swift */; };
@@ -360,8 +360,8 @@
 		BF062B4E1E04E01100618B1B /* LoginNav.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginNav.swift; sourceTree = "<group>"; };
 		BF0C4E1B1E24BA0100FA4B4A /* KChartParam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KChartParam.swift; sourceTree = "<group>"; };
 		BF0C4E1D1E24BC6600FA4B4A /* KChartModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KChartModel.swift; sourceTree = "<group>"; };
-		BF0C4E231E24DB9000FA4B4A /* ProductTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTitleView.swift; sourceTree = "<group>"; };
 		BF1454801E24B3AF00A15761 /* ProductModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
+		BF259A4A1E26009F00276997 /* ProductTitleItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTitleItem.swift; sourceTree = "<group>"; };
 		BF2CEA3B1E1CCA9A00EEA99E /* BingPhoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BingPhoneVC.swift; sourceTree = "<group>"; };
 		BF2CEA3D1E1CE26900EEA99E /* OpenPositionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenPositionModel.swift; sourceTree = "<group>"; };
 		BF2F63D51E038DFE00917FA1 /* AppAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPIHelper.swift; sourceTree = "<group>"; };
@@ -1012,8 +1012,8 @@
 			children = (
 				BF5E247F1E10B00700B5C07A /* MyDealTableView.swift */,
 				BF5E24811E10BE1E00B5C07A /* KLineView.swift */,
-				BF0C4E231E24DB9000FA4B4A /* ProductTitleView.swift */,
 				BFAC07C81E25DD57002E465F /* TitleCollectionview.swift */,
+				BF259A4A1E26009F00276997 /* ProductTitleItem.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -1528,9 +1528,6 @@
 				A072E3C11E247B3400A855B6 /* rechargeType@2x.png in Resources */,
 				BFF019BE1E23B113008631D6 /* horn.png in Resources */,
 				BF0629E41E04DC7E00618B1B /* yw_1222.jpg in Resources */,
-				D0FA4EAB1E246F350015C012 /* MyBaskCell.xib in Resources */,
-				D06074FA1E23576B0028EB32 /* MyPushCell.xib in Resources */,
-				D06074F61E233DE70028EB32 /* MyAttentionCell.xib in Resources */,
 				BFF019791E23B113008631D6 /* LaunchScreen.storyboard in Resources */,
 				BFF019A51E23B113008631D6 /* sud-2@2x.png in Resources */,
 				BFF019B01E23B113008631D6 /* zy@2x.png in Resources */,
@@ -1645,6 +1642,7 @@
 				A08CB39B1E1E1A8A004BE44B /* RechargeListVC.swift in Sources */,
 				BF04793D1E0FBF5000C511E7 /* RechargeVC.swift in Sources */,
 				A0C2840F1E1FBD1A00A97707 /* SuccessChargeVC.swift in Sources */,
+				BF259A4B1E26009F00276997 /* ProductTitleItem.swift in Sources */,
 				BF2F643F1E038DFE00917FA1 /* UIViewController+RBStoryboardLink.m in Sources */,
 				BF062B471E04DEC900618B1B /* MainTabBarController.swift in Sources */,
 				BF9CD7461E0A549900194A32 /* DealApi.swift in Sources */,
@@ -1749,7 +1747,6 @@
 				BF2F64311E038DFE00917FA1 /* SVProgressHUDExt.swift in Sources */,
 				A01CE17F1E212A0100543E12 /* MyWealtVC.swift in Sources */,
 				BFD70FDD1E10F5B700930E8C /* UserModel.swift in Sources */,
-				BF0C4E241E24DB9000FA4B4A /* ProductTitleView.swift in Sources */,
 				BF9CD74A1E0A552900194A32 /* UserApi.swift in Sources */,
 				BFAC330A1E129128008EF3D3 /* UserInfo.swift in Sources */,
 			);
