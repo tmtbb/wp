@@ -9,18 +9,19 @@
 import UIKit
 
 //进入输入手机号界面
- let pushInputPhone:String = "pushInputPhone"
+let pushInputPhone:String = "pushInputPhone"
 //pushInputPhone
 class FullBankInfomationVC: BaseTableViewController {
-
-
     
-    // 银行预留手机号
+    
+    
+    // 银行卡号
     @IBOutlet weak var bankNumber: UITextField!
-    
+    // 支行地址
+    @IBOutlet weak var branceAddress: UITextField!
     // 持卡人姓名
     @IBOutlet weak var name: UITextField!
-   
+    
     
     
     override func viewDidLoad() {
@@ -28,27 +29,44 @@ class FullBankInfomationVC: BaseTableViewController {
         title = "输入银行卡信息"
         
         super.viewDidLoad()
-
-      
+        
+        
     }
     @IBAction func nextInputPhone(_ sender: Any) {
         
         
-        if checkTextFieldEmpty([name,bankNumber]){
-             self.performSegue(withIdentifier: pushInputPhone, sender: nil)
+        if checkTextFieldEmpty([name,bankNumber,branceAddress]){
+            
+            
+            didRequest()
+            
             return
         }
-       
+        
     }
-     //MARK: 网络请求
+    //MARK: 网络请求
     override func didRequest() {
         
-//        AppAPIHelper.user().creditdetail(rid:1111000011, complete: { (result) -> ()? in
-//            //              self?.didRequestComplete(result)
-//            return nil
-//            }, error: errorBlockFunc())
+        
+        AppAPIHelper.user().getBankName(withbankld:bankNumber.text!, complete: { [weak self](result) -> ()? in
+            
+            if let object = result{
+                
+            
+                let  bankId : Int = object["bankId"] as! Int
+                ShareModel.share().shareData["cardNo"] = (self?.bankNumber.text!)!
+                ShareModel.share().shareData["branchBank"] = (self?.branceAddress.text!)!
+                ShareModel.share().shareData["name"] = (self?.name.text!)!
+                ShareModel.share().shareData["bankName"] = object["bankName"] as? String
+                ShareModel.share().shareData["bankId"] = "\(bankId)"
+                self?.performSegue(withIdentifier: pushInputPhone, sender: nil)
+            }
+            //
+            //
+            return nil
+            }, error: errorBlockFunc())
         
     }
-        
-
+    
+    
 }

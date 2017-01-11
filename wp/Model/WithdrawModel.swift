@@ -23,19 +23,19 @@ class WithdrawModel: BaseModel {
     //提现时间	  
       var handleTime: Int64 = 0
     // 银行名称	  
-      var bank: String?
+      var bank: String!
     //支行名称
-      var branchBank: String?
+      var branchBank: String!
     // 	省	  
-      var province: String?
+      var province: String!
     // 	城市	  
-      var city: String?
+      var city: String!
     // 	银行卡号	  
-      var cardNo: String?
+      var cardNo: String!
     // 姓名	  
-      var name: String?
+      var name: String!
     //	备注	  
-      var comment: String?
+      var comment: String!
     // 状态	1-处理中，2-成功，3-失败
       var status: Int8 = 0
 
@@ -43,7 +43,7 @@ class WithdrawModel: BaseModel {
 // 提现列表的listmodel
 class WithdrawListModel: BaseModel {
     
-    var withdrawList : [WithdrawModel]?
+    var withdrawList : [WithdrawModel]!
     
     class func withdrawListModelClass() ->AnyClass {
         return  WithdrawModel.classForCoder()
@@ -61,13 +61,13 @@ class WithdrawBankCashModel: BaseModel {
       var charge: Int64 = 0            // 提现手续费
       var withdrawTime: Int64 = 0      // 提现时间
       var handleTime: Int64 = 0        //提现时间
-      var bank: String?                // 银行名称
-      var branchBank: String?          //支行名称
-      var province: String?            // 	省
-      var city: String?                // 	城市
-      var cardNo: String?              // 	银行卡号
-      var name: String?                // 姓名
-      var comment: String?             //	备注
+      var bank: String!                // 银行名称
+      var branchBank: String!          //支行名称
+      var province: String!            // 	省
+      var city: String!                // 	城市
+      var cardNo: String!              // 	银行卡号
+      var name: String!                // 姓名
+      var comment: String!             //	备注
       var status: Int8 = 0             // 状态	1-处理中，2-成功，3-失败
     
 }

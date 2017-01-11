@@ -46,8 +46,11 @@ class BaseSocketAPI: NSObject {
      - parameter error:      失败回调
      */
     func startModelRequest(_ packet: SocketDataPacket, modelClass: AnyClass, complete: CompleteBlock?, error: ErrorBlock?) {
+        
+       
         SocketRequestManage.shared.startJsonRequest(packet, complete: {  (response) in
             complete?((response as? SocketJsonResponse)?.responseModel(modelClass))
+            
             }, error: error)
     }
     

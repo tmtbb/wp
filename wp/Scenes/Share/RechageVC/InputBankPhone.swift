@@ -16,18 +16,15 @@ class InputBankPhone: UITableViewController {
     @IBOutlet weak var phone: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        typeBank.text = ShareModel.share().shareData["bankName"]
         title = "输入手机号"
-        
     }
     
     
     @IBAction func addBank(_ sender: Any) {
-        
-        
         if checkTextFieldEmpty([typeBank,phone]){
-            
             if isTelNumber(num: phone.text!) == false{
-                
+                ShareModel.share().shareData["bankNum"] =  phone.text!
                 SVProgressHUD.showErrorMessage(ErrorMessage: "手机号格式错误", ForDuration: 1, completion: nil)
                 return
             }
