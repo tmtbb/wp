@@ -8,11 +8,12 @@
 
 import UIKit
 
-class DealVC: BaseTableViewController {
+class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     
     @IBOutlet weak var myMoneyLabel: UILabel!
     @IBOutlet weak var myQuanLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var highLabel: UILabel!
     @IBOutlet weak var lowLabel: UILabel!
     @IBOutlet weak var openLabel: UILabel!
@@ -25,7 +26,7 @@ class DealVC: BaseTableViewController {
     @IBOutlet weak var kLineView: KLineView!
     @IBOutlet weak var minBtn: UIButton!
     @IBOutlet weak var dealTable: MyDealTableView!
-    @IBOutlet weak var titleView: ProductTitleView!
+    @IBOutlet weak var titleView: TitleCollectionView!
     private var klineBtn: UIButton?
     
     
@@ -62,16 +63,17 @@ class DealVC: BaseTableViewController {
             
             if DealModel.share().type == .cellTapped {
                 DealModel.share().isDealDetail = true
-                        performSegue(withIdentifier: BuyVC.className(), sender: nil)
+                performSegue(withIdentifier: BuyVC.className(), sender: nil)
                 return
             }
         }
     }
-    // 当前列表数据
+    // 当前商品列表数据
     func initProductData() {
         AppAPIHelper.deal().products(pid: 0, complete: { [weak self](result) -> ()? in
             if let products: [ProductModel] = result as! [ProductModel]?{
-                self?.titleView.products = products
+                self?.titleView.objects = products
+                DealModel.share().selectProduct = products.count > 0 ? products[0] : nil
             }
             return nil
         }, error: errorBlockFunc())
@@ -88,11 +90,41 @@ class DealVC: BaseTableViewController {
             return nil
         }, error: errorBlockFunc())
     }
+    // 当前报价
+
+    func didSelectedProduct(object: AnyObject?) {
+        if let model: ProductModel = object as! ProductModel? {
+            DealModel.share().selectProduct = model
+            initRealTimeData()
+        }
+    }
+    func initRealTimeData() {
+        
+        if let product = DealModel.share().selectProduct {
+            AppAPIHelper.deal().realtime(goodType: product.typeCode, exchange_name: product.exchange_name, platform_name: product.platform_name, complete: { [weak self](result) -> ()? in
+                if let models: [KChartModel] = result as! [KChartModel]?{
+                    for model in models{
+                        if model.goodType == DealModel.share().selectProduct?.typeCode{
+                            self?.priceLabel.text = model.currntPrice
+                            self?.highLabel.text = String.init(format: "%.2f", model.highPrice)
+                            self?.lowLabel.text = String.init(format: "%.2f", model.lowPrice)
+                            self?.openLabel.text = String.init(format: "%.2f", model.openPrice)
+                            self?.closeLabel.text = String.init(format: "%.2f", model.closePrice)
+                            self?.nameLabel.text = "\(product.name)(元/千克)"
+                        }
+                    }
+                }
+                
+                return nil
+            }, error: errorBlockFunc())
+        }
+    }
     
     //MARK: --UI
     func initUI() {
         timeBtnTapped(minBtn)
-        
+        titleView.itemDelegate = self
+        titleView.reuseIdentifier = ProductTitleItem.className()
     }
     
     //MARK: --商品选择
