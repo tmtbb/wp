@@ -9,8 +9,8 @@
 import UIKit
 
 class ProductCollectionCell: UICollectionViewCell {
-    @IBOutlet weak var productBtn: UIButton!
-    
+    @IBOutlet weak var redView: UIView!
+    @IBOutlet weak var productLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         

@@ -12,16 +12,28 @@ class DealController: BaseTableViewController {
     @IBOutlet weak var productCollection: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
+    
      var lastTypeBtn: UIButton?
-     var index: NSInteger = 0
-     
+     var selectIndex = 0
+    var products: [ProductModel]? {
+        didSet{
+//            if let flowLayout: UICollectionViewFlowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
+//                let count = products != nil ? ((products?.count)! > 3 ? 3 : products?.count ): 3
+//                flowLayout.itemSize = CGSize.init(width: UIScreen.width()/CGFloat(count!), height: frame.size.height > 0 ? frame.size.height : 60)
+//            }
+//            reloadData()
+        }
+    }
+
 
     let strArray:[String] = ["周五 12 - 26","周四 12 - 25","周三 12 - 24","周二 12 - 23","周一 12 - 22"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollection()
         
-  
+        tableView.contentInset = UIEdgeInsetsMake(80, 0, 0, 0)
+        
         let backBtn = UIButton(type: .custom)
         backBtn.frame = CGRect(x: 15, y: 5, width: 38, height: 38)
         backBtn.setTitle("返回", for: .normal)
@@ -33,10 +45,8 @@ class DealController: BaseTableViewController {
     func backDidClick() {
         navigationController?.popToRootViewController(animated: true)
     }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-    }
+   
+    
     //MARK: -- 设置collectionView
     func setupCollection() {
         flowLayout.scrollDirection = .horizontal
@@ -130,7 +140,7 @@ class DealController: BaseTableViewController {
 //MARK: -- collectionView的代理方法
 extension DealController:UICollectionViewDataSource, UICollectionViewDelegate{
     
-
+    
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
                 return 1
@@ -140,26 +150,16 @@ extension DealController:UICollectionViewDataSource, UICollectionViewDelegate{
         return 2
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productTypeCell", for: indexPath) as! ProductCollectionCell
-        cell.productBtn.setTitle("白银", for: UIControlState.normal)
-        cell.productBtn.setTitleColor(UIColor(rgbHex: 0x333333), for: UIControlState.normal)
-        cell.productBtn.setTitleColor(UIColor(rgbHex: 0xE9573E), for: .selected)
-        cell.productBtn.tag = indexPath.item + 300
-        cell.productBtn.addTarget(self, action: #selector(btnDidClick), for: UIControlEvents.touchUpInside)
-//        cell.redView.isHidden = false
-//        if indexPath.item == 0 {
-//            btnDidClick(sender: cell.btn)
-////            cell.redView.isHidden = false
-//        }
+         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionCell.className(), for: indexPath) as! ProductCollectionCell
+        let product = products?[indexPath.row]
+        cell.productLabel.text = "白银"
+        cell.redView.isHidden = indexPath.row != selectIndex
         return cell
     }
     
-    func btnDidClick(sender: UIButton) {
-        let number = sender.tag
-        print(number)
-        lastTypeBtn?.isSelected = false
-        sender.isSelected = true
-        lastTypeBtn = sender
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectIndex = indexPath.row
+        collectionView.reloadData()
     }
   
  
