@@ -8,7 +8,7 @@
 //
 
 import UIKit
-//OEZTableViewCell  
+//OEZTableViewCell
 class RechargeListVCCell: OEZTableViewCell {
     
     @IBOutlet weak var weekLb: UILabel!            // 姓名Lb
@@ -56,14 +56,13 @@ class RechargeListVC: BasePageListTableViewController {
     var pageNumber : Int = 0
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        // 监听选择月份的按钮触发事件
+        // 移除监听选择月份的按钮触发事件
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: ShareModel().selectType), object: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "充值列表"
-        
         // 监听
         NotificationCenter.default.addObserver(self, selector: #selector(vaulechange(_:)), name: NSNotification.Name(rawValue: ShareModel().selectMonth), object: nil)
         
@@ -79,18 +78,14 @@ class RechargeListVC: BasePageListTableViewController {
     //测试充值列表
     override func didRequest(_ pageIndex : Int) {
         
-        AppAPIHelper.user().creditlist(status: "", pos: 0, count: 10, complete: {[weak self] (result) -> ()? in
-            
+        AppAPIHelper.user().creditlist(status: "1,3", pos: 0, count: 10, complete: {[weak self] (result) -> ()? in
             
             let Model : RechargeListModel = result as! RechargeListModel
             self?.didRequestComplete(Model.depositsinfo as AnyObject)
-            
             return nil
-            
             }, error: errorBlockFunc())
         
     }
-    
     //MARK: ---tableView delegate和datasourcec
     override  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
@@ -109,20 +104,16 @@ class RechargeListVC: BasePageListTableViewController {
             
             headerView.addSubview(monthLb)
             
-            
             let dateBtn :UIButton  = UIButton.init(type: UIButtonType.custom)
             
-            //            dateBtn.setTitle("", for: <#T##UIControlState#>)
             dateBtn.frame = CGRect.init(x: self.view.frame.size.width-80, y: 8, width: 23, height: 23)
             
             dateBtn.setBackgroundImage(UIImage.init(named: "calendar"), for: UIControlState.normal)
             
-            //            dateBtn.setTitle("月份", for: UIControlState.normal)
             
             dateBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             
             dateBtn.addTarget(self, action: #selector(chooseDate), for: UIControlEvents.touchUpInside)
-            
             
             headerView.addSubview(dateBtn)
             return headerView
@@ -161,8 +152,6 @@ class RechargeListVC: BasePageListTableViewController {
         self.tableView.isScrollEnabled = false
         self.view.addSubview(customer)
         
-        
-        //        appdele.window?.addSubview(customer)
         
     }
     

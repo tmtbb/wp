@@ -44,7 +44,7 @@ class  RechargeListModel: BaseModel {
 class Model: BaseModel {
     
     //返回的列表的key
-          var rid: Int64 = 0             // 充值订单流水号
+       var rid: Int64 = 0             // 充值订单流水号
        var id: Int64 = 0              // 用户id
        var depositTime : Int64 = 0    // 入金时间
        var depositType: Int8 = 0      // 入金方式 1.微信 2.银行卡

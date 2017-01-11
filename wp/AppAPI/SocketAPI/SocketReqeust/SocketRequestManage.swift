@@ -65,6 +65,8 @@ class SocketRequestManage: NSObject {
         socketRequests.removeValue(forKey: UInt32(packet.session_id))
         objc_sync_exit(self)
         let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
+        
+        print(response)
         let statusCode:Int = response.statusCode;
         if ( statusCode < 0) {
             socketReqeust?.onError(statusCode)

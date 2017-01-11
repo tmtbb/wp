@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class ValidationPhoneVC: BaseTableViewController {
     
@@ -31,11 +32,46 @@ class ValidationPhoneVC: BaseTableViewController {
     // 网络请求
     override func didRequest() {
         
-        AppAPIHelper.user().creditdetail(rid:1111000011, complete: { (result) -> ()? in
-            //              self?.didRequestComplete(result)
-            return nil
-            }, error: errorBlockFunc())
         
+        
+        
+        
+        
+//       AppAPIHelper.user().bingcard(bank: "", branchBank: "", province: "", city: "", cardNo: "", name: "", complete: { (result) -> ()? in
+//        
+//       }, error: errorBlockFunc())
+        
+    }
+    @IBAction func bindBank(_ sender: Any) {
+        
+        
+        
+     
+        AppAPIHelper.user().bingcard(bank: Int64(ShareModel.share().shareData["bankId"]!)!, branchBank: ShareModel.share().shareData["branchBank"]!, cardNo: ShareModel.share().shareData["cardNo"]!, name: ShareModel.share().shareData["name"]!, complete: { (result) -> ()? in
+            
+            if let object = result {
+                
+                
+//             let  bankId : Int = object["bankId"] as! Int
+                
+                SVProgressHUD.showSuccessMessage(SuccessMessage: "绑定成功", ForDuration: 1, completion: {
+                    [weak self] in
+                    for  nav : UIViewController in (self?.navigationController?.viewControllers)! {
+                        
+                        if nav.isKind(of: BankCardVC.self){
+                            
+                            self?.navigationController?.popToViewController(nav, animated: true)
+                        }
+                        
+                    }
+                })
+               
+                
+              
+            }
+            return nil
+        }, error: errorBlockFunc())
+    
     }
     //MARK: --点击发送验证码
     @IBAction func requestVoiceCode(_ sender: UIButton) {
