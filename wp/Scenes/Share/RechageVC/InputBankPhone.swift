@@ -16,6 +16,8 @@ class InputBankPhone: UITableViewController {
     @IBOutlet weak var phone: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        typeBank.text = String.bankCardName(bankCardNum: ShareModel.share().shareData["bankNum"]!)
         title = "输入手机号"
         
     }
@@ -28,6 +30,7 @@ class InputBankPhone: UITableViewController {
             
             if isTelNumber(num: phone.text!) == false{
                 
+                ShareModel.share().shareData["bankNum"] =  phone.text!
                 SVProgressHUD.showErrorMessage(ErrorMessage: "手机号格式错误", ForDuration: 1, completion: nil)
                 return
             }

@@ -11,31 +11,49 @@ import UIKit
 let pushFullbankInformation:String = "pushFullbankInformation"
 //银行卡视图 cell
 class BindingBankVCCell: OEZTableViewCell {
-    
+    // 银行名称
+    @IBOutlet weak var bankName: UILabel!
+     // 银行名称
+    @IBOutlet weak var cardNum: UILabel!
     // 刷新cell
     override func update(_ data: Any!) {
+        
+        let model : BankModel = data as! BankModel
+        
+        bankName.text = model.name
+        
+        cardNum.text = "\(model.cardId)"
         
         
     }
 }
 
 
-class BindingBankVC: BaseListTableViewController {
+class BankCardVC: BaseListTableViewController {
     
+    
+    var dataArry = [BankModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "绑定银行卡"
+        title = "我的银行卡"
         
     }
     
     //MARK:  网络请求
     override func didRequest() {
         
-        AppAPIHelper.user().creditdetail(rid:1111000011, complete: { [weak self](result) -> ()? in
-            self?.didRequestComplete(["",""] as AnyObject)
-            return nil
-            }, error: errorBlockFunc())
+//        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
+//            
+//            
+//            
+//            let Model : BankListModel = result as! BankListModel
+//            self?.didRequestComplete(Model.cardlist as AnyObject)
+//            
+//            self?.dataArry = Model.cardlist!
+//            self?.tableView.reloadData()
+//            return nil
+//            }, error: errorBlockFunc())
         
     }
     //MARK:  添加银行卡
@@ -53,6 +71,10 @@ class BindingBankVC: BaseListTableViewController {
         let share = UITableViewRowAction(style: .normal, title: "删除") { action, index in
             
             
+            let  model :BankModel = self.dataArry[indexPath.section] as BankModel
+            
+//          APISocketHelper.us
+            
         }
         share.backgroundColor = UIColor.red
         
@@ -61,18 +83,13 @@ class BindingBankVC: BaseListTableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 2
+        return dataArry.count
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
         
         return 15
     }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let cell : BindingBankVCCell = tableView.dequeueReusableCell(withIdentifier: "BindingBankVCCell") as! BindingBankVCCell
-        
-        return cell
-        
-    }
+   
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         return 1

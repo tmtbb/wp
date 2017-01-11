@@ -9,7 +9,7 @@
 import UIKit
 
 // 提现详情
-class WithDrawDetail: BaseTableViewController {
+class RechargeDetailVC: BaseTableViewController {
     
     // 银行名称
     @IBOutlet weak var bankName: UILabel!
@@ -22,15 +22,15 @@ class WithDrawDetail: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "提现详情"
+        title = "充值详情"
         didRequest()
     }
     
     // 请求接口
-     override func didRequest() {
+    override func didRequest() {
         
         
-        AppAPIHelper.user().withdrawdetail(withdrawld:ShareModel.share().wid, complete: { [weak self](result) -> ()? in
+        AppAPIHelper.user().creditdetail(rid:ShareModel.share().wid, complete: { [weak self](result) -> ()? in
             //                         self?.didRequestComplete(result)
             let model : WithdrawModel = result as! WithdrawModel
             

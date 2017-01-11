@@ -11,6 +11,8 @@
 		67563DCFE7C11C493D5E3BE0 /* Pods_wp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */; };
 		A01CE17F1E212A0100543E12 /* MyWealtVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE17E1E212A0100543E12 /* MyWealtVC.swift */; };
 		A046BF781E1CDFFB0035A4FA /* WithDrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */; };
+		A0639A7E1E25C73B0071F62A /* RechargeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0639A7D1E25C73B0071F62A /* RechargeDetailVC.swift */; };
+		A0639A801E25CDEF0071F62A /* BankListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0639A7F1E25CDEF0071F62A /* BankListModel.swift */; };
 		A072E3B51E247A8E00A855B6 /* userID@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A072E3B31E247A8E00A855B6 /* userID@2x.png */; };
 		A072E3B61E247A8E00A855B6 /* userID@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A072E3B41E247A8E00A855B6 /* userID@3x.png */; };
 		A072E3B91E247AC000A855B6 /* Account@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A072E3B71E247AC000A855B6 /* Account@2x.png */; };
@@ -40,7 +42,7 @@
 		A0BC074E1E23B996003EA7BC /* caname@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0BC074C1E23B995003EA7BC /* caname@3x.png */; };
 		A0BC07511E23BAF3003EA7BC /* addbank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0BC074F1E23BAF3003EA7BC /* addbank@2x.png */; };
 		A0BC07521E23BAF3003EA7BC /* addbank@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0BC07501E23BAF3003EA7BC /* addbank@3x.png */; };
-		A0C284011E1FAE1600A97707 /* BindingBankVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C284001E1FAE1600A97707 /* BindingBankVC.swift */; };
+		A0C284011E1FAE1600A97707 /* BankCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C284001E1FAE1600A97707 /* BankCardVC.swift */; };
 		A0C284091E1FB00D00A97707 /* FullBankInfomationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C284081E1FB00D00A97707 /* FullBankInfomationVC.swift */; };
 		A0C2840B1E1FB24400A97707 /* ValidationPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2840A1E1FB24400A97707 /* ValidationPhoneVC.swift */; };
 		A0C2840D1E1FBCA700A97707 /* SuccessWithdrawVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2840C1E1FBCA700A97707 /* SuccessWithdrawVC.swift */; };
@@ -287,6 +289,8 @@
 		34A71E9057EC9BB492D14F0B /* Pods-wp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wp/Pods-wp.debug.xcconfig"; sourceTree = "<group>"; };
 		A01CE17E1E212A0100543E12 /* MyWealtVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWealtVC.swift; sourceTree = "<group>"; };
 		A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawalVC.swift; sourceTree = "<group>"; };
+		A0639A7D1E25C73B0071F62A /* RechargeDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RechargeDetailVC.swift; sourceTree = "<group>"; };
+		A0639A7F1E25CDEF0071F62A /* BankListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankListModel.swift; sourceTree = "<group>"; };
 		A072E3B31E247A8E00A855B6 /* userID@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userID@2x.png"; sourceTree = "<group>"; };
 		A072E3B41E247A8E00A855B6 /* userID@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userID@3x.png"; sourceTree = "<group>"; };
 		A072E3B71E247AC000A855B6 /* Account@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Account@2x.png"; sourceTree = "<group>"; };
@@ -316,7 +320,7 @@
 		A0BC074C1E23B995003EA7BC /* caname@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "caname@3x.png"; sourceTree = "<group>"; };
 		A0BC074F1E23BAF3003EA7BC /* addbank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addbank@2x.png"; sourceTree = "<group>"; };
 		A0BC07501E23BAF3003EA7BC /* addbank@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addbank@3x.png"; sourceTree = "<group>"; };
-		A0C284001E1FAE1600A97707 /* BindingBankVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingBankVC.swift; sourceTree = "<group>"; };
+		A0C284001E1FAE1600A97707 /* BankCardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardVC.swift; sourceTree = "<group>"; };
 		A0C284081E1FB00D00A97707 /* FullBankInfomationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullBankInfomationVC.swift; sourceTree = "<group>"; };
 		A0C2840A1E1FB24400A97707 /* ValidationPhoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationPhoneVC.swift; sourceTree = "<group>"; };
 		A0C2840C1E1FBCA700A97707 /* SuccessWithdrawVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuccessWithdrawVC.swift; path = ../RechageVC/SuccessWithdrawVC.swift; sourceTree = "<group>"; };
@@ -641,12 +645,13 @@
 			children = (
 				BF04793C1E0FBF5000C511E7 /* RechargeVC.swift */,
 				A08CB39A1E1E1A8A004BE44B /* RechargeListVC.swift */,
-				A0C284001E1FAE1600A97707 /* BindingBankVC.swift */,
+				A0C284001E1FAE1600A97707 /* BankCardVC.swift */,
 				A0C2840A1E1FB24400A97707 /* ValidationPhoneVC.swift */,
 				A0C284081E1FB00D00A97707 /* FullBankInfomationVC.swift */,
 				A0C2840E1E1FBD1A00A97707 /* SuccessChargeVC.swift */,
 				A0BC07351E233DC7003EA7BC /* InputBankPhone.swift */,
 				A0BC073E1E238999003EA7BC /* RechargeVCTableView.swift */,
+				A0639A7D1E25C73B0071F62A /* RechargeDetailVC.swift */,
 			);
 			path = RechageVC;
 			sourceTree = "<group>";
@@ -709,6 +714,8 @@
 				BFAC33071E128FF1008EF3D3 /* ShareModel.swift */,
 				A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */,
 				D0302B781E1C94DE007D3F2B /* WithdrawModel.swift */,
+				A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */,
+				A0639A7F1E25CDEF0071F62A /* BankListModel.swift */,
 			);
 			name = ShareModel;
 			sourceTree = "<group>";
@@ -976,7 +983,6 @@
 				D0302B511E1B86DF007D3F2B /* FlowDetails.swift */,
 				D0302B771E1C94DE007D3F2B /* CreditModel.swift */,
 				BF3AD87E1E16301F00524997 /* ChartFormatter.swift */,
-				A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1519,88 +1525,9 @@
 				A072E3C11E247B3400A855B6 /* rechargeType@2x.png in Resources */,
 				BFF019BE1E23B113008631D6 /* horn.png in Resources */,
 				BF0629E41E04DC7E00618B1B /* yw_1222.jpg in Resources */,
-				BFC1E6611E0D1BC2004A2AFC /* banner.png in Resources */,
-				BFC1E6701E0D1BC2004A2AFC /* jy.png in Resources */,
-				BFC1E68A1E0D1BC2004A2AFC /* zy-hover.png in Resources */,
-				BFC1E6771E0D1BC2004A2AFC /* quan@3x.png in Resources */,
-				BFC1E6291E0D1BC2004A2AFC /* back@2x.png in Resources */,
-				BFC1E66B1E0D1BC2004A2AFC /* icon-14.png in Resources */,
-				BFC1E6761E0D1BC2004A2AFC /* phone.png in Resources */,
-				BF2F644A1E038DFE00917FA1 /* Home.storyboard in Resources */,
-				BFC1E6641E0D1BC2004A2AFC /* detail.png in Resources */,
-				BFC1E6841E0D1BC2004A2AFC /* top.png in Resources */,
-				BF2F64451E038DFE00917FA1 /* LaunchScreen.storyboard in Resources */,
-				BFC1E64C1E0D1BC2004A2AFC /* smile@2x.png in Resources */,
-				BF2F644D1E038DFE00917FA1 /* User.storyboard in Resources */,
-				BFC1E6591E0D1BC2004A2AFC /* zy@2x.png in Resources */,
-				BFC1E6631E0D1BC2004A2AFC /* cat.png in Resources */,
-				BFC1E67E1E0D1BC2004A2AFC /* scan.png in Resources */,
-				BFC1E62E1E0D1BC2004A2AFC /* camera@2x.png in Resources */,
-				BFC1E6811E0D1BC2004A2AFC /* sud-2.png in Resources */,
-				BFC1E67F1E0D1BC2004A2AFC /* smile.png in Resources */,
-				BFC1E6281E0D1BC2004A2AFC /* back-2@2x.png in Resources */,
 				D0FA4EAB1E246F350015C012 /* MyBaskCell.xib in Resources */,
-				BFC1E63A1E0D1BC2004A2AFC /* icon-2@2x.png in Resources */,
-				BFC1E6361E0D1BC2004A2AFC /* icon-13@2x.png in Resources */,
-				BFC1E65B1E0D1BC2004A2AFC /* back-1.png in Resources */,
-				BF2F64471E038DFE00917FA1 /* city.plist in Resources */,
-				BFC1E6351E0D1BC2004A2AFC /* icon-12@2x.png in Resources */,
-				BFC1E65A1E0D1BC2004A2AFC /* 1@3x.png in Resources */,
-				BFC1E64F1E0D1BC2004A2AFC /* sud@2x.png in Resources */,
-				BFC1E6731E0D1BC2004A2AFC /* one.png in Resources */,
-				BFC1E67B1E0D1BC2004A2AFC /* rule-2.png in Resources */,
-				BFC1E62B1E0D1BC2004A2AFC /* bankNum@2x.png in Resources */,
-				BFC1E6451E0D1BC2004A2AFC /* quan@2x.png in Resources */,
-				BFC1E66A1E0D1BC2004A2AFC /* icon-13.png in Resources */,
-				BFC1E62F1E0D1BC2004A2AFC /* cat@2x.png in Resources */,
-				BFC1E63C1E0D1BC2004A2AFC /* jy@2x.png in Resources */,
-				BFC1E65C1E0D1BC2004A2AFC /* back-2.png in Resources */,
-				BFC1E6511E0D1BC2004A2AFC /* top@2x.png in Resources */,
-				BFC1E6461E0D1BC2004A2AFC /* rank@2x.png in Resources */,
-				BFC1E6711E0D1BC2004A2AFC /* lock.png in Resources */,
-				BFC1E6411E0D1BC2004A2AFC /* one@2x.png in Resources */,
-				BFC1E6751E0D1BC2004A2AFC /* person-r.png in Resources */,
-				BFC1E6861E0D1BC2004A2AFC /* two.png in Resources */,
-				BFC1E6321E0D1BC2004A2AFC /* dz@2x.png in Resources */,
-				BFC1E65D1E0D1BC2004A2AFC /* back.png in Resources */,
-				BFC1E6381E0D1BC2004A2AFC /* icon-15@2x.png in Resources */,
-				BFC1E6741E0D1BC2004A2AFC /* person-l.png in Resources */,
-				BFC1E63E1E0D1BC2004A2AFC /* nav_clear@2x.png in Resources */,
-				BFC1E6421E0D1BC2004A2AFC /* person-l@2x.png in Resources */,
-				BFC1E6271E0D1BC2004A2AFC /* back-1@2x.png in Resources */,
-				BFC1E6391E0D1BC2004A2AFC /* icon-16@2x.png in Resources */,
-				BFC1E6441E0D1BC2004A2AFC /* phone@2x.png in Resources */,
-				BFC1E68B1E0D1BC2004A2AFC /* zy.png in Resources */,
-				BF2F64441E038DFE00917FA1 /* Assets.xcassets in Resources */,
-				BF2F64491E038DFE00917FA1 /* errorcode.plist in Resources */,
-				BFC1E63B1E0D1BC2004A2AFC /* jy-hover@2x.png in Resources */,
-				BFC1E65F1E0D1BC2004A2AFC /* bankNum@3x.png in Resources */,
-				BFC1E6501E0D1BC2004A2AFC /* three@2x.png in Resources */,
-				BFC1E6851E0D1BC2004A2AFC /* tuidan@3x.png in Resources */,
-				BFAC33221E139357008EF3D3 /* default-head@2x.png in Resources */,
-				BFC1E64A1E0D1BC2004A2AFC /* rule@2x.png in Resources */,
-				BFC1E6891E0D1BC2004A2AFC /* winRate@3x.png in Resources */,
-				BFC1E64B1E0D1BC2004A2AFC /* scan@2x.png in Resources */,
-				BFC1E6821E0D1BC2004A2AFC /* sud.png in Resources */,
-				BFC1E6671E0D1BC2004A2AFC /* horn.png in Resources */,
-				BFC1E6531E0D1BC2004A2AFC /* two@2x.png in Resources */,
 				D06074FA1E23576B0028EB32 /* MyPushCell.xib in Resources */,
-				BFC1E6301E0D1BC2004A2AFC /* detail@2x.png in Resources */,
-				BFC1E66E1E0D1BC2004A2AFC /* icon-2.png in Resources */,
-				BFC1E6791E0D1BC2004A2AFC /* rmb-1.png in Resources */,
-				BFC1E6721E0D1BC2004A2AFC /* next.png in Resources */,
-				BFC1E66D1E0D1BC2004A2AFC /* icon-16.png in Resources */,
-				BFC1E6621E0D1BC2004A2AFC /* camera.png in Resources */,
-				BF2F644C1E038DFE00917FA1 /* Share.storyboard in Resources */,
-				BFC1E6881E0D1BC2004A2AFC /* warn@3x.png in Resources */,
-				BFC1E6261E0D1BC2004A2AFC /* 1@2x.png in Resources */,
-				BF2F644B1E038DFE00917FA1 /* Login.storyboard in Resources */,
-				BFC1E67A1E0D1BC2004A2AFC /* rmb.png in Resources */,
-				BFC1E6481E0D1BC2004A2AFC /* rule-2@2x.png in Resources */,
 				D06074F61E233DE70028EB32 /* MyAttentionCell.xib in Resources */,
-				BFC1E65E1E0D1BC2004A2AFC /* bank@3x.png in Resources */,
-				BFC1E6311E0D1BC2004A2AFC /* dz-hover@2x.png in Resources */,
-				BFC1E62A1E0D1BC2004A2AFC /* bank@2x.png in Resources */,
 				BFF019791E23B113008631D6 /* LaunchScreen.storyboard in Resources */,
 				BFF019A51E23B113008631D6 /* sud-2@2x.png in Resources */,
 				BFF019B01E23B113008631D6 /* zy@2x.png in Resources */,
@@ -1719,7 +1646,7 @@
 				BF062B471E04DEC900618B1B /* MainTabBarController.swift in Sources */,
 				BF9CD7461E0A549900194A32 /* DealApi.swift in Sources */,
 				A0BC073D1E236C59003EA7BC /* CustomerTipView.swift in Sources */,
-				A0C284011E1FAE1600A97707 /* BindingBankVC.swift in Sources */,
+				A0C284011E1FAE1600A97707 /* BankCardVC.swift in Sources */,
 				BF2F64411E038DFE00917FA1 /* BaseModel.swift in Sources */,
 				D03831471E1344F400D54295 /* MyMessageController.swift in Sources */,
 				BF2F64351E038DFE00917FA1 /* UIViewController+Extension.swift in Sources */,
@@ -1745,6 +1672,7 @@
 				BF2F642D1E038DFE00917FA1 /* BaseTableViewController.swift in Sources */,
 				D060751D1E236B5F0028EB32 /* EnterPasswordVC.swift in Sources */,
 				BF0479331E0FBDD400C511E7 /* RegisterVC.swift in Sources */,
+				A0639A7E1E25C73B0071F62A /* RechargeDetailVC.swift in Sources */,
 				D0302B7A1E1C94DE007D3F2B /* WithdrawModel.swift in Sources */,
 				BF9CD74E1E0A570100194A32 /* UserSocketApi.swift in Sources */,
 				D0302B791E1C94DE007D3F2B /* CreditModel.swift in Sources */,
@@ -1752,6 +1680,7 @@
 				D0C5146E1E0BE199005454F4 /* CSCycleView.swift in Sources */,
 				BF9CD75F1E0A6CE300194A32 /* UIImage+Extension.swift in Sources */,
 				D03831491E1344F400D54295 /* ProductGradeController.swift in Sources */,
+				A0639A801E25CDEF0071F62A /* BankListModel.swift in Sources */,
 				BF0479411E0FBFD300C511E7 /* FriendVC.swift in Sources */,
 				BF0479391E0FBEC300C511E7 /* DealVC.swift in Sources */,
 				D03831421E1344F400D54295 /* AttentionUsController.swift in Sources */,

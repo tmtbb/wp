@@ -15,9 +15,10 @@ class FullBankInfomationVC: BaseTableViewController {
 
 
     
-    // 银行预留手机号
+    // 银行卡号
     @IBOutlet weak var bankNumber: UITextField!
-    
+    // 支行地址
+    @IBOutlet weak var branceAddress: UITextField!
     // 持卡人姓名
     @IBOutlet weak var name: UITextField!
    
@@ -34,8 +35,11 @@ class FullBankInfomationVC: BaseTableViewController {
     @IBAction func nextInputPhone(_ sender: Any) {
         
         
-        if checkTextFieldEmpty([name,bankNumber]){
-             self.performSegue(withIdentifier: pushInputPhone, sender: nil)
+        if checkTextFieldEmpty([name,bankNumber,branceAddress]){
+            
+          
+            didRequest()
+          
             return
         }
        
@@ -43,10 +47,16 @@ class FullBankInfomationVC: BaseTableViewController {
      //MARK: 网络请求
     override func didRequest() {
         
-//        AppAPIHelper.user().creditdetail(rid:1111000011, complete: { (result) -> ()? in
-//            //              self?.didRequestComplete(result)
-//            return nil
-//            }, error: errorBlockFunc())
+        AppAPIHelper.user().getBankName(withbankld:1111000011, complete: { [weak self](result) -> ()? in
+
+            //bankNum
+            ShareModel.share().shareData["bankNum"] = (self?.bankNumber.text!)!
+            ShareModel.share().shareData["branceAddress"] = (self?.branceAddress.text!)!
+            ShareModel.share().shareData["name"] = (self?.name.text!)!
+            
+            self?.performSegue(withIdentifier: pushInputPhone, sender: nil)
+            return nil
+            }, error: errorBlockFunc())
         
     }
         

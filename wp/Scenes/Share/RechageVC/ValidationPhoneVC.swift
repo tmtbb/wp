@@ -26,16 +26,32 @@ class ValidationPhoneVC: BaseTableViewController {
         super.viewDidLoad()
 
        title = "验证手机号"
+    
+        
+        
         
     }
     // 网络请求
     override func didRequest() {
         
-        AppAPIHelper.user().creditdetail(rid:1111000011, complete: { (result) -> ()? in
-            //              self?.didRequestComplete(result)
-            return nil
-            }, error: errorBlockFunc())
         
+        
+        
+        
+        
+//       AppAPIHelper.user().bingcard(bank: "", branchBank: "", province: "", city: "", cardNo: "", name: "", complete: { (result) -> ()? in
+//        
+//       }, error: errorBlockFunc())
+        
+    }
+    @IBAction func bindBank(_ sender: Any) {
+        
+       
+        AppAPIHelper.user().bingcard(bank:  ShareModel.share().name, branchBank: ShareModel.share().name, cardNo: ShareModel.share().name, name: ShareModel.share().name, complete: { (result) -> ()? in
+            
+            return nil
+        }, error: errorBlockFunc())
+    
     }
     //MARK: --点击发送验证码
     @IBAction func requestVoiceCode(_ sender: UIButton) {

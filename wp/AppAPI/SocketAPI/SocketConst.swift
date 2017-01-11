@@ -31,13 +31,15 @@ class SocketConst: NSObject {
         //流水列表
         case flowList = 1008
         //流水详情
-        case flowDetails = 1009
+        case flowDetails = 1010
         //银行卡列表
-        case bankcardList = 1010
+        case bankcardList = 1009
         //银行卡详情
         case bingcard = 1011
         //解绑银行卡
         case unbindcard = 1012
+        //获取银行卡名称
+        case getbankname = 1013
         //提现详情
         case withdrawDetail = 1017
         // 我的晒单
@@ -70,6 +72,7 @@ class SocketConst: NSObject {
         case error = 0
         case user = 3
         case chat = 2
+        case wp = 1
     }
     
     class Key {

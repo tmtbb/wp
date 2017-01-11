@@ -35,12 +35,31 @@ class WithDrawaListVCCell: OEZTableViewCell {
     // 刷新cell
     override func update(_ data: Any!) {
         
+        let model : WithdrawModel = data as! WithdrawModel
+        // 银行名称
+        let bankName : String = model.bank as String
+        // 提现至
+         withDrawTo.text = "提现至" + "\(bankName)"
         
+        moneyLb.text =   "\(model.amount)" + "元"
+        
+        var status = String()
+        
+        if model.status == 1 {
+            status = "处理中"
+        } else if model.status == 1 {
+         status = "成功"
+        }else{
+         status = "失败"
+        }
+        
+        statusBtn.setTitle(status, for: UIControlState.normal)
     }
     
 }
 class WithDrawaListVC: BasePageListTableViewController {
     
+    var dataModel = [WithdrawModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,7 +73,10 @@ class WithDrawaListVC: BasePageListTableViewController {
             
             let Model : WithdrawListModel = result as! WithdrawListModel
             
-            self?.didRequestComplete(Model.withdrawListtee as AnyObject?)
+            self?.dataModel =  Model.withdrawList
+            
+            
+            self?.didRequestComplete(Model.withdrawList as AnyObject?)
             return nil
             }, error: errorBlockFunc())
         
@@ -62,6 +84,9 @@ class WithDrawaListVC: BasePageListTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
+        let model = self.dataModel[indexPath.row]
+        
+        ShareModel.share().wid = model.wid
         self.performSegue(withIdentifier: "PushWithDrawDetail", sender: nil)
         
         
