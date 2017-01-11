@@ -7,7 +7,6 @@
 //
 
 import UIKit
-private let originalCellId = "MyAttentionCell"
 class MyAttentionController: BaseTableViewController {
 
     var attentionNumber = UILabel()
@@ -16,8 +15,6 @@ class MyAttentionController: BaseTableViewController {
         super.viewDidLoad()
 
         tableView.tableHeaderView = setupHeaderView()
-        let originalNib = UINib(nibName: "MyAttentionCell", bundle: nil)
-        tableView.register(originalNib, forCellReuseIdentifier: originalCellId)
         let backBtn = UIButton(type: .custom)
         backBtn.frame = CGRect(x: 15, y: 5, width: 38, height: 38)
         backBtn.setTitle("返回", for: .normal)
@@ -106,9 +103,9 @@ class MyAttentionController: BaseTableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: originalCellId, for: indexPath) as! MyAttentionCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyAttentionCell", for: indexPath) as! MyAttentionCell
         let index = indexPath.item
-        cell.nuberLabel.text = "\(index + 1)"
+        cell.nuberLabel.text = "\(index + 1)"        
         
         return cell
     }

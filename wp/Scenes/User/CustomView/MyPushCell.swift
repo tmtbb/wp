@@ -13,24 +13,30 @@ class MyPushCell: UITableViewCell {
     @IBOutlet weak var garyBtn: UIButton!
     
     @IBOutlet weak var redBtn: UIButton!
-    @IBOutlet weak var redBtnWidth: NSLayoutConstraint!
  
+    @IBOutlet weak var redBtnWidth: NSLayoutConstraint!
     //百分比
     @IBOutlet weak var percentLabel: UILabel!
     //胜率
     @IBOutlet weak var winRate: UILabel!
     //胜场
     @IBOutlet weak var winNumber: UILabel!
-    let percentNumber:CGFloat = 0.90
+    let percentNumber:CGFloat = 0.80
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        redBtnWidth.constant = garyBtn.frame.size.width * percentNumber
         redBtn.layer.cornerRadius = 10
         garyBtn.layer.cornerRadius = 10
+        let nuber = garyBtn.frame.size.width * (UIScreen.main.bounds.width / 375)
+        print(nuber)
+        redBtnWidth.constant = nuber * percentNumber
+        print(redBtnWidth.constant)
         
     }
-    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
