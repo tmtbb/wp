@@ -36,6 +36,12 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         initData()
         initUI()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 3) {
+            self.winRateConstraint.constant = 100
+        }
+    }
     deinit {
         DealModel.share().removeObserver(self, forKeyPath: "selectDealModel")
     }

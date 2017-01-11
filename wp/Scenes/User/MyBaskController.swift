@@ -17,7 +17,7 @@ class MyBaskController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.tableHeaderView = setupHeaderView()
         let backBtn = UIButton(type: .custom)
         backBtn.frame = CGRect(x: 15, y: 5, width: 38, height: 38)
@@ -30,6 +30,7 @@ class MyBaskController: BaseTableViewController {
     func backDidClick() {
         navigationController?.popToRootViewController(animated: true)
     }
+    
     func setupHeaderView()->(UIView) {
         let bigSumView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60))
         let sumView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
@@ -54,19 +55,18 @@ class MyBaskController: BaseTableViewController {
             make.top.equalTo(sumView).offset(18)
             make.height.equalTo(15)
         }
-        pushNumber.text = "晒单总数: 20"
+        pushNumber.text = "推单总数: 20"
         pushNumber.sizeToFit()
-        pushNumber.font = UIFont.systemFont(ofSize: 16)
+        pushNumber.font = UIFont.systemFont(ofSize: 16 * (UIScreen.main.bounds.width / 375))
         pushNumber.textColor = UIColor(rgbHex:0x333333)
         //本月
         pushMonthly.snp.makeConstraints { (make) in
-            make.right.equalTo(sumView).offset(-18)
+            make.right.equalTo(sumView).offset(-15)
             make.top.equalTo(sumView).offset(18)
             make.height.equalTo(15)
         }
         pushMonthly.text = "本月8"
-        pushMonthly.sizeToFit()
-        pushMonthly.font = UIFont.systemFont(ofSize: 16)
+        pushMonthly.font = UIFont.systemFont(ofSize: 16 * (UIScreen.main.bounds.width / 375))
         pushMonthly.textColor = UIColor(rgbHex:0x333333)
         //本周
         pushWeek.snp.makeConstraints { (make) in
@@ -74,20 +74,19 @@ class MyBaskController: BaseTableViewController {
             make.top.equalTo(pushMonthly)
             make.height.equalTo(15)
         }
-        pushWeek.text = "本月3"
-        pushWeek.sizeToFit()
-        pushWeek.font = UIFont.systemFont(ofSize: 16)
+        pushWeek.text = "本周3"
+        pushWeek.font = UIFont.systemFont(ofSize: 16 * (UIScreen.main.bounds.width / 375))
         pushWeek.textColor = UIColor(rgbHex:0x333333)
-        //本日
+        //今日
         pushToday.snp.makeConstraints { (make) in
             make.right.equalTo(pushWeek.snp.left).offset(-20)
             make.top.equalTo(pushMonthly)
             make.height.equalTo(15)
         }
         pushToday.text = "今日3"
-        pushToday.sizeToFit()
-        pushToday.font = UIFont.systemFont(ofSize: 16)
+        pushToday.font = UIFont.systemFont(ofSize: 16 * (UIScreen.main.bounds.width / 375))
         pushToday.textColor = UIColor(rgbHex:0x333333)
+        
         //灰色的线
         grayView.snp.makeConstraints { (make) in
             make.top.equalTo(sumView.snp.bottom)
@@ -146,23 +145,24 @@ class MyBaskController: BaseTableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 9
     }
-
-    /*
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+ 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyBaskCell", for: indexPath) as! MyBaskCell
 
-        // Configure the cell...
 
         return cell
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.
