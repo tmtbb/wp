@@ -7,33 +7,31 @@
 //
 
 import UIKit
-class DealController: BaseTableViewController {
+class DealController: BaseTableViewController, TitleCollectionviewDelegate {
     
-    @IBOutlet weak var productCollection: UICollectionView!
-    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var productCollection: TitleCollectionView!
+    //盈亏数
+    @IBOutlet weak var moneyNumber: UILabel!
+    //总手数
+    @IBOutlet weak var sumHandNumber: UIButton!
+    //总单数
+    @IBOutlet weak var sumOneNumber: UIButton!
+    //买涨
+    @IBOutlet weak var buyUp: UILabel!
+    //买跌
+    @IBOutlet weak var buyDown: UILabel!
+    //建仓
+    @IBOutlet weak var build: UILabel!
+    //平仓
+    @IBOutlet weak var sell: UILabel!
     
-    
-     var lastTypeBtn: UIButton?
-     var selectIndex = 0
-    var products: [ProductModel]? {
-        didSet{
-//            if let flowLayout: UICollectionViewFlowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
-//                let count = products != nil ? ((products?.count)! > 3 ? 3 : products?.count ): 3
-//                flowLayout.itemSize = CGSize.init(width: UIScreen.width()/CGFloat(count!), height: frame.size.height > 0 ? frame.size.height : 60)
-//            }
-//            reloadData()
-        }
-    }
-
 
     let strArray:[String] = ["周五 12 - 26","周四 12 - 25","周三 12 - 24","周二 12 - 23","周一 12 - 22"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollection()
-        
-        tableView.contentInset = UIEdgeInsetsMake(80, 0, 0, 0)
-        
+  
         let backBtn = UIButton(type: .custom)
         backBtn.frame = CGRect(x: 15, y: 5, width: 38, height: 38)
         backBtn.setTitle("返回", for: .normal)
@@ -49,24 +47,25 @@ class DealController: BaseTableViewController {
     
     //MARK: -- 设置collectionView
     func setupCollection() {
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.minimumInteritemSpacing = 0
-        flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width/2, height: 50)
-        productCollection.delegate = self
-        productCollection.dataSource = self
-        productCollection.isPagingEnabled = true
-        productCollection.bounces = false
-        
+        productCollection.itemDelegate = self
+        productCollection.reuseIdentifier = ProductCollectionCell.className()
+        productCollection.objects = ["test1" as AnyObject,"test2" as AnyObject,"test1" as AnyObject,"test2" as AnyObject,"test1" as AnyObject,"test2" as AnyObject]
+    }
+    func didSelectedProduct(object: AnyObject?) {
+        if let test: String = object as? String {
+            print(test)
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarWithAnimationDuration()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTabBarWithAnimationDuration()
         translucent(clear: false)
+   
     }
     //MARK: -- 隐藏tabBar导航栏
     func hideTabBarWithAnimationDuration() {
@@ -91,7 +90,6 @@ class DealController: BaseTableViewController {
         tabBar?.frame = tabFrame!
         var contentFrame = content?.frame
         contentFrame?.size.height -= (tabFrame?.size.height)!
-    
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -105,7 +103,7 @@ class DealController: BaseTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -135,35 +133,24 @@ class DealController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 42
     }
+    
+    //不能向上滑动
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let off_y = scrollView.contentOffset.y
+        if off_y < 0 {
+            self.tableView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
+        }
+        
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        
+            performSegue(withIdentifier: DealDetailTableVC.className(), sender: nil)
+        
+    }
 }
-//MARK: -- collectionView的代理方法
-extension DealController:UICollectionViewDataSource, UICollectionViewDelegate{
-    
-    
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-                return 1
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       
-        return 2
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionCell.className(), for: indexPath) as! ProductCollectionCell
-        let product = products?[indexPath.row]
-        cell.productLabel.text = "白银"
-        cell.redView.isHidden = indexPath.row != selectIndex
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectIndex = indexPath.row
-        collectionView.reloadData()
-    }
-  
- 
-}
+
 
 
 

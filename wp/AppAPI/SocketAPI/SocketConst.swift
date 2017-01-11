@@ -25,7 +25,7 @@ class SocketConst: NSObject {
         // 声音验证码
         case voiceCode = 1005
         // 设置用户信息
-        case userInfo = 1006
+        case userInfo = 1003
         //设置账号信息
         case accountNews = 1007
         //流水列表
