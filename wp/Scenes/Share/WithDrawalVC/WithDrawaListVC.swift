@@ -73,9 +73,11 @@ class WithDrawaListVC: BasePageListTableViewController {
             
             let Model : WithdrawListModel = result as! WithdrawListModel
             
+
             self?.dataModel =  Model.withdrawList
             
             
+
             self?.didRequestComplete(Model.withdrawList as AnyObject?)
             return nil
             }, error: errorBlockFunc())
@@ -86,7 +88,7 @@ class WithDrawaListVC: BasePageListTableViewController {
         
         let model = self.dataModel[indexPath.row]
         
-        ShareModel.share().wid = model.wid
+        ShareModel.share().shareData["wid"] = "\(model.wid)"
         self.performSegue(withIdentifier: "PushWithDrawDetail", sender: nil)
         
         

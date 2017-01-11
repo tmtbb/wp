@@ -25,6 +25,7 @@ class DealVC: BaseTableViewController {
     @IBOutlet weak var kLineView: KLineView!
     @IBOutlet weak var minBtn: UIButton!
     @IBOutlet weak var dealTable: MyDealTableView!
+    @IBOutlet weak var titleView: ProductTitleView!
     private var klineBtn: UIButton?
     
     
@@ -34,6 +35,12 @@ class DealVC: BaseTableViewController {
         initData()
         initUI()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 3) {
+            self.winRateConstraint.constant = 100
+        }
+    }
     deinit {
         DealModel.share().removeObserver(self, forKeyPath: "selectDealModel")
     }
@@ -41,7 +48,9 @@ class DealVC: BaseTableViewController {
     func initData() {
         //初始化持仓数据
         initDealTableData()
-
+        //初始化下商品数据
+        initProductData()
+        //持仓点击
         DealModel.share().addObserver(self, forKeyPath: "selectDealModel", options: .new, context: nil)
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -52,12 +61,22 @@ class DealVC: BaseTableViewController {
             }
             
             if DealModel.share().type == .cellTapped {
-                performSegue(withIdentifier: DealDetailVC.className(), sender: nil)
+                DealModel.share().isDealDetail = true
+                        performSegue(withIdentifier: BuyVC.className(), sender: nil)
                 return
             }
         }
     }
-    //持仓列表数据
+    // 当前列表数据
+    func initProductData() {
+        AppAPIHelper.deal().products(pid: 0, complete: { [weak self](result) -> ()? in
+            if let products: [ProductModel] = result as! [ProductModel]?{
+                self?.titleView.products = products
+            }
+            return nil
+        }, error: errorBlockFunc())
+    }
+    // 持仓列表数据
     func initDealTableData() {
         AppAPIHelper.deal().currentDeals(complete: { [weak self](result) -> ()? in
             if result == nil{
@@ -73,7 +92,12 @@ class DealVC: BaseTableViewController {
     //MARK: --UI
     func initUI() {
         timeBtnTapped(minBtn)
+        
     }
+    
+    //MARK: --商品选择
+  
+    
     //MARK: --KlineView and Btns
     @IBAction func timeBtnTapped(_ sender: UIButton) {
         if let btn = klineBtn {
@@ -89,7 +113,9 @@ class DealVC: BaseTableViewController {
     
     //MARK: --买涨/买跌
     @IBAction func dealBtnTapped(_ sender: UIButton) {
-        DealModel.share().dealUp = sender.tag == 1 
+        DealModel.share().dealUp = sender.tag == 1
+        DealModel.share().isDealDetail = false
+        performSegue(withIdentifier: BuyVC.className(), sender: nil)
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {

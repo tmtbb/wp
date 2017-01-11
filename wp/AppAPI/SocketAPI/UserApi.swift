@@ -20,7 +20,7 @@ protocol UserApi {
     //银行卡列表
     func bankcardList(complete: CompleteBlock?, error: ErrorBlock?)
     //绑定银行卡
-    func bingcard(bank: String, branchBank: String, cardNo: String, name:String, complete: CompleteBlock?, error: ErrorBlock?)
+    func bingcard(bank: Int64, branchBank: String, cardNo: String, name:String, complete: CompleteBlock?, error: ErrorBlock?)
     //解绑银行卡
     func unbindcard(bankId: Int32, vCode:Int32, complete: CompleteBlock?, error: ErrorBlock?)
     //充值列表
@@ -34,5 +34,5 @@ protocol UserApi {
     //提现详情
     func withdrawdetail( withdrawld: Int64, complete: CompleteBlock?, error: ErrorBlock?)
     // 获取银行卡名称
-    func getBankName( withbankld: Int64, complete: CompleteBlock?, error: ErrorBlock?)
+    func getBankName( withbankld: String, complete: CompleteBlock?, error: ErrorBlock?)
 }

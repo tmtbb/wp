@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class ValidationPhoneVC: BaseTableViewController {
     
@@ -26,9 +27,6 @@ class ValidationPhoneVC: BaseTableViewController {
         super.viewDidLoad()
 
        title = "验证手机号"
-    
-        
-        
         
     }
     // 网络请求
@@ -46,9 +44,31 @@ class ValidationPhoneVC: BaseTableViewController {
     }
     @IBAction func bindBank(_ sender: Any) {
         
-       
-        AppAPIHelper.user().bingcard(bank:  ShareModel.share().name, branchBank: ShareModel.share().name, cardNo: ShareModel.share().name, name: ShareModel.share().name, complete: { (result) -> ()? in
+        
+        
+     
+        AppAPIHelper.user().bingcard(bank: Int64(ShareModel.share().shareData["bankId"]!)!, branchBank: ShareModel.share().shareData["branchBank"]!, cardNo: ShareModel.share().shareData["cardNo"]!, name: ShareModel.share().shareData["name"]!, complete: { (result) -> ()? in
             
+            if let object = result {
+                
+                
+//             let  bankId : Int = object["bankId"] as! Int
+                
+                SVProgressHUD.showSuccessMessage(SuccessMessage: "绑定成功", ForDuration: 1, completion: {
+                    [weak self] in
+                    for  nav : UIViewController in (self?.navigationController?.viewControllers)! {
+                        
+                        if nav.isKind(of: BankCardVC.self){
+                            
+                            self?.navigationController?.popToViewController(nav, animated: true)
+                        }
+                        
+                    }
+                })
+               
+                
+              
+            }
             return nil
         }, error: errorBlockFunc())
     

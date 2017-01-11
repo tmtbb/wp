@@ -51,14 +51,16 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         let param = [SocketConst.Key.uid: UserModel.share().currentUser?.uid ?? 0,
                      SocketConst.Key.token: UserModel.token ?? ""] as [String : Any]
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject], type: SocketConst.type.wp)
-        startModelRequest(packet, modelClass: BankListModel.self, complete: complete, error: error)
+     startModelRequest(packet, modelClass: BankListModel.self, complete: complete, error: error)
+        
+//        startModelsRequest(packet, listName: "cardlist", modelClass: BankModel.self, complete: complete, error: error)
 
     }
     //绑定银行卡
-    func bingcard(bank: String, branchBank: String, cardNo: String, name:String, complete: CompleteBlock?, error: ErrorBlock?){
+    func bingcard(bank: Int64, branchBank: String, cardNo: String, name:String, complete: CompleteBlock?, error: ErrorBlock?){
         let param = [SocketConst.Key.uid: UserModel.share().currentUser?.uid ?? 0,
                      SocketConst.Key.token: UserModel.token ?? "",
-                     SocketConst.Key.bank: bank,
+                     SocketConst.Key.bankId: bank,
                      SocketConst.Key.branchBank: branchBank,
                      SocketConst.Key.cardNo:cardNo,
                      SocketConst.Key.name: name] as [String : Any]
@@ -69,10 +71,10 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         
     }
     // 获取银行卡名称
-    func getBankName( withbankld: Int64, complete: CompleteBlock?, error: ErrorBlock?){
+    func getBankName( withbankld: String, complete: CompleteBlock?, error: ErrorBlock?){
         let param: [String : Any] = [SocketConst.Key.uid: UserModel.share().currentUser?.uid ?? 0,
                                      SocketConst.Key.token: UserModel.token ?? "",
-                                     SocketConst.Key.withdrawld: withbankld]
+                                     SocketConst.Key.cardNo: withbankld]
         
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .getbankname, dict: param as [String : AnyObject], type: SocketConst.type.wp)
        

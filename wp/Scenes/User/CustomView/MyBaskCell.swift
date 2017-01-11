@@ -9,16 +9,20 @@
 import UIKit
 
 class MyBaskCell: UITableViewCell {
-
+    @IBOutlet weak var productType: UILabel!
+    @IBOutlet weak var positionTime: UILabel!
+    @IBOutlet weak var positionPrice: UILabel!
+    @IBOutlet weak var closeOutTime: UILabel!
+    @IBOutlet weak var closeOutPrice: UILabel!
+    @IBOutlet weak var profitAndLoss: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }

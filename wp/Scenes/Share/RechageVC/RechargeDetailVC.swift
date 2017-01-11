@@ -30,7 +30,9 @@ class RechargeDetailVC: BaseTableViewController {
     override func didRequest() {
         
         
-        AppAPIHelper.user().creditdetail(rid:ShareModel.share().wid, complete: { [weak self](result) -> ()? in
+   
+        
+        AppAPIHelper.user().creditdetail(rid:Int64(ShareModel.share().shareData["wid"]!)!, complete: { [weak self](result) -> ()? in
             //                         self?.didRequestComplete(result)
             let model : WithdrawModel = result as! WithdrawModel
             

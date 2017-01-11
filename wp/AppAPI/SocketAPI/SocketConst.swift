@@ -39,9 +39,9 @@ class SocketConst: NSObject {
         //解绑银行卡
         case unbindcard = 1012
         //获取银行卡名称
-        case getbankname = 1013
+        case getbankname = 1017
         //提现详情
-        case withdrawDetail = 1017
+        case withdrawDetail = 1019
         // 我的晒单
         case userShare = 10010
          // 充值列表
@@ -66,7 +66,15 @@ class SocketConst: NSObject {
         case sellOutDeal = 2005
         //修改持仓
         case changeDeal = 2006
-
+        //商品列表
+        case products = 2007
+        //当前K线数据
+        case kChart = 2008
+        //当前分时数据
+        case timeline = 2009
+        //当前报价
+        case realtime = 2010
+        
     }
     enum type:UInt8 {
         case error = 0
@@ -122,6 +130,10 @@ class SocketConst: NSObject {
         static let token = "token"
         static let position = "position"
         static let price = "price"
+        static let pid = "pid"
+        static let goodType = "goodType"
+        static let exchange_name = "exchange_name"
+        static let platform_name = "platform_name"
     }
     
     

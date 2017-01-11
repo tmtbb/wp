@@ -28,9 +28,11 @@ class WithDrawDetail: BaseTableViewController {
     
     // 请求接口
      override func didRequest() {
+        //Int(string99)
         
+        var wid : String = ShareModel.share().shareData["wid"]! as String
         
-        AppAPIHelper.user().withdrawdetail(withdrawld:ShareModel.share().wid, complete: { [weak self](result) -> ()? in
+        AppAPIHelper.user().withdrawdetail(withdrawld: Int64(wid)!, complete: { [weak self](result) -> ()? in
             //                         self?.didRequestComplete(result)
             let model : WithdrawModel = result as! WithdrawModel
             
