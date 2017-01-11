@@ -27,6 +27,7 @@ class BuyVC: BaseTableViewController {
     @IBOutlet weak var firstLostBtn: UIButton!
     @IBOutlet weak var firstWinBtn: UIButton!
     
+    @IBOutlet weak var footView: UIView!
     @IBOutlet weak var sureBtn: UIButton!
     private var lastBuyBtn: UIButton?
     //盈损波动
@@ -56,7 +57,7 @@ class BuyVC: BaseTableViewController {
     func initUI() {
         dealColor =  DealModel.share().dealUp ? AppConst.Color.CMain : AppConst.Color.CGreen
         let dealTitle = DealModel.share().dealUp ? "买涨" : "买跌"
-        title = dealTitle
+        title = DealModel.share().isDealDetail ? "修改持仓参数" : dealTitle
         lineView.backgroundColor = dealColor
         priceLabel.textColor = dealColor
         waveLabel.textColor = dealColor
@@ -68,6 +69,24 @@ class BuyVC: BaseTableViewController {
         stopLostBtnTapped(firstLostBtn)
         stopWinBtnTapped(firstWinBtn)
         buildDealBtnTapped(buildBtn)
+        
+        footView.isHidden = DealModel.share().isDealDetail
+    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return DealModel.share().isDealDetail ? 0 : 1
+        case 1:
+            return DealModel.share().isDealDetail ? 1 : 0
+        case 2:
+            return DealModel.share().isDealDetail ? 0 : 1
+        case 3:
+            return 6
+        case 4:
+            return DealModel.share().isDealDetail ? 1 : 0
+        default:
+            return 0
+        }
     }
     //MARK: --购买白银规格
     @IBAction func countBtnTapped(_ sender: UIButton) {
