@@ -109,17 +109,14 @@ class RechargeVC: BaseTableViewController {
     @IBAction func bankNumBtnTapped(_ sender: UIButton) {
         
     }
-    //MARK: -充值方式
     
     //MARK: -进入绑定银行卡
     @IBAction func addBank(_ sender: Any) {
         
         
-        let storyBoard = UIStoryboard.init(name: "Share", bundle: nil)
+       self.performSegue(withIdentifier: "addBankCard", sender: nil)
         
-        let BindingBankVC :BindingBankVC = storyBoard.instantiateViewController(withIdentifier: "BindingBankVC") as! BindingBankVC
-        
-        self.navigationController?.pushViewController(BindingBankVC, animated: true)
+     
         
         
     }
@@ -137,8 +134,6 @@ class RechargeVC: BaseTableViewController {
     override   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         if section==0 {
-            
-            
             return 2
         }
         if section==1 {
@@ -164,7 +159,7 @@ class RechargeVC: BaseTableViewController {
                  arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*1.5))
                 
                 }
-                selectRow = !selectRow
+                 selectRow = !selectRow
                  tableView.reloadSections(IndexSet.init(integer: 2), with: UITableViewRowAnimation.fade)
             }
             
