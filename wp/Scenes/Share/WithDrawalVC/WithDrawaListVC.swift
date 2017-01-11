@@ -54,7 +54,7 @@ class WithDrawaListVC: BasePageListTableViewController {
             
             let Model : WithdrawListModel = result as! WithdrawListModel
             
-            self?.didRequestComplete(Model.withdrawListtee as AnyObject?)
+            self?.didRequestComplete(Model.withdrawList as AnyObject?)
             return nil
             }, error: errorBlockFunc())
         
