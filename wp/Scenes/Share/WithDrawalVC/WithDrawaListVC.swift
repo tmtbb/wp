@@ -7,7 +7,9 @@
 //
 
 import UIKit
-class WithDrawaListVCCell: UITableViewCell {
+
+// 定义 WithDrawaListVCCell cell
+class WithDrawaListVCCell: OEZTableViewCell {
     
     // 时间lb
     @IBOutlet weak var minuteLb: UILabel!
@@ -23,44 +25,46 @@ class WithDrawaListVCCell: UITableViewCell {
     
     //  提现至
     @IBOutlet weak var withDrawTo: UILabel!
-    //状态
+    //  状态
     @IBOutlet weak var statusBtn: UIButton!
     
-    //状态
+    //  状态
     @IBOutlet weak var statusLb: UILabel!
     
     
     // 刷新cell
-    func update(_ data: Any!) {
+    override func update(_ data: Any!) {
         
         
     }
     
 }
 class WithDrawaListVC: BasePageListTableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "提现记录"
         
     }
-    //PushWithDrawDetail
+    //  请求接口刷新数据
     override func didRequest(_ pageIndex : Int) {
         
         AppAPIHelper.user().withdrawlist(status: "", pos: 0, count: 10, complete: { [weak self](result) -> ()? in
             
-            self?.didRequestComplete(["",""] as AnyObject?)
+            let Model : WithdrawListModel = result as! WithdrawListModel
+            
+            self?.didRequestComplete(Model.withdrawList as AnyObject?)
             return nil
             }, error: errorBlockFunc())
         
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-    
+        
         self.performSegue(withIdentifier: "PushWithDrawDetail", sender: nil)
-    
-    
+        
+        
     }
-
+    
 }

@@ -13,7 +13,7 @@ class WithdrawModel: BaseModel {
     // 提现订单流水号  
       var wid: Int64 = 0
     // 用户id	  
-      var id: Int64 = 0
+      var uid: Int64 = 0
     // 提现金额   
       var amount: Double = 0
     // 提现手续费		  
@@ -43,7 +43,12 @@ class WithdrawModel: BaseModel {
 // 提现列表的listmodel
 class WithdrawListModel: BaseModel {
     
-    var listItem : [WithdrawModel]?
+    var withdrawList : [WithdrawModel]?
+    
+    class func withdrawListModelClass() ->AnyClass {
+        return  WithdrawModel.classForCoder()
+    }
+
     
 }
 // 银行卡提现moedel

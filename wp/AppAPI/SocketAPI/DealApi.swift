@@ -9,8 +9,6 @@
 import Foundation
 
 protocol DealApi{
-    //获取分时接口
-    func minDealInfo(type: Int, complete: CompleteBlock?, error:ErrorBlock?);
     //当前仓位列表
     func currentDeals(complete: CompleteBlock?, error:ErrorBlock?)
     //当前仓位详情
@@ -25,5 +23,13 @@ protocol DealApi{
     func sellOutDeal(positionId: Int, price: Int, complete: CompleteBlock?, error:ErrorBlock?)
     //修改持仓
     func changeDeal(model: PositionModel, complete: CompleteBlock?, error:ErrorBlock?)
+    //商品列表
+    func products(pid:Int, complete: CompleteBlock?, error:ErrorBlock?)
+    //当时K线数据
+    func kChartsData(param: KChartParam, complete: CompleteBlock?, error:ErrorBlock?)
+    //当时分时数据
+    func timeline(param: KChartParam, complete: CompleteBlock?, error:ErrorBlock?)
+    //当前报价
+    func realtime(goodType:String, exchange_name:String, platform_name:String, complete: CompleteBlock?, error:ErrorBlock?)
 }
 
