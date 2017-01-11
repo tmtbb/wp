@@ -100,7 +100,7 @@ class DealSocketApi: BaseSocketAPI, DealApi {
                                     SocketConst.Key.exchange_name: exchange_name,
                                     SocketConst.Key.platform_name: platform_name]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .realtime, dict: param as [String : AnyObject])
-        startModelsRequest(packet, listName: "priceinfo", modelClass: ProductModel.self, complete: complete, error: error)
+        startModelsRequest(packet, listName: "priceinfo", modelClass: KChartModel.self, complete: complete, error: error)
     }
 }
 

@@ -9,9 +9,9 @@
 import UIKit
 
 class ProductModel: BaseModel {
-    var code: String?
-    var name: String?
-    var typeCode: String?
+    var code: String = ""
+    var name: String = ""
+    var typeCode: String = ""
     var weight: Double = 0.0
     var amountPerLot: Double = 0.0
     var profitPerUnit: Double = 0.0
@@ -23,4 +23,7 @@ class ProductModel: BaseModel {
     var minLot: Int = 0
     var Status: Int = 0
     var sort: Int = 0
+    var exchange_name: String = ""
+    var platform_name: String = ""
+    
 }

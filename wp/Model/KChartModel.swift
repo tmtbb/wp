@@ -12,7 +12,7 @@ class KChartModel: BaseModel {
     var goodType: String = ""
     var exchange_name: String = ""
     var platform_name: String = ""
-    var currntPrice: String?
+    var currntPrice: String = ""
     var change: Double = 0.0
     var openPrice: Double = 0.0
     var closePrice: Double = 0.0
