@@ -26,7 +26,7 @@ class SocketRequestManage: NSObject {
         _lastConnectedTime = timeNow()
         stop()
         _timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(didActionTimer), userInfo: nil, repeats: true)
-#if true
+#if false
         _socketHelper = APISocketHelper()
 #else
         _socketHelper = LocalSocketHelper()
@@ -65,8 +65,6 @@ class SocketRequestManage: NSObject {
         socketRequests.removeValue(forKey: UInt32(packet.session_id))
         objc_sync_exit(self)
         let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
-        
-        print(response)
         let statusCode:Int = response.statusCode;
         if ( statusCode < 0) {
             socketReqeust?.onError(statusCode)

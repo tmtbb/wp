@@ -134,6 +134,7 @@ class SocketConst: NSObject {
         static let goodType = "goodType"
         static let exchange_name = "exchange_name"
         static let platform_name = "platform_name"
+        static let chartType = "chartType"
     }
     
     

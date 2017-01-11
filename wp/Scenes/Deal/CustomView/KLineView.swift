@@ -77,44 +77,28 @@ class KLineView: UIView {
         }
         
         dayCharts.xAxis.axisMaximum = 30
-        
-        
+        hourCharts.xAxis.axisMaximum = 24
+        min15Charts.xAxis.axisMaximum = 96
+        miuCharts.xAxis.axisMaximum = 100
         
     }
     
     func initLineChartData() {
-        let lineCount = [7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0]
-        let L = [1.0,2.0,3.0,4.0,5.0,4.0,3.0,2.0,1.0,1.0]
-        let O = [3.0,4.0,5.0,6.0,7.0,6.0,5.0,4.0,3.0,2.0]
+        let lineCount = [7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0,7.0,6.0,7.0,8.0,9.0,5.0,6.0,7.0,8.0,9.0]
         
         var entrys: [ChartDataEntry] = []
-        var entrys1: [ChartDataEntry] = []
-        var entrys2: [ChartDataEntry] = []
         for i in 0...lineCount.count - 1  {
             let entry = ChartDataEntry.init(x: Double(i), y: lineCount[i])
             entrys.append(entry)
-            
-            let entry1 = ChartDataEntry.init(x: Double(i), y: L[i])
-            entrys1.append(entry1)
-            
-            let entry2 = ChartDataEntry.init(x: Double(i), y: O[i])
-            entrys2.append(entry2)
-            
         }
         
         let set: LineChartDataSet = LineChartDataSet.init(values: entrys, label: "折线图")
-        set.mode = .stepped
         set.colors = [UIColor.blue]
+        set.circleRadius = 0
+        set.circleHoleRadius = 0
+        set.mode = .cubicBezier
         
-        let set1: LineChartDataSet = LineChartDataSet.init(values: entrys1, label: "折线图1")
-        set1.mode = .cubicBezier
-        set1.colors = [UIColor.red]
-        
-        let set2: LineChartDataSet = LineChartDataSet.init(values: entrys2, label: "折线图2")
-        set2.mode = .horizontalBezier
-        set2.colors = [UIColor.green]
-        
-        let data: LineChartData  = LineChartData.init(dataSets: [set,set1,set2])
+        let data: LineChartData  = LineChartData.init(dataSets: [set])
         miuCharts.data = data
         let combinData: CombinedChartData = CombinedChartData.init()
         combinData.lineData = data
@@ -140,14 +124,13 @@ class KLineView: UIView {
     func initDayKChartData(){
         let param = KChartParam()
         if let model: ProductModel = DealModel.share().selectProduct{
-            param.id = UserModel.currentUserId
-            param.token = UserModel.token!
             param.goodType = model.typeCode
             param.exchange_name = model.exchange_name
             param.platform_name = model.platform_name
             param.chartType = KType.day.rawValue
         }
         AppAPIHelper.deal().kChartsData(param: param, complete: { [weak self](result) -> ()? in
+            
             if let models: [KChartModel] = result as? [KChartModel]{
                 for index in 0...models.count-1{
                     let model = models[index%models.count]

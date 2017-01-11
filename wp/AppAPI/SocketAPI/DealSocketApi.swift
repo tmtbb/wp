@@ -82,13 +82,19 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     
     //当时K线数据
     func kChartsData(param: KChartParam, complete: CompleteBlock?, error:ErrorBlock?){
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .kChart, model: param)
+        let paramDic: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 0,
+                                        SocketConst.Key.token: UserModel.token ?? "",
+                                        SocketConst.Key.goodType: param.goodType,
+                                        SocketConst.Key.exchange_name: param.exchange_name,
+                                        SocketConst.Key.platform_name: param.platform_name,
+                                        SocketConst.Key.chartType: param.chartType]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .kChart, dict: paramDic as [String : AnyObject])
         startModelsRequest(packet, listName: "priceinfo", modelClass: KChartModel.self, complete: complete, error: error)
     }
     
     //当时分时数据
     func timeline(param: KChartParam, complete: CompleteBlock?, error:ErrorBlock?){
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .kChart, model: param)
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .timeline, model: param)
         startModelsRequest(packet, listName: "priceinfo", modelClass: KChartModel.self, complete: complete, error: error)
     }
     

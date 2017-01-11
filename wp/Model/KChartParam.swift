@@ -9,6 +9,7 @@
 import UIKit
 
 class KChartParam: BaseModel {
+    
     var id: Int = 0	//用户id
     var token: String = ""	//唯一标识
     var goodType: String = ""	//商品类型
