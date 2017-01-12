@@ -52,6 +52,7 @@ class WithDrawaListVCCell: OEZTableViewCell {
         }else{
          status = "失败"
         }
+        print(model.status)
         
         statusBtn.setTitle(status, for: UIControlState.normal)
     }
@@ -71,14 +72,13 @@ class WithDrawaListVC: BasePageListTableViewController {
         
         AppAPIHelper.user().withdrawlist(status: "", pos: 0, count: 10, complete: { [weak self](result) -> ()? in
             
-            let Model : WithdrawListModel = result as! WithdrawListModel
-            
-
-            self?.dataModel =  Model.withdrawList
-            
-            
-
-            self?.didRequestComplete(Model.withdrawList as AnyObject?)
+            if let object = result {
+                let Model : WithdrawListModel = result as! WithdrawListModel
+                self?.dataModel =  Model.withdrawList
+                self?.didRequestComplete(Model.withdrawList as AnyObject?)
+            }else{
+                self?.didRequestComplete(nil)
+            }
             return nil
             }, error: errorBlockFunc())
         
@@ -89,6 +89,8 @@ class WithDrawaListVC: BasePageListTableViewController {
         let model = self.dataModel[indexPath.row]
         
         ShareModel.share().shareData["wid"] = "\(model.wid)"
+        
+         ShareModel.share().detailModel = model 
         self.performSegue(withIdentifier: "PushWithDrawDetail", sender: nil)
         
         

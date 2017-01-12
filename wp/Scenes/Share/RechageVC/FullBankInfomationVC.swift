@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SVProgressHUD
 //进入输入手机号界面
 let pushInputPhone:String = "pushInputPhone"
 //pushInputPhone
@@ -37,8 +37,16 @@ class FullBankInfomationVC: BaseTableViewController {
         
         if checkTextFieldEmpty([name,bankNumber,branceAddress]){
             
-            
+            if !onlyInputTheNumber(bankNumber.text!) {
+                
+                SVProgressHUD.showErrorMessage(ErrorMessage: "输入正确的银行卡号", ForDuration: 1
+                    , completion: { 
+                        
+                })
+                return
+            }
             didRequest()
+           
             
             return
         }
@@ -67,6 +75,11 @@ class FullBankInfomationVC: BaseTableViewController {
             }, error: errorBlockFunc())
         
     }
-    
+    func onlyInputTheNumber(_ string: String) -> Bool {
+        let numString = "[0-9]*"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", numString)
+        let number = predicate.evaluate(with: string)
+        return number
+    }
     
 }
