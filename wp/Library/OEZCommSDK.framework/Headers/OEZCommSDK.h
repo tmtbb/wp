@@ -22,7 +22,7 @@
 #import <OEZCommSDK/OEZUpdateProtocol.h>
 #import <OEZCommSDK/OEZViewActionProtocol.h>
 #import <OEZCommSDK/NSString+OEZStringCategory.h>
-#import <OEZCommSDK/UIViewController+OEZUIViewControllerCategory.H>
+#import <OEZCommSDK/UIViewController+OEZUIViewControllerCategory.h>
 #import <OEZCommSDK/NSArray+Category.h>
 #import <OEZCommSDK/UIAlertView+Block.h>
 #import <OEZCommSDK/UIColor+OEZUIColorCategory.h>

@@ -38,7 +38,7 @@
                         <sections>
                             <tableViewSection id="lOj-5R-Os5">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="216" id="t6K-XV-6pO">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="216" id="t6K-XV-6pO">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="216"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t6K-XV-6pO" id="S0Z-gy-8lS">
@@ -51,6 +51,12 @@
                                                         <constraint firstAttribute="width" constant="80" id="66I-5a-hNZ"/>
                                                         <constraint firstAttribute="height" constant="80" id="RkO-kK-972"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="芦苇薇薇" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6X-LJ-zA5">
                                                     <rect key="frame" x="111" y="70" width="89.5" height="27"/>
@@ -634,6 +640,7 @@
                         <outlet property="nameLabel" destination="J6X-LJ-zA5" id="iNk-7i-idt"/>
                         <outlet property="placeholderLabel" destination="uy5-Ma-F95" id="LTj-V9-Rfa"/>
                         <outlet property="propertyNumber" destination="MFf-58-OnH" id="pn9-sq-ZAT"/>
+                        <outlet property="pushBtn" destination="Rvh-r9-SX0" id="4Je-yZ-rMm"/>
                         <outlet property="register" destination="d0D-a2-UoU" id="CiS-64-JP3"/>
                         <outlet property="yuanLabel" destination="ELk-to-sXv" id="Xmw-ia-GNo"/>
                     </connections>

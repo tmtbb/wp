@@ -105,11 +105,11 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 if let models: [KChartModel] = result as! [KChartModel]?{
                     for model in models{
                         if model.goodType == DealModel.share().selectProduct?.typeCode{
-                            self?.priceLabel.text = model.currntPrice
+                            self?.priceLabel.text = String.init(format: "%.2f", model.currntPrice)
                             self?.highLabel.text = String.init(format: "%.2f", model.highPrice)
                             self?.lowLabel.text = String.init(format: "%.2f", model.lowPrice)
-                            self?.openLabel.text = String.init(format: "%.2f", model.openPrice)
-                            self?.closeLabel.text = String.init(format: "%.2f", model.closePrice)
+                            self?.openLabel.text = String.init(format: "%.2f", model.openingTodayPrice)
+                            self?.closeLabel.text = String.init(format: "%.2f", model.closedYesterdayPrice)
                             self?.nameLabel.text = "\(product.name)(元/千克)"
                         }
                     }
