@@ -51,7 +51,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         let param = [SocketConst.Key.uid: UserModel.share().currentUser?.uid ?? 0,
                      SocketConst.Key.token: UserModel.token ?? ""] as [String : Any]
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject], type: SocketConst.type.wp)
-     startModelRequest(packet, modelClass: BankListModel.self, complete: complete, error: error)
+            startModelRequest(packet, modelClass: BankModel.self, complete: complete, error: error)
         
 //        startModelsRequest(packet, listName: "cardlist", modelClass: BankModel.self, complete: complete, error: error)
 
