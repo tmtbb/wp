@@ -19,6 +19,11 @@ class HomeVC: BaseTableViewController {
     @IBOutlet weak var gradient: UILabel!
     @IBOutlet weak var variation: UILabel!
     
+    @IBOutlet weak var productType: ProductTypeView!
+   
+    
+    lazy var flowListArray: [FlowOrdersList] =  [FlowOrdersList]()
+    
     //MARK: --LIFECYCLE
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -31,64 +36,11 @@ class HomeVC: BaseTableViewController {
         registerNotify()
         initData()
         initUI()
-        self.title = ""
-        let images: [String] = ["1", "1", "1"]
-        let contentSourceArray: [String] = ["这是一条重大新闻","吃货节到了钱包准备好了吗","独家福利来就送!"]
-        let tagSourceArray: [String] = ["跟单", "跟单", "跟单"]
-        tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
-        tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
-    }
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    //MARK: --HeaderView
-    func setupHeaderView (cycleImage:[String],contentSourceArray:[String], tagSourceArray:[String]) -> (UIView) {
-        let sunView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 170))
-        //创建无限轮播
-        let cycleView = CSCycleView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 135), images: cycleImage, titles: [])
-        cycleView.delegate = self;
-        sunView.addSubview(cycleView)
-        //喇叭图片
-        let hornImage = UIImageView(image: UIImage(named: "horn"))
-        sunView.addSubview(hornImage)
-        hornImage.snp.makeConstraints { (make) in
-            make.top.equalTo(cycleView.snp.bottom).offset(9)
-            make.left.equalTo(sunView).offset(10)
-            make.width.equalTo(18)
-            make.height.equalTo(17)
-        }
-        //特别通知
-        let informLabel = UILabel()
-        informLabel.text = "特别通知"
-        informLabel.font = UIFont.systemFont(ofSize: 12)
-        informLabel.textColor = UIColor(rgbHex: 0x666666)
-        sunView.addSubview(informLabel)
-
-        informLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(cycleView.snp.bottom).offset(11)
-            make.left.equalTo(hornImage.snp.right).offset(10)
-        }
-        //跟单轮播
-        let singlerView = CSSinglerowView(frame: CGRect(x: 0, y: 0, width: 220, height: 30), scrollStyle: .up, roundTime: 2, contentSource: contentSourceArray, tagSource: tagSourceArray)
-        singlerView.backColor = UIColor.clear
-        singlerView.contentTextColor = UIColor.black
-        singlerView.tagTextColor = UIColor.blue
-        singlerView.delegate = self
-        sunView .addSubview(singlerView)
-        singlerView.snp.makeConstraints { (make) in
-            make.top.equalTo(cycleView.snp.bottom).offset(2)
-            make.left.equalTo(informLabel.snp.right).offset(27)
-            make.bottom.equalTo(sunView).offset(0)
-            make.width.equalTo(220)
-        }
-        return sunView
-    }
-    //MARK: --监听滑动
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offsetY = scrollView.contentOffset.y
         
-    }
+        
+        
+        
+        }
     
     //MARK: --DATA
     func initData() {
@@ -96,19 +48,79 @@ class HomeVC: BaseTableViewController {
     //MARK: --UI
     func initUI() {
         navigationController?.addSideMenuButton()
-        self.title = "首页"
+        let images: [String] = ["1", "1", "1"]
+        let contentSourceArray: [String] = ["用户001买涨白银价3666","用户001买涨白银价3666","用户001买涨白银价3666"]
+        let tagSourceArray: [String] = ["跟单", "跟单", "跟单"]
+        tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
+        tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
+        
+        productType.delegate = self
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    //MARK: --HeaderView
+    func setupHeaderView (cycleImage:[String],contentSourceArray:[String], tagSourceArray:[String]) -> (UIView) {
+        let sunView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 238))
+        sunView.backgroundColor = UIColor(rgbHex: 0xEEEEEE)
+        //创建无限轮播
+        let cycleView = CSCycleView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 188), images: cycleImage, titles: [])
+        cycleView.delegate = self;
+        sunView.addSubview(cycleView)
+        //喇叭图片
+        let hornImage = UIImageView(image: UIImage(named: "horn"))
+        sunView.addSubview(hornImage)
+        hornImage.snp.makeConstraints { (make) in
+            make.top.equalTo(cycleView.snp.bottom).offset(19)
+            make.left.equalTo(sunView).offset(15)
+            make.width.equalTo(52)
+            make.height.equalTo(13)
+        }
+        //红线
+        let redView = UIView()
+        redView.backgroundColor = UIColor(rgbHex: 0xFE0000)
+        sunView.addSubview(redView)
+        redView.snp.makeConstraints { (make) in
+            make.top.equalTo(cycleView.snp.bottom).offset(17)
+            make.left.equalTo(hornImage.snp.right).offset(9)
+            make.width.equalTo(1)
+            make.height.equalTo(16)
+        }
+        //跟单轮播
+        let singlerView = CSSinglerowView(frame: CGRect(x: 0, y: 0, width: 260, height: 36), scrollStyle: .up, roundTime: 2, contentSource: contentSourceArray, tagSource: tagSourceArray)
+        singlerView.backColor = UIColor.clear
+        singlerView.contentTextColor = UIColor(rgbHex: 0x333333)
+        singlerView.tagTextColor = UIColor(rgbHex: 0xFFFFFF)
+        singlerView.tagFont = UIFont.systemFont(ofSize: 14)
+        singlerView.tagBackgroundColor = UIColor(rgbHex: 0x1E66DC)
+        singlerView.delegate = self
+        sunView .addSubview(singlerView)
+        singlerView.snp.makeConstraints { (make) in
+            make.top.equalTo(cycleView.snp.bottom).offset(9)
+            make.left.equalTo(redView.snp.right).offset(10)
+            make.bottom.equalTo(sunView).offset(0)
+            make.right.equalTo(sunView).offset(-15)
+        }
+        return sunView
+    }
+    
+    //MARK: --监听滑动
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
+
     //MARK: --UITableViewDelegate
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
-        }
+        
         if section == 1 {
             
-            return 5
+            return 10
         }
-        return 6
+        if section == 2 {
+            return 11
+        }
+        return 0
     }
     //MARK: --NotificationCenter
     func registerNotify() {
@@ -143,7 +155,31 @@ class HomeVC: BaseTableViewController {
     }
     func jumpToDealController() {
         
-        performSegue(withIdentifier: DealController.className(), sender: nil)
+        
+        self.performSegue(withIdentifier: DealController.className(), sender: nil)
+        
+        if checkLogin() {
+            AppAPIHelper.user().flowList(flowType: "1,2,3", startPos: 0, count: 10, complete: { (result) -> ()? in
+                if result != nil {
+                    if let dataArray: [FlowOrdersList] = result as! [FlowOrdersList]? {
+                        for model in dataArray{
+                            print(model)
+                            self.flowListArray.append(model)
+                        }
+                    
+                    }else
+                    {
+                    print("wei nil")
+                    }
+                }
+                return nil
+            }, error: errorBlockFunc())
+            
+        }
+        else{
+            
+        }
+        
     }
     func jumpToFeedbackController() {
         
@@ -165,14 +201,19 @@ class HomeVC: BaseTableViewController {
       
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if  segue.identifier == DealController.className() {
+            let controller = segue.destination as! DealController
+            controller.orderListArray = flowListArray
+        }
+    }
+    
     //MARK: -- 跳转到交易tabBar上
     @IBAction func dealDidButton(_ sender: AnyObject) {
         tabBarController?.selectedIndex = 1
     }
     @IBAction func immediatelyMaster(_ sender: Any) {
-        tabBarController?.selectedIndex = 2
-    }
-    @IBAction func historyMaster(_ sender: Any) {
         tabBarController?.selectedIndex = 2
     }
     
@@ -190,4 +231,3 @@ extension HomeVC:CSCycleViewDelegate,CSSinglerViewDelegate {
         
     }
 }
-

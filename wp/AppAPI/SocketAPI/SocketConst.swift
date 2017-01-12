@@ -23,15 +23,15 @@ class SocketConst: NSObject {
         // 重设密码
         case repwd = 3005
         // 声音验证码
-        case voiceCode = 1005
+        case voiceCode = 1006
         // 设置用户信息
-        case userInfo = 1006
+        case userInfo = 1003
         //设置账号信息
         case accountNews = 1007
         
          case accinfo = 1003  
         //流水列表
-        case flowList = 1008
+        case flowList = 1005
         //流水详情
         case flowDetails = 1010
         //银行卡列表

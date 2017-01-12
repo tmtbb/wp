@@ -7,21 +7,32 @@
 //
 
 import UIKit
-class DealController: BaseTableViewController {
+class DealController: BaseTableViewController, TitleCollectionviewDelegate {
     
-    @IBOutlet weak var productCollection: UICollectionView!
-    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var productCollection: TitleCollectionView!
+    //盈亏数
+    @IBOutlet weak var moneyNumber: UILabel!
+    //总手数
+    @IBOutlet weak var sumHandNumber: UIButton!
+    //总单数
+    @IBOutlet weak var sumOneNumber: UIButton!
+    //买涨
+    @IBOutlet weak var buyUp: UILabel!
+    //买跌
+    @IBOutlet weak var buyDown: UILabel!
+    //建仓
+    @IBOutlet weak var build: UILabel!
+    //平仓
+    @IBOutlet weak var sell: UILabel!
     
-     var lastTypeBtn: UIButton?
-     var index: NSInteger = 0
-     
+    var orderListArray: [FlowOrdersList] =  [FlowOrdersList]()
 
     let strArray:[String] = ["周五 12 - 26","周四 12 - 25","周三 12 - 24","周二 12 - 23","周一 12 - 22"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollection()
         
-  
         let backBtn = UIButton(type: .custom)
         backBtn.frame = CGRect(x: 15, y: 5, width: 38, height: 38)
         backBtn.setTitle("返回", for: .normal)
@@ -33,30 +44,30 @@ class DealController: BaseTableViewController {
     func backDidClick() {
         navigationController?.popToRootViewController(animated: true)
     }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-    }
+   
+    
     //MARK: -- 设置collectionView
     func setupCollection() {
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.minimumInteritemSpacing = 0
-        flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width/2, height: 50)
-        productCollection.delegate = self
-        productCollection.dataSource = self
-        productCollection.isPagingEnabled = true
-        productCollection.bounces = false
-        
+        productCollection.itemDelegate = self
+        productCollection.reuseIdentifier = ProductCollectionCell.className()
+        productCollection.objects = ["白银" as AnyObject,"原油" as AnyObject]
+    }
+    func didSelectedProduct(object: AnyObject?) {
+        if let test: String = object as? String {
+            print(test)
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarWithAnimationDuration()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
         hideTabBarWithAnimationDuration()
         translucent(clear: false)
+   
     }
     //MARK: -- 隐藏tabBar导航栏
     func hideTabBarWithAnimationDuration() {
@@ -65,10 +76,12 @@ class DealController: BaseTableViewController {
         let content = parent?.subviews[0]
         let window = parent?.superview
         
-        var tabFrame = tabBar?.frame
-        tabFrame?.origin.y = (window?.bounds)!.maxY
-        tabBar?.frame = tabFrame!
-        content?.frame = (window?.bounds)!
+        if window != nil {
+            var tabFrame = tabBar?.frame
+            tabFrame?.origin.y = (window?.bounds)!.maxY
+            tabBar?.frame = tabFrame!
+            content?.frame = (window?.bounds)!
+        }
     }
     
     func showTabBarWithAnimationDuration() {
@@ -81,7 +94,6 @@ class DealController: BaseTableViewController {
         tabBar?.frame = tabFrame!
         var contentFrame = content?.frame
         contentFrame?.size.height -= (tabFrame?.size.height)!
-    
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -95,7 +107,7 @@ class DealController: BaseTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -125,45 +137,23 @@ class DealController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 42
     }
+    
+    //禁止向上滑动
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let off_y = scrollView.contentOffset.y
+        if off_y < 0 {
+            self.tableView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+            performSegue(withIdentifier: DealDetailTableVC.className(), sender: nil)
+        
+    }
 }
-//MARK: -- collectionView的代理方法
-extension DealController:UICollectionViewDataSource, UICollectionViewDelegate{
-    
 
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-                return 1
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       
-        return 2
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productTypeCell", for: indexPath) as! ProductCollectionCell
-        cell.productBtn.setTitle("白银", for: UIControlState.normal)
-        cell.productBtn.setTitleColor(UIColor(rgbHex: 0x333333), for: UIControlState.normal)
-        cell.productBtn.setTitleColor(UIColor(rgbHex: 0xE9573E), for: .selected)
-        cell.productBtn.tag = indexPath.item + 300
-        cell.productBtn.addTarget(self, action: #selector(btnDidClick), for: UIControlEvents.touchUpInside)
-//        cell.redView.isHidden = false
-//        if indexPath.item == 0 {
-//            btnDidClick(sender: cell.btn)
-////            cell.redView.isHidden = false
-//        }
-        return cell
-    }
-    
-    func btnDidClick(sender: UIButton) {
-        let number = sender.tag
-        print(number)
-        lastTypeBtn?.isSelected = false
-        sender.isSelected = true
-        lastTypeBtn = sender
-    }
-  
- 
-}
 
 
 

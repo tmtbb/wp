@@ -215,13 +215,12 @@ class CSSinglerowCell: UICollectionViewCell {
     lazy var contentLabel : UILabel? = {[weak self] in
         
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self!.bounds.width - 43, height: self!.bounds.height))
-        
         return label
         }()
     lazy var tagLabel : UILabel? = {[weak self] in
-        let label = UILabel(frame: CGRect(x: self!.bounds.width - 43, y: (self!.bounds.height - 16) / 2, width: 40, height: 16))
-        label.layer.cornerRadius = 7
-        label.layer.masksToBounds = false
+        let label = UILabel(frame: CGRect(x: self!.bounds.width - 100, y: (self!.bounds.height - 40) / 2, width: 71, height: 36))
+//        label.layer.cornerRadius = 5
+//        label.layer.masksToBounds = true
         label.textAlignment = .center
         return label
         }()
