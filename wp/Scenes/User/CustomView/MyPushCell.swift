@@ -28,9 +28,7 @@ class MyPushCell: UITableViewCell {
         redBtn.layer.cornerRadius = 10
         garyBtn.layer.cornerRadius = 10
         let nuber = garyBtn.frame.size.width * (UIScreen.main.bounds.width / 375)
-        print(nuber)
         redBtnWidth.constant = nuber * percentNumber
-        print(redBtnWidth.constant)
         
     }
     override func layoutSubviews() {

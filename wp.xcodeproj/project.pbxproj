@@ -286,6 +286,7 @@
 		D0FA4EAE1E24B0950015C012 /* DealDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4EAC1E24B0950015C012 /* DealDetailCell.swift */; };
 		D0FA4EB71E25CD0D0015C012 /* ProductCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4EB61E25CD0D0015C012 /* ProductCollectionCell.swift */; };
 		D0FA4ED91E26208C0015C012 /* DealDetailTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4ED81E26208C0015C012 /* DealDetailTableVC.swift */; };
+		D0FA4EDC1E276E840015C012 /* ProductTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4EDB1E276E840015C012 /* ProductTypeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -589,6 +590,7 @@
 		D0FA4EAC1E24B0950015C012 /* DealDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealDetailCell.swift; sourceTree = "<group>"; };
 		D0FA4EB61E25CD0D0015C012 /* ProductCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCollectionCell.swift; sourceTree = "<group>"; };
 		D0FA4ED81E26208C0015C012 /* DealDetailTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealDetailTableVC.swift; sourceTree = "<group>"; };
+		D0FA4EDB1E276E840015C012 /* ProductTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTypeView.swift; sourceTree = "<group>"; };
 		DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -787,6 +789,7 @@
 		BF062B421E04DEC900618B1B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				D0FA4EDA1E276E3C0015C012 /* CustomView */,
 				BF062B431E04DEC900618B1B /* MainTabBarController.swift */,
 				BF062B4A1E04DF5200618B1B /* HomeVC.swift */,
 				BFA73BA91E0B9D070079934F /* SideVC.swift */,
@@ -1353,6 +1356,14 @@
 			path = CSMenuView;
 			sourceTree = "<group>";
 		};
+		D0FA4EDA1E276E3C0015C012 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				D0FA4EDB1E276E840015C012 /* ProductTypeView.swift */,
+			);
+			name = CustomView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1652,6 +1663,7 @@
 				BF04793D1E0FBF5000C511E7 /* RechargeVC.swift in Sources */,
 				A0C2840F1E1FBD1A00A97707 /* SuccessChargeVC.swift in Sources */,
 				BF2F643F1E038DFE00917FA1 /* UIViewController+RBStoryboardLink.m in Sources */,
+				D0FA4EDC1E276E840015C012 /* ProductTypeView.swift in Sources */,
 				BF062B471E04DEC900618B1B /* MainTabBarController.swift in Sources */,
 				BF9CD7461E0A549900194A32 /* DealApi.swift in Sources */,
 				A0BC073D1E236C59003EA7BC /* CustomerTipView.swift in Sources */,

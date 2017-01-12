@@ -31,44 +31,54 @@ class UserTableViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        propertyNumber.isHidden = true
-        integralLabel.isHidden = true
-        nameLabel.isHidden = true
-        yuanLabel.isHidden = true
-        fenLabel.isHidden = true
-        pushBtn.isHidden = true
-        tableView.isScrollEnabled = false
         
         registerNotify()
         if checkLogin() {
-           
+            loginBtn.isHidden = true
+            register.isHidden = true
+            concealLabel.isHidden = true
+            integralLabel.isHidden = true
+            fenLabel.isHidden = true
+            pushBtn.isHidden = false
+            self.placeholderLabel.isHidden = false
+            iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+            nameLabel.text = UserModel.getCurrentUser()?.screenName
+        }
+        else{
+            propertyNumber.isHidden = true
+            nameLabel.isHidden = true
+            yuanLabel.isHidden = true
+            pushBtn.isHidden = true
+            integralLabel.isHidden = true
+            fenLabel.isHidden = true
+            tableView.isScrollEnabled = false
         }
     }
-    
     //MARK: -- 注册通知
     func registerNotify() {
         let notificationCenter = NotificationCenter.default
          notificationCenter.addObserver(self, selector: #selector(quitEnterClick), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
         
     }
  
     func updateUI()  {
         iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
         nameLabel.text = UserModel.getCurrentUser()?.screenName
-        self.loginBtn.isHidden = true
-        self.register.isHidden = true
-        self.concealLabel.isHidden = true
-        self.placeholderLabel.isHidden = true
-        self.propertyNumber.isHidden = false
-        self.integralLabel.isHidden = false
-        self.nameLabel.isHidden = false
-        self.yuanLabel.isHidden = false
-        self.fenLabel.isHidden = false
+        loginBtn.isHidden = true
+        register.isHidden = true
+        concealLabel.isHidden = true
+        placeholderLabel.isHidden = false
+        propertyNumber.isHidden = false
+        integralLabel.isHidden = true
+        nameLabel.isHidden = false
+        yuanLabel.isHidden = false
+        fenLabel.isHidden = true
         pushBtn.isHidden = false
         AppAPIHelper.user().accountNews(complete: { (result) -> ()? in
             if result != nil {
                 
+                print(result?["balance"] ?? 0)
                 self.propertyNumber.text = "\(result?["balance"])"
             }
             return nil

@@ -25,13 +25,14 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
     //平仓
     @IBOutlet weak var sell: UILabel!
     
+    var orderListArray: [FlowOrdersList] =  [FlowOrdersList]()
 
     let strArray:[String] = ["周五 12 - 26","周四 12 - 25","周三 12 - 24","周二 12 - 23","周一 12 - 22"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollection()
-  
+        
         let backBtn = UIButton(type: .custom)
         backBtn.frame = CGRect(x: 15, y: 5, width: 38, height: 38)
         backBtn.setTitle("返回", for: .normal)
@@ -49,7 +50,7 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
     func setupCollection() {
         productCollection.itemDelegate = self
         productCollection.reuseIdentifier = ProductCollectionCell.className()
-        productCollection.objects = ["test1" as AnyObject,"test2" as AnyObject,"test1" as AnyObject,"test2" as AnyObject,"test1" as AnyObject,"test2" as AnyObject]
+        productCollection.objects = ["白银" as AnyObject,"原油" as AnyObject]
     }
     func didSelectedProduct(object: AnyObject?) {
         if let test: String = object as? String {
@@ -63,6 +64,7 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
         hideTabBarWithAnimationDuration()
         translucent(clear: false)
    
@@ -74,10 +76,12 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
         let content = parent?.subviews[0]
         let window = parent?.superview
         
-        var tabFrame = tabBar?.frame
-        tabFrame?.origin.y = (window?.bounds)!.maxY
-        tabBar?.frame = tabFrame!
-        content?.frame = (window?.bounds)!
+        if window != nil {
+            var tabFrame = tabBar?.frame
+            tabFrame?.origin.y = (window?.bounds)!.maxY
+            tabBar?.frame = tabFrame!
+            content?.frame = (window?.bounds)!
+        }
     }
     
     func showTabBarWithAnimationDuration() {
@@ -134,18 +138,17 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
         return 42
     }
     
-    //不能向上滑动
+    //禁止向上滑动
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let off_y = scrollView.contentOffset.y
         if off_y < 0 {
             self.tableView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
         }
-        
     }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        
             performSegue(withIdentifier: DealDetailTableVC.className(), sender: nil)
         
     }
