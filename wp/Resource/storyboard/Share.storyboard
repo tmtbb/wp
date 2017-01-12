@@ -2037,7 +2037,7 @@
         <scene sceneID="FGR-bn-KbU">
             <objects>
                 <tableViewController title="我的银行卡" id="ql7-dn-n1j" customClass="BankCardVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" id="1fA-lw-ikh">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="110" sectionHeaderHeight="28" sectionFooterHeight="28" id="1fA-lw-ikh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2101,7 +2101,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BankCardVCCell" rowHeight="110" id="zDh-sX-7du" customClass="BankCardVCCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BankCardVCCell" rowHeight="110" id="zDh-sX-7du" customClass="BindingBankVCCell" customModule="wp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="110"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zDh-sX-7du" id="AhL-nB-Lpr">
@@ -2148,7 +2148,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="**** *** ****  6364" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcf-HZ-vp1">
-                                            <rect key="frame" x="79" y="45" width="259" height="42"/>
+                                            <rect key="frame" x="79" y="59.5" width="259" height="42"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="42" id="XFS-nU-5Qa"/>
                                             </constraints>
@@ -2174,10 +2174,13 @@
                                         <constraint firstItem="HON-fi-Zdd" firstAttribute="leading" secondItem="AhL-nB-Lpr" secondAttribute="leadingMargin" constant="4" id="lLW-qf-ax2"/>
                                         <constraint firstItem="3XR-Uo-cH8" firstAttribute="leading" secondItem="cJq-Q4-a88" secondAttribute="trailing" constant="9" id="lUR-D2-8g3"/>
                                         <constraint firstItem="cJq-Q4-a88" firstAttribute="leading" secondItem="HON-fi-Zdd" secondAttribute="leading" constant="17" id="xg7-1n-w6x"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Xcf-HZ-vp1" secondAttribute="bottom" constant="15" id="z88-os-Jrf"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Xcf-HZ-vp1" secondAttribute="bottom" id="z88-os-Jrf"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="bankName" destination="Xcf-HZ-vp1" id="xtY-Os-3G2"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

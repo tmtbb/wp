@@ -12,9 +12,9 @@ import UIKit
 class  BankModel: BaseModel {
     
     //返回的列表的key
-    var cardlist : [BankListModel]?
+    var card : [BankListModel]?
     
-    class func  cardlistModelClass() ->AnyClass {
+    class func  cardModelClass() ->AnyClass {
         return  BankListModel.classForCoder()
     }
     
@@ -23,7 +23,6 @@ class  BankModel: BaseModel {
 
 //  银行卡返回列表model
 class BankListModel: BaseModel {
-    
     
     // 银行卡id
     var bid: Int64 = 0
@@ -37,6 +36,7 @@ class BankListModel: BaseModel {
     var cardNo: String = " "
     //  微信
     var name: String = " "
+
     
 }
 
