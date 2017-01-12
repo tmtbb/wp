@@ -24,13 +24,18 @@ class WithDrawDetail: BaseTableViewController {
         
         title = "提现详情"
         didRequest()
+        self.bankName.text =  ShareModel.share().detailModel.bank
+         self.withDrawtime.text =  ShareModel.share().detailModel.bank
+         self.expectTime.text =  ShareModel.share().detailModel.bank
+        
+         self.ToAccountTime.text =  ShareModel.share().detailModel.bank
     }
     
     // 请求接口
      override func didRequest() {
         //Int(string99)
         
-        var wid : String = ShareModel.share().shareData["wid"]! as String
+        let wid : String = ShareModel.share().shareData["wid"]! as String
         
         AppAPIHelper.user().withdrawdetail(withdrawld: Int64(wid)!, complete: { [weak self](result) -> ()? in
             //                         self?.didRequestComplete(result)

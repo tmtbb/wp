@@ -31,24 +31,36 @@ class RechargeVC: BaseTableViewController {
     //自定义cell
     @IBOutlet weak var rechargeTypeCell: UITableViewCell!
     
+    @IBOutlet weak var bankTableView: RechargeVcTableView!
     // 来用来判断刷新几个区
     var selectRow : Bool!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.bankTableView.didRequest()
+        
+    }
+    
     
     //网络请求
     override func didRequest() {
         
-                AppAPIHelper.user().creditdetail(rid:1111000011, complete: { [weak self](result) -> ()? in
+        AppAPIHelper.user().creditdetail(rid:1111000011, complete: { (result) -> ()? in
         
-        
-//                         
-                    return nil
-                    }, error: errorBlockFunc())
+            //
+            return nil
+        }, error: errorBlockFunc())
         
     }
-       //MARK: --UI
+    //MARK: --UI
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: ShareModel().selectType), object: nil)
+        
+    }
+    deinit {
+        
+        self.bankTableView.removeObserver(self, forKeyPath: "selectType", context: nil)
+         ShareModel.share().shareData.removeAll()
     }
     func initUI(){
         
@@ -64,38 +76,31 @@ class RechargeVC: BaseTableViewController {
         
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
-        
-        // 监听value变化
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(vaulechange(_:)), name: NSNotification.Name(rawValue: ShareModel().selectType), object: nil)
-      
-        
+        self.bankTableView.addObserver(self, forKeyPath: "selectType", options: .new, context: nil)
         
     }
     //MARK: --属性的变化
-    func vaulechange(_ notice: NSNotification) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-         let errorCode: Int = (notice.object as? Int)!
-        
-          print(errorCode)
-        
-        
+        if keyPath == "selectType" {
+            
+            if let base = change? [NSKeyValueChangeKey.newKey] as? String {
+                
+                ShareModel.share().shareData["bid"] = base
+            }
+        }
     }
     //MARK:-进入充值吗列表页面
     func rechargeList(){
-        
         self.performSegue(withIdentifier: "PushTolist", sender: nil)
-        
     }
-
+    
     
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         selectRow = false
         title = "充值"
-        
-       
         initData()
         initUI()
     }
@@ -104,7 +109,7 @@ class RechargeVC: BaseTableViewController {
         didRequest()
         
     }
-
+    
     //自动识别银行卡
     @IBAction func bankNumBtnTapped(_ sender: UIButton) {
         
@@ -114,13 +119,13 @@ class RechargeVC: BaseTableViewController {
     @IBAction func addBank(_ sender: Any) {
         
         
-       self.performSegue(withIdentifier: "addBankCard", sender: nil)
+        self.performSegue(withIdentifier: "addBankCard", sender: nil)
         
-     
+        
         
         
     }
-    //MARK -提交
+    //MARK: -提交
     @IBAction func submitBtnTapped(_ sender: UIButton) {
         
         let  story  =  UIStoryboard.init(name: "Share", bundle: nil)
@@ -131,6 +136,7 @@ class RechargeVC: BaseTableViewController {
         
         
     }
+    //MARK: -tableView dataSource
     override   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         if section==0 {
@@ -146,21 +152,19 @@ class RechargeVC: BaseTableViewController {
         }
         
     }
-   
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if(indexPath.section==1){
             if(indexPath.row == 3){
                 
                 if selectRow == true {
-                
-                     arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
+                    arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
                 }else{
-                 arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*1.5))
-                
+                    arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*1.5))
                 }
-                 selectRow = !selectRow
-                 tableView.reloadSections(IndexSet.init(integer: 2), with: UITableViewRowAnimation.fade)
+                selectRow = !selectRow
+                tableView.reloadSections(IndexSet.init(integer: 2), with: UITableViewRowAnimation.fade)
             }
             
         }

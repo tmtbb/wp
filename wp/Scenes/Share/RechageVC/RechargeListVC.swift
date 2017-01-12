@@ -23,26 +23,11 @@ class RechargeListVCCell: OEZTableViewCell {
     
     // 刷新cell
     override func update(_ data: Any!) {
-        
-        
         let model = data as! Model
-        
         self.moneyCountLb.text = model.money
-        
         self.withDrawto.text = model.depositType == 1 ? "提现至微信" :"提现至银行卡"
-        
         self.timeLb.text = "\(model.depositTime)"
-        
-        //        let model =  data as! RechargeListModel
-        //        //打印输出 model.rid
-        //        let  s =  String(format: "%x", model.rid)
-        //        print(s)
-        //        moneyCountLb.text = s;
-        
-        
     }
-    
-    
 }
 
 class RechargeListVC: BasePageListTableViewController {
@@ -54,34 +39,46 @@ class RechargeListVC: BasePageListTableViewController {
     var contentoffset = CGFloat()
     /** 用来判断刷新列表页第几页 **/
     var pageNumber : Int = 0
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        // 移除监听选择月份的按钮触发事件
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: ShareModel().selectType), object: nil)
-    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "充值列表"
-        // 监听
-        NotificationCenter.default.addObserver(self, selector: #selector(vaulechange(_:)), name: NSNotification.Name(rawValue: ShareModel().selectMonth), object: nil)
         
+        ShareModel.share().addObserver(self, forKeyPath: "selectMonth", options: .new, context: nil)
     }
-    func vaulechange(_ notice: NSNotification) {
-        
-        let errorCode: Int = (notice.object as? Int)!
-        self.tableView.isScrollEnabled = true
-        print(errorCode)
-        
-        
+    
+    //MARK:  界面销毁删除监听
+    deinit {
+        ShareModel.share().removeObserver(self, forKeyPath: "selectMonth", context: nil)
+        ShareModel.share().shareData.removeAll()
     }
+    
+    //MARK: 监听简直对
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        if keyPath == "selectMonth" {
+            
+            if let base = change? [NSKeyValueChangeKey.newKey] as? String {
+                
+                print(base)
+                
+            }
+        }
+    }
+    
+    
     //测试充值列表
     override func didRequest(_ pageIndex : Int) {
         
-        AppAPIHelper.user().creditlist(status: "1,3", pos: 0, count: 10, complete: {[weak self] (result) -> ()? in
+        AppAPIHelper.user().creditlist(status: "", pos: 0, count: 10, complete: {[weak self] (result) -> ()? in
             
-            let Model : RechargeListModel = result as! RechargeListModel
-            self?.didRequestComplete(Model.depositsinfo as AnyObject)
+            if let object = result {
+                let Model : RechargeListModel = result as! RechargeListModel
+                self?.didRequestComplete(Model.depositsinfo as AnyObject)
+            }else{
+                self?.didRequestComplete(nil)
+            }
             return nil
             }, error: errorBlockFunc())
         
@@ -143,7 +140,6 @@ class RechargeListVC: BasePageListTableViewController {
         
     }
     //MARK: ---视图添加
-    
     func chooseDate(){
         
         
@@ -151,11 +147,8 @@ class RechargeListVC: BasePageListTableViewController {
         
         self.tableView.isScrollEnabled = false
         self.view.addSubview(customer)
-        
-        
     }
-    
-    
+
 }
 
 
