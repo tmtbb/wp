@@ -49,6 +49,7 @@ class MyMessageController: BaseTableViewController {
     //监听退出登录按钮
     func quitEnterClick() {
         userLogout()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
         navigationController?.popToRootViewController(animated: true)
         print("退出登录")
     }
