@@ -29,7 +29,7 @@ class SocketConst: NSObject {
         //设置账号信息
         case accountNews = 1007
         
-         case accinfo = 1003  
+       case accinfoa = 1003
         //流水列表
         case flowList = 1005
         //流水详情
