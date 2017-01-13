@@ -9,6 +9,7 @@
 import UIKit
 
 class DealSocketApi: BaseSocketAPI, DealApi {
+    
 
     
     //当前仓位列表
@@ -85,8 +86,8 @@ class DealSocketApi: BaseSocketAPI, DealApi {
         let paramDic: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 0,
                                         SocketConst.Key.token: UserModel.token ?? "",
                                         SocketConst.Key.goodType: param.goodType,
-                                        SocketConst.Key.exchange_name: param.exchange_name,
-                                        SocketConst.Key.platform_name: param.platform_name,
+                                        SocketConst.Key.exchangeName: param.exchangeName,
+                                        SocketConst.Key.platformName: param.platformName,
                                         SocketConst.Key.chartType: param.chartType]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .kChart, dict: paramDic as [String : AnyObject])
         startModelsRequest(packet, listName: "priceinfo", modelClass: KChartModel.self, complete: complete, error: error)
@@ -94,20 +95,45 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     
     //当时分时数据
     func timeline(param: KChartParam, complete: CompleteBlock?, error:ErrorBlock?){
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .timeline, model: param)
+        let paramDic: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 0,
+                                       SocketConst.Key.token: UserModel.token ?? "",
+                                       SocketConst.Key.goodType: param.goodType,
+                                       SocketConst.Key.exchangeName: param.exchangeName,
+                                       SocketConst.Key.platformName: param.platformName]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .timeline, dict: paramDic as [String : AnyObject], type: .time)
         startModelsRequest(packet, listName: "priceinfo", modelClass: KChartModel.self, complete: complete, error: error)
     }
     
-    //当前报价
-    func realtime(goodType:String, exchange_name:String, platform_name:String, complete: CompleteBlock?, error:ErrorBlock?) {
-        let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 0,
-                                    SocketConst.Key.token: UserModel.token ?? "",
-                                    SocketConst.Key.goodType: goodType,
-                                    SocketConst.Key.exchange_name: exchange_name,
-                                    SocketConst.Key.platform_name: platform_name]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .realtime, dict: param as [String : AnyObject])
+    //当前某个商品报价
+    func realtime(param: [String: Any], complete: CompleteBlock?, error:ErrorBlock?) {
+        let good = [SocketConst.Key.goodType: "AG",
+                    SocketConst.Key.exchangeName: "DEFAULT",
+                    SocketConst.Key.platformName: "JH"]
+        let param: [String: Any] = [SocketConst.Key.id:0,
+                                    SocketConst.Key.token: "",
+                                    SocketConst.Key.goodsinfos: [good]]
+//        let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 0,
+//                                    SocketConst.Key.token: UserModel.token ?? "",
+//                                    SocketConst.Key.goodType: goodType,
+//                                    SocketConst.Key.exchange_name: exchange_name,
+//                                    SocketConst.Key.platform_name: platform_name]
+        
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .realtime, dict: param as [String : AnyObject], type: .time)
         startModelsRequest(packet, listName: "priceinfo", modelClass: KChartModel.self, complete: complete, error: error)
     }
+    
+    //当前多个商品报价
+    func productsPrice(param: DealPriceParam, complete: CompleteBlock?, error: ErrorBlock?) {
+//        let good = KChartParam()
+//        good.goodType = "AG"
+//        good.exchangeName = "DEFAULT"
+//        good.platformName = "JH"
+//        let param = DealPriceParam()
+//        param.goodsinfos.append(good)
+//        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .realtime, model: param, type: .time)
+//        startModelsRequest(packet, listName: "priceinfo", modelClass: KChartModel.self, complete: complete, error: error)
+    }
+
 }
 
 

@@ -41,6 +41,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         UIView.animate(withDuration: 3) {
             self.winRateConstraint.constant = 100
         }
+        
     }
     deinit {
         DealModel.share().removeObserver(self, forKeyPath: "selectDealModel")
@@ -53,6 +54,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         initProductData()
         //持仓点击
         DealModel.share().addObserver(self, forKeyPath: "selectDealModel", options: .new, context: nil)
+        initRealTimeData()
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "selectDealModel" {
@@ -99,22 +101,31 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
     }
     func initRealTimeData() {
-        
+        let _ = delay(10, task: { [weak self] in
+            self?.initRealTimeData()
+        })
+    
+        DealModel.share().selectProduct = ProductModel()
         if let product = DealModel.share().selectProduct {
-            AppAPIHelper.deal().realtime(goodType: product.typeCode, exchange_name: product.exchange_name, platform_name: product.platform_name, complete: { [weak self](result) -> ()? in
+            let good = [SocketConst.Key.goodType: product.typeCode,
+                SocketConst.Key.exchangeName: product.exchangeName,
+                SocketConst.Key.platformName: product.platformName]
+            let param: [String: Any] = [SocketConst.Key.id: UserModel.currentUserId,
+                                        SocketConst.Key.token: UserModel.token ?? "",
+                                        SocketConst.Key.goodsinfos: [good]]
+            AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
                 if let models: [KChartModel] = result as! [KChartModel]?{
                     for model in models{
                         if model.goodType == DealModel.share().selectProduct?.typeCode{
-                            self?.priceLabel.text = model.currntPrice
+                            self?.priceLabel.text = String.init(format: "%.2f", model.currntPrice)
                             self?.highLabel.text = String.init(format: "%.2f", model.highPrice)
                             self?.lowLabel.text = String.init(format: "%.2f", model.lowPrice)
-                            self?.openLabel.text = String.init(format: "%.2f", model.openPrice)
-                            self?.closeLabel.text = String.init(format: "%.2f", model.closePrice)
+                            self?.openLabel.text = String.init(format: "%.2f", model.openingTodayPrice)
+                            self?.closeLabel.text = String.init(format: "%.2f", model.closedYesterdayPrice)
                             self?.nameLabel.text = "\(product.name)(元/千克)"
                         }
                     }
                 }
-                
                 return nil
             }, error: errorBlockFunc())
         }
@@ -128,7 +139,12 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     
     //MARK: --商品选择
-  
+    func didSelectedObject(object: AnyObject?) {
+        if let product = object as? ProductModel {
+            DealModel.share().selectProduct = product
+            kLineView.refreshKLine()
+        }
+    }
     
     //MARK: --KlineView and Btns
     @IBAction func timeBtnTapped(_ sender: UIButton) {
@@ -141,12 +157,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         sender.isSelected = true
         sender.backgroundColor = AppConst.Color.CMain
         klineBtn = sender
-        
-        if sender.tag == 4 {
-            kLineView.initDayKChartData()
-            return
-        }
-        
     }
     
     //MARK: --买涨/买跌

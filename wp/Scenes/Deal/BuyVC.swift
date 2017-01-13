@@ -71,6 +71,11 @@ class BuyVC: BaseTableViewController {
         buildDealBtnTapped(buildBtn)
         
         footView.isHidden = DealModel.share().isDealDetail
+        
+ 
+        lowBtn.setTitle("\((DealModel.share().selectProduct?.profitPerUnit)!)元\n100g", for: .normal)
+        midlleBtn.setTitle("\((DealModel.share().selectProduct?.profitPerUnit)!*10)元\n1000g", for: .normal)
+        highBtn.setTitle("\((DealModel.share().selectProduct?.profitPerUnit)!*50)元\n5000g", for: .normal)
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
@@ -97,6 +102,16 @@ class BuyVC: BaseTableViewController {
         sender.isSelected = true
         sender.backgroundColor = dealColor
         lastBuyBtn = sender
+        
+        if sender == lowBtn {
+            DealModel.share().buyModel.amount = 1
+        }else if sender == midlleBtn{
+            DealModel.share().buyModel.amount = 10
+        }else if sender == highBtn{
+            DealModel.share().buyModel.amount = 50
+        }else{
+            DealModel.share().buyModel.amount = (DealModel.share().selectProduct?.maxLot)!
+        }
     }
     //MARK: --盈动波动
     @IBAction func waveBtnTapped(_ sender: UIButton) {
@@ -127,26 +142,13 @@ class BuyVC: BaseTableViewController {
         sender.backgroundColor = dealColor
         lastWinBtn = sender
     }
-    //MARK: --建仓推单
+    //MARK: --建仓推单/止赢晒单
     @IBAction func buildDealBtnTapped(_ sender: UIButton) {
-        if let btn = lastDealBtn {
-            btn.isSelected = false
-            btn.backgroundColor = UIColor.init(rgbHex: 0xe6e9ed)
-        }
-        sender.isSelected = true
-        sender.backgroundColor = dealColor
-        lastDealBtn = sender
+        sender.isSelected = !sender.isSelected
+        sender.backgroundColor = sender.isSelected ? dealColor : UIColor.init(rgbHex: 0xe6e9ed)
+        
     }
-    //MARK: --止赢晒单
-    @IBAction func shareBtnTapped(_ sender: UIButton) {
-        if let btn = lastDealBtn {
-            btn.isSelected = false
-            btn.backgroundColor = UIColor.init(rgbHex: 0xe6e9ed)
-        }
-        sender.isSelected = true
-        sender.backgroundColor = dealColor
-        lastDealBtn = sender
-    }
+
     
     
 }

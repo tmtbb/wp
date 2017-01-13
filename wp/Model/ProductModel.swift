@@ -23,7 +23,7 @@ class ProductModel: BaseModel {
     var minLot: Int = 0
     var Status: Int = 0
     var sort: Int = 0
-    var exchange_name: String = ""
-    var platform_name: String = ""
+    var exchangeName: String = ""
+    var platformName: String = ""
     
 }

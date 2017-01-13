@@ -20,6 +20,7 @@ class ProductTitleItem: TitleItem {
         if let product: ProductModel = object as? ProductModel{
             titleLabel.text = product.name
             redView.isHidden = hiddle
+            titleLabel.textColor = hiddle == false ? UIColor.init(rgbHex: 0xe9573f) : UIColor.init(rgbHex: 0x333333)
         }
     }
 }

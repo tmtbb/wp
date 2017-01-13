@@ -14,8 +14,6 @@ class SocketConst: NSObject {
         case heart = 1000
         // 获取图片上传token
         case imageToken = 1047
-        // 获取分时信息
-        case minDealInfo = 10001
         // 登录
         case login = 3003
         // 注册
@@ -73,13 +71,14 @@ class SocketConst: NSObject {
         //当前分时数据
         case timeline = 2009
         //当前报价
-        case realtime = 2010
+        case realtime = 4001
         
     }
     enum type:UInt8 {
         case error = 0
         case user = 3
         case chat = 2
+        case time = 4
         case wp = 1
     }
     
@@ -132,9 +131,10 @@ class SocketConst: NSObject {
         static let price = "price"
         static let pid = "pid"
         static let goodType = "goodType"
-        static let exchange_name = "exchange_name"
-        static let platform_name = "platform_name"
+        static let exchangeName = "exchangeName"
+        static let platformName = "platformName"
         static let chartType = "chartType"
+        static let goodsinfos = "goodsinfos"
     }
     
     
