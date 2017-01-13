@@ -9,7 +9,7 @@
 import UIKit
 
 class MyMessageController: BaseTableViewController {
-
+    
     lazy var imagePicker: UIImagePickerController = {
         let picker = UIImagePickerController()
         return picker
@@ -86,39 +86,12 @@ class MyMessageController: BaseTableViewController {
         hideTabBarWithAnimationDuration()
         translucent(clear: false)
     }
-    //MARK: -- 隐藏tabBar导航栏
-    func hideTabBarWithAnimationDuration() {
-        let tabBar = self.tabBarController?.tabBar
-        let parent = tabBar?.superview
-        let content = parent?.subviews[0]
-        let window = parent?.superview
-        
-        if window != nil {
-            var tabFrame = tabBar?.frame
-            tabFrame?.origin.y = (window?.bounds)!.maxY
-            tabBar?.frame = tabFrame!
-            content?.frame = (window?.bounds)!
-        }
-        
-    }
-    //MARK: -- 展示tabBar导航栏
-    func showTabBarWithAnimationDuration() {
-        let tabBar = self.tabBarController?.tabBar
-        let parent = tabBar?.superview
-        let content = parent?.subviews[0]
-        let window = parent?.superview
-        var tabFrame = tabBar?.frame
-        tabFrame?.origin.y = (window?.bounds)!.maxY - ((tabBar?.frame)?.height)!
-        tabBar?.frame = tabFrame!
-        
-        var contentFrame = content?.frame
-        contentFrame?.size.height -= (tabFrame?.size.height)!
-        
-    }
+    
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-
+            
             imagePicker.sourceType = .photoLibrary
             present((imagePicker), animated: true, completion: nil)
         }
@@ -126,7 +99,7 @@ class MyMessageController: BaseTableViewController {
             performSegue(withIdentifier: DealPasswordVC.className(), sender: nil)
         }
         if indexPath.section == 4{
-             performSegue(withIdentifier: EnterPasswordVC.className(), sender: nil)
+            performSegue(withIdentifier: EnterPasswordVC.className(), sender: nil)
         }
     }
     
@@ -142,7 +115,7 @@ extension MyMessageController: UIImagePickerControllerDelegate, UINavigationCont
         haveChangeImage = true
         let image: UIImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
         imagePicker.dismiss(animated: true, completion: nil)
-//        iconButton.setBackgroundImage(image, for: .normal)
+        //        iconButton.setBackgroundImage(image, for: .normal)
         userImage.image = image
     }
 }

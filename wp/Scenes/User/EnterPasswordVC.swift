@@ -29,32 +29,7 @@ class EnterPasswordVC: UIViewController {
         hideTabBarWithAnimationDuration()
         translucent(clear: false)
     }
-    //MARK: -- 隐藏tabBar导航栏
-    func hideTabBarWithAnimationDuration() {
-        let tabBar = self.tabBarController?.tabBar
-        let parent = tabBar?.superview
-        let content = parent?.subviews[0]
-        let window = parent?.superview
-        
-        var tabFrame = tabBar?.frame
-        tabFrame?.origin.y = (window?.bounds)!.maxY
-        tabBar?.frame = tabFrame!
-        content?.frame = (window?.bounds)!
-    }
     
-    func showTabBarWithAnimationDuration() {
-        let tabBar = self.tabBarController?.tabBar
-        let parent = tabBar?.superview
-        let content = parent?.subviews[0]
-        let window = parent?.superview
-        var tabFrame = tabBar?.frame
-        tabFrame?.origin.y = (window?.bounds)!.maxY - ((tabBar?.frame)?.height)!
-        tabBar?.frame = tabFrame!
-        
-        var contentFrame = content?.frame
-        contentFrame?.size.height -= (tabFrame?.size.height)!
-        
-    }
 
     /*
     // MARK: - Navigation
