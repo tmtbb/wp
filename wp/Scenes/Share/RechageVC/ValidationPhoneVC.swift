@@ -75,8 +75,17 @@ class ValidationPhoneVC: BaseTableViewController {
     }
     //MARK: --点击发送验证码
     @IBAction func requestVoiceCode(_ sender: UIButton) {
-          self.voiceCodeBtn.isEnabled = false
-        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateBtnTitle), userInfo: nil, repeats: true)
+        
+        
+//        AppAPIHelper.commen().
+        AppAPIHelper.commen().verifycode(verifyType: 1, phone:  ShareModel.share().shareData["phone"]!, complete: { (result) -> ()? in
+            
+            self.voiceCodeBtn.isEnabled = false
+            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateBtnTitle), userInfo: nil, repeats: true)
+            return nil
+        }, error: errorBlockFunc())
+        
+        
     }
     // 更新倒计时时间
     func updateBtnTitle() {

@@ -21,35 +21,40 @@ class SocketConst: NSObject {
         // 重设密码
         case repwd = 3005
         // 声音验证码
-        case voiceCode = 1005
+        case voiceCode = 1006
         // 设置用户信息
-        case userInfo = 1006
+        case userInfo = 1004
         //设置账号信息
         case accountNews = 1007
+        
+        case accinfo = 1003
         //流水列表
-        case flowList = 1008
+        case flowList = 1005
         //流水详情
         case flowDetails = 1010
         //银行卡列表
         case bankcardList = 1009
+        
         //银行卡详情
         case bingcard = 1011
         //解绑银行卡
-        case unbindcard = 1012
+        case unbindcard = 1013
         //获取银行卡名称
         case getbankname = 1017
+        //获取验证码
+        case verifycode = 1029
         //提现详情
-        case withdrawDetail = 1019
+        case withdrawDetail = 101
         // 我的晒单
         case userShare = 10010
-         // 充值列表
-        case rechageList = 10011
+        // 充值列表
+        case rechageList = 1019
         // 充值详情
         case recharge = 10012
         // 提现列表
-        case withdrawList = 10013
+        case withdrawList = 1025
         // 提现
-        case withdrawCash = 10014
+        case withdrawCash = 1023
         //仓位列表
         case currentDeals = 2000
         //仓位详情
@@ -87,7 +92,7 @@ class SocketConst: NSObject {
         static let count = "count_"
         static let share_id = "share_id_"
         static let page_type = "page_type_"
-        static let uid = "id"
+        static let uid = "uid"
         static let from_uid = "from_uid_"
         static let to_uid = "to_uid_"
         static let order_id = "order_id_"
@@ -118,7 +123,7 @@ class SocketConst: NSObject {
         static let agentId = "agentId"
         static let recommend = "recommend"
         static let status = "status"
-        static let pos = "pos"
+        static let pos = "startPos"
         static let rid = "rid"
         static let money = "money"
         static let bld = "bld"
@@ -135,6 +140,11 @@ class SocketConst: NSObject {
         static let platformName = "platformName"
         static let chartType = "chartType"
         static let goodsinfos = "goodsinfos"
+        static let exchange_name = "exchange_name"
+        static let platform_name = "platform_name"
+        static let bid = "bid"
+        static let newid = "uid"
+        static let verifyType = "verifyType"
     }
     
     

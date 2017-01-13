@@ -8,12 +8,17 @@
 
 import UIKit
 
-class ProductCollectionCell: UICollectionViewCell {
-    @IBOutlet weak var productBtn: UIButton!
-    
+class ProductCollectionCell: TitleItem {
+    @IBOutlet weak var redView: UIView!
+    @IBOutlet weak var productLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         
     }
-   
+    override func update(object: AnyObject, hiddle: Bool) {
+        if let title: String = object as? String {
+            productLabel.text = title
+            redView.isHidden = hiddle
+        }
+    }
 }

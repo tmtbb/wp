@@ -39,7 +39,7 @@ class FriendVC: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        translucent(clear: true)
+//        translucent(clear: true)
     }
     override func viewWillDisappear(_ animated: Bool)
     {

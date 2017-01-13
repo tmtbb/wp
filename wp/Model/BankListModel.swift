@@ -1,39 +1,44 @@
+
 //
-//  BankListModel.swift
+//  RechargeModel.swift
 //  wp
 //
-//  Created by sum on 2017/1/11.
+//  Created by sum on 2017/1/5.
 //  Copyright © 2017年 com.yundian. All rights reserved.
 //
 
 import UIKit
 
-class BankListModel: BaseModel {
+class  BankModel: BaseModel {
     
-    //银行卡键名
-    var cardlist : [BankModel]!
+    //返回的列表的key
+    var cardlist : [BankListModel]?
     
-    class func cardlistModelClass() ->AnyClass {
-        return  BankModel.classForCoder()
+    class func  cardlistModelClass() ->AnyClass {
+        return  BankListModel.classForCoder()
     }
     
+    
 }
 
-class BankModel: BaseModel {
+//  银行卡返回列表model
+class BankListModel: BaseModel {
     
     // 银行卡id
-    //    var cardId: Int64 = 0
+    var bid: Int64 = 0
     // 用户id
-//    var uid: Int64 = 0
-    //	银行名称
-    var bank: String?
-    // 支行名称
-    var branchBank: String = " "
-    //  银行卡号
-    var cardNo: String = " "
-    //  姓名
-    var name: String  = " "
-    //  姓名
-    var bankId: String  = " "
+    var uid: Int64 = 0
+    // 银行名称
+    var bank:  String = "bank"
+    // 入金时间
+    var branchBank: String = "branchBank"
+    // 入金方式 1.微信 2.银行卡
+    var cardNo: String = "cardNo"
+    //  微信
+    var name: String = "name"
 
+    
 }
+
+
+

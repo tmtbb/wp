@@ -22,11 +22,12 @@ class MyWealtVC: BaseListTableViewController {
     
     var monthLb  : UILabel = UILabel()
     
+    @IBOutlet weak var account: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //注册cell
-        
+        didRequest()
         title  = "我的资产"
         print("%f",NSStringFromCGRect(tableView.frame))
         
@@ -34,17 +35,23 @@ class MyWealtVC: BaseListTableViewController {
         
         
     }
-    override func didRequest() {
+    //userInfo
+      override func didRequest() {
         didRequestComplete([] as AnyObject)
-        //
-        //        //注释掉  请求接口有的时候再打开
-        //        //        AppAPIHelper.share().getShareData(userId: "123", phone: "15306559323", selectIndex: "1223", pageNumber: "0", complete: { (result ) -> ()? in
-        //        //
-        //        //            return nil
-        //        //        }, error: errorBlockFunc())
-        //        //        print(errorBlockFunc)
-        //
-        //
+       //errorBlockFunc
+        
+        AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
+            
+            
+            if let object = result {
+            
+                let  money : NSNumber =  object["balance"] as! NSNumber
+                self?.account.text =  "\(money)"
+            }
+            
+            return nil
+        }, error: errorBlockFunc())
+    
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

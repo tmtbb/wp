@@ -23,7 +23,7 @@ class UserInfo: Object {
     dynamic var agentId: String?
     dynamic var agentName: String?
     dynamic var avatarLarge: String?
-    dynamic var balance: Int = 0
+    dynamic var balance: Double = 0
     dynamic var gender: Int = 0
     dynamic var nickname: String?
     dynamic var phone: String?

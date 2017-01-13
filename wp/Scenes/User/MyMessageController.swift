@@ -10,6 +10,14 @@ import UIKit
 
 class MyMessageController: BaseTableViewController {
 
+    lazy var imagePicker: UIImagePickerController = {
+        let picker = UIImagePickerController()
+        return picker
+    }()
+    var haveChangeImage: Bool = false
+    
+    @IBOutlet weak var userImage: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0)
@@ -49,6 +57,7 @@ class MyMessageController: BaseTableViewController {
     //监听退出登录按钮
     func quitEnterClick() {
         userLogout()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
         navigationController?.popToRootViewController(animated: true)
         print("退出登录")
     }
@@ -72,6 +81,8 @@ class MyMessageController: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        imagePicker.delegate = self
+        tabBarController?.tabBar.isHidden = true
         hideTabBarWithAnimationDuration()
         translucent(clear: false)
     }
@@ -82,10 +93,13 @@ class MyMessageController: BaseTableViewController {
         let content = parent?.subviews[0]
         let window = parent?.superview
         
-        var tabFrame = tabBar?.frame
-        tabFrame?.origin.y = (window?.bounds)!.maxY
-        tabBar?.frame = tabFrame!
-        content?.frame = (window?.bounds)!
+        if window != nil {
+            var tabFrame = tabBar?.frame
+            tabFrame?.origin.y = (window?.bounds)!.maxY
+            tabBar?.frame = tabFrame!
+            content?.frame = (window?.bounds)!
+        }
+        
     }
     //MARK: -- 展示tabBar导航栏
     func showTabBarWithAnimationDuration() {
@@ -103,6 +117,11 @@ class MyMessageController: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+
+            imagePicker.sourceType = .photoLibrary
+            present((imagePicker), animated: true, completion: nil)
+        }
         if indexPath.section == 3 {
             performSegue(withIdentifier: DealPasswordVC.className(), sender: nil)
         }
@@ -116,6 +135,14 @@ class MyMessageController: BaseTableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
+extension MyMessageController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
-
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        haveChangeImage = true
+        let image: UIImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
+        imagePicker.dismiss(animated: true, completion: nil)
+//        iconButton.setBackgroundImage(image, for: .normal)
+        userImage.image = image
+    }
 }

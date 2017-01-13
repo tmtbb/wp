@@ -9,11 +9,17 @@
 import UIKit
 
 class MyBaskCell: UITableViewCell {
+    //产品类型
     @IBOutlet weak var productType: UILabel!
+    //建仓时间
     @IBOutlet weak var positionTime: UILabel!
+    //建仓价格
     @IBOutlet weak var positionPrice: UILabel!
+    //平仓时间
     @IBOutlet weak var closeOutTime: UILabel!
+    //平仓价格
     @IBOutlet weak var closeOutPrice: UILabel!
+    //收益
     @IBOutlet weak var profitAndLoss: UILabel!
     
     override func awakeFromNib() {

@@ -5,14 +5,18 @@
 //  Created by sum on 2017/1/9.
 //  Copyright © 2017年 com.yundian. All rights reserved.
 //
-// 
+//
 import UIKit
-
+class RechargeCell: UITableViewCell {
+    
+    @IBOutlet weak var bankNumber: UILabel!
+}
 class RechargeVcTableView: UITableView ,UITableViewDelegate, UITableViewDataSource{
     
     //设置选中的行数
     var selectNumber = Int()
-    
+    var dataArry : [BankListModel] = []
+    dynamic var selectType : String = " "
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
@@ -20,13 +24,30 @@ class RechargeVcTableView: UITableView ,UITableViewDelegate, UITableViewDataSour
         delegate = self
         dataSource = self
         rowHeight = 38
+        didRequest()
     }
-    
-    
+    func didRequest() {
+        
+        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
+            
+            
+            if let object = result {
+                
+                let Model : BankModel = object as! BankModel
+                
+                self?.dataArry = Model.cardlist == nil ? [] : Model.cardlist! as [BankListModel]
+                
+                self?.reloadData()
+                
+            }
+            return nil
+            }, error: nil)
+        
+    }
     //MARK:-设置表的代理
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 10
+        return self.dataArry.count
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
@@ -35,9 +56,11 @@ class RechargeVcTableView: UITableView ,UITableViewDelegate, UITableViewDataSour
         
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RechargeVcCell", for: indexPath)
+        let cell : RechargeCell = tableView.dequeueReusableCell(withIdentifier: "RechargeCell", for: indexPath) as! RechargeCell
         cell.accessoryType =  UITableViewCellAccessoryType .none
+        let model : BankListModel =  self.dataArry[indexPath.row]
         
+        cell.bankNumber.text! = model.cardNo
         if indexPath.row == selectNumber {
             cell.accessoryType =  UITableViewCellAccessoryType .checkmark
         }
@@ -47,7 +70,7 @@ class RechargeVcTableView: UITableView ,UITableViewDelegate, UITableViewDataSour
         
         selectNumber = indexPath.row
         tableView.reloadData()
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: ShareModel().selectType), object: NSNumber.init(value: indexPath.row), userInfo:nil)
+        selectType = "\(indexPath.row)"
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath){
         

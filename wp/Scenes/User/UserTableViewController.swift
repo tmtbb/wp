@@ -26,18 +26,81 @@ class UserTableViewController: BaseTableViewController {
     @IBOutlet weak var loginBtn: UIButton!
     //注册
     @IBOutlet weak var register: UIButton!
+    //跳转按钮
+    @IBOutlet weak var pushBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      propertyNumber.isHidden = true
+        
+        registerNotify()
+        if checkLogin() {
+            loginBtn.isHidden = true
+            register.isHidden = true
+            concealLabel.isHidden = true
+            integralLabel.isHidden = true
+            fenLabel.isHidden = true
+            pushBtn.isHidden = false
+            self.placeholderLabel.isHidden = false
+            iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+            nameLabel.text = UserModel.getCurrentUser()?.screenName
+        }
+        else{
+            propertyNumber.isHidden = true
+            nameLabel.isHidden = true
+            yuanLabel.isHidden = true
+            pushBtn.isHidden = true
+            integralLabel.isHidden = true
+            fenLabel.isHidden = true
+            tableView.isScrollEnabled = false
+        }
+    }
+    //MARK: -- 注册通知
+    func registerNotify() {
+        let notificationCenter = NotificationCenter.default
+         notificationCenter.addObserver(self, selector: #selector(quitEnterClick), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
+        
+    }
+ 
+    func updateUI()  {
+        iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+        nameLabel.text = UserModel.getCurrentUser()?.screenName
+        loginBtn.isHidden = true
+        register.isHidden = true
+        concealLabel.isHidden = true
+        placeholderLabel.isHidden = false
+        propertyNumber.isHidden = false
+        integralLabel.isHidden = true
+        nameLabel.isHidden = false
+        yuanLabel.isHidden = false
+        fenLabel.isHidden = true
+        pushBtn.isHidden = false
+        AppAPIHelper.user().accountNews(complete: { (result) -> ()? in
+            if result != nil {
+                
+                print(result?["balance"] ?? 0)
+                self.propertyNumber.text = "\(result?["balance"])"
+            }
+            return nil
+        }, error: errorBlockFunc())
+        
+
+    }
+    
+    func quitEnterClick() {
+        propertyNumber.isHidden = true
         integralLabel.isHidden = true
         nameLabel.isHidden = true
         yuanLabel.isHidden = true
         fenLabel.isHidden = true
-        tableView.isScrollEnabled = false
-        
+        pushBtn.isHidden = true
+        loginBtn.isHidden = false
+        register.isHidden = false
+        concealLabel.isHidden = false
+        placeholderLabel.isHidden = false
+        iconImage.image = UIImage(named: "default-head.png")
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -52,9 +115,11 @@ class UserTableViewController: BaseTableViewController {
     }
     //登录按钮
     @IBAction func enterDidClick(_ sender: Any) {
+        
     }
     //注册按钮
     @IBAction func registerDidClick(_ sender: Any) {
+        
     }
     
     //我的资产
@@ -91,6 +156,7 @@ class UserTableViewController: BaseTableViewController {
         case 4:
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToDeal), object: nil, userInfo: nil)
             sideMenuController?.toggle()
+ 
             print("交易明细")
         case 5:
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToFeedback), object: nil, userInfo: nil)
@@ -109,6 +175,8 @@ class UserTableViewController: BaseTableViewController {
        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-  
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
    
 }

@@ -10,4 +10,7 @@ import Foundation
 
 protocol CommenApi {
     //获取上传图片token
-    func imageToken(complete: CompleteBlock?, error:ErrorBlock?)}
+    func imageToken(complete: CompleteBlock?, error:ErrorBlock?)
+    func verifycode(verifyType: Int64, phone: String, complete: CompleteBlock?, error: ErrorBlock?)
+}
+

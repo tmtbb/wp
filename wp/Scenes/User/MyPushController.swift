@@ -32,6 +32,7 @@ class MyPushController: BaseTableViewController {
     func backDidClick() {
         navigationController?.popToRootViewController(animated: true)
     }
+    
     func setupHeaderView()->(UIView) {
         let bigSumView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60))
         let sumView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
@@ -67,6 +68,7 @@ class MyPushController: BaseTableViewController {
             make.height.equalTo(15)
         }
         pushMonthly.text = "本月8"
+        pushMonthly.sizeToFit()
         pushMonthly.font = UIFont.systemFont(ofSize: 16 * (UIScreen.main.bounds.width / 375))
         pushMonthly.textColor = UIColor(rgbHex:0x333333)
         //本周
@@ -76,6 +78,7 @@ class MyPushController: BaseTableViewController {
             make.height.equalTo(15)
         }
         pushWeek.text = "本周3"
+        pushWeek.sizeToFit()
         pushWeek.font = UIFont.systemFont(ofSize: 16 * (UIScreen.main.bounds.width / 375))
         pushWeek.textColor = UIColor(rgbHex:0x333333)
         //今日
@@ -85,6 +88,7 @@ class MyPushController: BaseTableViewController {
             make.height.equalTo(15)
         }
         pushToday.text = "今日3"
+        pushToday.sizeToFit()
         pushToday.font = UIFont.systemFont(ofSize: 16 * (UIScreen.main.bounds.width / 375))
         pushToday.textColor = UIColor(rgbHex:0x333333)
         

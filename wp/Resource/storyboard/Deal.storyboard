@@ -74,6 +74,9 @@
                                                                 <constraint firstAttribute="width" constant="20" id="qSF-N0-n0j"/>
                                                             </constraints>
                                                             <state key="normal" image="detail.png"/>
+                                                            <connections>
+                                                                <segue destination="RRK-xt-Ldv" kind="push" id="XU7-Bo-Btj"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -945,6 +948,52 @@
             </objects>
             <point key="canvasLocation" x="337" y="1012"/>
         </scene>
+        <!--Storyboard Link-->
+        <scene sceneID="CJ2-zh-fFO">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f0c-Nh-Qvw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController hidesBottomBarWhenPushed="YES" id="RRK-xt-Ldv" customClass="RBStoryboardLink" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8QU-BP-J2x"/>
+                        <viewControllerLayoutGuide type="bottom" id="aJ1-fo-bxY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="f1I-zY-tkF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Vx0-Ad-DfW"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="storyboardName" value="Share"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="sceneIdentifier" value="MyWealtVC"/>
+                    </userDefinedRuntimeAttributes>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1946" y="260"/>
+        </scene>
+        <!--Storyboard Link-->
+        <scene sceneID="X2p-7b-1gr">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="3kr-wE-oqc" customClass="RBStoryboardLink" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RGZ-A5-thf"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vpp-cx-lWk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7Ht-Rt-zzD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hiH-uh-aey"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="storyboardName" value="Share"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="sceneIdentifier" value="RechargeVC"/>
+                    </userDefinedRuntimeAttributes>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zeg-s9-iEw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2678" y="260"/>
+        </scene>
         <!--买涨-->
         <scene sceneID="YZH-sl-lPy">
             <objects>
@@ -1018,6 +1067,9 @@
                                                             <rect key="frame" x="125" y="4" width="12" height="22"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <state key="normal" image="detail.png"/>
+                                                            <connections>
+                                                                <segue destination="RRK-xt-Ldv" kind="push" id="Mcr-WM-R4B"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2113,6 +2165,9 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <segue destination="3kr-wE-oqc" kind="push" id="B4v-7S-Oaf"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -2252,4 +2307,7 @@
         <image name="rmb.png" width="12" height="13"/>
         <image name="wain.png" width="10" height="10"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Mcr-WM-R4B"/>
+    </inferredMetricsTieBreakers>
 </document>
