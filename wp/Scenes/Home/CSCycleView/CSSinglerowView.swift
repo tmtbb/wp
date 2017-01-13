@@ -218,7 +218,10 @@ class CSSinglerowCell: UICollectionViewCell {
         return label
         }()
     lazy var tagLabel : UILabel? = {[weak self] in
-        let label = UILabel(frame: CGRect(x: self!.bounds.width - 73, y: 7, width: 71, height: 36))
+        let screenW = UIScreen.main.bounds.width / 375
+        let widthW:CGFloat = screenW < 1 ? 50 : 71
+        let widthWW:CGFloat = screenW < 1 ? 65 : 72
+        let label = UILabel(frame: CGRect(x: self!.bounds.width - widthWW, y: 7, width: widthW, height: 36))
         label.layer.cornerRadius = 5
         label.layer.masksToBounds = true
         label.textAlignment = .center
@@ -227,6 +230,7 @@ class CSSinglerowCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupContentUI()
+
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

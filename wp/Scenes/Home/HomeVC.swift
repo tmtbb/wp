@@ -11,23 +11,24 @@ import SnapKit
 import Alamofire
 class HomeVC: BaseTableViewController {
     
+    //交易明细数据
     lazy var flowListArray: [FlowOrdersList] =  [FlowOrdersList]()
-    
-    //MARK: --LIFECYCLE
+    //行情数据
+    lazy var marketArray: [KChartModel] = [KChartModel]()
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         translucent(clear: true)
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.showsVerticalScrollIndicator = false
         registerNotify()
         initData()
         initUI()
         
     }
-    
     //MARK: --DATA
     func initData() {
     }
@@ -35,14 +36,12 @@ class HomeVC: BaseTableViewController {
     func initUI() {
         navigationController?.addSideMenuButton()
         let images: [String] = ["1", "1", "1"]
-        let contentSourceArray: [String] = ["用户001 买涨白银价 3666","用户001买涨白银价3666","用户001买涨白银价3666"]
+        let contentSourceArray: [String] = ["用户001 买涨白银价 366611111","用户001买涨白银价3666","用户001买涨白银价3666"]
         let tagSourceArray: [String] = ["跟单", "跟单", "跟单"]
         tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
         tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
     }
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
+  
     
     //MARK: --HeaderView
     func setupHeaderView (cycleImage:[String],contentSourceArray:[String], tagSourceArray:[String]) -> (UIView) {
@@ -190,7 +189,7 @@ class HomeVC: BaseTableViewController {
         notificationCenter.addObserver(self, selector: #selector(jumpToAttentionUsController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToAttentionUs), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToMyWealtVC), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil)
     }
-    //MARK: --NotificationCenter-realize
+    //MARK: --通知方法实现
     func jumpToMyMessageController() {
         
         performSegue(withIdentifier: MyMessageController.className(), sender: nil)
@@ -260,7 +259,10 @@ class HomeVC: BaseTableViewController {
         }
     }
     
-
+    //移除通知
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
  
     
 }

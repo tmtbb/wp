@@ -29,7 +29,9 @@ class ProdectCell: UITableViewCell {
     //变化百分比:计算
     @IBOutlet weak var changePer: UILabel!
     
+    @IBOutlet weak var layoutHightPrice: NSLayoutConstraint!
     
+    @IBOutlet weak var layoutChangePer: NSLayoutConstraint!
     
     var model: KChartModel? {
         didSet{
@@ -58,7 +60,11 @@ class ProdectCell: UITableViewCell {
         lowPrice.font = UIFont.systemFont(ofSize: 13 * screenW)
         changeLabel.font = UIFont.systemFont(ofSize: 13 * screenW)
         changePer.font = UIFont.systemFont(ofSize: 13 * screenW)
-    }
-    
+        
+        if screenW < 1 {
+            layoutHightPrice.constant = 10
+            layoutChangePer.constant = 8
+        }
+    }  
 }
 

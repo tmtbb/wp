@@ -22,7 +22,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
     {
         let param:[String : Any] = [SocketConst.Key.uid : UserModel.share().currentUser?.uid ?? 0,
                                     SocketConst.Key.token : UserModel.token ?? ""]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .userInfo, dict: param as [String : AnyObject])
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .accinfo, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
     //流水列表
