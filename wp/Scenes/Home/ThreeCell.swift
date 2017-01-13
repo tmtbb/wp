@@ -11,7 +11,7 @@
 
 import UIKit
 
-class ThressCell: UITableViewCell {
+class ThreeCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

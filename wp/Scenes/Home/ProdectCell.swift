@@ -44,15 +44,21 @@ class ProdectCell: UITableViewCell {
             lowPrice.text = "\(model!.lowPrice)"
             changeLabel.text = "\(model!.change)"
             
-//            let screenW = UIScreen.main.bounds.width / 375
-//            nowPrice.font = UIFont.systemFont(ofSize: 25 * screenW)
-//            todayOpen.font = UIFont.systemFont(ofSize: 13 * screenW)
-//            yesterdayOpen.font = UIFont.systemFont(ofSize: 13 * screenW)
-//            hightPrice.font = UIFont.systemFont(ofSize: 13 * screenW)
-//            lowPrice.font = UIFont.systemFont(ofSize: 13 * screenW)
-//            changeLabel.font = UIFont.systemFont(ofSize: 13 * screenW)
-//            changePer.font = UIFont.systemFont(ofSize: 13 * screenW)
+            
         }
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let screenW = UIScreen.main.bounds.width / 375
+        nowPrice.font = UIFont.systemFont(ofSize: 25 * screenW)
+        todayOpen.font = UIFont.systemFont(ofSize: 13 * screenW)
+        yesterdayOpen.font = UIFont.systemFont(ofSize: 13 * screenW)
+        hightPrice.font = UIFont.systemFont(ofSize: 13 * screenW)
+        lowPrice.font = UIFont.systemFont(ofSize: 13 * screenW)
+        changeLabel.font = UIFont.systemFont(ofSize: 13 * screenW)
+        changePer.font = UIFont.systemFont(ofSize: 13 * screenW)
+    }
+    
 }
 

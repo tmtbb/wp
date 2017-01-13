@@ -35,7 +35,7 @@ class HomeVC: BaseTableViewController {
     func initUI() {
         navigationController?.addSideMenuButton()
         let images: [String] = ["1", "1", "1"]
-        let contentSourceArray: [String] = ["用户001买涨白银价3666","用户001买涨白银价3666","用户001买涨白银价3666"]
+        let contentSourceArray: [String] = ["用户001 买涨白银价 3666","用户001买涨白银价3666","用户001买涨白银价3666"]
         let tagSourceArray: [String] = ["跟单", "跟单", "跟单"]
         tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
         tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
@@ -74,20 +74,33 @@ class HomeVC: BaseTableViewController {
         //跟单轮播
         let screenWidth = UIScreen.main.bounds.size.width
         let screenW = screenWidth / 375
-        let width = screenWidth - (screenW < 1 ? 100 : 120)
-        let singlerView = CSSinglerowView(frame: CGRect(x: 0, y: 0, width: width, height: 36), scrollStyle: .up, roundTime: 2, contentSource: contentSourceArray, tagSource: tagSourceArray)
+        var width = screenWidth - 101
+        if screenW < 1 {
+            width = width + 15
+        }
+        let singlerView = CSSinglerowView(frame: CGRect(x: 0, y: 0, width: width, height: 50), scrollStyle: .up, roundTime: 2, contentSource: contentSourceArray, tagSource: tagSourceArray)
         singlerView.backColor = UIColor.clear
         singlerView.contentTextColor = UIColor(rgbHex: 0x333333)
         singlerView.tagTextColor = UIColor(rgbHex: 0xFFFFFF)
         singlerView.tagFont = UIFont.systemFont(ofSize: 14)
-        singlerView.tagBackgroundColor = UIColor(rgbHex: 0x1E66DC)
+        singlerView.tagBackgroundColor = UIColor(rgbHex: 0xE9573E)
         singlerView.delegate = self
         sunView .addSubview(singlerView)
+        if  screenW < 1 {
+            singlerView.snp.makeConstraints { (make) in
+                make.top.equalTo(cycleView.snp.bottom).offset(0)
+                make.left.equalTo(redView.snp.right).offset(10)
+                make.bottom.equalTo(sunView).offset(0)
+                make.right.equalTo(sunView).offset(0)
+            }
+        }
+        else{
         singlerView.snp.makeConstraints { (make) in
-            make.top.equalTo(cycleView.snp.bottom).offset(9)
+            make.top.equalTo(cycleView.snp.bottom).offset(0)
             make.left.equalTo(redView.snp.right).offset(10)
             make.bottom.equalTo(sunView).offset(0)
             make.right.equalTo(sunView).offset(-15)
+        }
         }
         return sunView
     }
@@ -98,15 +111,15 @@ class HomeVC: BaseTableViewController {
     }
     
     //MARK: --UITableViewDelegate
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0 {
-            
-            return 10
-        }
-        if section == 1 {
-            return 11
-        }
-        return 0
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            if section == 1 {
+                
+                return 10
+            }
+            if section == 2 {
+                return 11
+            }
+            return 0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -117,7 +130,9 @@ class HomeVC: BaseTableViewController {
         if section == 1 {
             return 1
         }
-        
+        if section == 2 {
+            return 1
+        }
         return 0
     }
     
@@ -127,6 +142,9 @@ class HomeVC: BaseTableViewController {
         }
         if indexPath.section == 1 {
             return 155
+        }
+        if indexPath.section == 2 {
+            return 106
         }
         return 0
     }
@@ -138,18 +156,23 @@ class HomeVC: BaseTableViewController {
         }
         if indexPath.section==1 {
             let cell : SecondViewCell = tableView.dequeueReusableCell(withIdentifier: "SecondViewCell") as! SecondViewCell
+            cell.delegate = self
+            return cell
+        }
+        if indexPath.section == 2 {
+            let cell : ThreeCell = tableView.dequeueReusableCell(withIdentifier: "ThreeCell") as! ThreeCell
             return cell
         }
         return cell
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 2
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            print("0000000")
+            tabBarController?.selectedIndex = 1
         }
         
     }
@@ -237,17 +260,12 @@ class HomeVC: BaseTableViewController {
         }
     }
     
-    //MARK: -- 跳转到交易tabBar上
-    @IBAction func dealDidButton(_ sender: AnyObject) {
-        tabBarController?.selectedIndex = 1
-    }
-    @IBAction func immediatelyMaster(_ sender: Any) {
-        tabBarController?.selectedIndex = 2
-    }
+
+ 
     
 }
 //MARK: -- CSCycleViewDelegate,CSSinglerViewDelegate
-extension HomeVC:CSCycleViewDelegate,CSSinglerViewDelegate {
+extension HomeVC:CSCycleViewDelegate,CSSinglerViewDelegate,SecondViewCellDelegate {
     
     func  clickedCycleView(_ cycleView : CSCycleView, selectedIndex index: Int) {
         
@@ -257,5 +275,8 @@ extension HomeVC:CSCycleViewDelegate,CSSinglerViewDelegate {
         
         print("点击了第\(index)个数据")
         
+    }
+    func masterDidClick() {
+        tabBarController?.selectedIndex = 2
     }
 }
