@@ -75,14 +75,21 @@ class UserTableViewController: BaseTableViewController {
         yuanLabel.isHidden = false
         fenLabel.isHidden = true
         pushBtn.isHidden = false
-        AppAPIHelper.user().accountNews(complete: { (result) -> ()? in
-            if result != nil {
+        
+       
+        print(UserModel.token)
+        AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
+            
+            
+            if let object = result {
                 
-                print(result?["balance"] ?? 0)
-                self.propertyNumber.text = "\(result?["balance"])"
+                let  money : NSNumber =  object["balance"] as! NSNumber
+                self?.propertyNumber.text =  "\(money).00"
             }
+            
             return nil
-        }, error: errorBlockFunc())
+            }, error: errorBlockFunc())
+
         
 
     }
