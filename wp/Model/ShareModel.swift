@@ -18,7 +18,9 @@ class ShareModel: BaseModel {
     
     var selectMonth : String = " "
     
-    
+    var detailModel  =  WithdrawModel()
+   
+    dynamic var selectBank  = BankListModel()
     
     //定义全局的字典 用来传值
     var shareData = Dictionary<String, String>()
