@@ -20,7 +20,8 @@ class RegisterVC: BaseTableViewController {
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var pwdText: UITextField!
     private var timer: Timer?
-    private var codeTime = 60
+    private var codeTime = 10
+    private var voiceCodeTime = 10
     
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
@@ -35,34 +36,57 @@ class RegisterVC: BaseTableViewController {
     //获取图片验证码
     @IBAction func changeCodePicture(_ sender: UIButton) {
         if checkoutText(){
-            
-        }
-    }
-    //获取声音验证码
-    @IBAction func requestVoiceCode(_ sender: UIButton) {
-        if checkoutText(){
-        
-            AppAPIHelper.login().voiceCode(phone: phoneText.text!, complete: { [weak self](result) -> ()? in
+            let type = UserModel.share().forgetPwd ? 1:0
+            AppAPIHelper.commen().verifycode(verifyType: Int64(type), phone: phoneText.text!, complete: { [weak self](result) -> ()? in
                 if let strongSelf = self{
-                    strongSelf.voiceCodeBtn.isEnabled = false
-                    strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updateBtnTitle), userInfo: nil, repeats: true)
+                    strongSelf.codeBtn.isEnabled = false
+                    strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updatecodeBtnTitle), userInfo: nil, repeats: true)
                 }
                 return nil
             }, error: errorBlockFunc())
         }
     }
-    func updateBtnTitle() {
+    func updatecodeBtnTitle() {
         if codeTime == 0 {
-            voiceCodeBtn.isEnabled = true
-            voiceCodeBtn.setTitle("重新发送", for: .normal)
+            codeBtn.isEnabled = true
+            codeBtn.setTitle("重新发送", for: .normal)
             codeTime = 60
             timer?.invalidate()
+            codeBtn.backgroundColor = UIColor.init(rgbHex: 0xe9573e)
+            return
+        }
+        codeBtn.isEnabled = false
+        codeTime = codeTime - 1
+        let title: String = "\(codeTime)秒后重新发送"
+        codeBtn.setTitle(title, for: .normal)
+        codeBtn.backgroundColor = UIColor.init(rgbHex: 0xCCCCCC)
+    }
+    //获取声音验证码
+    @IBAction func requestVoiceCode(_ sender: UIButton) {
+        if checkoutText(){
+            AppAPIHelper.login().voiceCode(phone: phoneText.text!, complete: { [weak self](result) -> ()? in
+                if let strongSelf = self{
+                    strongSelf.voiceCodeBtn.isEnabled = false
+                    strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updateVoiceBtnTitle), userInfo: nil, repeats: true)
+                }
+                return nil
+            }, error: errorBlockFunc())
+        }
+    }
+    func updateVoiceBtnTitle() {
+        if voiceCodeTime == 0 {
+            voiceCodeBtn.isEnabled = true
+            voiceCodeBtn.setTitle("重新发送", for: .normal)
+            voiceCodeTime = 60
+            timer?.invalidate()
+            voiceCodeBtn.backgroundColor = UIColor.init(rgbHex: 0xE9573E)
             return
         }
         voiceCodeBtn.isEnabled = false
-        codeTime = codeTime - 1
-        let title: String = "\(codeTime)秒后重新发送"
+        voiceCodeTime = voiceCodeTime - 1
+        let title: String = "\(voiceCodeTime)秒后重新发送"
         voiceCodeBtn.setTitle(title, for: .normal)
+        voiceCodeBtn.backgroundColor = UIColor.init(rgbHex: 0xCCCCCC)
     }
     //注册
     @IBAction func registerBtnTapped(_ sender: Any) {
