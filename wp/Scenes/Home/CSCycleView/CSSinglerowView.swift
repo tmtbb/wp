@@ -218,7 +218,7 @@ class CSSinglerowCell: UICollectionViewCell {
         return label
         }()
     lazy var tagLabel : UILabel? = {[weak self] in
-        let label = UILabel(frame: CGRect(x: self!.bounds.width - 100, y: (self!.bounds.height - 40) / 2, width: 71, height: 36))
+        let label = UILabel(frame: CGRect(x: self!.bounds.width - 60, y: (self!.bounds.height - 40) / 2, width: 71, height: 36))
 //        label.layer.cornerRadius = 5
 //        label.layer.masksToBounds = true
         label.textAlignment = .center

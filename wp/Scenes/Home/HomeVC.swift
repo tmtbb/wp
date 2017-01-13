@@ -11,17 +11,6 @@ import SnapKit
 import Alamofire
 class HomeVC: BaseTableViewController {
     
-    @IBOutlet weak var highestPrice: UILabel!
-    @IBOutlet weak var minimumPrice: UILabel!
-    @IBOutlet weak var priceToday: UILabel!
-    @IBOutlet weak var yesterdayEnd: UILabel!
-    @IBOutlet weak var nowPrice: UILabel!
-    @IBOutlet weak var gradient: UILabel!
-    @IBOutlet weak var variation: UILabel!
-    
-    @IBOutlet weak var productType: ProductTypeView!
-   
-    
     lazy var flowListArray: [FlowOrdersList] =  [FlowOrdersList]()
     
     //MARK: --LIFECYCLE
@@ -37,10 +26,7 @@ class HomeVC: BaseTableViewController {
         initData()
         initUI()
         
-        
-        
-        
-        }
+    }
     
     //MARK: --DATA
     func initData() {
@@ -53,8 +39,6 @@ class HomeVC: BaseTableViewController {
         let tagSourceArray: [String] = ["跟单", "跟单", "跟单"]
         tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
         tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
-        
-        productType.delegate = self
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -88,7 +72,10 @@ class HomeVC: BaseTableViewController {
             make.height.equalTo(16)
         }
         //跟单轮播
-        let singlerView = CSSinglerowView(frame: CGRect(x: 0, y: 0, width: 260, height: 36), scrollStyle: .up, roundTime: 2, contentSource: contentSourceArray, tagSource: tagSourceArray)
+        let screenWidth = UIScreen.main.bounds.size.width
+        let screenW = screenWidth / 375
+        let width = screenWidth - (screenW < 1 ? 100 : 120)
+        let singlerView = CSSinglerowView(frame: CGRect(x: 0, y: 0, width: width, height: 36), scrollStyle: .up, roundTime: 2, contentSource: contentSourceArray, tagSource: tagSourceArray)
         singlerView.backColor = UIColor.clear
         singlerView.contentTextColor = UIColor(rgbHex: 0x333333)
         singlerView.tagTextColor = UIColor(rgbHex: 0xFFFFFF)
@@ -109,18 +96,62 @@ class HomeVC: BaseTableViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
-
+    
     //MARK: --UITableViewDelegate
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        if section == 1 {
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
             
             return 10
         }
-        if section == 2 {
+        if section == 1 {
             return 11
         }
         return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        
+        if section == 0 {
+            return 2
+        }
+        if section == 1 {
+            return 1
+        }
+        
+        return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 96
+        }
+        if indexPath.section == 1 {
+            return 155
+        }
+        return 0
+    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        
+        let cell : ProdectCell = tableView.dequeueReusableCell(withIdentifier: "ProdectCell") as! ProdectCell
+        if indexPath.section==0 {
+            return cell
+        }
+        if indexPath.section==1 {
+            let cell : SecondViewCell = tableView.dequeueReusableCell(withIdentifier: "SecondViewCell") as! SecondViewCell
+            return cell
+        }
+        return cell
+    }
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        
+        return 2
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            print("0000000")
+        }
+        
     }
     //MARK: --NotificationCenter
     func registerNotify() {
@@ -155,9 +186,6 @@ class HomeVC: BaseTableViewController {
     }
     func jumpToDealController() {
         
-        
-        self.performSegue(withIdentifier: DealController.className(), sender: nil)
-        
         if checkLogin() {
             AppAPIHelper.user().flowList(flowType: "1,2,3", startPos: 0, count: 10, complete: { (result) -> ()? in
                 if result != nil {
@@ -166,10 +194,10 @@ class HomeVC: BaseTableViewController {
                             print(model)
                             self.flowListArray.append(model)
                         }
-                    
+                        self.performSegue(withIdentifier: DealController.className(), sender: nil)
                     }else
                     {
-                    print("wei nil")
+                        print("wei nil")
                     }
                 }
                 return nil
@@ -198,7 +226,7 @@ class HomeVC: BaseTableViewController {
     }
     //通知跳转到资金页面
     func jumpToMyWealtVC() {
-      
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
