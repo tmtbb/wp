@@ -30,7 +30,7 @@ class FriendVC: BaseTableViewController {
     @IBOutlet weak var dayShareLabel: UILabel!              //本天分享晒单数目
     private var index: NSInteger = 0                        //判断点击的数目刷新区的row的行数
     private var lastTypeBtn: UIButton?                      //判断点击的btn
-    
+    @IBOutlet weak var cancelFocus: UIButton!               //取消按钮
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
