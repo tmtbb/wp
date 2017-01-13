@@ -36,15 +36,18 @@ class FriendVC: BaseTableViewController {
         super.viewDidLoad()
         initData()
         initUI()
+        title = "张飞"
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        translucent(clear: true)
+
+         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
-        translucent(clear: false)
+//        translucent(clear: false)
+         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     //MARK: --DATA
     func initData() {
@@ -115,7 +118,7 @@ class FriendVC: BaseTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == index{
             
-            return section == 2 ? 3:2
+            return section == 2 ? 6:2
             
         }else{
             return 0

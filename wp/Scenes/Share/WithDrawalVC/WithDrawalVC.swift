@@ -43,6 +43,11 @@ class WithDrawalVC: BaseTableViewController {
         ShareModel.share().addObserver(self, forKeyPath: "selectBank", options: .new, context: nil)
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        
+        hideTabBarWithAnimationDuration()
+        
+    }
     //MARK:  界面销毁删除监听
     deinit {
         ShareModel.share().removeObserver(self, forKeyPath: "selectBank", context: nil)
@@ -151,4 +156,7 @@ class WithDrawalVC: BaseTableViewController {
             }
         }
     }
+    
+    //MARK: -- 隐藏tabBar导航栏
+   
 }

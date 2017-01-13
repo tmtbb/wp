@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2FFBC4EC1DF8EF190039A0E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */; };
 		67563DCFE7C11C493D5E3BE0 /* Pods_wp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */; };
+		A009AD0E1E28A399008A5014 /* FriendTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009AD0D1E28A399008A5014 /* FriendTableView.swift */; };
+		A009AD111E28BF3E008A5014 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD101E28BF3E008A5014 /* back.png */; };
 		A01CE17F1E212A0100543E12 /* MyWealtVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE17E1E212A0100543E12 /* MyWealtVC.swift */; };
 		A046BF781E1CDFFB0035A4FA /* WithDrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */; };
 		A053E2611E264768001B8B99 /* BankCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A053E2601E264768001B8B99 /* BankCardVC.swift */; };
@@ -293,6 +295,8 @@
 /* Begin PBXFileReference section */
 		2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		34A71E9057EC9BB492D14F0B /* Pods-wp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wp/Pods-wp.debug.xcconfig"; sourceTree = "<group>"; };
+		A009AD0D1E28A399008A5014 /* FriendTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableView.swift; sourceTree = "<group>"; };
+		A009AD101E28BF3E008A5014 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		A01CE17E1E212A0100543E12 /* MyWealtVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWealtVC.swift; sourceTree = "<group>"; };
 		A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawalVC.swift; sourceTree = "<group>"; };
 		A053E2601E264768001B8B99 /* BankCardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardVC.swift; sourceTree = "<group>"; };
@@ -700,6 +704,7 @@
 		A0BC07421E23B5D8003EA7BC /* share */ = {
 			isa = PBXGroup;
 			children = (
+				A009AD101E28BF3E008A5014 /* back.png */,
 				A072E3C71E24826600A855B6 /* calendar@2x.png */,
 				A072E3BF1E247B3400A855B6 /* rechargeType@2x.png */,
 				A072E3C01E247B3400A855B6 /* rechargeType@3x.png */,
@@ -1133,6 +1138,7 @@
 			children = (
 				BFAC32851E123A2E008EF3D3 /* ShareTableView.swift */,
 				A0BC07401E23941A003EA7BC /* CustomeAlertView.swift */,
+				A009AD0D1E28A399008A5014 /* FriendTableView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -1458,6 +1464,7 @@
 				A0BC07521E23BAF3003EA7BC /* addbank@3x.png in Resources */,
 				A0BC07491E23B8B5003EA7BC /* ccbc@2x.png in Resources */,
 				A072E3B91E247AC000A855B6 /* Account@2x.png in Resources */,
+				A009AD111E28BF3E008A5014 /* back.png in Resources */,
 				A0BC07451E23B716003EA7BC /* submited@2x.png in Resources */,
 				BFF019B71E23B113008631D6 /* bankRead@3x.png in Resources */,
 				BFF019961E23B113008631D6 /* nav_color@2x.png in Resources */,
@@ -1689,6 +1696,7 @@
 				D06074F51E233DE70028EB32 /* MyAttentionCell.swift in Sources */,
 				BF2CEA3C1E1CCA9A00EEA99E /* BingPhoneVC.swift in Sources */,
 				BF9BE4A21E1FA10800DB5F1A /* BaseMode+Extension.swift in Sources */,
+				A009AD0E1E28A399008A5014 /* FriendTableView.swift in Sources */,
 				BFC1E5BD1E0D1820004A2AFC /* UIView+Extension.swift in Sources */,
 				BF04793B1E0FBF2E00C511E7 /* BuyVC.swift in Sources */,
 				BF2F64261E038DFE00917FA1 /* SocketConst.swift in Sources */,

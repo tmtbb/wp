@@ -79,7 +79,7 @@ class RechargeVC: BaseTableViewController {
         self.bankTableView.addObserver(self, forKeyPath: "selectType", options: .new, context: nil)
         
     }
-    //MARK: --属性的变化
+    //MARK: 属性的变化
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == "selectType" {

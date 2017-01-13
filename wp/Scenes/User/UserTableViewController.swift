@@ -126,6 +126,7 @@ class UserTableViewController: BaseTableViewController {
     @IBAction func myPropertyDidClick(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil, userInfo: nil)
         print("我的资产")
+        sideMenuController?.toggle()
     }
     //个人中心
     @IBAction func myMessageDidClick(_ sender: Any) {
