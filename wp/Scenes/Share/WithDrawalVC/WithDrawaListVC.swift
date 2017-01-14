@@ -67,13 +67,16 @@ class WithDrawaListVC: BasePageListTableViewController {
         title = "提现记录"
         
     }
+    deinit {
+        ShareModel.share().shareData.removeAll()
+    }
     //  请求接口刷新数据
     override func didRequest(_ pageIndex : Int) {
         
         AppAPIHelper.user().withdrawlist(status: "", pos: 0, count: 10, complete: { [weak self](result) -> ()? in
             
             if let object = result {
-                let Model : WithdrawListModel = result as! WithdrawListModel
+                let Model : WithdrawListModel = object as! WithdrawListModel
                 self?.dataModel =  Model.withdrawList
                 self?.didRequestComplete(Model.withdrawList as AnyObject?)
             }else{

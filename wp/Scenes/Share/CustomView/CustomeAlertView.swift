@@ -16,6 +16,7 @@ class CustomeAlertView : UIView,UITableViewDelegate,UITableViewDataSource {
     
     var tableView = UITableView()
     
+    var dateArr = ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,7 +55,7 @@ class CustomeAlertView : UIView,UITableViewDelegate,UITableViewDataSource {
     
     func removeFromView(){
         
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: ShareModel().selectType), object: NSNumber.init(value:10000), userInfo:nil)
+        ShareModel.share().selectMonth = "\(1000000)"
         UIView.animate(withDuration: 0.25) {
             
             self.removeFromSuperview()
@@ -99,7 +100,11 @@ class CustomeAlertView : UIView,UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         ShareModel.share().selectMonth = "\(indexPath.row)"
-        self.removeFromSuperview()
+        
+        UIView.animate(withDuration: 0.1) {
+           self.removeFromSuperview()
+        }
+       
     }
     
 }
