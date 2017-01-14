@@ -16,10 +16,10 @@ class ShareModel: BaseModel {
     
     var selectType : String = " "
     
-    var selectMonth : String = " "
+    dynamic var selectMonth : String = " "
     
     var detailModel  =  WithdrawModel()
-   
+    
     dynamic var selectBank  = BankListModel()
     
     //定义全局的字典 用来传值

@@ -11,10 +11,11 @@ import UIKit
 //OEZTableViewCell
 class RechargeListVCCell: OEZTableViewCell {
     
-    @IBOutlet weak var weekLb: UILabel!            // 姓名Lb
+    @IBOutlet weak var weekLb: UILabel!            // 姓名LbstatusLb
     @IBOutlet weak var timeLb: UILabel!            // 时间Lb
     @IBOutlet weak var moneyCountLb: UILabel!      // 充值金额Lb
-    @IBOutlet weak var statusLb: UIButton!         // 状态Lb
+    // 状态Lb
+    @IBOutlet weak var statusLb: UILabel!
     @IBOutlet weak var minuteLb: UIButton!         // 分秒
     @IBOutlet weak var bankLogo: UIImageView!      // 银行卡图片
     
@@ -24,9 +25,11 @@ class RechargeListVCCell: OEZTableViewCell {
     // 刷新cell
     override func update(_ data: Any!) {
         let model = data as! Model
-        self.moneyCountLb.text = model.money
-        self.withDrawto.text = model.depositType == 1 ? "提现至微信" :"提现至银行卡"
+        self.moneyCountLb.text = "\(model.amount)"
+        self.withDrawto.text = model.depositType == 0 ? "微信" :"提现至银行卡"
         self.timeLb.text = "\(model.depositTime)"
+        self.statusLb.text = "充值失败"
+        
     }
 }
 
@@ -42,7 +45,7 @@ class RechargeListVC: BasePageListTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        pageNumber = 0
         title = "充值列表"
         
         ShareModel.share().addObserver(self, forKeyPath: "selectMonth", options: .new, context: nil)
@@ -54,27 +57,30 @@ class RechargeListVC: BasePageListTableViewController {
         ShareModel.share().shareData.removeAll()
     }
     
-    //MARK: 监听简直对
+    //MARK: 监听键值对
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == "selectMonth" {
             
             if let base = change? [NSKeyValueChangeKey.newKey] as? String {
                 
+                self.tableView.isScrollEnabled = true
+                if base != "1000000" {
+                }
+                
                 print(base)
                 
             }
         }
     }
-    
-    
-    //测试充值列表
+    //MARK: 网络请求列表
     override func didRequest(_ pageIndex : Int) {
         
+        // pageNumber = pageNumber +1
         AppAPIHelper.user().creditlist(status: "", pos: 0, count: 10, complete: {[weak self] (result) -> ()? in
             
             if let object = result {
-                let Model : RechargeListModel = result as! RechargeListModel
+                let Model : RechargeListModel = object as! RechargeListModel
                 self?.didRequestComplete(Model.depositsinfo as AnyObject)
             }else{
                 self?.didRequestComplete(nil)
@@ -106,11 +112,9 @@ class RechargeListVC: BasePageListTableViewController {
             dateBtn.frame = CGRect.init(x: self.view.frame.size.width-80, y: 8, width: 23, height: 23)
             
             dateBtn.setBackgroundImage(UIImage.init(named: "calendar"), for: UIControlState.normal)
-            
-            
             dateBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             
-            dateBtn.addTarget(self, action: #selector(chooseDate), for: UIControlEvents.touchUpInside)
+            dateBtn.addTarget(self, action: #selector(selectDate), for: UIControlEvents.touchUpInside)
             
             headerView.addSubview(dateBtn)
             return headerView
@@ -140,15 +144,14 @@ class RechargeListVC: BasePageListTableViewController {
         
     }
     //MARK: ---视图添加
-    func chooseDate(){
-        
+    func selectDate(){
         
         let customer : CustomeAlertView = CustomeAlertView.init(frame: CGRect.init(x: 0, y: contentoffset, width: self.view.frame.size.width, height: self.view.frame.size.height))
         
         self.tableView.isScrollEnabled = false
         self.view.addSubview(customer)
     }
-
+    
 }
 
 

@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
-class RechargeVC: BaseTableViewController {
+import SVProgressHUD
+class RechargeVC: BaseTableViewController ,WXApiDelegate{
     @IBOutlet weak var arrow: UIImageView!
     
     //用户账户
@@ -18,10 +18,10 @@ class RechargeVC: BaseTableViewController {
     @IBOutlet weak var moneyText: UITextField!
     
     //银行卡号
-    @IBOutlet weak var bankNumText: UITextField!
+    @IBOutlet weak var bankCount: UITextField!
     
     //充值金额
-    @IBOutlet weak var rechargeMoneyLabel: UITextField!
+    @IBOutlet weak var rechargeMoneyTF: UITextField!
     
     //充值方式*
     @IBOutlet weak var rechargeTypeLabel: UILabel!
@@ -37,30 +37,42 @@ class RechargeVC: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.bankTableView.didRequest()
-//        hideTabBarWithAnimationDuration()
+        //        self.bankTableView.didRequest()
+        //     hideTabBarWithAnimationDuration()
     }
     
     
-    //网络请求
     override func didRequest() {
+        //        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
+        //
+        //            if let object = result {
+        //
+        //                let Model : BankModel = object as! BankModel
+        //                let Count : Int = Model.cardlist!.count as Int
+        //                                let str : String = String(Count)
+        //                self?.bankCount.text = "\(str)" + " " + "张"
+        //
+        //            }else {
+        //
+        //            }
+        //
+        //            return nil
+        //            }, error: errorBlockFunc())
         
-        AppAPIHelper.user().creditdetail(rid:1111000011, complete: { (result) -> ()? in
-        
-            //
-            return nil
-        }, error: errorBlockFunc())
         
     }
     //MARK: --UI
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        showTabBarWithAnimationDuration()
+        //        showTabBarWithAnimationDuration()
+        
+        
+        
     }
     deinit {
         
-        self.bankTableView.removeObserver(self, forKeyPath: "selectType", context: nil)
-         ShareModel.share().shareData.removeAll()
+        //        self.bankTableView.removeObserver(self, forKeyPath: "dataArry", context: nil)
+        ShareModel.share().shareData.removeAll()
     }
     func initUI(){
         
@@ -73,23 +85,85 @@ class RechargeVC: BaseTableViewController {
         btn.setTitle("充值记录", for:  UIControlState.normal)
         
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
+        let int : Int = (UserModel.getCurrentUser()?.balance)!
+        
+        self.moneyText.text  = "\(int)" + "元"
         
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
-        self.bankTableView.addObserver(self, forKeyPath: "selectType", options: .new, context: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(paysuccess(_:)), name: Notification.Name(rawValue:AppConst.WechatPay.ErrorCode), object: nil)
+        
+        
+        self.userIdText.text = UserModel.getCurrentUser()?.phone
+        
+        self.userIdText.isUserInteractionEnabled = false
+        
+        
+        //        self.bankTableView.addObserver(self, forKeyPath: "dataArry", options: .new, context: nil)
         
     }
-    //MARK: 属性的变化
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
-        if keyPath == "selectType" {
+    //MARK: 监听返回结果
+    func paysuccess(_ notice: NSNotification) {
+        if let errorCode: Int = notice.object as? Int{
             
-            if let base = change? [NSKeyValueChangeKey.newKey] as? String {
+            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: errorCode, complete: { (result) -> ()? in
                 
-                ShareModel.share().shareData["bid"] = base
-            }
+                if let object = result{
+                    
+                    let  returnCode : Int = object["returnCode"] as! Int
+                    if returnCode == 0{
+                        
+                        SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
+                            self.navigationController?.popViewController(animated: true)
+                        })
+                    }else{
+                        SVProgressHUD.showError(withStatus: "支付失败")
+                    }
+                    
+                    
+                    
+                }
+                return nil
+            }, error: errorBlockFunc())
         }
+        
+        
+        //        if let errorCode: Int = notice.object as? Int{
+        //            if errorCode == -4{
+        //
+        //                return
+        //            }
+        //            if errorCode == -2{
+        //
+        //                SVProgressHUD.showError(withStatus: "用户中途取消")
+        //                return
+        //            }
+        //            if errorCode == 0{
+        //                SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1
+        //                    , completion: {
+        //
+        //                })
+        //                return
+        //            }
+        //
+        //        }
+        
     }
+    //    //MARK: 属性的变化
+    //    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    //
+    //        if keyPath == "dataArry" {
+    //
+    //            if let  base = change? [NSKeyValueChangeKey.newKey] as? [BankListModel] {
+    //
+    //                let Count : Int = base.count as Int
+    //                let str : String = String(Count)
+    //                bankCount.text = "\(str)" + " " + "张"
+    //
+    //            }
+    //        }
+    //    }
     //MARK:-进入充值吗列表页面
     func rechargeList(){
         self.performSegue(withIdentifier: "PushTolist", sender: nil)
@@ -118,9 +192,7 @@ class RechargeVC: BaseTableViewController {
     //MARK: -进入绑定银行卡
     @IBAction func addBank(_ sender: Any) {
         
-        
         self.performSegue(withIdentifier: "addBankCard", sender: nil)
-        
         
         
         
@@ -128,14 +200,49 @@ class RechargeVC: BaseTableViewController {
     //MARK: -提交
     @IBAction func submitBtnTapped(_ sender: UIButton) {
         
-        let  story  =  UIStoryboard.init(name: "Share", bundle: nil)
         
-        let new  = story.instantiateViewController(withIdentifier: "MyWealtVC")
+        if checkTextFieldEmpty([self.rechargeMoneyTF]) {
+            var money : String
+            if ((self.rechargeMoneyTF.text?.range(of: ".")) != nil) {
+                money = self.rechargeMoneyTF.text!
+            }else{
+                
+                money = "\(self.rechargeMoneyTF.text!)" + ".00001"
+            }
+            AppAPIHelper.user().weixinpay(title: "微盘-余额充值", price: Double.init(money)! , complete: { (result) -> ()? in
+                
+                if let object = result {
+                    
+                    let request : PayReq = PayReq()
+                    ShareModel.share().shareData.removeValue(forKey: "rid")
+                    let  str : String  = object["timestamp"] as! String!
+                    ShareModel.share().shareData["rid"] =  object["rid"] as! String!
+                    request.timeStamp = UInt32(str)!
+                    request.sign = object["sign"] as! String!
+                    request.package = object["package"] as! String!
+                    request.nonceStr = object["noncestr"] as! String!
+                    request.partnerId = object["partnerid"] as! String!
+                    request.sign = object["sign"] as! String!
+                    request.prepayId = object["prepayid"] as! String!
+                    
+                    WXApi.send(request)
+                }
+                
+                return nil
+            }, error: errorBlockFunc())
+        }
         
-        self.navigationController?.pushViewController(new, animated: true)
         
+        
+        
+        //        let  story  =  UIStoryboard.init(name: "Share", bundle: nil)
+        //
+        //        let new  = story.instantiateViewController(withIdentifier: "MyWealtVC")
+        //
+        //        self.navigationController?.pushViewController(new, animated: true)
         
     }
+    
     //MARK: -tableView dataSource
     override   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
@@ -170,6 +277,8 @@ class RechargeVC: BaseTableViewController {
         }
         
     }
+    
+    
 }
 
 

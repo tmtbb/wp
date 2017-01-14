@@ -51,6 +51,7 @@ class Model: BaseModel {
        var depositName: String?       // 微信
        var status: Int8 = 0           // 1-处理中，2-成功，3-失败
        var money : String?            //  金额
+       var amount: Double = 0        // jine
     // json 返回数组 来接收对象 调用  RechargeListModel 返回来的model
 //    class func depositsinfoModelClass() ->AnyClass {
 //        return  RechargeListModel.classForCoder()    }
