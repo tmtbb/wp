@@ -115,6 +115,7 @@ class KLineView: UIView {
         if models.count == 0 {
             let _ = delay(5, task: { [weak self] in
                 self?.initMiuLChartsData()
+                self?.requestLineChartData()
             })
         }
         initLineChartData(models: models)
