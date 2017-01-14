@@ -38,7 +38,7 @@ class RechargeVC: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.bankTableView.didRequest()
-        
+//        hideTabBarWithAnimationDuration()
     }
     
     
@@ -55,7 +55,7 @@ class RechargeVC: BaseTableViewController {
     //MARK: --UI
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
+//        showTabBarWithAnimationDuration()
     }
     deinit {
         
