@@ -1472,6 +1472,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="ensureBtn:" destination="OS8-EJ-QWW" eventType="touchUpInside" id="IkR-Ar-34A"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
@@ -1488,6 +1491,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="修改登录密码" id="Xk1-x5-VBe"/>
+                    <connections>
+                        <outlet property="newEnterPassword" destination="fpw-PJ-5Eh" id="Y0e-ZP-TMG"/>
+                        <outlet property="oldEnterPassword" destination="aw6-bZ-cPU" id="pGd-Du-j6U"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="scO-ug-eak" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

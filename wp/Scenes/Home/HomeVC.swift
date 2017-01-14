@@ -249,6 +249,12 @@ class HomeVC: BaseTableViewController {
     //通知跳转到资金页面
     func jumpToMyWealtVC() {
         
+        let story : UIStoryboard = UIStoryboard.init(name: "Share", bundle: nil)
+        
+        let wealth  = story.instantiateViewController(withIdentifier: "MyWealtVC")
+       
+        navigationController?.pushViewController(wealth, animated: true)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -41,19 +41,16 @@ class ShareVC: BaseListTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         initData()
         initUI()
-    
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        translucent(clear: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        translucent(clear: false)
     }
     //MARK: --DATA
     func initData() {
@@ -78,7 +75,7 @@ class ShareVC: BaseListTableViewController {
         
         tableView.rowHeight = 66
         rankTypeBtnTapped(dayBtn)
-        tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
+        tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
     }
     //MARK: --昨天之星，上周名人，月度名人
     

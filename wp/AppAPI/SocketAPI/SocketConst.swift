@@ -25,11 +25,13 @@ class SocketConst: NSObject {
         // 声音验证码
         case voiceCode = 1006
         // 设置用户信息
-        case userInfo = 1004
+
+        case userInfo = 10010
+
         //设置账号信息
         case accountNews = 1007
         
-         case accinfo = 1003  
+       case accinfo = 1003
         //流水列表
         case flowList = 1005
         //流水详情
@@ -48,7 +50,7 @@ class SocketConst: NSObject {
         //提现详情
         case withdrawDetail = 101
         // 我的晒单
-        case userShare = 10010
+        case userShare = 1020
         // 充值列表
         case rechageList = 1019
         // 充值详情

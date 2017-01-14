@@ -9,9 +9,9 @@
 import UIKit
 import SideMenuController
 class UserTableViewController: BaseTableViewController {
-    
+    //头像
     @IBOutlet weak var iconImage: UIImageView!
-    
+    //用户名
     @IBOutlet weak var nameLabel: UILabel!
     //资金
     @IBOutlet weak var propertyNumber: UILabel!
@@ -28,7 +28,8 @@ class UserTableViewController: BaseTableViewController {
     @IBOutlet weak var register: UIButton!
     //跳转按钮
     @IBOutlet weak var pushBtn: UIButton!
-    
+    //资金按钮
+    @IBOutlet weak var myPropertyBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,11 +41,13 @@ class UserTableViewController: BaseTableViewController {
             integralLabel.isHidden = true
             fenLabel.isHidden = true
             pushBtn.isHidden = false
-            self.placeholderLabel.isHidden = false
+            myPropertyBtn.isHidden = false
+            placeholderLabel.isHidden = false
             iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
             nameLabel.text = UserModel.getCurrentUser()?.screenName
         }
         else{
+            myPropertyBtn.isHidden = true
             propertyNumber.isHidden = true
             nameLabel.isHidden = true
             yuanLabel.isHidden = true
@@ -75,9 +78,8 @@ class UserTableViewController: BaseTableViewController {
         yuanLabel.isHidden = false
         fenLabel.isHidden = true
         pushBtn.isHidden = false
-        
+        myPropertyBtn.isHidden = false
        
-        print(UserModel.token)
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
             
             
@@ -105,6 +107,7 @@ class UserTableViewController: BaseTableViewController {
         register.isHidden = false
         concealLabel.isHidden = false
         placeholderLabel.isHidden = false
+        myPropertyBtn.isHidden = true
         iconImage.image = UIImage(named: "default-head.png")
     }
     
@@ -133,6 +136,7 @@ class UserTableViewController: BaseTableViewController {
     @IBAction func myPropertyDidClick(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil, userInfo: nil)
         print("我的资产")
+        sideMenuController?.toggle()
     }
     //个人中心
     @IBAction func myMessageDidClick(_ sender: Any) {
