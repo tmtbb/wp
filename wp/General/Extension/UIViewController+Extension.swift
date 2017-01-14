@@ -101,11 +101,13 @@ extension UIViewController {
         let parent = tabBar?.superview
         let content = parent?.subviews[0]
         let window = parent?.superview
+        if window != nil {
+            var tabFrame = tabBar?.frame
+            tabFrame?.origin.y = (window?.bounds)!.maxY
+            tabBar?.frame = tabFrame!
+            content?.frame = (window?.bounds)!
+        }
         
-        var tabFrame = tabBar?.frame
-        tabFrame?.origin.y = (window?.bounds)!.maxY
-        tabBar?.frame = tabFrame!
-        content?.frame = (window?.bounds)!
     }
     
     func showTabBarWithAnimationDuration() {

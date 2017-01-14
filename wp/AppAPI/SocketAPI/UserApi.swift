@@ -38,4 +38,6 @@ protocol UserApi {
     func withdrawdetail( withdrawld: Int64, complete: CompleteBlock?, error: ErrorBlock?)
     // 获取银行卡名称
     func getBankName( withbankld: String, complete: CompleteBlock?, error: ErrorBlock?)
+    //请求修改个人信息
+    func revisePersonDetail(screenName:String, avatarLarge: String, gender:Int64, complete: CompleteBlock?, error: ErrorBlock?)
 }

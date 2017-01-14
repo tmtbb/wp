@@ -43,6 +43,7 @@ class UserTableViewController: BaseTableViewController {
             pushBtn.isHidden = false
             myPropertyBtn.isHidden = false
             placeholderLabel.isHidden = false
+            propertyNumber.text = "\(UserModel.getCurrentUser()!.balance).00"
             iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
             nameLabel.text = UserModel.getCurrentUser()?.screenName
         }
@@ -87,6 +88,8 @@ class UserTableViewController: BaseTableViewController {
                 
                 let  money : NSNumber =  object["balance"] as! NSNumber
                 self?.propertyNumber.text =  "\(money).00"
+                
+                UserModel.getCurrentUser()?.balance = Int(money)
             }
             
             return nil
@@ -126,11 +129,15 @@ class UserTableViewController: BaseTableViewController {
     //登录按钮
     @IBAction func enterDidClick(_ sender: Any) {
         
+        if checkLogin() {
+            
+        }
+        
     }
     //注册按钮
     @IBAction func registerDidClick(_ sender: Any) {
         
-    }
+        }
     
     //我的资产
     @IBAction func myPropertyDidClick(_ sender: Any) {

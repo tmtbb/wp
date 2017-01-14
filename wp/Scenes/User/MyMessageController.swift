@@ -115,7 +115,20 @@ extension MyMessageController: UIImagePickerControllerDelegate, UINavigationCont
         haveChangeImage = true
         let image: UIImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
         imagePicker.dismiss(animated: true, completion: nil)
-        //        iconButton.setBackgroundImage(image, for: .normal)
         userImage.image = image
+        UIImage.qiniuUploadImage(image: image, imageName: "test.png", complete: { (result) -> ()? in
+            
+            print(result)
+            
+            
+            return nil
+        }) { (error) -> ()? in
+            print(error)
+            return nil
+        }
+
+    
+   
+        
     }
 }

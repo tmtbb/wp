@@ -35,7 +35,7 @@ class CSSinglerowView: UIView {
         }
     }
     var contentTextColor : UIColor = .white
-    var contentFont : UIFont = .systemFont(ofSize: 13)
+    var contentFont : UIFont = .systemFont(ofSize: 15)
     var tagFont : UIFont = .systemFont(ofSize: 11)
     var tagTextColor : UIColor = .red
     var tagBackgroundColor : UIColor = UIColor(red: 230/255, green: 130/255, blue: 110/255, alpha: 1)

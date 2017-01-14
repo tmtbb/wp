@@ -32,6 +32,8 @@ class SocketConst: NSObject {
         case accountNews = 1007
         
        case accinfo = 1003
+        //修改个人信息
+        case changeUserInfo = 1031
         //流水列表
         case flowList = 1005
         //流水详情
@@ -144,6 +146,8 @@ class SocketConst: NSObject {
         static let bid = "bid"
         static let newid = "uid"
         static let verifyType = "verifyType"
+        static let screenName = "screenName"
+        static let avatarLarge = "avatarLarge"
 
         
     }

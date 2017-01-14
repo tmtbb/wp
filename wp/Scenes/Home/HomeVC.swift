@@ -36,7 +36,7 @@ class HomeVC: BaseTableViewController {
     func initUI() {
         navigationController?.addSideMenuButton()
         let images: [String] = ["1", "1", "1"]
-        let contentSourceArray: [String] = ["用户001 买涨白银价 366611111","用户001买涨白银价3666","用户001买涨白银价3666"]
+        let contentSourceArray: [String] = ["用户001111 买涨白银价 3666","用户001买涨白银价3666","用户001买涨白银价3666"]
         let tagSourceArray: [String] = ["跟单", "跟单", "跟单"]
         tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
         tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
@@ -80,6 +80,13 @@ class HomeVC: BaseTableViewController {
         let singlerView = CSSinglerowView(frame: CGRect(x: 0, y: 0, width: width, height: 50), scrollStyle: .up, roundTime: 2, contentSource: contentSourceArray, tagSource: tagSourceArray)
         singlerView.backColor = UIColor.clear
         singlerView.contentTextColor = UIColor(rgbHex: 0x333333)
+        if screenWidth < 1 {
+            singlerView.contentFont = UIFont.systemFont(ofSize: 13 * screenW)
+        }else
+        {
+            singlerView.contentFont = UIFont.systemFont(ofSize: 14)
+        }
+        
         singlerView.tagTextColor = UIColor(rgbHex: 0xFFFFFF)
         singlerView.tagFont = UIFont.systemFont(ofSize: 14)
         singlerView.tagBackgroundColor = UIColor(rgbHex: 0xE9573E)
