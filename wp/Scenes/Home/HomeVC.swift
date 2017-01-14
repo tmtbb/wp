@@ -19,6 +19,7 @@ class HomeVC: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         translucent(clear: true)
+        showTabBarWithAnimationDuration()
     }
     
     override func viewDidLoad() {

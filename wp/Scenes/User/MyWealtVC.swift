@@ -29,11 +29,14 @@ class MyWealtVC: BaseListTableViewController {
         //注册cell
         didRequest()
         title  = "我的资产"
-        print("%f",NSStringFromCGRect(tableView.frame))
+       
+        tableView.isScrollEnabled = true
+        
         
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+//        showTabBarWithAnimationDuration()
         
     }
     override func viewWillAppear(_ animated: Bool) {

@@ -77,7 +77,7 @@ class WithDrawalVC: BaseTableViewController {
             
             if let base = change? [NSKeyValueChangeKey.newKey] as? BankListModel {
                 
-                print(base)
+
                 bankId =  Int64(base.bid)
                 self.bankTd.text! = base.bank
                 self.branceTd.text! = base.branchBank
