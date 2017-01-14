@@ -8,6 +8,8 @@
 
 import UIKit
 import Charts
+import RealmSwift
+
 class KLineView: UIView {
     @IBOutlet weak var miuCharts: LineChartView!
     @IBOutlet weak var miu15Charts: CombinedChartView!
@@ -19,15 +21,12 @@ class KLineView: UIView {
     var miuTask: Task?
     var hourModels: [KChartModel] = []
     var miu15Models: [KChartModel] = []
-    var miuModels: [KChartModel] = []
     var dayModels: [KChartModel] = []
     var selectIndex: NSInteger!{
         didSet{
             switch selectIndex {
             case 1:
-                if miuModels.count == 0 {
-                    requestMiuLChartsData()
-                }
+                
                 bringSubview(toFront: self.miuCharts)
                 break
             case 2:
@@ -70,6 +69,8 @@ class KLineView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         initChartView()
+        requestLineChartData()
+        initMiuLChartsData()
     }
 
     //MARK: --Charts
@@ -102,32 +103,21 @@ class KLineView: UIView {
         miu15Charts.rightAxis.axisMinimum = 0
         miu15Charts.leftAxis.axisMinimum = 0
         
-        miuCharts.xAxis.axisMaximum = 100
+        
+        miuCharts.xAxis.axisMaximum = 60*24
     }
     func refreshKLine() {
-        dayModels.removeAll()
-        miuModels.removeAll()
-        miu15Models.removeAll()
-        hourModels.removeAll()
-        initLineChartData(models: miu15Models)
-        initCandleStickData(type: .miu15, models: miu15Models)
-        initCandleStickData(type: .miu60, models: hourModels)
-        initCandleStickData(type: .day, models: dayModels)
-//        selectIndex = 0 + selectIndex
+        
     }
     //MARK: --分时图
-    func requestMiuLChartsData() {
-        requestLineChartData { [weak self](result) -> ()? in
-            if let models: [KChartModel] = result as! [KChartModel]?{
-                self?.miuModels += models
-                self?.initLineChartData(models: (self?.miuModels)!)
-                let time = 60 + Date.nowTimestemp() - (models.last?.priceTime)!
-                self?.miu15Task = self?.delay(TimeInterval(time), task: { [weak self] in
-                    self?.requestMiuLChartsData()
-                })
-            }
-            return nil
+    func initMiuLChartsData() {
+        let models: [KChartModel] = DealModel.share().queryTimelineModels(page: 1)
+        if models.count == 0 {
+            let _ = delay(5, task: { [weak self] in
+                self?.initMiuLChartsData()
+            })
         }
+        initLineChartData(models: models)
     }
     //MARK: --15分钟
     func requestMiu15KChartsData() {
@@ -135,7 +125,7 @@ class KLineView: UIView {
             if let models: [KChartModel] = result as! [KChartModel]?{
                 self?.miu15Models += models
                 self?.initCandleStickData(type: .miu15, models: (self?.miu15Models)!)
-                let time = 15*60 + Date.nowTimestemp() - (models.last?.priceTime)!
+                let time = 15*60 + Date.nowTimestemp() - Double((models.last?.priceTime)!)
                 self?.miu15Task = self?.delay(TimeInterval(time), task: { [weak self] in
                     self?.requestMiu15KChartsData()
                 })
@@ -149,7 +139,7 @@ class KLineView: UIView {
             if let models: [KChartModel] = result as! [KChartModel]?{
                 self?.hourModels += models
                 self?.initCandleStickData(type: .miu60, models: (self?.hourModels)!)
-                let time = 60*60 + Date.nowTimestemp() - (models.last?.priceTime)!
+                let time = 60*60 + Date.nowTimestemp() - Double((models.last?.priceTime)!)
                 self?.hourTask = self?.delay(TimeInterval(time), task: { [weak self] in
                     self?.requestDayKChartsData()
                 })
@@ -168,20 +158,29 @@ class KLineView: UIView {
         }
     }
     //请求分时数据
-    func requestLineChartData(chartComplete: CompleteBlock?){
+    func requestLineChartData(){
+        let _ = delay(60) { [weak self] in
+            self?.requestLineChartData()
+        }
         let param = KChartParam()
         if let model: ProductModel = DealModel.share().selectProduct{
             param.goodType = model.typeCode
             param.exchangeName = model.exchangeName
             param.platformName = model.platformName
         }
+        
         AppAPIHelper.deal().timeline(param: param, complete: {(result) -> ()? in
             
             if let models: [KChartModel] = result as? [KChartModel]{
-                chartComplete!(models as AnyObject?)
+                DealModel.share().cacheTimelineModels(models: models)
             }
             return nil
-        }, error: nil)
+        }, error: { [weak self](error) ->()? in
+            let _ = self?.delay(5, task: { [weak self] in
+                self?.requestLineChartData()
+            })
+            return nil
+        })
         
     }
     //刷新折线
@@ -192,7 +191,7 @@ class KLineView: UIView {
         
         var entrys: [ChartDataEntry] = []
         for (i, model) in models.enumerated()  {
-            let entry = ChartDataEntry.init(x: Double(i), y: model.currntPrice)
+            let entry = ChartDataEntry.init(x: Double(i), y: model.currentPrice)
             entrys.append(entry)
         }
         
@@ -202,7 +201,10 @@ class KLineView: UIView {
         set.circleHoleRadius = 0
         set.mode = .cubicBezier
         set.valueFont = UIFont.systemFont(ofSize: 0)
+        let fill = Fill.init(color: UIColor.init(rgbHex: 0x999999))
         
+        set.fill = fill
+        set.fillColor = UIColor.red
         let data: LineChartData  = LineChartData.init(dataSets: [set])
         miuCharts.data = data
         let combinData: CombinedChartData = CombinedChartData.init()
@@ -274,7 +276,7 @@ class KLineView: UIView {
     }
     
     func convertModelToLineDataEntry(model: KChartModel, location:Double) -> ChartDataEntry {
-        let entry = ChartDataEntry.init(x: location, y: model.currntPrice)
+        let entry = ChartDataEntry.init(x: location, y: model.currentPrice)
         return entry
     }
 }

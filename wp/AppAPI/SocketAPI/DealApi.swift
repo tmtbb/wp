@@ -31,7 +31,5 @@ protocol DealApi{
     func timeline(param: KChartParam, complete: CompleteBlock?, error:ErrorBlock?)
     //当前报价
     func realtime(param: [String: Any], complete: CompleteBlock?, error:ErrorBlock?) 
-    //当前多个商品报价
-    func productsPrice(param: DealPriceParam, complete: CompleteBlock?, error:ErrorBlock?)
 }
 

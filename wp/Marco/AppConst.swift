@@ -21,7 +21,7 @@ func isTelNumber(num: String)->Bool
 class AppConst {
     static let DefaultPageSize = 15
     static let UMAppkey = "584a3eb345297d271600127e"
-    static let isMock = false
+    static let isMock = true
     static let sha256Key = "t1@s#df!"
     
     class Color {
@@ -51,7 +51,7 @@ class AppConst {
     }
     
     class Network {
-        #if true //是否测试环境
+        #if false //是否测试环境
         static let TcpServerIP:String = "192.168.8.131";
         static let TcpServerPort:UInt16 = 30001;
         static let TttpHostUrl:String = "http://192.168.8.131";

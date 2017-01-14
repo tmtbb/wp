@@ -147,6 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
             }
             return
         }
+        
     }
 }
 

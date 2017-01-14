@@ -64,13 +64,13 @@ class RegisterVC: BaseTableViewController {
     //获取声音验证码
     @IBAction func requestVoiceCode(_ sender: UIButton) {
         if checkoutText(){
-            AppAPIHelper.login().voiceCode(phone: phoneText.text!, complete: { [weak self](result) -> ()? in
-                if let strongSelf = self{
-                    strongSelf.voiceCodeBtn.isEnabled = false
-                    strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updateVoiceBtnTitle), userInfo: nil, repeats: true)
-                }
-                return nil
-            }, error: errorBlockFunc())
+//            AppAPIHelper.login().voiceCode(phone: phoneText.text!, complete: { [weak self](result) -> ()? in
+//                if let strongSelf = self{
+//                    strongSelf.voiceCodeBtn.isEnabled = false
+//                    strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updateVoiceBtnTitle), userInfo: nil, repeats: true)
+//                }
+//                return nil
+//            }, error: errorBlockFunc())
         }
     }
     func updateVoiceBtnTitle() {

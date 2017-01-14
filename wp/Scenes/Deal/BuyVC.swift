@@ -10,6 +10,9 @@ import UIKit
 
 class BuyVC: BaseTableViewController {
     
+    @IBOutlet weak var dealCountLabel: UILabel!
+    @IBOutlet weak var dealPriceLabel: UILabel!
+    @IBOutlet weak var dealNameLabel: UILabel!
     @IBOutlet weak var myMoneyLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var waveLabel: UILabel!
@@ -17,6 +20,7 @@ class BuyVC: BaseTableViewController {
     @IBOutlet weak var orderLabel: UILabel!
     @IBOutlet weak var feeLabel: UILabel!
     @IBOutlet weak var lineView: UIView!
+    @IBOutlet weak var StopView: UIView!
     //购买白银规格
     @IBOutlet weak var lowBtn: UIButton!
     @IBOutlet weak var midlleBtn: UIButton!
@@ -71,11 +75,25 @@ class BuyVC: BaseTableViewController {
         buildDealBtnTapped(buildBtn)
         
         footView.isHidden = DealModel.share().isDealDetail
-        
  
         lowBtn.setTitle("\((DealModel.share().selectProduct?.profitPerUnit)!)元\n100g", for: .normal)
         midlleBtn.setTitle("\((DealModel.share().selectProduct?.profitPerUnit)!*10)元\n1000g", for: .normal)
         highBtn.setTitle("\((DealModel.share().selectProduct?.profitPerUnit)!*50)元\n5000g", for: .normal)
+        
+        if let dealModel = DealModel.share().selectDealModel{
+            dealNameLabel.text = dealModel.name
+            dealPriceLabel.text = "\(dealModel.closePrice)"
+            dealCountLabel.text = "\((DealModel.share().selectProduct?.profitPerUnit)! * Double(dealModel.amount))元\n\(100*dealModel.amount)g"
+           
+            let limittag = Int((dealModel.limit - 1)*10)
+            let limitbtn: UIButton = StopView.viewWithTag(100+limittag) as! UIButton
+            stopWinBtnTapped(limitbtn)
+            
+            
+            let stopTag = Int((dealModel.stop - 1)*10)
+            let stopbtn: UIButton = StopView.viewWithTag(200+stopTag) as! UIButton
+            stopLostBtnTapped(stopbtn)
+        }
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
@@ -132,6 +150,7 @@ class BuyVC: BaseTableViewController {
         sender.isSelected = true
         sender.backgroundColor = dealColor
         lastLostBtn = sender
+        DealModel.share().buyModel.stop = Double(sender.tag) - 100 / 10
     }
     @IBAction func stopWinBtnTapped(_ sender: UIButton) {
         if let btn = lastWinBtn {
@@ -141,6 +160,7 @@ class BuyVC: BaseTableViewController {
         sender.isSelected = true
         sender.backgroundColor = dealColor
         lastWinBtn = sender
+        DealModel.share().buyModel.stop = Double(sender.tag) - 200 / 10
     }
     //MARK: --建仓推单/止赢晒单
     @IBAction func buildDealBtnTapped(_ sender: UIButton) {
@@ -148,7 +168,25 @@ class BuyVC: BaseTableViewController {
         sender.backgroundColor = sender.isSelected ? dealColor : UIColor.init(rgbHex: 0xe6e9ed)
         
     }
-
-    
-    
+    //MARK: --买涨/买跌(建仓)
+    @IBAction func cancelBtnTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    @IBAction func buyBtnTapped(_ sender: Any) {
+        DealModel.share().buyModel.id = UserModel.currentUserId
+        DealModel.share().buyModel.token = UserModel.token ?? ""
+        DealModel.share().buyModel.code = (DealModel.share().selectDealModel?.code)!
+        DealModel.share().buyModel.buySell = 1
+        AppAPIHelper.deal().buildDeal(model: DealModel.share().buyModel, complete: { [weak self](result) -> ()? in
+            self?.navigationController?.popViewController(animated: true)
+            return nil
+        }, error: errorBlockFunc())
+    }
+    //MARK: --修改持仓
+    @IBAction func changeBtnTapped(_ sender: Any) {
+        AppAPIHelper.deal().changeDeal(model: DealModel.share().buyModel, complete: { [weak self](result) -> ()? in
+            
+            return nil
+        }, error: errorBlockFunc())
+    }
 }

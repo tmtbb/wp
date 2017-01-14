@@ -34,7 +34,6 @@ class SocketConst: NSObject {
         case flowDetails = 1010
         //银行卡列表
         case bankcardList = 1009
-        
         //银行卡详情
         case bingcard = 1011
         //解绑银行卡
@@ -74,7 +73,7 @@ class SocketConst: NSObject {
         //当前K线数据
         case kChart = 2008
         //当前分时数据
-        case timeline = 2009
+        case timeline = 4003
         //当前报价
         case realtime = 4001
         

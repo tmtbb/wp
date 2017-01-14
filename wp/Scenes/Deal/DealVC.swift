@@ -29,7 +29,10 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBOutlet weak var titleView: TitleCollectionView!
     private var klineBtn: UIButton?
     
-    
+    //MARK: --Test
+    @IBAction func testItemTapped(_ sender: Any) {
+        initDealTableData()
+    }
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +57,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         initProductData()
         //持仓点击
         DealModel.share().addObserver(self, forKeyPath: "selectDealModel", options: .new, context: nil)
-        initRealTimeData()
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "selectDealModel" {
@@ -93,7 +95,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }, error: errorBlockFunc())
     }
     // 当前报价
-
     func didSelectedProduct(object: AnyObject?) {
         if let model: ProductModel = object as! ProductModel? {
             DealModel.share().selectProduct = model
@@ -101,10 +102,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
     }
     func initRealTimeData() {
-        let _ = delay(10, task: { [weak self] in
-            self?.initRealTimeData()
-        })
-    
+//        let _ = delay(10, task: { [weak self] in
+//            self?.initRealTimeData()
+//        })
         DealModel.share().selectProduct = ProductModel()
         if let product = DealModel.share().selectProduct {
             let good = [SocketConst.Key.goodType: product.typeCode,
@@ -117,7 +117,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 if let models: [KChartModel] = result as! [KChartModel]?{
                     for model in models{
                         if model.goodType == DealModel.share().selectProduct?.typeCode{
-                            self?.priceLabel.text = String.init(format: "%.2f", model.currntPrice)
+                            self?.priceLabel.text = String.init(format: "%.2f", model.currentPrice)
                             self?.highLabel.text = String.init(format: "%.2f", model.highPrice)
                             self?.lowLabel.text = String.init(format: "%.2f", model.lowPrice)
                             self?.openLabel.text = String.init(format: "%.2f", model.openingTodayPrice)

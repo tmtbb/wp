@@ -26,7 +26,7 @@ class SocketRequestManage: NSObject {
         _lastConnectedTime = timeNow()
         stop()
         _timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(didActionTimer), userInfo: nil, repeats: true)
-#if false
+#if true
         _socketHelper = APISocketHelper()
 #else
         _socketHelper = LocalSocketHelper()
@@ -58,11 +58,13 @@ class SocketRequestManage: NSObject {
     }
 
     func notifyResponsePacket(_ packet: SocketDataPacket) {
-        
+    
         objc_sync_enter(self)
         _sessionId = packet.session_id
         let socketReqeust = socketRequests[UInt32(packet.session_id)]
-        socketRequests.removeValue(forKey: UInt32(packet.session_id))
+        if packet.operate_code !=  SocketConst.OPCode.timeline.rawValue + 1{
+            socketRequests.removeValue(forKey: UInt32(packet.session_id))
+        }
         objc_sync_exit(self)
         let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
         let statusCode:Int = response.statusCode;

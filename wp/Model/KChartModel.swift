@@ -7,16 +7,20 @@
 //
 
 import UIKit
-
-class KChartModel: BaseModel {
-    var goodType: String = ""
-    var exchangeName: String = ""
-    var platformName: String = ""
-    var currntPrice: Double = 0.0
-    var change: Double = 0.0
-    var openingTodayPrice: Double = 0.0
-    var closedYesterdayPrice: Double = 0.0
-    var highPrice: Double = 0.0
-    var lowPrice: Double = 0.0
-    var priceTime: Double = 0
+import RealmSwift
+class KChartModel: Object {
+    dynamic var goodType: String = ""
+    dynamic var exchangeName: String = ""
+    dynamic var platformName: String = ""
+    dynamic var currentPrice: Double = 0.0
+    dynamic var change: Double = 0.0
+    dynamic var openingTodayPrice: Double = 0.0
+    dynamic var closedYesterdayPrice: Double = 0.0
+    dynamic var highPrice: Double = 0.0
+    dynamic var lowPrice: Double = 0.0
+    dynamic var priceTime: Int = 0
+    dynamic var chartType: Int = 0 //1:分时, 2:15分钟，3：60分钟，4：天
+    override static func primaryKey() -> String{
+        return "priceTime"
+    }
 }
