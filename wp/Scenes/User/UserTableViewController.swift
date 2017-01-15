@@ -144,8 +144,6 @@ class UserTableViewController: BaseTableViewController {
         nav.pushViewController(controller, animated: true)
         present(nav, animated: true, completion: nil)
         
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToRegist), object: nil, userInfo: nil)
         print("我的注册")
         
     }

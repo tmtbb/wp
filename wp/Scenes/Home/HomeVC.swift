@@ -196,7 +196,6 @@ class HomeVC: BaseTableViewController {
         notificationCenter.addObserver(self, selector: #selector(jumpToProductGradeController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToProductGrade), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToAttentionUsController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToAttentionUs), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToMyWealtVC), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil)
-        notificationCenter.addObserver(self, selector: #selector(jumpToRegist), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToRegist), object: nil)
     }
     //MARK: --通知方法实现
     func jumpToMyMessageController() {
@@ -252,8 +251,7 @@ class HomeVC: BaseTableViewController {
     }
     func jumpToAttentionUsController() {
         
-        let attentionUsVC = AttentionUsController()
-        navigationController?.pushViewController(attentionUsVC, animated: true)
+        performSegue(withIdentifier: AttentionUsController.className(), sender: nil)
     }
     //通知跳转到资金页面
     func jumpToMyWealtVC() {
@@ -265,12 +263,7 @@ class HomeVC: BaseTableViewController {
         navigationController?.pushViewController(wealth, animated: true)
         
     }
-    func jumpToRegist() {
-//        let homeStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
-//        let controller = homeStoryboard.instantiateViewController(withIdentifier: RegisterVC.className())
-////        present(controller, animated: true, completion: nil)
-//         navigationController?.pushViewController(controller, animated: true)
-    }
+    
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
