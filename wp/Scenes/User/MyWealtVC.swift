@@ -33,11 +33,15 @@ class MyWealtVC: BaseListTableViewController {
         tableView.isScrollEnabled = true
         
         
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 //        showTabBarWithAnimationDuration()
         
+    }
+    deinit {
+         ShareModel.share().shareData.removeValue(forKey: "balance")
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -58,6 +62,9 @@ class MyWealtVC: BaseListTableViewController {
             if let object = result {
                 
                 let  money : NSNumber =  object["balance"] as! NSNumber
+                
+                ShareModel.share().shareData["balance"] = "\(money)"
+                
                 self?.account.text =  "\(money)"
             }
             

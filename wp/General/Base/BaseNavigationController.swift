@@ -31,7 +31,7 @@ class BaseNavigationController: UINavigationController,UINavigationControllerDel
     
         btn.addTarget(self, action: #selector(popself), for: UIControlEvents.touchUpInside)
         
-        btn.frame = CGRect.init(x: 0, y: 0, width: 15, height: 20)
+        btn.frame = CGRect.init(x: 0, y: 0, width: 10, height: 20)
         
         let barItem : UIBarButtonItem = UIBarButtonItem.init(customView: btn)
       viewController.navigationItem.leftBarButtonItem = barItem

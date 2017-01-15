@@ -23,10 +23,8 @@ class SuccessWithdrawVC: BaseTableViewController {
         super.viewDidLoad()
 
         title = "提现状态"
-        
         self.bankName.text = ShareModel.share().detailModel.bank
-        
-        let amount : Double =  ShareModel.share().detailModel.amount as! Double
+        let amount : Double =  ShareModel.share().detailModel.amount
         moneyAccount.text = "\(amount)"
         
         var status = String()

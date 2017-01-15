@@ -53,13 +53,13 @@ class AppConst {
     
     class Network {
         #if false //是否测试环境
-        static let TcpServerIP:String = "192.168.8.131";
+        static let TcpServerIP:String = "61.147.114.78";
         static let TcpServerPort:UInt16 = 30001;
-        static let TttpHostUrl:String = "http://192.168.8.131";
+        static let TttpHostUrl:String = "http://61.147.114.78";
         #else
-        static let TcpServerIP:String = "192.168.8.131";
+        static let TcpServerIP:String = "61.147.114.78";
         static let TcpServerPort:UInt16 = 30001;
-        static let HttpHostUrl:String = "http://192.168.8.131";
+        static let HttpHostUrl:String = "http://61.147.114.78";
         #endif
         static let TimeoutSec:UInt16 = 10
         static let qiniuHost = "http://ofr5nvpm7.bkt.clouddn.com/"
@@ -85,9 +85,14 @@ class AppConst {
         static let Scope = "snsapi_userinfo"
         static let State = "wpstate"
         static let AccessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code"
-        static let Appid = "wxe9eb1211f11f0d02"
+        static let Appid = "wx9dc39aec13ee3158"
         static let Secret = "Secret"
         static let ErrorCode = "ErrorCode" 
+    }
+    
+    class WechatPay {
+      
+        static let ErrorCode = "ErrorCode"
     }
     
     class NotifyDefine {
