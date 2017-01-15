@@ -61,11 +61,11 @@ class UserTableViewController: BaseTableViewController {
     //MARK: -- 注册通知
     func registerNotify() {
         let notificationCenter = NotificationCenter.default
-         notificationCenter.addObserver(self, selector: #selector(quitEnterClick), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(quitEnterClick), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
         notificationCenter.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
         
     }
- 
+    
     func updateUI()  {
         iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
         nameLabel.text = UserModel.getCurrentUser()?.screenName
@@ -80,7 +80,7 @@ class UserTableViewController: BaseTableViewController {
         fenLabel.isHidden = true
         pushBtn.isHidden = false
         myPropertyBtn.isHidden = false
-       
+        
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
             
             
@@ -88,15 +88,16 @@ class UserTableViewController: BaseTableViewController {
                 
                 let  money : NSNumber =  object["balance"] as! NSNumber
                 self?.propertyNumber.text =  "\(money).00"
-                
-                UserModel.getCurrentUser()?.balance = Int(money)
+                UserModel.updateUser(info: { (result)-> ()? in
+                    UserModel.share().currentUser?.balance = Int(money)
+                })
             }
             
             return nil
             }, error: errorBlockFunc())
-
         
-
+        
+        
     }
     
     func quitEnterClick() {
@@ -121,7 +122,7 @@ class UserTableViewController: BaseTableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 5 {
-           
+            
             return 10
         }
         return 0
@@ -137,8 +138,17 @@ class UserTableViewController: BaseTableViewController {
     //注册按钮
     @IBAction func registerDidClick(_ sender: Any) {
         
-        }
-    
+        let homeStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
+        let nav: UINavigationController = homeStoryboard.instantiateInitialViewController() as! UINavigationController
+        let controller = homeStoryboard.instantiateViewController(withIdentifier: RegisterVC.className())
+        nav.pushViewController(controller, animated: true)
+        present(nav, animated: true, completion: nil)
+        
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToRegist), object: nil, userInfo: nil)
+        print("我的注册")
+        
+    }
     //我的资产
     @IBAction func myPropertyDidClick(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil, userInfo: nil)
@@ -154,7 +164,7 @@ class UserTableViewController: BaseTableViewController {
     @IBAction func myIntegral(_ sender: Any) {
         print("我的积分")
     }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let section =  indexPath.section
@@ -174,7 +184,7 @@ class UserTableViewController: BaseTableViewController {
         case 4:
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToDeal), object: nil, userInfo: nil)
             sideMenuController?.toggle()
- 
+            
             print("交易明细")
         case 5:
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToFeedback), object: nil, userInfo: nil)
@@ -190,11 +200,11 @@ class UserTableViewController: BaseTableViewController {
             print("关注我们")
         default: break
         }
-       tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-   
+    
 }

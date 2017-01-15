@@ -12,7 +12,7 @@ class BaseNavigationController: UINavigationController,UINavigationControllerDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+      interactivePopGestureRecognizer?.isEnabled = true
       self.interactivePopGestureRecognizer?.delegate = self
     }
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {

@@ -10,6 +10,7 @@ import UIKit
 
 typealias CompleteBlock = (AnyObject?) ->()?
 typealias ErrorBlock = (NSError) ->()?
+typealias paramBlock = (AnyObject?) ->()?
 //MARK: --正则表达
 func isTelNumber(num: String)->Bool
 {
@@ -100,6 +101,7 @@ class AppConst {
         static let jumpToProductGrade = "jumpToProductGrade"
         static let jumpToAttentionUs = "jumpToAttentionUs"
         static let jumpToMyWealtVC = "jumpToMyWealtVC"
+        static let jumpToRegist = "jumpToRegist"
         static let UpdateUserInfo = "UpdateUserInfo"
         static let BingPhoneVCToPwdVC = "BingPhoneVCToPwdVC"
         static let LoginToBingPhoneVC = "LoginToBingPhoneVC"
