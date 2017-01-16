@@ -44,7 +44,12 @@ class UserTableViewController: BaseTableViewController {
             myPropertyBtn.isHidden = false
             placeholderLabel.isHidden = false
             propertyNumber.text = "\(UserModel.getCurrentUser()!.balance).00"
-            iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+            if ((UserModel.getCurrentUser()?.avatarLarge) != nil){
+                iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+            }
+            else{
+                iconImage.image = UIImage(named: "default-head")
+            }
             nameLabel.text = UserModel.getCurrentUser()?.screenName
         }
         else{
@@ -86,10 +91,10 @@ class UserTableViewController: BaseTableViewController {
             
             if let object = result {
                 
-                let  money : NSNumber =  object["balance"] as! NSNumber
+                let  money : Double =  object["balance"] as! Double
                 self?.propertyNumber.text =  "\(money).00"
                 UserModel.updateUser(info: { (result)-> ()? in
-                    UserModel.share().currentUser?.balance = Int(money)
+                    UserModel.share().currentUser?.balance = Double(money)
                 })
             }
             

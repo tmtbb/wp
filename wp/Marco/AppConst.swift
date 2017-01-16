@@ -22,8 +22,9 @@ func isTelNumber(num: String)->Bool
 class AppConst {
     static let DefaultPageSize = 15
     static let UMAppkey = "584a3eb345297d271600127e"
-    static let isMock = false
+    static let isMock = true
     static let sha256Key = "t1@s#df!"
+    static let pid = 1001
     
     class Color {
         static let C0 = UIColor(rgbHex:0x131f32)
@@ -57,9 +58,9 @@ class AppConst {
         static let TcpServerPort:UInt16 = 30001;
         static let TttpHostUrl:String = "http://61.147.114.78";
         #else
-        static let TcpServerIP:String = "61.147.114.78";
-        static let TcpServerPort:UInt16 = 30001;
-        static let HttpHostUrl:String = "http://61.147.114.78";
+        static let TcpServerIP:String = "61.147.114.87";
+        static let TcpServerPort:UInt16 = 16000;
+        static let HttpHostUrl:String = "http://61.147.114.87";
         #endif
         static let TimeoutSec:UInt16 = 10
         static let qiniuHost = "http://ofr5nvpm7.bkt.clouddn.com/"

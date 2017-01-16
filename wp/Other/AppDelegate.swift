@@ -147,6 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
             }
             return
         }
+
         // 支付返回
         if resp.isKind(of: PayResp.classForCoder()) {
             let authResp:PayResp = resp as! PayResp
@@ -155,6 +156,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
 
             return
         }
+
     }
  }
 

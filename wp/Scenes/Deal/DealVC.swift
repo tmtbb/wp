@@ -29,7 +29,11 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBOutlet weak var titleView: TitleCollectionView!
     private var klineBtn: UIButton?
     
-    
+    //MARK: --Test
+    @IBAction func testItemTapped(_ sender: Any) {
+//        initDealTableData()
+        initProductData()
+    }
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +45,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         UIView.animate(withDuration: 3) {
             self.winRateConstraint.constant = 100
         }
+        
     }
     deinit {
         DealModel.share().removeObserver(self, forKeyPath: "selectDealModel")
@@ -68,12 +73,20 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             }
         }
     }
+    
     // 当前商品列表数据
     func initProductData() {
+        var allProducets: [ProductModel] = []
         AppAPIHelper.deal().products(pid: 0, complete: { [weak self](result) -> ()? in
+            
             if let products: [ProductModel] = result as! [ProductModel]?{
-                self?.titleView.objects = products
-                DealModel.share().selectProduct = products.count > 0 ? products[0] : nil
+                allProducets += products
+                self?.titleView.objects = allProducets
+                let product = allProducets[0]
+                DealModel.share().selectProduct = product
+                self?.didSelectedObject(object: product)
+                //请求实时报价和K线
+                
             }
             return nil
         }, error: errorBlockFunc())
@@ -91,21 +104,25 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }, error: errorBlockFunc())
     }
     // 当前报价
-
-    func didSelectedProduct(object: AnyObject?) {
+    internal func didSelectedObject(object: AnyObject?) {
         if let model: ProductModel = object as! ProductModel? {
             DealModel.share().selectProduct = model
             initRealTimeData()
         }
     }
     func initRealTimeData() {
-        
         if let product = DealModel.share().selectProduct {
-            AppAPIHelper.deal().realtime(goodType: product.typeCode, exchange_name: product.exchange_name, platform_name: product.platform_name, complete: { [weak self](result) -> ()? in
+            let good = [SocketConst.Key.goodType: product.typeCode,
+                SocketConst.Key.exchangeName: product.exchangeName,
+                SocketConst.Key.platformName: product.platformName]
+            let param: [String: Any] = [SocketConst.Key.id: UserModel.currentUserId,
+                                        SocketConst.Key.token: UserModel.token ?? "",
+                                        SocketConst.Key.goodsinfos: [good]]
+            AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
                 if let models: [KChartModel] = result as! [KChartModel]?{
                     for model in models{
                         if model.goodType == DealModel.share().selectProduct?.typeCode{
-                            self?.priceLabel.text = String.init(format: "%.2f", model.currntPrice)
+                            self?.priceLabel.text = String.init(format: "%.2f", model.currentPrice)
                             self?.highLabel.text = String.init(format: "%.2f", model.highPrice)
                             self?.lowLabel.text = String.init(format: "%.2f", model.lowPrice)
                             self?.openLabel.text = String.init(format: "%.2f", model.openingTodayPrice)
@@ -114,7 +131,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                         }
                     }
                 }
-                
                 return nil
             }, error: errorBlockFunc())
         }
@@ -128,7 +144,11 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     
     //MARK: --商品选择
-  
+    func didSelectedObjects(object: AnyObject?) {
+        if let product = object as? ProductModel {
+            DealModel.share().selectProduct = product
+        }
+    }
     
     //MARK: --KlineView and Btns
     @IBAction func timeBtnTapped(_ sender: UIButton) {

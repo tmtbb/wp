@@ -1,8 +1,8 @@
 //
-//  ProductTitleView.swift
+//  ProductTitleItem.swift
 //  wp
 //
-//  Created by 木柳 on 2017/1/10.
+//  Created by 木柳 on 2017/1/11.
 //  Copyright © 2017年 com.yundian. All rights reserved.
 //
 
@@ -20,7 +20,7 @@ class ProductTitleItem: TitleItem {
         if let product: ProductModel = object as? ProductModel{
             titleLabel.text = product.name
             redView.isHidden = hiddle
+            titleLabel.textColor = hiddle == false ? UIColor.init(rgbHex: 0xe9573f) : UIColor.init(rgbHex: 0x333333)
         }
     }
 }
-

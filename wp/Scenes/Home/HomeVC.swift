@@ -219,28 +219,27 @@ class HomeVC: BaseTableViewController {
         performSegue(withIdentifier: MyBaskController.className(), sender: nil)
     }
     func jumpToDealController() {
-        
-        if checkLogin() {
-            AppAPIHelper.user().flowList(flowType: "1,2,3", startPos: 0, count: 10, complete: { (result) -> ()? in
-                if result != nil {
-                    if let dataArray: [FlowOrdersList] = result as! [FlowOrdersList]? {
-                        for model in dataArray{
-                            print(model)
-                            self.flowListArray.append(model)
-                        }
-                        self.performSegue(withIdentifier: DealController.className(), sender: nil)
-                    }else
-                    {
-                        print("wei nil")
-                    }
-                }
-                return nil
-            }, error: errorBlockFunc())
-            
-        }
-        else{
-            
-        }
+         self.performSegue(withIdentifier: DealController.className(), sender: nil)
+//        if checkLogin() {
+//            AppAPIHelper.user().flowList(flowType: "1,2,3", startPos: 0, count: 10, complete: { (result) -> ()? in
+//                if result != nil {
+//                    if let dataArray: [FlowOrdersList] = result as! [FlowOrdersList]? {
+//                        for model in dataArray{
+//                            print(model)
+//                            self.flowListArray.append(model)
+//                        }
+//                       
+//                    }else
+//                    {
+//                        print("wei nil")
+//                    }
+//                }
+//                return nil
+//            }, error: errorBlockFunc())
+//        }
+//        else{
+//            
+//        }
         
     }
     func jumpToFeedbackController() {

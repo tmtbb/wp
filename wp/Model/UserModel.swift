@@ -68,6 +68,7 @@ class UserModel: BaseModel  {
             }
         }
     }
+
     // 更新用户某个字段
     class func updateUser(info: paramBlock?) {
         let realm = try! Realm()
@@ -75,4 +76,5 @@ class UserModel: BaseModel  {
             info!(nil)
         }
     }
+
 }
