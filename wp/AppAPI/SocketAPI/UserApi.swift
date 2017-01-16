@@ -11,8 +11,6 @@ import Foundation
 protocol UserApi {
     //设置用户信息
     func userInfo(user: UserInfo, complete: CompleteBlock?, error: ErrorBlock?)
-    //账户信息
-    func accountNews(complete: CompleteBlock?, error: ErrorBlock?)
     //流水列表
     func flowList(flowType: String, startPos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
     //流水详情
@@ -44,4 +42,6 @@ protocol UserApi {
     func withdrawdetail( withdrawld: Int64, complete: CompleteBlock?, error: ErrorBlock?)
     // 获取银行卡名称
     func getBankName( withbankld: String, complete: CompleteBlock?, error: ErrorBlock?)
+    //请求修改个人信息
+    func revisePersonDetail(screenName:String, avatarLarge: String, gender:Int64, complete: CompleteBlock?, error: ErrorBlock?)
 }

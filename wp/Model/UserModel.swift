@@ -68,6 +68,11 @@ class UserModel: BaseModel  {
             }
         }
     }
-    // 删除
-    
+    // 更新用户某个字段
+    class func updateUser(info: paramBlock?) {
+        let realm = try! Realm()
+        try! realm.write {
+            info!(nil)
+        }
+    }
 }
