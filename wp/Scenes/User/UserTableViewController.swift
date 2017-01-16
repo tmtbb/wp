@@ -43,7 +43,7 @@ class UserTableViewController: BaseTableViewController {
             pushBtn.isHidden = false
             myPropertyBtn.isHidden = false
             placeholderLabel.isHidden = false
-            propertyNumber.text = "\(UserModel.getCurrentUser()!.balance).00"
+            propertyNumber.text = "\(UserModel.getCurrentUser()!.balance)0"
             if ((UserModel.getCurrentUser()?.avatarLarge) != nil){
                 iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
             }
@@ -72,7 +72,13 @@ class UserTableViewController: BaseTableViewController {
     }
     
     func updateUI()  {
-        iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+        
+        if ((UserModel.getCurrentUser()?.avatarLarge) != nil){
+            iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+        }
+        else{
+            iconImage.image = UIImage(named: "default-head")
+        }
         nameLabel.text = UserModel.getCurrentUser()?.screenName
         loginBtn.isHidden = true
         register.isHidden = true
@@ -87,12 +93,9 @@ class UserTableViewController: BaseTableViewController {
         myPropertyBtn.isHidden = false
         
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
-            
-            
             if let object = result {
-                
                 let  money : Double =  object["balance"] as! Double
-                self?.propertyNumber.text =  "\(money).00"
+                self?.propertyNumber.text =  "\(money)0"
                 UserModel.updateUser(info: { (result)-> ()? in
                     UserModel.share().currentUser?.balance = Double(money)
                 })
@@ -165,7 +168,7 @@ class UserTableViewController: BaseTableViewController {
     }
     //我的积分
     @IBAction func myIntegral(_ sender: Any) {
-        print("我的积分")
+        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

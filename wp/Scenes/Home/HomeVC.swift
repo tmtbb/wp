@@ -20,6 +20,8 @@ class HomeVC: BaseTableViewController {
         super.viewWillAppear(animated)
         translucent(clear: true)
         showTabBarWithAnimationDuration()
+        tabBarController?.tabBar.isHidden = false
+        
     }
     
     override func viewDidLoad() {
@@ -209,14 +211,25 @@ class HomeVC: BaseTableViewController {
     func jumpToMyAttentionController() {
         
         performSegue(withIdentifier: MyAttentionController.className(), sender: nil)
+        
+//        if checkLogin(){
+//            
+//        }
     }
     func jumpToMyPushController() {
         
         performSegue(withIdentifier: MyPushController.className(), sender: nil)
+        
+//        if checkLogin(){
+//            
+//        }
     }
     func jumpToMyBaskController() {
         
         performSegue(withIdentifier: MyBaskController.className(), sender: nil)
+//        if checkLogin(){
+//            
+//        }
     }
     func jumpToDealController() {
          self.performSegue(withIdentifier: DealController.className(), sender: nil)

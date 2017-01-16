@@ -35,10 +35,19 @@ class BaseNavigationController: UINavigationController,UINavigationControllerDel
         
         let barItem : UIBarButtonItem = UIBarButtonItem.init(customView: btn)
       viewController.navigationItem.leftBarButtonItem = barItem
+      interactivePopGestureRecognizer?.delegate = self
     }
     func popself(){
     
        self.popViewController(animated: true)
+    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if (viewControllers.count <= 1)
+        {
+            return false;
+        }
+        
+        return true;
     }
    
 }
