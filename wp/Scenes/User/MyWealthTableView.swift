@@ -8,11 +8,15 @@
 
 import UIKit
 
+var refreshControl: UIRefreshControl!
 class MyWealthTableView: UITableView ,UITableViewDelegate, UITableViewDataSource{
     
+   
+//    var refreshControl: UIRefreshControl!
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         delegate = self
+       
         dataSource = self
         rowHeight = 66
     }
