@@ -33,18 +33,18 @@ class ProdectCell: UITableViewCell {
     
     @IBOutlet weak var layoutChangePer: NSLayoutConstraint!
     
-    var model: KChartModel? {
+    var kChartModel: KChartModel? {
         didSet{
-            if model == nil {
+            if kChartModel == nil {
                 return
             }
-            productName.text = model!.goodType
-            nowPrice.text = "\(model!.currntPrice)"
-            todayOpen.text = "\(model!.openingTodayPrice)"
-            yesterdayOpen.text = "\(model!.closedYesterdayPrice)"
-            hightPrice.text = "\(model!.highPrice)"
-            lowPrice.text = "\(model!.lowPrice)"
-            changeLabel.text = "\(model!.change)"
+            productName.text = "\(kChartModel!.goodType)"
+            nowPrice.text = "\(kChartModel!.currntPrice)"
+            todayOpen.text = "\(kChartModel!.openingTodayPrice)"
+            yesterdayOpen.text = "\(kChartModel!.closedYesterdayPrice)"
+            hightPrice.text = "\(kChartModel!.highPrice)"
+            lowPrice.text = "\(kChartModel!.lowPrice)"
+            changeLabel.text = "\(kChartModel!.change)"
             
             
         }

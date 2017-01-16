@@ -159,11 +159,15 @@ class HomeVC: BaseTableViewController {
         
         let cell : ProdectCell = tableView.dequeueReusableCell(withIdentifier: "ProdectCell") as! ProdectCell
         if indexPath.section==0 {
+            if indexPath.item < marketArray.count && marketArray[indexPath.item] != nil {
+                cell.kChartModel = marketArray[indexPath.item]
+            }
             return cell
         }
         if indexPath.section==1 {
             let cell : SecondViewCell = tableView.dequeueReusableCell(withIdentifier: "SecondViewCell") as! SecondViewCell
             cell.delegate = self
+            
             return cell
         }
         if indexPath.section == 2 {
