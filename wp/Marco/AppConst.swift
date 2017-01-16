@@ -10,6 +10,7 @@ import UIKit
 
 typealias CompleteBlock = (AnyObject?) ->()?
 typealias ErrorBlock = (NSError) ->()?
+typealias paramBlock = (AnyObject?) ->()?
 //MARK: --正则表达
 func isTelNumber(num: String)->Bool
 {

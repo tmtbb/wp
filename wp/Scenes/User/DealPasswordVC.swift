@@ -24,6 +24,7 @@ class DealPasswordVC: UIViewController,UITextFieldDelegate {
   
     @IBAction func confirmBtn(_ sender: Any) {
         
+        
     }
 
     override func didReceiveMemoryWarning() {

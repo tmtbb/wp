@@ -31,6 +31,7 @@ class MyMessageController: BaseTableViewController {
         backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
         
+        
     }
     func backDidClick() {
         navigationController?.popToRootViewController(animated: true)
@@ -56,6 +57,7 @@ class MyMessageController: BaseTableViewController {
     }
     //监听退出登录按钮
     func quitEnterClick() {
+        
         userLogout()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
         navigationController?.popToRootViewController(animated: true)
@@ -115,7 +117,20 @@ extension MyMessageController: UIImagePickerControllerDelegate, UINavigationCont
         haveChangeImage = true
         let image: UIImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
         imagePicker.dismiss(animated: true, completion: nil)
-        //        iconButton.setBackgroundImage(image, for: .normal)
         userImage.image = image
+        UIImage.qiniuUploadImage(image: image, imageName: "test", complete: { (result) -> ()? in
+            
+            print(result)
+    
+            
+            return nil
+        }) { (error) -> ()? in
+            print(error)
+            return nil
+        }
+
+    
+   
+        
     }
 }

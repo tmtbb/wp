@@ -25,10 +25,14 @@ class RechargeListVCCell: OEZTableViewCell {
     // 刷新cell
     override func update(_ data: Any!) {
         let model = data as! Model
-        self.moneyCountLb.text = "\(model.amount)"
+        self.moneyCountLb.text = "+" + "\(model.amount)"
         self.withDrawto.text = model.depositType == 0 ? "微信" :"提现至银行卡"
         self.timeLb.text = "\(model.depositTime)"
         self.statusLb.text = "充值失败"
+        print(model.status)
+        
+        // 设置失败的cell的背景alpha  根据status 来判断 状态view
+//        self.backgroundColor = UIColor.groupTableViewBackground
         
     }
 }
@@ -54,7 +58,7 @@ class RechargeListVC: BasePageListTableViewController {
     //MARK:  界面销毁删除监听
     deinit {
         ShareModel.share().removeObserver(self, forKeyPath: "selectMonth", context: nil)
-        ShareModel.share().shareData.removeAll()
+       
     }
     
     //MARK: 监听键值对
@@ -109,7 +113,7 @@ class RechargeListVC: BasePageListTableViewController {
             
             let dateBtn :UIButton  = UIButton.init(type: UIButtonType.custom)
             
-            dateBtn.frame = CGRect.init(x: self.view.frame.size.width-80, y: 8, width: 23, height: 23)
+            dateBtn.frame = CGRect.init(x: self.view.frame.size.width-60, y: 8, width: 23, height: 23)
             
             dateBtn.setBackgroundImage(UIImage.init(named: "calendar"), for: UIControlState.normal)
             dateBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
@@ -140,9 +144,7 @@ class RechargeListVC: BasePageListTableViewController {
         
         
     }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        
-    }
+
     //MARK: ---视图添加
     func selectDate(){
         

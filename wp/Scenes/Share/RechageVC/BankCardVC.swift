@@ -70,8 +70,6 @@ class BankCardVC: BaseListTableViewController {
         
         let share = UITableViewRowAction(style: .normal, title: "删除") { action, index  in
             
-            
-            
             self.UnbindCard(number: indexPath.section)
             
             ShareModel.share().shareData["number"] = "\(indexPath.section)"

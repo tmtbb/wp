@@ -32,8 +32,9 @@ class MyWealtVC: BaseListTableViewController {
        
         tableView.isScrollEnabled = true
         
+//        print(NSStringFromCGRect(self.view.frame))
         
-        
+         self.account.text = "---"
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

@@ -64,15 +64,9 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
     //MARK: --UI
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        //        showTabBarWithAnimationDuration()
-        
-        
-        
     }
     deinit {
-        
-        //        self.bankTableView.removeObserver(self, forKeyPath: "dataArry", context: nil)
-        ShareModel.share().shareData.removeAll()
+        ShareModel.share().shareData.removeValue(forKey: "rid")
     }
     func initUI(){
         
@@ -94,12 +88,11 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
         
         NotificationCenter.default.addObserver(self, selector: #selector(paysuccess(_:)), name: Notification.Name(rawValue:AppConst.WechatPay.ErrorCode), object: nil)
         
-        
         self.userIdText.text = UserModel.getCurrentUser()?.phone
         
         self.userIdText.isUserInteractionEnabled = false
         
-        
+//        self.userIdText.text  = 
         //        self.bankTableView.addObserver(self, forKeyPath: "dataArry", options: .new, context: nil)
         
     }
@@ -183,12 +176,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
         didRequest()
         
     }
-    
-    //自动识别银行卡
-    @IBAction func bankNumBtnTapped(_ sender: UIButton) {
-        
-    }
-    
     //MARK: -进入绑定银行卡
     @IBAction func addBank(_ sender: Any) {
         
@@ -214,7 +201,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
                 if let object = result {
                     
                     let request : PayReq = PayReq()
-                    ShareModel.share().shareData.removeValue(forKey: "rid")
+//                    ShareModel.share().shareData.removeValue(forKey: "rid")
                     let  str : String  = object["timestamp"] as! String!
                     ShareModel.share().shareData["rid"] =  object["rid"] as! String!
                     request.timeStamp = UInt32(str)!
@@ -263,16 +250,16 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if(indexPath.section==1){
-            if(indexPath.row == 3){
-                
-                if selectRow == true {
-                    arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
-                }else{
-                    arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*1.5))
-                }
-                selectRow = !selectRow
-                tableView.reloadSections(IndexSet.init(integer: 2), with: UITableViewRowAnimation.fade)
-            }
+//            if(indexPath.row == 3){
+//                
+//                if selectRow == true {
+//                    arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
+//                }else{
+//                    arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*1.5))
+//                }
+//                selectRow = !selectRow
+////                tableView.reloadSections(IndexSet.init(integer: 2), with: UITableViewRowAnimation.fade)
+//            }
             
         }
         

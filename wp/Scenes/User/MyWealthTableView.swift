@@ -10,11 +10,22 @@ import UIKit
 
 class MyWealthTableView: UITableView ,UITableViewDelegate, UITableViewDataSource{
     
+    var refreshCon =  UIRefreshControl()
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         delegate = self
         dataSource = self
         rowHeight = 66
+        
+        refreshCon.addTarget(self, action: #selector(refreshData),
+                                 for: .valueChanged)
+        refreshCon.attributedTitle = NSAttributedString(string: "下拉刷新数据")
+        self.addSubview(refreshCon)
+    }
+    func refreshData() {
+        //移除老数据
+       
+        self.refreshCon.endRefreshing()
     }
     func numberOfSections(in tableView: UITableView) -> Int{
         

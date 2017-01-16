@@ -8,26 +8,44 @@
 
 import UIKit
 
-class AttentionUsController: BaseTableViewController {
+class AttentionUsController: UIViewController,UIWebViewDelegate {
+    @IBOutlet weak var webView: UIWebView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        webView.delegate = self
+        webView.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.white
+//        let url = NSURL(fileURLWithPath: "http://www.baidu.com")
+//        let url = URL(fileReferenceLiteralResourceName: "http://www.baidu.com")
+        let url = URL(string: "http://www.baidu.com")
+        let request = URLRequest(url: url!)
+        webView.loadRequest(request)
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarWithAnimationDuration()
+        translucent(clear: true)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTabBarWithAnimationDuration()
+        translucent(clear: false)
+        
     }
     //MARK: -- 隐藏tabBar导航栏
      override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if navigationType == .linkClicked {
+            let url = request.url
+            return false
+        }
+        return true
+        
+    }
     
-
 }
