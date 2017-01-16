@@ -8,7 +8,7 @@
 
 import UIKit
 class DealController: BaseTableViewController, TitleCollectionviewDelegate {
-    
+
     @IBOutlet weak var productCollection: TitleCollectionView!
     //盈亏数
     @IBOutlet weak var moneyNumber: UILabel!
@@ -117,6 +117,9 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 45
+    }
+    internal func didSelectedObject(object: AnyObject?) {
+        
     }
     //MARK: -- 返回组标题索引
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

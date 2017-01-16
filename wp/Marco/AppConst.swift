@@ -23,6 +23,7 @@ class AppConst {
     static let UMAppkey = "584a3eb345297d271600127e"
     static let isMock = true
     static let sha256Key = "t1@s#df!"
+    static let pid = 1001
     
     class Color {
         static let C0 = UIColor(rgbHex:0x131f32)

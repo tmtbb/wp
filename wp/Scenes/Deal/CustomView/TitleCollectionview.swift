@@ -26,7 +26,7 @@ class TitleItem: UICollectionViewCell {
 
 
 @objc protocol TitleCollectionviewDelegate {
-    @objc optional func didSelectedObject(object: AnyObject?)
+    func didSelectedObject(object: AnyObject?)
 }
 
 class TitleCollectionView: UICollectionView , UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
@@ -58,6 +58,7 @@ class TitleCollectionView: UICollectionView , UICollectionViewDelegate, UICollec
         super.init(coder: aDecoder)
         delegate = self
         dataSource = self
+        showsHorizontalScrollIndicator = false
         register(TitleItem.self, forCellWithReuseIdentifier: TitleItem.className())
         if let flowLayout: UICollectionViewFlowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
             let count = objects != nil ? ((objects?.count)! > 3 ? 3 : objects?.count ): 3
@@ -84,7 +85,7 @@ class TitleCollectionView: UICollectionView , UICollectionViewDelegate, UICollec
         selectIndexPath = indexPath
         if let itemDelegate = itemDelegate {
             let object = objects?[indexPath.row]
-            itemDelegate.didSelectedObject!(object: object!)
+            itemDelegate.didSelectedObject(object: object!)
         }
         collectionView.reloadData()
     }

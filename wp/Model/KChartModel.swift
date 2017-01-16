@@ -8,6 +8,19 @@
 
 import UIKit
 import RealmSwift
+
+class KChartModelQuarter: KChartModel {
+    
+}
+
+class KChartModelHour: KChartModel {
+    
+}
+
+class KChartModelDay: KChartModel {
+    
+}
+
 class KChartModel: Object {
     dynamic var goodType: String = ""
     dynamic var exchangeName: String = ""
@@ -24,3 +37,7 @@ class KChartModel: Object {
         return "priceTime"
     }
 }
+
+
+
+

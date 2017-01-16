@@ -94,7 +94,7 @@ class BaseSocketAPI: NSObject {
         SocketRequestManage.shared.startJsonRequest(packet, complete: {  (response) in
             let dict:[String:AnyObject]? = ((response as? SocketJsonResponse)?.responseJsonObject()) as? [String:AnyObject]
             if dict != nil {
-                 let array:[Any]? = dict?[listName] as? [Any]
+                let array:[Any]? = dict?[listName] as? [Any]
                 if array != nil  {
                     complete?(try! OEZJsonModelAdapter.models(of: modelClass, fromJSONArray: array) as AnyObject?)
                 }

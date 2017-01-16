@@ -69,7 +69,7 @@ class SocketConst: NSObject {
         //修改持仓
         case changeDeal = 2006
         //商品列表
-        case products = 2007
+        case products = 5001
         //当前K线数据
         case kChart = 2008
         //当前分时数据
@@ -79,11 +79,12 @@ class SocketConst: NSObject {
         
     }
     enum type:UInt8 {
-        case error = 0
-        case user = 3
-        case chat = 2
-        case time = 4
-        case wp = 1
+        case error  = 0
+        case wp     = 1
+        case chat   = 2
+        case user   = 3
+        case time   = 4
+        case deal   = 5
     }
     
     class Key {

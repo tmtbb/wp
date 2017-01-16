@@ -62,7 +62,9 @@ class SocketRequestManage: NSObject {
         objc_sync_enter(self)
         _sessionId = packet.session_id
         let socketReqeust = socketRequests[UInt32(packet.session_id)]
-        if packet.operate_code !=  SocketConst.OPCode.timeline.rawValue + 1{
+        if packet.operate_code ==  SocketConst.OPCode.timeline.rawValue + 1||packet.operate_code == SocketConst.OPCode.products.rawValue + 1{
+            
+        }else{
             socketRequests.removeValue(forKey: UInt32(packet.session_id))
         }
         objc_sync_exit(self)

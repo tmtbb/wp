@@ -73,8 +73,8 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     func products(pid:Int, complete: CompleteBlock?, error:ErrorBlock?){
         let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 0,
                                     SocketConst.Key.token: UserModel.token ?? "",
-                                    SocketConst.Key.pid: pid]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .products, dict: param as [String : AnyObject])
+                                    SocketConst.Key.pid: AppConst.pid]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .products, dict: param as [String : AnyObject], type: .deal)
         startModelsRequest(packet, listName: "goodsinfo", modelClass: ProductModel.self, complete: complete, error: error)
     }
     

@@ -31,7 +31,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
-        initDealTableData()
+//        initDealTableData()
+        initProductData()
     }
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
@@ -72,12 +73,20 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             }
         }
     }
+    
     // 当前商品列表数据
     func initProductData() {
+        var allProducets: [ProductModel] = []
         AppAPIHelper.deal().products(pid: 0, complete: { [weak self](result) -> ()? in
+            
             if let products: [ProductModel] = result as! [ProductModel]?{
-                self?.titleView.objects = products
-                DealModel.share().selectProduct = products.count > 0 ? products[0] : nil
+                allProducets += products
+                self?.titleView.objects = allProducets
+                let product = allProducets[0]
+                DealModel.share().selectProduct = product
+                self?.didSelectedObject(object: product)
+                //请求实时报价和K线
+                
             }
             return nil
         }, error: errorBlockFunc())
@@ -95,17 +104,13 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }, error: errorBlockFunc())
     }
     // 当前报价
-    func didSelectedProduct(object: AnyObject?) {
+    internal func didSelectedObject(object: AnyObject?) {
         if let model: ProductModel = object as! ProductModel? {
             DealModel.share().selectProduct = model
             initRealTimeData()
         }
     }
     func initRealTimeData() {
-//        let _ = delay(10, task: { [weak self] in
-//            self?.initRealTimeData()
-//        })
-        DealModel.share().selectProduct = ProductModel()
         if let product = DealModel.share().selectProduct {
             let good = [SocketConst.Key.goodType: product.typeCode,
                 SocketConst.Key.exchangeName: product.exchangeName,
@@ -139,10 +144,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     
     //MARK: --商品选择
-    func didSelectedObject(object: AnyObject?) {
+    func didSelectedObjects(object: AnyObject?) {
         if let product = object as? ProductModel {
             DealModel.share().selectProduct = product
-            kLineView.refreshKLine()
         }
     }
     
