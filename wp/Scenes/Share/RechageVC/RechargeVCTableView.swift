@@ -33,9 +33,7 @@ class RechargeVcTableView: UITableView ,UITableViewDelegate, UITableViewDataSour
             if let object = result {
                 
                 let Model : BankModel = object as! BankModel
-            
                 self?.dataArry = Model.cardlist! as [BankListModel]
-        
                 self?.reloadData()
                 
             }

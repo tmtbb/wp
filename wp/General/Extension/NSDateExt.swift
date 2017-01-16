@@ -10,6 +10,10 @@ import Foundation
 
 extension Date{
     
+    static func nowTimestemp() -> TimeInterval{
+        return Date().timeIntervalSince1970
+    }
+    
     
     /**
      *  字符串转日期

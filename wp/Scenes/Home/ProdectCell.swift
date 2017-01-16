@@ -39,7 +39,7 @@ class ProdectCell: UITableViewCell {
                 return
             }
             productName.text = model!.goodType
-            nowPrice.text = "\(model!.currntPrice)"
+            nowPrice.text = "\(model!.currentPrice)"
             todayOpen.text = "\(model!.openingTodayPrice)"
             yesterdayOpen.text = "\(model!.closedYesterdayPrice)"
             hightPrice.text = "\(model!.highPrice)"
