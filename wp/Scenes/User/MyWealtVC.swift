@@ -29,31 +29,50 @@ class MyWealtVC: BaseListTableViewController {
         //注册cell
         didRequest()
         title  = "我的资产"
-        print("%f",NSStringFromCGRect(tableView.frame))
-        
+       
+        tableView.isScrollEnabled = true
         
         
         
     }
-    //userInfo
-      override func didRequest() {
-        didRequestComplete([] as AnyObject)
-       //errorBlockFunc
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+//        showTabBarWithAnimationDuration()
         
+    }
+    deinit {
+         ShareModel.share().shareData.removeValue(forKey: "balance")
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        translucent(clear: false)
+        hideTabBarWithAnimationDuration()
+        
+    }
+    
+    //MARK: 网络请求
+    
+    //userInfo
+    override func didRequest() {
+        didRequestComplete([] as AnyObject)
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
             
             
             if let object = result {
-            
+                
                 let  money : NSNumber =  object["balance"] as! NSNumber
+                
+                ShareModel.share().shareData["balance"] = "\(money)"
+                
                 self?.account.text =  "\(money)"
             }
             
             return nil
-        }, error: errorBlockFunc())
-    
+            }, error: errorBlockFunc())
+        
     }
-    
+    //MARK: tableView delegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return 1
@@ -65,14 +84,14 @@ class MyWealtVC: BaseListTableViewController {
         
         
     }
-    
+    //MARK: 充值
     @IBAction func recharge(_ sender: Any) {
         
         recharge.isSelected = true
         withDraw.isSelected = false
         self.performSegue(withIdentifier: "PushToRechage", sender: nil )
     }
-    
+    //MARK: tableView delegate
     @IBAction func withDraw(_ sender: Any) {
         
         recharge.isSelected = false

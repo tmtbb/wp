@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		2FFBC4EC1DF8EF190039A0E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */; };
 		67563DCFE7C11C493D5E3BE0 /* Pods_wp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */; };
+		A009AD0E1E28A399008A5014 /* FriendTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009AD0D1E28A399008A5014 /* FriendTableView.swift */; };
+		A009AD111E28BF3E008A5014 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD101E28BF3E008A5014 /* back.png */; };
+		A009AD141E28C864008A5014 /* noticeSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD121E28C864008A5014 /* noticeSelect@2x.png */; };
+		A009AD151E28C864008A5014 /* noticeSelect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD131E28C864008A5014 /* noticeSelect@3x.png */; };
 		A01CE17F1E212A0100543E12 /* MyWealtVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE17E1E212A0100543E12 /* MyWealtVC.swift */; };
 		A046BF781E1CDFFB0035A4FA /* WithDrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */; };
 		A053E2611E264768001B8B99 /* BankCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A053E2601E264768001B8B99 /* BankCardVC.swift */; };
@@ -288,12 +292,18 @@
 		D0FA4EAE1E24B0950015C012 /* DealDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4EAC1E24B0950015C012 /* DealDetailCell.swift */; };
 		D0FA4EB71E25CD0D0015C012 /* ProductCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4EB61E25CD0D0015C012 /* ProductCollectionCell.swift */; };
 		D0FA4ED91E26208C0015C012 /* DealDetailTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4ED81E26208C0015C012 /* DealDetailTableVC.swift */; };
-		D0FA4EDC1E276E840015C012 /* ProductTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4EDB1E276E840015C012 /* ProductTypeView.swift */; };
+		D0FA4EDC1E276E840015C012 /* ProdectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4EDB1E276E840015C012 /* ProdectCell.swift */; };
+		D0FA4EE21E27AD3E0015C012 /* SecondViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4EE11E27AD3E0015C012 /* SecondViewCell.swift */; };
+		D0FA4EE41E27AD530015C012 /* ThreeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4EE31E27AD530015C012 /* ThreeCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		34A71E9057EC9BB492D14F0B /* Pods-wp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wp/Pods-wp.debug.xcconfig"; sourceTree = "<group>"; };
+		A009AD0D1E28A399008A5014 /* FriendTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableView.swift; sourceTree = "<group>"; };
+		A009AD101E28BF3E008A5014 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		A009AD121E28C864008A5014 /* noticeSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noticeSelect@2x.png"; sourceTree = "<group>"; };
+		A009AD131E28C864008A5014 /* noticeSelect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noticeSelect@3x.png"; sourceTree = "<group>"; };
 		A01CE17E1E212A0100543E12 /* MyWealtVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWealtVC.swift; sourceTree = "<group>"; };
 		A046BF771E1CDFFB0035A4FA /* WithDrawalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawalVC.swift; sourceTree = "<group>"; };
 		A053E2601E264768001B8B99 /* BankCardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardVC.swift; sourceTree = "<group>"; };
@@ -594,7 +604,9 @@
 		D0FA4EAC1E24B0950015C012 /* DealDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealDetailCell.swift; sourceTree = "<group>"; };
 		D0FA4EB61E25CD0D0015C012 /* ProductCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCollectionCell.swift; sourceTree = "<group>"; };
 		D0FA4ED81E26208C0015C012 /* DealDetailTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealDetailTableVC.swift; sourceTree = "<group>"; };
-		D0FA4EDB1E276E840015C012 /* ProductTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTypeView.swift; sourceTree = "<group>"; };
+		D0FA4EDB1E276E840015C012 /* ProdectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProdectCell.swift; sourceTree = "<group>"; };
+		D0FA4EE11E27AD3E0015C012 /* SecondViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewCell.swift; sourceTree = "<group>"; };
+		D0FA4EE31E27AD530015C012 /* ThreeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeCell.swift; sourceTree = "<group>"; };
 		DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -702,6 +714,9 @@
 		A0BC07421E23B5D8003EA7BC /* share */ = {
 			isa = PBXGroup;
 			children = (
+				A009AD121E28C864008A5014 /* noticeSelect@2x.png */,
+				A009AD131E28C864008A5014 /* noticeSelect@3x.png */,
+				A009AD101E28BF3E008A5014 /* back.png */,
 				A072E3C71E24826600A855B6 /* calendar@2x.png */,
 				A072E3BF1E247B3400A855B6 /* rechargeType@2x.png */,
 				A072E3C01E247B3400A855B6 /* rechargeType@3x.png */,
@@ -1136,6 +1151,7 @@
 			children = (
 				BFAC32851E123A2E008EF3D3 /* ShareTableView.swift */,
 				A0BC07401E23941A003EA7BC /* CustomeAlertView.swift */,
+				A009AD0D1E28A399008A5014 /* FriendTableView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -1365,7 +1381,9 @@
 		D0FA4EDA1E276E3C0015C012 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				D0FA4EDB1E276E840015C012 /* ProductTypeView.swift */,
+				D0FA4EDB1E276E840015C012 /* ProdectCell.swift */,
+				D0FA4EE11E27AD3E0015C012 /* SecondViewCell.swift */,
+				D0FA4EE31E27AD530015C012 /* ThreeCell.swift */,
 			);
 			name = CustomView;
 			sourceTree = "<group>";
@@ -1452,6 +1470,7 @@
 				A072E3BA1E247AC000A855B6 /* Account@3x.png in Resources */,
 				BFF019BD1E23B113008631D6 /* dz.png in Resources */,
 				BFF019DD1E23B113008631D6 /* two.png in Resources */,
+				A009AD141E28C864008A5014 /* noticeSelect@2x.png in Resources */,
 				A072E3C21E247B3400A855B6 /* rechargeType@3x.png in Resources */,
 				BFF019921E23B113008631D6 /* jy-hover@2x.png in Resources */,
 				BFF0199A1E23B113008631D6 /* person-r@2x.png in Resources */,
@@ -1461,6 +1480,7 @@
 				A0BC07521E23BAF3003EA7BC /* addbank@3x.png in Resources */,
 				A0BC07491E23B8B5003EA7BC /* ccbc@2x.png in Resources */,
 				A072E3B91E247AC000A855B6 /* Account@2x.png in Resources */,
+				A009AD111E28BF3E008A5014 /* back.png in Resources */,
 				A0BC07451E23B716003EA7BC /* submited@2x.png in Resources */,
 				BFF019B71E23B113008631D6 /* bankRead@3x.png in Resources */,
 				BFF019961E23B113008631D6 /* nav_color@2x.png in Resources */,
@@ -1558,6 +1578,7 @@
 				BFF019A51E23B113008631D6 /* sud-2@2x.png in Resources */,
 				BFF019B01E23B113008631D6 /* zy@2x.png in Resources */,
 				BFF019951E23B113008631D6 /* nav_clear@2x.png in Resources */,
+				A009AD151E28C864008A5014 /* noticeSelect@3x.png in Resources */,
 				BFF019E61E23B113008631D6 /* Deal.storyboard in Resources */,
 				BFF0197F1E23B113008631D6 /* bank@2x.png in Resources */,
 				BF2F64381E038DFE00917FA1 /* MJRefresh.bundle in Resources */,
@@ -1670,7 +1691,7 @@
 				A0C2840F1E1FBD1A00A97707 /* SuccessChargeVC.swift in Sources */,
 				BF259A4B1E26009F00276997 /* ProductTitleItem.swift in Sources */,
 				BF2F643F1E038DFE00917FA1 /* UIViewController+RBStoryboardLink.m in Sources */,
-				D0FA4EDC1E276E840015C012 /* ProductTypeView.swift in Sources */,
+				D0FA4EDC1E276E840015C012 /* ProdectCell.swift in Sources */,
 				BF062B471E04DEC900618B1B /* MainTabBarController.swift in Sources */,
 				BF9CD7461E0A549900194A32 /* DealApi.swift in Sources */,
 				A0BC073D1E236C59003EA7BC /* CustomerTipView.swift in Sources */,
@@ -1694,6 +1715,7 @@
 				D06074F51E233DE70028EB32 /* MyAttentionCell.swift in Sources */,
 				BF2CEA3C1E1CCA9A00EEA99E /* BingPhoneVC.swift in Sources */,
 				BF9BE4A21E1FA10800DB5F1A /* BaseMode+Extension.swift in Sources */,
+				A009AD0E1E28A399008A5014 /* FriendTableView.swift in Sources */,
 				BFC1E5BD1E0D1820004A2AFC /* UIView+Extension.swift in Sources */,
 				BF04793B1E0FBF2E00C511E7 /* BuyVC.swift in Sources */,
 				BF2F64261E038DFE00917FA1 /* SocketConst.swift in Sources */,
@@ -1734,6 +1756,8 @@
 				BF1454811E24B3AF00A15761 /* ProductModel.swift in Sources */,
 				D03831431E1344F400D54295 /* DealController.swift in Sources */,
 				BF2F64341E038DFE00917FA1 /* UITableView+Extension.swift in Sources */,
+				D0FA4EE21E27AD3E0015C012 /* SecondViewCell.swift in Sources */,
+				D0FA4EE41E27AD530015C012 /* ThreeCell.swift in Sources */,
 				BF9CD7441E0A546D00194A32 /* HomeApi.swift in Sources */,
 				BF9CD7481E0A54B600194A32 /* ShareApi.swift in Sources */,
 				BF2F64241E038DFE00917FA1 /* AppAPIHelper.swift in Sources */,
@@ -1945,7 +1969,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yundian.trip;
 				PRODUCT_NAME = wp;
-				PROVISIONING_PROFILE = "eb667b43-e180-40c3-8f90-af8afec6849a";
+				PROVISIONING_PROFILE = "1e749202-34cf-4e40-a38c-5afc8bb4723c";
 				PROVISIONING_PROFILE_SPECIFIER = "dev-16-09-22";
 				SWIFT_OBJC_BRIDGING_HEADER = wp/Marco/bridge.h;
 				SWIFT_VERSION = 3.0;

@@ -8,11 +8,37 @@
 
 import UIKit
 
-class BaseNavigationController: UINavigationController {
+class BaseNavigationController: UINavigationController,UINavigationControllerDelegate ,UIGestureRecognizerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+      interactivePopGestureRecognizer?.isEnabled = true
+      self.interactivePopGestureRecognizer?.delegate = self
     }
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    //MARK: 重新写左面的导航
+    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+        
+        super.pushViewController(viewController, animated: true)
 
+        let btn : UIButton = UIButton.init(type: UIButtonType.custom)
+        
+        btn.setTitle("", for: UIControlState.normal)
+        
+        btn.setBackgroundImage(UIImage.init(named: "back"), for: UIControlState.normal )
+    
+        btn.addTarget(self, action: #selector(popself), for: UIControlEvents.touchUpInside)
+        
+        btn.frame = CGRect.init(x: 0, y: 0, width: 10, height: 20)
+        
+        let barItem : UIBarButtonItem = UIBarButtonItem.init(customView: btn)
+      viewController.navigationItem.leftBarButtonItem = barItem
+    }
+    func popself(){
+    
+       self.popViewController(animated: true)
+    }
+   
 }

@@ -128,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     //MARK: --Wechat
     fileprivate func wechat() {
         
-        WXApi.registerApp("wxe9eb1211f11f0d02")
+        WXApi.registerApp("wx9dc39aec13ee3158")
     }
     func onResp(_ resp: BaseResp!) {
         //微信登录返回
@@ -147,7 +147,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
             }
             return
         }
-        
+
+        // 支付返回
+        if resp.isKind(of: PayResp.classForCoder()) {
+            let authResp:PayResp = resp as! PayResp
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: NSNumber.init(value: authResp.errCode), userInfo:nil)
+
+            return
+        }
+
     }
-}
+ }
+
 

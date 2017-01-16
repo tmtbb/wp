@@ -35,7 +35,7 @@ class CSSinglerowView: UIView {
         }
     }
     var contentTextColor : UIColor = .white
-    var contentFont : UIFont = .systemFont(ofSize: 13)
+    var contentFont : UIFont = .systemFont(ofSize: 15)
     var tagFont : UIFont = .systemFont(ofSize: 11)
     var tagTextColor : UIColor = .red
     var tagBackgroundColor : UIColor = UIColor(red: 230/255, green: 130/255, blue: 110/255, alpha: 1)
@@ -152,7 +152,7 @@ extension CSSinglerowView : UICollectionViewDataSource {
             }
         }else {
             cell.tagLabel?.removeFromSuperview()
-            cell.contentLabel?.frame = CGRect(x: 5, y: 0, width: self.bounds.width, height: self.bounds.height)
+//            cell.contentLabel?.frame = CGRect(x: 5, y: 0, width: self.bounds.width, height: self.bounds.height)
         }
         
         return cell
@@ -218,15 +218,19 @@ class CSSinglerowCell: UICollectionViewCell {
         return label
         }()
     lazy var tagLabel : UILabel? = {[weak self] in
-        let label = UILabel(frame: CGRect(x: self!.bounds.width - 100, y: (self!.bounds.height - 40) / 2, width: 71, height: 36))
-//        label.layer.cornerRadius = 5
-//        label.layer.masksToBounds = true
+        let screenW = UIScreen.main.bounds.width / 375
+        let widthW:CGFloat = screenW < 1 ? 40 : 71
+        let widthWW:CGFloat = screenW < 1 ? 45 : 72
+        let label = UILabel(frame: CGRect(x: self!.bounds.width - widthWW, y: 7, width: widthW, height: 36))
+        label.layer.cornerRadius = 5
+        label.layer.masksToBounds = true
         label.textAlignment = .center
         return label
         }()
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupContentUI()
+
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

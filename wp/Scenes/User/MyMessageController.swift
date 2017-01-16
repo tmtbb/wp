@@ -9,7 +9,7 @@
 import UIKit
 
 class MyMessageController: BaseTableViewController {
-
+    
     lazy var imagePicker: UIImagePickerController = {
         let picker = UIImagePickerController()
         return picker
@@ -30,6 +30,7 @@ class MyMessageController: BaseTableViewController {
         backBtn.setTitleColor(UIColor.white, for: .normal)
         backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
+        
         
     }
     func backDidClick() {
@@ -56,6 +57,7 @@ class MyMessageController: BaseTableViewController {
     }
     //监听退出登录按钮
     func quitEnterClick() {
+        
         userLogout()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
         navigationController?.popToRootViewController(animated: true)
@@ -86,39 +88,12 @@ class MyMessageController: BaseTableViewController {
         hideTabBarWithAnimationDuration()
         translucent(clear: false)
     }
-    //MARK: -- 隐藏tabBar导航栏
-    func hideTabBarWithAnimationDuration() {
-        let tabBar = self.tabBarController?.tabBar
-        let parent = tabBar?.superview
-        let content = parent?.subviews[0]
-        let window = parent?.superview
-        
-        if window != nil {
-            var tabFrame = tabBar?.frame
-            tabFrame?.origin.y = (window?.bounds)!.maxY
-            tabBar?.frame = tabFrame!
-            content?.frame = (window?.bounds)!
-        }
-        
-    }
-    //MARK: -- 展示tabBar导航栏
-    func showTabBarWithAnimationDuration() {
-        let tabBar = self.tabBarController?.tabBar
-        let parent = tabBar?.superview
-        let content = parent?.subviews[0]
-        let window = parent?.superview
-        var tabFrame = tabBar?.frame
-        tabFrame?.origin.y = (window?.bounds)!.maxY - ((tabBar?.frame)?.height)!
-        tabBar?.frame = tabFrame!
-        
-        var contentFrame = content?.frame
-        contentFrame?.size.height -= (tabFrame?.size.height)!
-        
-    }
+    
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-
+            
             imagePicker.sourceType = .photoLibrary
             present((imagePicker), animated: true, completion: nil)
         }
@@ -126,7 +101,7 @@ class MyMessageController: BaseTableViewController {
             performSegue(withIdentifier: DealPasswordVC.className(), sender: nil)
         }
         if indexPath.section == 4{
-             performSegue(withIdentifier: EnterPasswordVC.className(), sender: nil)
+            performSegue(withIdentifier: EnterPasswordVC.className(), sender: nil)
         }
     }
     
@@ -142,7 +117,20 @@ extension MyMessageController: UIImagePickerControllerDelegate, UINavigationCont
         haveChangeImage = true
         let image: UIImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
         imagePicker.dismiss(animated: true, completion: nil)
-//        iconButton.setBackgroundImage(image, for: .normal)
         userImage.image = image
+        UIImage.qiniuUploadImage(image: image, imageName: "test", complete: { (result) -> ()? in
+            
+            print(result)
+    
+            
+            return nil
+        }) { (error) -> ()? in
+            print(error)
+            return nil
+        }
+
+    
+   
+        
     }
 }

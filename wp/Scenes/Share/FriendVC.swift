@@ -30,21 +30,24 @@ class FriendVC: BaseTableViewController {
     @IBOutlet weak var dayShareLabel: UILabel!              //本天分享晒单数目
     private var index: NSInteger = 0                        //判断点击的数目刷新区的row的行数
     private var lastTypeBtn: UIButton?                      //判断点击的btn
-    
+    @IBOutlet weak var cancelFocus: UIButton!               //取消按钮
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         initData()
         initUI()
+        title = "张飞"
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        translucent(clear: true)
+
+         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
-        translucent(clear: false)
+//        translucent(clear: false)
+         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     //MARK: --DATA
     func initData() {
@@ -115,7 +118,7 @@ class FriendVC: BaseTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == index{
             
-            return section == 2 ? 3:2
+            return section == 2 ? 6:2
             
         }else{
             return 0

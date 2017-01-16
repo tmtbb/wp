@@ -32,6 +32,9 @@ class FullBankInfomationVC: BaseTableViewController {
         
         
     }
+    deinit {
+        ShareModel.share().shareData.removeAll()
+    }
     @IBAction func nextInputPhone(_ sender: Any) {
         
         

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class WithDrawalVC: BaseTableViewController {
     
@@ -43,10 +44,15 @@ class WithDrawalVC: BaseTableViewController {
         ShareModel.share().addObserver(self, forKeyPath: "selectBank", options: .new, context: nil)
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        
+        hideTabBarWithAnimationDuration()
+        
+    }
     //MARK:  界面销毁删除监听
     deinit {
         ShareModel.share().removeObserver(self, forKeyPath: "selectBank", context: nil)
-        ShareModel.share().shareData.removeAll()
+//        ShareModel.share().shareData.removeAll()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -62,17 +68,19 @@ class WithDrawalVC: BaseTableViewController {
         
         btn.addTarget(self, action: #selector(withDrawList), for: UIControlEvents.touchUpInside)
         
+        let str : String = ShareModel.share().shareData["balance"]! as String
+        self.money.placeholder = "最多可提现" + "\(str)" + "元"
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
     }
     //MARK: --属性的变化
-     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == "selectBank" {
             
             if let base = change? [NSKeyValueChangeKey.newKey] as? BankListModel {
                 
-                print(base)
+                
                 bankId =  Int64(base.bid)
                 self.bankTd.text! = base.bank
                 self.branceTd.text! = base.branchBank
@@ -81,7 +89,7 @@ class WithDrawalVC: BaseTableViewController {
             }
         }
     }
-
+    
     // MARK: -进入提现列表
     func withDrawList(){
         
@@ -90,6 +98,22 @@ class WithDrawalVC: BaseTableViewController {
     }
     //MARK: -提现
     @IBAction func withDraw(_ sender: Any) {
+        
+        // 校验 是否选择银行卡和提现最多金额
+        let str : String = ShareModel.share().shareData["balance"]! as String
+        let account :  Double = Double(str)!
+        let input : Double = Double(self.money.text!)!
+        if  bankId == 0{
+          SVProgressHUD.showError(withStatus: "请选择银行卡")
+            
+            return
+        }
+        if account < input{
+            
+            SVProgressHUD.showError(withStatus: "最多提现" + "\(str)" + "元")
+            
+            return
+        }
         let alertView = UIAlertView.init()
         alertView.alertViewStyle = UIAlertViewStyle.secureTextInput // 密文
         alertView.title = "请输入交易密码"
@@ -147,8 +171,19 @@ class WithDrawalVC: BaseTableViewController {
             
             if indexPath.row == 0 {
                 
-            self.performSegue(withIdentifier: "pushaddBank", sender: nil)
+                self.performSegue(withIdentifier: "pushaddBank", sender: nil)
             }
         }
     }
+    
+    //MARK: 全部提现导航栏
+    
+    @IBAction func withDrawAll(_ sender: Any) {
+        //        self.money.text
+        
+        let str : String = ShareModel.share().shareData["balance"]! as String
+        
+        self.money.text = str
+    }
+    
 }

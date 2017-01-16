@@ -64,7 +64,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="帐号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0h5-co-j2L">
-                                                            <rect key="frame" x="27" y="12" width="31" height="18"/>
+                                                            <rect key="frame" x="27" y="11" width="31" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -146,7 +146,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frb-oG-20L">
-                                                            <rect key="frame" x="27" y="12" width="31" height="18"/>
+                                                            <rect key="frame" x="27" y="11" width="31" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -405,7 +405,7 @@
         <!--注册-->
         <scene sceneID="XcL-mC-ytd">
             <objects>
-                <tableViewController id="JUo-86-sd7" customClass="RegisterVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="RegisterVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JUo-86-sd7" customClass="RegisterVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="z0i-al-t7j">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -796,7 +796,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g0W-SR-1Zy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="638" y="107"/>
+            <point key="canvasLocation" x="732" y="107"/>
         </scene>
         <!--设定交易密码-->
         <scene sceneID="qfZ-QU-VBT">
@@ -1343,7 +1343,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="kiW-Rz-POO"/>
-        <segue reference="Gp8-yp-m1D"/>
+        <segue reference="i8q-fM-lW7"/>
         <segue reference="gCO-m9-kNz"/>
     </inferredMetricsTieBreakers>
 </document>

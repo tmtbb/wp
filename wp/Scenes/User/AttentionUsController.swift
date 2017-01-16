@@ -8,61 +8,44 @@
 
 import UIKit
 
-class AttentionUsController: BaseTableViewController {
+class AttentionUsController: UIViewController,UIWebViewDelegate {
+    @IBOutlet weak var webView: UIWebView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        webView.delegate = self
+        webView.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.white
+//        let url = NSURL(fileURLWithPath: "http://www.baidu.com")
+//        let url = URL(fileReferenceLiteralResourceName: "http://www.baidu.com")
+        let url = URL(string: "http://www.baidu.com")
+        let request = URLRequest(url: url!)
+        webView.loadRequest(request)
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarWithAnimationDuration()
+        translucent(clear: true)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTabBarWithAnimationDuration()
+        translucent(clear: false)
+        
     }
     //MARK: -- 隐藏tabBar导航栏
-    func hideTabBarWithAnimationDuration() {
-        let tabBar = self.tabBarController?.tabBar
-        let parent = tabBar?.superview
-        let content = parent?.subviews[0]
-        let window = parent?.superview
-        
-        var tabFrame = tabBar?.frame
-        tabFrame?.origin.y = (window?.bounds)!.maxY
-        tabBar?.frame = tabFrame!
-        content?.frame = (window?.bounds)!
-    }
-    
-    func showTabBarWithAnimationDuration() {
-        let tabBar = self.tabBarController?.tabBar
-        let parent = tabBar?.superview
-        let content = parent?.subviews[0]
-        let window = parent?.superview
-        var tabFrame = tabBar?.frame
-        tabFrame?.origin.y = (window?.bounds)!.maxY - ((tabBar?.frame)?.height)!
-        tabBar?.frame = tabFrame!
-        
-        var contentFrame = content?.frame
-        contentFrame?.size.height -= (tabFrame?.size.height)!
-        
-    }
-    override func didReceiveMemoryWarning() {
+     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if navigationType == .linkClicked {
+            let url = request.url
+            return false
+        }
+        return true
+        
     }
-    */
-
+    
 }

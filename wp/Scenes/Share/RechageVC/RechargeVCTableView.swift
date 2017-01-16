@@ -15,8 +15,7 @@ class RechargeVcTableView: UITableView ,UITableViewDelegate, UITableViewDataSour
     
     //设置选中的行数
     var selectNumber = Int()
-    var dataArry : [BankListModel] = []
-    dynamic var selectType : String = " "
+    dynamic var dataArry : [BankListModel] = []
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
@@ -34,9 +33,7 @@ class RechargeVcTableView: UITableView ,UITableViewDelegate, UITableViewDataSour
             if let object = result {
                 
                 let Model : BankModel = object as! BankModel
-                
-                self?.dataArry = Model.cardlist == nil ? [] : Model.cardlist! as [BankListModel]
-                
+                self?.dataArry = Model.cardlist! as [BankListModel]
                 self?.reloadData()
                 
             }
@@ -70,7 +67,10 @@ class RechargeVcTableView: UITableView ,UITableViewDelegate, UITableViewDataSour
         
         selectNumber = indexPath.row
         tableView.reloadData()
-        selectType = "\(indexPath.row)"
+        let model : BankListModel = self.dataArry[selectNumber]
+        
+        ShareModel.share().shareData["bid"] = "\(model.bid)"
+        
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath){
         

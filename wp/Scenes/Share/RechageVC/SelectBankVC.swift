@@ -10,32 +10,27 @@ class SelectBankVC: BaseListTableViewController {
     
     var dataArry : [BankListModel] = []
     
-    
+    var finishBtn = UIButton()
     override func viewDidLoad() {
         selectNumber = 100000
         self.title = "我的银行卡"
         super.viewDidLoad()
-        
-        
         initUI()
-        
-        
     }
     func initUI(){
-    
-        
         // 设置 提现记录按钮
-        let btn : UIButton = UIButton.init(frame: CGRect.init(x: 20, y: 0, width: 70, height: 30))
+        finishBtn = UIButton.init(frame: CGRect.init(x: 30, y: 0, width: 40, height: 30))
+        finishBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        finishBtn.setTitle("完成", for:  UIControlState.normal)
         
-        btn.setTitle("完成", for:  UIControlState.normal)
+        finishBtn.addTarget(self, action: #selector(finish), for: UIControlEvents.touchUpInside)
         
-        btn.addTarget(self, action: #selector(finish), for: UIControlEvents.touchUpInside)
-        
-        let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
+        let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: finishBtn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
-    }
+        
+        finishBtn.isHidden = true
+        }
     func finish(){
         
         if selectNumber != 100000 {
@@ -45,7 +40,7 @@ class SelectBankVC: BaseListTableViewController {
             
             self.navigationController?.popViewController(animated: true)
         }
-       
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -87,7 +82,7 @@ class SelectBankVC: BaseListTableViewController {
         
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell : BindingBankVCCell = tableView.dequeueReusableCell(withIdentifier: "BankCardVCCell") as! BindingBankVCCell
@@ -107,9 +102,8 @@ class SelectBankVC: BaseListTableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
+        finishBtn.isHidden = false
         selectNumber = indexPath.section
-        
-       
         tableView.reloadData()
         
         
