@@ -22,7 +22,7 @@ func isTelNumber(num: String)->Bool
 class AppConst {
     static let DefaultPageSize = 15
     static let UMAppkey = "584a3eb345297d271600127e"
-    static let isMock = true
+    static let isMock = false
     static let sha256Key = "t1@s#df!"
     static let pid = 1001
     
