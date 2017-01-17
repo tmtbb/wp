@@ -29,20 +29,20 @@ class MyWealtVC: BaseListTableViewController {
         //注册cell
         didRequest()
         title  = "我的资产"
-       
+        
         tableView.isScrollEnabled = true
         
-//        print(NSStringFromCGRect(self.view.frame))
+        //        print(NSStringFromCGRect(self.view.frame))
         
-         self.account.text = "---"
+        self.account.text = "---"
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        showTabBarWithAnimationDuration()
+        //        showTabBarWithAnimationDuration()
         
     }
     deinit {
-         ShareModel.share().shareData.removeValue(forKey: "balance")
+        ShareModel.share().shareData.removeValue(forKey: "balance")
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

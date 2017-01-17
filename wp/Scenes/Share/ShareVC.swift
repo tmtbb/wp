@@ -11,34 +11,27 @@ protocol VistorLoginViewDelegate:NSObjectProtocol {
     //设置协议方法
     func visitorViewRegisterViewSelected()
 }
-class ShareVCCell: UITableViewCell {
-    
-    
-    var delegate: VistorLoginViewDelegate?
-    
-    @IBOutlet weak var iconImage: UIImageView!            // 左边的图片
-    @IBOutlet weak var userImage: UIImageView!            // 头像
-    @IBOutlet weak var nameLabel: UILabel!                // 姓名
-    @IBOutlet weak var typeLabel: UILabel!                // 类型
-    @IBOutlet weak var timeLabel: UILabel!                // 时间
-    @IBOutlet weak var benifityLabel: UILabel!           // 收益
-    
-    
-    //   更新 cell列表
-    func update(_ data: Any!) {
-        //            let dataModel = data as! TestModel
-        //            nameLabel.text = dataModel.name
-    }
-}
 
-class ShareVC: BaseListTableViewController {
+
+class ShareVC: BaseTableViewController ,ShareCellDelegate {
+    internal func cellBtnTapped(string: String) {
+        
+        
+    }
+
     
     @IBOutlet weak var dayBtn: UIButton!
     @IBOutlet weak var weekBtn: UIButton!
     @IBOutlet weak var monthBtn: UIButton!
     private var lastTypeBtn: UIButton?
     
+    private var lastTypeImg: UIImageView?
+    // 月份图片
+    @IBOutlet weak var monthImg: UIImageView!
+    @IBOutlet weak var shareTableView: ShareFriendTableView!
     
+    @IBOutlet weak var lastDayImg: UIImageView!
+    @IBOutlet weak var weekImg: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         initData()
@@ -54,11 +47,22 @@ class ShareVC: BaseListTableViewController {
     }
     //MARK: --DATA
     func initData() {
+        lastTypeBtn = dayBtn
+        dayBtn.alpha = 1
+        weekBtn.alpha = 0.5
+        monthBtn.alpha = 0.5
+        lastTypeImg = lastDayImg
+        lastDayImg.isHidden = false
+        weekImg.isHidden = true
+        monthImg.isHidden = true
+        shareTableView.cellDelegate = self
+        //        dayBtn.isSelected = false
+        
         
     }
     //MARK: --网络请求方法
     override func didRequest() {
-        didRequestComplete(["",""] as AnyObject)
+        //        didRequestComplete(nil)
         
         //注释掉  请求接口有的时候再打开
         //        AppAPIHelper.share().getShareData(userId: "123", phone: "15306559323", selectIndex: "1223", pageNumber: "0", complete: { (result ) -> ()? in
@@ -74,7 +78,7 @@ class ShareVC: BaseListTableViewController {
     func initUI() {
         
         tableView.rowHeight = 66
-        rankTypeBtnTapped(dayBtn)
+        //        rankTypeBtnTapped(dayBtn)
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
     }
     //MARK: --昨天之星，上周名人，月度名人
@@ -84,11 +88,39 @@ class ShareVC: BaseListTableViewController {
         
         if let btn = lastTypeBtn {
             btn.isSelected = false
-            btn.backgroundColor = UIColor.white
+            
+            btn.setTitleColor(UIColor.init(hexString: "FFFFFF"), for: UIControlState.normal)
+            btn.alpha = 0.5
+            lastDayImg.isHidden = true
+            weekImg.isHidden  = true
+            monthImg.isHidden = true
         }
+        
+        sender.setTitleColor(UIColor.init(hexString: " FFFFFF"), for: UIControlState.normal)
         sender.isSelected = true
-        sender.backgroundColor = AppConst.Color.CMain
+        sender.alpha = 1
+        if sender == monthBtn {
+            monthImg.isHidden = false
+           
+        }
+        if sender == weekBtn {
+            weekImg.isHidden = false
+            
+        }
+        if sender ==  dayBtn {
+
+            lastDayImg.isHidden = false
+        }
         lastTypeBtn = sender
+    }
+    
+    
+    func selectDate(){
+        
+        
+    }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.view.frame.size.height - 44 - 107
     }
     
     
