@@ -178,16 +178,12 @@ class KLineView: UIView {
         set.circleHoleRadius = 0
         set.mode = .cubicBezier
         set.valueFont = UIFont.systemFont(ofSize: 0)
-        let fill = Fill.init(color: UIColor.init(rgbHex: 0x999999))
-        
-        set.fill = fill
+        set.drawFilledEnabled = true
         set.fillColor = UIColor.red
         let data: LineChartData  = LineChartData.init(dataSets: [set])
         miuCharts.data = data
-        
-        let scale = models.count / 320
+        let scale = CGFloat(models.count) / 320
         let _ = miuCharts.zoom(scaleX: CGFloat(scale), scaleY: 0, x: 0, y: 0)
-
     }
     //刷新K线
     func refreshCandleStickData(type: KType, models: [KChartModel]) {
