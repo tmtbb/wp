@@ -74,17 +74,9 @@ class KLineView: UIView {
                 chartsView.xAxis.labelFont = UIFont.systemFont(ofSize: 0)
                 chartsView.leftAxis.labelFont = UIFont.systemFont(ofSize: 0)
                 chartsView.leftAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
-                chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)                
+                chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
             }
         }
-        
-//        dayCharts.xAxis.axisMaximum = 30
-//        
-//        hourCharts.xAxis.axisMaximum = 24
-//        
-//        miu15Charts.xAxis.axisMaximum = 96
-//        
-//        miuCharts.xAxis.axisMaximum = 60*24
     }
     func refreshKLine() {
         requestLineChartData()
@@ -172,7 +164,7 @@ class KLineView: UIView {
         if models.count == 0 {
             return
         }
-        
+
         var entrys: [ChartDataEntry] = []
         for (i, model) in models.enumerated()  {
             let _ = autoreleasepool(invoking: {
@@ -192,6 +184,10 @@ class KLineView: UIView {
         set.fillColor = UIColor.red
         let data: LineChartData  = LineChartData.init(dataSets: [set])
         miuCharts.data = data
+        
+        let scale = models.count / 320
+        let _ = miuCharts.zoom(scaleX: CGFloat(scale), scaleY: 0, x: 0, y: 0)
+
     }
     //刷新K线
     func refreshCandleStickData(type: KType, models: [KChartModel]) {
@@ -230,6 +226,8 @@ class KLineView: UIView {
             break
         case .miu15:
             miu15Charts.data = combinData
+            let scale = CGFloat(models.count) / 100
+            let _ = miu15Charts.zoom(scaleX: CGFloat(scale), scaleY: 0, x: 0, y: 0)
             break
         default:
             return
