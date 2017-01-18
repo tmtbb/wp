@@ -75,6 +75,7 @@ class KLineView: UIView {
                 chartsView.leftAxis.labelFont = UIFont.systemFont(ofSize: 0)
                 chartsView.leftAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
+                chartsView.zoom(scaleX: 2.0, scaleY: 0, x: 0, y: 0)
             }
         }
     }
@@ -83,6 +84,12 @@ class KLineView: UIView {
         initMiu15KChartsData()
         initMiu60KChartsData()
         initDayKChartsData()
+        for charts in self.subviews {
+            if charts.isKind(of:BarLineChartViewBase.self) {
+                let chartsView = charts as! BarLineChartViewBase
+                chartsView.zoom(scaleX: 0, scaleY: 0, x: 0, y: 0)
+            }
+        }
     }
     //MARK: --分时图
     func initMiuLChartsData() {
@@ -140,6 +147,7 @@ class KLineView: UIView {
     //刷新折线
     func refreshLineChartData(models: [KChartModel]) {
         if models.count == 0 {
+            miuCharts.clearValues()
             return
         }
 
@@ -166,6 +174,19 @@ class KLineView: UIView {
     //刷新K线
     func refreshCandleStickData(type: KType, models: [KChartModel]) {
         if models.count == 0 {
+            switch type {
+            case .day:
+                dayCharts.clearValues()
+                break
+            case .miu60:
+                hourCharts.clearValues()
+                break
+            case .miu15:
+                miu15Charts.clearValues()
+                break
+            default:
+                return
+            }
             return
         }
         var entrys: [ChartDataEntry] = []
@@ -194,18 +215,12 @@ class KLineView: UIView {
         switch type {
         case .day:
             dayCharts.data = combinData
-            let scale = CGFloat(models.count) / 100
-            let _ = dayCharts.zoom(scaleX: CGFloat(scale), scaleY: 0, x: 0, y: 0)
             break
         case .miu60:
             hourCharts.data = combinData
-            let scale = CGFloat(models.count) / 100
-            let _ = hourCharts.zoom(scaleX: CGFloat(scale), scaleY: 0, x: 0, y: 0)
             break
         case .miu15:
             miu15Charts.data = combinData
-            let scale = CGFloat(models.count) / 100
-            let _ = miu15Charts.zoom(scaleX: CGFloat(scale), scaleY: 0, x: 0, y: 0)
             break
         default:
             return

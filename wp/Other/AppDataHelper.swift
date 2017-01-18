@@ -34,7 +34,6 @@ class AppDataHelper: NSObject {
     }
     //根据商品数据请求k线数据
     func initLineChartData(product: ProductModel){
-       
         let param = KChartParam()
         param.goodType = product.typeCode
         param.exchangeName = product.exchangeName

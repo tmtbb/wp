@@ -157,6 +157,7 @@ class SocketConst: NSObject {
         static let screenName = "screenName"
         static let avatarLarge = "avatarLarge"
         static let uidStr = "uidStr"
+        static let timestamp = "timestamp"
     }
     
     

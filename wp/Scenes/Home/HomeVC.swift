@@ -39,13 +39,10 @@ class HomeVC: BaseTableViewController {
     func initData() {
         //0,添加数据监听
         DealModel.share().addObserver(self, forKeyPath: "allProduct", options: .new, context: nil)
-        //1,预加载K线数据
-        
         //2,请求商品报价
         if DealModel.share().allProduct.count > 0 {
             initRealTimeData()
         }
-        //3,刷新商品报价
         
     
     }
@@ -70,7 +67,15 @@ class HomeVC: BaseTableViewController {
                                     SocketConst.Key.goodsinfos: goods]
         AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
             if let models: [KChartModel] = result as! [KChartModel]?{
+                for model in models{
+                   for  product in DealModel.share().allProduct{
+                        if model.goodType == product.goodType{
+                            model.name = product.name
+                        }
+                    }
+                }
                 self?.marketArray = models
+                //3,刷新商品报价
                 self?.tableView.reloadData()
             }
             return nil

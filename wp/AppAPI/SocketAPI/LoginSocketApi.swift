@@ -24,7 +24,9 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
                                      SocketConst.Key.pwd: pwd,
                                      SocketConst.Key.memberId: 0,
                                      SocketConst.Key.agentId: "",
-                                     SocketConst.Key.recommend: ""]
+                                     SocketConst.Key.recommend: "",
+                                     SocketConst.Key.timestamp: UserModel.share().timestamp,
+                                     SocketConst.Key.token: UserModel.share().codeToken]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .register, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
