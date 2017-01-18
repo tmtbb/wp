@@ -105,7 +105,6 @@ class UserTableViewController: BaseTableViewController {
         
         if ((UserModel.getCurrentUser()?.avatarLarge) != nil){
             iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
-            print(UserModel.getCurrentUser()?.avatarLarge)
         }
         else{
             iconImage.image = UIImage(named: "default-head")
@@ -145,10 +144,10 @@ class UserTableViewController: BaseTableViewController {
                     let model = modes.first
                     UserModel.updateUser(info: { (result) -> ()? in
                         if model!.avatarLarge != nil {
-                           UserModel.share().currentUser?.avatarLarge = model!.avatarLarge
+                           UserModel.getCurrentUser()?.avatarLarge = model!.avatarLarge
                         }
-                        UserModel.share().currentUser?.screenName = model!.screenName
-                        UserModel.share().currentUser?.phone = model!.phone
+                        UserModel.getCurrentUser()?.screenName = model!.screenName
+                        UserModel.getCurrentUser()?.phone = model!.phone
                         return nil
                     })
                 }

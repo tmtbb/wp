@@ -188,9 +188,9 @@ class UserSocketApi: BaseSocketAPI, UserApi {
     func revisePersonDetail(screenName:String, avatarLarge: String, gender:Int64 = 0, complete: CompleteBlock?, error: ErrorBlock?){
         
         let param = [SocketConst.Key.uid: UserModel.getCurrentUser()!.uid,
-                     SocketConst.Key.screenName: UserModel.getCurrentUser()?.screenName ?? "",
-                     SocketConst.Key.avatarLarge: UserModel.getCurrentUser()?.avatarLarge ?? "",
-                     "gender": 1] as [String : Any]
+                     SocketConst.Key.screenName: screenName,
+                     SocketConst.Key.avatarLarge: avatarLarge,
+                     "gender": 0] as [String : Any]
         
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .changeUserInfo, dict: param as [String : AnyObject], type: SocketConst.type.wp)
         print(param)
