@@ -33,15 +33,13 @@ class DealPasswordVC: UIViewController,UITextFieldDelegate {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        showTabBarWithAnimationDuration()
+     
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTabBarWithAnimationDuration()
         translucent(clear: false)
     }
-   
-    
    
 
 

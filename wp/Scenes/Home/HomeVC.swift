@@ -15,11 +15,15 @@ class HomeVC: BaseTableViewController {
     lazy var flowListArray: [FlowOrdersList] =  [FlowOrdersList]()
     //行情数据
     lazy var marketArray: [KChartModel] = [KChartModel]()
-
+    
+    var dict:[AnyObject]?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         translucent(clear: true)
         showTabBarWithAnimationDuration()
+        tabBarController?.tabBar.isHidden = false
+        
     }
     
     override func viewDidLoad() {
@@ -42,7 +46,7 @@ class HomeVC: BaseTableViewController {
         tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
         tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
     }
-  
+    
     
     //MARK: --HeaderView
     func setupHeaderView (cycleImage:[String],contentSourceArray:[String], tagSourceArray:[String]) -> (UIView) {
@@ -102,12 +106,12 @@ class HomeVC: BaseTableViewController {
             }
         }
         else{
-        singlerView.snp.makeConstraints { (make) in
-            make.top.equalTo(cycleView.snp.bottom).offset(0)
-            make.left.equalTo(redView.snp.right).offset(10)
-            make.bottom.equalTo(sunView).offset(0)
-            make.right.equalTo(sunView).offset(-15)
-        }
+            singlerView.snp.makeConstraints { (make) in
+                make.top.equalTo(cycleView.snp.bottom).offset(0)
+                make.left.equalTo(redView.snp.right).offset(10)
+                make.bottom.equalTo(sunView).offset(0)
+                make.right.equalTo(sunView).offset(-15)
+            }
         }
         return sunView
     }
@@ -119,14 +123,14 @@ class HomeVC: BaseTableViewController {
     
     //MARK: --UITableViewDelegate
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            if section == 1 {
-                
-                return 10
-            }
-            if section == 2 {
-                return 11
-            }
-            return 0
+        if section == 1 {
+            
+            return 10
+        }
+        if section == 2 {
+            return 11
+        }
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -159,11 +163,15 @@ class HomeVC: BaseTableViewController {
         
         let cell : ProdectCell = tableView.dequeueReusableCell(withIdentifier: "ProdectCell") as! ProdectCell
         if indexPath.section==0 {
+            if indexPath.item < marketArray.count && marketArray[indexPath.item] != nil {
+                cell.kChartModel = marketArray[indexPath.item]
+            }
             return cell
         }
         if indexPath.section==1 {
             let cell : SecondViewCell = tableView.dequeueReusableCell(withIdentifier: "SecondViewCell") as! SecondViewCell
             cell.delegate = self
+            
             return cell
         }
         if indexPath.section == 2 {
@@ -201,42 +209,55 @@ class HomeVC: BaseTableViewController {
     func jumpToMyMessageController() {
         
         performSegue(withIdentifier: MyMessageController.className(), sender: nil)
+
     }
+
+
     func jumpToMyAttentionController() {
         
         performSegue(withIdentifier: MyAttentionController.className(), sender: nil)
+        
+        //        if checkLogin(){
+        //
+        //        }
     }
     func jumpToMyPushController() {
         
         performSegue(withIdentifier: MyPushController.className(), sender: nil)
+        
+        //        if checkLogin(){
+        //
+        //        }
     }
     func jumpToMyBaskController() {
         
         performSegue(withIdentifier: MyBaskController.className(), sender: nil)
+        //        if checkLogin(){
+        //
+        //        }
     }
     func jumpToDealController() {
-        
-        if checkLogin() {
-            AppAPIHelper.user().flowList(flowType: "1,2,3", startPos: 0, count: 10, complete: { (result) -> ()? in
-                if result != nil {
-                    if let dataArray: [FlowOrdersList] = result as! [FlowOrdersList]? {
-                        for model in dataArray{
-                            print(model)
-                            self.flowListArray.append(model)
-                        }
-                        self.performSegue(withIdentifier: DealController.className(), sender: nil)
-                    }else
-                    {
-                        print("wei nil")
-                    }
-                }
-                return nil
-            }, error: errorBlockFunc())
-            
-        }
-        else{
-            
-        }
+        self.performSegue(withIdentifier: DealController.className(), sender: nil)
+        //        if checkLogin() {
+        //            AppAPIHelper.user().flowList(flowType: "1,2,3", startPos: 0, count: 10, complete: { (result) -> ()? in
+        //                if result != nil {
+        //                    if let dataArray: [FlowOrdersList] = result as! [FlowOrdersList]? {
+        //                        for model in dataArray{
+        //                            print(model)
+        //                            self.flowListArray.append(model)
+        //                        }
+        //
+        //                    }else
+        //                    {
+        //                        print("wei nil")
+        //                    }
+        //                }
+        //                return nil
+        //            }, error: errorBlockFunc())
+        //        }
+        //        else{
+        //
+        //        }
         
     }
     func jumpToFeedbackController() {
@@ -259,7 +280,7 @@ class HomeVC: BaseTableViewController {
         let story : UIStoryboard = UIStoryboard.init(name: "Share", bundle: nil)
         
         let wealth  = story.instantiateViewController(withIdentifier: "MyWealtVC")
-       
+        
         navigationController?.pushViewController(wealth, animated: true)
         
     }
@@ -272,13 +293,17 @@ class HomeVC: BaseTableViewController {
             let controller = segue.destination as! DealController
             controller.orderListArray = flowListArray
         }
+        if segue.identifier == MyMessageController.className() {
+            let controller = segue.destination as! MyMessageController
+            print("MyMessageController")
+        }
     }
     
     //移除通知
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
- 
+    
     
 }
 //MARK: -- CSCycleViewDelegate,CSSinglerViewDelegate

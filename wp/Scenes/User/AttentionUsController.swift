@@ -16,12 +16,18 @@ class AttentionUsController: UIViewController,UIWebViewDelegate {
         webView.delegate = self
         webView.backgroundColor = UIColor.white
         view.backgroundColor = UIColor.white
-//        let url = NSURL(fileURLWithPath: "http://www.baidu.com")
-//        let url = URL(fileReferenceLiteralResourceName: "http://www.baidu.com")
         let url = URL(string: "http://www.baidu.com")
         let request = URLRequest(url: url!)
         webView.loadRequest(request)
+        let backBtn = UIButton(type: .custom)
+        backBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 20)
+        backBtn.setBackgroundImage(UIImage.init(named: "back"), for: UIControlState.normal)
+        backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
         
+    }
+    func backDidClick() {
+        navigationController?.popToRootViewController(animated: true)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -40,10 +46,7 @@ class AttentionUsController: UIViewController,UIWebViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if navigationType == .linkClicked {
-            let url = request.url
-            return false
-        }
+       
         return true
         
     }

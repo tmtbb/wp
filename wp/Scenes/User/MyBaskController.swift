@@ -20,9 +20,8 @@ class MyBaskController: BaseTableViewController {
         
         tableView.tableHeaderView = setupHeaderView()
         let backBtn = UIButton(type: .custom)
-        backBtn.frame = CGRect(x: 15, y: 5, width: 38, height: 38)
-        backBtn.setTitle("返回", for: .normal)
-        backBtn.setTitleColor(UIColor.white, for: .normal)
+        backBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 20)
+        backBtn.setBackgroundImage(UIImage.init(named: "back"), for: UIControlState.normal)
         backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
         
@@ -109,8 +108,6 @@ class MyBaskController: BaseTableViewController {
         translucent(clear: false)
 
     }
-   
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
