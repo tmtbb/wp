@@ -134,11 +134,11 @@ class FriendVC: BaseTableViewController {
         }
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let story : UIStoryboard = UIStoryboard.init(name: "Share", bundle: nil)
-        
-        let wealth  = story.instantiateViewController(withIdentifier: "MyWealtVC")
-        
-        navigationController?.pushViewController(wealth, animated: true)
+//        let story : UIStoryboard = UIStoryboard.init(name: "Share", bundle: nil)
+//        
+//        let wealth  = story.instantiateViewController(withIdentifier: "MyWealtVC")
+//        
+//        navigationController?.pushViewController(wealth, animated: true)
     }
     
     //MARK: --Tableview's delegate and datasource

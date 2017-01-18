@@ -63,7 +63,7 @@ class ChartView: UIView {
             
             amount.frame = CGRect.init(x: tree.frame.origin.x - 5 , y: self.frame.size.height/2.0  - 10 * float - 20 - 50  , width:   40, height: 20)
             
-            amount.text = "1222"
+//            amount.text = "1222"
             amount.textAlignment =  .center
             amount.font = UIFont.systemFont(ofSize: 10)
             self.addSubview(tree)
