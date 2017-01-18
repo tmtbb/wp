@@ -79,14 +79,33 @@ class UserTableViewController: BaseTableViewController {
         //登录成功
         notificationCenter.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
         //修改个人信息
-        notificationCenter.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.ChangeUserinfo), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(changeUserinfo), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.ChangeUserinfo), object: nil)
         
     }
-    
-    func updateUI()  {
+    //修改个人信息
+    func changeUserinfo() {
         
         if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
             iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+        }
+        else{
+            iconImage.image = UIImage(named: "default-head")
+        }
+        
+        if ((UserModel.getCurrentUser()?.screenName) != "") {
+            nameLabel.text = UserModel.getCurrentUser()?.screenName
+            nameLabel.sizeToFit()
+        }
+        else{
+            nameLabel.text = "Bug退散"
+        }
+    }
+    //登录成功
+    func updateUI()  {
+        
+        if ((UserModel.getCurrentUser()?.avatarLarge) != nil){
+            iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+            print(UserModel.getCurrentUser()?.avatarLarge)
         }
         else{
             iconImage.image = UIImage(named: "default-head")

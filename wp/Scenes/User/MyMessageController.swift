@@ -135,12 +135,12 @@ class MyMessageController: BaseTableViewController {
                 self?.userName.text = filed.text
                  SVProgressHUD.show()
                 //七牛没有连接通.暂时还没拿到照片的URL
-                AppAPIHelper.user().revisePersonDetail(screenName: (self?.userName.text)!, avatarLarge: "", gender: 0, complete: { [weak self](result) -> ()? in
+                AppAPIHelper.user().revisePersonDetail(screenName: (self?.userName.text)!, avatarLarge: "", gender: 0, complete: { (result) -> ()? in
                     
                     if result == nil {
                       
-                        UserModel.updateUser(info: { [weak self](result) -> ()? in
-                           UserModel.share().currentUser?.screenName = self?.userName.text
+                        UserModel.updateUser(info: { (result) -> ()? in
+                           UserModel.getCurrentUser()?.screenName = filed.text
                         })
                         SVProgressHUD.show(withStatus: "修改昵称成功")
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.ChangeUserinfo), object: nil, userInfo: nil)
