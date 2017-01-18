@@ -67,9 +67,14 @@ class WithDrawalVC: BaseTableViewController {
         btn.setTitle("提现记录", for:  UIControlState.normal)
         
         btn.addTarget(self, action: #selector(withDrawList), for: UIControlEvents.touchUpInside)
+        if (ShareModel.share().shareData["balance"] != nil) {
+            let str : String = ShareModel.share().shareData["balance"]! as String
+            self.money.placeholder = "最多可提现" + "\(str)" + "元"
+        }else{
+            self.money.placeholder = "----"
+            self.money.text = ""
+        }
         
-        let str : String = ShareModel.share().shareData["balance"]! as String
-        self.money.placeholder = "最多可提现" + "\(str)" + "元"
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
     }

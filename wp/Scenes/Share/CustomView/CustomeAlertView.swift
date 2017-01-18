@@ -75,7 +75,7 @@ class CustomeAlertView : UIView,UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
-        return 20
+        return dateArr.count
         
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
@@ -85,9 +85,11 @@ class CustomeAlertView : UIView,UITableViewDelegate,UITableViewDataSource {
         
         
         
-        Cell.textLabel?.text = "1232131"
+        Cell.textLabel?.text = dateArr[indexPath.row]
         
         Cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
+        
+        Cell.textLabel?.textAlignment = NSTextAlignment.center
         
         Cell.textLabel?.textColor = UIColor.init(hexString: "333333")
         return Cell

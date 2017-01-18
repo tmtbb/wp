@@ -34,6 +34,10 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
 //        initDealTableData()
         initProductData()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        showTabBarWithAnimationDuration()
+    }
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()

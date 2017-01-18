@@ -25,10 +25,14 @@ class RechargeListVCCell: OEZTableViewCell {
     // 刷新cell
     override func update(_ data: Any!) {
         let model = data as! Model
-        self.moneyCountLb.text = "\(model.amount)"
+        self.moneyCountLb.text = "+" + "\(model.amount)"
         self.withDrawto.text = model.depositType == 0 ? "微信" :"提现至银行卡"
         self.timeLb.text = "\(model.depositTime)"
         self.statusLb.text = "充值失败"
+        //        print(model.status)
+        
+        // 设置失败的cell的背景alpha  根据status 来判断 状态view
+        //        self.backgroundColor = UIColor.groupTableViewBackground
         
     }
 }
@@ -47,28 +51,28 @@ class RechargeListVC: BasePageListTableViewController {
         super.viewDidLoad()
         pageNumber = 0
         title = "充值列表"
-        
+        self.setIsLoadMore(true)
         ShareModel.share().addObserver(self, forKeyPath: "selectMonth", options: .new, context: nil)
     }
     
     //MARK:  界面销毁删除监听
     deinit {
         ShareModel.share().removeObserver(self, forKeyPath: "selectMonth", context: nil)
-        ShareModel.share().shareData.removeAll()
+        
     }
-    
+
     //MARK: 监听键值对
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
+         super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         if keyPath == "selectMonth" {
             
-            if let base = change? [NSKeyValueChangeKey.newKey] as? String {
+            if let selectMonth = change? [NSKeyValueChangeKey.newKey] as? String {
                 
                 self.tableView.isScrollEnabled = true
-                if base != "1000000" {
+                if selectMonth != "1000000" {
                 }
                 
-                print(base)
+                //                print(base)
                 
             }
         }
@@ -76,8 +80,8 @@ class RechargeListVC: BasePageListTableViewController {
     //MARK: 网络请求列表
     override func didRequest(_ pageIndex : Int) {
         
-        // pageNumber = pageNumber +1
-        AppAPIHelper.user().creditlist(status: "", pos: 0, count: 10, complete: {[weak self] (result) -> ()? in
+    
+        AppAPIHelper.user().creditlist(status: "", pos: Int32(pageIndex) , count: 10, complete: {[weak self] (result) -> ()? in
             
             if let object = result {
                 let Model : RechargeListModel = object as! RechargeListModel
@@ -89,7 +93,7 @@ class RechargeListVC: BasePageListTableViewController {
             }, error: errorBlockFunc())
         
     }
-    //MARK: ---tableView delegate和datasourcec
+    
     override  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let  headerView  = UIView ()
@@ -109,7 +113,7 @@ class RechargeListVC: BasePageListTableViewController {
             
             let dateBtn :UIButton  = UIButton.init(type: UIButtonType.custom)
             
-            dateBtn.frame = CGRect.init(x: self.view.frame.size.width-80, y: 8, width: 23, height: 23)
+            dateBtn.frame = CGRect.init(x: self.view.frame.size.width-60, y: 8, width: 23, height: 23)
             
             dateBtn.setBackgroundImage(UIImage.init(named: "calendar"), for: UIControlState.normal)
             dateBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
@@ -134,15 +138,7 @@ class RechargeListVC: BasePageListTableViewController {
         return 0.1
         
     }
-    override func scrollViewDidScroll(_ scrollView: UIScrollView){
-        
-        contentoffset   = scrollView.contentOffset.y
-        
-        
-    }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        
-    }
+
     //MARK: ---视图添加
     func selectDate(){
         
@@ -150,6 +146,12 @@ class RechargeListVC: BasePageListTableViewController {
         
         self.tableView.isScrollEnabled = false
         self.view.addSubview(customer)
+    }
+    override func scrollViewDidScroll(_ scrollView: UIScrollView){
+        
+        contentoffset   = scrollView.contentOffset.y
+        
+        
     }
     
 }

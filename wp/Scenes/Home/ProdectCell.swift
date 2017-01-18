@@ -38,6 +38,10 @@ class ProdectCell: UITableViewCell {
             if kChartModel == nil {
                 return
             }
+
+           
+            
+
             productName.text = "\(kChartModel!.goodType)"
             nowPrice.text = "\(kChartModel!.currentPrice)"
             todayOpen.text = "\(kChartModel!.openingTodayPrice)"
@@ -45,6 +49,7 @@ class ProdectCell: UITableViewCell {
             hightPrice.text = "\(kChartModel!.highPrice)"
             lowPrice.text = "\(kChartModel!.lowPrice)"
             changeLabel.text = "\(kChartModel!.change)"
+
             
         }
     }

@@ -135,7 +135,11 @@ class UserTableViewController: BaseTableViewController {
                 let  money : Double =  object["balance"] as! Double
                 self?.propertyNumber.text =  "\(money)0"
                 UserModel.updateUser(info: { (result)-> ()? in
+//<<<<<<< HEAD
+//                    UserModel.share().currentUser?.balance = Int(money)
+//=======
                     UserModel.share().currentUser?.balance = Double(money)
+//>>>>>>> wp/master
                 })
             }
             //个人信息数据请求
