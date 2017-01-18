@@ -175,12 +175,19 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         print(param)
         startRequest(packet, complete: complete, error: error)
     }
+    //拉取用户信息
+    func getUserinfo(complete: CompleteBlock?, error: ErrorBlock?){
+        
+        let param = [SocketConst.Key.uidStr: "\(UserModel.getCurrentUser()!.uid)"] as [String : Any]
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .getUserinfo, dict: param as [String : AnyObject], type: SocketConst.type.wp)
+        startModelsRequest(packet, listName: "userinfoList", modelClass: UserInfo.self, complete: complete, error: error)
+    
+    }
     
     //请求修改个人信息
     func revisePersonDetail(screenName:String, avatarLarge: String, gender:Int64 = 0, complete: CompleteBlock?, error: ErrorBlock?){
         
-        let param = [SocketConst.Key.uid: UserModel.currentUserId,
-                     SocketConst.Key.token: UserModel.token ?? "",
+        let param = [SocketConst.Key.uid: UserModel.getCurrentUser()!.uid,
                      SocketConst.Key.screenName: UserModel.getCurrentUser()?.screenName ?? "",
                      SocketConst.Key.avatarLarge: UserModel.getCurrentUser()?.avatarLarge ?? "",
                      "gender": 1] as [String : Any]

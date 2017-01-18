@@ -34,9 +34,8 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
         setupCollection()
         
         let backBtn = UIButton(type: .custom)
-        backBtn.frame = CGRect(x: 15, y: 5, width: 38, height: 38)
-        backBtn.setTitle("返回", for: .normal)
-        backBtn.setTitleColor(UIColor.white, for: .normal)
+        backBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 20)
+        backBtn.setBackgroundImage(UIImage.init(named: "back"), for: UIControlState.normal)
         backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
         
@@ -56,6 +55,11 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
         if let test: String = object as? String {
             print(test)
         }
+//        func didSelectedObjects(object: AnyObject?) {
+//            if let product = object as? ProductModel {
+//                DealModel.share().selectProduct = product
+//            }
+//        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
