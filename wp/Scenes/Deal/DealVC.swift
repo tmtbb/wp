@@ -31,7 +31,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
-//        initDealTableData()
+        //        initDealTableData()
         initProductData()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +50,11 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             self.winRateConstraint.constant = 100
         }
         
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+      //  hideTabBarWithAnimationDuration()
     }
     deinit {
         DealModel.share().removeObserver(self, forKeyPath: "selectDealModel")
@@ -95,7 +100,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 
             }
             return nil
-        }, error: errorBlockFunc())
+            }, error: errorBlockFunc())
     }
     // 持仓列表数据
     func initDealTableData() {
@@ -107,7 +112,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 self?.dealTable.dealTableData = resultModel
             }
             return nil
-        }, error: errorBlockFunc())
+            }, error: errorBlockFunc())
     }
     // 当前报价
     internal func didSelectedObject(object: AnyObject?) {
@@ -120,8 +125,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     func initRealTimeData() {
         if let product = DealModel.share().selectProduct {
             let good = [SocketConst.Key.goodType: product.typeCode,
-                SocketConst.Key.exchangeName: product.exchangeName,
-                SocketConst.Key.platformName: product.platformName]
+                        SocketConst.Key.exchangeName: product.exchangeName,
+                        SocketConst.Key.platformName: product.platformName]
             let param: [String: Any] = [SocketConst.Key.id: UserModel.currentUserId,
                                         SocketConst.Key.token: UserModel.token ?? "",
                                         SocketConst.Key.goodsinfos: [good]]
@@ -139,7 +144,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                     }
                 }
                 return nil
-            }, error: errorBlockFunc())
+                }, error: errorBlockFunc())
         }
     }
     
