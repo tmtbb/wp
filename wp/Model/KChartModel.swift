@@ -31,6 +31,8 @@ class KChartModel: Object {
     dynamic var closedYesterdayPrice: Double = 0.0
     dynamic var highPrice: Double = 0.0
     dynamic var lowPrice: Double = 0.0
+    dynamic var openPrice: Double = 0.0
+    dynamic var closePrice: Double = 0.0
     dynamic var priceTime: Int = 0
     dynamic var chartType: Int = 0 //1:分时, 2:15分钟，3：60分钟，4：天
     override static func primaryKey() -> String{
