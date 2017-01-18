@@ -86,6 +86,9 @@
                                         <state key="selected">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="rankTypeBtnTapped:" destination="fh0-DR-4ml" eventType="touchUpInside" id="3RO-fE-LFe"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfA-Cz-l9P">
                                         <rect key="frame" x="125" y="27" width="125" height="31"/>
@@ -99,6 +102,9 @@
                                         <state key="selected">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="rankTypeBtnTapped:" destination="fh0-DR-4ml" eventType="touchUpInside" id="pZa-6z-Ftf"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uN7-6E-UuN">
                                         <rect key="frame" x="250" y="27" width="125" height="31"/>
@@ -109,6 +115,9 @@
                                         <state key="normal" title="月度名人">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="rankTypeBtnTapped:" destination="fh0-DR-4ml" eventType="touchUpInside" id="y0V-z1-VQx"/>
+                                        </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="underLine.png" translatesAutoresizingMaskIntoConstraints="NO" id="ofQ-uI-kkX">
                                         <rect key="frame" x="29" y="56" width="70" height="5"/>
@@ -847,7 +856,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ig-qS-ll2">
                                                     <rect key="frame" x="0.0" y="5" width="375" height="30"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="7814FB35-8CF6-4767-B58A-9EEE1DB16D5C" translatesAutoresizingMaskIntoConstraints="NO" id="20O-5z-CM9">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="E14FFFD2-B6FF-4B09-96D7-74B9192A5750" translatesAutoresizingMaskIntoConstraints="NO" id="20O-5z-CM9">
                                                             <rect key="frame" x="10" y="8" width="14" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="Rby-ez-Wdc"/>
@@ -3992,7 +4001,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="7814FB35-8CF6-4767-B58A-9EEE1DB16D5C" width="11" height="11">
+        <image name="Account.png" width="15" height="15"/>
+        <image name="E14FFFD2-B6FF-4B09-96D7-74B9192A5750" width="11" height="11">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -4051,7 +4061,6 @@ ALsAvQDCANkA2wDdC2MLaAtzC3wLjwuTC54LpwusC7QLtwu8C8sLzwvWC94L6wvwC/IL9Av5DAEMBAwJ
 DBEMFAwmDCkMLgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAAwwA
 </mutableData>
         </image>
-        <image name="Account.png" width="15" height="15"/>
         <image name="addbank.png" width="40" height="40"/>
         <image name="banner.png" width="320" height="138"/>
         <image name="btnselect.png" width="120" height="40"/>

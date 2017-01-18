@@ -28,18 +28,21 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         didRequest()
         title  = "我的资产"
         
-       
+        let int : Double = Double((UserModel.getCurrentUser()?.balance)!)
+        
+        account.text =  "\(int)"
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         translucent(clear: false)
-       hideTabBarWithAnimationDuration()
+        hideTabBarWithAnimationDuration()
         
     }
-
+    
     override func didRequest(_ pageIndex : Int) {
-       didRequestComplete([""] as AnyObject)
+        didRequestComplete([""] as AnyObject)
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
             
             
@@ -71,16 +74,16 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         
         return 15
     }
-     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
         
         return 40
     }
-      func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
         
         return 0.1
         
     }
-   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyWealtVCCell", for: indexPath)
         
         
@@ -91,18 +94,18 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         withDraw.isSelected = false
         self.performSegue(withIdentifier: "PushToRechage", sender: nil )
     }
-   
     
-  
+    
+    
     @IBAction func withDraw(_ sender: Any) {
         recharge.isSelected = false
         withDraw.isSelected = true
         self.performSegue(withIdentifier: "PushWithdraw", sender: nil )
     }
     //MARK: tableView delegate
-   
-
-  
-   
+    
+    
+    
+    
     
 }
