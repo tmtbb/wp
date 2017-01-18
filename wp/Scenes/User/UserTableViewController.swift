@@ -44,13 +44,19 @@ class UserTableViewController: BaseTableViewController {
             myPropertyBtn.isHidden = false
             placeholderLabel.isHidden = false
             propertyNumber.text = "\(UserModel.getCurrentUser()!.balance)0"
-            if ((UserModel.getCurrentUser()?.avatarLarge) != nil){
+            if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
                 iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
             }
             else{
                 iconImage.image = UIImage(named: "default-head")
             }
-            nameLabel.text = UserModel.getCurrentUser()?.screenName
+            if ((UserModel.getCurrentUser()?.screenName) != "") {
+                nameLabel.text = UserModel.getCurrentUser()?.screenName
+                nameLabel.sizeToFit()
+            }
+            else{
+                nameLabel.text = "Bug退散"
+            }
         }
         else{
             myPropertyBtn.isHidden = true
@@ -73,13 +79,20 @@ class UserTableViewController: BaseTableViewController {
     
     func updateUI()  {
         
-        if ((UserModel.getCurrentUser()?.avatarLarge) != nil){
+        if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
             iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
         }
         else{
             iconImage.image = UIImage(named: "default-head")
         }
-        nameLabel.text = UserModel.getCurrentUser()?.screenName
+        
+        if ((UserModel.getCurrentUser()?.screenName) != "") {
+            nameLabel.text = UserModel.getCurrentUser()?.screenName
+            nameLabel.sizeToFit()
+        }
+        else{
+            nameLabel.text = "Bug退散"
+        }
         loginBtn.isHidden = true
         register.isHidden = true
         concealLabel.isHidden = true
@@ -92,6 +105,7 @@ class UserTableViewController: BaseTableViewController {
         pushBtn.isHidden = false
         myPropertyBtn.isHidden = false
         
+        //用户余额数据请求
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
             if let object = result {
                 let  money : Double =  object["balance"] as! Double
@@ -100,10 +114,24 @@ class UserTableViewController: BaseTableViewController {
                     UserModel.share().currentUser?.balance = Double(money)
                 })
             }
-            
+            //个人信息数据请求
+            AppAPIHelper.user().getUserinfo(complete: { [weak self](result) -> ()? in
+                if let modes: [UserInfo] = result as? [UserInfo]{
+                    let model = modes.first
+                    UserModel.updateUser(info: { (result) -> ()? in
+                        if model!.avatarLarge != nil {
+                           UserModel.share().currentUser?.avatarLarge = model!.avatarLarge
+                        }
+                        UserModel.share().currentUser?.screenName = model!.screenName
+                        UserModel.share().currentUser?.phone = model!.phone
+                        return nil
+                    })
+                }
+                return nil
+                }, error: self?.errorBlockFunc())
             return nil
             }, error: errorBlockFunc())
-        
+       
         
         
     }

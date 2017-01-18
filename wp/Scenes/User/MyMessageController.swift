@@ -14,10 +14,14 @@ class MyMessageController: BaseTableViewController {
         let picker = UIImagePickerController()
         return picker
     }()
-    var haveChangeImage: Bool = false
+    
     
     @IBOutlet weak var userImage: UIImageView!
     
+    @IBOutlet weak var userName: UILabel!
+    
+    @IBOutlet weak var phoneNumber: UILabel!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0)
@@ -29,6 +33,30 @@ class MyMessageController: BaseTableViewController {
         backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
         
+        if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
+            userImage.image = UIImage(named: "\(UserModel.getCurrentUser()?.avatarLarge)")
+        }
+        else{
+            userImage.image = UIImage(named: "default-head")
+        }
+        if ((UserModel.getCurrentUser()?.screenName) != "") {
+            userName.text = UserModel.getCurrentUser()?.screenName
+            userName.sizeToFit()
+        }
+        else{
+            userName.text = "Bug退散"
+        }
+    
+        let four : String = (UserModel.getCurrentUser()?.phone)!
+        
+        let str : String = (four as NSString).substring(to: 4)
+        let str2 : String = (four as NSString).substring(from: 7)
+        
+        phoneNumber.text = str + "****" + str2
+            
+        
+        
+
     }
    
     func backDidClick() {
@@ -85,19 +113,54 @@ class MyMessageController: BaseTableViewController {
         tabBarController?.tabBar.isHidden = true
         hideTabBarWithAnimationDuration()
         translucent(clear: false)
+        
     }
     
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //更改头像
         if indexPath.section == 0 {
             
             imagePicker.sourceType = .photoLibrary
             present((imagePicker), animated: true, completion: nil)
         }
+        //昵称修改
+        if indexPath.section == 2{
+            let alertController = UIAlertController(title: "修改昵称", message: nil, preferredStyle: UIAlertControllerStyle.alert);
+            alertController.addTextField { [weak self](textField:UITextField!) -> Void in
+                textField.text = self?.userName.text
+            }
+            let alterActionSecond:UIAlertAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: { [weak self](ACTION) -> Void in
+                
+                let filed = alertController.textFields!.first! as UITextField
+                
+                //七牛没有连接通.暂时还没拿到照片的URL
+                AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: "1111", gender: 0, complete: { [weak self](result) -> ()? in
+                    
+                    if result != nil {
+                      self?.userName.text = filed.text
+                        UserModel.updateUser(info: { (result) -> ()? in
+                           UserModel.share().currentUser?.screenName = filed.text
+                        })
+                        
+                        return nil
+                    }
+                    return nil
+                }, error: self?.errorBlockFunc())
+                
+                
+            })
+            let alterActionCancel: UIAlertAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+            alertController.addAction(alterActionSecond)
+            alertController.addAction(alterActionCancel)
+            present(alertController, animated: true, completion: nil)
+        }
+        //交易密码
         if indexPath.section == 3 {
             performSegue(withIdentifier: DealPasswordVC.className(), sender: nil)
         }
+        //登录密码
         if indexPath.section == 4{
             performSegue(withIdentifier: EnterPasswordVC.className(), sender: nil)
         }
@@ -112,13 +175,12 @@ class MyMessageController: BaseTableViewController {
 extension MyMessageController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        haveChangeImage = true
         let image: UIImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
         imagePicker.dismiss(animated: true, completion: nil)
         userImage.image = image
         UIImage.qiniuUploadImage(image: image, imageName: "test", complete: { (result) -> ()? in
             
-            print(result)
+            print(result!)
     
             
             return nil
