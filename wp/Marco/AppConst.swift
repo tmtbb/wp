@@ -115,7 +115,8 @@ class AppConst {
         static let LoginToBingPhoneVC = "LoginToBingPhoneVC"
         static let RegisterToBingPhoneVC = "RegisterToBingPhoneVC"
         static let HistoryDealDetailVC = "HistoryDealDetailVC"
-        static let QuitEnterClick = "quitEnterClick"
+        static let QuitEnterClick = "QuitEnterClick"
+        static let ChangeUserinfo = "ChangeUserinfo"
 
     }
     

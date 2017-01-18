@@ -30,6 +30,7 @@ class UserTableViewController: BaseTableViewController {
     @IBOutlet weak var pushBtn: UIButton!
     //资金按钮
     @IBOutlet weak var myPropertyBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,9 +51,10 @@ class UserTableViewController: BaseTableViewController {
             else{
                 iconImage.image = UIImage(named: "default-head")
             }
-            if ((UserModel.getCurrentUser()?.screenName) != "") {
-                nameLabel.text = UserModel.getCurrentUser()?.screenName
+            if ((UserModel.share().currentUser?.screenName) != "") {
+                nameLabel.text = UserModel.share().currentUser?.screenName
                 nameLabel.sizeToFit()
+                tableView.reloadData()
             }
             else{
                 nameLabel.text = "Bug退散"
@@ -69,11 +71,15 @@ class UserTableViewController: BaseTableViewController {
             tableView.isScrollEnabled = false
         }
     }
-    //MARK: -- 注册通知
+    //MARK: -- 添加通知
     func registerNotify() {
         let notificationCenter = NotificationCenter.default
+        //退出登录
         notificationCenter.addObserver(self, selector: #selector(quitEnterClick), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
+        //登录成功
         notificationCenter.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
+        //修改个人信息
+        notificationCenter.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.ChangeUserinfo), object: nil)
         
     }
     
@@ -86,8 +92,8 @@ class UserTableViewController: BaseTableViewController {
             iconImage.image = UIImage(named: "default-head")
         }
         
-        if ((UserModel.getCurrentUser()?.screenName) != "") {
-            nameLabel.text = UserModel.getCurrentUser()?.screenName
+        if ((UserModel.share().currentUser?.screenName) != "") {
+            nameLabel.text = UserModel.share().currentUser?.screenName
             nameLabel.sizeToFit()
         }
         else{

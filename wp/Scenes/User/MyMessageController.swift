@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SVProgressHUD
 class MyMessageController: BaseTableViewController {
     
     lazy var imagePicker: UIImagePickerController = {
@@ -39,14 +39,15 @@ class MyMessageController: BaseTableViewController {
         else{
             userImage.image = UIImage(named: "default-head")
         }
-        if ((UserModel.getCurrentUser()?.screenName) != "") {
-            userName.text = UserModel.getCurrentUser()?.screenName
+        if ((UserModel.share().currentUser?.screenName) != "") {
+            userName.text = UserModel.share().currentUser?.screenName
             userName.sizeToFit()
+            tableView.reloadData()
         }
         else{
             userName.text = "Bug退散"
         }
-    
+
         let four : String = (UserModel.getCurrentUser()?.phone)!
         
         let str : String = (four as NSString).substring(to: 4)
@@ -135,15 +136,19 @@ class MyMessageController: BaseTableViewController {
                 
                 let filed = alertController.textFields!.first! as UITextField
                 
+                 SVProgressHUD.show()
                 //七牛没有连接通.暂时还没拿到照片的URL
-                AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: "1111", gender: 0, complete: { [weak self](result) -> ()? in
+                AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: "", gender: 0, complete: { [weak self](result) -> ()? in
                     
-                    if result != nil {
-                      self?.userName.text = filed.text
+                    if result == nil {
+                      
                         UserModel.updateUser(info: { (result) -> ()? in
                            UserModel.share().currentUser?.screenName = filed.text
                         })
-                        
+                        SVProgressHUD.show(withStatus: "修改昵称成功")
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.ChangeUserinfo), object: nil, userInfo: nil)
+                        self?.userName.text = filed.text
+                        SVProgressHUD.dismiss()
                         return nil
                     }
                     return nil
