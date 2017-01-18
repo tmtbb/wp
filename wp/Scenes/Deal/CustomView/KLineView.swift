@@ -79,7 +79,6 @@ class KLineView: UIView {
         }
     }
     func refreshKLine() {
-        requestLineChartData()
         initMiuLChartsData()
         initMiu15KChartsData()
         initMiu60KChartsData()
@@ -138,27 +137,6 @@ class KLineView: UIView {
             self?.initDayKChartsData()
         })
     }
-    //请求分时数据
-    func requestLineChartData(){
-        let param = KChartParam()
-        if let model: ProductModel = DealModel.share().selectProduct{
-            param.goodType = model.typeCode
-            param.exchangeName = model.exchangeName
-            param.platformName = model.platformName
-        }
-        
-        AppAPIHelper.deal().timeline(param: param, complete: {(result) -> ()? in
-            if let models: [KChartModel] = result as? [KChartModel]{
-                KLineModel.cacheTimelineModels(models: models, goodType:param.goodType)
-                KLineModel.cacheKTimelimeModels()
-            }
-            return nil
-        }, error: { (error) ->()? in
-            SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
-            return nil
-        })
-        
-    }
     //刷新折线
     func refreshLineChartData(models: [KChartModel]) {
         if models.count == 0 {
@@ -179,7 +157,7 @@ class KLineView: UIView {
         set.mode = .cubicBezier
         set.valueFont = UIFont.systemFont(ofSize: 0)
         set.drawFilledEnabled = true
-        set.fillColor = UIColor.red
+        set.fillColor = UIColor.init(rgbHex: 0x999999)
         let data: LineChartData  = LineChartData.init(dataSets: [set])
         miuCharts.data = data
         let scale = CGFloat(models.count) / 320
@@ -216,9 +194,13 @@ class KLineView: UIView {
         switch type {
         case .day:
             dayCharts.data = combinData
+            let scale = CGFloat(models.count) / 100
+            let _ = dayCharts.zoom(scaleX: CGFloat(scale), scaleY: 0, x: 0, y: 0)
             break
         case .miu60:
             hourCharts.data = combinData
+            let scale = CGFloat(models.count) / 100
+            let _ = hourCharts.zoom(scaleX: CGFloat(scale), scaleY: 0, x: 0, y: 0)
             break
         case .miu15:
             miu15Charts.data = combinData

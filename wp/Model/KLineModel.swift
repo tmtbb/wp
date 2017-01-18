@@ -14,7 +14,7 @@ class KLineModel: NSObject {
     
     //缓存分时数据
     class func cacheTimelineModels(models: [KChartModel], goodType: String) {
-        DispatchQueue.global().async {
+        DispatchQueue.global().async{
             for (_, model) in models.enumerated() {
                 let _ = autoreleasepool(invoking: {
                     let realm = try! Realm()

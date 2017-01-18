@@ -150,6 +150,8 @@
 		BFAC331F1E135FC1008EF3D3 /* DealInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAC331E1E135FC1008EF3D3 /* DealInfo.swift */; };
 		BFC1E5BD1E0D1820004A2AFC /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC1E5BC1E0D1820004A2AFC /* UIView+Extension.swift */; };
 		BFC81E9E1DFA9E6600ADC291 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFC81E9D1DFA9E6600ADC291 /* UMMobClick.framework */; };
+		BFD70D711E2F3B12001F6CD4 /* AppDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD70D701E2F3B12001F6CD4 /* AppDataHelper.swift */; };
+		BFD70D731E2F3B2F001F6CD4 /* AppServerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD70D721E2F3B2F001F6CD4 /* AppServerHelper.swift */; };
 		BFD70FDD1E10F5B700930E8C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD70FDC1E10F5B700930E8C /* UserModel.swift */; };
 		BFD70FDF1E10F5D700930E8C /* DealModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD70FDE1E10F5D700930E8C /* DealModel.swift */; };
 		BFF019781E23B113008631D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFF018FE1E23B112008631D6 /* Assets.xcassets */; };
@@ -460,6 +462,8 @@
 		BFAC331E1E135FC1008EF3D3 /* DealInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DealInfo.swift; path = ../../../Model/DealInfo.swift; sourceTree = "<group>"; };
 		BFC1E5BC1E0D1820004A2AFC /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		BFC81E9D1DFA9E6600ADC291 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UMMobClick.framework; path = "Pods/UMengAnalytics-NO-IDFA/umsdk_IOS_analyics_no-idfa_v4.1.5/UMMobClick.framework"; sourceTree = "<group>"; };
+		BFD70D701E2F3B12001F6CD4 /* AppDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDataHelper.swift; sourceTree = "<group>"; };
+		BFD70D721E2F3B2F001F6CD4 /* AppServerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppServerHelper.swift; sourceTree = "<group>"; };
 		BFD70FDC1E10F5B700930E8C /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BFD70FDE1E10F5D700930E8C /* DealModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealModel.swift; sourceTree = "<group>"; };
 		BFF018FE1E23B112008631D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
@@ -1023,6 +1027,8 @@
 		BF2F64071E038DFE00917FA1 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				BFD70D721E2F3B2F001F6CD4 /* AppServerHelper.swift */,
+				BFD70D701E2F3B12001F6CD4 /* AppDataHelper.swift */,
 				BF2F64081E038DFE00917FA1 /* AppDelegate.swift */,
 				BF2F64091E038DFE00917FA1 /* Info.plist */,
 			);
@@ -1710,6 +1716,7 @@
 				BF2F64361E038DFE00917FA1 /* EmojiFaceHelper.swift in Sources */,
 				BF065B001E271BE00079D678 /* NSObject+GCD.swift in Sources */,
 				BF062B4B1E04DF5200618B1B /* HomeVC.swift in Sources */,
+				BFD70D711E2F3B12001F6CD4 /* AppDataHelper.swift in Sources */,
 				BF5E24821E10BE1E00B5C07A /* KLineView.swift in Sources */,
 				D0C5146F1E0BE199005454F4 /* CSMenuView.swift in Sources */,
 				D0302B531E1B86DF007D3F2B /* FlowDetails.swift in Sources */,
@@ -1774,6 +1781,7 @@
 				BF2F64281E038DFE00917FA1 /* SocketDataPacket.swift in Sources */,
 				D0FA4ED91E26208C0015C012 /* DealDetailTableVC.swift in Sources */,
 				BF0479351E0FBE4600C511E7 /* PwdVC.swift in Sources */,
+				BFD70D731E2F3B2F001F6CD4 /* AppServerHelper.swift in Sources */,
 				BF2F64331E038DFE00917FA1 /* UIScreen+Extension.swift in Sources */,
 				A0BC073F1E238999003EA7BC /* RechargeVCTableView.swift in Sources */,
 				A0B5D45A1E1DDCC60029C7BA /* RechargeModel.swift in Sources */,

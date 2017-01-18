@@ -85,10 +85,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 let product = allProducets[0]
                 DealModel.share().selectProduct = product
                 self?.didSelectedObject(object: product)
-                //请求实时报价
-                
-                
-                
             }
             return nil
         }, error: errorBlockFunc())
