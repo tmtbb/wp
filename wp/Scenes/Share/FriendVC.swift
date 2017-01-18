@@ -22,7 +22,7 @@ class FriendVC: BaseTableViewController {
     @IBOutlet weak var totalBenifityLabel: UILabel!          //总收益Lb
     @IBOutlet weak var monthBenifityLabel: UILabel!          //本月收益Lb
     @IBOutlet weak var weekBenifityLabel: UILabel!          //周收益Lb
-    @IBOutlet weak var benifityBarChart: BarChartView!      //表格视图
+//    @IBOutlet weak var benifityBarChart: BarChartView!      //表格视图
     
     @IBOutlet weak var shareCountLabel: UILabel!            //好友晒单
     @IBOutlet weak var monthShareLabel: UILabel!            //本月分享晒单数目
@@ -61,38 +61,58 @@ class FriendVC: BaseTableViewController {
     }
     //MARK: --最近5单交易
     func initBenifityBarChartUI() {
-        benifityBarChart.legend.setCustom(entries: [])
-        benifityBarChart.noDataText = "暂无数据"
-        //x轴
-        benifityBarChart.xAxis.labelPosition = .bottom
-        benifityBarChart.xAxis.gridColor = UIColor.clear
-        //        benifityBarChart.
-        //y轴
-        benifityBarChart.leftAxis.gridColor = UIColor.clear
-        benifityBarChart.rightAxis.gridColor = UIColor.clear
+//        benifityBarChart.legend.setCustom(entries: [])
+//        benifityBarChart.noDataText = "暂无数据"
+//        //x轴
+//        benifityBarChart.xAxis.labelPosition = .bottom
+//        benifityBarChart.xAxis.gridColor = UIColor.clear
+//        //        benifityBarChart.
+//        //y轴
+//        benifityBarChart.leftAxis.gridColor = UIColor.clear
+//        benifityBarChart.rightAxis.gridColor = UIColor.clear
         
         
     }
      // 刷新列表页数据  
     func initBenifityBarChartData() {
-        let values = [20.0, 4.0, 6.0, 25.0, 13.0]
+        let values = [20.0, -4.0, -6.0, -25.0, 13.0]
         
-        let times: [String] = ["10:00","11:00","12:00","13:00","14:00"]
-        let formatter: ChartFormatter = ChartFormatter.init(values: times)
-        var barEntrys: [BarChartDataEntry] = []
-        let xaxis: XAxis = XAxis.init()
-        for (index, value) in values.enumerated() {
-            let barEntry: BarChartDataEntry = BarChartDataEntry.init(x: Double(index), yValues: [value], label: "title\(index)")
-            barEntrys.append(barEntry)
-            formatter.stringForValue(Double(index), axis: xaxis)
-        }
-        xaxis.valueFormatter = formatter
-        benifityBarChart.xAxis.valueFormatter = xaxis.valueFormatter
-        let set: BarChartDataSet = BarChartDataSet.init(values: barEntrys, label: nil)
-        set.colors = [UIColor.red,UIColor.blue,UIColor.purple]
-        let dataSets: [IChartDataSet] = [set]
-        let data: BarChartData = BarChartData(dataSets: dataSets)
-        benifityBarChart.data = data
+//        let times: [String] = ["10:00","11:00","12:00","13:00","14:00"]
+//        let formatter: ChartFormatter = ChartFormatter.init(values: times)
+//        var barEntrys: [BarChartDataEntry] = []
+//        let xaxis: XAxis = XAxis.init()
+//        
+//         let yaxis: YAxis = YAxis.init()
+//            yaxis.inverted = false;
+//        for (index, value) in values.enumerated() {
+//            let barEntry: BarChartDataEntry = BarChartDataEntry.init(x: Double(index), yValues: [value], label: "title\(index)")
+//            barEntrys.append(barEntry)
+//            formatter.stringForValue(Double(index), axis: xaxis )
+//        }
+//         benifityBarChart.xAxis.labelPosition = .bottom
+//        benifityBarChart.legend.enabled = false
+////        benifityBarChart
+////        xaxis.labelPosition =  .leftBottom
+//      
+//        benifityBarChart.descriptionText = ""
+//        xaxis.valueFormatter = formatter
+//        xaxis.spaceMax = 19;
+//        benifityBarChart.xAxis.granularityEnabled = true
+//        benifityBarChart.xAxis.granularity = 1.0
+//        benifityBarChart.xAxis.decimals = 0
+//        benifityBarChart.leftAxis.enabled = false
+//        benifityBarChart.rightAxis.enabled = false
+//        benifityBarChart.xAxis.valueFormatter = xaxis.valueFormatter
+//        let set: BarChartDataSet = BarChartDataSet.init(values: barEntrys, label: nil)
+//        
+//        
+//        
+//       
+//        
+//        set.colors = [UIColor.red,UIColor.blue,UIColor.purple]
+//        let dataSets: [IChartDataSet] = [set]
+//        let data: BarChartData = BarChartData(dataSets: dataSets)
+//        benifityBarChart.data = data
     }
     
     //MARK: --总收益/好友晒单/好友推单
@@ -112,6 +132,13 @@ class FriendVC: BaseTableViewController {
         if checkLogin(){
             
         }
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let story : UIStoryboard = UIStoryboard.init(name: "Share", bundle: nil)
+        
+        let wealth  = story.instantiateViewController(withIdentifier: "MyWealtVC")
+        
+        navigationController?.pushViewController(wealth, animated: true)
     }
     
     //MARK: --Tableview's delegate and datasource

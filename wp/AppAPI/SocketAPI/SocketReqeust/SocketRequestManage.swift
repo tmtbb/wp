@@ -58,15 +58,17 @@ class SocketRequestManage: NSObject {
     }
 
     func notifyResponsePacket(_ packet: SocketDataPacket) {
-        
+    
         objc_sync_enter(self)
         _sessionId = packet.session_id
         let socketReqeust = socketRequests[UInt32(packet.session_id)]
-        socketRequests.removeValue(forKey: UInt32(packet.session_id))
+        if packet.operate_code ==  SocketConst.OPCode.timeline.rawValue + 1||packet.operate_code == SocketConst.OPCode.products.rawValue + 1{
+            
+        }else{
+            socketRequests.removeValue(forKey: UInt32(packet.session_id))
+        }
         objc_sync_exit(self)
         let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
-        
-        print(response)
         let statusCode:Int = response.statusCode;
         if ( statusCode < 0) {
             socketReqeust?.onError(statusCode)

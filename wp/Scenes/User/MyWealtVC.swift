@@ -2,17 +2,15 @@
 //  MyWealtVC.swift
 //  wp
 //
-//  Created by sum on 2017/1/7.
+//  Created by sum on 2017/1/17.
 //  Copyright © 2017年 com.yundian. All rights reserved.
 //
 
 import UIKit
-class MyWealtVCCell: UITableViewCell {
-    @IBOutlet weak var LB: UILabel!
+class MyWealtVCCell: OEZTableViewCell {
     
 }
-class MyWealtVC: BaseListTableViewController {
-    var headerView : UIView = UIView()
+class MyWealtVC: BaseCustomPageListTableViewController {
     
     // 提现按钮
     @IBOutlet weak var withDraw: UIButton!
@@ -30,33 +28,18 @@ class MyWealtVC: BaseListTableViewController {
         didRequest()
         title  = "我的资产"
         
-        tableView.isScrollEnabled = true
-        
-        //        print(NSStringFromCGRect(self.view.frame))
-        
-        self.account.text = "---"
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        //        showTabBarWithAnimationDuration()
-        
-    }
-    deinit {
-        ShareModel.share().shareData.removeValue(forKey: "balance")
+       
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         translucent(clear: false)
-        hideTabBarWithAnimationDuration()
+       hideTabBarWithAnimationDuration()
         
     }
-    
-    //MARK: 网络请求
-    
-    //userInfo
-    override func didRequest() {
-        didRequestComplete([] as AnyObject)
+
+    override func didRequest(_ pageIndex : Int) {
+       didRequestComplete([""] as AnyObject)
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
             
             
@@ -73,32 +56,53 @@ class MyWealtVC: BaseListTableViewController {
             }, error: errorBlockFunc())
         
     }
-    //MARK: tableView delegate
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int{
         
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.view.frame.size.height-131-50
+        return 15
+    }
+     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
         
+        return 40
+    }
+      func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
+        
+        return 0.1
         
     }
-    //MARK: 充值
-    @IBAction func recharge(_ sender: Any) {
+   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyWealtVCCell", for: indexPath)
         
+        
+        return cell
+    }
+    @IBAction func recharge(_ sender: Any) {
         recharge.isSelected = true
         withDraw.isSelected = false
         self.performSegue(withIdentifier: "PushToRechage", sender: nil )
     }
-    //MARK: tableView delegate
+   
+    
+  
     @IBAction func withDraw(_ sender: Any) {
-        
         recharge.isSelected = false
         withDraw.isSelected = true
         self.performSegue(withIdentifier: "PushWithdraw", sender: nil )
     }
-    
+    //MARK: tableView delegate
+   
+
+  
+   
     
 }

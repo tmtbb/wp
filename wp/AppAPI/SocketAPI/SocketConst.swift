@@ -14,8 +14,6 @@ class SocketConst: NSObject {
         case heart = 1000
         // 获取图片上传token
         case imageToken = 1047
-        // 获取分时信息
-        case minDealInfo = 10001
         // 登录
         case login = 3003
         // 注册
@@ -30,9 +28,11 @@ class SocketConst: NSObject {
 
         //设置账号信息
         case accountNews = 1007
+
         
         //修改个人信息
         case changeUserInfo = 1031
+
         case accinfo = 1003
         //流水列表
         case flowList = 1005
@@ -40,7 +40,6 @@ class SocketConst: NSObject {
         case flowDetails = 1010
         //银行卡列表
         case bankcardList = 1009
-        
         //银行卡详情
         case bingcard = 1011
         //解绑银行卡
@@ -80,20 +79,22 @@ class SocketConst: NSObject {
         //修改持仓
         case changeDeal = 2006
         //商品列表
-        case products = 2007
+        case products = 5001
         //当前K线数据
         case kChart = 2008
         //当前分时数据
-        case timeline = 2009
+        case timeline = 4003
         //当前报价
-        case realtime = 2010
+        case realtime = 4001
         
     }
     enum type:UInt8 {
-        case error = 0
-        case user = 3
-        case chat = 2
-        case wp = 1
+        case error  = 0
+        case wp     = 1
+        case chat   = 2
+        case user   = 3
+        case time   = 4
+        case deal   = 5
     }
     
     class Key {
@@ -146,6 +147,10 @@ class SocketConst: NSObject {
         static let price = "price"
         static let pid = "pid"
         static let goodType = "goodType"
+        static let exchangeName = "exchangeName"
+        static let platformName = "platformName"
+        static let chartType = "chartType"
+        static let goodsinfos = "goodsinfos"
         static let exchange_name = "exchange_name"
         static let platform_name = "platform_name"
         static let bid = "bid"
@@ -154,8 +159,7 @@ class SocketConst: NSObject {
         static let verifyType = "verifyType"
         static let screenName = "screenName"
         static let avatarLarge = "avatarLarge"
-        
-        
+
     }
     
     

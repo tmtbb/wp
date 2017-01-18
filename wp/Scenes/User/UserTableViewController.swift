@@ -89,7 +89,11 @@ class UserTableViewController: BaseTableViewController {
                 let  money : NSNumber =  object["balance"] as! NSNumber
                 self?.propertyNumber.text =  "\(money).00"
                 UserModel.updateUser(info: { (result)-> ()? in
-                    UserModel.share().currentUser?.balance = Int(money)
+//<<<<<<< HEAD
+//                    UserModel.share().currentUser?.balance = Int(money)
+//=======
+                    UserModel.share().currentUser?.balance = Double(money)
+//>>>>>>> wp/master
                 })
             }
             

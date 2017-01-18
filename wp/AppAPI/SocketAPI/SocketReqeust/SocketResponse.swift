@@ -45,7 +45,7 @@ class SocketJsonResponse: SocketResponse {
         if body?.data?.count == 0  {
             return nil
         }
-        if _jsonOjbect == nil {
+        if _jsonOjbect == nil  {
             _jsonOjbect = try! JSONSerialization.jsonObject(with: body!.data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject?
         }
         return _jsonOjbect

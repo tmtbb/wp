@@ -79,7 +79,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
         btn.setTitle("充值记录", for:  UIControlState.normal)
         
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
-        let int : Int = (UserModel.getCurrentUser()?.balance)!
+        let int : Int = Int((UserModel.getCurrentUser()?.balance)!)
         
         self.moneyText.text  = "\(int)" + "元"
         

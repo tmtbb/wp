@@ -2,23 +2,13 @@
 //  ShareVC.swift
 //  wp
 //
-//  Created by 木柳 on 2016/12/25.
-//  Copyright © 2016年 com.yundian. All rights reserved.
+//  Created by sum on 2017/1/18.
+//  Copyright © 2017年 com.yundian. All rights reserved.
 //
 
 import UIKit
-protocol VistorLoginViewDelegate:NSObjectProtocol {
-    //设置协议方法
-    func visitorViewRegisterViewSelected()
-}
 
-
-class ShareVC: BaseTableViewController ,ShareCellDelegate {
-    internal func cellBtnTapped(string: String) {
-        
-        
-    }
-
+class ShareVC: BaseCustomPageListTableViewController {
     
     @IBOutlet weak var dayBtn: UIButton!
     @IBOutlet weak var weekBtn: UIButton!
@@ -28,7 +18,7 @@ class ShareVC: BaseTableViewController ,ShareCellDelegate {
     private var lastTypeImg: UIImageView?
     // 月份图片
     @IBOutlet weak var monthImg: UIImageView!
-    @IBOutlet weak var shareTableView: ShareFriendTableView!
+   
     
     @IBOutlet weak var lastDayImg: UIImageView!
     @IBOutlet weak var weekImg: UIImageView!
@@ -55,14 +45,14 @@ class ShareVC: BaseTableViewController ,ShareCellDelegate {
         lastDayImg.isHidden = false
         weekImg.isHidden = true
         monthImg.isHidden = true
-        shareTableView.cellDelegate = self
+   
         //        dayBtn.isSelected = false
         
         
     }
     //MARK: --网络请求方法
-    override func didRequest() {
-        //        didRequestComplete(nil)
+     override func didRequest(_ pageIndex : Int) {
+              didRequestComplete(["",""] as AnyObject)
         
         //注释掉  请求接口有的时候再打开
         //        AppAPIHelper.share().getShareData(userId: "123", phone: "15306559323", selectIndex: "1223", pageNumber: "0", complete: { (result ) -> ()? in
@@ -77,7 +67,7 @@ class ShareVC: BaseTableViewController ,ShareCellDelegate {
     //MARK: --UI
     func initUI() {
         
-        tableView.rowHeight = 66
+      
         //        rankTypeBtnTapped(dayBtn)
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
     }
@@ -101,14 +91,14 @@ class ShareVC: BaseTableViewController ,ShareCellDelegate {
         sender.alpha = 1
         if sender == monthBtn {
             monthImg.isHidden = false
-           
+            
         }
         if sender == weekBtn {
             weekImg.isHidden = false
             
         }
         if sender ==  dayBtn {
-
+            
             lastDayImg.isHidden = false
         }
         lastTypeBtn = sender
@@ -119,9 +109,8 @@ class ShareVC: BaseTableViewController ,ShareCellDelegate {
         
         
     }
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.size.height - 44 - 107
-    }
+   
     
-    
+
+
 }

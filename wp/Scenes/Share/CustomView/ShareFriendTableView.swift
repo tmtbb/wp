@@ -15,7 +15,7 @@ protocol ShareCellDelegate: NSObjectProtocol {
 class ShareVCCell: UITableViewCell {
     
     
-    var delegate: VistorLoginViewDelegate?
+ 
     
     @IBOutlet weak var iconImage: UIImageView!            // 左边的图片
     @IBOutlet weak var userImage: UIImageView!            // 头像
