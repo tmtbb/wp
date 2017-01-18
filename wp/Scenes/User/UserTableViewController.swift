@@ -51,10 +51,10 @@ class UserTableViewController: BaseTableViewController {
             else{
                 iconImage.image = UIImage(named: "default-head")
             }
-            if ((UserModel.share().currentUser?.screenName) != "") {
-                nameLabel.text = UserModel.share().currentUser?.screenName
+            if ((UserModel.getCurrentUser()?.screenName) != "") {
+                nameLabel.text = UserModel.getCurrentUser()?.screenName
                 nameLabel.sizeToFit()
-                tableView.reloadData()
+                
             }
             else{
                 nameLabel.text = "Bug退散"
@@ -92,8 +92,8 @@ class UserTableViewController: BaseTableViewController {
             iconImage.image = UIImage(named: "default-head")
         }
         
-        if ((UserModel.share().currentUser?.screenName) != "") {
-            nameLabel.text = UserModel.share().currentUser?.screenName
+        if ((UserModel.getCurrentUser()?.screenName) != "") {
+            nameLabel.text = UserModel.getCurrentUser()?.screenName
             nameLabel.sizeToFit()
         }
         else{

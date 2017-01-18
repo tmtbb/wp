@@ -39,8 +39,9 @@ class MyMessageController: BaseTableViewController {
         else{
             userImage.image = UIImage(named: "default-head")
         }
-        if ((UserModel.share().currentUser?.screenName) != "") {
-            userName.text = UserModel.share().currentUser?.screenName
+        if ((UserModel.getCurrentUser()?.screenName) != "") {
+            userName.text = UserModel.getCurrentUser()?.screenName
+            print(UserModel.share().currentUser?.screenName)
             userName.sizeToFit()
             tableView.reloadData()
         }
@@ -49,16 +50,12 @@ class MyMessageController: BaseTableViewController {
         }
 
         let four : String = (UserModel.getCurrentUser()?.phone)!
-        
         let str : String = (four as NSString).substring(to: 4)
         let str2 : String = (four as NSString).substring(from: 7)
         
         phoneNumber.text = str + "****" + str2
-            
-        
-        
-
     }
+    
    
     func backDidClick() {
         navigationController?.popToRootViewController(animated: true)
@@ -135,24 +132,25 @@ class MyMessageController: BaseTableViewController {
             let alterActionSecond:UIAlertAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: { [weak self](ACTION) -> Void in
                 
                 let filed = alertController.textFields!.first! as UITextField
-                
+                self?.userName.text = filed.text
                  SVProgressHUD.show()
                 //七牛没有连接通.暂时还没拿到照片的URL
-                AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: "", gender: 0, complete: { [weak self](result) -> ()? in
+                AppAPIHelper.user().revisePersonDetail(screenName: (self?.userName.text)!, avatarLarge: "", gender: 0, complete: { [weak self](result) -> ()? in
                     
                     if result == nil {
                       
-                        UserModel.updateUser(info: { (result) -> ()? in
-                           UserModel.share().currentUser?.screenName = filed.text
+                        UserModel.updateUser(info: { [weak self](result) -> ()? in
+                           UserModel.share().currentUser?.screenName = self?.userName.text
                         })
                         SVProgressHUD.show(withStatus: "修改昵称成功")
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.ChangeUserinfo), object: nil, userInfo: nil)
-                        self?.userName.text = filed.text
+                        
                         SVProgressHUD.dismiss()
                         return nil
                     }
                     return nil
                 }, error: self?.errorBlockFunc())
+                
                 
                 
             })
