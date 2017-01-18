@@ -24,7 +24,7 @@ class DealModel: BaseModel {
         return model
     }
     //所有商品列表
-    var allProduct: [ProductModel] = []
+    dynamic var allProduct: [ProductModel] = []
     //点击类型
     var type:SeletedType = .btnTapped
     //所选择的持仓模型

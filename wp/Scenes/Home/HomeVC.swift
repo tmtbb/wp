@@ -14,7 +14,7 @@ class HomeVC: BaseTableViewController {
     //交易明细数据
     lazy var flowListArray: [FlowOrdersList] =  [FlowOrdersList]()
     //行情数据
-    lazy var marketArray: [KChartModel] = [KChartModel]()
+    lazy var marketArray: [KChartModel] = []
     
     var dict:[AnyObject]?
     
@@ -34,8 +34,47 @@ class HomeVC: BaseTableViewController {
         initUI()
         
     }
+
     //MARK: --DATA
     func initData() {
+        //0,添加数据监听
+        DealModel.share().addObserver(self, forKeyPath: "allProduct", options: .new, context: nil)
+        //1,预加载K线数据
+        
+        //2,请求商品报价
+        if DealModel.share().allProduct.count > 0 {
+            initRealTimeData()
+        }
+        //3,刷新商品报价
+        
+    
+    }
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "allProduct" {
+            initRealTimeData()
+        }
+    }
+    
+    func initRealTimeData() {
+        var goods: [AnyObject] = []
+        for  product in DealModel.share().allProduct {
+            
+            let good = [SocketConst.Key.goodType: product.typeCode,
+                        SocketConst.Key.exchangeName: product.exchangeName,
+                        SocketConst.Key.platformName: product.platformName]
+            goods.append(good as AnyObject)
+            
+        }
+        let param: [String: Any] = [SocketConst.Key.id: UserModel.currentUserId,
+                                    SocketConst.Key.token: UserModel.token ?? "",
+                                    SocketConst.Key.goodsinfos: goods]
+        AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
+            if let models: [KChartModel] = result as! [KChartModel]?{
+                self?.marketArray = models
+                self?.tableView.reloadData()
+            }
+            return nil
+        }, error: errorBlockFunc())
     }
     //MARK: --UI
     func initUI() {
@@ -136,7 +175,7 @@ class HomeVC: BaseTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         if section == 0 {
-            return 2
+            return marketArray.count
         }
         if section == 1 {
             return 1
@@ -302,6 +341,7 @@ class HomeVC: BaseTableViewController {
     //移除通知
     deinit {
         NotificationCenter.default.removeObserver(self)
+        DealModel.share().removeObserver(self, forKeyPath: "allProduct")
     }
     
     

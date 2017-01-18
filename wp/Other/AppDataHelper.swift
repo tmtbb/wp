@@ -25,7 +25,10 @@ class AppDataHelper: NSObject {
                 }
             }
             return nil
-        }) {(error) -> ()? in
+        }) {[weak self](error) -> ()? in
+            let _ = self?.delay(15, task: {
+                self?.initProductData()
+            })
             return nil
         }
     }

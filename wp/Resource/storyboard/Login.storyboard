@@ -56,7 +56,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HVp-uc-QJQ">
                                                     <rect key="frame" x="13" y="0.0" width="349" height="40"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mLj-W3-4sX">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_phone.png" translatesAutoresizingMaskIntoConstraints="NO" id="mLj-W3-4sX">
                                                             <rect key="frame" x="9" y="13" width="10" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="10" id="dGf-cq-arF"/>
@@ -138,7 +138,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NO0-Kb-w1V">
                                                     <rect key="frame" x="13" y="0.0" width="349" height="40"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aK8-bb-Y7R">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pwd.png" translatesAutoresizingMaskIntoConstraints="NO" id="aK8-bb-Y7R">
                                                             <rect key="frame" x="9" y="13" width="10" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="ivZ-Zd-6ro"/>
@@ -215,6 +215,7 @@
                                                         <constraint firstAttribute="height" constant="44" id="92P-NL-0bG"/>
                                                     </constraints>
                                                     <state key="normal" title="登录"/>
+                                                    <state key="highlighted" backgroundImage="high_btn.png"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="5"/>
@@ -247,7 +248,7 @@
                                                         <constraint firstAttribute="width" constant="44" id="eHf-VP-UUk"/>
                                                         <constraint firstAttribute="height" constant="44" id="rnd-CT-Wi3"/>
                                                     </constraints>
-                                                    <state key="normal" image="default-head.png"/>
+                                                    <state key="normal" image="qq.png"/>
                                                     <connections>
                                                         <action selector="wechatBtnTapped:" destination="IdH-9P-vUT" eventType="touchUpInside" id="onJ-LV-4c3"/>
                                                     </connections>
@@ -258,7 +259,7 @@
                                                         <constraint firstAttribute="width" constant="44" id="K7L-kc-Lna"/>
                                                         <constraint firstAttribute="height" constant="44" id="UZy-ke-JsF"/>
                                                     </constraints>
-                                                    <state key="normal" image="default-head.png"/>
+                                                    <state key="normal" image="wechat.png"/>
                                                     <connections>
                                                         <action selector="sinaBtnTapped:" destination="IdH-9P-vUT" eventType="touchUpInside" id="I7n-fi-yn7"/>
                                                     </connections>
@@ -321,7 +322,7 @@
                                                         <constraint firstAttribute="width" constant="44" id="iwP-12-YcC"/>
                                                         <constraint firstAttribute="height" constant="44" id="zfp-uE-7SP"/>
                                                     </constraints>
-                                                    <state key="normal" image="default-head.png"/>
+                                                    <state key="normal" image="sina.png"/>
                                                     <connections>
                                                         <action selector="sinaBtnTapped:" destination="IdH-9P-vUT" eventType="touchUpInside" id="ZNi-G9-eSv"/>
                                                     </connections>
@@ -432,7 +433,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aS0-Gq-Bgp">
                                                     <rect key="frame" x="13" y="0.0" width="349" height="45"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VOk-mG-UsA">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_phone.png" translatesAutoresizingMaskIntoConstraints="NO" id="VOk-mG-UsA">
                                                             <rect key="frame" x="9" y="16" width="10" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="4Wi-iD-hzf"/>
@@ -526,6 +527,7 @@
                                                         <constraint firstAttribute="width" constant="140" id="bpL-sv-y8d"/>
                                                     </constraints>
                                                     <state key="normal" title="验证码"/>
+                                                    <state key="highlighted" backgroundImage="high_btn.png"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="5"/>
@@ -572,6 +574,7 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <state key="normal" title="获取语音验证码"/>
+                                                    <state key="highlighted" backgroundImage="high_btn.png"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="5"/>
@@ -654,6 +657,7 @@
                                                     <rect key="frame" x="10" y="0.0" width="355" height="45"/>
                                                     <color key="backgroundColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="下一步"/>
+                                                    <state key="highlighted" backgroundImage="high_btn.png"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="5"/>
@@ -686,7 +690,7 @@
                                                         <constraint firstAttribute="height" constant="44" id="JsS-qT-Il8"/>
                                                         <constraint firstAttribute="width" constant="44" id="U5I-Hg-nfZ"/>
                                                     </constraints>
-                                                    <state key="normal" image="default-head.png"/>
+                                                    <state key="normal" image="qq.png"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oLa-zJ-YoG">
                                                     <rect key="frame" x="166" y="146" width="44" height="44"/>
@@ -694,7 +698,7 @@
                                                         <constraint firstAttribute="height" constant="44" id="BEp-3R-2Fm"/>
                                                         <constraint firstAttribute="width" constant="44" id="BzQ-6O-r2f"/>
                                                     </constraints>
-                                                    <state key="normal" image="default-head.png"/>
+                                                    <state key="normal" image="wechat.png"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ofd-4L-66q">
                                                     <rect key="frame" x="132" y="86" width="111" height="12"/>
@@ -726,7 +730,7 @@
                                                         <constraint firstAttribute="height" constant="44" id="OdN-1e-P7i"/>
                                                         <constraint firstAttribute="width" constant="44" id="oq7-QJ-vcc"/>
                                                     </constraints>
-                                                    <state key="normal" image="default-head.png"/>
+                                                    <state key="normal" image="sina.png"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="09J-1i-Ffp">
                                                     <rect key="frame" x="176" y="198" width="25" height="15"/>
@@ -893,6 +897,7 @@
                                                         <constraint firstAttribute="height" constant="40" id="uPY-ee-QNh"/>
                                                     </constraints>
                                                     <state key="normal" title="下一步"/>
+                                                    <state key="highlighted" backgroundImage="high_btn.png"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="5"/>
@@ -996,6 +1001,7 @@
                                                     <rect key="frame" x="10" y="0.0" width="355" height="45"/>
                                                     <color key="backgroundColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="完成"/>
+                                                    <state key="highlighted" backgroundImage="high_btn.png"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="5"/>
@@ -1051,7 +1057,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="284"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gyv-8e-JgN">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_success.png" translatesAutoresizingMaskIntoConstraints="NO" id="gyv-8e-JgN">
                                                     <rect key="frame" x="135" y="72" width="105" height="105"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="105" id="fVJ-Jt-SHP"/>
@@ -1116,7 +1122,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UEE-XV-m0E">
                                                     <rect key="frame" x="13" y="0.0" width="349" height="45"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pkv-7U-pfc">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_phone.png" translatesAutoresizingMaskIntoConstraints="NO" id="pkv-7U-pfc">
                                                             <rect key="frame" x="9" y="16" width="10" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="PW6-Na-eEq"/>
@@ -1202,6 +1208,7 @@
                                                         <constraint firstAttribute="width" constant="140" id="775-uN-MaL"/>
                                                     </constraints>
                                                     <state key="normal" title="验证码"/>
+                                                    <state key="highlighted" backgroundImage="high_btn.png"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="5"/>
@@ -1252,6 +1259,7 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <state key="normal" title="获取语音验证码"/>
+                                                    <state key="highlighted" backgroundImage="high_btn.png"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="5"/>
@@ -1298,6 +1306,7 @@
                                                     <rect key="frame" x="10" y="0.0" width="355" height="45"/>
                                                     <color key="backgroundColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="完成"/>
+                                                    <state key="highlighted" backgroundImage="high_btn.png"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="5"/>
@@ -1339,11 +1348,17 @@
         </scene>
     </scenes>
     <resources>
-        <image name="default-head.png" width="100" height="100"/>
+        <image name="high_btn.png" width="351" height="44"/>
+        <image name="login_phone.png" width="9" height="14"/>
+        <image name="login_success.png" width="105" height="105"/>
+        <image name="pwd.png" width="12" height="14"/>
+        <image name="qq.png" width="45" height="45"/>
+        <image name="sina.png" width="45" height="45"/>
+        <image name="wechat.png" width="45" height="46"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kiW-Rz-POO"/>
-        <segue reference="i8q-fM-lW7"/>
+        <segue reference="Hlj-3v-O0g"/>
         <segue reference="gCO-m9-kNz"/>
+        <segue reference="i8q-fM-lW7"/>
     </inferredMetricsTieBreakers>
 </document>
