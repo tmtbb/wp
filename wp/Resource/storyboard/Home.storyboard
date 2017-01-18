@@ -1294,7 +1294,7 @@
                                                         <constraint firstAttribute="width" constant="7" id="jKz-P1-bt5"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tHi-jW-dkI">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-head.png" translatesAutoresizingMaskIntoConstraints="NO" id="tHi-jW-dkI">
                                                     <rect key="frame" x="288" y="8" width="45" height="45"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="45" id="VWG-xh-dyL"/>
@@ -1513,7 +1513,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="个人信息" id="A5X-Im-Qas"/>
                     <connections>
+                        <outlet property="phoneNumber" destination="9Ep-4x-X3O" id="Cko-UC-gjh"/>
                         <outlet property="userImage" destination="tHi-jW-dkI" id="byC-hG-YtI"/>
+                        <outlet property="userName" destination="d4O-NR-sXm" id="0CY-cb-ePV"/>
                         <segue destination="dcN-vL-859" kind="push" identifier="DealPasswordVC" id="A8A-Cw-d1E"/>
                         <segue destination="OS8-EJ-QWW" kind="push" identifier="EnterPasswordVC" id="fEK-PT-q1Z"/>
                     </connections>
@@ -1750,6 +1752,9 @@
     <resources>
         <image name="banner.png" width="320" height="138"/>
         <image name="btnselect.png" width="120" height="40"/>
+
+        <image name="default-head.png" width="100" height="100"/>
+
         <image name="next.png" width="7" height="12"/>
         <image name="person-l.png" width="51" height="53"/>
         <image name="person-r.png" width="52" height="50"/>

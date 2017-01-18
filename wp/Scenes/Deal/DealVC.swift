@@ -89,7 +89,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 let product = allProducets[0]
                 DealModel.share().selectProduct = product
                 self?.didSelectedObject(object: product)
-                //请求实时报价和K线
+                //请求实时报价
+                
+                
                 
             }
             return nil
@@ -112,6 +114,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         if let model: ProductModel = object as! ProductModel? {
             DealModel.share().selectProduct = model
             initRealTimeData()
+            kLineView.refreshKLine()
         }
     }
     func initRealTimeData() {
