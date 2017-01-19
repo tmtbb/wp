@@ -27,7 +27,9 @@ class RechargeListVCCell: OEZTableViewCell {
         let model = data as! Model
         self.moneyCountLb.text = "+" + "\(model.amount)"
         self.withDrawto.text = model.depositType == 0 ? "微信" :"提现至银行卡"
-        self.timeLb.text = "\(model.depositTime)"
+        
+        self.withDrawto.text  = "微信"
+//        self.timeLb.text = "\(model.depositTime)"
         self.statusLb.text = "充值失败"
         //        print(model.status)
         

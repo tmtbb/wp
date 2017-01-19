@@ -116,6 +116,8 @@ class BaseListTableViewController :BaseRefreshTableViewController {
     }
     
    //MARK: -UITableViewDelegate
+    
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         var count:Int = dataSource != nil ? 1 : 0;
         if  isSections() && count != 0 {

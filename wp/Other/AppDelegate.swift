@@ -163,6 +163,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
         }
 
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        self.window?.endEditing(true)
+    }
  }
 
 
