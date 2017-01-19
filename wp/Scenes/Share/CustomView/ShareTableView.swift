@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ShareCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var buildPriceLabel: UILabel!
@@ -15,17 +16,21 @@ class ShareCell: UITableViewCell {
     @IBOutlet weak var benifityLabel: UILabel!
     @IBOutlet weak var closeTimeLabel: UILabel!
     @IBOutlet weak var buildTimeLabel: UILabel!
+    
+    
 }
 
-class ShareTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
-
+class ShareTableView: UITableView, UITableViewDelegate, UITableViewDataSource  {
+    
+    
+//    var cellDelegate: ShareCellDelegate?
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         delegate = self
         dataSource = self
-        rowHeight = 66
+        rowHeight = 50
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 20
     }
@@ -33,4 +38,10 @@ class ShareTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ShareCell.className())
         return cell!
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        
+
+        
+    }
+  
 }

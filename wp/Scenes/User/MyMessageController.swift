@@ -52,7 +52,6 @@ class MyMessageController: BaseTableViewController {
         let four : String = (UserModel.getCurrentUser()?.phone)!
         let str : String = (four as NSString).substring(to: 4)
         let str2 : String = (four as NSString).substring(from: 7)
-        
         phoneNumber.text = str + "****" + str2
     }
     
@@ -81,7 +80,6 @@ class MyMessageController: BaseTableViewController {
     }
     //监听退出登录按钮
     func quitEnterClick() {
-        
         userLogout()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
         navigationController?.popToRootViewController(animated: true)
@@ -111,7 +109,6 @@ class MyMessageController: BaseTableViewController {
         tabBarController?.tabBar.isHidden = true
         hideTabBarWithAnimationDuration()
         translucent(clear: false)
-        
     }
     
     
@@ -119,7 +116,6 @@ class MyMessageController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //更改头像
         if indexPath.section == 0 {
-            
             imagePicker.sourceType = .photoLibrary
             present((imagePicker), animated: true, completion: nil)
         }
@@ -135,12 +131,12 @@ class MyMessageController: BaseTableViewController {
                 self?.userName.text = filed.text
                  SVProgressHUD.show()
                 //七牛没有连接通.暂时还没拿到照片的URL
-                AppAPIHelper.user().revisePersonDetail(screenName: (self?.userName.text)!, avatarLarge: "", gender: 0, complete: { [weak self](result) -> ()? in
+                AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: "", gender: 0, complete: { [weak self](result) -> ()? in
                     
                     if result == nil {
                       
-                        UserModel.updateUser(info: { [weak self](result) -> ()? in
-                           UserModel.share().currentUser?.screenName = self?.userName.text
+                        UserModel.updateUser(info: { (result) -> ()? in
+                           UserModel.getCurrentUser()?.screenName = filed.text
                         })
                         SVProgressHUD.show(withStatus: "修改昵称成功")
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.ChangeUserinfo), object: nil, userInfo: nil)
@@ -150,9 +146,6 @@ class MyMessageController: BaseTableViewController {
                     }
                     return nil
                 }, error: self?.errorBlockFunc())
-                
-                
-                
             })
             let alterActionCancel: UIAlertAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
             alertController.addAction(alterActionSecond)
@@ -184,16 +177,12 @@ extension MyMessageController: UIImagePickerControllerDelegate, UINavigationCont
         UIImage.qiniuUploadImage(image: image, imageName: "test", complete: { (result) -> ()? in
             
             print(result!)
-    
+            //七牛请求回来url地址  上传到服务器. 在通知 更新UI
             
             return nil
         }) { (error) -> ()? in
             print(error)
             return nil
         }
-
-    
-   
-        
     }
 }

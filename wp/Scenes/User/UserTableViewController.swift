@@ -79,13 +79,31 @@ class UserTableViewController: BaseTableViewController {
         //登录成功
         notificationCenter.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
         //修改个人信息
-        notificationCenter.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.ChangeUserinfo), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(changeUserinfo), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.ChangeUserinfo), object: nil)
         
     }
-    
-    func updateUI()  {
+    //修改个人信息
+    func changeUserinfo() {
         
         if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
+            iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+        }
+        else{
+            iconImage.image = UIImage(named: "default-head")
+        }
+        
+        if ((UserModel.getCurrentUser()?.screenName) != "") {
+            nameLabel.text = UserModel.getCurrentUser()?.screenName
+            nameLabel.sizeToFit()
+        }
+        else{
+            nameLabel.text = "Bug退散"
+        }
+    }
+    //登录成功
+    func updateUI()  {
+        
+        if ((UserModel.getCurrentUser()?.avatarLarge) != nil){
             iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
         }
         else{
@@ -117,7 +135,11 @@ class UserTableViewController: BaseTableViewController {
                 let  money : Double =  object["balance"] as! Double
                 self?.propertyNumber.text =  "\(money)0"
                 UserModel.updateUser(info: { (result)-> ()? in
+//<<<<<<< HEAD
+//                    UserModel.share().currentUser?.balance = Int(money)
+//=======
                     UserModel.share().currentUser?.balance = Double(money)
+//>>>>>>> wp/master
                 })
             }
             //个人信息数据请求
@@ -126,10 +148,10 @@ class UserTableViewController: BaseTableViewController {
                     let model = modes.first
                     UserModel.updateUser(info: { (result) -> ()? in
                         if model!.avatarLarge != nil {
-                           UserModel.share().currentUser?.avatarLarge = model!.avatarLarge
+                           UserModel.getCurrentUser()?.avatarLarge = model!.avatarLarge
                         }
-                        UserModel.share().currentUser?.screenName = model!.screenName
-                        UserModel.share().currentUser?.phone = model!.phone
+                        UserModel.getCurrentUser()?.screenName = model!.screenName
+                        UserModel.getCurrentUser()?.phone = model!.phone
                         return nil
                     })
                 }

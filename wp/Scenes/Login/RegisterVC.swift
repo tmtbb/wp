@@ -44,7 +44,7 @@ class RegisterVC: BaseTableViewController {
                             UserModel.share().codeToken = token as! String
                         }
                         if let timestamp = resultDic[SocketConst.Key.timestamp]{
-                            UserModel.share().timestamp = Int(timestamp as! String)!
+                            UserModel.share().timestamp = timestamp as! Int 
                         }
                     }
                     strongSelf.codeBtn.isEnabled = false

@@ -15,6 +15,7 @@ class SelectBankVC: BaseListTableViewController {
         selectNumber = 100000
         self.title = "我的银行卡"
         super.viewDidLoad()
+      
         initUI()
     }
     func initUI(){

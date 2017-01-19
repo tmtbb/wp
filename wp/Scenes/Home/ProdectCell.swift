@@ -45,6 +45,7 @@ class ProdectCell: UITableViewCell {
             hightPrice.text = "\(Int(kChartModel!.highPrice))"
             lowPrice.text = "\(Int(kChartModel!.lowPrice))"
             changeLabel.text = "\(kChartModel!.change)"
+
             
         }
     }
@@ -53,16 +54,16 @@ class ProdectCell: UITableViewCell {
         super.awakeFromNib()
         let screenW = UIScreen.main.bounds.width / 375
         nowPrice.font = UIFont.systemFont(ofSize: 25 * screenW)
-        todayOpen.font = UIFont.systemFont(ofSize: 13 * screenW)
-        yesterdayOpen.font = UIFont.systemFont(ofSize: 13 * screenW)
-        hightPrice.font = UIFont.systemFont(ofSize: 13 * screenW)
-        lowPrice.font = UIFont.systemFont(ofSize: 13 * screenW)
+        todayOpen.font = UIFont.systemFont(ofSize: 14 * screenW)
+        yesterdayOpen.font = UIFont.systemFont(ofSize: 14 * screenW)
+        hightPrice.font = UIFont.systemFont(ofSize: 14 * screenW)
+        lowPrice.font = UIFont.systemFont(ofSize: 14 * screenW)
         changeLabel.font = UIFont.systemFont(ofSize: 13 * screenW)
         changePer.font = UIFont.systemFont(ofSize: 13 * screenW)
         
         if screenW < 1 {
             layoutHightPrice.constant = 10
-            layoutChangePer.constant = 8
+            layoutChangePer.constant = 4
         }
     }  
 }

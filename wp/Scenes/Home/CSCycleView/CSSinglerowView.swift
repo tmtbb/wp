@@ -180,7 +180,7 @@ extension CSSinglerowView {
         } else {
             // Fallback on earlier versions
         }
-//        RunLoop.main.add(singlerTimer!, forMode: .commonModes)
+         singlerTimer = Timer.scheduledTimer(timeInterval: time!, target: self, selector: #selector(scrollToNextPage), userInfo: nil, repeats: true)
     }
     
     fileprivate func removeSinglerViewTimer() {
