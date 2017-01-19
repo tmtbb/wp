@@ -23,7 +23,8 @@ class DealModel: BaseModel {
     class func share() -> DealModel{
         return model
     }
-   
+    //所有商品列表
+    dynamic var allProduct: [ProductModel] = []
     //点击类型
     var type:SeletedType = .btnTapped
     //所选择的持仓模型

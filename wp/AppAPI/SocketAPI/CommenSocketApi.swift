@@ -20,8 +20,6 @@ class CommenSocketApi: BaseSocketAPI, CommenApi {
                      SocketConst.Key.phone: phone,
                      SocketConst.Key.verifyType: verifyType] as [String : Any]
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .verifycode, dict: param as [String : AnyObject], type: SocketConst.type.wp)
-        
         startRequest(packet, complete: complete, error: error)
-        
     }
 }

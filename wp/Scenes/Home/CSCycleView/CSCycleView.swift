@@ -168,8 +168,7 @@ extension CSCycleView {
         } else {
             // Fallback on earlier versions
         }
-//        RunLoop.main.add(cycleTimer!, forMode: .commonModes)
-        
+       cycleTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(scrollToNextPage), userInfo: nil, repeats: true)
         
     }
     fileprivate func removeCycleTimer() {

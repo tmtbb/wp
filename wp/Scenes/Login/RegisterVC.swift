@@ -39,6 +39,14 @@ class RegisterVC: BaseTableViewController {
             let type = UserModel.share().forgetPwd ? 1:0
             AppAPIHelper.commen().verifycode(verifyType: Int64(type), phone: phoneText.text!, complete: { [weak self](result) -> ()? in
                 if let strongSelf = self{
+                    if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
+                        if let token = resultDic[SocketConst.Key.token]{
+                            UserModel.share().codeToken = token as! String
+                        }
+                        if let timestamp = resultDic[SocketConst.Key.timestamp]{
+                            UserModel.share().timestamp = timestamp as! Int 
+                        }
+                    }
                     strongSelf.codeBtn.isEnabled = false
                     strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updatecodeBtnTitle), userInfo: nil, repeats: true)
                 }
@@ -64,13 +72,7 @@ class RegisterVC: BaseTableViewController {
     //获取声音验证码
     @IBAction func requestVoiceCode(_ sender: UIButton) {
         if checkoutText(){
-//            AppAPIHelper.login().voiceCode(phone: phoneText.text!, complete: { [weak self](result) -> ()? in
-//                if let strongSelf = self{
-//                    strongSelf.voiceCodeBtn.isEnabled = false
-//                    strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updateVoiceBtnTitle), userInfo: nil, repeats: true)
-//                }
-//                return nil
-//            }, error: errorBlockFunc())
+
         }
     }
     func updateVoiceBtnTitle() {

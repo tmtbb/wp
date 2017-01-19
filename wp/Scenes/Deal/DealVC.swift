@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SVProgressHUD
 class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     
     @IBOutlet weak var myMoneyLabel: UILabel!
@@ -94,10 +94,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 let product = allProducets[0]
                 DealModel.share().selectProduct = product
                 self?.didSelectedObject(object: product)
-                //请求实时报价
-                
-                
-                
             }
             return nil
             }, error: errorBlockFunc())
@@ -120,6 +116,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             DealModel.share().selectProduct = model
             initRealTimeData()
             kLineView.refreshKLine()
+            AppDataHelper.instance().initLineChartData(product: DealModel.share().selectProduct!)
         }
     }
     func initRealTimeData() {
@@ -133,14 +130,12 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
                 if let models: [KChartModel] = result as! [KChartModel]?{
                     for model in models{
-                        if model.goodType == DealModel.share().selectProduct?.typeCode{
-                            self?.priceLabel.text = String.init(format: "%.2f", model.currentPrice)
-                            self?.highLabel.text = String.init(format: "%.2f", model.highPrice)
-                            self?.lowLabel.text = String.init(format: "%.2f", model.lowPrice)
-                            self?.openLabel.text = String.init(format: "%.2f", model.openingTodayPrice)
-                            self?.closeLabel.text = String.init(format: "%.2f", model.closedYesterdayPrice)
-                            self?.nameLabel.text = "\(product.name)(元/千克)"
-                        }
+                        self?.priceLabel.text = String.init(format: "%.2f", model.currentPrice)
+                        self?.highLabel.text = String.init(format: "%.2f", model.highPrice)
+                        self?.lowLabel.text = String.init(format: "%.2f", model.lowPrice)
+                        self?.openLabel.text = String.init(format: "%.2f", model.openingTodayPrice)
+                        self?.closeLabel.text = String.init(format: "%.2f", model.closedYesterdayPrice)
+                        self?.nameLabel.text = "\(model.name)(元/千克)"
                     }
                 }
                 return nil
@@ -177,9 +172,15 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     
     //MARK: --买涨/买跌
     @IBAction func dealBtnTapped(_ sender: UIButton) {
-        DealModel.share().dealUp = sender.tag == 1
-        DealModel.share().isDealDetail = false
-        performSegue(withIdentifier: BuyVC.className(), sender: nil)
+        if checkLogin(){
+            if DealModel.share().selectProduct == nil {
+                SVProgressHUD.showWainningMessage(WainningMessage: "暂无商品信息", ForDuration: 1.5, completion: nil)
+                return
+            }
+            DealModel.share().dealUp = sender.tag == 1
+            DealModel.share().isDealDetail = false
+            performSegue(withIdentifier: BuyVC.className(), sender: nil)
+        }
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {

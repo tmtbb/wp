@@ -38,16 +38,12 @@ class ProdectCell: UITableViewCell {
             if kChartModel == nil {
                 return
             }
-
-           
-            
-
-            productName.text = "\(kChartModel!.goodType)"
-            nowPrice.text = "\(kChartModel!.currentPrice)"
-            todayOpen.text = "\(kChartModel!.openingTodayPrice)"
-            yesterdayOpen.text = "\(kChartModel!.closedYesterdayPrice)"
-            hightPrice.text = "\(kChartModel!.highPrice)"
-            lowPrice.text = "\(kChartModel!.lowPrice)"
+            productName.text = "\(kChartModel!.name)"
+            nowPrice.text = "\(Int(kChartModel!.currentPrice))"
+            todayOpen.text = "\(Int(kChartModel!.openingTodayPrice))"
+            yesterdayOpen.text = "\(Int(kChartModel!.closedYesterdayPrice))"
+            hightPrice.text = "\(Int(kChartModel!.highPrice))"
+            lowPrice.text = "\(Int(kChartModel!.lowPrice))"
             changeLabel.text = "\(kChartModel!.change)"
 
             
@@ -58,16 +54,16 @@ class ProdectCell: UITableViewCell {
         super.awakeFromNib()
         let screenW = UIScreen.main.bounds.width / 375
         nowPrice.font = UIFont.systemFont(ofSize: 25 * screenW)
-        todayOpen.font = UIFont.systemFont(ofSize: 13 * screenW)
-        yesterdayOpen.font = UIFont.systemFont(ofSize: 13 * screenW)
-        hightPrice.font = UIFont.systemFont(ofSize: 13 * screenW)
-        lowPrice.font = UIFont.systemFont(ofSize: 13 * screenW)
+        todayOpen.font = UIFont.systemFont(ofSize: 14 * screenW)
+        yesterdayOpen.font = UIFont.systemFont(ofSize: 14 * screenW)
+        hightPrice.font = UIFont.systemFont(ofSize: 14 * screenW)
+        lowPrice.font = UIFont.systemFont(ofSize: 14 * screenW)
         changeLabel.font = UIFont.systemFont(ofSize: 13 * screenW)
         changePer.font = UIFont.systemFont(ofSize: 13 * screenW)
         
         if screenW < 1 {
             layoutHightPrice.constant = 10
-            layoutChangePer.constant = 8
+            layoutChangePer.constant = 4
         }
     }  
 }
