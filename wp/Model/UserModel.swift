@@ -14,6 +14,13 @@ class UserModel: BaseModel  {
     class func share() -> UserModel {
         return model
     }
+    
+    enum Movement: Int {
+        case regist = 0
+        case loginPass = 1
+        case dealPass = 2
+       
+    }
     var registerUser: UserInfo?
     var currentUser: UserInfo? = UserModel.getCurrentUser()
     var code:String?
