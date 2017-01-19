@@ -19,7 +19,9 @@ class RegisterVC: BaseTableViewController {
     @IBOutlet weak var voiceCodeBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var pwdText: UITextField!
+    @IBOutlet weak var thindLoginView: UIView!
     private var timer: Timer?
+    
     private var codeTime = 10
     private var voiceCodeTime = 10
     
@@ -149,7 +151,8 @@ class RegisterVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
-        self.title = UserModel.share().forgetPwd ? "重置密码":"注册"
+        title = UserModel.share().forgetPwd ? "重置密码":"注册"
+        thindLoginView.isHidden = UserModel.share().forgetPwd
         phoneView.layer.borderWidth = 0.5
         phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
     }

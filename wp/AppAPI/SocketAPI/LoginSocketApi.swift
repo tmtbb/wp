@@ -26,7 +26,7 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
                                      SocketConst.Key.agentId: "",
                                      SocketConst.Key.recommend: "",
                                      SocketConst.Key.timestamp: UserModel.share().timestamp,
-                                     SocketConst.Key.token: UserModel.share().codeToken]
+                                     SocketConst.Key.vToken: UserModel.share().codeToken]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .register, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
@@ -37,7 +37,7 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
                                     SocketConst.Key.code: code,
                                     SocketConst.Key.type: type,
                                     SocketConst.Key.timestamp: UserModel.share().timestamp,
-                                    SocketConst.Key.token: UserModel.share().codeToken]
+                                    SocketConst.Key.vToken: UserModel.share().codeToken]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .repwd, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
