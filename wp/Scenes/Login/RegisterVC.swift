@@ -42,7 +42,7 @@ class RegisterVC: BaseTableViewController {
             AppAPIHelper.commen().verifycode(verifyType: Int64(type), phone: phoneText.text!, complete: { [weak self](result) -> ()? in
                 if let strongSelf = self{
                     if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
-                        if let token = resultDic[SocketConst.Key.token]{
+                        if let token = resultDic[SocketConst.Key.vToken]{
                             UserModel.share().codeToken = token as! String
                         }
                         if let timestamp = resultDic[SocketConst.Key.timestamp]{

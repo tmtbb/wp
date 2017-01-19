@@ -32,7 +32,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
         //        initDealTableData()
-        initProductData()
+        AppDataHelper.instance().initProductData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -103,7 +103,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 self?.didSelectedObject(object: product)
             }
             return nil
-            }, error: errorBlockFunc())
+        }, error: errorBlockFunc())
     }
     // 持仓列表数据
     func initDealTableData() {
