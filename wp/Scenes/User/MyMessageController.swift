@@ -128,7 +128,7 @@ class MyMessageController: BaseTableViewController {
             let alterActionSecond:UIAlertAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: { [weak self](ACTION) -> Void in
                 
                 let filed = alertController.textFields!.first! as UITextField
-                self?.userName.text = filed.text
+                
                  SVProgressHUD.show()
                 //七牛没有连接通.暂时还没拿到照片的URL
                 AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: (UserModel.getCurrentUser()?.avatarLarge)!, gender: 0, complete: { [weak self](result) -> ()? in
@@ -138,6 +138,7 @@ class MyMessageController: BaseTableViewController {
                         UserModel.updateUser(info: { (result) -> ()? in
                            UserModel.getCurrentUser()?.screenName = filed.text
                         })
+                        self?.userName.text = filed.text
                         SVProgressHUD.show(withStatus: "修改昵称成功")
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.ChangeUserinfo), object: nil, userInfo: nil)
                         

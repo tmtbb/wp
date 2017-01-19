@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class MyAttentionController: BaseTableViewController {
+class MyAttentionController: BasePageListTableViewController {
 
     var attentionNumber = UILabel()
     
@@ -42,7 +42,7 @@ class MyAttentionController: BaseTableViewController {
             make.top.equalTo(attentionHint)
             make.height.equalTo(attentionHint)
         }
-        attentionNumber.text = " 5"
+        attentionNumber.text = " 10"
         attentionNumber.font = UIFont.systemFont(ofSize: 16)
         return sumView
     }
@@ -56,7 +56,7 @@ class MyAttentionController: BaseTableViewController {
         hideTabBarWithAnimationDuration()
         translucent(clear: false)
     }
-  
+   
    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -72,7 +72,7 @@ class MyAttentionController: BaseTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return 10
     }
 
     
@@ -91,6 +91,12 @@ class MyAttentionController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
+    
+    override func didRequest(_ pageIndex : Int){
+        didRequestComplete(["",""] as AnyObject)
+    }
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
