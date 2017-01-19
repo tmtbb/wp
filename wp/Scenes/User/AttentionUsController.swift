@@ -16,7 +16,7 @@ class AttentionUsController: UIViewController,UIWebViewDelegate {
         webView.delegate = self
         webView.backgroundColor = UIColor.white
         view.backgroundColor = UIColor.white
-        let url = URL(string: "http://www.baidu.com")
+        let url = URL(string: "http://www.yundiantrip.com/")
         let request = URLRequest(url: url!)
         webView.loadRequest(request)
         let backBtn = UIButton(type: .custom)

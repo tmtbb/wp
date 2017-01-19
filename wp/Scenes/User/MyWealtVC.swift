@@ -55,6 +55,14 @@ class MyWealtVC: BaseCustomPageListTableViewController {
                 ShareModel.share().shareData["balance"] = "\(money)"
                 
                 self?.account.text =  "\(money)"
+                
+                UserModel.updateUser(info: { (result) -> ()? in
+                    
+                    UserModel.getCurrentUser()?.balance = Double(money)
+                    return nil
+                })
+//                UserModel.getCurrentUser()?.balance = Double(money)
+                
             }
             
             return nil
@@ -74,7 +82,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 30
+        return 15
     }
 //    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
 //        

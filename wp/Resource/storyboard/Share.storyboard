@@ -55,7 +55,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您当前的排名 ：24" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAu-g9-cli">
-                                                <rect key="frame" x="215" y="9" width="140" height="21"/>
+                                                <rect key="frame" x="234" y="9" width="121" height="21"/>
                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -68,7 +68,6 @@
                                             <constraint firstItem="RAu-g9-cli" firstAttribute="top" secondItem="MN2-Vu-nGq" secondAttribute="top" constant="9" id="GyF-cH-Uik"/>
                                             <constraint firstItem="TGo-uP-jde" firstAttribute="top" secondItem="MN2-Vu-nGq" secondAttribute="top" constant="10" id="HpX-hV-7Rd"/>
                                             <constraint firstItem="TGo-uP-jde" firstAttribute="leading" secondItem="MN2-Vu-nGq" secondAttribute="leading" constant="22" id="Oog-wI-Jdl"/>
-                                            <constraint firstItem="RAu-g9-cli" firstAttribute="leading" secondItem="TGo-uP-jde" secondAttribute="trailing" constant="53" id="i8X-PL-jpv"/>
                                             <constraint firstAttribute="height" constant="39" id="ief-W9-rw5"/>
                                             <constraint firstAttribute="bottom" secondItem="TGo-uP-jde" secondAttribute="bottom" constant="8" id="p1F-iu-9Be"/>
                                             <constraint firstAttribute="bottom" secondItem="RAu-g9-cli" secondAttribute="bottom" constant="9" id="vw0-cW-sSW"/>
@@ -182,7 +181,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="79i-Xf-hBh">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="87.5"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person-r" translatesAutoresizingMaskIntoConstraints="NO" id="ffS-o8-fmA">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="one" translatesAutoresizingMaskIntoConstraints="NO" id="ffS-o8-fmA">
                                                             <rect key="frame" x="17" y="29" width="27" height="30.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="2kH-hr-hZA"/>
@@ -857,7 +856,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ig-qS-ll2">
                                                     <rect key="frame" x="0.0" y="5" width="375" height="30"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="F5824C9B-D3EE-4C6B-A400-CDA97DE768F3" translatesAutoresizingMaskIntoConstraints="NO" id="20O-5z-CM9">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="24943AB9-ECE7-45B6-A631-F34E50312D12" translatesAutoresizingMaskIntoConstraints="NO" id="20O-5z-CM9">
                                                             <rect key="frame" x="10" y="8" width="14" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="Rby-ez-Wdc"/>
@@ -1064,6 +1063,7 @@
                                                     <rect key="frame" x="15" y="15" width="110.5" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="rCV-3A-h7N"/>
+                                                        <constraint firstAttribute="width" constant="110.5" id="x6o-PQ-6ke"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1072,6 +1072,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="胜场1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgp-Ed-kXM">
                                                     <rect key="frame" x="322" y="15" width="38" height="15"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="38" id="LDf-MI-9tS"/>
                                                         <constraint firstAttribute="height" constant="15" id="bkF-pr-DvO"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1081,6 +1082,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收益" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2p-ME-KE2">
                                                     <rect key="frame" x="15" y="50" width="31" height="15"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="31" id="Jb6-3N-H22"/>
                                                         <constraint firstAttribute="height" constant="15" id="Uxf-ga-ZFO"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1090,6 +1092,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45.00%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpO-he-Z5z">
                                                     <rect key="frame" x="308" y="39" width="52" height="12"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="52" id="5lu-f9-kuy"/>
                                                         <constraint firstAttribute="height" constant="12" id="7fy-HB-pzG"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -2540,8 +2543,8 @@
                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="提现到中国工商银行" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apT-4I-BW4">
-                                            <rect key="frame" x="109" y="40" width="111" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="微信" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apT-4I-BW4">
+                                            <rect key="frame" x="109" y="40" width="25" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="Tab-H4-mgl"/>
                                             </constraints>
@@ -2599,7 +2602,6 @@
                                         <constraint firstItem="2pV-qe-ZAB" firstAttribute="top" secondItem="dhx-SH-Vqb" secondAttribute="bottom" constant="6" id="HaO-Ok-Xch"/>
                                         <constraint firstItem="9Rk-Mk-tpw" firstAttribute="leading" secondItem="Myd-7c-TKN" secondAttribute="leading" constant="2" id="Pl0-mM-fPC"/>
                                         <constraint firstItem="dhx-SH-Vqb" firstAttribute="top" secondItem="Myd-7c-TKN" secondAttribute="top" constant="10" id="QMj-1e-Bn9"/>
-                                        <constraint firstItem="2pV-qe-ZAB" firstAttribute="leading" secondItem="apT-4I-BW4" secondAttribute="trailing" constant="61" id="TJE-Gr-617"/>
                                         <constraint firstItem="I0E-KF-s0O" firstAttribute="top" secondItem="Myd-7c-TKN" secondAttribute="top" constant="19" id="V6t-Qi-zfS"/>
                                         <constraint firstItem="I0E-KF-s0O" firstAttribute="leading" secondItem="jqL-SE-3rR" secondAttribute="trailing" constant="4" id="WZ2-QT-qEU"/>
                                         <constraint firstAttribute="trailing" secondItem="dhx-SH-Vqb" secondAttribute="trailing" id="by2-l7-LLv"/>
@@ -4010,8 +4012,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Account.png" width="15" height="15"/>
-        <image name="F5824C9B-D3EE-4C6B-A400-CDA97DE768F3" width="11" height="11">
+        <image name="24943AB9-ECE7-45B6-A631-F34E50312D12" width="11" height="11">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -4070,8 +4071,9 @@ ALsAvQDCANkA2wDdC2MLaAtzC3wLjwuTC54LpwusC7QLtwu8C8sLzwvWC94L6wvwC/IL9Av5DAEMBAwJ
 DBEMFAwmDCkMLgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAAwwA
 </mutableData>
         </image>
+        <image name="Account.png" width="15" height="15"/>
         <image name="addbank.png" width="40" height="40"/>
-        <image name="banner.png" width="320" height="138"/>
+        <image name="banner.png" width="426" height="179"/>
         <image name="btnselect.png" width="120" height="40"/>
         <image name="btnunselect.png" width="120" height="40"/>
         <image name="caname.png" width="28" height="22"/>
@@ -4081,6 +4083,7 @@ DBEMFAwmDCkMLgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAAwwA
         <image name="mybank.png" width="15" height="12"/>
         <image name="next" width="16" height="16"/>
         <image name="noticeSelect.png" width="95" height="45"/>
+        <image name="one" width="16" height="16"/>
         <image name="person-r" width="16" height="16"/>
         <image name="rechargeType.png" width="15" height="15"/>
         <image name="submited.png" width="351" height="49"/>

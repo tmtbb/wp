@@ -47,6 +47,7 @@ class UserTableViewController: BaseTableViewController {
             propertyNumber.text = "\(UserModel.getCurrentUser()!.balance)0"
             if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
                 iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+                iconImage.image = UIImage(named: "default-head")
             }
             else{
                 iconImage.image = UIImage(named: "default-head")
@@ -86,7 +87,9 @@ class UserTableViewController: BaseTableViewController {
     func changeUserinfo() {
         
         if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
+            
             iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+            iconImage.image = UIImage(named: "default-head")
         }
         else{
             iconImage.image = UIImage(named: "default-head")
