@@ -21,7 +21,7 @@ class UserModel: BaseModel  {
        
     }
     var registerUser: UserInfo?
-    var currentUser: UserInfo? = UserModel.getCurrentUser()
+    var currentUser: UserInfo?
     var code:String?
     var phone:String?
     var codeToken:String = ""
@@ -63,14 +63,15 @@ class UserModel: BaseModel  {
     // 更新用户信息
     class func upateUserInfo(userObject: AnyObject){
         if let model = userObject as? UserInfoModel {
-            let path = NSHomeDirectory()
-            print(path)
             token = model.token
+            //存储token
+            UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
             if let user = model.userinfo {
                 currentUserId = user.uid
                 if let phoneStr = UserDefaults.standard.value(forKey: SocketConst.Key.phone) as? String{
                     user.phone = phoneStr
                 }
+                //存储uid
                 UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
                 let realm = try! Realm()
                 try! realm.write {

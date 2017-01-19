@@ -53,6 +53,7 @@ extension UIViewController {
     //退出登录
     func userLogout() {
         UserDefaults.standard.removeObject(forKey: SocketConst.Key.uid)
+        UserDefaults.standard.removeObject(forKey: SocketConst.Key.token)
         UserModel.share().currentUser = nil
         tabBarController?.selectedIndex = 0
     }

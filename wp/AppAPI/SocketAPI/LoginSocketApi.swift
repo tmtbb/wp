@@ -17,6 +17,14 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .login, dict: param as [String : AnyObject])
         startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
     }
+    //token登录
+    func tokenLogin(phone: String, token: String, complete: CompleteBlock?, error: ErrorBlock?){
+        let param: [String: Any] = [SocketConst.Key.phone: phone,
+                                    SocketConst.Key.token: token,
+                                    SocketConst.Key.source: 1]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .login, dict: param as [String : AnyObject])
+        startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
+    }
     //注册
     func register(phone: String, code: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?){
         let param: [String : Any] = [SocketConst.Key.phone: phone,
