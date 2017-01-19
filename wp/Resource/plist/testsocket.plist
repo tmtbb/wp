@@ -354,9 +354,9 @@
 }</string>
 	<key>1009</key>
 	<string>{
-    &quot;card&quot;: [
+    &quot;cardlist&quot;: [
         {
-            &quot;bankId&quot;: 1000001,
+            &quot;bid&quot;: 1000001,
             &quot;uid&quot;: 1000,
             &quot;bank&quot;: &quot;中国建设银行&quot;,
             &quot;branchBank&quot;: &quot;上海漕溪路支行&quot;,
@@ -364,7 +364,7 @@
             &quot;name&quot;: &quot;吴用&quot;
         },
         {
-            &quot;bankId&quot;: 1000001,
+            &quot;bid&quot;: 1000001,
             &quot;uid&quot;: 1000,
             &quot;bank&quot;: &quot;中国建设银行&quot;,
             &quot;branchBank&quot;: &quot;上海漕溪路支行&quot;,
@@ -372,7 +372,7 @@
             &quot;name&quot;: &quot;吴用&quot;
         },
         {
-            &quot;bankId&quot;: 1000001,
+            &quot;bid&quot;: 1000001,
             &quot;uid&quot;: 1000,
             &quot;bank&quot;: &quot;中国建设银行&quot;,
             &quot;branchBank&quot;: &quot;浙江省杭州市保俶路支行&quot;,
@@ -410,15 +410,55 @@
     &quot;status&quot;: 1
  }]
 }</string>
+	<key>1013</key>
+	<string>{
+    &quot;uid&quot;: 100002,
+    &quot;token&quot;: &quot;adc28ac69625652b46d5c00b&quot;,
+   &quot;bid&quot;:111101,
+   &quot;vCode&quot;:&quot;3021&quot;
+}</string>
+	<key>1025</key>
+	<string>{
+    &quot;withdrawList&quot;: [
+        {
+            &quot;wid&quot;: 10000002,
+            &quot;uid&quot;: 10001,
+            &quot;charge&quot;: 1.01,
+            &quot;amount&quot;: 100.1,
+            &quot;withdrawTime&quot;: &quot;2017-01-07 09:17:00&quot;,
+            &quot;handleTime&quot;: &quot;2017-01-10 10:10:00&quot;,
+            &quot;bank&quot;: &quot;中国浦发银行&quot;,
+            &quot;branchBank&quot;: &quot;上海漕溪支行&quot;,
+            &quot;cardNo&quot;: &quot;6123912312312323&quot;,
+            &quot;name&quot;: &quot;吴用&quot;,
+            &quot;comment&quot;: &quot;及时提现&quot;,
+            &quot;status&quot;: 1
+        },
+        {
+            &quot;wid&quot;: 10000002,
+            &quot;uid&quot;: 10001,
+            &quot;charge&quot;: 1.01,
+            &quot;amount&quot;: 100.1,
+            &quot;withdrawTime&quot;: &quot;2017-01-07 09:17:00&quot;,
+            &quot;handleTime&quot;: &quot;2017-01-10 10:10:00&quot;,
+            &quot;bank&quot;: &quot;中国浦发银行&quot;,
+            &quot;branchBank&quot;: &quot;上海漕溪支行&quot;,
+            &quot;cardNo&quot;: &quot;6123912312312323&quot;,
+            &quot;name&quot;: &quot;吴用&quot;,
+            &quot;comment&quot;: &quot;及时提现&quot;,
+            &quot;status&quot;: 1
+        }
+    ]
+}</string>
 	<key>1017</key>
 	<string>{
-    &quot;wid&quot;: 10000002,
+    &quot;bankId&quot;: 10000002,
     &quot;id&quot;: 10001,
     &quot;charge&quot;: 1.01,
     &quot;amount&quot;: 100.1,
     &quot;withdrawTime&quot;: 1483422506,
     &quot;handleTime&quot;: 1483422506,
-    &quot;bank&quot;: &quot;中国浦发银行&quot;,
+    &quot;bankName&quot;: &quot;中国浦发银行&quot;,
     &quot;branchBank&quot;: &quot;漕溪支行&quot;,
     &quot;province&quot;: &quot;上海市&quot;,
     &quot;city&quot;: &quot;上海时&quot;,
@@ -428,6 +468,47 @@
     &quot;status&quot;: 1
 
     }</string>
+	<key>1011</key>
+	<string>{
+        &quot;bid&quot;: 1000001,
+        &quot;uid&quot;: 1000,
+        &quot;bank&quot;: &quot;中国建设银行&quot;,
+        &quot;branchBank&quot;: &quot;上海漕溪路支行&quot;,
+        &quot;cardNo&quot;: &quot;6002121231231&quot;,
+        &quot;name&quot;: &quot;吴用&quot;
+}</string>
+	<key>1019</key>
+	<string>{
+    &quot;depositsinfo&quot;: [
+        {
+            &quot;rid&quot;: 10000002,
+            &quot;uid&quot;: 10001,
+            &quot;amount&quot;: 100.1,
+            &quot;depositTime&quot;: 1483422506,
+            &quot;depositType&quot;: 1,
+            &quot;depositName&quot;: &quot;微信&quot;,
+            &quot;status&quot;: 1
+        },
+        {
+            &quot;rid&quot;: 10000002,
+            &quot;uid&quot;: 10001,
+            &quot;amount&quot;: 100.1,
+            &quot;depositTime&quot;: 1483422506,
+            &quot;depositType&quot;: 1,
+            &quot;depositName&quot;: &quot;微信&quot;,
+            &quot;status&quot;: 1
+        },
+        {
+            &quot;rid&quot;: 10000002,
+            &quot;uid&quot;: 10001,
+            &quot;amount&quot;: 100.1,
+            &quot;depositTime&quot;: 1483422506,
+            &quot;depositType&quot;: 1,
+            &quot;depositName&quot;: &quot;微信&quot;,
+            &quot;status&quot;: 1
+        }
+    ]
+}</string>
 	<key>2008</key>
 	<string>{
     &quot;priceinfo&quot;: [
@@ -451,6 +532,41 @@
         }
     ]
 }</string>
+	<key>1023</key>
+	<string>{
+    &quot;wid&quot;: 10000002,
+    &quot;uid&quot;: 10001,
+    &quot;charge&quot;: 1.01,
+    &quot;amount&quot;: 100.1,
+    &quot;withdrawTime&quot;: 1483422506,
+    &quot;handleTime&quot;: 1483422506,
+    &quot;bank&quot;: &quot;中国浦发银行&quot;,
+    &quot;branchBank&quot;: &quot;漕溪支行&quot;,
+    &quot;province&quot;: &quot;上海市&quot;,
+    &quot;city&quot;: &quot;上海时&quot;,
+    &quot;cardNo&quot;: &quot;6123912312312323&quot;,
+    &quot;name&quot;: &quot;吴用&quot;,
+    &quot;comment&quot;: &quot;及时提现&quot;,
+    &quot;status&quot;: 1
+}</string>
+	<key>1024</key>
+	<string>{
+    &quot;wid&quot;: 10000002,
+    &quot;uid&quot;: 10001,
+    &quot;charge&quot;: 1.01,
+    &quot;amount&quot;: 100.1,
+    &quot;withdrawTime&quot;: 1483422506,
+    &quot;handleTime&quot;: 1483422506,
+    &quot;bank&quot;: &quot;中国浦发银行&quot;,
+    &quot;branchBank&quot;: &quot;漕溪支行&quot;,
+    &quot;province&quot;: &quot;上海市&quot;,
+    &quot;city&quot;: &quot;上海时&quot;,
+    &quot;cardNo&quot;: &quot;6123912312312323&quot;,
+    &quot;name&quot;: &quot;吴用&quot;,
+    &quot;comment&quot;: &quot;及时提现&quot;,
+    &quot;status&quot;: 1
+}
+</string>
 	<key>4003</key>
 	<string>{
     &quot;priceinfo&quot;: [

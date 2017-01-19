@@ -52,7 +52,6 @@ class WithDrawalVC: BaseTableViewController {
     //MARK:  界面销毁删除监听
     deinit {
         ShareModel.share().removeObserver(self, forKeyPath: "selectBank", context: nil)
-//        ShareModel.share().shareData.removeAll()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -67,13 +66,11 @@ class WithDrawalVC: BaseTableViewController {
         btn.setTitle("提现记录", for:  UIControlState.normal)
         
         btn.addTarget(self, action: #selector(withDrawList), for: UIControlEvents.touchUpInside)
-        if (ShareModel.share().shareData["balance"] != nil) {
-            let str : String = ShareModel.share().shareData["balance"]! as String
-            self.money.placeholder = "最多可提现" + "\(str)" + "元"
-        }else{
-            self.money.placeholder = "----"
-            self.money.text = ""
-        }
+        
+        let int : Double = Double((UserModel.getCurrentUser()?.balance)!)
+        
+        self.money.placeholder = "最多可提现" + "\(int)" + "元"
+        
         
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
@@ -105,17 +102,22 @@ class WithDrawalVC: BaseTableViewController {
     @IBAction func withDraw(_ sender: Any) {
         
         // 校验 是否选择银行卡和提现最多金额
-        let str : String = ShareModel.share().shareData["balance"]! as String
-        let account :  Double = Double(str)!
+        
+        let account  :  Double = Double((UserModel.getCurrentUser()?.balance)!)
+        
+        if self.money.text?.length()==0{
+            SVProgressHUD.showError(withStatus: "请输入提现金额")
+            return
+        }
         let input : Double = Double(self.money.text!)!
         if  bankId == 0{
-          SVProgressHUD.showError(withStatus: "请选择银行卡")
+            SVProgressHUD.showError(withStatus: "请选择银行卡")
             
             return
         }
         if account < input{
             
-            SVProgressHUD.showError(withStatus: "最多提现" + "\(str)" + "元")
+            SVProgressHUD.showError(withStatus: "最多提现" + "\(account)" + "元")
             
             return
         }
