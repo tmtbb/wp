@@ -105,8 +105,9 @@ class RegisterVC: BaseTableViewController {
         //重置密码
         if UserModel.share().forgetPwd {
             SVProgressHUD.showProgressMessage(ProgressMessage: "重置中...")
+            let type = UserModel.share().forgetType == nil ? .loginPass : UserModel.share().forgetType
             let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
-            AppAPIHelper.login().repwd(phone: UserModel.share().phone!, type: 0,  pwd: password, code: UserModel.share().code!, complete: { [weak self](result) -> ()? in
+            AppAPIHelper.login().repwd(phone: UserModel.share().phone!, type: (type?.rawValue)!,  pwd: password, code: UserModel.share().code!, complete: { [weak self](result) -> ()? in
                 SVProgressHUD.showWainningMessage(WainningMessage: "重置成功", ForDuration: 1, completion: nil)
                 self?.navigationController?.popToRootViewController(animated: true)
                 return nil

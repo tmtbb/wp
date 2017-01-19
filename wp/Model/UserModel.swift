@@ -15,10 +15,9 @@ class UserModel: BaseModel  {
         return model
     }
     
-    enum Movement: Int {
-        case regist = 0
-        case loginPass = 1
-        case dealPass = 2
+    enum Movement: Int{
+        case loginPass = 0
+        case dealPass = 1
        
     }
     var registerUser: UserInfo?
@@ -28,6 +27,7 @@ class UserModel: BaseModel  {
     var codeToken:String = ""
     var timestamp:Int = 0
     var forgetPwd:Bool = false
+    var forgetType:Movement?
     static var token: String?
     static var currentUserId: Int = 0
     // 获取某个用户信息

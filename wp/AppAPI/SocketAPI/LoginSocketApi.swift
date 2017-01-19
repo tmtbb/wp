@@ -35,7 +35,9 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
         let param: [String: Any] = [SocketConst.Key.phone: phone,
                                     SocketConst.Key.pwd: pwd,
                                     SocketConst.Key.code: code,
-                                    SocketConst.Key.type: type]
+                                    SocketConst.Key.type: type,
+                                    SocketConst.Key.timestamp: UserModel.share().timestamp,
+                                    SocketConst.Key.token: UserModel.share().codeToken]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .repwd, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
