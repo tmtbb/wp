@@ -124,6 +124,8 @@ class WithDrawalVC: BaseTableViewController {
         let alertView = UIAlertView.init()
         alertView.alertViewStyle = UIAlertViewStyle.secureTextInput // 密文
         alertView.title = "请输入交易密码"
+        
+        
         alertView.addButton(withTitle: "确定")
         alertView.addButton(withTitle: "取消")
         alertView.delegate = self
@@ -142,10 +144,25 @@ class WithDrawalVC: BaseTableViewController {
                     
                     money = "\(self.money.text!)" + ".000001"
                 }
-                AppAPIHelper.user().withdrawcash(money: Double.init(money)!, bld: bankId, password: (alertView.textField(at: 0)?.text)!, complete: { [weak self](result) -> ()? in
+                let passWord : String =     (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(alertView.textField(at: 0)?.text)!).sha256()
+                AppAPIHelper.user().withdrawcash(money: Double.init(money)!, bld: bankId, password: passWord, complete: { [weak self](result) -> ()? in
                     
                     if let object = result{
-                        ShareModel.share().detailModel = object as! WithdrawModel
+                        
+//                        print(result?["status"] )
+                        
+                        let Model : WithdrawModel = object as! WithdrawModel
+                        ShareModel.share().detailModel = Model
+                         print( ShareModel.share().detailModel.status )
+                        if( ShareModel.share().detailModel.status == -3){
+                        
+                            
+                            SVProgressHUD.showError(withStatus: "提现密码错误")
+                            
+                            return nil
+                        }
+                        
+                        
                         self?.performSegue(withIdentifier: "SuccessWithdrawVC", sender: nil)
                     }
                     return nil

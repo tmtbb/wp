@@ -136,6 +136,7 @@ class SocketConst: NSObject {
         static let money = "money"
         static let bld = "bld"
         static let password = "password"
+
         static let withdrawld = "withdrawld"
         static let title = "title"
         static let id = "id"

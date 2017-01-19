@@ -28,7 +28,7 @@ class ShareTableView: UITableView, UITableViewDelegate, UITableViewDataSource  {
         super.init(coder: aDecoder)
         delegate = self
         dataSource = self
-        rowHeight = 50
+        rowHeight = 60
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -126,14 +126,14 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                                      SocketConst.Key.token: UserModel.token ?? "",
                                      SocketConst.Key.money: money,
                                      SocketConst.Key.bid: bld,
-                                     SocketConst.Key.password: password]
+                                     SocketConst.Key.pwd: password]
         
         //        print(param)
         //        WithdrawBankCashModel
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .withdrawCash, dict: param as [String : AnyObject], type: SocketConst.type.wp)
         
-        startModelRequest(packet, modelClass: WithdrawModel.self, complete: complete, error: error)
-        //        startRequest(packet, complete: complete, error: error)
+            startModelRequest(packet, modelClass: WithdrawModel.self, complete: complete, error: error)
+//               startRequest(packet, complete: complete, error: error)
     }
     //提现列表
     func withdrawlist(status: String, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?){

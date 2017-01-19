@@ -23,7 +23,7 @@ class WithdrawModel: BaseModel {
     var cardNo: String!          // 	银行卡号
     var name: String!            // 姓名
     var comment: String!         //	备注
-    var status: Int8 = 0         // 状态	1-处理中，2-成功，3-失败
+    var status: Int8 = 0        // 状态	1-处理中，2-成功，3-失败
     
 }
 // 提现列表的listmodel
