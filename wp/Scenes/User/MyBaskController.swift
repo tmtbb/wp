@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyBaskController: BaseTableViewController {
+class MyBaskController: BasePageListTableViewController {
     
     let pushNumber = UILabel()
     let pushToday = UILabel()
@@ -134,7 +134,10 @@ class MyBaskController: BaseTableViewController {
 
         return cell
     }
- 
+    
+    override func didRequest(_ pageIndex : Int){
+        didRequestComplete(["",""] as AnyObject)
+    }
 
     /*
     // Override to support conditional editing of the table view.

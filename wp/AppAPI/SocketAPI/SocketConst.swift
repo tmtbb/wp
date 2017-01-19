@@ -33,7 +33,7 @@ class SocketConst: NSObject {
         case changeUserInfo = 1031
         case accinfo = 1003
         //流水列表
-        case flowList = 1005
+        case flowList = 1077
         //流水详情
         case flowDetails = 1010
         //银行卡列表

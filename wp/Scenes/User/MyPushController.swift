@@ -8,7 +8,7 @@
 
 import UIKit
 private let originalCellId = "MyPushCell"
-class MyPushController: BaseTableViewController {
+class MyPushController: BasePageListTableViewController {
 
     let pushNumber = UILabel()
     let pushToday = UILabel()
@@ -17,8 +17,6 @@ class MyPushController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let originalNib = UINib(nibName: "MyPushCell", bundle: nil)
-//        tableView.register(originalNib, forCellReuseIdentifier: originalCellId)
         
         tableView.tableHeaderView = setupHeaderView()
         let backBtn = UIButton(type: .custom)
@@ -146,6 +144,9 @@ class MyPushController: BaseTableViewController {
         }
     }
     
+    override func didRequest(_ pageIndex : Int){
+        didRequestComplete(["",""] as AnyObject)
+    }
     
     /*
     // Override to support conditional editing of the table view.

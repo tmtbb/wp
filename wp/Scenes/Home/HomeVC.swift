@@ -34,7 +34,7 @@ class HomeVC: BaseTableViewController {
         initUI()
         
     }
-
+    
     //MARK: --DATA
     func initData() {
         //0,添加数据监听
@@ -44,7 +44,7 @@ class HomeVC: BaseTableViewController {
             initRealTimeData()
         }
         
-    
+        
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "allProduct" {
@@ -68,7 +68,7 @@ class HomeVC: BaseTableViewController {
         AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
             if let models: [KChartModel] = result as! [KChartModel]?{
                 for model in models{
-                   for  product in DealModel.share().allProduct{
+                    for  product in DealModel.share().allProduct{
                         if model.goodType == product.goodType{
                             model.name = product.name
                         }
@@ -79,11 +79,12 @@ class HomeVC: BaseTableViewController {
                 self?.tableView.reloadData()
             }
             return nil
-        }, error: errorBlockFunc())
+            }, error: errorBlockFunc())
     }
     //MARK: --UI
     func initUI() {
         navigationController?.addSideMenuButton()
+
         let images: [String] = ["banner", "banner", "banner"]
         let contentSourceArray: [String] = ["用户001111 买涨白银价 3666","用户001买涨白银价3666","用户001买涨白银价3666"]
         let tagSourceArray: [String] = ["跟单", "跟单", "跟单"]
@@ -92,7 +93,7 @@ class HomeVC: BaseTableViewController {
     }
     
     
-    //MARK: --HeaderView
+    //MARK: --头视图
     func setupHeaderView (cycleImage:[String],contentSourceArray:[String], tagSourceArray:[String]) -> (UIView) {
         let sunView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 238))
         sunView.backgroundColor = UIColor(rgbHex: 0xEEEEEE)
@@ -165,7 +166,7 @@ class HomeVC: BaseTableViewController {
         
     }
     
-    //MARK: --UITableViewDelegate
+    //MARK: --组头高度
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
             
@@ -190,7 +191,7 @@ class HomeVC: BaseTableViewController {
         }
         return 0
     }
-    
+    //MARK: --行高
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return 96
@@ -235,10 +236,9 @@ class HomeVC: BaseTableViewController {
         }
         
     }
-    //MARK: --NotificationCenter
+    //MARK: --发送通知
     func registerNotify() {
         let notificationCenter = NotificationCenter.default
-        
         notificationCenter.addObserver(self, selector: #selector(jumpToMyMessageController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyMessage), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToMyAttentionController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyAttention), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToMyPushController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyPush), object: nil)
@@ -253,35 +253,38 @@ class HomeVC: BaseTableViewController {
     func jumpToMyMessageController() {
         
         performSegue(withIdentifier: MyMessageController.className(), sender: nil)
-
     }
-
-
+    
+    //我的关注
     func jumpToMyAttentionController() {
         
-        performSegue(withIdentifier: MyAttentionController.className(), sender: nil)
-        
-        //        if checkLogin(){
-        //
-        //        }
+        if checkLogin(){
+            performSegue(withIdentifier: MyAttentionController.className(), sender: nil)
+        }
     }
+    //我的推单
     func jumpToMyPushController() {
         
-        performSegue(withIdentifier: MyPushController.className(), sender: nil)
         
-        //        if checkLogin(){
-        //
-        //        }
+        if checkLogin(){
+            performSegue(withIdentifier: MyPushController.className(), sender: nil)
+            
+        }
     }
+    //我的晒单
     func jumpToMyBaskController() {
         
-        performSegue(withIdentifier: MyBaskController.className(), sender: nil)
-        //        if checkLogin(){
-        //
-        //        }
+        
+        if checkLogin(){
+            performSegue(withIdentifier: MyBaskController.className(), sender: nil)
+        }
     }
+    //我的交易明细
     func jumpToDealController() {
-        self.performSegue(withIdentifier: DealController.className(), sender: nil)
+        if checkLogin() {
+            self.performSegue(withIdentifier: DealController.className(), sender: nil)
+        }
+        
         //        if checkLogin() {
         //            AppAPIHelper.user().flowList(flowType: "1,2,3", startPos: 0, count: 10, complete: { (result) -> ()? in
         //                if result != nil {
@@ -304,16 +307,19 @@ class HomeVC: BaseTableViewController {
         //        }
         
     }
+    //意见反馈
     func jumpToFeedbackController() {
         
 //        let feedbackVC = FeedbackController()
 //        navigationController?.pushViewController(feedbackVC, animated: true)
     }
+    //产品评分
     func jumpToProductGradeController() {
         
         let productGradeVC = ProductGradeController()
         navigationController?.pushViewController(productGradeVC, animated: true)
     }
+    //关于我们
     func jumpToAttentionUsController() {
         
         performSegue(withIdentifier: AttentionUsController.className(), sender: nil)
@@ -327,20 +333,6 @@ class HomeVC: BaseTableViewController {
         
         navigationController?.pushViewController(wealth, animated: true)
         
-    }
-    
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if  segue.identifier == DealController.className() {
-            let controller = segue.destination as! DealController
-            controller.orderListArray = flowListArray
-        }
-        if segue.identifier == MyMessageController.className() {
-            let controller = segue.destination as! MyMessageController
-            print("MyMessageController")
-        }
     }
     
     //移除通知

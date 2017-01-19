@@ -8,7 +8,7 @@
 
 import UIKit
 class DealController: BaseTableViewController, TitleCollectionviewDelegate {
-
+    
     @IBOutlet weak var productCollection: TitleCollectionView!
     //盈亏数
     @IBOutlet weak var moneyNumber: UILabel!
@@ -25,8 +25,8 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
     //平仓
     @IBOutlet weak var sell: UILabel!
     
-    var orderListArray: [FlowOrdersList] =  [FlowOrdersList]()
-
+    var flowListArray: [FlowOrdersList] =  [FlowOrdersList]()
+    
     let strArray:[String] = ["周五 12 - 26","周四 12 - 25","周三 12 - 24","周二 12 - 23","周一 12 - 22"]
     
     override func viewDidLoad() {
@@ -39,11 +39,32 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
         backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
         
+        
+        //1029 流水列表
+        AppAPIHelper.user().flowList(flowType: "1,2,3", startPos: 0, count: 10, complete: { (result) -> ()? in
+            
+            if result != nil {
+            if let dataArray: [FlowOrdersList] = result as! [FlowOrdersList]?{
+                for model in dataArray{
+                    self.flowListArray.append(model)
+                }
+                print("我是数组分割线")
+                print(self.flowListArray)
+                print("我是数组元素分割线")
+                print(self.flowListArray[0].amount)
+            }
+            }else
+            {
+                print("nil")
+            }
+            return nil
+        }, error: errorBlockFunc())
+        
     }
     func backDidClick() {
         navigationController?.popToRootViewController(animated: true)
     }
-   
+    
     
     //MARK: -- 设置collectionView
     func setupCollection() {
@@ -55,11 +76,11 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
         if let test: String = object as? String {
             print(test)
         }
-//        func didSelectedObjects(object: AnyObject?) {
-//            if let product = object as? ProductModel {
-//                DealModel.share().selectProduct = product
-//            }
-//        }
+        //        func didSelectedObjects(object: AnyObject?) {
+        //            if let product = object as? ProductModel {
+        //                DealModel.share().selectProduct = product
+        //            }
+        //        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -71,28 +92,28 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
         tabBarController?.tabBar.isHidden = true
         hideTabBarWithAnimationDuration()
         translucent(clear: false)
-   
+        
     }
     
-   
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 5
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 3
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DealDetailCell", for: indexPath) as! DealDetailCell
-
+        
         return cell
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -103,17 +124,17 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
     }
     //MARK: -- 返回组标题索引
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            let label = UILabel()
-            label.text = strArray[section]
-            label.textColor = UIColor(rgbHex: 0x666666)
-            label.font = UIFont.systemFont(ofSize: 14)
+        let label = UILabel()
+        label.text = strArray[section]
+        label.textColor = UIColor(rgbHex: 0x666666)
+        label.font = UIFont.systemFont(ofSize: 14)
         let sumView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 42))
         sumView.addSubview(label)
         label.snp.makeConstraints { (make) in
             make.left.equalTo(sumView).offset(15)
             make.bottom.equalTo(sumView).offset(-10)
         }
-            return sumView
+        return sumView
         
     }
     //组头高
@@ -131,8 +152,8 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-            performSegue(withIdentifier: DealDetailTableVC.className(), sender: nil)
+        
+        performSegue(withIdentifier: DealDetailTableVC.className(), sender: nil)
         
     }
 }

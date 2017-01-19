@@ -35,6 +35,7 @@ class MyMessageController: BaseTableViewController {
         
         if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
             userImage.image = UIImage(named: "\(UserModel.getCurrentUser()?.avatarLarge)")
+            userImage.image = UIImage(named: "default-head")
         }
         else{
             userImage.image = UIImage(named: "default-head")
@@ -128,16 +129,17 @@ class MyMessageController: BaseTableViewController {
             let alterActionSecond:UIAlertAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: { [weak self](ACTION) -> Void in
                 
                 let filed = alertController.textFields!.first! as UITextField
-                self?.userName.text = filed.text
+                
                  SVProgressHUD.show()
                 //七牛没有连接通.暂时还没拿到照片的URL
-                AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: "", gender: 0, complete: { [weak self](result) -> ()? in
+                AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: (UserModel.getCurrentUser()?.avatarLarge)!, gender: 0, complete: { [weak self](result) -> ()? in
                     
                     if result == nil {
                       
                         UserModel.updateUser(info: { (result) -> ()? in
                            UserModel.getCurrentUser()?.screenName = filed.text
                         })
+                        self?.userName.text = filed.text
                         SVProgressHUD.show(withStatus: "修改昵称成功")
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.ChangeUserinfo), object: nil, userInfo: nil)
                         
@@ -177,7 +179,7 @@ extension MyMessageController: UIImagePickerControllerDelegate, UINavigationCont
         UIImage.qiniuUploadImage(image: image, imageName: "test", complete: { (result) -> ()? in
             
             print(result!)
-            //七牛请求回来url地址  上传到服务器. 在通知 更新UI
+            //七牛请求回来url地址  上传到服务器.成功之后.保存到UserModel.getCurrentUser()?.avatarLarge 在通知 更新UI
             
             return nil
         }) { (error) -> ()? in
