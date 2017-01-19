@@ -48,7 +48,7 @@ class HomeVC: BaseTableViewController {
     }
     
     
-    //MARK: --HeaderView
+    //MARK: --头视图
     func setupHeaderView (cycleImage:[String],contentSourceArray:[String], tagSourceArray:[String]) -> (UIView) {
         let sunView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 238))
         sunView.backgroundColor = UIColor(rgbHex: 0xEEEEEE)
@@ -121,7 +121,7 @@ class HomeVC: BaseTableViewController {
         
     }
     
-    //MARK: --UITableViewDelegate
+    //MARK: --组头高度
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
             
@@ -146,7 +146,7 @@ class HomeVC: BaseTableViewController {
         }
         return 0
     }
-    
+    //MARK: --行高
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return 96
@@ -191,10 +191,9 @@ class HomeVC: BaseTableViewController {
         }
         
     }
-    //MARK: --NotificationCenter
+    //MARK: --发送通知
     func registerNotify() {
         let notificationCenter = NotificationCenter.default
-        
         notificationCenter.addObserver(self, selector: #selector(jumpToMyMessageController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyMessage), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToMyAttentionController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyAttention), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToMyPushController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyPush), object: nil)
@@ -212,7 +211,7 @@ class HomeVC: BaseTableViewController {
 
     }
 
-
+    //我的关注
     func jumpToMyAttentionController() {
         
         performSegue(withIdentifier: MyAttentionController.className(), sender: nil)
@@ -221,6 +220,7 @@ class HomeVC: BaseTableViewController {
         //
         //        }
     }
+    //我的推单
     func jumpToMyPushController() {
         
         performSegue(withIdentifier: MyPushController.className(), sender: nil)
@@ -229,6 +229,7 @@ class HomeVC: BaseTableViewController {
         //
         //        }
     }
+    //我的晒单
     func jumpToMyBaskController() {
         
         performSegue(withIdentifier: MyBaskController.className(), sender: nil)
@@ -236,6 +237,7 @@ class HomeVC: BaseTableViewController {
         //
         //        }
     }
+    //我的交易明细
     func jumpToDealController() {
         self.performSegue(withIdentifier: DealController.className(), sender: nil)
         //        if checkLogin() {
@@ -260,16 +262,19 @@ class HomeVC: BaseTableViewController {
         //        }
         
     }
+    //意见反馈
     func jumpToFeedbackController() {
         
         let feedbackVC = FeedbackController()
         navigationController?.pushViewController(feedbackVC, animated: true)
     }
+    //产品评分
     func jumpToProductGradeController() {
         
         let productGradeVC = ProductGradeController()
         navigationController?.pushViewController(productGradeVC, animated: true)
     }
+    //关于我们
     func jumpToAttentionUsController() {
         
         performSegue(withIdentifier: AttentionUsController.className(), sender: nil)

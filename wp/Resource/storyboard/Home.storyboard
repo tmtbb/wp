@@ -196,19 +196,13 @@
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sDB-Jp-XXe">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昨开" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sDB-Jp-XXe">
                                             <rect key="frame" x="301" y="53" width="27" height="12"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="12" id="r1Y-pe-DLn"/>
                                             </constraints>
-                                            <attributedString key="attributedText">
-                                                <fragment content="昨开">
-                                                    <attributes>
-                                                        <color key="NSColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="13" name="PingFangSC-Regular"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                            <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                            <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtl-7F-NFT">
@@ -351,7 +345,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person-l.png" translatesAutoresizingMaskIntoConstraints="NO" id="zQs-u7-r10">
-                                            <rect key="frame" x="87.5" y="99" width="12" height="13"/>
+                                            <rect key="frame" x="68" y="99" width="51" height="53"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dax-rk-29i">
                                             <rect key="frame" x="187" y="34" width="1" height="121"/>
@@ -1747,9 +1741,7 @@
     <resources>
         <image name="banner.png" width="320" height="138"/>
         <image name="btnselect.png" width="120" height="40"/>
-
         <image name="default-head.png" width="100" height="100"/>
-
         <image name="next.png" width="7" height="12"/>
         <image name="person-l.png" width="51" height="53"/>
         <image name="person-r.png" width="52" height="50"/>

@@ -39,11 +39,8 @@ class ProdectCell: UITableViewCell {
                 return
             }
 
-           
-            
-
             productName.text = "\(kChartModel!.goodType)"
-            nowPrice.text = "\(kChartModel!.currentPrice)"
+            nowPrice.text = "\(kChartModel!.currentPrice).00"
             todayOpen.text = "\(kChartModel!.openingTodayPrice)"
             yesterdayOpen.text = "\(kChartModel!.closedYesterdayPrice)"
             hightPrice.text = "\(kChartModel!.highPrice)"
@@ -58,10 +55,10 @@ class ProdectCell: UITableViewCell {
         super.awakeFromNib()
         let screenW = UIScreen.main.bounds.width / 375
         nowPrice.font = UIFont.systemFont(ofSize: 25 * screenW)
-        todayOpen.font = UIFont.systemFont(ofSize: 14 * screenW)
-        yesterdayOpen.font = UIFont.systemFont(ofSize: 14 * screenW)
-        hightPrice.font = UIFont.systemFont(ofSize: 14 * screenW)
-        lowPrice.font = UIFont.systemFont(ofSize: 14 * screenW)
+        todayOpen.font = UIFont.systemFont(ofSize: 13 * screenW)
+        yesterdayOpen.font = UIFont.systemFont(ofSize: 13 * screenW)
+        hightPrice.font = UIFont.systemFont(ofSize: 13 * screenW)
+        lowPrice.font = UIFont.systemFont(ofSize: 13 * screenW)
         changeLabel.font = UIFont.systemFont(ofSize: 13 * screenW)
         changePer.font = UIFont.systemFont(ofSize: 13 * screenW)
         
