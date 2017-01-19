@@ -18,6 +18,8 @@ class UserModel: BaseModel  {
     var currentUser: UserInfo? = UserModel.getCurrentUser()
     var code:String?
     var phone:String?
+    var codeToken:String = ""
+    var timestamp:Int = 0
     var forgetPwd:Bool = false
     static var token: String?
     static var currentUserId: Int = 0

@@ -22,6 +22,7 @@ class KChartModelDay: KChartModel {
 }
 
 class KChartModel: Object {
+    dynamic var name: String = ""
     dynamic var goodType: String = ""
     dynamic var exchangeName: String = ""
     dynamic var platformName: String = ""
