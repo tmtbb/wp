@@ -45,8 +45,9 @@ class UserTableViewController: BaseTableViewController {
             myPropertyBtn.isHidden = false
             placeholderLabel.isHidden = false
             propertyNumber.text = "\(UserModel.getCurrentUser()!.balance)0"
-            if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
+            if ((UserModel.getCurrentUser()?.avatarLarge) != "" && UserModel.getCurrentUser()?.avatarLarge == "default-head"){
                 iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+                iconImage.image = UIImage(named: "default-head")
             }
             else{
                 iconImage.image = UIImage(named: "default-head")
@@ -86,7 +87,9 @@ class UserTableViewController: BaseTableViewController {
     func changeUserinfo() {
         
         if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
+            
             iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+            iconImage.image = UIImage(named: "default-head")
         }
         else{
             iconImage.image = UIImage(named: "default-head")
@@ -103,8 +106,9 @@ class UserTableViewController: BaseTableViewController {
     //登录成功
     func updateUI()  {
         
-        if ((UserModel.getCurrentUser()?.avatarLarge) != nil){
+        if ((UserModel.getCurrentUser()?.avatarLarge) != "" && (UserModel.getCurrentUser()?.avatarLarge) == "default-head"){
             iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+            iconImage.image = UIImage(named: "default-head")
         }
         else{
             iconImage.image = UIImage(named: "default-head")

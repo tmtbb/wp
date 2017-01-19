@@ -114,7 +114,8 @@ class AppConst {
         static let HistoryDealDetailVC = "HistoryDealDetailVC"
         static let QuitEnterClick = "QuitEnterClick"
         static let ChangeUserinfo = "ChangeUserinfo"
-
+        static let BuyToMyWealtVC = "BuyToMyWealtVC"
+        static let DealToMyWealtVC = "DealToMyWealtVC"
     }
     
     

@@ -84,8 +84,9 @@ class HomeVC: BaseTableViewController {
     //MARK: --UI
     func initUI() {
         navigationController?.addSideMenuButton()
-        let images: [String] = ["1", "1", "1"]
-        let contentSourceArray: [String] = ["用户001111 买涨白银价 3666","用户001111 买涨白银价 3666","用户001111 买涨白银价 3666"]
+
+        let images: [String] = ["banner", "banner", "banner"]
+        let contentSourceArray: [String] = ["用户001111 买涨白银价 3666","用户001买涨白银价3666","用户001买涨白银价3666"]
         let tagSourceArray: [String] = ["跟单", "跟单", "跟单"]
         tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
         tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
@@ -180,7 +181,7 @@ class HomeVC: BaseTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         if section == 0 {
-            return marketArray.count
+            return 2 //marketArray.count
         }
         if section == 1 {
             return 1
@@ -208,7 +209,7 @@ class HomeVC: BaseTableViewController {
         let cell : ProdectCell = tableView.dequeueReusableCell(withIdentifier: "ProdectCell") as! ProdectCell
         if indexPath.section==0 {
             if indexPath.item < marketArray.count && marketArray[indexPath.item] != nil {
-                cell.kChartModel = marketArray[indexPath.item]
+//                cell.kChartModel = marketArray[indexPath.item]
             }
             return cell
         }
@@ -309,8 +310,8 @@ class HomeVC: BaseTableViewController {
     //意见反馈
     func jumpToFeedbackController() {
         
-        let feedbackVC = FeedbackController()
-        navigationController?.pushViewController(feedbackVC, animated: true)
+//        let feedbackVC = FeedbackController()
+//        navigationController?.pushViewController(feedbackVC, animated: true)
     }
     //产品评分
     func jumpToProductGradeController() {

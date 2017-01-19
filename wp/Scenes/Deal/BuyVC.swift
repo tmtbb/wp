@@ -111,6 +111,15 @@ class BuyVC: BaseTableViewController {
             return 0
         }
     }
+    //MARK: --我的资产
+    @IBAction func jumpToMyWallet(_ sender: AnyObject) {
+        if checkLogin(){
+            let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: MyWealtVC.className())
+            navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
     //MARK: --购买白银规格
     @IBAction func countBtnTapped(_ sender: UIButton) {
         if let btn = lastBuyBtn {

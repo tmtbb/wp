@@ -35,6 +35,7 @@ class MyMessageController: BaseTableViewController {
         
         if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
             userImage.image = UIImage(named: "\(UserModel.getCurrentUser()?.avatarLarge)")
+            userImage.image = UIImage(named: "default-head")
         }
         else{
             userImage.image = UIImage(named: "default-head")

@@ -64,7 +64,7 @@ class FullBankInfomationVC: BaseTableViewController {
             if let object = result{
                 
             
-                let  bankId : Int = object["bankId"] as! Int
+              let  bankId : Int = object["bankId"] as! Int
                 ShareModel.share().shareData["cardNo"] = (self?.bankNumber.text!)!
                 ShareModel.share().shareData["branchBank"] = (self?.branceAddress.text!)!
                 ShareModel.share().shareData["name"] = (self?.name.text!)!

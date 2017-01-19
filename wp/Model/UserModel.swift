@@ -61,6 +61,9 @@ class UserModel: BaseModel  {
             token = model.token
             if let user = model.userinfo {
                 currentUserId = user.uid
+                if let phoneStr = UserDefaults.standard.value(forKey: SocketConst.Key.phone) as? String{
+                    user.phone = phoneStr
+                }
                 UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
                 let realm = try! Realm()
                 try! realm.write {

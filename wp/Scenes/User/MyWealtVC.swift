@@ -40,7 +40,9 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         hideTabBarWithAnimationDuration()
         
     }
-    
+    deinit {
+        ShareModel.share().shareData.removeAll()
+    }
     override func didRequest(_ pageIndex : Int) {
         didRequestComplete([""] as AnyObject)
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
@@ -53,6 +55,14 @@ class MyWealtVC: BaseCustomPageListTableViewController {
                 ShareModel.share().shareData["balance"] = "\(money)"
                 
                 self?.account.text =  "\(money)"
+                
+                UserModel.updateUser(info: { (result) -> ()? in
+                    
+                    UserModel.getCurrentUser()?.balance = Double(money)
+                    return nil
+                })
+//                UserModel.getCurrentUser()?.balance = Double(money)
+                
             }
             
             return nil
@@ -74,10 +84,10 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         
         return 15
     }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-        
-        return 40
-    }
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+//        
+//        return 40
+//    }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
         
         return 0.1

@@ -13,6 +13,9 @@ import Charts
 class FriendVC: BaseTableViewController {
     
   
+    //设置头像的宽度
+    @IBOutlet weak var headWidth: NSLayoutConstraint!
+    
     
     @IBOutlet weak var headerImage: UIImageView!             //用户头像
     @IBOutlet weak var bgImage: UIImageView!                 //背景图片
@@ -55,6 +58,8 @@ class FriendVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
+        
+        headWidth.constant = 100 * (UIScreen.main.bounds.size.width)/320.0
         tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
         initBenifityBarChartUI()
         initBenifityBarChartData()
