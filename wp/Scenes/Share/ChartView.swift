@@ -49,21 +49,21 @@ class ChartView: UIView {
             
             let amount = UILabel.init()
             
-            if index == 2 {
-                tree.frame =   CGRect.init(x: oringnWith  , y: self.frame.size.height/2.0 - 10*float-20, width: 30, height:  10*float+20)
-            }else{
-                
-                tree.frame = CGRect.init(x: oringnWith  , y: self.frame.size.height/2.0 , width: 30, height:  10*float+20)
-            }
+//            if index == 2 {
+               tree.frame =   CGRect.init(x: oringnWith  , y: self.frame.size.height/2.0 - 10*float-20, width: 30, height:  10*float+20)
+//            }else{
+            
+//                tree.frame = CGRect.init(x: oringnWith  , y: self.frame.size.height/2.0 , width: 30, height:  10*float+20)
+//            }
             
             
             // 涨率
             
-            tree.backgroundColor = UIColor.red
+            tree.backgroundColor = UIColor.init(hexString: "E9573E")
             
             amount.frame = CGRect.init(x: tree.frame.origin.x - 5 , y: self.frame.size.height/2.0  - 10 * float - 20 - 50  , width:   40, height: 20)
             
-//            amount.text = "1222"
+            amount.text = ""
             amount.textAlignment =  .center
             amount.font = UIFont.systemFont(ofSize: 10)
             self.addSubview(tree)

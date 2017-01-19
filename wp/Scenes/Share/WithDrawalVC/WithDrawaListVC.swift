@@ -39,7 +39,7 @@ class WithDrawaListVCCell: OEZTableViewCell {
         // 银行名称
         let bankName : String = model.bank as String
         // 提现至
-         withDrawTo.text = "提现至" + "\(bankName)"
+        withDrawTo.text = "提现至" + "\(bankName)"
         
         moneyLb.text =   "\(model.amount)" + "元"
         
@@ -48,32 +48,29 @@ class WithDrawaListVCCell: OEZTableViewCell {
         if model.status == 1 {
             status = "处理中"
         } else if model.status == 1 {
-         status = "成功"
+            status = "成功"
         }else{
-         status = "失败"
+            status = "失败"
         }
         print(model.status)
         
         statusBtn.setTitle(status, for: UIControlState.normal)
     }
-    
 }
 class WithDrawaListVC: BasePageListTableViewController {
     
     var dataModel = [WithdrawModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = "提现记录"
-        
     }
     deinit {
-        ShareModel.share().shareData.removeAll()
+        //        ShareModel.share().shareData.removeAll()
     }
     //  请求接口刷新数据
     override func didRequest(_ pageIndex : Int) {
         
-        AppAPIHelper.user().withdrawlist(status: "", pos: 0, count: 10, complete: { [weak self](result) -> ()? in
+        AppAPIHelper.user().withdrawlist(status: "1,2,3", pos: Int32(pageIndex), count: 10, complete: { [weak self](result) -> ()? in
             
             if let object = result {
                 let Model : WithdrawListModel = object as! WithdrawListModel
@@ -93,7 +90,7 @@ class WithDrawaListVC: BasePageListTableViewController {
         
         ShareModel.share().shareData["wid"] = "\(model.wid)"
         
-         ShareModel.share().detailModel = model 
+        ShareModel.share().detailModel = model
         self.performSegue(withIdentifier: "PushWithDrawDetail", sender: nil)
         
         
