@@ -25,10 +25,10 @@ class WithDrawDetail: BaseTableViewController {
         title = "提现详情"
         didRequest()
         self.bankName.text =  ShareModel.share().detailModel.bank
-         self.withDrawtime.text =  ShareModel.share().detailModel.bank
-         self.expectTime.text =  ShareModel.share().detailModel.bank
+         self.withDrawtime.text =  "2017.1.8"
+         self.expectTime.text = "2017.1.9"
         
-         self.ToAccountTime.text =  ShareModel.share().detailModel.bank
+         self.ToAccountTime.text =  "未到账"
     }
     
     // 请求接口
