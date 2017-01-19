@@ -20,12 +20,11 @@ class MyAttentionController: BaseTableViewController {
         backBtn.setBackgroundImage(UIImage.init(named: "back"), for: UIControlState.normal)
         backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
-        
     }
     func backDidClick() {
         navigationController?.popToRootViewController(animated: true)
     }
-    //MARK: -- tableHeaderView
+    //MARK: -- 头视图
     func setupHeaderView() -> (UIView){
         let sumView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 49))
         let attentionHint = UILabel()

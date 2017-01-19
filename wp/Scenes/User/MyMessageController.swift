@@ -131,7 +131,7 @@ class MyMessageController: BaseTableViewController {
                 self?.userName.text = filed.text
                  SVProgressHUD.show()
                 //七牛没有连接通.暂时还没拿到照片的URL
-                AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: "", gender: 0, complete: { [weak self](result) -> ()? in
+                AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: (UserModel.getCurrentUser()?.avatarLarge)!, gender: 0, complete: { [weak self](result) -> ()? in
                     
                     if result == nil {
                       
@@ -177,7 +177,7 @@ extension MyMessageController: UIImagePickerControllerDelegate, UINavigationCont
         UIImage.qiniuUploadImage(image: image, imageName: "test", complete: { (result) -> ()? in
             
             print(result!)
-            //七牛请求回来url地址  上传到服务器. 在通知 更新UI
+            //七牛请求回来url地址  上传到服务器.成功之后.保存到UserModel.getCurrentUser()?.avatarLarge 在通知 更新UI
             
             return nil
         }) { (error) -> ()? in
