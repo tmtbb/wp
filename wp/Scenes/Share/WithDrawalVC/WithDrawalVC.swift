@@ -142,8 +142,11 @@ class WithDrawalVC: BaseTableViewController {
                     
                     money = "\(self.money.text!)" + ".000001"
                 }
-                let passWord : String = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(alertView.textField(at: 0)?.text)!).sha256()
-                AppAPIHelper.user().withdrawcash(money: Double.init(money)!, bld: bankId, password: passWord, complete: { [weak self](result) -> ()? in
+                
+                
+              let password = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(UserModel.getCurrentUser()?.phone!)!).sha256()
+//                let passWord : String = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(alertView.textField(at: 0)?.text)!).sha256()
+                AppAPIHelper.user().withdrawcash(money: Double.init(money)!, bld: bankId, password: password, complete: { [weak self](result) -> ()? in
                     
                     if let object = result{
                         let Model : WithdrawModel = object as! WithdrawModel

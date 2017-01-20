@@ -15,19 +15,19 @@ class UserModel: BaseModel  {
         return model
     }
     
-    enum Movement: Int {
-        case regist = 0
-        case loginPass = 1
-        case dealPass = 2
+    enum Movement: Int{
+        case loginPass = 0
+        case dealPass = 1
        
     }
     var registerUser: UserInfo?
-    var currentUser: UserInfo? = UserModel.getCurrentUser()
+    var currentUser: UserInfo?
     var code:String?
     var phone:String?
     var codeToken:String = ""
     var timestamp:Int = 0
     var forgetPwd:Bool = false
+    var forgetType:Movement?
     static var token: String?
     static var currentUserId: Int = 0
     // 获取某个用户信息
@@ -63,14 +63,15 @@ class UserModel: BaseModel  {
     // 更新用户信息
     class func upateUserInfo(userObject: AnyObject){
         if let model = userObject as? UserInfoModel {
-            let path = NSHomeDirectory()
-            print(path)
             token = model.token
+            //存储token
+            UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
             if let user = model.userinfo {
                 currentUserId = user.uid
                 if let phoneStr = UserDefaults.standard.value(forKey: SocketConst.Key.phone) as? String{
                     user.phone = phoneStr
                 }
+                //存储uid
                 UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
                 let realm = try! Realm()
                 try! realm.write {

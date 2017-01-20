@@ -107,6 +107,8 @@ class LoginVC: BaseTableViewController {
     //MARK: --快速注册
     @IBAction func registerBtnTapped(_ sender: UIButton) {
         UserModel.share().forgetPwd = false
+        
+        UserModel.share().forgetType = .loginPass
     }
     //MARK: --新浪登录
     @IBAction func sinaBtnTapped(_ sender: UIButton) {

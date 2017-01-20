@@ -19,7 +19,9 @@ class RegisterVC: BaseTableViewController {
     @IBOutlet weak var voiceCodeBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var pwdText: UITextField!
+    @IBOutlet weak var thindLoginView: UIView!
     private var timer: Timer?
+    
     private var codeTime = 10
     private var voiceCodeTime = 10
     
@@ -40,7 +42,7 @@ class RegisterVC: BaseTableViewController {
             AppAPIHelper.commen().verifycode(verifyType: Int64(type), phone: phoneText.text!, complete: { [weak self](result) -> ()? in
                 if let strongSelf = self{
                     if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
-                        if let token = resultDic[SocketConst.Key.token]{
+                        if let token = resultDic[SocketConst.Key.vToken]{
                             UserModel.share().codeToken = token as! String
                         }
                         if let timestamp = resultDic[SocketConst.Key.timestamp]{
@@ -105,8 +107,10 @@ class RegisterVC: BaseTableViewController {
         //重置密码
         if UserModel.share().forgetPwd {
             SVProgressHUD.showProgressMessage(ProgressMessage: "重置中...")
+            let type = UserModel.share().forgetType == nil ? .loginPass : UserModel.share().forgetType
             let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
-            AppAPIHelper.login().repwd(phone: UserModel.share().phone!, type: 0,  pwd: password, code: UserModel.share().code!, complete: { [weak self](result) -> ()? in
+            AppAPIHelper.login().repwd(phone: UserModel.share().phone!, type: (type?.rawValue)!,  pwd: password, code: UserModel.share().code!, complete: { [weak self](result) -> ()? in
+                
                 SVProgressHUD.showWainningMessage(WainningMessage: "重置成功", ForDuration: 1, completion: nil)
                 self?.navigationController?.popToRootViewController(animated: true)
                 return nil
@@ -148,8 +152,11 @@ class RegisterVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
-        self.title = UserModel.share().forgetPwd ? "重置密码":"注册"
+        title = UserModel.share().forgetPwd ? "重置密码":"注册"
+        thindLoginView.isHidden = UserModel.share().forgetPwd
         phoneView.layer.borderWidth = 0.5
+        
+        pwdText.placeholder = UserModel.share().forgetPwd ? "请输入登录密码":"请输入支付密码"
         phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
     }
 

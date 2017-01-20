@@ -34,7 +34,7 @@ class DealPasswordVC: UIViewController,UITextFieldDelegate {
         let registvc : RegisterVC  = story.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC
         
        UserModel.share().forgetPwd = true
-        UserModel.share().
+       UserModel.share().forgetType = .dealPass
        self.navigationController?.pushViewController(registvc, animated: true)
         
     }
