@@ -181,7 +181,7 @@ class HomeVC: BaseTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         if section == 0 {
-            return 2 //marketArray.count
+            return marketArray.count
         }
         if section == 1 {
             return 1
@@ -209,7 +209,7 @@ class HomeVC: BaseTableViewController {
         let cell : ProdectCell = tableView.dequeueReusableCell(withIdentifier: "ProdectCell") as! ProdectCell
         if indexPath.section==0 {
             if indexPath.item < marketArray.count && marketArray[indexPath.item] != nil {
-//                cell.kChartModel = marketArray[indexPath.item]
+                cell.kChartModel = marketArray[indexPath.item]
             }
             return cell
         }

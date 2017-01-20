@@ -129,6 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     //MARK: --Data
     fileprivate func data(){
         AppDataHelper.instance().initProductData()
+        AppDataHelper.instance().checkTokenLogin()
     }
     
     //MARK: --Wechat
