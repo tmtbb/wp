@@ -273,8 +273,6 @@ class HomeVC: BaseTableViewController {
     }
     //我的晒单
     func jumpToMyBaskController() {
-        
-        
         if checkLogin(){
             performSegue(withIdentifier: MyBaskController.className(), sender: nil)
         }

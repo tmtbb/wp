@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class DealController: BaseTableViewController, TitleCollectionviewDelegate {
+class DealController: BasePageListTableViewController, TitleCollectionviewDelegate {
     
     @IBOutlet weak var productCollection: TitleCollectionView!
     //盈亏数
@@ -32,14 +32,6 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollection()
-        
-        let backBtn = UIButton(type: .custom)
-        backBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 20)
-        backBtn.setBackgroundImage(UIImage.init(named: "back"), for: UIControlState.normal)
-        backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
-        
-        
         //1029 流水列表
         AppAPIHelper.user().flowList(flowType: "1,2,3", startPos: 0, count: 10, complete: { (result) -> ()? in
             
@@ -61,10 +53,6 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
         }, error: errorBlockFunc())
         
     }
-    func backDidClick() {
-        navigationController?.popToRootViewController(animated: true)
-    }
-    
     
     //MARK: -- 设置collectionView
     func setupCollection() {
@@ -82,6 +70,11 @@ class DealController: BaseTableViewController, TitleCollectionviewDelegate {
         //            }
         //        }
     }
+    
+    override func didRequest(_ pageIndex : Int){
+        didRequestComplete(["",""] as AnyObject)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarWithAnimationDuration()
