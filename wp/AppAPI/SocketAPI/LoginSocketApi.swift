@@ -17,6 +17,14 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .login, dict: param as [String : AnyObject])
         startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
     }
+    //token登录
+    func tokenLogin(phone: String, token: String, complete: CompleteBlock?, error: ErrorBlock?){
+        let param: [String: Any] = [SocketConst.Key.phone: phone,
+                                    SocketConst.Key.token: token,
+                                    SocketConst.Key.source: 1]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .login, dict: param as [String : AnyObject])
+        startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
+    }
     //注册
     func register(phone: String, code: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?){
         let param: [String : Any] = [SocketConst.Key.phone: phone,
@@ -26,7 +34,7 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
                                      SocketConst.Key.agentId: "",
                                      SocketConst.Key.recommend: "",
                                      SocketConst.Key.timestamp: UserModel.share().timestamp,
-                                     SocketConst.Key.token: UserModel.share().codeToken]
+                                     SocketConst.Key.vToken: UserModel.share().codeToken]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .register, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
@@ -35,7 +43,9 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
         let param: [String: Any] = [SocketConst.Key.phone: phone,
                                     SocketConst.Key.pwd: pwd,
                                     SocketConst.Key.code: code,
-                                    SocketConst.Key.type: type]
+                                    SocketConst.Key.type: type,
+                                    SocketConst.Key.timestamp: UserModel.share().timestamp,
+                                    SocketConst.Key.vToken: UserModel.share().codeToken]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .repwd, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }

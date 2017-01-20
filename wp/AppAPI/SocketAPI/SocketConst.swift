@@ -142,6 +142,7 @@ class SocketConst: NSObject {
         static let id = "id"
         static let positionId = "positionId"
         static let token = "token"
+        static let vToken = "vToken"
         static let position = "position"
         static let price = "price"
         static let pid = "pid"
