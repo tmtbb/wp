@@ -112,13 +112,11 @@ class WithDrawalVC: BaseTableViewController {
         let input : Double = Double(self.money.text!)!
         if  bankId == 0{
             SVProgressHUD.showError(withStatus: "请选择银行卡")
-            
             return
         }
         if account < input{
             
             SVProgressHUD.showError(withStatus: "最多提现" + "\(account)" + "元")
-            
             return
         }
         let alertView = UIAlertView.init()
@@ -144,25 +142,16 @@ class WithDrawalVC: BaseTableViewController {
                     
                     money = "\(self.money.text!)" + ".000001"
                 }
-                let passWord : String =     (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(alertView.textField(at: 0)?.text)!).sha256()
+                let passWord : String = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(alertView.textField(at: 0)?.text)!).sha256()
                 AppAPIHelper.user().withdrawcash(money: Double.init(money)!, bld: bankId, password: passWord, complete: { [weak self](result) -> ()? in
                     
                     if let object = result{
-                        
-//                        print(result?["status"] )
-                        
                         let Model : WithdrawModel = object as! WithdrawModel
                         ShareModel.share().detailModel = Model
-                         print( ShareModel.share().detailModel.status )
                         if( ShareModel.share().detailModel.status == -3){
-                        
-                            
                             SVProgressHUD.showError(withStatus: "提现密码错误")
-                            
                             return nil
                         }
-                        
-                        
                         self?.performSegue(withIdentifier: "SuccessWithdrawVC", sender: nil)
                     }
                     return nil
@@ -199,7 +188,6 @@ class WithDrawalVC: BaseTableViewController {
             }
         }
     }
-    
     //MARK: 全部提现导航栏
     
     @IBAction func withDrawAll(_ sender: Any) {
