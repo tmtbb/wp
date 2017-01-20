@@ -27,6 +27,17 @@ class DealPasswordVC: UIViewController,UITextFieldDelegate {
         
     }
 
+    @IBAction func resetPass(_ sender: Any) {
+        
+        let story : UIStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
+        
+        let registvc : RegisterVC  = story.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC
+        
+       UserModel.share().forgetPwd = true
+        UserModel.share().
+       self.navigationController?.pushViewController(registvc, animated: true)
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
