@@ -132,7 +132,8 @@ class BankCardVC: BaseListTableViewController {
         
         let alertView = UIAlertView.init()
         alertView.alertViewStyle = UIAlertViewStyle.plainTextInput // 密文
-        alertView.title = "验证码发送到" + "\(UserModel.getCurrentUser()?.phone)" + "手机上" + "请输入验证码"
+          let str : String = NSString(format: "%@" , (UserModel.getCurrentUser()?.phone)!) as String
+        alertView.title = "验证码发送到"  + " " + "\(str)"  + " " + "手机上\n" + " " + "请输入验证码"
         alertView.addButton(withTitle: "确定")
         alertView.addButton(withTitle: "取消")
         alertView.delegate = self
