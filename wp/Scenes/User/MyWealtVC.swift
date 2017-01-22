@@ -44,7 +44,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         ShareModel.share().shareData.removeAll()
     }
     override func didRequest(_ pageIndex : Int) {
-        didRequestComplete([""] as AnyObject)
+        didRequestComplete(["","","","","","","","","","","","","","","","","","","","",""] as AnyObject)
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
             
             
@@ -52,7 +52,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
                 
                 let  money : NSNumber =  object["balance"] as! NSNumber
                 
-                ShareModel.share().shareData["balance"] = "\(money)"
+//                ShareModel.share().shareData["balance"] = "\(money)"
                 
                 self?.account.text =  "\(money)"
                 
@@ -61,7 +61,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
                     UserModel.getCurrentUser()?.balance = Double(money)
                     return nil
                 })
-//                UserModel.getCurrentUser()?.balance = Double(money)
+                //                UserModel.getCurrentUser()?.balance = Double(money)
                 
             }
             
@@ -80,14 +80,14 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 15
-    }
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-//        
-//        return 40
-//    }
+    //    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    //
+    //        return 15
+    //    }
+    //    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+    //
+    //        return 40
+    //    }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
         
         return 0.1

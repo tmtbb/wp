@@ -156,7 +156,7 @@ class RegisterVC: BaseTableViewController {
         thindLoginView.isHidden = UserModel.share().forgetPwd
         phoneView.layer.borderWidth = 0.5
         
-        pwdText.placeholder = UserModel.share().forgetPwd ? "请输入登录密码":"请输入支付密码"
+        pwdText.placeholder = UserModel.share().forgetPwd ? "请输入支付密码":"请输入登录密码"
         phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
     }
 

@@ -19,11 +19,7 @@ class MyPushController: BasePageListTableViewController {
         super.viewDidLoad()
         
         tableView.tableHeaderView = setupHeaderView()
-        let backBtn = UIButton(type: .custom)
-        backBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 20)
-        backBtn.setBackgroundImage(UIImage.init(named: "back"), for: UIControlState.normal)
-        backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
+       
         
     }
     func backDidClick() {

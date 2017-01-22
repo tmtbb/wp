@@ -109,6 +109,7 @@ class SocketConst: NSObject {
         static let skills = "skills_"
         static let type = "type"
         static let phone = "phone"
+        
         static let pwd = "pwd"
         static let code = "vCode"
         static let voiceCode = "voiceCode"

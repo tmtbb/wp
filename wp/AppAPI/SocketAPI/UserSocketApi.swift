@@ -85,12 +85,16 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         
     }
     //解绑银行卡
-    func unbindcard(bankId: Int64, vCode:String, complete: CompleteBlock?, error: ErrorBlock?){
+        func unbindcard( vToken :String,bid: Int32,timestamp: Int64, phone :String,vCode:String, complete: CompleteBlock?, error: ErrorBlock?){
         
         let param = [SocketConst.Key.uid: UserModel.currentUserId,
                      SocketConst.Key.token: UserModel.token ?? "",
-                     SocketConst.Key.bid: bankId,
-                     SocketConst.Key.code: vCode] as [String : Any]
+                     SocketConst.Key.bid: bid,
+                      SocketConst.Key.phone: phone,
+                       SocketConst.Key.code: vCode,
+                        SocketConst.Key.timestamp: timestamp,
+                         SocketConst.Key.vToken: vToken,
+                   ] as [String : Any]
         print(param)
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .unbindcard, dict: param as [String : AnyObject], type: SocketConst.type.wp)
         startRequest(packet, complete: complete, error: error)

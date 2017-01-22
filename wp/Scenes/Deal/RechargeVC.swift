@@ -79,9 +79,9 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
         btn.setTitle("充值记录", for:  UIControlState.normal)
         
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
-        let int : Int = Int((UserModel.getCurrentUser()?.balance)!)
+        let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String
         
-        self.moneyText.text  = "\(int)" + "元"
+        self.moneyText.text  = "\(str)" + "元"
         
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
@@ -92,7 +92,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
         
         self.userIdText.isUserInteractionEnabled = false
         
-//        self.userIdText.text  = 
+        //        self.userIdText.text  =
         //        self.bankTableView.addObserver(self, forKeyPath: "dataArry", options: .new, context: nil)
         
     }
@@ -201,7 +201,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
                 if let object = result {
                     
                     let request : PayReq = PayReq()
-//                    ShareModel.share().shareData.removeValue(forKey: "rid")
+                    //                    ShareModel.share().shareData.removeValue(forKey: "rid")
                     let  str : String  = object["timestamp"] as! String!
                     ShareModel.share().shareData["rid"] =  object["rid"] as! String!
                     request.timeStamp = UInt32(str)!
@@ -250,16 +250,16 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if(indexPath.section==1){
-//            if(indexPath.row == 3){
-//                
-//                if selectRow == true {
-//                    arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
-//                }else{
-//                    arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*1.5))
-//                }
-//                selectRow = !selectRow
-////                tableView.reloadSections(IndexSet.init(integer: 2), with: UITableViewRowAnimation.fade)
-//            }
+            //            if(indexPath.row == 3){
+            //
+            //                if selectRow == true {
+            //                    arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
+            //                }else{
+            //                    arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*1.5))
+            //                }
+            //                selectRow = !selectRow
+            ////                tableView.reloadSections(IndexSet.init(integer: 2), with: UITableViewRowAnimation.fade)
+            //            }
             
         }
         

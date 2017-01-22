@@ -45,6 +45,7 @@ class UserModel: BaseModel  {
             return nil
         }
     }
+   
     
     //获取当前用户
     class func getCurrentUser() -> UserInfo? {
@@ -89,5 +90,6 @@ class UserModel: BaseModel  {
             info!(nil)
         }
     }
+    
 
 }
