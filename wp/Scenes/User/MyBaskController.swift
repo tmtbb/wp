@@ -17,18 +17,9 @@ class MyBaskController: BasePageListTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.tableHeaderView = setupHeaderView()
-        let backBtn = UIButton(type: .custom)
-        backBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 20)
-        backBtn.setBackgroundImage(UIImage.init(named: "back"), for: UIControlState.normal)
-        backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
-        
     }
-    func backDidClick() {
-        navigationController?.popToRootViewController(animated: true)
-    }
+  
     
     func setupHeaderView()->(UIView) {
         let bigSumView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60))
@@ -114,16 +105,6 @@ class MyBaskController: BasePageListTableViewController {
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 9
-    }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
