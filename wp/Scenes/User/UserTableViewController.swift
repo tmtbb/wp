@@ -126,7 +126,6 @@ class UserTableViewController: BaseTableViewController {
                 let  money : Double =  object["balance"] as! Double
                 self?.propertyNumber.text =  "\(money)0"
                 UserModel.updateUser(info: { (result)-> ()? in
-                    
                     UserModel.share().currentUser?.balance = Double(money)
                 })
             }
