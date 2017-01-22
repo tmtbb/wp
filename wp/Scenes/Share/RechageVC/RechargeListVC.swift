@@ -49,6 +49,10 @@ class RechargeListVC: BasePageListTableViewController {
     /** 用来判断刷新列表页第几页 **/
     var pageNumber : Int = 0
     
+    // 设置显示的月份的label
+    
+    var  monthLb  = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         pageNumber = 0
@@ -72,6 +76,8 @@ class RechargeListVC: BasePageListTableViewController {
                 
                 self.tableView.isScrollEnabled = true
                 if selectMonth != "1000000" {
+                    
+                    monthLb.text = "2017 年" + "\(selectMonth)" + "月"
                 }
                 
                 //                print(base)
@@ -83,7 +89,7 @@ class RechargeListVC: BasePageListTableViewController {
     override func didRequest(_ pageIndex : Int) {
         
     
-        AppAPIHelper.user().creditlist(status: "", pos: Int32(pageIndex) , count: 10, complete: {[weak self] (result) -> ()? in
+        AppAPIHelper.user().creditlist(status: "1,2,3", pos: Int32(pageIndex) , count: 10, complete: {[weak self] (result) -> ()? in
             
             if let object = result {
                 let Model : RechargeListModel = object as! RechargeListModel
@@ -104,7 +110,7 @@ class RechargeListVC: BasePageListTableViewController {
             
             headerView.backgroundColor = UIColor.groupTableViewBackground
             
-            let  monthLb  :  UILabel = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
+             monthLb = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
             monthLb.text = "2017 年 01 月"
             
             monthLb.textColor = UIColor.init(hexString: "333333")
@@ -145,7 +151,6 @@ class RechargeListVC: BasePageListTableViewController {
     func selectDate(){
         
         let customer : CustomeAlertView = CustomeAlertView.init(frame: CGRect.init(x: 0, y: contentoffset, width: self.view.frame.size.width, height: self.view.frame.size.height))
-        
         self.tableView.isScrollEnabled = false
         self.view.addSubview(customer)
     }

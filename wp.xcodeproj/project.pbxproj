@@ -10,7 +10,7 @@
 		2FFBC4EC1DF8EF190039A0E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */; };
 		67563DCFE7C11C493D5E3BE0 /* Pods_wp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */; };
 		A009AD0E1E28A399008A5014 /* FriendTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009AD0D1E28A399008A5014 /* FriendTableView.swift */; };
-		A009AD111E28BF3E008A5014 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD101E28BF3E008A5014 /* back@2x.png */; };
+		A009AD111E28BF3E008A5014 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD101E28BF3E008A5014 /* back.png */; };
 		A009AD141E28C864008A5014 /* noticeSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD121E28C864008A5014 /* noticeSelect@2x.png */; };
 		A009AD151E28C864008A5014 /* noticeSelect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD131E28C864008A5014 /* noticeSelect@3x.png */; };
 		A01F44181E2DC2D700FD5D96 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01F44171E2DC2D700FD5D96 /* ChartView.swift */; };
@@ -326,7 +326,7 @@
 		2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		34A71E9057EC9BB492D14F0B /* Pods-wp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wp/Pods-wp.debug.xcconfig"; sourceTree = "<group>"; };
 		A009AD0D1E28A399008A5014 /* FriendTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableView.swift; sourceTree = "<group>"; };
-		A009AD101E28BF3E008A5014 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
+		A009AD101E28BF3E008A5014 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		A009AD121E28C864008A5014 /* noticeSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noticeSelect@2x.png"; sourceTree = "<group>"; };
 		A009AD131E28C864008A5014 /* noticeSelect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noticeSelect@3x.png"; sourceTree = "<group>"; };
 		A01F44171E2DC2D700FD5D96 /* ChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
@@ -361,7 +361,7 @@
 		A0BC07351E233DC7003EA7BC /* InputBankPhone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputBankPhone.swift; sourceTree = "<group>"; };
 		A0BC073C1E236C59003EA7BC /* CustomerTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerTipView.swift; sourceTree = "<group>"; };
 		A0BC073E1E238999003EA7BC /* RechargeVCTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RechargeVCTableView.swift; sourceTree = "<group>"; };
-		A0BC07401E23941A003EA7BC /* CustomeAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomeAlertView.swift; sourceTree = "<group>"; };
+		A0BC07401E23941A003EA7BC /* CustomeAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomeAlertView.swift; path = CustomView/CustomeAlertView.swift; sourceTree = "<group>"; };
 		A0BC07431E23B716003EA7BC /* submited@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "submited@2x.png"; sourceTree = "<group>"; };
 		A0BC07441E23B716003EA7BC /* submited@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "submited@3x.png"; sourceTree = "<group>"; };
 		A0BC07471E23B8B5003EA7BC /* ccbc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ccbc@2x.png"; sourceTree = "<group>"; };
@@ -756,6 +756,7 @@
 		A0BC07371E236341003EA7BC /* CustomerALertView */ = {
 			isa = PBXGroup;
 			children = (
+				A0BC07401E23941A003EA7BC /* CustomeAlertView.swift */,
 				A0BC073C1E236C59003EA7BC /* CustomerTipView.swift */,
 				A01F44171E2DC2D700FD5D96 /* ChartView.swift */,
 				A01F441B1E2DCAD300FD5D96 /* ChartView.xib */,
@@ -770,7 +771,7 @@
 				A07F16611E2CDBB900F94736 /* underLine@3x.png */,
 				A009AD121E28C864008A5014 /* noticeSelect@2x.png */,
 				A009AD131E28C864008A5014 /* noticeSelect@3x.png */,
-				A009AD101E28BF3E008A5014 /* back@2x.png */,
+				A009AD101E28BF3E008A5014 /* back.png */,
 				A072E3C71E24826600A855B6 /* calendar@2x.png */,
 				A072E3BF1E247B3400A855B6 /* rechargeType@2x.png */,
 				A072E3C01E247B3400A855B6 /* rechargeType@3x.png */,
@@ -1233,7 +1234,6 @@
 			isa = PBXGroup;
 			children = (
 				BFAC32851E123A2E008EF3D3 /* ShareTableView.swift */,
-				A0BC07401E23941A003EA7BC /* CustomeAlertView.swift */,
 				A009AD0D1E28A399008A5014 /* FriendTableView.swift */,
 				A07F165E1E2CD13A00F94736 /* ShareFriendTableView.swift */,
 			);
@@ -1565,7 +1565,7 @@
 				A0BC07521E23BAF3003EA7BC /* addbank@3x.png in Resources */,
 				A0BC07491E23B8B5003EA7BC /* ccbc@2x.png in Resources */,
 				A072E3B91E247AC000A855B6 /* Account@2x.png in Resources */,
-				A009AD111E28BF3E008A5014 /* back@2x.png in Resources */,
+				A009AD111E28BF3E008A5014 /* back.png in Resources */,
 				A0BC07451E23B716003EA7BC /* submited@2x.png in Resources */,
 				BFF019B71E23B113008631D6 /* bankRead@3x.png in Resources */,
 				BFF019961E23B113008631D6 /* nav_color@2x.png in Resources */,

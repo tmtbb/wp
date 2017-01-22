@@ -66,18 +66,14 @@ class BankCardVC: BaseListTableViewController {
     //MARK: 实现银行卡左滑删除的代理
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-    
+        
         
         let share = UITableViewRowAction(style: .normal, title: "删除") { action, index  in
             
             self.UnbindCard(number: indexPath.section)
             
             ShareModel.share().shareData["number"] = "\(indexPath.section)"
-            //            AppAPIHelper.user().unbindcard(bankId: Int32(model.bid), vCode: 2000, complete: { (result) -> ()? in
-            //
-            //
-            //                return nil
-            //            }, error: errorBlockFunc())
+            
             
         }
         share.backgroundColor = UIColor.red
@@ -85,7 +81,7 @@ class BankCardVC: BaseListTableViewController {
         return [share]
     }
     
-   
+    
     
     
     
@@ -103,7 +99,7 @@ class BankCardVC: BaseListTableViewController {
         return 1
     }
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return false
+        return true
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
@@ -121,9 +117,23 @@ class BankCardVC: BaseListTableViewController {
         
         
         
+        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.getCurrentUser()?.phone)!, complete: {(result) -> ()? in
+            
+            if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
+                if let token = resultDic[SocketConst.Key.vToken]{
+                    UserModel.share().codeToken = token as! String
+                }
+                if let timestamp = resultDic[SocketConst.Key.timestamp]{
+                    UserModel.share().timestamp = timestamp as! Int
+                }
+            }
+            return nil
+        }, error: errorBlockFunc())
+        
         let alertView = UIAlertView.init()
         alertView.alertViewStyle = UIAlertViewStyle.plainTextInput // 密文
-        alertView.title = "请输入验证码"
+          let str : String = NSString(format: "%@" , (UserModel.getCurrentUser()?.phone)!) as String
+        alertView.title = "验证码发送到"  + " " + "\(str)"  + " " + "手机上\n" + " " + "请输入验证码"
         alertView.addButton(withTitle: "确定")
         alertView.addButton(withTitle: "取消")
         alertView.delegate = self
@@ -146,21 +156,39 @@ class BankCardVC: BaseListTableViewController {
             if buttonIndex==0{
                 
                 let  model :BankListModel = self.dataArry[Int(ShareModel.share().shareData["number"]!)!] as BankListModel
-                AppAPIHelper.user().unbindcard(bankId: model.bid, vCode: (alertView.textField(at: 0)?.text)!, complete: { [weak self](result) -> ()? in
+                
+                AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) , phone: (UserModel.getCurrentUser()?.phone)!, vCode: (alertView.textField(at: 0)?.text)!, complete: { [weak self](result) -> ()? in
                     
-                    if result != nil{
-                        self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
-                        
-                        self?.tableView.reloadData()
-                    }else{
-                        
-                    }
-                    
-                    
-                    //            self?.didRequest()
+                                 self?.didRequest()
+                    self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
+                     self?.tableView.reloadData()
+                    //
+                    //                                                self?.tableView.reloadData()
+                    //                    if result != nil{
+                    //                        self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
+                    //
+                    //                                                self?.tableView.reloadData()
+                    //                                            }else{
+                    //
+                    //                                            }
                     
                     return nil
                     }, error: errorBlockFunc())
+                //                AppAPIHelper.user().unbindcard(bankId: model.bid, vCode: (alertView.textField(at: 0)?.text)!, complete: { [weak self](result) -> ()? in
+                //
+                //                    if result != nil{
+                //                        self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
+                //
+                //                        self?.tableView.reloadData()
+                //                    }else{
+                //
+                //                    }
+                //
+                //                    
+                //                    //            self?.didRequest()
+                //                    
+                //                    return nil
+                //                    }, error: errorBlockFunc())
             }
         }
         

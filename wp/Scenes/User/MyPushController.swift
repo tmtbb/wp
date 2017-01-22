@@ -18,6 +18,12 @@ class MyPushController: BasePageListTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableHeaderView = setupHeaderView()
+
+        
+    }
+    func backDidClick() {
+        navigationController?.popToRootViewController(animated: true)
+
     }
     
     func setupHeaderView()->(UIView) {

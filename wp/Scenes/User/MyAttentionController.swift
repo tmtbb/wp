@@ -15,6 +15,11 @@ class MyAttentionController: BasePageListTableViewController {
         super.viewDidLoad()
 
         tableView.tableHeaderView = setupHeaderView()
+
+    }
+    func backDidClick() {
+        navigationController?.popToRootViewController(animated: true)
+
     }
     
     //MARK: -- 头视图

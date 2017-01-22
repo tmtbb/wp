@@ -109,6 +109,7 @@ class WithDrawalVC: BaseTableViewController {
             SVProgressHUD.showError(withStatus: "请输入提现金额")
             return
         }
+    
         let input : Double = Double(self.money.text!)!
         if  bankId == 0{
             SVProgressHUD.showError(withStatus: "请选择银行卡")
@@ -163,8 +164,25 @@ class WithDrawalVC: BaseTableViewController {
         }
     }
     @IBAction func requestVoiceCode(_ sender: UIButton) {
-        self.voiceCodeBtn.isEnabled = false
-        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateBtnTitle), userInfo: nil, repeats: true)
+        
+        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.getCurrentUser()?.phone)!, complete: { [weak self](result) -> ()? in
+            if let strongSelf = self{
+                if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
+                    if let token = resultDic[SocketConst.Key.vToken]{
+                        UserModel.share().codeToken = token as! String
+                    }
+                    if let timestamp = resultDic[SocketConst.Key.timestamp]{
+                        UserModel.share().timestamp = timestamp as! Int
+                    }
+                }
+                strongSelf.voiceCodeBtn.isEnabled = false
+                strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updateBtnTitle), userInfo: nil, repeats: true)
+            }
+            return nil
+            }, error: errorBlockFunc())
+
+//        self.voiceCodeBtn.isEnabled = false
+//        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateBtnTitle), userInfo: nil, repeats: true)
     }
     func updateBtnTitle() {
         if codeTime == 0 {
@@ -196,7 +214,7 @@ class WithDrawalVC: BaseTableViewController {
     @IBAction func withDrawAll(_ sender: Any) {
         //        self.money.text
         
-        let str : String = ShareModel.share().shareData["balance"]! as String
+        let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String 
         
         self.money.text = str
     }

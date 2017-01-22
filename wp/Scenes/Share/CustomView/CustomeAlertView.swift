@@ -10,6 +10,7 @@ import UIKit
 
 class CustomeAlertView : UIView,UITableViewDelegate,UITableViewDataSource {
     
+
     //大背景view
     
     var bgView = UIView()
@@ -50,7 +51,6 @@ class CustomeAlertView : UIView,UITableViewDelegate,UITableViewDataSource {
         
         tableView.removeGestureRecognizer(tap)
         addAnimation()
-        
     }
     
     func removeFromView(){
@@ -73,6 +73,7 @@ class CustomeAlertView : UIView,UITableViewDelegate,UITableViewDataSource {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    //MARK: 表的代理方法
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         return dateArr.count
@@ -80,19 +81,16 @@ class CustomeAlertView : UIView,UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
-        let Cell :UITableViewCell  = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell")!
+        let cell :UITableViewCell  = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell")!
         
+        cell.textLabel?.text = dateArr[indexPath.row]
         
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
         
+        cell.textLabel?.textAlignment = NSTextAlignment.center
         
-        Cell.textLabel?.text = dateArr[indexPath.row]
-        
-        Cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
-        
-        Cell.textLabel?.textAlignment = NSTextAlignment.center
-        
-        Cell.textLabel?.textColor = UIColor.init(hexString: "333333")
-        return Cell
+        cell.textLabel?.textColor = UIColor.init(hexString: "333333")
+        return cell
         
         
     }
@@ -101,7 +99,7 @@ class CustomeAlertView : UIView,UITableViewDelegate,UITableViewDataSource {
         return 40
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        ShareModel.share().selectMonth = "\(indexPath.row)"
+        ShareModel.share().selectMonth = "\(indexPath.row + 1)"
         
         UIView.animate(withDuration: 0.1) {
            self.removeFromSuperview()

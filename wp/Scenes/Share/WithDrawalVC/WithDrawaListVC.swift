@@ -52,6 +52,8 @@ class WithDrawaListVCCell: OEZTableViewCell {
         }else{
             status = "失败"
         }
+        
+        timeLb.text = "\(model.withdrawTime)"
         print(model.status)
         
         statusBtn.setTitle(status, for: UIControlState.normal)
