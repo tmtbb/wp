@@ -1650,10 +1650,26 @@
                                     <action selector="confirmBtn:" destination="dcN-vL-859" eventType="touchUpInside" id="bf7-oI-IBg"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EOb-a6-K6e">
+                                <rect key="frame" x="263" y="222" width="97" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="7zs-Gm-4Yt"/>
+                                    <constraint firstAttribute="width" constant="97" id="pLB-Nm-Jxu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <state key="normal" title="忘记交易密码">
+                                    <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetPass:" destination="dcN-vL-859" eventType="touchUpInside" id="vpt-hy-7Ya"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="EOb-a6-K6e" firstAttribute="top" secondItem="Xbm-3U-9yC" secondAttribute="bottom" constant="12" id="3c1-HO-204"/>
                             <constraint firstItem="33z-W3-6bA" firstAttribute="top" secondItem="Xbm-3U-9yC" secondAttribute="bottom" constant="50" id="3qx-vh-p0I"/>
+                            <constraint firstItem="33z-W3-6bA" firstAttribute="top" secondItem="EOb-a6-K6e" secondAttribute="bottom" constant="8" id="6XY-SO-9ef"/>
                             <constraint firstAttribute="trailing" secondItem="33z-W3-6bA" secondAttribute="trailing" constant="15" id="D6C-XS-3Ii"/>
                             <constraint firstItem="0im-mU-cav" firstAttribute="top" secondItem="zaM-fC-lM0" secondAttribute="bottom" constant="40" id="GEG-rs-Cbf"/>
                             <constraint firstItem="33z-W3-6bA" firstAttribute="leading" secondItem="ldz-SM-gC5" secondAttribute="leading" constant="15" id="KP7-2I-RHS"/>
@@ -1661,6 +1677,7 @@
                             <constraint firstItem="0im-mU-cav" firstAttribute="leading" secondItem="ldz-SM-gC5" secondAttribute="leading" constant="15" id="QuY-qO-SP8"/>
                             <constraint firstAttribute="trailing" secondItem="Xbm-3U-9yC" secondAttribute="trailing" constant="15" id="WSp-A8-pEA"/>
                             <constraint firstItem="Xbm-3U-9yC" firstAttribute="leading" secondItem="ldz-SM-gC5" secondAttribute="leading" constant="15" id="bWR-cb-UQg"/>
+                            <constraint firstAttribute="trailing" secondItem="EOb-a6-K6e" secondAttribute="trailing" constant="15" id="cb4-6N-ILb"/>
                             <constraint firstAttribute="trailing" secondItem="0im-mU-cav" secondAttribute="trailing" constant="15" id="gSZ-fE-cZf"/>
                         </constraints>
                     </view>
@@ -1672,7 +1689,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aWN-CI-KpS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1552.8" y="-1646.6266866566718"/>
+            <point key="canvasLocation" x="1415.2" y="-1729.385307346327"/>
         </scene>
         <!--我的关注-->
         <scene sceneID="uCy-rh-3zG">
