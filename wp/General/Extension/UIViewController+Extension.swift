@@ -42,7 +42,7 @@ extension UIViewController {
     }
     //检查是否已登录
     func checkLogin() -> Bool {
-        if UserModel.share().currentUser == nil {
+        if UserModel.token == nil {
             let homeStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
             present(homeStoryboard.instantiateInitialViewController()!, animated: true, completion: nil)
             return false
@@ -55,6 +55,7 @@ extension UIViewController {
         UserDefaults.standard.removeObject(forKey: SocketConst.Key.uid)
         UserDefaults.standard.removeObject(forKey: SocketConst.Key.token)
         UserModel.share().currentUser = nil
+        UserModel.token = nil
         tabBarController?.selectedIndex = 0
     }
     

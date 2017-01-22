@@ -31,19 +31,15 @@ class UserTableViewController: BaseTableViewController {
     //资金按钮
     @IBOutlet weak var myPropertyBtn: UIButton!
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         registerNotify()
+        //更新token
+        AppDataHelper.instance().checkTokenLogin()
         if checkLogin() {
-            loginBtn.isHidden = true
-            register.isHidden = true
-            concealLabel.isHidden = true
-            integralLabel.isHidden = true
-            fenLabel.isHidden = true
-            pushBtn.isHidden = false
-            myPropertyBtn.isHidden = false
-            placeholderLabel.isHidden = false
+            loginSuccessIs(bool: true)
             propertyNumber.text = "\(UserModel.getCurrentUser()!.balance)0"
             if ((UserModel.getCurrentUser()?.avatarLarge) != "" && UserModel.getCurrentUser()?.avatarLarge == "default-head"){
                 iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
@@ -52,25 +48,26 @@ class UserTableViewController: BaseTableViewController {
             else{
                 iconImage.image = UIImage(named: "default-head")
             }
+            
             if ((UserModel.getCurrentUser()?.screenName) != "") {
                 nameLabel.text = UserModel.getCurrentUser()?.screenName
                 nameLabel.sizeToFit()
-                
             }
             else{
                 nameLabel.text = "Bug退散"
             }
         }
         else{
-            myPropertyBtn.isHidden = true
-            propertyNumber.isHidden = true
-            nameLabel.isHidden = true
-            yuanLabel.isHidden = true
-            pushBtn.isHidden = true
-            integralLabel.isHidden = true
-            fenLabel.isHidden = true
+            loginSuccessIs(bool: false)
             tableView.isScrollEnabled = false
         }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
     }
     //MARK: -- 添加通知
     func registerNotify() {
@@ -121,29 +118,16 @@ class UserTableViewController: BaseTableViewController {
         else{
             nameLabel.text = "Bug退散"
         }
-        loginBtn.isHidden = true
-        register.isHidden = true
-        concealLabel.isHidden = true
-        placeholderLabel.isHidden = false
-        propertyNumber.isHidden = false
-        integralLabel.isHidden = true
-        nameLabel.isHidden = false
-        yuanLabel.isHidden = false
-        fenLabel.isHidden = true
-        pushBtn.isHidden = false
-        myPropertyBtn.isHidden = false
         
+        loginSuccessIs(bool: true)
         //用户余额数据请求
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
             if let object = result {
                 let  money : Double =  object["balance"] as! Double
                 self?.propertyNumber.text =  "\(money)0"
                 UserModel.updateUser(info: { (result)-> ()? in
-//<<<<<<< HEAD
-//                    UserModel.share().currentUser?.balance = Int(money)
-//=======
+                    
                     UserModel.share().currentUser?.balance = Double(money)
-//>>>>>>> wp/master
                 })
             }
             //个人信息数据请求
@@ -169,20 +153,21 @@ class UserTableViewController: BaseTableViewController {
     }
     
     func quitEnterClick() {
-        propertyNumber.isHidden = true
-        integralLabel.isHidden = true
-        nameLabel.isHidden = true
-        yuanLabel.isHidden = true
-        fenLabel.isHidden = true
-        pushBtn.isHidden = true
-        loginBtn.isHidden = false
-        register.isHidden = false
-        concealLabel.isHidden = false
-        placeholderLabel.isHidden = false
-        myPropertyBtn.isHidden = true
+        loginSuccessIs(bool: false)
         iconImage.image = UIImage(named: "default-head.png")
     }
     
+    //MARK: -- 判断是否登录成功
+    func loginSuccessIs(bool:Bool){
+        nameLabel.isHidden = bool ? false : true
+        yuanLabel.isHidden = bool ? false : true
+        concealLabel.isHidden = bool ? true : false
+        loginBtn.isHidden = bool ? true : false
+        register.isHidden = bool ? true : false
+        pushBtn.isHidden = bool ? false : true
+        myPropertyBtn.isHidden = bool ? false : true
+        propertyNumber.isHidden = bool ? false : true
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
