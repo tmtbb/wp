@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
         appearance()
+        window?.backgroundColor = UIColor(rgbHex: 0xE9573E)
 //        pushMessageRegister()
 //        umapp()
         wechat()

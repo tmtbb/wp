@@ -27,12 +27,6 @@ class MyMessageController: BaseTableViewController {
         tableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0)
         translucent(clear: false)
         tableView.tableFooterView = setupFooterView()
-        let backBtn = UIButton(type: .custom)
-        backBtn.frame = CGRect(x: 0, y: 0, width: 10, height: 20)
-        backBtn.setBackgroundImage(UIImage.init(named: "back"), for: UIControlState.normal)
-        backBtn.addTarget(self, action: #selector(backDidClick), for: .touchUpInside)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
-        
         if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
             userImage.image = UIImage(named: "\(UserModel.getCurrentUser()?.avatarLarge)")
             userImage.image = UIImage(named: "default-head")
@@ -42,7 +36,6 @@ class MyMessageController: BaseTableViewController {
         }
         if ((UserModel.getCurrentUser()?.screenName) != "") {
             userName.text = UserModel.getCurrentUser()?.screenName
-            print(UserModel.share().currentUser?.screenName)
             userName.sizeToFit()
             tableView.reloadData()
         }
@@ -57,9 +50,6 @@ class MyMessageController: BaseTableViewController {
     }
     
    
-    func backDidClick() {
-        navigationController?.popToRootViewController(animated: true)
-    }
     func setupFooterView()->(UIView) {
         let footerView =  UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         let footerBtn = UIButton()
