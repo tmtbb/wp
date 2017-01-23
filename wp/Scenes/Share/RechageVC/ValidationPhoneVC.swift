@@ -49,7 +49,7 @@ class ValidationPhoneVC: BaseTableViewController {
      
         AppAPIHelper.user().bingcard(bank: Int64(ShareModel.share().shareData["bankId"]!)!, branchBank: ShareModel.share().shareData["branchBank"]!, cardNo: ShareModel.share().shareData["cardNo"]!, name: ShareModel.share().shareData["name"]!, complete: { (result) -> ()? in
             
-            if let object = result {
+            if result != nil {
                 
                 
 //             let  bankId : Int = object["bankId"] as! Int
@@ -59,6 +59,10 @@ class ValidationPhoneVC: BaseTableViewController {
                     for  nav : UIViewController in (self?.navigationController?.viewControllers)! {
                         
                         if nav.isKind(of: BankCardVC.self){
+                            
+                            self?.navigationController?.popToViewController(nav, animated: true)
+                        }
+                        if nav.isKind(of: WithDrawalVC.self){
                             
                             self?.navigationController?.popToViewController(nav, animated: true)
                         }

@@ -109,6 +109,8 @@ class SelectBankVC: BaseListTableViewController {
         
         
     }
+    @IBAction func addbank(_ sender: Any) {
+    }
     
     
     
