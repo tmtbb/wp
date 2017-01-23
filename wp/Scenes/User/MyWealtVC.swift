@@ -64,8 +64,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
                 //                UserModel.getCurrentUser()?.balance = Double(money)
                 
             }
-            
-            return nil
+               return nil
             }, error: errorBlockFunc())
         
     }
