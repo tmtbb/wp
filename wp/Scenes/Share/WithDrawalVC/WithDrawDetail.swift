@@ -25,14 +25,26 @@ class WithDrawDetail: BaseTableViewController {
         title = "提现详情"
         didRequest()
         self.bankName.text =  ShareModel.share().detailModel.bank
-         self.withDrawtime.text =  "2017.1.8"
-         self.expectTime.text = "2017.1.9"
+        self.withDrawtime.text =  "2017.1.8"
+        self.expectTime.text = "2017.1.9"
+        switch ShareModel.share().detailModel.status {
+        case 1:
+            ToAccountTime.text = "处理中"
+            break
+        case 2:
+            ToAccountTime.text = "成功"
+            break
+        case 3:
+            ToAccountTime.text = "失败"
+            break
+        default:
+            self.ToAccountTime.text =  "未到账"
+        }
         
-         self.ToAccountTime.text =  "未到账"
     }
     
     // 请求接口
-     override func didRequest() {
+    override func didRequest() {
         //Int(string99)
         
         let wid : String = ShareModel.share().shareData["wid"]! as String

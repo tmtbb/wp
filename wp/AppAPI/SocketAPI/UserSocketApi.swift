@@ -155,7 +155,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
     func withdrawdetail(withdrawld: Int64, complete: CompleteBlock?, error: ErrorBlock?){
         let param: [String : Any] = [SocketConst.Key.uid: UserModel.currentUserId ,
                                      SocketConst.Key.token: UserModel.token ?? "",
-                                     SocketConst.Key.withdrawld: withdrawld]
+                                     SocketConst.Key.wid: withdrawld]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .withdrawDetail, dict: param as [String : AnyObject])
         startModelRequest(packet, modelClass: WithdrawModel.self, complete: complete, error: error)
     }

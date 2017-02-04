@@ -44,7 +44,7 @@ class RechargeVcTableView: UITableView ,UITableViewDelegate, UITableViewDataSour
     //MARK:-设置表的代理
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.dataArry.count
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
