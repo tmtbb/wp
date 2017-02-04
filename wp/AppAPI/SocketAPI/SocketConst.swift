@@ -28,9 +28,9 @@ class SocketConst: NSObject {
         case accountNews = 1007
         //获取个人信息
         case getUserinfo = 1001
-
         //修改个人信息
         case changeUserInfo = 1031
+        
         case accinfo = 1003
         //流水列表
         case flowList = 1077

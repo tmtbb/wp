@@ -46,4 +46,6 @@ protocol UserApi {
     func getUserinfo(complete: CompleteBlock?, error: ErrorBlock?)
     //请求修改个人信息
     func revisePersonDetail(screenName:String, avatarLarge: String, gender:Int64, complete: CompleteBlock?, error: ErrorBlock?)
+    //修改用户昵称
+    func resetUserScreenName(screenName:String, complete: CompleteBlock?, error: ErrorBlock?)
 }
