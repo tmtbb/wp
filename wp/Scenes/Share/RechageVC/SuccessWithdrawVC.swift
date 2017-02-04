@@ -31,9 +31,12 @@ class SuccessWithdrawVC: BaseTableViewController {
         
         if  ShareModel.share().detailModel.status == 1 {
             status = "处理中"
-        } else if ShareModel.share().detailModel.status == 1 {
+        } else if ShareModel.share().detailModel.status == 2 {
             status = "成功"
-        }else{
+        }else if ShareModel.share().detailModel.status == -1{
+             status = "余额不足"
+        }
+        else{
             status = "失败"
         }
         self.status.text! = status
