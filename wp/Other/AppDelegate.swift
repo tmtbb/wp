@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
 //        pushMessageRegister()
 //        umapp()
         wechat()
-        data()
+        AppDataHelper.instance().initData()
         return true
     }
 
@@ -125,11 +125,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
         MobClick.setEncryptEnabled(true)
         //使用集成测试服务
         MobClick.setLogEnabled(true)
-    }
-    //MARK: --Data
-    fileprivate func data(){
-        AppDataHelper.instance().initProductData()
-        AppDataHelper.instance().checkTokenLogin()
     }
     
     //MARK: --Wechat

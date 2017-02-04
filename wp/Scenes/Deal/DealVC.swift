@@ -32,7 +32,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
         //        initDealTableData()
-        AppDataHelper.instance().initProductData()
+        //AppDataHelper.instance().initProductData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -71,11 +71,25 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "selectDealModel" {
             if DealModel.share().type == .btnTapped {
-                UserDefaults.standard.removeObject(forKey: SocketConst.Key.id)
+                //平仓
+                let pwdAlter = UIAlertController.init(title: "平仓", message: "请输入交易密码", preferredStyle: .alert)
+                pwdAlter.addTextField(configurationHandler: { (textField) in
+                    textField.placeholder = "请输入交易密码"
+                    textField.isSecureTextEntry = true
+                })
+                let sureAction = UIAlertAction.init(title: "确认", style: .default, handler: { (result) in
+                    
+                })
+                let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: { (result) in
+                    
+                })
+                pwdAlter.addAction(sureAction)
+                pwdAlter.addAction(cancelAction)
                 return
             }
             
             if DealModel.share().type == .cellTapped {
+                //修改持仓
                 DealModel.share().isDealDetail = true
                 performSegue(withIdentifier: BuyVC.className(), sender: nil)
                 return
@@ -137,6 +151,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
                 if let models: [KChartModel] = result as! [KChartModel]?{
                     for model in models{
+                        if model.goodType != product.typeCode{
+                            return nil
+                        }
                         self?.priceLabel.text = String.init(format: "%.2f", model.currentPrice)
                         self?.highLabel.text = String.init(format: "%.2f", model.highPrice)
                         self?.lowLabel.text = String.init(format: "%.2f", model.lowPrice)

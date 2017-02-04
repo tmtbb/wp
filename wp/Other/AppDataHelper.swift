@@ -13,22 +13,27 @@ class AppDataHelper: NSObject {
     class func instance() -> AppDataHelper{
         return helper
     }
+    
+    func initData() {
+        initProductData()
+        checkTokenLogin()
+    }
     //请求商品数据
     func initProductData() {
         var allProducets: [ProductModel] = []
         AppAPIHelper.deal().products(pid: 0, complete: {(result) -> ()? in
             if let products: [ProductModel] = result as! [ProductModel]?{
+                //拼接所有商品
                 allProducets += products
                 DealModel.share().allProduct = allProducets
+                //默认选择商品
                 if allProducets.count > 0{
                     DealModel.share().selectProduct = allProducets[0]
                 }
             }
             return nil
-        }) {[weak self](error) -> ()? in
-            let _ = self?.delay(15, task: {
-                self?.initProductData()
-            })
+        }) {(error) -> ()? in
+            SVProgressHUD.showErrorMessage(ErrorMessage: "商品数据获取失败，请稍候再试", ForDuration: 1.5, completion: nil)
             return nil
         }
     }
