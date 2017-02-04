@@ -77,14 +77,19 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                     textField.placeholder = "请输入交易密码"
                     textField.isSecureTextEntry = true
                 })
-                let sureAction = UIAlertAction.init(title: "确认", style: .default, handler: { (result) in
-                    
+                let sureAction = UIAlertAction.init(title: "确认", style: .default, handler: { [weak self](result) in
+                    //校验密码
+                    AppAPIHelper.deal().sellOutDeal(complete: {(result) -> ()? in
+                        SVProgressHUD.showSuccessMessage(SuccessMessage: "平仓成功", ForDuration: 1.5, completion: nil)
+                        return nil
+                    }, error: self?.errorBlockFunc())
                 })
                 let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: { (result) in
                     
                 })
                 pwdAlter.addAction(sureAction)
                 pwdAlter.addAction(cancelAction)
+                present(pwdAlter, animated: true, completion: nil)
                 return
             }
             
