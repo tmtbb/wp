@@ -40,7 +40,7 @@ class UserTableViewController: BaseTableViewController {
         AppDataHelper.instance().checkTokenLogin()
         if checkLogin() {
             loginSuccessIs(bool: true)
-            propertyNumber.text = "\(UserModel.getCurrentUser()!.balance)0"
+            propertyNumber.text = "\(UserModel.getCurrentUser()!.balance)"
             if ((UserModel.getCurrentUser()?.avatarLarge) != "" && UserModel.getCurrentUser()?.avatarLarge == "default-head"){
                 iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
                 iconImage.image = UIImage(named: "default-head")
@@ -124,9 +124,10 @@ class UserTableViewController: BaseTableViewController {
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
             if let object = result {
                 let  money : Double =  object["balance"] as! Double
-                self?.propertyNumber.text =  "\(money)0"
+                let str = NSString(format: "%.2lf", money)
+                self?.propertyNumber.text =  str as String
                 UserModel.updateUser(info: { (result)-> ()? in
-                    UserModel.share().currentUser?.balance = Double(money)
+                    UserModel.share().currentUser?.balance = Double(str as String)!
                 })
             }
             //个人信息数据请求
