@@ -21,56 +21,70 @@ class ChartView: UIView {
     }
     func setupSubviews(){
         
-        
-        //        self.addSubview(view)
-        
         initUI()
+        reloadData(dic: ["":"" as AnyObject])
+        //        self.addSubview(view)
     }
     
     //MARK-设置UI数据
     func initUI(){
         
+        //移除所有的控件防止重复添加
+        
         //中间分割线
-        let  line : UILabel = UILabel.init(frame: CGRect.init(x: 17, y: self.frame.size.height/2, width: UIScreen.main.bounds.size.width - 34, height: 0.5))
+        let  line : UILabel = UILabel.init(frame: CGRect.init(x: 17, y: self.frame.size.height/2 - 10, width: UIScreen.main.bounds.size.width - 34, height: 0.5))
         
         self.addSubview(line)
         
-        line.backgroundColor = UIColor.init(hexString: "333333")
+        line.backgroundColor = UIColor.init(hexString: "666666")
         
-        
+        // 设置frame -是下面的线
         // 向下不用减 向上 需要减 lab的高度  70 为最高 所以每个高度为 70*百分比
         
         for index in 0...5{
             
             let float : CGFloat = CGFloat.init(index)
-            let oringnWith = ((UIScreen.main.bounds.size.width - 5*30)/6.0) * float + 30 * float - 30
+            //            let oringnWith = ((UIScreen.main.bounds.size.width - 5*30)/6.0) * float + 30 * float - 30
             //设置画柱状图
             let tree = UILabel.init()
             
             let amount = UILabel.init()
-
-            tree.frame =   CGRect.init(x: oringnWith  , y: self.frame.size.height/2.0 - 10*float-20, width: 30, height:  10*float+20)
-//            if index == 2 {
-//                tree.frame =   CGRect.init(x: oringnWith  , y: self.frame.size.height/2.0 - 10*float-20, width: 30, height:  10*float+20)
-//            }else{
+            
+            tree.frame =   CGRect.zero
+            tree.tag = index + 100
+            //            if index == 2 {
+            //                tree.frame =   CGRect.init(x: oringnWith  , y: self.frame.size.height/2.0 - 10*float-20, width: 30, height:  10*float+20)
+            //            }else{
             
             // 涨率
-            
             tree.backgroundColor = UIColor.init(hexString: "E9573E")
-
+            
             amount.frame = CGRect.init(x: tree.frame.origin.x - 5 , y: self.frame.size.height/2.0  - 10 * float - 20 - 50  , width:   40, height: 20)
             
-//            amount.text = "56.7%"
+            //            amount.text = "56.7%"
             amount.textAlignment =  .center
             amount.font = UIFont.systemFont(ofSize: 10)
-            self.addSubview(tree)
-            self.backgroundColor = UIColor.clear
-            self.addSubview(amount)
+            addSubview(tree)
+            backgroundColor = UIColor.clear
+            addSubview(amount)
             
         }
         
     }
-    func dataDic(dic : [String : AnyObject]) {
+    func reloadData(dic : [String : AnyObject]) {
+        //        initUI()
+        //来修改设置frame
+        for index in 0...5{
+            let float : CGFloat = CGFloat.init(index)
+            let oringnWith = ((UIScreen.main.bounds.size.width - 5*30)/6.0) * float + 30 * float - 30
+            
+            let tag : Int = index + 100
+            
+            let tree : UILabel = self.viewWithTag(tag) as! UILabel
+            
+            tree.frame =   CGRect.init(x: oringnWith  , y: self.frame.size.height/2.0 - 10*float-20 - 10, width: 30, height:  10*float+20)
+            
+        }
         
     }
     

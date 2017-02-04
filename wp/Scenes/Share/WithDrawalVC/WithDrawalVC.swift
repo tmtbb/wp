@@ -67,11 +67,9 @@ class WithDrawalVC: BaseTableViewController {
         
         btn.addTarget(self, action: #selector(withDrawList), for: UIControlEvents.touchUpInside)
         
-        let int : Double = Double((UserModel.getCurrentUser()?.balance)!)
-        
+          let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String
+        let int : Double = Double(str)!
         self.money.placeholder = "最多可提现" + "\(int)" + "元"
-        
-        
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
     }
@@ -102,8 +100,8 @@ class WithDrawalVC: BaseTableViewController {
     @IBAction func withDraw(_ sender: Any) {
         
         // 校验 是否选择银行卡和提现最多金额
-        
-        let account  :  Double = Double((UserModel.getCurrentUser()?.balance)!)
+        let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String
+        let account  :  Double = Double(str)!
         
         if self.money.text?.length()==0{
             SVProgressHUD.showError(withStatus: "请输入提现金额")
@@ -214,7 +212,7 @@ class WithDrawalVC: BaseTableViewController {
     @IBAction func withDrawAll(_ sender: Any) {
         //        self.money.text
         
-        let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String 
+        let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String
         
         self.money.text = str
     }
