@@ -31,6 +31,11 @@ class RegisterVC: BaseTableViewController {
         initData()
         initUI()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        hideTabBarWithAnimationDuration()
+        translucent(clear: false)
+    }
     //MARK: --DATA
     func initData() {
         
@@ -155,8 +160,10 @@ class RegisterVC: BaseTableViewController {
         title = UserModel.share().forgetPwd ? "重置密码":"注册"
         thindLoginView.isHidden = UserModel.share().forgetPwd
         phoneView.layer.borderWidth = 0.5
-        
         pwdText.placeholder = UserModel.share().forgetPwd ? "请输入支付密码":"请输入登录密码"
+        if UserModel.share().forgetType == .loginPass {
+            pwdText.placeholder = "请输入登录密码"
+        }
         phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
     }
 
