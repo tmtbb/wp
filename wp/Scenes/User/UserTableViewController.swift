@@ -42,7 +42,7 @@ class UserTableViewController: BaseTableViewController {
         AppDataHelper.instance().checkTokenLogin()
         if checkLogin() {
             loginSuccessIs(bool: true)
-            propertyNumber.text = "\(UserModel.getCurrentUser()!.balance)0"
+            propertyNumber.text = "\(UserModel.getCurrentUser()!.balance)"
             if ((UserModel.getCurrentUser()?.avatarLarge) != "" && UserModel.getCurrentUser()?.avatarLarge == "default-head"){
                 iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
                 iconImage.image = UIImage(named: "default-head")
@@ -135,7 +135,7 @@ class UserTableViewController: BaseTableViewController {
                  let str : String = NSString(format: "%.2f" ,money) as String
                 self?.propertyNumber.text =  "\(str)"
                 UserModel.updateUser(info: { (result)-> ()? in
-                    UserModel.share().currentUser?.balance = Double(money)
+                    UserModel.share().currentUser?.balance = Double(str as String)!
                 })
             }
             //个人信息数据请求
@@ -202,6 +202,7 @@ class UserTableViewController: BaseTableViewController {
         let homeStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
         let nav: UINavigationController = homeStoryboard.instantiateInitialViewController() as! UINavigationController
         let controller = homeStoryboard.instantiateViewController(withIdentifier: RegisterVC.className())
+        controller.title = "注册"
         nav.pushViewController(controller, animated: true)
         present(nav, animated: true, completion: nil)
         
