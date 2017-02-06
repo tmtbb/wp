@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
 //        umapp()
         wechat()
         AppDataHelper.instance().initData()
+        AppServerHelper.instance().initServer()
         return true
     }
 

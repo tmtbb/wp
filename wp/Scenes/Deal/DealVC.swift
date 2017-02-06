@@ -84,9 +84,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                         return nil
                     }, error: self?.errorBlockFunc())
                 })
-                let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: { (result) in
-                    
-                })
+                let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
                 pwdAlter.addAction(sureAction)
                 pwdAlter.addAction(cancelAction)
                 present(pwdAlter, animated: true, completion: nil)

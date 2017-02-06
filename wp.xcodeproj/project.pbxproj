@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2FFBC4EC1DF8EF190039A0E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */; };
 		67563DCFE7C11C493D5E3BE0 /* Pods_wp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */; };
+		8E8BFC361E45DE6300712CA2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BFC351E45DE6300712CA2 /* libz.tbd */; };
+		8E8BFC381E45DE8300712CA2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BFC371E45DE8300712CA2 /* SystemConfiguration.framework */; };
 		A009AD0E1E28A399008A5014 /* FriendTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009AD0D1E28A399008A5014 /* FriendTableView.swift */; };
 		A009AD111E28BF3E008A5014 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD101E28BF3E008A5014 /* back.png */; };
 		A009AD141E28C864008A5014 /* noticeSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD121E28C864008A5014 /* noticeSelect@2x.png */; };
@@ -329,6 +331,8 @@
 /* Begin PBXFileReference section */
 		2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		34A71E9057EC9BB492D14F0B /* Pods-wp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wp/Pods-wp.debug.xcconfig"; sourceTree = "<group>"; };
+		8E8BFC351E45DE6300712CA2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		8E8BFC371E45DE8300712CA2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A009AD0D1E28A399008A5014 /* FriendTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableView.swift; sourceTree = "<group>"; };
 		A009AD101E28BF3E008A5014 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		A009AD121E28C864008A5014 /* noticeSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noticeSelect@2x.png"; sourceTree = "<group>"; };
@@ -673,6 +677,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E8BFC381E45DE8300712CA2 /* SystemConfiguration.framework in Frameworks */,
+				B02DB25C1DF985B70044F910 /* libsqlite3.tbd in Frameworks */,
+				8E8BFC361E45DE6300712CA2 /* libz.tbd in Frameworks */,
 				BF8648D51E023AA600D9EFB4 /* libGeTuiSdk-1.4.3.a in Frameworks */,
 				BF87C3741E023A180074D696 /* CoreTelephony.framework in Frameworks */,
 				BF0629E21E04DC7E00618B1B /* UTMini.framework in Frameworks */,
@@ -680,7 +687,6 @@
 				BF0629E31E04DC7E00618B1B /* WQConnectorBundle.framework in Frameworks */,
 				BF0629E11E04DC7E00618B1B /* UTDID.framework in Frameworks */,
 				BF0629E61E04DC7E00618B1B /* YWFeedbackFMWK.framework in Frameworks */,
-				B02DB25C1DF985B70044F910 /* libsqlite3.tbd in Frameworks */,
 				BFA9FAB31DF6AEBF00E2A67C /* Crashlytics.framework in Frameworks */,
 				BF0629E01E04DC7E00618B1B /* AmrCodecFMWK.framework in Frameworks */,
 				BFA9FAB11DF6AEAE00E2A67C /* Fabric.framework in Frameworks */,
@@ -700,6 +706,8 @@
 		10CEA088AA8041FD84B55B62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8E8BFC371E45DE8300712CA2 /* SystemConfiguration.framework */,
+				8E8BFC351E45DE6300712CA2 /* libz.tbd */,
 				BF8648D01E023A6900D9EFB4 /* GTSDK */,
 				BF87C3731E023A180074D696 /* CoreTelephony.framework */,
 				2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */,

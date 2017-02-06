@@ -307,9 +307,11 @@ class HomeVC: BaseTableViewController {
     }
     //意见反馈
     func jumpToFeedbackController() {
-        
-//        let feedbackVC = FeedbackController()
-//        navigationController?.pushViewController(feedbackVC, animated: true)
+        AppServerHelper.instance().feedbackKid?.makeFeedbackViewController(completionBlock: {[weak self] (controller, error) in
+            if let feedbackController = controller{
+                self?.navigationController?.pushViewController(feedbackController, animated: true)
+            }
+        })
     }
     //产品评分
     func jumpToProductGradeController() {
