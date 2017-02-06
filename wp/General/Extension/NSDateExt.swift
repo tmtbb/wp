@@ -14,6 +14,13 @@ extension Date{
         return Date().timeIntervalSince1970
     }
     
+    static func startTimestemp() -> TimeInterval{
+        let nowDateStr = yt_convertDateToStr(Date(), format: "yyyy-MM-dd")
+        let formatter = DateFormatter.init()
+        let nowDate = formatter.date(from: nowDateStr)
+        let timestemp = nowDate?.timeIntervalSince1970
+        return timestemp ?? 0
+    }
     
     /**
      *  字符串转日期
@@ -37,7 +44,7 @@ extension Date{
     }
     
     /**
-     *  时间戳转日期
+     *  时间戳转日期字符串
      */
     static func yt_convertDateStrWithTimestemp(_ timeStemp: Int, format: String) -> String {
         let formatter = DateFormatter.init()
@@ -46,6 +53,7 @@ extension Date{
         let date = Date.init(timeIntervalSince1970: Double(timeStemp)/1000 as TimeInterval)
         return yt_convertDateToStr(date, format: format)
     }
+    
     
     
     /**
@@ -71,4 +79,6 @@ extension Date{
         let compents: DateComponents = (Calendar.current as NSCalendar).components(.day, from: self)
         return compents.day!
     }
+    
+    
 }

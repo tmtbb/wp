@@ -32,7 +32,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
         //        initDealTableData()
-        //AppDataHelper.instance().initProductData()
+        AppDataHelper.instance().initProductData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -140,7 +140,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             DealModel.share().selectProduct = model
             initRealTimeData()
             kLineView.refreshKLine()
-            AppDataHelper.instance().initLineChartData(product: DealModel.share().selectProduct!)
+//            AppDataHelper.instance().initLineChartData(product: DealModel.share().selectProduct!)
         }
     }
     func initRealTimeData() {
