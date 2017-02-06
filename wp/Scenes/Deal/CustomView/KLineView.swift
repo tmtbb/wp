@@ -107,6 +107,7 @@ class KLineView: UIView {
     }
     //MARK: --15分钟
     func initMiu15KChartsData() {
+        return
         let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.goodType
 //        KLineModel.query15kModels(goodType: type!) { [weak self](result) -> ()? in
 //            if let models: [KChartModel] = result as? [KChartModel] {

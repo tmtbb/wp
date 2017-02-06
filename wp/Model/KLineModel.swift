@@ -152,8 +152,11 @@ class KLineModel: NSObject {
     class func queryModel(goodType: String, fromTime: Int, toTime: Int) -> KChartModel? {
         var resultModel: KChartModel?
         let realm = try! Realm()
-        let queryStr = NSPredicate.init(format: "goodType = %@ WHERE priceTime > %d AND priceTime < %d", goodType, fromTime, toTime)
-        let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr)
+        let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
+//        let queryStr1 = NSPredicate.init(format: "priceTime > \(fromTime)","\(fromTime)")
+//        let queryStr2 = NSPredicate.init(format: "priceTime < %@", "\(toTime)")
+        
+        let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).filter("priceTime > \(fromTime)").filter("priceTime < \(toTime)")
         for (index, model) in result.enumerated() {
             if resultModel == nil {
                 resultModel = model

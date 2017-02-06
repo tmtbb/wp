@@ -64,9 +64,10 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         //初始化持仓数据
         initDealTableData()
         //初始化下商品数据
-        initProductData()
+//        initProductData()
         //持仓点击
         DealModel.share().addObserver(self, forKeyPath: "selectDealModel", options: .new, context: nil)
+        DealModel.share().addObserver(self, forKeyPath: "allProduct", options: .new, context: nil)
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "selectDealModel" {
@@ -97,6 +98,14 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 performSegue(withIdentifier: BuyVC.className(), sender: nil)
                 return
             }
+        }
+        
+        if keyPath == "allProduct"{
+            let allProducets: [ProductModel] = DealModel.share().allProduct
+            titleView.objects = allProducets
+//            let product = allProducets[0]
+//            DealModel.share().selectProduct = product
+//            didSelectedObject(object: product)
         }
     }
     //MARK: --我的资产
@@ -140,7 +149,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             DealModel.share().selectProduct = model
             initRealTimeData()
             kLineView.refreshKLine()
-//            AppDataHelper.instance().initLineChartData(product: DealModel.share().selectProduct!)
         }
     }
     func initRealTimeData() {

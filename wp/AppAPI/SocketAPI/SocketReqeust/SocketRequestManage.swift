@@ -26,7 +26,7 @@ class SocketRequestManage: NSObject {
         _lastConnectedTime = timeNow()
         stop()
         _timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(didActionTimer), userInfo: nil, repeats: true)
-#if true
+#if false
         _socketHelper = APISocketHelper()
 #else
         _socketHelper = LocalSocketHelper()
@@ -35,7 +35,7 @@ class SocketRequestManage: NSObject {
         _socketHelper?.connect()
     }
     
-    func stop() {
+    func  stop() {
         _timer?.invalidate()
         _timer = nil
         objc_sync_enter(self)
