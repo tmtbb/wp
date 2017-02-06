@@ -35,6 +35,8 @@ class UserTableViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//         UserModel.getCurrentUser()?.balance
+         UserModel.getCurrentUser()?.addObserver(self, forKeyPath: "balance", options: .new, context: nil)
         registerNotify()
         //更新token
         AppDataHelper.instance().checkTokenLogin()
@@ -63,7 +65,13 @@ class UserTableViewController: BaseTableViewController {
         }
         
     }
-    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        if keyPath == "balance" {
+            
+           
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -124,8 +132,8 @@ class UserTableViewController: BaseTableViewController {
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
             if let object = result {
                 let  money : Double =  object["balance"] as! Double
-                let str = NSString(format: "%.2lf", money)
-                self?.propertyNumber.text =  str as String
+                 let str : String = NSString(format: "%.2f" ,money) as String
+                self?.propertyNumber.text =  "\(str)"
                 UserModel.updateUser(info: { (result)-> ()? in
                     UserModel.share().currentUser?.balance = Double(str as String)!
                 })
