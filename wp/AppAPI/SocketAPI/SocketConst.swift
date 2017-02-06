@@ -109,7 +109,6 @@ class SocketConst: NSObject {
         static let skills = "skills_"
         static let type = "type"
         static let phone = "phone"
-        
         static let pwd = "pwd"
         static let code = "vCode"
         static let voiceCode = "voiceCode"
@@ -137,7 +136,6 @@ class SocketConst: NSObject {
         static let money = "money"
         static let bld = "bld"
         static let password = "password"
-
         static let withdrawld = "withdrawld"
         static let wid = "wid"
         static let title = "title"
@@ -164,6 +162,4 @@ class SocketConst: NSObject {
         static let uidStr = "uidStr"
         static let timestamp = "timestamp"
     }
-    
-    
 }

@@ -16,10 +16,9 @@ extension Date{
     
     static func startTimestemp() -> TimeInterval{
         let nowDateStr = yt_convertDateToStr(Date(), format: "yyyy-MM-dd")
-        let formatter = DateFormatter.init()
-        let nowDate = formatter.date(from: nowDateStr)
-        let timestemp = nowDate?.timeIntervalSince1970
-        return timestemp ?? 0
+        let nowDate = yt_convertDateStrToDate(nowDateStr, format: "yyyy-MM-dd")
+        let timestemp = nowDate.timeIntervalSince1970
+        return timestemp 
     }
     
     /**
