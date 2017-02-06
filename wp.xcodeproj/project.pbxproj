@@ -65,6 +65,10 @@
 		A0C31A4D1E2F03460034D58D /* ShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C31A4C1E2F03460034D58D /* ShareVC.swift */; };
 		A0C31A4F1E2F139B0034D58D /* ShareFriendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C31A4E1E2F139B0034D58D /* ShareFriendVC.swift */; };
 		A0C31A531E2F39670034D58D /* FriendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C31A521E2F39670034D58D /* FriendVC.swift */; };
+		A0EA2D4F1E481BA200DD3158 /* libPaymentControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EA2D4D1E481BA200DD3158 /* libPaymentControl.a */; };
+		A0EA2D511E481BC300DD3158 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EA2D501E481BC300DD3158 /* CFNetwork.framework */; };
+		A0EA2D531E481BD600DD3158 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EA2D521E481BD600DD3158 /* SystemConfiguration.framework */; };
+		A0EA2D551E481BF900DD3158 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EA2D541E481BF900DD3158 /* libz.tbd */; };
 		B02DB25C1DF985B70044F910 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B02DB25B1DF985B70044F910 /* libsqlite3.tbd */; };
 		B058E36E1E1D40DA0046720D /* SocketHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058E36D1E1D40DA0046720D /* SocketHelper.swift */; };
 		B058E3701E1D429F0046720D /* LocalSocketHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058E36F1E1D429F0046720D /* LocalSocketHelper.swift */; };
@@ -385,6 +389,11 @@
 		A0C31A4C1E2F03460034D58D /* ShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareVC.swift; sourceTree = "<group>"; };
 		A0C31A4E1E2F139B0034D58D /* ShareFriendVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareFriendVC.swift; path = CustomView/ShareFriendVC.swift; sourceTree = "<group>"; };
 		A0C31A521E2F39670034D58D /* FriendVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendVC.swift; sourceTree = "<group>"; };
+		A0EA2D4D1E481BA200DD3158 /* libPaymentControl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPaymentControl.a; sourceTree = "<group>"; };
+		A0EA2D4E1E481BA200DD3158 /* UPPaymentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPaymentControl.h; sourceTree = "<group>"; };
+		A0EA2D501E481BC300DD3158 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		A0EA2D521E481BD600DD3158 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A0EA2D541E481BF900DD3158 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B02DB25B1DF985B70044F910 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		B058E36D1E1D40DA0046720D /* SocketHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketHelper.swift; sourceTree = "<group>"; };
 		B058E36F1E1D429F0046720D /* LocalSocketHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSocketHelper.swift; sourceTree = "<group>"; };
@@ -673,10 +682,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0EA2D551E481BF900DD3158 /* libz.tbd in Frameworks */,
+				A0EA2D531E481BD600DD3158 /* SystemConfiguration.framework in Frameworks */,
+				A0EA2D511E481BC300DD3158 /* CFNetwork.framework in Frameworks */,
 				BF8648D51E023AA600D9EFB4 /* libGeTuiSdk-1.4.3.a in Frameworks */,
 				BF87C3741E023A180074D696 /* CoreTelephony.framework in Frameworks */,
 				BF0629E21E04DC7E00618B1B /* UTMini.framework in Frameworks */,
 				BFC81E9E1DFA9E6600ADC291 /* UMMobClick.framework in Frameworks */,
+				A0EA2D4F1E481BA200DD3158 /* libPaymentControl.a in Frameworks */,
 				BF0629E31E04DC7E00618B1B /* WQConnectorBundle.framework in Frameworks */,
 				BF0629E11E04DC7E00618B1B /* UTDID.framework in Frameworks */,
 				BF0629E61E04DC7E00618B1B /* YWFeedbackFMWK.framework in Frameworks */,
@@ -700,6 +713,10 @@
 		10CEA088AA8041FD84B55B62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A0EA2D541E481BF900DD3158 /* libz.tbd */,
+				A0EA2D521E481BD600DD3158 /* SystemConfiguration.framework */,
+				A0EA2D501E481BC300DD3158 /* CFNetwork.framework */,
+				A0EA2D4C1E481B8000DD3158 /* paysdk */,
 				BF8648D01E023A6900D9EFB4 /* GTSDK */,
 				BF87C3731E023A180074D696 /* CoreTelephony.framework */,
 				2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */,
@@ -811,6 +828,15 @@
 				A0639A7F1E25CDEF0071F62A /* BankListModel.swift */,
 			);
 			name = ShareModel;
+			sourceTree = "<group>";
+		};
+		A0EA2D4C1E481B8000DD3158 /* paysdk */ = {
+			isa = PBXGroup;
+			children = (
+				A0EA2D4D1E481BA200DD3158 /* libPaymentControl.a */,
+				A0EA2D4E1E481BA200DD3158 /* UPPaymentControl.h */,
+			);
+			name = paysdk;
 			sourceTree = "<group>";
 		};
 		B0CF59D41DE5BEC300C40C9C = {
@@ -2083,6 +2109,7 @@
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/GTSDK",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/Realm/core",
 					"$(PROJECT_DIR)/wp/Library/WeChatSDK1.7.4",
+					"$(PROJECT_DIR)",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -2142,6 +2169,7 @@
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/GTSDK",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/Realm/core",
 					"$(PROJECT_DIR)/wp/Library/WeChatSDK1.7.4",
+					"$(PROJECT_DIR)",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (

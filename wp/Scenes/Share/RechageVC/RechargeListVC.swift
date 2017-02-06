@@ -77,7 +77,7 @@ class RechargeListVC: BasePageListTableViewController {
                 self.tableView.isScrollEnabled = true
                 if selectMonth != "1000000" {
                     
-                    monthLb.text = "2017 年" + "\(selectMonth)" + "月"
+                    monthLb.text = "2017年" + " " + "\(selectMonth)" + "月"
                 }
                 
                 //                print(base)
@@ -110,7 +110,7 @@ class RechargeListVC: BasePageListTableViewController {
             headerView.backgroundColor = UIColor.groupTableViewBackground
             
              monthLb = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
-            monthLb.text = "2017 年 01 月"
+            monthLb.text = "2017年 1月"
             
             monthLb.textColor = UIColor.init(hexString: "333333")
             

@@ -20,6 +20,8 @@ class ShareModel: BaseModel {
     
     var detailModel  =  WithdrawModel()
     
+   
+    
     dynamic var selectBank  = BankListModel()
     
     //定义全局的字典 用来传值
