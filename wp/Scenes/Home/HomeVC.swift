@@ -86,7 +86,7 @@ class HomeVC: BaseTableViewController {
         navigationController?.addSideMenuButton()
 
         let images: [String] = ["banner", "banner", "banner"]
-        let contentSourceArray: [String] = ["用户001111 买涨白银价 3666","用户001买涨白银价3666","用户001买涨白银价3666"]
+        let contentSourceArray: [String] = ["用户001111 买涨白银价 3666","用户001111 买涨白银价 3666","用户001111 买涨白银价 3666"]
         let tagSourceArray: [String] = ["跟单", "跟单", "跟单"]
         tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
         tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)

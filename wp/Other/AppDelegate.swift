@@ -95,10 +95,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+    
+        let urlString = url.absoluteString
+        if urlString.hasPrefix("UPPayDemo") {
+            UPPaymentControl.default().handlePaymentResult(url, complete: { (code, data) in
+                if code == "cancel" {
+
+                }
+                else if code == "success" {
+                 
+                    let dic : Dictionary = (data as Dictionary?)!
+                    let signData = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions(rawValue: 0))
+                    let sign : String = String.init(data: signData!, encoding: String.Encoding.utf8)!
+                    let bool  =   self.verify(sign: sign)
+            
+                }
+                
+                
+            })
+            
+        }
+     
         WXApi.handleOpen(url, delegate: self)
         return true
     }
-    
+    func verify(sign : String) -> Bool {
+        
+        return false
+    }
+  
     fileprivate func appearance() {
         
         let navigationBar:UINavigationBar = UINavigationBar.appearance() as UINavigationBar;
@@ -165,6 +190,122 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
         
         self.window?.endEditing(true)
     }
+    
+//    func applicationg
+//    - (BOOL) application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+//    [[UPPaymentControldefaultControl]handlePaymentResult:urlcompleteBlock:^(NSString *code,NSDictionary *data)
+//    {
+//    //结果code为成功时，先校验签名，校验成功后做后续处理
+//    if ([codeisEqualToString:@"success"]) {
+//    //数据从NSDictionary转换为NSString
+//    NSDictionary *data;
+//    NSData *signData = [NSJSONSerializationdataWithJSONObject:data
+//    options:0
+//    error:nil];
+//    NSString *sign = [[NSStringalloc]initWithData:signDataencoding:NSUTF8StringEncoding];
+//    
+//    //判断签名数据是否存在
+//    if(data ==nil){
+//    //如果没有签名数据，建议商户app后台查询交易结果
+//    return;
+//    }
+//    
+//    //验签证书同后台验签证书
+//    //此处的verify，商户需送去商户后台做验签
+//    if([selfverify:sign]) {
+//    //支付成功且验签成功，展示支付成功提示
+//    }
+//    else {
+//    //验签失败，交易结果数据被篡改，商户app后台查询交易结果
+//    }
+//    }
+//    elseif([codeisEqualToString:@"fail"]) {
+//    //交易失败
+//    }
+//    elseif([codeisEqualToString:@"cancel"]) {
+//    //交易取消
+//    }
+//    }];
+//    
+//    returnYES;
+//    }
+//    - (NSString *) readPublicKey:(NSString *) keyName
+//    {
+//    if (keyName ==nil || [keyNameisEqualToString:@""])returnnil;
+//    
+//    NSMutableArray *filenameChunks = [[keyNamecomponentsSeparatedByString:@"."]mutableCopy];
+//    NSString *extension = filenameChunks[[filenameChunkscount] -1];
+//    [filenameChunks removeLastObject];// remove the extension
+//    NSString *filename = [filenameChunkscomponentsJoinedByString:@"."];// reconstruct the filename with no extension
+//    
+//    NSString *keyPath = [[NSBundlemainBundle]pathForResource:filenameofType:extension];
+//    
+//    NSString *keyStr = [NSStringstringWithContentsOfFile:keyPathencoding:NSUTF8StringEncodingerror:nil];
+//    
+//    return keyStr;
+//    }
+//    
+//    -(BOOL) verify:(NSString *) resultStr {
+//    
+//    //验签证书同后台验签证书
+//    //此处的verify，商户需送去商户后台做验签
+//    returnNO;
+//    }
+//    - (NSString*)sha1:(NSString *)string
+//    {
+//    unsignedchar digest[CC_SHA1_DIGEST_LENGTH];
+//    CC_SHA1_CTX context;
+//    NSString *description;
+//    
+//    CC_SHA1_Init(&context);
+//    
+//    memset(digest,0,sizeof(digest));
+//    
+//    description = @"";
+//    
+//    
+//    if (string ==nil)
+//    {
+//    returnnil;
+//    }
+//    
+//    // Convert the given 'NSString *' to 'const char *'.
+//    constchar *str = [stringcStringUsingEncoding:NSUTF8StringEncoding];
+//    
+//    // Check if the conversion has succeeded.
+//    if (str ==NULL)
+//    {
+//    returnnil;
+//    }
+//    
+//    // Get the length of the C-string.
+//    int len = (int)strlen(str);
+//    
+//    if (len ==0)
+//    {
+//    returnnil;
+//    }
+//    
+//    
+//    if (str ==NULL)
+//    {
+//    returnnil;
+//    }
+//    
+//    CC_SHA1_Update(&context, str, len);
+//    
+//    CC_SHA1_Final(digest, &context);
+//    
+//    description = [NSStringstringWithFormat:
+//    @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+//    digest[ 0], digest[1], digest[2], digest[3],
+//    digest[ 4], digest[5], digest[6], digest[7],
+//    digest[ 8], digest[9], digest[10], digest[11],
+//    digest[12], digest[13], digest[14], digest[15],
+//    digest[16], digest[17], digest[18], digest[19]];
+//    
+//    return description;
+//    }
  }
 
 

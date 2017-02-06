@@ -8,12 +8,16 @@
 
 import UIKit
 import SVProgressHUD
-class RechargeVC: BaseTableViewController ,WXApiDelegate{
+class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDelegate,NSURLConnectionDelegate{
+    
+    
+    var selectType =  Int()
     @IBOutlet weak var arrow: UIImageView!
     
     //用户账户
     @IBOutlet weak var userIdText: UITextField!
     
+    var  responseData = NSMutableData()
     //余额
     @IBOutlet weak var moneyText: UITextField!
     
@@ -37,8 +41,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //        self.bankTableView.didRequest()
-        //     hideTabBarWithAnimationDuration()
+      
     }
     
     
@@ -70,6 +73,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
     }
     func initUI(){
         
+        selectType = 0
         arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
         // 设置 提现记录按钮
         let btn : UIButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 70, height: 30))
@@ -186,48 +190,46 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
     }
     //MARK: -提交
     @IBAction func submitBtnTapped(_ sender: UIButton) {
+       //kURL_TN_Normal
+       
+        let urlRequest : NSURLRequest = NSURLRequest.init(url:   NSURL.init(string: "http://101.231.204.84:8091/sim/getacptn") as! URL)
         
+        let urlConn : NSURLConnection = NSURLConnection.init(request: urlRequest as URLRequest, delegate: self)!
         
-        if checkTextFieldEmpty([self.rechargeMoneyTF]) {
-            var money : String
-            if ((self.rechargeMoneyTF.text?.range(of: ".")) != nil) {
-                money = self.rechargeMoneyTF.text!
-            }else{
-                
-                money = "\(self.rechargeMoneyTF.text!)" + ".00001"
-            }
-            AppAPIHelper.user().weixinpay(title: "微盘-余额充值", price: Double.init(money)! , complete: { (result) -> ()? in
-                
-                if let object = result {
-                    
-                    let request : PayReq = PayReq()
-                    //                    ShareModel.share().shareData.removeValue(forKey: "rid")
-                    let  str : String  = object["timestamp"] as! String!
-                    ShareModel.share().shareData["rid"] =  object["rid"] as! String!
-                    request.timeStamp = UInt32(str)!
-                    request.sign = object["sign"] as! String!
-                    request.package = object["package"] as! String!
-                    request.nonceStr = object["noncestr"] as! String!
-                    request.partnerId = object["partnerid"] as! String!
-                    request.sign = object["sign"] as! String!
-                    request.prepayId = object["prepayid"] as! String!
-                    
-                    WXApi.send(request)
-                }
-                
-                return nil
-            }, error: errorBlockFunc())
-        }
-        
-        
-        
-        
-        //        let  story  =  UIStoryboard.init(name: "Share", bundle: nil)
-        //
-        //        let new  = story.instantiateViewController(withIdentifier: "MyWealtVC")
-        //
-        //        self.navigationController?.pushViewController(new, animated: true)
-        
+        urlConn.start()
+
+//        
+//        if checkTextFieldEmpty([self.rechargeMoneyTF]) {
+//            var money : String
+//            if ((self.rechargeMoneyTF.text?.range(of: ".")) != nil) {
+//                money = self.rechargeMoneyTF.text!
+//            }else{
+//                
+//                money = "\(self.rechargeMoneyTF.text!)" + ".00001"
+//            }
+//            AppAPIHelper.user().weixinpay(title: "微盘-余额充值", price: Double.init(money)! , complete: { (result) -> ()? in
+//                
+//                if let object = result {
+//                    
+//                    let request : PayReq = PayReq()
+//                    //                    ShareModel.share().shareData.removeValue(forKey: "rid")
+//                    let  str : String  = object["timestamp"] as! String!
+//                    ShareModel.share().shareData["rid"] =  object["rid"] as! String!
+//                    request.timeStamp = UInt32(str)!
+//                    request.sign = object["sign"] as! String!
+//                    request.package = object["package"] as! String!
+//                    request.nonceStr = object["noncestr"] as! String!
+//                    request.partnerId = object["partnerid"] as! String!
+//                    request.sign = object["sign"] as! String!
+//                    request.prepayId = object["prepayid"] as! String!
+//                    
+//                    WXApi.send(request)
+//                }
+//                
+//                return nil
+//            }, error: errorBlockFunc())
+//        }
+    
     }
     
     //MARK: -tableView dataSource
@@ -237,7 +239,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
             return 2
         }
         if section==1 {
-            return 4
+            return 5
         }
         if selectRow == true  {
             return 1
@@ -250,17 +252,28 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if(indexPath.section==1){
-            //            if(indexPath.row == 3){
-            //
-            //                if selectRow == true {
-            //                    arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
-            //                }else{
-            //                    arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*1.5))
-            //                }
-            //                selectRow = !selectRow
-            ////                tableView.reloadSections(IndexSet.init(integer: 2), with: UITableViewRowAnimation.fade)
-            //            }
             
+            if indexPath.row == 3 {
+        
+                let  cell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 3, section: 1) as IndexPath)!
+                cell.accessoryType =  .checkmark
+                selectType = 0
+                 let  uncell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 4, section: 1) as IndexPath)!
+                
+                 uncell.accessoryType =  .none
+                
+            }
+            if indexPath.row == 4 {
+                 selectType = 1
+                let  cell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 4 , section: 1) as IndexPath)!
+                cell.accessoryType =  .checkmark
+                
+                let  uncell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 3, section: 1) as IndexPath)!
+                
+                uncell.accessoryType =  .none
+                
+            }
+           
         }
         
     }
@@ -268,7 +281,78 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate{
         
         self.view.endEditing(true)
     }
+    //MARK: -银联支付sdk调用
+     func connection(_ connection: NSURLConnection, didReceive response: URLResponse){
+        
+        let rsp : HTTPURLResponse = response as! HTTPURLResponse
+        let code : NSInteger = rsp.statusCode
+        if code != 200{
+            
+         
+          
+        }
+        else
+        {
+            
+        responseData = NSMutableData()
+          
+        }
+    }
+     func connection(_ connection: NSURLConnection, didReceive data: Data){
+        
+        responseData.append(data)
+    }
+    func connectionDidFinishLoading(_ connection: NSURLConnection){
+        
+        let tn : String = NSMutableString.init(data: responseData as Data, encoding: 4)! as String
+        
+      
+        
+        if  tn.length()>0  {
+           UPPaymentControl.default().startPay(tn as String!, fromScheme: "UPPayDemo", mode: "01", viewController: self)
+        }
+        
+        
+    }
     
+//    - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse*)response
+//    {
+//    NSHTTPURLResponse* rsp = (NSHTTPURLResponse*)response;
+//    NSInteger code = [rsp statusCode];
+//    if (code != 200)
+//    {
+//    
+//    [self showAlertMessage:kErrorNet];
+//    [connection cancel];
+//    }
+//    else
+//    {
+//    
+//    _responseData = [[NSMutableData alloc] init];
+//    }
+//    }
+//    
+//    - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+//    {
+//    [_responseData appendData:data];
+//    }
+//    
+//    - (void)connectionDidFinishLoading:(NSURLConnection *)connection
+//    {
+//    [self hideAlert];
+//    NSString* tn = [[NSMutableString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding];
+//    if (tn != nil && tn.length > 0)
+//    {
+//    
+//    NSLog(@"tn=%@",tn);
+//    [[UPPaymentControl defaultControl] startPay:tn fromScheme:@"UPPayDemo" mode:self.tnMode viewController:self];
+//    
+//    }
+//    
+//    
+//    }
+    
+   
     
 }
 

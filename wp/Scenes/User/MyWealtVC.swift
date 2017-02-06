@@ -29,8 +29,11 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         title  = "我的资产"
         
         let int : Double = Double((UserModel.getCurrentUser()?.balance)!)
-        
-        account.text =  "\(int)"
+       
+        //                ShareModel.share().shareData["balance"] = "\(money)"
+        let str : String = NSString(format: "%.2f" ,int) as String
+      
+        account.text =  "\(str)"
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +41,29 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         
         translucent(clear: false)
         hideTabBarWithAnimationDuration()
+        
+        AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
+            
+            
+            if let object = result {
+                
+                let  money : NSNumber =  object["balance"] as! NSNumber
+                
+                let floatmonet : Float = Float.init(money)
+                //                ShareModel.share().shareData["balance"] = "\(money)"
+                let str : String = NSString(format: "%.2f" ,floatmonet) as String
+                self?.account.text =  "\(str)"
+                
+                UserModel.updateUser(info: { (result) -> ()? in
+                    
+                    UserModel.getCurrentUser()?.balance = Double(money)
+                    return nil
+                })
+                //                UserModel.getCurrentUser()?.balance = Double(money)
+                
+            }
+            return nil
+            }, error: errorBlockFunc())
         
     }
     deinit {
@@ -52,9 +78,10 @@ class MyWealtVC: BaseCustomPageListTableViewController {
                 
                 let  money : NSNumber =  object["balance"] as! NSNumber
                 
+                let floatmonet : Float = Float.init(money)
 //                ShareModel.share().shareData["balance"] = "\(money)"
-                
-                self?.account.text =  "\(money)"
+                let str : String = NSString(format: "%.2f" ,floatmonet) as String
+                self?.account.text =  "\(str)"
                 
                 UserModel.updateUser(info: { (result) -> ()? in
                     
