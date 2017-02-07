@@ -15,7 +15,7 @@ class HomeVC: BaseTableViewController {
     lazy var flowListArray: [FlowOrdersList] =  [FlowOrdersList]()
     //行情数据
     lazy var marketArray: [KChartModel] = []
-    
+    private var priceTimer: Timer?
     var dict:[AnyObject]?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,12 +37,6 @@ class HomeVC: BaseTableViewController {
     
     //MARK: --DATA
     func initData() {
-        //0,添加数据监听
-        DealModel.share().addObserver(self, forKeyPath: "allProduct", options: .new, context: nil)
-        //2,请求商品报价
-        if DealModel.share().allProduct.count > 0 {
-            initRealTimeData()
-        }
         
         
     }

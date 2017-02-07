@@ -28,11 +28,12 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBOutlet weak var dealTable: MyDealTableView!
     @IBOutlet weak var titleView: TitleCollectionView!
     private var klineBtn: UIButton?
+    private var priceTimer: Timer?
     
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
         //        initDealTableData()
-        AppDataHelper.instance().initProductData()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -58,13 +59,16 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     deinit {
         DealModel.share().removeObserver(self, forKeyPath: "selectDealModel")
+        priceTimer = nil
     }
     //MARK: --DATA
     func initData() {
         //初始化持仓数据
         initDealTableData()
         //初始化下商品数据
-//        initProductData()
+        AppDataHelper.instance().initProductData()
+        //每隔3秒请求商品报价
+        priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
         //持仓点击
         DealModel.share().addObserver(self, forKeyPath: "selectDealModel", options: .new, context: nil)
         DealModel.share().addObserver(self, forKeyPath: "allProduct", options: .new, context: nil)
@@ -103,9 +107,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         if keyPath == "allProduct"{
             let allProducets: [ProductModel] = DealModel.share().productKinds
             titleView.objects = allProducets
-//            let product = allProducets[0]
-//            DealModel.share().selectProduct = product
-//            didSelectedObject(object: product)
         }
     }
     //MARK: --我的资产
@@ -131,6 +132,11 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             return nil
         }, error: errorBlockFunc())
     }
+    internal func didSelectedObject(object: AnyObject?) {
+        if let model: ProductModel = object as! ProductModel? {
+            DealModel.share().selectProduct = model
+        }
+    }
     // 持仓列表数据
     func initDealTableData() {
         AppAPIHelper.deal().currentDeals(complete: { [weak self](result) -> ()? in
@@ -144,32 +150,23 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             }, error: errorBlockFunc())
     }
     // 当前报价
-    internal func didSelectedObject(object: AnyObject?) {
-        if let model: ProductModel = object as! ProductModel? {
-            DealModel.share().selectProduct = model
-            initRealTimeData()
-            kLineView.refreshKLine()
-        }
-    }
     func initRealTimeData() {
         if let product = DealModel.share().selectProduct {
-            let good = [SocketConst.Key.goodType: product.typeCode,
+            let good = [SocketConst.Key.aType: SocketConst.aType.currency.rawValue,
                         SocketConst.Key.exchangeName: product.exchangeName,
-                        SocketConst.Key.platformName: product.platformName]
+                        SocketConst.Key.platformName: product.platformName,
+                        SocketConst.Key.symbol: product.symbol] as [String : Any]
             let param: [String: Any] = [SocketConst.Key.id: UserModel.currentUserId,
                                         SocketConst.Key.token: UserModel.token ?? "",
-                                        SocketConst.Key.goodsinfos: [good]]
+                                        SocketConst.Key.symbolInfos: [good]]
             AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
                 if let models: [KChartModel] = result as! [KChartModel]?{
                     for model in models{
-                        if model.goodType != product.typeCode{
-                            return nil
-                        }
-                        self?.priceLabel.text = String.init(format: "%.2f", model.currentPrice)
-                        self?.highLabel.text = String.init(format: "%.2f", model.highPrice)
-                        self?.lowLabel.text = String.init(format: "%.2f", model.lowPrice)
-                        self?.openLabel.text = String.init(format: "%.2f", model.openingTodayPrice)
-                        self?.closeLabel.text = String.init(format: "%.2f", model.closedYesterdayPrice)
+                        self?.priceLabel.text = String.init(format: "%.4f", model.currentPrice)
+                        self?.highLabel.text = String.init(format: "%.4f", model.highPrice)
+                        self?.lowLabel.text = String.init(format: "%.4f", model.lowPrice)
+                        self?.openLabel.text = String.init(format: "%.4f", model.openingTodayPrice)
+                        self?.closeLabel.text = String.init(format: "%.4f", model.closedYesterdayPrice)
                         self?.nameLabel.text = "\(model.name)(元/千克)"
                     }
                 }
@@ -183,13 +180,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         timeBtnTapped(minBtn)
         titleView.itemDelegate = self
         titleView.reuseIdentifier = ProductTitleItem.className()
-    }
-    
-    //MARK: --商品选择
-    func didSelectedObjects(object: AnyObject?) {
-        if let product = object as? ProductModel {
-            DealModel.share().selectProduct = product
-        }
     }
     
     //MARK: --KlineView and Btns
