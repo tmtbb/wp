@@ -61,11 +61,7 @@ class ChartView: UIView {
             tree.backgroundColor = UIColor.init(hexString: "E9573E")
             
             amount.frame = CGRect.init(x: tree.frame.origin.x - 5 , y: self.frame.size.height/2.0  - 10 * float - 20 - 50  , width:   40, height: 20)
-            
-                amount.text = "56.7%"
             amount.tag = index + 1000
-
-            
             amount.textAlignment =  .center
             amount.font = UIFont.systemFont(ofSize: 10)
             addSubview(tree)
@@ -90,22 +86,21 @@ class ChartView: UIView {
             
             let amount : UILabel = self.viewWithTag(amounttag) as! UILabel
             
-            
-            
-            if index == 2 {
-                tree.frame =   CGRect.init(x: oringnWith  , y: self.frame.size.height/2.0 - 10*float-20-10, width: 30, height:  10*float+20)
+//            if index == 2 {
+                tree.frame =   CGRect.init(x: oringnWith  , y: self.frame.size.height/2.0 - 10*float-30-10, width: 30, height:  10*float+30)
                 amount.frame = CGRect.init(x: tree.frame.origin.x - 5 , y: self.frame.size.height/2.0  - 10 * float - 20 - 30  , width:   40, height: 20)
-                
-                 amount.frame = CGRect.init(x: tree.frame.origin.x - 5 , y: tree.frame.origin.y - 20, width:   40, height: 20)
-            }else{
+                amount.frame = CGRect.init(x: tree.frame.origin.x - 5 , y: tree.frame.origin.y - 20, width:   40, height: 20)
+//            }else
             
-                tree.frame =   CGRect.init(x: oringnWith  , y: self.frame.size.height/2.0-10 , width: 30, height:  10*float)
-                
-                amount.frame = CGRect.init(x: tree.frame.origin.x - 5 , y: tree.frame.origin.y + tree.frame.size.height , width:   40, height: 20)
-            }
+//            {
+            
+//                tree.frame =   CGRect.init(x: oringnWith  , y: self.frame.size.height/2.0-10 , width: 30, height:  10*float+20)
+//                
+//                amount.frame = CGRect.init(x: tree.frame.origin.x - 5 , y: tree.frame.origin.y + tree.frame.size.height , width:   40, height: 20)
+//            }
             
 //            amount.frame = CGRect.init(x: tree.frame.origin.x - 5 , y: self.frame.size.height/2.0  - 10 * float - 20 - 30  , width:   40, height: 20)
-            amount.text = "123"
+              amount.text = "56.7%"
         }
         
     }
