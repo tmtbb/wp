@@ -35,6 +35,7 @@ class HomeVC: BaseTableViewController {
     }
     //MARK: --DATA
     func initData() {
+        AppDataHelper.instance().initProductData()
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
     }

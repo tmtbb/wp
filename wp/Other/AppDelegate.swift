@@ -11,7 +11,7 @@ import UIKit
 import SVProgressHUD
 import Fabric
 import Crashlytics
-import Alamofire
+import Alamofire 
  
 @UIApplicationMain
 

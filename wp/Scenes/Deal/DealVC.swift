@@ -29,7 +29,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBOutlet weak var titleView: TitleCollectionView!
     private var klineBtn: UIButton?
     private var priceTimer: Timer?
-    
+    private var klineTimer: Timer?
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
         //        initDealTableData()
@@ -59,14 +59,17 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     deinit {
         DealModel.share().removeObserver(self, forKeyPath: "selectDealModel")
+        priceTimer?.invalidate()
         priceTimer = nil
+        klineTimer?.invalidate()
+        klineTimer = nil
     }
     //MARK: --DATA
     func initData() {
         //初始化持仓数据
         initDealTableData()
         //初始化下商品数据
-        AppDataHelper.instance().initProductData()
+        titleView.objects = DealModel.share().productKinds
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
         //持仓点击
@@ -135,6 +138,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     internal func didSelectedObject(object: AnyObject?) {
         if let model: ProductModel = object as! ProductModel? {
             DealModel.share().selectProduct = model
+            kLineView.refreshKLine()
         }
     }
     // 持仓列表数据
