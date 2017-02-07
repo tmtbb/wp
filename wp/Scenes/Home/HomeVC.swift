@@ -15,7 +15,7 @@ class HomeVC: BaseTableViewController {
     lazy var flowListArray: [FlowOrdersList] =  [FlowOrdersList]()
     //行情数据
     lazy var marketArray: [KChartModel] = []
-    
+    private var priceTimer: Timer?
     var dict:[AnyObject]?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,12 +37,6 @@ class HomeVC: BaseTableViewController {
     
     //MARK: --DATA
     func initData() {
-        //0,添加数据监听
-        DealModel.share().addObserver(self, forKeyPath: "allProduct", options: .new, context: nil)
-        //2,请求商品报价
-        if DealModel.share().allProduct.count > 0 {
-            initRealTimeData()
-        }
         
         
     }
@@ -86,7 +80,7 @@ class HomeVC: BaseTableViewController {
         navigationController?.addSideMenuButton()
 
         let images: [String] = ["banner", "banner", "banner"]
-        let contentSourceArray: [String] = ["用户001111 买涨白银价 3666","用户001买涨白银价3666","用户001买涨白银价3666"]
+        let contentSourceArray: [String] = ["用户001111 买涨白银价 3666","用户001111 买涨白银价 3666","用户001111 买涨白银价 3666"]
         let tagSourceArray: [String] = ["跟单", "跟单", "跟单"]
         tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
         tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
@@ -307,9 +301,11 @@ class HomeVC: BaseTableViewController {
     }
     //意见反馈
     func jumpToFeedbackController() {
-        
-//        let feedbackVC = FeedbackController()
-//        navigationController?.pushViewController(feedbackVC, animated: true)
+        AppServerHelper.instance().feedbackKid?.makeFeedbackViewController(completionBlock: {[weak self] (controller, error) in
+            if let feedbackController = controller{
+                self?.navigationController?.pushViewController(feedbackController, animated: true)
+            }
+        })
     }
     //产品评分
     func jumpToProductGradeController() {

@@ -28,9 +28,9 @@ class SocketConst: NSObject {
         case accountNews = 1007
         //获取个人信息
         case getUserinfo = 1001
-
         //修改个人信息
         case changeUserInfo = 1031
+        
         case accinfo = 1003
         //流水列表
         case flowList = 1077
@@ -95,6 +95,13 @@ class SocketConst: NSObject {
         case deal   = 5
     }
     
+    enum aType:UInt8 {
+        case shares = 1 //股票
+        case spot = 2   //现货
+        case futures = 3   //期货
+        case currency = 4   //外汇
+    }
+    
     class Key {
         static let last_id = "last_id_"
         static let count = "count_"
@@ -109,7 +116,6 @@ class SocketConst: NSObject {
         static let skills = "skills_"
         static let type = "type"
         static let phone = "phone"
-        
         static let pwd = "pwd"
         static let code = "vCode"
         static let voiceCode = "voiceCode"
@@ -137,7 +143,6 @@ class SocketConst: NSObject {
         static let money = "money"
         static let bld = "bld"
         static let password = "password"
-
         static let withdrawld = "withdrawld"
         static let wid = "wid"
         static let title = "title"
@@ -153,6 +158,8 @@ class SocketConst: NSObject {
         static let platformName = "platformName"
         static let chartType = "chartType"
         static let goodsinfos = "goodsinfos"
+        static let symbolInfos = "symbolInfos"
+        static let symbol = "symbol"
         static let exchange_name = "exchange_name"
         static let platform_name = "platform_name"
         static let bid = "bid"
@@ -163,7 +170,6 @@ class SocketConst: NSObject {
         static let avatarLarge = "avatarLarge"
         static let uidStr = "uidStr"
         static let timestamp = "timestamp"
+        static let aType = "aType"
     }
-    
-    
 }

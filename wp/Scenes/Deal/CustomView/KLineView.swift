@@ -15,6 +15,10 @@ class KLineView: UIView {
     @IBOutlet weak var miu15Charts: CombinedChartView!
     @IBOutlet weak var hourCharts: CombinedChartView!
     @IBOutlet weak var dayCharts: CombinedChartView!
+    var miu15Models: [KChartModel] = []
+    var hourModels: [KChartModel] = []
+    var dayModels: [KChartModel] = []
+    
     var selectIndex: NSInteger!{
         didSet{
             switch selectIndex {
@@ -23,7 +27,7 @@ class KLineView: UIView {
                 bringSubview(toFront: self.miuCharts)
                 break
             case 2:
-                initMiu15KChartsData()
+//                initMiu15KChartsData()
                 bringSubview(toFront: self.miu15Charts)
                 break
             case 3:
@@ -104,16 +108,26 @@ class KLineView: UIView {
     //MARK: --15分钟
     func initMiu15KChartsData() {
         let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.goodType
-        KLineModel.query15kModels(goodType: type!) { [weak self](result) -> ()? in
-            if let models: [KChartModel] = result as? [KChartModel] {
-                self?.refreshCandleStickData(type: .miu15, models: models)
+
+        
+        KLineModel.queryModels(margin: 60*15, goodType: type!) { [weak self](result) -> ()? in
+            if let model: KChartModel = result as? KChartModel{
+                self?.miu15Models.append(model)
+                self?.refreshCandleStickData(type: .miu15, models: (self?.miu15Models)!)
             }
             return nil
         }
         
-        let _ = delay(60*15, task: { [weak self] in
-            self?.initMiu15KChartsData()
-        })
+//        KLineModel.query15kModels(goodType: type!) { [weak self](result) -> ()? in
+//            if let models: [KChartModel] = result as? [KChartModel] {
+//                self?.refreshCandleStickData(type: .miu15, models: models)
+//            }
+//            return nil
+//        }
+        
+//        let _ = delay(60*15, task: { [weak self] in
+//            self?.initMiu15KChartsData()
+//        })
     }
     //MARK: --60分钟
     func initMiu60KChartsData() {

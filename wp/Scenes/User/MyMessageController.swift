@@ -146,11 +146,24 @@ class MyMessageController: BaseTableViewController {
         }
         //交易密码
         if indexPath.section == 3 {
-            performSegue(withIdentifier: DealPasswordVC.className(), sender: nil)
+            
+            let story : UIStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
+            
+            let registvc : RegisterVC  = story.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC
+            
+            UserModel.share().forgetPwd = true
+            UserModel.share().forgetType = .dealPass
+            self.navigationController?.pushViewController(registvc, animated: true)
         }
         //登录密码
         if indexPath.section == 4{
-            performSegue(withIdentifier: EnterPasswordVC.className(), sender: nil)
+            let story : UIStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
+            
+            let registvc : RegisterVC  = story.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC
+            
+            UserModel.share().forgetPwd = true
+            UserModel.share().forgetType = .loginPass
+            self.navigationController?.pushViewController(registvc, animated: true)
         }
     }
     

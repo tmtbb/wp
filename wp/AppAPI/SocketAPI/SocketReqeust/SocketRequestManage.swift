@@ -35,7 +35,7 @@ class SocketRequestManage: NSObject {
         _socketHelper?.connect()
     }
     
-    func stop() {
+    func  stop() {
         _timer?.invalidate()
         _timer = nil
         objc_sync_enter(self)

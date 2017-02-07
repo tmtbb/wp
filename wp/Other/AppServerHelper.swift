@@ -7,7 +7,20 @@
 //
 
 import UIKit
-
 class AppServerHelper: NSObject {
-
+    fileprivate static var helper = AppServerHelper()
+    var feedbackKid: YWFeedbackKit?
+    
+    class func instance() -> AppServerHelper{
+        return helper
+    }
+    
+    func initServer() {
+        initFeedback()
+    }
+    
+    //阿里百川
+    func initFeedback() {
+        feedbackKid = YWFeedbackKit.init(appKey: "")
+    }
 }
