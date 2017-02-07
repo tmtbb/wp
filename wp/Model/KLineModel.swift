@@ -27,6 +27,8 @@ class KLineModel: NSObject {
             }
         }
     }
+    
+    
     //缓存K线数据
     class func cacheKTimelimeModels() {
        
@@ -135,6 +137,8 @@ class KLineModel: NSObject {
         }
         
     }
+    
+    
     //以某个时间间隔为标准，查询对应的数据
     class func queryModels(margin: Int, goodType: String, complete: @escaping CompleteBlock){
         var min = minTime
@@ -142,6 +146,9 @@ class KLineModel: NSObject {
         let current = Int(Date.nowTimestemp())
         while max < current {
             let model = queryModel(goodType: goodType, fromTime: min, toTime: max)
+            if model == nil {
+                break
+            }
             complete(model as AnyObject)
             min = max
             max = min + margin

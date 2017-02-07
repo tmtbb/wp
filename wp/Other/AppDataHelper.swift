@@ -22,22 +22,45 @@ class AppDataHelper: NSObject {
     //请求商品数据
     func initProductData() {
         var allProducets: [ProductModel] = []
-        AppAPIHelper.deal().products(pid: 0, complete: {(result) -> ()? in
+        AppAPIHelper.deal().products(pid: 0, complete: {[weak self](result) -> ()? in
             if let products: [ProductModel] = result as! [ProductModel]?{
                 //拼接所有商品
-                allProducets += products
+                allProducets = products
+                //商品分类
+                self?.checkAllProductKinds(allProducts: allProducets)
                 DealModel.share().allProduct = allProducets
                 //默认选择商品
                 if allProducets.count > 0{
                     DealModel.share().selectProduct = allProducets[0]
                 }
+            }else{
+    
             }
             return nil
-        }) {(error) -> ()? in
+        }) {[weak self](error) -> ()? in
             SVProgressHUD.showErrorMessage(ErrorMessage: "商品数据获取失败，请稍候再试", ForDuration: 1.5, completion: nil)
             return nil
         }
     }
+    //对所有商品进行分类
+    func checkAllProductKinds(allProducts: [ProductModel]) {
+        for product in allProducts {
+            if DealModel.share().productKinds.count == 0 {
+                DealModel.share().productKinds.append(product)
+            }else{
+                var isContent = false
+                for kind in DealModel.share().productKinds{
+                    if product.symbol == kind.symbol {
+                        isContent = true
+                    }
+                }
+                if isContent == false{
+                    DealModel.share().productKinds.append(product)
+                }
+            }
+        }
+    }
+    
     //根据商品数据请求k线数据
     func initLineChartData(product: ProductModel){
         let param = KChartParam()
@@ -48,7 +71,7 @@ class AppDataHelper: NSObject {
         AppAPIHelper.deal().timeline(param: param, complete: {(result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel]{
                 KLineModel.cacheTimelineModels(models: models, goodType:param.goodType)
-                KLineModel.cacheKTimelimeModels()
+//                KLineModel.cacheKTimelimeModels()
             }
             return nil
         }, error: { (error) ->()? in
@@ -90,4 +113,5 @@ class AppDataHelper: NSObject {
         UserDefaults.standard.removeObject(forKey: SocketConst.Key.token)
         UserModel.share().currentUser = nil
     }
+
 }

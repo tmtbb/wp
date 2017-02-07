@@ -101,7 +101,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
         
         if keyPath == "allProduct"{
-            let allProducets: [ProductModel] = DealModel.share().allProduct
+            let allProducets: [ProductModel] = DealModel.share().productKinds
             titleView.objects = allProducets
 //            let product = allProducets[0]
 //            DealModel.share().selectProduct = product
