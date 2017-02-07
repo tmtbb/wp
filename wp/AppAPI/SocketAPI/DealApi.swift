@@ -20,7 +20,7 @@ protocol DealApi{
     //建仓
     func buildDeal(model: PositionModel, complete: CompleteBlock?, error:ErrorBlock?)
     //平仓
-    func sellOutDeal(positionId: Int, price: Int, complete: CompleteBlock?, error:ErrorBlock?)
+    func sellOutDeal(complete: CompleteBlock?, error:ErrorBlock?)
     //修改持仓
     func changeDeal(model: PositionModel, complete: CompleteBlock?, error:ErrorBlock?)
     //商品列表

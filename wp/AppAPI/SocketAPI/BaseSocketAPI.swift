@@ -34,7 +34,7 @@ class BaseSocketAPI: NSObject {
     func startResultIntRequest(_ packet: SocketDataPacket, complete: @escaping CompleteBlock, error: ErrorBlock?) {
         SocketRequestManage.shared.startJsonRequest(packet,complete: {  (response) in
             complete((response as? SocketJsonResponse)?.responseResult() as AnyObject?)
-            },error: error)
+        },error: error)
     }
     
     /**

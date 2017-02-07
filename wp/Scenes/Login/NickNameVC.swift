@@ -32,8 +32,13 @@ class NickNameVC: BaseTableViewController {
     //MARK: --Function
     @IBAction func finishBtnTapped(_ sender: Any) {
         if checkTextFieldEmpty([nickNameText]){
-            UserModel.share().currentUser?.nickname = nickNameText.text
-            dismissController()
+            AppAPIHelper.user().resetUserScreenName(screenName: nickNameText.text!, complete: { [weak self](result) -> ()? in
+                UserModel.updateUser(info: { (result) -> ()? in
+                    UserModel.share().currentUser?.nickname = self?.nickNameText.text
+                })
+                self?.dismissController()
+                return nil
+            }, error: errorBlockFunc())
         }
     }
 

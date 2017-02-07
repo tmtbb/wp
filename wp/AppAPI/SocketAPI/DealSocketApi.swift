@@ -52,11 +52,10 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     }
     
     //平仓
-    func sellOutDeal(positionId: Int, price: Int, complete: CompleteBlock?, error:ErrorBlock?){
+    func sellOutDeal(complete: CompleteBlock?, error:ErrorBlock?){
         let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 0,
                                     SocketConst.Key.token: UserModel.token ?? "",
-                                    SocketConst.Key.position: positionId,
-                                    SocketConst.Key.price: price]
+                                    SocketConst.Key.position: DealModel.share().selectDealModel?.positionId ?? 0]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .sellOutDeal, dict: param as [String : AnyObject])
         startModelRequest(packet, modelClass: PositionModel.self, complete: complete, error: error)
     }
