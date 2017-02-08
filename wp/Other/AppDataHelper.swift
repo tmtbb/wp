@@ -19,7 +19,7 @@ class AppDataHelper: NSObject {
     private var timelineTimer: Timer?
     
     func initData() {
-//        hurtTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
+        hurtTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
         timelineTimer = Timer.scheduledTimer(timeInterval: 45, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
         initProductData()
         checkTokenLogin()
