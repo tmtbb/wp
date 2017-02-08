@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import DKNightVersion
 class LoginVC: BaseTableViewController {
     
     
@@ -20,6 +21,9 @@ class LoginVC: BaseTableViewController {
         super.viewDidLoad()
         initData()
         initUI()
+       self.navigationController?.navigationBar.dk_tintColorPicker = DKColorTable.shared().picker(withKey: "BAR")
+        
+     
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

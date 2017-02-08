@@ -10,7 +10,7 @@ import UIKit
 
 class CustomeAlertView : UIView,UITableViewDelegate,UITableViewDataSource {
     
-
+    
     //大背景view
     
     var bgView = UIView()
@@ -99,12 +99,12 @@ class CustomeAlertView : UIView,UITableViewDelegate,UITableViewDataSource {
         return 40
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        ShareModel.share().selectMonth = "\(indexPath.row + 1)"
         
+        ShareModel.share().selectMonth = "\(indexPath.row + 1)"
         UIView.animate(withDuration: 0.1) {
-           self.removeFromSuperview()
+            self.removeFromSuperview()
         }
-       
+        
     }
     
 }

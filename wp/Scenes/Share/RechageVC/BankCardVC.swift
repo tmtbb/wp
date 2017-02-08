@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 class BindingBankVCCell: UITableViewCell {
     // 银行名称
     @IBOutlet weak var bankName: UILabel!
@@ -159,18 +160,27 @@ class BankCardVC: BaseListTableViewController {
                 
                 AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) , phone: (UserModel.getCurrentUser()?.phone)!, vCode: (alertView.textField(at: 0)?.text)!, complete: { [weak self](result) -> ()? in
                     
-                                 self?.didRequest()
-                    self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
-                     self?.tableView.reloadData()
-                    //
+                
+    //
                     //                                                self?.tableView.reloadData()
-                    //                    if result != nil{
-                    //                        self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
-                    //
-                    //                                                self?.tableView.reloadData()
-                    //                                            }else{
-                    //
-                    //                                            }
+                                        if result != nil{
+                                            
+                                            let dic : NSDictionary = result as! NSDictionary
+                                            if (dic.object(forKey: "error") != nil){
+                                                let error : Int = dic.object(forKey: "error") as! Int
+                                                if error == -113{
+                                                
+                                                    SVProgressHUD.showError(withStatus: "验证码错误")
+                                                     self?.tableView.reloadData()
+                                                    return nil
+                                                }
+                                            }
+                                            self?.didRequest()
+                                            self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
+                                            self?.tableView.reloadData()
+                                                                }else{
+                    
+                                                                }
                     
                     return nil
                     }, error: errorBlockFunc())

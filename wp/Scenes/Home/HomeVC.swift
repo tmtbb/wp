@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import Alamofire
+import DKNightVersion
 class HomeVC: BaseTableViewController {
     
     //交易明细数据
@@ -31,8 +32,9 @@ class HomeVC: BaseTableViewController {
         tableView.showsVerticalScrollIndicator = false
         registerNotify()
         initData()
+//         self.navigationController?.navigationBar.dk_tintColorPicker = DKColorTable.shared().picker(withKey: "BG")
         initUI()
-        
+//       /self.view.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "BG")
     }
     
     //MARK: --DATA
