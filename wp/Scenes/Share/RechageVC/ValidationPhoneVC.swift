@@ -44,9 +44,6 @@ class ValidationPhoneVC: BaseTableViewController {
     }
     @IBAction func bindBank(_ sender: Any) {
         
-        
-        
-     
         AppAPIHelper.user().bingcard(bank: Int64(ShareModel.share().shareData["bankId"]!)!, branchBank: ShareModel.share().shareData["branchBank"]!, cardNo: ShareModel.share().shareData["cardNo"]!, name: ShareModel.share().shareData["name"]!, complete: { (result) -> ()? in
             
             if result != nil {
@@ -59,6 +56,7 @@ class ValidationPhoneVC: BaseTableViewController {
                     for  nav : UIViewController in (self?.navigationController?.viewControllers)! {
                         
                         if nav.isKind(of: BankCardVC.self){
+                            
                             
                             self?.navigationController?.popToViewController(nav, animated: true)
                         }

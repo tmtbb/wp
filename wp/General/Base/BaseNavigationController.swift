@@ -34,11 +34,11 @@ class BaseNavigationController: UINavigationController,UINavigationControllerDel
         btn.frame = CGRect.init(x: 0, y: 0, width: 20, height: 20)
         
         let barItem : UIBarButtonItem = UIBarButtonItem.init(customView: btn)
-      viewController.navigationItem.leftBarButtonItem = barItem
-      interactivePopGestureRecognizer?.delegate = self
+        viewController.navigationItem.leftBarButtonItem = barItem
+        interactivePopGestureRecognizer?.delegate = self
     }
     func popself(){
-    
+     
        self.popViewController(animated: true)
     }
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {

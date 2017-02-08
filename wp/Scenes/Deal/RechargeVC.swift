@@ -45,25 +45,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     }
     
     
-    override func didRequest() {
-        //        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
-        //
-        //            if let object = result {
-        //
-        //                let Model : BankModel = object as! BankModel
-        //                let Count : Int = Model.cardlist!.count as Int
-        //                                let str : String = String(Count)
-        //                self?.bankCount.text = "\(str)" + " " + "张"
-        //
-        //            }else {
-        //
-        //            }
-        //
-        //            return nil
-        //            }, error: errorBlockFunc())
-        
-        
-    }
+   
     //MARK: --UI
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -192,43 +174,53 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     @IBAction func submitBtnTapped(_ sender: UIButton) {
        //kURL_TN_Normal
        
-        let urlRequest : NSURLRequest = NSURLRequest.init(url:   NSURL.init(string: "http://101.231.204.84:8091/sim/getacptn") as! URL)
+        if selectType == 0 {
+            
+            if checkTextFieldEmpty([self.rechargeMoneyTF]) {
+                let urlRequest : NSURLRequest = NSURLRequest.init(url:   NSURL.init(string: "http://101.231.204.84:8091/sim/getacptn") as! URL)
+                
+                let urlConn : NSURLConnection = NSURLConnection.init(request: urlRequest as URLRequest, delegate: self)!
+                
+                urlConn.start()
+            }
+            
+        }else{
         
-        let urlConn : NSURLConnection = NSURLConnection.init(request: urlRequest as URLRequest, delegate: self)!
+                    if checkTextFieldEmpty([self.rechargeMoneyTF]) {
+                        var money : String
+                        if ((self.rechargeMoneyTF.text?.range(of: ".")) != nil) {
+                            money = self.rechargeMoneyTF.text!
+                        }else{
+            
+                            money = "\(self.rechargeMoneyTF.text!)" + ".00001"
+                        }
+                        AppAPIHelper.user().weixinpay(title: "微盘-余额充值", price: Double.init(money)! , complete: { (result) -> ()? in
+            
+                            if let object = result {
+            
+                                let request : PayReq = PayReq()
+                                //                    ShareModel.share().shareData.removeValue(forKey: "rid")
+                                let  str : String  = object["timestamp"] as! String!
+                                ShareModel.share().shareData["rid"] =  object["rid"] as! String!
+                                request.timeStamp = UInt32(str)!
+                                request.sign = object["sign"] as! String!
+                                request.package = object["package"] as! String!
+                                request.nonceStr = object["noncestr"] as! String!
+                                request.partnerId = object["partnerid"] as! String!
+                                request.sign = object["sign"] as! String!
+                                request.prepayId = object["prepayid"] as! String!
+                                
+                                WXApi.send(request)
+                            }
+                            
+                            return nil
+                        }, error: errorBlockFunc())
+                    }
+        }
         
-        urlConn.start()
 
 //        
-//        if checkTextFieldEmpty([self.rechargeMoneyTF]) {
-//            var money : String
-//            if ((self.rechargeMoneyTF.text?.range(of: ".")) != nil) {
-//                money = self.rechargeMoneyTF.text!
-//            }else{
-//                
-//                money = "\(self.rechargeMoneyTF.text!)" + ".00001"
-//            }
-//            AppAPIHelper.user().weixinpay(title: "微盘-余额充值", price: Double.init(money)! , complete: { (result) -> ()? in
-//                
-//                if let object = result {
-//                    
-//                    let request : PayReq = PayReq()
-//                    //                    ShareModel.share().shareData.removeValue(forKey: "rid")
-//                    let  str : String  = object["timestamp"] as! String!
-//                    ShareModel.share().shareData["rid"] =  object["rid"] as! String!
-//                    request.timeStamp = UInt32(str)!
-//                    request.sign = object["sign"] as! String!
-//                    request.package = object["package"] as! String!
-//                    request.nonceStr = object["noncestr"] as! String!
-//                    request.partnerId = object["partnerid"] as! String!
-//                    request.sign = object["sign"] as! String!
-//                    request.prepayId = object["prepayid"] as! String!
-//                    
-//                    WXApi.send(request)
-//                }
-//                
-//                return nil
-//            }, error: errorBlockFunc())
-//        }
+
     
     }
     
@@ -352,7 +344,29 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
 //    
 //    }
     
-   
+    override func didRequest() {
+        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
+            
+            if let object = result {
+                
+                let Model : BankModel = object as! BankModel
+               
+                let Count : Int = (Model.cardlist?.count)!
+                let str : String = String(Count)
+                self?.bankCount.text = "\(str)" + " " + "张"
+                
+              
+                
+            }else {
+                
+              
+            }
+            
+            return nil
+            }, error: errorBlockFunc())
+        
+        
+    }
     
 }
 

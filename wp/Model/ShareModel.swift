@@ -13,14 +13,12 @@ class ShareModel: BaseModel {
     class func share() -> ShareModel{
         return model
     }
-    
+    //设置选中的类型
     var selectType : String = " "
     
     dynamic var selectMonth : String = " "
     
     var detailModel  =  WithdrawModel()
-    
-   
     
     dynamic var selectBank  = BankListModel()
     
