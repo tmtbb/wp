@@ -31,12 +31,11 @@ class UserTableViewController: BaseTableViewController {
     //资金按钮
     @IBOutlet weak var myPropertyBtn: UIButton!
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//         UserModel.getCurrentUser()?.balance
-         UserModel.getCurrentUser()?.addObserver(self, forKeyPath: "balance", options: .new, context: nil)
+        //       UserModel.getCurrentUser()?.balance
+        UserModel.getCurrentUser()?.addObserver(self, forKeyPath: "balance", options: .new, context: nil)
         registerNotify()
         //更新token
         AppDataHelper.instance().checkTokenLogin()
@@ -69,7 +68,7 @@ class UserTableViewController: BaseTableViewController {
         super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         if keyPath == "balance" {
             
-           
+            
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -132,7 +131,7 @@ class UserTableViewController: BaseTableViewController {
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
             if let object = result {
                 let  money : Double =  object["balance"] as! Double
-                 let str : String = NSString(format: "%.2f" ,money) as String
+                let str : String = NSString(format: "%.2f" ,money) as String
                 self?.propertyNumber.text =  "\(str)"
                 UserModel.updateUser(info: { (result)-> ()? in
                     UserModel.share().currentUser?.balance = Double(str as String)!
@@ -144,7 +143,7 @@ class UserTableViewController: BaseTableViewController {
                     let model = modes.first
                     UserModel.updateUser(info: { (result) -> ()? in
                         if model!.avatarLarge != nil {
-                           UserModel.getCurrentUser()?.avatarLarge = model!.avatarLarge
+                            UserModel.getCurrentUser()?.avatarLarge = model!.avatarLarge
                         }
                         UserModel.getCurrentUser()?.screenName = model!.screenName
                         UserModel.getCurrentUser()?.phone = model!.phone
@@ -155,7 +154,7 @@ class UserTableViewController: BaseTableViewController {
                 }, error: self?.errorBlockFunc())
             return nil
             }, error: errorBlockFunc())
-       
+        
         
         
     }
