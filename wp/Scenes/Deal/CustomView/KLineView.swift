@@ -53,6 +53,7 @@ class KLineView: UIView {
         super.awakeFromNib()
         initChartView()
         refreshKLine()
+        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(refreshKLine), userInfo: nil, repeats: true)
         //每隔60秒刷新一次分时数据
         Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(initMiuLChartsData), userInfo: nil, repeats: true)
         //每隔15分钟刷新一次分时数据
@@ -111,13 +112,14 @@ class KLineView: UIView {
     //MARK: --60分钟
     func initMiu60KChartsData() {
         let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.symbol
-//        KLineModel.queryModels(type: .miu60, goodType: type!) { [weak self](result) -> ()? in
-//            if let model: KChartModel = result as? KChartModel{
-//                self?.miu60Models.append(model)
-//                self?.refreshCandleStickData(type: .miu15, models: (self?.miu15Models)!)
-//            }
-//            return nil
-//        }
+        let fromTime: Int = Int(Date.startTimestemp())
+        let toTime: Int = Int(Date.nowTimestemp())
+        KLineModel.query60KLineModels(fromTime: fromTime, toTime: toTime, goodType: type!){[weak self](result) -> ()? in
+            if let models: [KChartModel] = result as? [KChartModel] {
+                self?.refreshCandleStickData(type: .miu60, models: models)
+            }
+            return nil
+        }
     }
     //MARK: --日K线
     func initDayKChartsData() {

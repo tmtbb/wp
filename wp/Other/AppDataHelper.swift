@@ -72,23 +72,7 @@ class AppDataHelper: NSObject {
     
     //根据商品分时数据
     func initLineChartData(){
-        for product in DealModel.share().productKinds{
-            let param = KChartParam()
-            param.symbol = product.symbol
-            param.exchangeName = product.exchangeName
-            param.platformName = product.platformName
-            param.aType = 4
-            AppAPIHelper.deal().timeline(param: param, complete: {(result) -> ()? in
-                if let models: [KChartModel] = result as? [KChartModel]{
-                    KLineModel.cacheTimelineModels(models: models, goodType:product.symbol)
-                }
-                return nil
-            }, error: { (error) ->()? in
-                SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
-                return nil
-            })
-        }
-//        if let product = DealModel.share().selectProduct{
+//        for product in DealModel.share().productKinds{
 //            let param = KChartParam()
 //            param.symbol = product.symbol
 //            param.exchangeName = product.exchangeName
@@ -96,7 +80,7 @@ class AppDataHelper: NSObject {
 //            param.aType = 4
 //            AppAPIHelper.deal().timeline(param: param, complete: {(result) -> ()? in
 //                if let models: [KChartModel] = result as? [KChartModel]{
-//                    KLineModel.cacheTimelineModels(models: models, goodType:param.symbol)
+//                    KLineModel.cacheTimelineModels(models: models, goodType:product.symbol)
 //                }
 //                return nil
 //            }, error: { (error) ->()? in
@@ -104,11 +88,31 @@ class AppDataHelper: NSObject {
 //                return nil
 //            })
 //        }
+        if let product = DealModel.share().selectProduct{
+            let param = KChartParam()
+            param.symbol = product.symbol
+            param.exchangeName = product.exchangeName
+            param.platformName = product.platformName
+            param.aType = 4
+            AppAPIHelper.deal().timeline(param: param, complete: {(result) -> ()? in
+                if let models: [KChartModel] = result as? [KChartModel]{
+                    KLineModel.cacheTimelineModels(models: models, goodType:param.symbol)
+                }
+                return nil
+            }, error: { (error) ->()? in
+                SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
+                return nil
+            })
+        }
     }
     //缓存商品KLine数据
     func initKLineModel() {
-        for product in DealModel.share().productKinds{
+//        for product in DealModel.share().productKinds{
+//            KLineModel.cacheKLineModels(klineType: .miu15, goodType: product.symbol)
+//        }
+        if let product = DealModel.share().selectProduct{
             KLineModel.cacheKLineModels(klineType: .miu15, goodType: product.symbol)
+            KLineModel.cacheKLineModels(klineType: .miu60, goodType: product.symbol)
         }
     }
     
