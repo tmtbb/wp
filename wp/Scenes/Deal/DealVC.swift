@@ -138,6 +138,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     internal func didSelectedObject(object: AnyObject?) {
         if let model: ProductModel = object as! ProductModel? {
             DealModel.share().selectProduct = model
+            AppDataHelper.instance().initLineChartData()
             kLineView.refreshKLine()
         }
     }
