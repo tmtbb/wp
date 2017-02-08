@@ -61,10 +61,10 @@ class ProdectCell: UITableViewCell {
         changeLabel.font = UIFont.systemFont(ofSize: 13 * screenW)
         changePer.font = UIFont.systemFont(ofSize: 13 * screenW)
         
-        if screenW < 1 {
-            layoutHightPrice.constant = 10
-            layoutChangePer.constant = 4
-        }
-    }  
+//        if screenW < 1 {
+//            layoutHightPrice.constant = 10
+//            layoutChangePer.constant = 4
+//        }
+    }
 }
 

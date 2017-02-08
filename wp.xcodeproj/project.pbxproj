@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		2FFBC4EC1DF8EF190039A0E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */; };
 		67563DCFE7C11C493D5E3BE0 /* Pods_wp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */; };
-		8E8BFC361E45DE6300712CA2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BFC351E45DE6300712CA2 /* libz.tbd */; };
-		8E8BFC381E45DE8300712CA2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8BFC371E45DE8300712CA2 /* SystemConfiguration.framework */; };
 		A009AD0E1E28A399008A5014 /* FriendTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009AD0D1E28A399008A5014 /* FriendTableView.swift */; };
 		A009AD111E28BF3E008A5014 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD101E28BF3E008A5014 /* back.png */; };
 		A009AD141E28C864008A5014 /* noticeSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD121E28C864008A5014 /* noticeSelect@2x.png */; };
@@ -300,6 +298,7 @@
 		BFF019E71E23B113008631D6 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFF019741E23B113008631D6 /* Home.storyboard */; };
 		BFF019E81E23B113008631D6 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFF019751E23B113008631D6 /* Login.storyboard */; };
 		BFF019EA1E23B113008631D6 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFF019771E23B113008631D6 /* User.storyboard */; };
+		D0040E3F1E49F4CE0079A659 /* nav_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D0040E3E1E49F4CE0079A659 /* nav_bg.png */; };
 		D0302B531E1B86DF007D3F2B /* FlowDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0302B511E1B86DF007D3F2B /* FlowDetails.swift */; };
 		D0302B541E1B86DF007D3F2B /* FlowOrdersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0302B521E1B86DF007D3F2B /* FlowOrdersList.swift */; };
 		D0302B791E1C94DE007D3F2B /* CreditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0302B771E1C94DE007D3F2B /* CreditModel.swift */; };
@@ -335,8 +334,6 @@
 /* Begin PBXFileReference section */
 		2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		34A71E9057EC9BB492D14F0B /* Pods-wp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wp/Pods-wp.debug.xcconfig"; sourceTree = "<group>"; };
-		8E8BFC351E45DE6300712CA2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		8E8BFC371E45DE8300712CA2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A009AD0D1E28A399008A5014 /* FriendTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableView.swift; sourceTree = "<group>"; };
 		A009AD101E28BF3E008A5014 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		A009AD121E28C864008A5014 /* noticeSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noticeSelect@2x.png"; sourceTree = "<group>"; };
@@ -645,6 +642,7 @@
 		BFF019741E23B113008631D6 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		BFF019751E23B113008631D6 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		BFF019771E23B113008631D6 /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
+		D0040E3E1E49F4CE0079A659 /* nav_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_bg.png; sourceTree = "<group>"; };
 		D0302B511E1B86DF007D3F2B /* FlowDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowDetails.swift; sourceTree = "<group>"; };
 		D0302B521E1B86DF007D3F2B /* FlowOrdersList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowOrdersList.swift; sourceTree = "<group>"; };
 		D0302B771E1C94DE007D3F2B /* CreditModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditModel.swift; sourceTree = "<group>"; };
@@ -717,7 +715,6 @@
 		10CEA088AA8041FD84B55B62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-
 				A0EA2D541E481BF900DD3158 /* libz.tbd */,
 				A0EA2D521E481BD600DD3158 /* SystemConfiguration.framework */,
 				A0EA2D501E481BC300DD3158 /* CFNetwork.framework */,
@@ -1304,6 +1301,7 @@
 		BFF019041E23B112008631D6 /* ios@2X */ = {
 			isa = PBXGroup;
 			children = (
+				D0040E3E1E49F4CE0079A659 /* nav_bg.png */,
 				A04940FB1E45AE4D00ED7E17 /* cancelFocusOn@2x.png */,
 				A04940FC1E45AE4D00ED7E17 /* cancelFocusOn@3x.png */,
 				A04940F71E45AA4F00ED7E17 /* addFocusOn@2x.png */,
@@ -1615,6 +1613,7 @@
 				BFF019961E23B113008631D6 /* nav_color@2x.png in Resources */,
 				A04940FD1E45AE4D00ED7E17 /* cancelFocusOn@2x.png in Resources */,
 				BFF019C11E23B113008631D6 /* icon-13.png in Resources */,
+				D0040E3F1E49F4CE0079A659 /* nav_bg.png in Resources */,
 				BFF019D51E23B113008631D6 /* scan.png in Resources */,
 				BFF019BB1E23B113008631D6 /* detail.png in Resources */,
 				BFF019E51E23B113008631D6 /* testsocket.plist in Resources */,
