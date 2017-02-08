@@ -38,7 +38,7 @@ class AppDataHelper: NSObject {
                 //默认选择商品
                 if allProducets.count > 0{
                     DealModel.share().selectProduct = allProducets[0]
-//                    self?.initLineChartData()
+                    self?.initLineChartData()
                 }
             }else{
     
