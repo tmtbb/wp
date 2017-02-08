@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension BaseModel{
+extension NSObject{
     
     func convertToTargetObject(_ object: AnyObject)  {
         let r = Mirror.init(reflecting: object)

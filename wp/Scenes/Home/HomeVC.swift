@@ -34,13 +34,15 @@ class HomeVC: BaseTableViewController {
         initData()
 //         self.navigationController?.navigationBar.dk_tintColorPicker = DKColorTable.shared().picker(withKey: "BG")
         initUI()
-//       /self.view.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "BG")
+
+       self.view.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "BG")
+
     }
-    
     //MARK: --DATA
     func initData() {
-        
-        
+        AppDataHelper.instance().initProductData()
+        //每隔3秒请求商品报价
+        priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "allProduct" {
@@ -49,24 +51,26 @@ class HomeVC: BaseTableViewController {
     }
     
     func initRealTimeData() {
+        if DealModel.share().productKinds.count == 0 {
+            return
+        }
         var goods: [AnyObject] = []
-        for  product in DealModel.share().allProduct {
-            
-            let good = [SocketConst.Key.goodType: product.typeCode,
+        for  product in DealModel.share().productKinds {
+            let good = [SocketConst.Key.aType: SocketConst.aType.currency.rawValue,
                         SocketConst.Key.exchangeName: product.exchangeName,
-                        SocketConst.Key.platformName: product.platformName]
+                        SocketConst.Key.platformName: product.platformName,
+                        SocketConst.Key.symbol: product.symbol] as [String : Any]
             goods.append(good as AnyObject)
-            
         }
         let param: [String: Any] = [SocketConst.Key.id: UserModel.currentUserId,
                                     SocketConst.Key.token: UserModel.token ?? "",
-                                    SocketConst.Key.goodsinfos: goods]
+                                    SocketConst.Key.symbolInfos: goods]
         AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
             if let models: [KChartModel] = result as! [KChartModel]?{
                 for model in models{
-                    for  product in DealModel.share().allProduct{
-                        if model.goodType == product.goodType{
-                            model.name = product.name
+                    for  product in DealModel.share().productKinds{
+                        if model.goodType == product.symbol{
+                            model.name = product.symbol
                         }
                     }
                 }
@@ -75,7 +79,7 @@ class HomeVC: BaseTableViewController {
                 self?.tableView.reloadData()
             }
             return nil
-            }, error: errorBlockFunc())
+        }, error: errorBlockFunc())
     }
     //MARK: --UI
     func initUI() {
