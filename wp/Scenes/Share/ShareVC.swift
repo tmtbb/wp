@@ -7,9 +7,10 @@
 //
 
 import UIKit
-
+import DKNightVersion
 class ShareVC: BaseCustomPageListTableViewController {
     
+    @IBOutlet weak var navBg: UIView!
     @IBOutlet weak var dayBtn: UIButton!
     @IBOutlet weak var weekBtn: UIButton!
     @IBOutlet weak var monthBtn: UIButton!
@@ -31,6 +32,7 @@ class ShareVC: BaseCustomPageListTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+          translucent(clear: false)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -68,6 +70,8 @@ class ShareVC: BaseCustomPageListTableViewController {
     func initUI() {
         //        rankTypeBtnTapped(dayBtn)
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
+        
+        self.navBg.dk_backgroundColorPicker =  DKColorTable.shared().picker(withKey: "main")
     }
     //MARK: --昨天之星，上周名人，月度名人
     

@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import DKNightVersion
 class MyWealtVCCell: OEZTableViewCell {
     
 }
 class MyWealtVC: BaseCustomPageListTableViewController {
-    
+    //头部背景
+    @IBOutlet weak var headBg: UIView!
     //  提现按钮
     @IBOutlet weak var withDraw: UIButton!
     //  充值按钮
@@ -23,9 +25,12 @@ class MyWealtVC: BaseCustomPageListTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //注册cell
+        headBg.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         didRequest()
         title  = "我的资产"
+        recharge.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
+        recharge.layer.cornerRadius = 5
+        recharge.clipsToBounds = true
         let int : Double = Double((UserModel.getCurrentUser()?.balance)!)
         let str : String = NSString(format: "%.2f" ,int) as String
         account.text =  "\(str)"
