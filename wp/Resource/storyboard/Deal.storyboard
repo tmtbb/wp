@@ -218,7 +218,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LgN-7v-ihI">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LgN-7v-ihI" customClass="ProductsiCarousel" customModule="wp" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -887,6 +887,7 @@
                         <outlet property="nameLabel" destination="NAM-rL-J5z" id="rlB-Sk-Daa"/>
                         <outlet property="openLabel" destination="0Wr-dq-kJZ" id="uDV-y6-pyN"/>
                         <outlet property="priceLabel" destination="vcb-qj-9FF" id="fhy-W6-xfi"/>
+                        <outlet property="productsView" destination="LgN-7v-ihI" id="itJ-56-YeI"/>
                         <outlet property="titleView" destination="g3o-jq-yC7" id="cYg-EV-WLi"/>
                         <outlet property="upDownView" destination="949-H5-xke" id="PCp-Dy-ixk"/>
                         <outlet property="upLabel" destination="Cmz-A5-jh9" id="rgL-iV-147"/>

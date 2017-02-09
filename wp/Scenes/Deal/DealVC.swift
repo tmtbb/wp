@@ -27,6 +27,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBOutlet weak var minBtn: UIButton!
     @IBOutlet weak var dealTable: MyDealTableView!
     @IBOutlet weak var titleView: TitleCollectionView!
+    @IBOutlet weak var productsView: ProductsiCarousel!
     private var klineBtn: UIButton?
     private var priceTimer: Timer?
     private var klineTimer: Timer?
