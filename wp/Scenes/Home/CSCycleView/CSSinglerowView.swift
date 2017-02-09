@@ -221,7 +221,7 @@ class CSSinglerowCell: UICollectionViewCell {
         let screenW = UIScreen.main.bounds.width / 375
         let widthW:CGFloat = screenW < 1 ? 40 : 71
         let widthWW:CGFloat = screenW < 1 ? 45 : 72
-        let label = UILabel(frame: CGRect(x: self!.bounds.width - widthWW, y: 7, width: widthW, height: 36))
+        let label = UILabel(frame: CGRect(x: self!.bounds.width - widthWW, y: 4, width: widthW, height: 33))
         label.layer.cornerRadius = 5
         label.layer.masksToBounds = true
         label.textAlignment = .center

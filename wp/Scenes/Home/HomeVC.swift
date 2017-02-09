@@ -24,7 +24,6 @@ class HomeVC: BaseTableViewController {
         translucent(clear: true)
         showTabBarWithAnimationDuration()
         tabBarController?.tabBar.isHidden = false
-        
     }
     
     override func viewDidLoad() {
@@ -84,68 +83,57 @@ class HomeVC: BaseTableViewController {
     //MARK: --UI
     func initUI() {
         navigationController?.addSideMenuButton()
-
         let images: [String] = ["banner", "banner", "banner"]
-        let contentSourceArray: [String] = ["用户001111 买涨白银价 3666","用户001111 买涨白银价 3666","用户001111 买涨白银价 3666"]
-        let tagSourceArray: [String] = ["跟单", "跟单", "跟单"]
+        let contentSourceArray: [String] = ["用户0102030405买涨 【上海-东京】赚1...","用户0102030405买涨 【上海-东京】赚1...","用户0102030405买涨 【上海-东京】赚1..."]
+        let tagSourceArray: [String] = ["跟 单", "跟 单", "跟 单"]
         tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
-        tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
     }
     
     
     //MARK: --头视图
     func setupHeaderView (cycleImage:[String],contentSourceArray:[String], tagSourceArray:[String]) -> (UIView) {
-        let sunView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 238))
-        sunView.backgroundColor = UIColor(rgbHex: 0xEEEEEE)
+        let sunView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 202))
+        sunView.backgroundColor = UIColor(rgbHex: 0xF9F8FD)
         //创建无限轮播
-        let cycleView = CSCycleView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 188), images: cycleImage, titles: [])
+        let cycleView = CSCycleView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 161), images: cycleImage, titles: [])
         cycleView.delegate = self;
         sunView.addSubview(cycleView)
         //喇叭图片
         let hornImage = UIImageView(image: UIImage(named: "horn"))
         sunView.addSubview(hornImage)
         hornImage.snp.makeConstraints { (make) in
-            make.top.equalTo(cycleView.snp.bottom).offset(19)
-            make.left.equalTo(sunView).offset(15)
-            make.width.equalTo(52)
-            make.height.equalTo(13)
+            make.top.equalTo(cycleView.snp.bottom).offset(11)
+            make.left.equalTo(sunView).offset(12)
+            make.width.equalTo(20)
+            make.height.equalTo(20)
         }
-        //红线
-        let redView = UIView()
-        redView.backgroundColor = UIColor(rgbHex: 0xFE0000)
-        sunView.addSubview(redView)
-        redView.snp.makeConstraints { (make) in
-            make.top.equalTo(cycleView.snp.bottom).offset(17)
-            make.left.equalTo(hornImage.snp.right).offset(9)
-            make.width.equalTo(1)
-            make.height.equalTo(16)
-        }
+     
         //跟单轮播
         let screenWidth = UIScreen.main.bounds.size.width
         let screenW = screenWidth / 375
-        var width = screenWidth - 101
+        var width = screenWidth - 54
         if screenW < 1 {
-            width = width + 15
+            width = width + 8
         }
-        let singlerView = CSSinglerowView(frame: CGRect(x: 0, y: 0, width: width, height: 50), scrollStyle: .up, roundTime: 2, contentSource: contentSourceArray, tagSource: tagSourceArray)
+        let singlerView = CSSinglerowView(frame: CGRect(x: 0, y: 0, width: width, height: 41), scrollStyle: .up, roundTime: 2, contentSource: contentSourceArray, tagSource: tagSourceArray)
         singlerView.backColor = UIColor.clear
         singlerView.contentTextColor = UIColor(rgbHex: 0x333333)
         if screenWidth < 1 {
-            singlerView.contentFont = UIFont.systemFont(ofSize: 13 * screenW)
+            singlerView.contentFont = UIFont.systemFont(ofSize: 12 * screenW)
         }else
         {
-            singlerView.contentFont = UIFont.systemFont(ofSize: 14)
+            singlerView.contentFont = UIFont.systemFont(ofSize: 12)
         }
         
         singlerView.tagTextColor = UIColor(rgbHex: 0xFFFFFF)
-        singlerView.tagFont = UIFont.systemFont(ofSize: 14)
-        singlerView.tagBackgroundColor = UIColor(rgbHex: 0xE9573E)
+        singlerView.tagFont = UIFont.systemFont(ofSize: 12)
+        singlerView.tagBackgroundColor = UIColor(rgbHex: 0x00ADB5)
         singlerView.delegate = self
         sunView .addSubview(singlerView)
         if  screenW < 1 {
             singlerView.snp.makeConstraints { (make) in
                 make.top.equalTo(cycleView.snp.bottom).offset(0)
-                make.left.equalTo(redView.snp.right).offset(10)
+                make.left.equalTo(hornImage.snp.right).offset(12)
                 make.bottom.equalTo(sunView).offset(0)
                 make.right.equalTo(sunView).offset(0)
             }
@@ -153,9 +141,9 @@ class HomeVC: BaseTableViewController {
         else{
             singlerView.snp.makeConstraints { (make) in
                 make.top.equalTo(cycleView.snp.bottom).offset(0)
-                make.left.equalTo(redView.snp.right).offset(10)
+                make.left.equalTo(hornImage.snp.right).offset(12)
                 make.bottom.equalTo(sunView).offset(0)
-                make.right.equalTo(sunView).offset(-15)
+                make.right.equalTo(sunView).offset(-12)
             }
         }
         return sunView
@@ -194,7 +182,7 @@ class HomeVC: BaseTableViewController {
     //MARK: --行高
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 96
+            return 100
         }
         if indexPath.section == 1 {
             return 155
@@ -210,6 +198,7 @@ class HomeVC: BaseTableViewController {
         if indexPath.section==0 {
             if indexPath.item < marketArray.count && marketArray[indexPath.item] != nil {
                 cell.kChartModel = marketArray[indexPath.item]
+                
             }
             return cell
         }
