@@ -67,6 +67,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         initDealTableData()
         //初始化下商品数据
         titleView.objects = DealModel.share().productKinds
+        if let selectProduct = DealModel.share().selectProduct{
+            didSelectedObject(titleView, object: selectProduct)
+        }
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
         //持仓点击
@@ -215,7 +218,12 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             }
             DealModel.share().dealUp = sender.tag == 1
             DealModel.share().isDealDetail = false
-            performSegue(withIdentifier: BuyVC.className(), sender: nil)
+//            performSegue(withIdentifier: BuyVC.className(), sender: nil)
+            
+            let controller = UIStoryboard.init(name: "Deal", bundle: nil).instantiateViewController(withIdentifier: BuyProductVC.className())
+            controller.modalPresentationStyle = .custom
+            present(controller, animated: true, completion: nil)
+            
         }
     }
     
