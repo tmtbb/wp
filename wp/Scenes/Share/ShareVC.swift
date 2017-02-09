@@ -66,8 +66,6 @@ class ShareVC: BaseCustomPageListTableViewController {
     
     //MARK: --UI
     func initUI() {
-        
-      
         //        rankTypeBtnTapped(dayBtn)
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
     }

@@ -35,7 +35,8 @@ class UserTableViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //       UserModel.getCurrentUser()?.balance
-        UserModel.getCurrentUser()?.addObserver(self, forKeyPath: "balance", options: .new, context: nil)
+        // ShareModel.share().useMoney = Double(money)
+        ShareModel.share().addObserver(self, forKeyPath: "useMoney", options: .new, context: nil)
         registerNotify()
         //更新token
         AppDataHelper.instance().checkTokenLogin()
@@ -66,13 +67,22 @@ class UserTableViewController: BaseTableViewController {
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        if keyPath == "balance" {
-            
+        if keyPath == "useMoney" {
+            if let base = change? [NSKeyValueChangeKey.newKey] as? Double {
+                
+                let str : String = NSString(format: "%.2f" ,base) as String
+                self.propertyNumber.text =  "\(str)"
+            }
             
         }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         
     }
@@ -91,7 +101,6 @@ class UserTableViewController: BaseTableViewController {
     func changeUserinfo() {
         
         if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
-            
             iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
             iconImage.image = UIImage(named: "default-head")
         }
@@ -104,7 +113,7 @@ class UserTableViewController: BaseTableViewController {
             nameLabel.sizeToFit()
         }
         else{
-            nameLabel.text = "Bug退散"
+            nameLabel.text = "---"
         }
     }
     //登录成功
@@ -204,7 +213,6 @@ class UserTableViewController: BaseTableViewController {
         controller.title = "注册"
         nav.pushViewController(controller, animated: true)
         present(nav, animated: true, completion: nil)
-        
         print("我的注册")
         
     }

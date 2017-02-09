@@ -106,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
                  
                     let dic : Dictionary = (data as Dictionary?)!
                     let signData = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions(rawValue: 0))
-                    let sign : String = String.init(data: signData!, encoding: String.Encoding.utf8)!
+                     let sign : String = String.init(data: signData!, encoding: String.Encoding.utf8)!
 //                    let bool : Bool  =   self.verify(sign: sign)
             
                 }
@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     fileprivate func appearance() {
         
         let navigationBar:UINavigationBar = UINavigationBar.appearance() as UINavigationBar;
-        navigationBar.setBackgroundImage(UIImage.init(named: "nav_color"), for: .any, barMetrics: .default)
+        navigationBar.setBackgroundImage(UIImage.init(named: "nav_bg"), for: .any, barMetrics: .default)
         navigationBar.shadowImage = UIImage.init(named: "nav_clear")
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
         navigationBar.isTranslucent = false;

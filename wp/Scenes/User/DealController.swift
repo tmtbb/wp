@@ -58,7 +58,7 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     func setupCollection() {
         productCollection.itemDelegate = self
         productCollection.reuseIdentifier = ProductCollectionCell.className()
-        productCollection.objects = ["白银" as AnyObject,"原油" as AnyObject]
+        productCollection.objects = ["上海-法兰克福" as AnyObject,"上海-纽约" as AnyObject,"上海-东京" as AnyObject]
     }
     func didSelectedProduct(object: AnyObject?) {
         if let test: String = object as? String {

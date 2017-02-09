@@ -22,7 +22,7 @@ struct SocketPacketHead {
     UInt32 request_id ;
 };
 #pragma pack()
-
+#import <DKNightVersion/DKNightVersion.h>
 #import <Qiniu/QiniuSDK.h>
 #import <FMDB/FMDB.h>
 #import <GTSDK/GeTuiSdk.h>
