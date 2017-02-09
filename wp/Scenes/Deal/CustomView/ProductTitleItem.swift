@@ -19,7 +19,25 @@ class ProductTitleItem: TitleItem {
     override func update(object: AnyObject, hiddle: Bool) {
         if let product: ProductModel = object as? ProductModel{
             titleLabel.text = product.name
+            titleLabel.textColor = hiddle ?  UIColor.init(rgbHex: 0x999999) : UIColor.init(rgbHex: 0x268dcf)
             iconImage.isHidden = hiddle
+        }
+    }
+}
+
+class KLineTitleItem: TitleItem {
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var redImage: UIImageView!
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func update(object: AnyObject, hiddle: Bool) {
+        if let title: String = object as? String{
+            titleLabel.text = title
+            titleLabel.textColor = hiddle ?  UIColor.init(rgbHex: 0x999999) : UIColor.init(rgbHex: 0xe48723)
+            redImage.isHidden = hiddle
         }
     }
 }

@@ -8,9 +8,11 @@
 
 import UIKit
 import SVProgressHUD
+import DKNightVersion
 class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     
     @IBOutlet weak var myMoneyLabel: UILabel!
+    @IBOutlet weak var myMoneyView: UIView!
     @IBOutlet weak var myQuanLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
@@ -20,13 +22,10 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBOutlet weak var closeLabel: UILabel!
     @IBOutlet weak var upLabel: UILabel!
     @IBOutlet weak var downLabel: UILabel!
-    @IBOutlet weak var winLabel: UILabel!
-    @IBOutlet weak var upDownView: UIView!
-    @IBOutlet weak var winRateConstraint: NSLayoutConstraint!
     @IBOutlet weak var kLineView: KLineView!
-    @IBOutlet weak var minBtn: UIButton!
     @IBOutlet weak var dealTable: MyDealTableView!
     @IBOutlet weak var titleView: TitleCollectionView!
+    @IBOutlet weak var klineTitleView: TitleCollectionView!
     @IBOutlet weak var productsView: ProductsiCarousel!
     private var klineBtn: UIButton?
     private var priceTimer: Timer?
@@ -34,7 +33,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
         //        initDealTableData()
-        
+        AppDataHelper.instance().initProductData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -48,10 +47,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIView.animate(withDuration: 3) {
-            self.winRateConstraint.constant = 100
-        }
-        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -76,6 +71,13 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         //持仓点击
         DealModel.share().addObserver(self, forKeyPath: "selectDealModel", options: .new, context: nil)
         DealModel.share().addObserver(self, forKeyPath: "allProduct", options: .new, context: nil)
+        //k线选择器
+        let klineTitles = ["分时图","5分K","15分K","30分K","1小时K"]
+        klineTitleView.objects = klineTitles as [AnyObject]?
+        if let flowLayout: UICollectionViewFlowLayout = klineTitleView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.itemSize = CGSize.init(width: UIScreen.width()/CGFloat(klineTitles.count), height: 40)
+            
+        }
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "selectDealModel" {
@@ -121,27 +123,34 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             navigationController?.pushViewController(controller, animated: true)
         }
     }
-    // 当前商品列表数据
-    func initProductData() {
-        var allProducets: [ProductModel] = []
-        AppAPIHelper.deal().products(pid: 0, complete: { [weak self](result) -> ()? in
-            
-            if let products: [ProductModel] = result as! [ProductModel]?{
-                allProducets += products
-                self?.titleView.objects = allProducets
-                let product = allProducets[0]
-                DealModel.share().selectProduct = product
-                self?.didSelectedObject(object: product)
+    //TitleCollectionView's Delegate
+    internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
+        if collectionView == titleView {
+            if let model: ProductModel = object as? ProductModel {
+                DealModel.share().selectProduct = model
+                AppDataHelper.instance().initLineChartData()
+                kLineView.refreshKLine()
+                reloadProducts()
             }
-            return nil
-        }, error: errorBlockFunc())
-    }
-    internal func didSelectedObject(object: AnyObject?) {
-        if let model: ProductModel = object as! ProductModel? {
-            DealModel.share().selectProduct = model
-            AppDataHelper.instance().initLineChartData()
-            kLineView.refreshKLine()
         }
+        
+        if collectionView ==  klineTitleView{
+            if let klineTitle = object as? String{
+                
+            }
+        }
+    }
+    
+
+    
+    func reloadProducts() {
+        var products: [ProductModel] = []
+        for product in DealModel.share().allProduct {
+            if product.symbol == DealModel.share().selectProduct!.symbol{
+                products.append(product)
+            }
+        }
+        productsView.objects = products
     }
     // 持仓列表数据
     func initDealTableData() {
@@ -183,24 +192,15 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     
     //MARK: --UI
     func initUI() {
-        timeBtnTapped(minBtn)
+        myMoneyView.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         titleView.itemDelegate = self
         titleView.reuseIdentifier = ProductTitleItem.className()
-    }
-    
-    //MARK: --KlineView and Btns
-    @IBAction func timeBtnTapped(_ sender: UIButton) {
-        if let btn = klineBtn {
-            btn.isSelected = false
-            btn.backgroundColor = UIColor.init(rgbHex: 0xe6e9ed)
-        }
         
-        kLineView.selectIndex = sender.tag
-        sender.isSelected = true
-        sender.backgroundColor = AppConst.Color.CMain
-        klineBtn = sender
+        klineTitleView.itemDelegate = self
+        klineTitleView.reuseIdentifier = KLineTitleItem.className()
     }
     
+   
     //MARK: --买涨/买跌
     @IBAction func dealBtnTapped(_ sender: UIButton) {
         if checkLogin(){
