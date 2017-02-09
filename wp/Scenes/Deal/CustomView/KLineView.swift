@@ -89,9 +89,8 @@ class KLineView: UIView {
         initMiu15KChartsData()
         initMiu60KChartsData()
     }
+    
     //MARK: --分时图
-    
-    
     func initMiuLChartsData() {
         let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.symbol
         let fromTime: Int = Int(Date.startTimestemp())
@@ -103,6 +102,7 @@ class KLineView: UIView {
             return nil
         }
     }
+    
     //MARK: --15分钟
     func initMiu15KChartsData() {
         let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.symbol

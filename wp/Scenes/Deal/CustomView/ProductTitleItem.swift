@@ -10,7 +10,7 @@ import UIKit
 
 class ProductTitleItem: TitleItem {
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var redView: UIView!
+    @IBOutlet weak var iconImage: UIImageView!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -19,8 +19,8 @@ class ProductTitleItem: TitleItem {
     override func update(object: AnyObject, hiddle: Bool) {
         if let product: ProductModel = object as? ProductModel{
             titleLabel.text = product.name
-            redView.isHidden = hiddle
-            titleLabel.textColor = hiddle == false ? UIColor.init(rgbHex: 0xe9573f) : UIColor.init(rgbHex: 0x333333)
+            iconImage.isHidden = hiddle
         }
     }
 }
+
