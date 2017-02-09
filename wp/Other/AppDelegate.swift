@@ -11,7 +11,7 @@ import UIKit
 import SVProgressHUD
 import Fabric
 import Crashlytics
-import Alamofire
+import Alamofire 
  
 @UIApplicationMain
 
@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     fileprivate func appearance() {
         
         let navigationBar:UINavigationBar = UINavigationBar.appearance() as UINavigationBar;
-        navigationBar.setBackgroundImage(UIImage.init(named: "nav_color"), for: .any, barMetrics: .default)
+        navigationBar.setBackgroundImage(UIImage.init(named: "nav_bg"), for: .any, barMetrics: .default)
         navigationBar.shadowImage = UIImage.init(named: "nav_clear")
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
         navigationBar.isTranslucent = false;

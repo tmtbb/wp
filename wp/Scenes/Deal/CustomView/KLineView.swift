@@ -16,26 +16,23 @@ class KLineView: UIView {
     @IBOutlet weak var hourCharts: CombinedChartView!
     @IBOutlet weak var dayCharts: CombinedChartView!
     var miu15Models: [KChartModel] = []
-    var hourModels: [KChartModel] = []
+    var miu60Models: [KChartModel] = []
     var dayModels: [KChartModel] = []
     
     var selectIndex: NSInteger!{
         didSet{
             switch selectIndex {
             case 1:
-                initMiuLChartsData()
                 bringSubview(toFront: self.miuCharts)
                 break
             case 2:
-//                initMiu15KChartsData()
+                initMiu15KChartsData()
                 bringSubview(toFront: self.miu15Charts)
                 break
             case 3:
-                initMiu60KChartsData()
                 bringSubview(toFront: self.hourCharts)
                 break
             case 4:
-                initDayKChartsData()
                 bringSubview(toFront: self.dayCharts)
                 break
             default:
@@ -44,14 +41,7 @@ class KLineView: UIView {
         }
     }
     
-    enum KType: Int {
-        case miu = 1   //1分钟
-        case miu5 = 2  //5分钟
-        case miu15 = 3 //15分钟
-        case miu30 = 4 //30分钟
-        case miu60 = 5 //60分钟
-        case day = 6   //日K线
-    }
+ 
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,11 +52,18 @@ class KLineView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         initChartView()
+        refreshKLine()
+        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(refreshKLine), userInfo: nil, repeats: true)
+        //每隔60秒刷新一次分时数据
+        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(initMiuLChartsData), userInfo: nil, repeats: true)
+        //每隔15分钟刷新一次分时数据
+        Timer.scheduledTimer(timeInterval: 15*60, target: self, selector: #selector(initMiu15KChartsData), userInfo: nil, repeats: true)
+        //每隔60分钟刷新一次分时数据
+        Timer.scheduledTimer(timeInterval: 60*60, target: self, selector: #selector(initMiu60KChartsData), userInfo: nil, repeats: true)
     }
 
     //MARK: --Charts
     func initChartView() {
-        
         for charts in self.subviews {
             if charts.isKind(of:BarLineChartViewBase.self) {
                 let chartsView = charts as! BarLineChartViewBase
@@ -87,18 +84,13 @@ class KLineView: UIView {
         initMiuLChartsData()
         initMiu15KChartsData()
         initMiu60KChartsData()
-        initDayKChartsData()
-        for charts in self.subviews {
-            if charts.isKind(of:BarLineChartViewBase.self) {
-                let chartsView = charts as! BarLineChartViewBase
-                chartsView.zoom(scaleX: 0, scaleY: 0, x: 0, y: 0)
-            }
-        }
     }
     //MARK: --分时图
     func initMiuLChartsData() {
-        let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.goodType
-        KLineModel.queryTimelineModels(page: 1, goodType: type!) {[weak self](result) -> ()? in
+        let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.symbol
+        let fromTime: Int = Int(Date.startTimestemp())
+        let toTime: Int = Int(Date.nowTimestemp())
+        KLineModel.queryTimelineModels(fromTime: fromTime, toTime: toTime, goodType: type!){[weak self](result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel] {
                 self?.refreshLineChartData(models: models)
             }
@@ -107,59 +99,36 @@ class KLineView: UIView {
     }
     //MARK: --15分钟
     func initMiu15KChartsData() {
-        let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.goodType
-
-        
-        KLineModel.queryModels(margin: 60*15, goodType: type!) { [weak self](result) -> ()? in
-            if let model: KChartModel = result as? KChartModel{
-                self?.miu15Models.append(model)
-                self?.refreshCandleStickData(type: .miu15, models: (self?.miu15Models)!)
+        let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.symbol
+        let fromTime: Int = Int(Date.startTimestemp())
+        let toTime: Int = Int(Date.nowTimestemp())
+        KLineModel.query15KLineModels(fromTime: fromTime, toTime: toTime, goodType: type!){[weak self](result) -> ()? in
+            if let models: [KChartModel] = result as? [KChartModel] {
+                self?.refreshCandleStickData(type: .miu15, models: models)
             }
             return nil
         }
-        
-//        KLineModel.query15kModels(goodType: type!) { [weak self](result) -> ()? in
-//            if let models: [KChartModel] = result as? [KChartModel] {
-//                self?.refreshCandleStickData(type: .miu15, models: models)
-//            }
-//            return nil
-//        }
-        
-//        let _ = delay(60*15, task: { [weak self] in
-//            self?.initMiu15KChartsData()
-//        })
     }
     //MARK: --60分钟
     func initMiu60KChartsData() {
-        let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.goodType
-        KLineModel.queryHourKModels(goodType: type!) { [weak self](result) -> ()? in
+        let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.symbol
+        let fromTime: Int = Int(Date.startTimestemp())
+        let toTime: Int = Int(Date.nowTimestemp())
+        KLineModel.query60KLineModels(fromTime: fromTime, toTime: toTime, goodType: type!){[weak self](result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel] {
                 self?.refreshCandleStickData(type: .miu60, models: models)
             }
             return nil
         }
-        let _ = delay(60*60, task: { [weak self] in
-            self?.initMiu60KChartsData()
-        })
     }
     //MARK: --日K线
     func initDayKChartsData() {
-        let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.goodType
-        KLineModel.queryDayKModels(goodType: type!) { [weak self](result) -> ()? in
-            if let models: [KChartModel] = result as? [KChartModel] {
-                if models.count == 0 {
-                   
-                }
-                self?.refreshCandleStickData(type: .day, models: models)
-            }
-            return nil
-        }
-        let _ = delay(60*60*24, task: { [weak self] in
-            self?.initDayKChartsData()
-        })
+        
+        
     }
     //刷新折线
     func refreshLineChartData(models: [KChartModel]) {
+        let max = models.count + 100
         if models.count == 0 {
             miuCharts.clearValues()
             return
@@ -182,11 +151,10 @@ class KLineView: UIView {
         set.fillColor = UIColor.init(rgbHex: 0x999999)
         let data: LineChartData  = LineChartData.init(dataSets: [set])
         miuCharts.data = data
-        let scale = CGFloat(models.count) / 320
-        let _ = miuCharts.zoom(scaleX: CGFloat(scale), scaleY: 0, x: 0, y: 0)
+        miuCharts.xAxis.axisMaximum = Double(max)
     }
     //刷新K线
-    func refreshCandleStickData(type: KType, models: [KChartModel]) {
+    func refreshCandleStickData(type: KLineModel.KLineType, models: [KChartModel]) {
         if models.count == 0 {
             switch type {
             case .day:
@@ -243,7 +211,6 @@ class KLineView: UIView {
     
     func convertModelToCandleDataEntry(model: KChartModel, location:Double) -> CandleChartDataEntry {
         let entry = CandleChartDataEntry.init(x:location, shadowH: model.highPrice, shadowL: model.lowPrice, open: model.openPrice, close: model.closePrice)
-        
         return entry
     }
     

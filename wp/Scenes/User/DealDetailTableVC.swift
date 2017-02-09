@@ -26,7 +26,7 @@ class DealDetailTableVC: BaseTableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0)
-
+        title = "交易详情"
         
         
     }

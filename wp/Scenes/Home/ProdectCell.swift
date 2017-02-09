@@ -38,15 +38,14 @@ class ProdectCell: UITableViewCell {
             if kChartModel == nil {
                 return
             }
-            productName.text = "\(kChartModel!.name)"
-            nowPrice.text = "\(Int(kChartModel!.currentPrice))"
-            todayOpen.text = "\(Int(kChartModel!.openingTodayPrice))"
-            yesterdayOpen.text = "\(Int(kChartModel!.closedYesterdayPrice))"
-            hightPrice.text = "\(Int(kChartModel!.highPrice))"
-            lowPrice.text = "\(Int(kChartModel!.lowPrice))"
-            changeLabel.text = "\(kChartModel!.change)"
+            productName.text = String.init(format: "%@", kChartModel!.name)
+            nowPrice.text = String.init(format: "%.4f", kChartModel!.currentPrice)
+            todayOpen.text = String.init(format: "%.4f", kChartModel!.openingTodayPrice)
+            yesterdayOpen.text = String.init(format: "%.4f", kChartModel!.closedYesterdayPrice)
+            hightPrice.text = String.init(format: "%.4f", kChartModel!.highPrice)
+            lowPrice.text = String.init(format: "%.4f", kChartModel!.lowPrice)
+            changeLabel.text = String.init(format: "%.4f", kChartModel!.change)
 
-            
         }
     }
     
@@ -61,10 +60,10 @@ class ProdectCell: UITableViewCell {
         changeLabel.font = UIFont.systemFont(ofSize: 13 * screenW)
         changePer.font = UIFont.systemFont(ofSize: 13 * screenW)
         
-        if screenW < 1 {
-            layoutHightPrice.constant = 10
-            layoutChangePer.constant = 4
-        }
-    }  
+//        if screenW < 1 {
+//            layoutHightPrice.constant = 10
+//            layoutChangePer.constant = 4
+//        }
+    }
 }
 

@@ -9,243 +9,228 @@
 import UIKit
 import RealmSwift
 class KLineModel: NSObject {
-    private static var minTime: Int = Int(Date.startTimestemp())
-    private static var maxTime: Int = 0
+    private static var queue = DispatchQueue.init(label: "timeline")
+    
+    enum KLineType: Int {
+        case miu = 1   //1分钟
+        case miu5 = 5  //5分钟
+        case miu15 = 15 //15分钟
+        case miu30 = 30 //30分钟
+        case miu60 = 60 //60分钟
+        case day = 6   //日K线
+    }
     
     //缓存分时数据
     class func cacheTimelineModels(models: [KChartModel], goodType: String) {
-        DispatchQueue.global().async{
-            for (_, model) in models.enumerated() {
-                let _ = autoreleasepool(invoking: {
-                    let realm = try! Realm()
-                    model.goodType = goodType
-                    //缓存分时线
-                    try! realm.write {
-                        realm.add(model, update: true)
-                    }
-                })
-            }
-        }
-    }
-    
-    
-    //缓存K线数据
-    class func cacheKTimelimeModels() {
-       
-        DispatchQueue.global().async {
-            let realm = try! Realm()
-            let result: Results<KChartModel>?
-            if maxTime == 0 {
-                result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime")
-            }else{
-                let queryStr = NSPredicate.init(format: "priceTime > %d",maxTime)
-                result = realm.objects(KChartModel.self).filter(queryStr).sorted(byProperty: "priceTime")
-            }
-            var modelQuarter = KChartModelQuarter()
-            var modelHour = KChartModelHour()
-            var modelDay = KChartModelHour()
-            for (index, model) in (result?.enumerated())! {
-                let _ = autoreleasepool(invoking: {
-                    // 最大时间值
-                    if model.priceTime > maxTime{
-                        maxTime = model.priceTime
-                    }
-                    //缓存15k数据
-                    let her15k = index % 15
-                    if her15k == 0 {
-                        modelQuarter = KChartModelQuarter()
-                        modelQuarter.priceTime = model.priceTime
-                        modelQuarter.goodType = model.goodType
-                        modelQuarter.openPrice = model.currentPrice
-                        modelQuarter.lowPrice = model.currentPrice
-                        modelQuarter.highPrice = model.currentPrice
-                    }else{
-                        if modelQuarter.highPrice < model.currentPrice  {
-                            modelQuarter.highPrice =  model.currentPrice
-                        }
-                        if modelQuarter.lowPrice > model.currentPrice {
-                            modelQuarter.lowPrice = model.currentPrice
-                        }
-                        
-                        if her15k == 14{
-                            modelQuarter.closePrice = model.currentPrice
-                            try! realm.write {
-                                realm.add(modelQuarter, update: true)
-                            }
-                        }
-                    }
-                    
-                    //缓存60k数据
-                    
-                    let her60k = index % 60
-                    if her60k == 0 {
-                        modelHour = KChartModelHour()
-                        modelHour.priceTime = model.priceTime
-                        modelHour.goodType = model.goodType
-                        modelHour.openPrice = model.currentPrice
-                        modelHour.lowPrice = model.currentPrice
-                        modelHour.closePrice = model.currentPrice
-                        modelHour.highPrice = model.currentPrice
-                    }else{
-                        if modelHour.highPrice < model.currentPrice  {
-                            modelHour.highPrice = model.currentPrice
-                        }
-                        if modelHour.lowPrice > model.currentPrice {
-                            modelHour.lowPrice =  model.currentPrice
-                        }
-                        if her60k == 59 {
-                            modelHour.closePrice = model.currentPrice
-                            try! realm.write {
-                                realm.add(modelHour, update: true)
-                            }
-                        }
-                    }
-                    
-                    
-                    //缓存日k数据
-                    let herDayk = index % (60*24)
-                    if herDayk == 0 {
-                        modelDay = KChartModelHour()
-                        modelDay.goodType = model.goodType
-                        modelDay.priceTime = model.priceTime
-                        modelDay.openPrice = model.currentPrice
-                        modelDay.lowPrice = model.currentPrice
-                        modelDay.closePrice = model.currentPrice
-                        modelDay.highPrice = model.currentPrice
-                    }else{
-                        if modelDay.highPrice < model.currentPrice  {
-                            modelDay.highPrice = model.currentPrice
-                        }
-                        if modelDay.lowPrice > model.currentPrice {
-                            modelDay.lowPrice =  model.currentPrice
-                        }
-                        if herDayk == 60*24-1 {
-                            modelDay.closePrice = model.currentPrice
-                            try! realm.write {
-                                realm.add(modelHour, update: true)
-                            }
-                        }
-                    }
-                    
-                })
-            }
-            
-            let time = 60*15
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+TimeInterval(time)) {
-                cacheKTimelimeModels()
-            }
-        }
+        let _ = autoreleasepool(invoking: {
+            queue.async(execute: {
+                let realm = try! Realm()
+                let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
+                var goodMaxTime: Int = 0
+                if let maxTimeGood = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).last{
+                    goodMaxTime = maxTimeGood.priceTime
+                }
+                var goodMinTime: Int = 0
+                if let minTimeGood = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).first{
+                    goodMinTime = minTimeGood.priceTime
+                }
         
+                for (_, model) in models.enumerated() {
+                    if model.priceTime > goodMaxTime || model.priceTime < goodMinTime{
+                        model.goodType = goodType
+                        model.onlyKey = "\(goodType)\(model.priceTime)"
+                        //缓存分时线
+                        try! realm.write {
+                            realm.add(model, update: true)
+                        }
+                    }
+                }
+            })
+        })
     }
     
+    //缓存K线模型
+    class func cacheKLineModels(klineType: KLineType, goodType: String) {
+        let _ = autoreleasepool(invoking: {
+            queue.async(execute: {
+                let realm = try! Realm()
+//                var goodMinTime: Int = 0
+//                if let minTimeGood = realm.objects(classType).sorted(byProperty: "priceTime").filter(queryStr).first{
+//                    goodMinTime = minTimeGood.priceTime
+//                }
+                
+                switch klineType{
+                    case .miu15:
+                        let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
+                        var goodMaxTime: Int = 0
+                        if let maxTimeGood = realm.objects(KChartModelQuarter.self).sorted(byProperty: "priceTime").filter(queryStr).last{
+                            goodMaxTime = maxTimeGood.priceTime
+                        }
+                        queryModels(type: klineType, goodType: goodType, minTime: goodMaxTime)
+                        break
+                    case .miu60:
+                        let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
+                        var goodMaxTime: Int = 0
+                        if let maxTimeGood = realm.objects(KChartModelHour.self).sorted(byProperty: "priceTime").filter(queryStr).last{
+                            goodMaxTime = maxTimeGood.priceTime
+                        }
+                        queryModels(type: klineType, goodType: goodType, minTime: goodMaxTime)
+                        break
+                        break
+                    default:
+                        break
+                }
+            })
+        })
+    }
     
-    //以某个时间间隔为标准，查询对应的数据
-    class func queryModels(margin: Int, goodType: String, complete: @escaping CompleteBlock){
-        var min = minTime
+    //查询更多数据
+    class func queryModels(type: KLineType, goodType: String, minTime: Int){
+        let margin = type.rawValue * 60
+        var min = minTime > Int(Date.startTimestemp()) ? minTime : Int(Date.startTimestemp())
         var max = min + margin
         let current = Int(Date.nowTimestemp())
         while max < current {
-            let model = queryModel(goodType: goodType, fromTime: min, toTime: max)
-            if model == nil {
-                break
-            }
-            complete(model as AnyObject)
+            queryModel(type: type, goodType: goodType, fromTime: min, toTime: max)
             min = max
             max = min + margin
         }
     }
     
     //查询某个时间段的K线数据并计算出该时间段的K线模型
-    class func queryModel(goodType: String, fromTime: Int, toTime: Int) -> KChartModel? {
-        var resultModel: KChartModel?
+    class func queryModel(type: KLineType,goodType: String, fromTime: Int, toTime: Int) {
         let realm = try! Realm()
         let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
         let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).filter("priceTime > \(fromTime)").filter("priceTime < \(toTime)")
-        for (index, model) in result.enumerated() {
-            if resultModel == nil {
-                resultModel = model
-                resultModel!.highPrice = resultModel!.currentPrice
-                resultModel!.lowPrice = resultModel!.currentPrice
-            }else{
-                //收盘价
-                if index == result.count - 1 {
-                    resultModel?.closePrice = model.currentPrice
+        switch type{
+            case .miu15:
+                var resultModel: KChartModelQuarter?
+                for (index, model) in result.enumerated() {
+                    if index == 0 {
+                        resultModel = KChartModelQuarter()
+                        resultModel!.priceTime = model.priceTime
+                        resultModel!.goodType = model.goodType
+                        resultModel!.exchangeName = model.exchangeName
+                        resultModel!.platformName = model.platformName
+                        resultModel!.currentPrice = model.currentPrice
+                        resultModel!.change = model.change
+                        resultModel!.openingTodayPrice = model.openingTodayPrice
+                        resultModel!.closedYesterdayPrice = model.closedYesterdayPrice
+                        resultModel!.highPrice = resultModel!.currentPrice
+                        resultModel!.lowPrice = resultModel!.currentPrice
+                        resultModel!.openPrice = resultModel!.currentPrice
+                    }else{
+                        //收盘价
+                        if index == result.count - 1 {
+                            resultModel?.closePrice = model.currentPrice
+                            resultModel?.onlyKey = "\(goodType)\(model.priceTime)"
+                        }
+                        //最高价
+                        if resultModel!.highPrice < model.currentPrice {
+                            resultModel!.highPrice = model.currentPrice
+                        }
+                        //最低价
+                        if resultModel!.lowPrice > model.currentPrice {
+                            resultModel!.lowPrice = model.currentPrice
+                        }
+                    }
                 }
-                //最高价
-                if resultModel!.highPrice < model.currentPrice {
-                    resultModel!.highPrice = model.currentPrice
+                if resultModel != nil {
+                    try! realm.write {
+                        realm.add(resultModel!, update: true)
+                    }
                 }
-                //最低价
-                if resultModel!.lowPrice > model.currentPrice {
-                    resultModel!.lowPrice = model.currentPrice
+                break
+            case .miu60:
+                var resultModel: KChartModelHour?
+                for (index, model) in result.enumerated() {
+                    if index == 0 {
+                        resultModel = KChartModelHour()
+                        resultModel!.priceTime = model.priceTime
+                        resultModel!.goodType = model.goodType
+                        resultModel!.exchangeName = model.exchangeName
+                        resultModel!.platformName = model.platformName
+                        resultModel!.currentPrice = model.currentPrice
+                        resultModel!.change = model.change
+                        resultModel!.openingTodayPrice = model.openingTodayPrice
+                        resultModel!.closedYesterdayPrice = model.closedYesterdayPrice
+                        resultModel!.highPrice = resultModel!.currentPrice
+                        resultModel!.lowPrice = resultModel!.currentPrice
+                        resultModel!.openPrice = resultModel!.currentPrice
+                    }else{
+                        //收盘价
+                        if index == result.count - 1 {
+                            resultModel?.closePrice = model.currentPrice
+                            resultModel?.onlyKey = "\(goodType)\(model.priceTime)"
+                        }
+                        //最高价
+                        if resultModel!.highPrice < model.currentPrice {
+                            resultModel!.highPrice = model.currentPrice
+                        }
+                        //最低价
+                        if resultModel!.lowPrice > model.currentPrice {
+                            resultModel!.lowPrice = model.currentPrice
+                        }
+                    }
                 }
-            }
+                if resultModel != nil {
+                    try! realm.write {
+                        realm.add(resultModel!, update: true)
+                    }
+                }
+                break
+            default:
+                break
         }
-        return resultModel
     }
     
     //读取分时数据
-    class func queryTimelineModels(page: Int, goodType: String, complete: @escaping CompleteBlock){
-        DispatchQueue.global().async {
-            var models: [KChartModel] = []
-            let realm = try! Realm()
-            let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
-            let result = realm.objects(KChartModel.self).filter(queryStr)
-            for (index, model) in result.enumerated() {
-                if index < 60*24*page {
+    class func queryTimelineModels(fromTime: Int, toTime: Int, goodType: String, complete: @escaping CompleteBlock){
+        let _ = autoreleasepool(invoking: {
+            queue.async(execute: { 
+                var models: [KChartModel] = []
+                let realm = try! Realm()
+                let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
+                let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).filter("priceTime > \(fromTime)").filter("priceTime < \(toTime)")
+                for model in result {
                     models.append(model)
-                }else{
-                    break
                 }
-            }
-            complete(models as AnyObject?)
-        }
+                complete(models as AnyObject?)
+                print("读取分时数据===========================\(Thread.current)")
+            })
+        })
     }
-    //读取15k数据
-    class func query15kModels(goodType: String, complete: @escaping CompleteBlock) {
-        DispatchQueue.global().async {
-            var models: [KChartModelQuarter] = []
-            let realm = try! Realm()
-            let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
-            let result = realm.objects(KChartModelQuarter.self).filter(queryStr)
-            for (_, model) in result.enumerated() {
-                let _ = autoreleasepool(invoking: {
+    
+    //读取15k线数据
+    class func query15KLineModels(fromTime: Int, toTime: Int, goodType: String, complete: @escaping CompleteBlock){
+        let _ = autoreleasepool(invoking: {
+            queue.async(execute: {
+                var models: [KChartModel] = []
+                let realm = try! Realm()
+                let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
+                let result = realm.objects(KChartModelQuarter.self).filter(queryStr).sorted(byProperty: "priceTime").filter("priceTime > \(fromTime)")
+                for model in result {
                     models.append(model)
-                })
-            }
-            complete(models as AnyObject?)
-        }
-        
+                }
+                complete(models as AnyObject?)
+                print("读取15K分时数据===========================\(Thread.current)")
+            })
+        })
     }
-    //读取60k数据
-    class func queryHourKModels(goodType: String, complete: @escaping CompleteBlock)  {
-        DispatchQueue.global().async {
-            var models: [KChartModelHour] = []
-            let realm = try! Realm()
-            let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
-            let result = realm.objects(KChartModelHour.self).filter(queryStr)
-            for (_, model) in result.enumerated() {
-                let _ = autoreleasepool(invoking: {
+    //读取60k线数据
+    class func query60KLineModels(fromTime: Int, toTime: Int, goodType: String, complete: @escaping CompleteBlock){
+        let _ = autoreleasepool(invoking: {
+            queue.async(execute: {
+                var models: [KChartModel] = []
+                let realm = try! Realm()
+                let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
+                let result = realm.objects(KChartModelHour.self).filter(queryStr).sorted(byProperty: "priceTime").filter("priceTime > \(fromTime)")
+                for model in result {
                     models.append(model)
-                })
-            }
-            complete(models as AnyObject?)
-        }
-    }
-    //读取日k数据
-    class func queryDayKModels(goodType: String, complete: @escaping CompleteBlock)  {
-        DispatchQueue.global().async {
-            var models: [KChartModelDay] = []
-            let realm = try! Realm()
-            let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
-            let result = realm.objects(KChartModelDay.self).filter(queryStr)
-            for (_, model) in result.enumerated() {
-                let _ = autoreleasepool(invoking: {
-                    models.append(model)
-                })
-            }
-            complete(models as AnyObject?)
-        }
-        
+                }
+                complete(models as AnyObject?)
+                print("读取60K分时数据===========================\(Thread.current)")
+            })
+        })
     }
 }
