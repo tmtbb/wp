@@ -14,27 +14,27 @@ class KLineView: UIView {
     @IBOutlet weak var miuCharts: LineChartView!
     @IBOutlet weak var miu15Charts: CombinedChartView!
     @IBOutlet weak var hourCharts: CombinedChartView!
-    @IBOutlet weak var dayCharts: CombinedChartView!
-    @IBOutlet weak var emptyView: UIView!
-    var miuMoudels: [String: LineChartData] = [:]
-    var miu15Models: [String: CombinedChartData] = [:]
-    var miu60Models: [String: CombinedChartData] = [:]
+    @IBOutlet weak var miu30Charts: CombinedChartView!
+    @IBOutlet weak var miu5Charts: CombinedChartView!
     
     var selectIndex: NSInteger!{
         didSet{
           
             switch selectIndex {
-            case 1:
+            case 0:
                 bringSubview(toFront: self.miuCharts)
+                break
+            case 1:
+                bringSubview(toFront: self.miu5Charts)
                 break
             case 2:
                 bringSubview(toFront: self.miu15Charts)
                 break
             case 3:
-                bringSubview(toFront: self.hourCharts)
+                bringSubview(toFront: self.miu30Charts)
                 break
             case 4:
-                bringSubview(toFront: self.dayCharts)
+                bringSubview(toFront: self.hourCharts)
                 break
             default:
                 bringSubview(toFront: self.miuCharts)
@@ -189,17 +189,21 @@ class KLineView: UIView {
         combinData.candleData = data
         
         switch type {
-        case .day:
-            dayCharts.data = combinData
-            dayCharts.data?.notifyDataChanged()
-            break
-        case .miu60:
-            hourCharts.data = combinData
-            hourCharts.data?.notifyDataChanged()
+        case .miu5:
+            miu5Charts.data = combinData
+            miu5Charts.data?.notifyDataChanged()
             break
         case .miu15:
             miu15Charts.data = combinData
             miu15Charts.data?.notifyDataChanged()
+            break
+        case .miu30:
+            miu30Charts.data = combinData
+            miu30Charts.data?.notifyDataChanged()
+            break
+        case .miu60:
+            hourCharts.data = combinData
+            hourCharts.data?.notifyDataChanged()
             break
         default:
             return

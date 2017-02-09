@@ -30,6 +30,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     private var klineBtn: UIButton?
     private var priceTimer: Timer?
     private var klineTimer: Timer?
+    let klineTitles = ["分时图","5分K","15分K","30分K","1小时K"]
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
         //        initDealTableData()
@@ -72,7 +73,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         DealModel.share().addObserver(self, forKeyPath: "selectDealModel", options: .new, context: nil)
         DealModel.share().addObserver(self, forKeyPath: "allProduct", options: .new, context: nil)
         //k线选择器
-        let klineTitles = ["分时图","5分K","15分K","30分K","1小时K"]
         klineTitleView.objects = klineTitles as [AnyObject]?
         if let flowLayout: UICollectionViewFlowLayout = klineTitleView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.itemSize = CGSize.init(width: UIScreen.width()/CGFloat(klineTitles.count), height: 40)
@@ -136,7 +136,12 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         
         if collectionView ==  klineTitleView{
             if let klineTitle = object as? String{
-                
+                for (index, title) in klineTitles.enumerated() {
+                    if title == klineTitle {
+                        kLineView.selectIndex = index
+                        break
+                    }
+                }
             }
         }
     }

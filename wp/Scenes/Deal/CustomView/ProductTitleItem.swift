@@ -38,6 +38,7 @@ class KLineTitleItem: TitleItem {
             titleLabel.text = title
             titleLabel.textColor = hiddle ?  UIColor.init(rgbHex: 0x999999) : UIColor.init(rgbHex: 0xe48723)
             redImage.isHidden = hiddle
+            redImage.backgroundColor = UIColor.init(rgbHex: 0xe48723)
         }
     }
 }
