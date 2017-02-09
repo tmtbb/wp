@@ -21,9 +21,11 @@ class LoginVC: BaseTableViewController {
         super.viewDidLoad()
         initData()
         initUI()
+      
+        
        self.navigationController?.navigationBar.dk_tintColorPicker = DKColorTable.shared().picker(withKey: "BAR")
         
-     
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -37,7 +39,7 @@ class LoginVC: BaseTableViewController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-        //MARK: --DATA
+    //MARK: --DATA
     func initData() {
         NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: nil)
     }
@@ -51,7 +53,7 @@ class LoginVC: BaseTableViewController {
     }
     //MARK: --手机号登录
     @IBAction func loginBtnTapped(_ sender: UIButton) {
-    
+        
         if checkTextFieldEmpty([phoneText,pwdText]){
             if isTelNumber(num: phoneText.text!) == false{
                 SVProgressHUD.showErrorMessage(ErrorMessage: "手机号格式错误", ForDuration: 1, completion: nil)
@@ -70,7 +72,7 @@ class LoginVC: BaseTableViewController {
                     SVProgressHUD.showErrorMessage(ErrorMessage: "登录失败，请稍后再试", ForDuration: 1, completion: nil)
                 }
                 return nil
-            }, error: errorBlockFunc())
+                }, error: errorBlockFunc())
         }
         
     }
@@ -103,7 +105,7 @@ class LoginVC: BaseTableViewController {
         }
         
     }
-
+    
     //MARK: --忘记密码
     @IBAction func forgetPwdBtnTapped(_ sender: UIButton) {
         UserModel.share().forgetPwd = true

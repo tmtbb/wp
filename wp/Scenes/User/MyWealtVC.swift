@@ -57,6 +57,8 @@ class MyWealtVC: BaseCustomPageListTableViewController {
                 UserModel.updateUser(info: { (result) -> ()? in
                     
                     UserModel.getCurrentUser()?.balance = Double(money)
+                    
+                    ShareModel.share().useMoney = Double(money)
                     return nil
                 })
                 //                UserModel.getCurrentUser()?.balance = Double(money)

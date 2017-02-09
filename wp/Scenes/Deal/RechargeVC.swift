@@ -82,54 +82,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         //        self.bankTableView.addObserver(self, forKeyPath: "dataArry", options: .new, context: nil)
         
     }
-    //MARK: 监听返回结果
-    func paysuccess(_ notice: NSNotification) {
-        if let errorCode: Int = notice.object as? Int{
-            
-            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: errorCode, complete: { (result) -> ()? in
-                
-                if let object = result{
-                    
-                    let  returnCode : Int = object["returnCode"] as! Int
-                    if returnCode == 0{
-                        
-                        SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
-                            self.navigationController?.popViewController(animated: true)
-                        })
-                    }else{
-                        SVProgressHUD.showError(withStatus: "支付失败")
-                    }
-                    
-                    
-                    
-                }
-                return nil
-            }, error: errorBlockFunc())
-        }
-        
-        
-        //        if let errorCode: Int = notice.object as? Int{
-        //            if errorCode == -4{
-        //
-        //                return
-        //            }
-        //            if errorCode == -2{
-        //
-        //                SVProgressHUD.showError(withStatus: "用户中途取消")
-        //                return
-        //            }
-        //            if errorCode == 0{
-        //                SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1
-        //                    , completion: {
-        //
-        //                })
-        //                return
-        //            }
-        //
-        //        }
-        
-    }
-    //    //MARK: 属性的变化
+       //MARK: 属性的变化
     //    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
     //
     //        if keyPath == "dataArry" {
@@ -307,43 +260,55 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         
     }
     
-//    - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse*)response
-//    {
-//    NSHTTPURLResponse* rsp = (NSHTTPURLResponse*)response;
-//    NSInteger code = [rsp statusCode];
-//    if (code != 200)
-//    {
-//    
-//    [self showAlertMessage:kErrorNet];
-//    [connection cancel];
-//    }
-//    else
-//    {
-//    
-//    _responseData = [[NSMutableData alloc] init];
-//    }
-//    }
-//    
-//    - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-//    {
-//    [_responseData appendData:data];
-//    }
-//    
-//    - (void)connectionDidFinishLoading:(NSURLConnection *)connection
-//    {
-//    [self hideAlert];
-//    NSString* tn = [[NSMutableString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding];
-//    if (tn != nil && tn.length > 0)
-//    {
-//    
-//    NSLog(@"tn=%@",tn);
-//    [[UPPaymentControl defaultControl] startPay:tn fromScheme:@"UPPayDemo" mode:self.tnMode viewController:self];
-//    
-//    }
-//    
-//    
-//    }
-    
+
+    //MARK: 监听返回结果
+    func paysuccess(_ notice: NSNotification) {
+        if let errorCode: Int = notice.object as? Int{
+            
+            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: errorCode, complete: { (result) -> ()? in
+                
+                if let object = result{
+                    
+                    let  returnCode : Int = object["returnCode"] as! Int
+                    if returnCode == 0{
+                        
+                        SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
+                            self.navigationController?.popViewController(animated: true)
+                        })
+                    }else{
+                        SVProgressHUD.showError(withStatus: "支付失败")
+                    }
+                    
+                    
+                    
+                }
+                return nil
+            }, error: errorBlockFunc())
+        }
+        
+        
+        //        if let errorCode: Int = notice.object as? Int{
+        //            if errorCode == -4{
+        //
+        //                return
+        //            }
+        //            if errorCode == -2{
+        //
+        //                SVProgressHUD.showError(withStatus: "用户中途取消")
+        //                return
+        //            }
+        //            if errorCode == 0{
+        //                SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1
+        //                    , completion: {
+        //
+        //                })
+        //                return
+        //            }
+        //
+        //        }
+        
+    }
+    //MARK: -获取银行卡数量的请求
     override func didRequest() {
         AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
             
@@ -354,8 +319,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                 let Count : Int = (Model.cardlist?.count)!
                 let str : String = String(Count)
                 self?.bankCount.text = "\(str)" + " " + "张"
-                
-              
                 
             }else {
                 
