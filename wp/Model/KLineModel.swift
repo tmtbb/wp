@@ -76,9 +76,8 @@ class KLineModel: NSObject {
                         }
                         queryModels(type: klineType, goodType: goodType, minTime: goodMaxTime)
                         break
-                        break
                     default:
-                        break
+                            break
                 }
             })
         })
@@ -102,6 +101,7 @@ class KLineModel: NSObject {
         let realm = try! Realm()
         let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
         let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).filter("priceTime > \(fromTime)").filter("priceTime < \(toTime)")
+        
         switch type{
             case .miu15:
                 var resultModel: KChartModelQuarter?
@@ -191,7 +191,7 @@ class KLineModel: NSObject {
                 var models: [KChartModel] = []
                 let realm = try! Realm()
                 let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
-                let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).filter("priceTime > \(fromTime)").filter("priceTime < \(toTime)")
+                let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).filter("priceTime > \(fromTime)")
                 for model in result {
                     models.append(model)
                 }

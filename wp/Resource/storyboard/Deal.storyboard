@@ -338,6 +338,22 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icF-sT-DVX" customClass="KLineView" customModule="wp" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="10" width="375" height="190"/>
                                                     <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03i-sB-ayw">
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无数据" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nS-Ze-jgS">
+                                                                    <rect key="frame" x="153" y="84" width="69.5" height="21"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstItem="4nS-Ze-jgS" firstAttribute="centerX" secondItem="03i-sB-ayw" secondAttribute="centerX" id="TiY-P7-Myt"/>
+                                                                <constraint firstItem="4nS-Ze-jgS" firstAttribute="centerY" secondItem="03i-sB-ayw" secondAttribute="centerY" id="s8Y-WG-vJL"/>
+                                                            </constraints>
+                                                        </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cwO-hW-IfW" customClass="LineChartView" customModule="Charts">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -365,17 +381,22 @@
                                                         <constraint firstAttribute="trailing" secondItem="4CY-8d-XWV" secondAttribute="trailing" id="Iid-eP-Jhf"/>
                                                         <constraint firstAttribute="trailing" secondItem="hib-53-TUe" secondAttribute="trailing" id="KYj-c9-aCa"/>
                                                         <constraint firstAttribute="bottom" secondItem="hib-53-TUe" secondAttribute="bottom" id="LVG-g1-EJ2"/>
+                                                        <constraint firstAttribute="trailing" secondItem="03i-sB-ayw" secondAttribute="trailing" id="Leb-vV-6h3"/>
+                                                        <constraint firstAttribute="bottom" secondItem="03i-sB-ayw" secondAttribute="bottom" id="QOc-sD-Jj2"/>
                                                         <constraint firstItem="4CY-8d-XWV" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="QUq-4w-I46"/>
                                                         <constraint firstAttribute="bottom" secondItem="qfS-hm-eZv" secondAttribute="bottom" id="U1i-u3-tp2"/>
                                                         <constraint firstItem="hib-53-TUe" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="W2A-dM-Ydp"/>
                                                         <constraint firstItem="qfS-hm-eZv" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="aIT-fo-qvE"/>
+                                                        <constraint firstItem="03i-sB-ayw" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="cpL-zX-D7W"/>
                                                         <constraint firstAttribute="trailing" secondItem="cwO-hW-IfW" secondAttribute="trailing" id="hHf-BJ-xZq"/>
                                                         <constraint firstItem="4CY-8d-XWV" firstAttribute="top" secondItem="icF-sT-DVX" secondAttribute="top" id="nzV-ot-CpL"/>
                                                         <constraint firstItem="cwO-hW-IfW" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="rkw-QF-J52"/>
                                                         <constraint firstItem="hib-53-TUe" firstAttribute="top" secondItem="icF-sT-DVX" secondAttribute="top" id="xL8-nk-LNH"/>
+                                                        <constraint firstItem="03i-sB-ayw" firstAttribute="top" secondItem="icF-sT-DVX" secondAttribute="top" id="xrG-k4-5FG"/>
                                                     </constraints>
                                                     <connections>
                                                         <outlet property="dayCharts" destination="hib-53-TUe" id="79O-2c-8lT"/>
+                                                        <outlet property="emptyView" destination="03i-sB-ayw" id="SeX-Cy-Nz5"/>
                                                         <outlet property="hourCharts" destination="qfS-hm-eZv" id="wkB-EJ-N8Q"/>
                                                         <outlet property="miu15Charts" destination="4CY-8d-XWV" id="F5L-2k-IUs"/>
                                                         <outlet property="miuCharts" destination="cwO-hW-IfW" id="U8T-Yk-utN"/>
