@@ -31,17 +31,22 @@ class HomeVC: BaseTableViewController {
         tableView.showsVerticalScrollIndicator = false
         registerNotify()
         initData()
-//         self.navigationController?.navigationBar.dk_tintColorPicker = DKColorTable.shared().picker(withKey: "BG")
         initUI()
 
-       self.view.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "BG")
-
     }
+    //MARK: --DATA
+//    func initData() {
+//        
+//        
+      
+//
+//    }
     //MARK: --DATA
     func initData() {
         AppDataHelper.instance().initProductData()
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
+
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "allProduct" {

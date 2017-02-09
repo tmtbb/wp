@@ -32,8 +32,10 @@ protocol UserApi {
     func creditdetail(rid: Int64, complete: CompleteBlock?, error: ErrorBlock?)
     // 结果查询
     func rechargeResults(rid: Int64, payResult: Int,complete: CompleteBlock?, error: ErrorBlock?)
-    //充值详情
+    // 微信充值
     func weixinpay(title:String,  price:Double, complete: CompleteBlock?, error: ErrorBlock?)
+    // 银联充值
+    func unionpay(title:String,  price:Double, complete: CompleteBlock?, error: ErrorBlock?)
     //银行卡提现
     func withdrawcash(money: Double, bld: Int64, password: String, complete: CompleteBlock?, error: ErrorBlock?)
     //提现列表

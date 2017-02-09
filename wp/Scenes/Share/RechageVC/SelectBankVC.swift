@@ -6,16 +6,18 @@
 //  Copyright © 2017年 com.yundian. All rights reserved.
 //
 class SelectBankVC: BaseListTableViewController {
+    //定义选择的行数
     var selectNumber = Int()
     
     var dataArry : [BankListModel] = []
     
     var finishBtn = UIButton()
     override func viewDidLoad() {
-        selectNumber = 100000
+        //默认开始选择的是第一行
+        selectNumber = 0
         self.title = "我的银行卡"
         super.viewDidLoad()
-      
+        
         initUI()
     }
     func initUI(){
@@ -30,11 +32,13 @@ class SelectBankVC: BaseListTableViewController {
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: finishBtn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
         
-        finishBtn.isHidden = true
-        }
+    }
+     //MARK: 点击完成按钮
     func finish(){
         
+        //做数组保护  不等于1000的时候来进行充值
         if selectNumber != 100000 {
+            
             let  Model : BankListModel = self.dataArry[selectNumber]
             
             ShareModel.share().selectBank  =  Model
@@ -48,6 +52,7 @@ class SelectBankVC: BaseListTableViewController {
         
         //        self.didRequest()
     }
+     //MARK: --网络请求
     override func didRequest() {
         AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
             
@@ -69,7 +74,7 @@ class SelectBankVC: BaseListTableViewController {
         
         
     }
-    
+     //MARK: --tableView的代理和数据源的设置
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         return dataArry.count
@@ -103,12 +108,12 @@ class SelectBankVC: BaseListTableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
-        finishBtn.isHidden = false
         selectNumber = indexPath.section
         tableView.reloadData()
         
         
     }
+    //MARK: -- 添加银行卡点击事件
     @IBAction func addbank(_ sender: Any) {
     }
     

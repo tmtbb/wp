@@ -14,28 +14,21 @@ class RechargeListVCCell: OEZTableViewCell {
     @IBOutlet weak var weekLb: UILabel!            // 姓名LbstatusLb
     @IBOutlet weak var timeLb: UILabel!            // 时间Lb
     @IBOutlet weak var moneyCountLb: UILabel!      // 充值金额Lb
-    // 状态Lb
-    @IBOutlet weak var statusLb: UILabel!
+    @IBOutlet weak var statusLb: UILabel!          // 状态Lb
     @IBOutlet weak var minuteLb: UIButton!         // 分秒
     @IBOutlet weak var bankLogo: UIImageView!      // 银行卡图片
-    
-    @IBOutlet weak var withDrawto: UILabel!
-    
-    
-    // 刷新cell
+    @IBOutlet weak var withDrawto: UILabel!        // 提现至
+    //MARK:--- 刷新cell
     override func update(_ data: Any!) {
         let model = data as! Model
         self.moneyCountLb.text = "+" + "\(model.amount)"
         self.withDrawto.text = model.depositType == 0 ? "微信" :"提现至银行卡"
-        
         self.withDrawto.text  = "微信"
 //        self.timeLb.text = "\(model.depositTime)"
         self.statusLb.text = "充值失败"
         //        print(model.status)
-        
         // 设置失败的cell的背景alpha  根据status 来判断 状态view
         //        self.backgroundColor = UIColor.groupTableViewBackground
-        
     }
 }
 
@@ -43,16 +36,12 @@ class RechargeListVC: BasePageListTableViewController {
     
     //定义全局的数组装 model
     // var data :  RechargeListModel!
-    
     //用来接收偏移量
     var contentoffset = CGFloat()
     /** 用来判断刷新列表页第几页 **/
     var pageNumber : Int = 0
-    
     // 设置显示的月份的label
-    
     var  monthLb  = UILabel()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         pageNumber = 0
@@ -60,13 +49,10 @@ class RechargeListVC: BasePageListTableViewController {
         self.setIsLoadMore(true)
         ShareModel.share().addObserver(self, forKeyPath: "selectMonth", options: .new, context: nil)
     }
-    
     //MARK:  界面销毁删除监听
     deinit {
         ShareModel.share().removeObserver(self, forKeyPath: "selectMonth", context: nil)
-        
     }
-
     //MARK: 监听键值对
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
          super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
@@ -79,15 +65,11 @@ class RechargeListVC: BasePageListTableViewController {
                     
                     monthLb.text = "2017年" + " " + "\(selectMonth)" + "月"
                 }
-                
-                //                print(base)
-                
             }
         }
     }
     //MARK: 网络请求列表
     override func didRequest(_ pageIndex : Int) {
-        
     AppAPIHelper.user().creditlist(status: "1,2,3", pos: Int32(pageIndex) , count: 10, complete: {[weak self] (result) -> ()? in
             
             if let object = result {
@@ -109,11 +91,9 @@ class RechargeListVC: BasePageListTableViewController {
             
             headerView.backgroundColor = UIColor.groupTableViewBackground
             
-             monthLb = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
+            monthLb = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
             monthLb.text = "2017年 1月"
-            
             monthLb.textColor = UIColor.init(hexString: "333333")
-            
             monthLb.font = UIFont.systemFont(ofSize: 16)
             
             headerView.addSubview(monthLb)

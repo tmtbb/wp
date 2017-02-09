@@ -52,8 +52,10 @@ class SocketConst: NSObject {
         case userShare = 1020
         // 充值列表
         case rechageList = 1019
-        // 充值
+        // 微信充值
         case weixinpay = 1033
+        // 银联充值
+        case unionpay = 1034
         // 充值结果
         case payResult = 1035
         // 充值详情
