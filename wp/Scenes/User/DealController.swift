@@ -32,6 +32,8 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollection()
+        tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
+        tableView.showsVerticalScrollIndicator = false
         //1029 流水列表
         AppAPIHelper.user().flowList(flowType: "1,2,3", startPos: 0, count: 10, complete: { (result) -> ()? in
             

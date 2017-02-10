@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hY8-Tk-dg2">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hY8-Tk-dg2">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -175,12 +175,6 @@
                                                         <constraint firstItem="al2-uv-XE2" firstAttribute="centerX" secondItem="Ovl-nb-K9R" secondAttribute="centerX" id="xbc-s5-dl4"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rvh-r9-SX0">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="146"/>
-                                                    <connections>
-                                                        <action selector="myMessageDidClick:" destination="hY8-Tk-dg2" eventType="touchUpInside" id="bUs-YV-yXW"/>
-                                                    </connections>
-                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vvH-np-6S0">
                                                     <rect key="frame" x="112" y="71" width="109.5" height="40"/>
                                                     <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
@@ -219,6 +213,12 @@
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="registerDidClick:" destination="hY8-Tk-dg2" eventType="touchUpInside" id="fui-PR-l8n"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rvh-r9-SX0">
+                                                    <rect key="frame" x="-8" y="0.0" width="375" height="146"/>
+                                                    <connections>
+                                                        <action selector="myMessageDidClick:" destination="hY8-Tk-dg2" eventType="touchUpInside" id="bUs-YV-yXW"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -635,11 +635,14 @@
                         <outlet property="concealLabel" destination="al2-uv-XE2" id="rk8-x4-PuW"/>
                         <outlet property="fenLabel" destination="mXx-CC-kGx" id="Pwl-Di-b1m"/>
                         <outlet property="iconImage" destination="gAB-jC-Ywa" id="Uzw-Km-oGu"/>
+                        <outlet property="integralBackground" destination="2r5-3u-bNT" id="IV9-vq-AkL"/>
                         <outlet property="integralLabel" destination="WAF-E9-PgP" id="LfM-XJ-F0w"/>
                         <outlet property="loginBtn" destination="vvH-np-6S0" id="ysz-rh-4co"/>
                         <outlet property="myPropertyBtn" destination="wUI-Ij-9s5" id="bDb-59-vyY"/>
                         <outlet property="nameLabel" destination="J6X-LJ-zA5" id="iNk-7i-idt"/>
+                        <outlet property="personBackgroud" destination="S0Z-gy-8lS" id="D9s-by-GH1"/>
                         <outlet property="placeholderLabel" destination="uy5-Ma-F95" id="LTj-V9-Rfa"/>
+                        <outlet property="propertyBackgroud" destination="7z8-my-Rej" id="bKd-Mo-veu"/>
                         <outlet property="propertyNumber" destination="MFf-58-OnH" id="pn9-sq-ZAT"/>
                         <outlet property="pushBtn" destination="Rvh-r9-SX0" id="4Je-yZ-rMm"/>
                         <outlet property="register" destination="d0D-a2-UoU" id="CiS-64-JP3"/>

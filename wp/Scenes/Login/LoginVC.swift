@@ -22,9 +22,6 @@ class LoginVC: BaseTableViewController {
         initData()
         initUI()
       
-        
-       self.navigationController?.navigationBar.dk_tintColorPicker = DKColorTable.shared().picker(withKey: "e48723")
-        
                
     }
     override func viewWillAppear(_ animated: Bool) {
