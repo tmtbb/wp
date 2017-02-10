@@ -36,7 +36,7 @@ class AppConst {
         static let C5 = UIColor(rgbHex:0xe2e2e2)
         static let C6 = UIColor(rgbHex:0xf2f2f2)
         //wp
-        static let CMain = UIColor(rgbHex: 0xe9573f)
+        static let CMain = UIColor(rgbHex: 0x268dcf)
         static let CGreen = UIColor(rgbHex: 0x009944)
 
         static let main = "main"
