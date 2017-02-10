@@ -131,13 +131,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
 
         navigationBar.shadowImage = UIImage.init(named: "nav_clear")
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
-        let colorDic : NSDictionary = DKColorTable.shared().table
-        let colorBg : NSMutableDictionary = colorDic.object(forKey: "main") as! NSMutableDictionary
-
-        let color  : UIColor   =   colorBg.object(forKey: "NIGHT") as! UIColor
         navigationBar.tintColor = UIColor.white;
-      
-         navigationBar.setBackgroundImage(tint(color: color, blendMode: .destinationIn, image: UIImage.init(named: "nav_clear")!), for: .any, barMetrics: .default)
+        navigationBar.setBackgroundImage(UIImage.init(named: "nav_main"), for: .any, barMetrics: .default)
         UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(0, -60), for:.default);
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent;
         UITableView.appearance().backgroundColor = AppConst.Color.C6;
