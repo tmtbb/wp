@@ -19,7 +19,7 @@ class AppDataHelper: NSObject {
     
     func initData() {
         hurtTimer = Timer.scheduledTimer(timeInterval: 15 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 45, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
         Timer.scheduledTimer(timeInterval: 7, target: self, selector: #selector(initKLineModel), userInfo: nil, repeats: true)
         initProductData()
         initKLineModel()

@@ -713,9 +713,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="changeLabel" destination="Cmz-A5-jh9" id="gmp-eg-WWK"/>
+                        <outlet property="changePerLabel" destination="oV9-Gm-RlS" id="Y4A-Bx-5nr"/>
                         <outlet property="closeLabel" destination="TPy-00-z3n" id="jPa-mc-Ub4"/>
                         <outlet property="dealTable" destination="YfU-sG-nLP" id="HSn-MZ-RHr"/>
-                        <outlet property="downLabel" destination="oV9-Gm-RlS" id="hkt-9p-Wkk"/>
                         <outlet property="highLabel" destination="l3m-IE-j6z" id="Mn7-Zb-Hs5"/>
                         <outlet property="kLineView" destination="icF-sT-DVX" id="Oux-pK-pjj"/>
                         <outlet property="klineTitleView" destination="kCI-p1-5l2" id="x2j-BQ-vvA"/>
@@ -728,7 +729,6 @@
                         <outlet property="priceLabel" destination="vcb-qj-9FF" id="fhy-W6-xfi"/>
                         <outlet property="productsView" destination="LgN-7v-ihI" id="itJ-56-YeI"/>
                         <outlet property="titleView" destination="g3o-jq-yC7" id="cYg-EV-WLi"/>
-                        <outlet property="upLabel" destination="Cmz-A5-jh9" id="rgL-iV-147"/>
                         <segue destination="MJH-q6-3Uk" kind="push" identifier="BuyVC" id="j3c-Zb-a9i"/>
                         <segue destination="RRK-xt-Ldv" kind="push" identifier="DealToMyWealtVC" id="zcu-70-shs"/>
                     </connections>
