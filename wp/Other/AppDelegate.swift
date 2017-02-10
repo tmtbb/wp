@@ -130,23 +130,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
 
     
 //        navigationBar.setBackgroundImage(UIImage.init(named: "nav_bg"), for: .any, barMetrics: .default)
-//        navigationBar.shadowImage = UIImage.init(named: "nav_clear")
-//        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
-//        navigationBar.isTranslucent = false;
-//        let colorDic : NSDictionary = DKColorTable.shared().table
-//        let colorBg : NSMutableDictionary = colorDic.object(forKey: "main") as! NSMutableDictionary
-//        let color  : UIColor   =   colorBg.object(forKey: "NIGHT") as! UIColor
-//        navigationBar.tintColor = UIColor.white;
-//        navigationBar.barTintColor = color;
-
-       
+        navigationBar.shadowImage = UIImage.init(named: "nav_clear")
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
+        navigationBar.isTranslucent = false;
+        let colorDic : NSDictionary = DKColorTable.shared().table
+        let colorBg : NSMutableDictionary = colorDic.object(forKey: "main") as! NSMutableDictionary
+        let color  : UIColor   =   colorBg.object(forKey: "NIGHT") as! UIColor
+        navigationBar.tintColor = UIColor.white;
+        navigationBar.barTintColor = color;
 
         navigationBar.shadowImage = UIImage.init(named: "nav_clear")
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
-        let colorDic : NSDictionary = DKColorTable.shared().table
-        let colorBg : NSMutableDictionary = colorDic.object(forKey: "main") as! NSMutableDictionary
-
-        let color  : UIColor   =   colorBg.object(forKey: "NIGHT") as! UIColor
         navigationBar.tintColor = UIColor.white;
       
          navigationBar.setBackgroundImage(tint(color: color, blendMode: .destinationIn, image: UIImage.init(named: "nav_clear")!), for: .any, barMetrics: .default)

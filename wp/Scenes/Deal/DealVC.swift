@@ -39,6 +39,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         showTabBarWithAnimationDuration()
+        if let money = UserModel.share().currentUser?.balance{
+            myMoneyLabel.text = String.init(format: "%.2f", money)
+        }
     }
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
