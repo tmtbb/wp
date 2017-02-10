@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
         appearance()
-        window?.backgroundColor = UIColor(rgbHex: 0xE9573E)
+        window?.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
 //        pushMessageRegister()
 //        umapp()
         wechat()
@@ -127,17 +127,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     fileprivate func appearance() {
         
         let navigationBar:UINavigationBar = UINavigationBar.appearance() as UINavigationBar;
-       
+
+    
+//        navigationBar.setBackgroundImage(UIImage.init(named: "nav_bg"), for: .any, barMetrics: .default)
+        navigationBar.shadowImage = UIImage.init(named: "nav_clear")
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
+        navigationBar.isTranslucent = false;
+        let colorDic : NSDictionary = DKColorTable.shared().table
+        let colorBg : NSMutableDictionary = colorDic.object(forKey: "main") as! NSMutableDictionary
+        let color  : UIColor   =   colorBg.object(forKey: "NIGHT") as! UIColor
+        navigationBar.tintColor = UIColor.white;
+        navigationBar.barTintColor = color;
 
         navigationBar.shadowImage = UIImage.init(named: "nav_clear")
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
-        let colorDic : NSDictionary = DKColorTable.shared().table
-        let colorBg : NSMutableDictionary = colorDic.object(forKey: "main") as! NSMutableDictionary
-
-        let color  : UIColor   =   colorBg.object(forKey: "NIGHT") as! UIColor
         navigationBar.tintColor = UIColor.white;
       
          navigationBar.setBackgroundImage(tint(color: color, blendMode: .destinationIn, image: UIImage.init(named: "nav_clear")!), for: .any, barMetrics: .default)
+        
         UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(0, -60), for:.default);
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent;
         UITableView.appearance().backgroundColor = AppConst.Color.C6;
