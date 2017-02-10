@@ -355,18 +355,6 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icF-sT-DVX" customClass="KLineView" customModule="wp" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="10" width="375" height="190"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4CY-8d-XWV" customClass="CombinedChartView" customModule="Charts">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfS-hm-eZv" customClass="CombinedChartView" customModule="Charts">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03i-sB-ayw" customClass="CombinedChartView" customModule="Charts">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hib-53-TUe" customClass="CombinedChartView" customModule="Charts">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -378,32 +366,17 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="4CY-8d-XWV" secondAttribute="bottom" id="7jF-z1-5IF"/>
                                                         <constraint firstAttribute="bottom" secondItem="cwO-hW-IfW" secondAttribute="bottom" id="Bsh-BX-I9b"/>
-                                                        <constraint firstAttribute="trailing" secondItem="qfS-hm-eZv" secondAttribute="trailing" id="Ehe-hO-woA"/>
                                                         <constraint firstItem="cwO-hW-IfW" firstAttribute="top" secondItem="icF-sT-DVX" secondAttribute="top" id="EvN-nj-vHF"/>
-                                                        <constraint firstItem="qfS-hm-eZv" firstAttribute="top" secondItem="icF-sT-DVX" secondAttribute="top" id="G3L-fG-xtc"/>
-                                                        <constraint firstAttribute="trailing" secondItem="4CY-8d-XWV" secondAttribute="trailing" id="Iid-eP-Jhf"/>
                                                         <constraint firstAttribute="trailing" secondItem="hib-53-TUe" secondAttribute="trailing" id="KYj-c9-aCa"/>
                                                         <constraint firstAttribute="bottom" secondItem="hib-53-TUe" secondAttribute="bottom" id="LVG-g1-EJ2"/>
-                                                        <constraint firstAttribute="trailing" secondItem="03i-sB-ayw" secondAttribute="trailing" id="Leb-vV-6h3"/>
-                                                        <constraint firstAttribute="bottom" secondItem="03i-sB-ayw" secondAttribute="bottom" id="QOc-sD-Jj2"/>
-                                                        <constraint firstItem="4CY-8d-XWV" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="QUq-4w-I46"/>
-                                                        <constraint firstAttribute="bottom" secondItem="qfS-hm-eZv" secondAttribute="bottom" id="U1i-u3-tp2"/>
                                                         <constraint firstItem="hib-53-TUe" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="W2A-dM-Ydp"/>
-                                                        <constraint firstItem="qfS-hm-eZv" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="aIT-fo-qvE"/>
-                                                        <constraint firstItem="03i-sB-ayw" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="cpL-zX-D7W"/>
                                                         <constraint firstAttribute="trailing" secondItem="cwO-hW-IfW" secondAttribute="trailing" id="hHf-BJ-xZq"/>
-                                                        <constraint firstItem="4CY-8d-XWV" firstAttribute="top" secondItem="icF-sT-DVX" secondAttribute="top" id="nzV-ot-CpL"/>
                                                         <constraint firstItem="cwO-hW-IfW" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="rkw-QF-J52"/>
                                                         <constraint firstItem="hib-53-TUe" firstAttribute="top" secondItem="icF-sT-DVX" secondAttribute="top" id="xL8-nk-LNH"/>
-                                                        <constraint firstItem="03i-sB-ayw" firstAttribute="top" secondItem="icF-sT-DVX" secondAttribute="top" id="xrG-k4-5FG"/>
                                                     </constraints>
                                                     <connections>
-                                                        <outlet property="hourCharts" destination="qfS-hm-eZv" id="wkB-EJ-N8Q"/>
-                                                        <outlet property="miu15Charts" destination="4CY-8d-XWV" id="F5L-2k-IUs"/>
-                                                        <outlet property="miu30Charts" destination="03i-sB-ayw" id="klP-fQ-Tjo"/>
-                                                        <outlet property="miu5Charts" destination="hib-53-TUe" id="BUE-My-0lm"/>
+                                                        <outlet property="klineCharts" destination="hib-53-TUe" id="Mhl-Bb-bBG"/>
                                                         <outlet property="miuCharts" destination="cwO-hW-IfW" id="U8T-Yk-utN"/>
                                                     </connections>
                                                 </view>
@@ -777,7 +750,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CeI-dk-0lG" id="eiX-06-O59">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3h-ec-adO">
