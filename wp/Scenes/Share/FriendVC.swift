@@ -8,7 +8,7 @@
 
 import UIKit
 import Charts
-
+import DKNightVersion
 
 class FriendVC: BaseTableViewController {
     
@@ -18,7 +18,7 @@ class FriendVC: BaseTableViewController {
     
     
     @IBOutlet weak var headerImage: UIImageView!             //用户头像
-    @IBOutlet weak var bgImage: UIImageView!                 //背景图片
+    @IBOutlet weak var bgImage: UILabel!                 //背景图片
     @IBOutlet weak var wainningText: UITextField!            //消息内容
     
     @IBOutlet weak var totalBenifityBtn: UIButton!           //总收益Btn
@@ -50,7 +50,6 @@ class FriendVC: BaseTableViewController {
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
-        //        translucent(clear: false)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     //MARK: --DATA
@@ -68,6 +67,8 @@ class FriendVC: BaseTableViewController {
         tableView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0)
         initBenifityBarChartUI()
         initBenifityBarChartData()
+        
+       bgImage.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
     }
     //MARK: --最近5单交易
     func initBenifityBarChartUI() {
@@ -132,7 +133,7 @@ class FriendVC: BaseTableViewController {
             btn.backgroundColor = UIColor.white
         }
         sender.isSelected = true
-        sender.backgroundColor = AppConst.Color.CMain
+        sender.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         lastTypeBtn = sender
         index = sender.tag
         tableView.reloadData()

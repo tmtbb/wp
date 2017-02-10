@@ -26,6 +26,7 @@ class RechargeListVCCell: OEZTableViewCell {
         self.withDrawto.text  = "微信"
 //        self.timeLb.text = "\(model.depositTime)"
         self.statusLb.text = "充值失败"
+        self.weekLb.text = "\( model.depositTime)"
         //        print(model.status)
         // 设置失败的cell的背景alpha  根据status 来判断 状态view
         //        self.backgroundColor = UIColor.groupTableViewBackground
@@ -62,7 +63,6 @@ class RechargeListVC: BasePageListTableViewController {
                 
                 self.tableView.isScrollEnabled = true
                 if selectMonth != "1000000" {
-                    
                     monthLb.text = "2017年" + " " + "\(selectMonth)" + "月"
                 }
             }
