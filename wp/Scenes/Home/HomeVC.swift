@@ -21,7 +21,7 @@ class HomeVC: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        translucent(clear: true)
+        translucent(clear: false)
         showTabBarWithAnimationDuration()
         tabBarController?.tabBar.isHidden = false
     }
@@ -37,9 +37,7 @@ class HomeVC: BaseTableViewController {
     //MARK: --DATA
 //    func initData() {
 //        
-//        
-      
-//
+
 //    }
     //MARK: --DATA
     func initData() {
@@ -92,6 +90,7 @@ class HomeVC: BaseTableViewController {
         let contentSourceArray: [String] = ["用户0102030405买涨 【上海-东京】赚1...","用户0102030405买涨 【上海-东京】赚1...","用户0102030405买涨 【上海-东京】赚1..."]
         let tagSourceArray: [String] = ["跟 单", "跟 单", "跟 单"]
         tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
+        
     }
     
     
