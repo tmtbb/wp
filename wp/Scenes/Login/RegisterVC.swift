@@ -9,6 +9,7 @@
 
 import UIKit
 import SVProgressHUD
+import DKNightVersion
 class RegisterVC: BaseTableViewController {
     
     @IBOutlet weak var phoneView: UIView!
@@ -20,6 +21,9 @@ class RegisterVC: BaseTableViewController {
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var pwdText: UITextField!
     @IBOutlet weak var thindLoginView: UIView!
+    @IBOutlet weak var qqBtn: UIButton!
+    @IBOutlet weak var sinaBtn: UIButton!
+    @IBOutlet weak var wechatBtn: UIButton!
     private var timer: Timer?
     
     private var codeTime = 10
@@ -67,7 +71,7 @@ class RegisterVC: BaseTableViewController {
             codeBtn.setTitle("重新发送", for: .normal)
             codeTime = 60
             timer?.invalidate()
-            codeBtn.backgroundColor = UIColor.init(rgbHex: 0xe9573e)
+            codeBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
             return
         }
         codeBtn.isEnabled = false
@@ -88,7 +92,7 @@ class RegisterVC: BaseTableViewController {
             voiceCodeBtn.setTitle("重新发送", for: .normal)
             voiceCodeTime = 60
             timer?.invalidate()
-            voiceCodeBtn.backgroundColor = UIColor.init(rgbHex: 0xE9573E)
+            voiceCodeBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
             return
         }
         voiceCodeBtn.isEnabled = false
@@ -165,6 +169,14 @@ class RegisterVC: BaseTableViewController {
             pwdText.placeholder = "请输入登录密码"
         }
         phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
+        
+        codeBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        voiceCodeBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        nextBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        qqBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        wechatBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        sinaBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+
     }
 
     

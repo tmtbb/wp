@@ -11,11 +11,15 @@ import SVProgressHUD
 import DKNightVersion
 class LoginVC: BaseTableViewController {
     
+    @IBOutlet weak var qqBtn: UIButton!
+    @IBOutlet weak var wechatBtn: UIButton!
+    @IBOutlet weak var sinaBtn: UIButton!
     
     @IBOutlet weak var pwdView: UIView!
     @IBOutlet weak var phoneView: UIView!
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var pwdText: UITextField!
+    @IBOutlet weak var loginBtn: UIButton!
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +53,12 @@ class LoginVC: BaseTableViewController {
         phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
         pwdView.layer.borderWidth = 0.5
         pwdView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
+        
+        loginBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        qqBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        wechatBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        sinaBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        
         
     }
     //MARK: --手机号登录
