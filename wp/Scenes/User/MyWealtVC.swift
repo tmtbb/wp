@@ -35,7 +35,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         let str : String = NSString(format: "%.2f" ,int) as String
         account.text =  "\(str)"
     }
-    //MARK: 进入界面加载请求方法 保证数据的最新性
+    //MARK: --界面加载请求方法 保证数据的最新性
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         translucent(clear: false)
@@ -55,11 +55,11 @@ class MyWealtVC: BaseCustomPageListTableViewController {
             return nil
             }, error: errorBlockFunc())
     }
-    //MARK: 界面销毁删除监听机制
+    //MARK: --界面销毁删除监听机制
     deinit {
         ShareModel.share().shareData.removeAll()
     }
-    //MARK: 网络请求
+    //MARK: --网络请求
     override func didRequest(_ pageIndex : Int) {
         didRequestComplete(["","","","","","","","","","","","","","","","","","","","",""] as AnyObject)
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
@@ -77,7 +77,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
             }, error: errorBlockFunc())
         
     }
-    //MARK: tableView delegate
+    //MARK: --tableView delegate
     override func numberOfSections(in tableView: UITableView) -> Int{
         return 2
     }
@@ -113,17 +113,17 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         
     }
     
-       func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
         
         return 40
     }
-    //MARK: 充值按钮的点击事件
+    //MARK: --充值按钮的点击事件
     @IBAction func recharge(_ sender: Any) {
         recharge.isSelected = true
         withDraw.isSelected = false
         self.performSegue(withIdentifier: "PushToRechage", sender: nil )
     }
-    //MARK: 提现按钮的点击事件
+    //MARK: --提现按钮的点击事件
     @IBAction func withDraw(_ sender: Any) {
         recharge.isSelected = false
         withDraw.isSelected = true
