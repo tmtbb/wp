@@ -31,8 +31,10 @@ class DealModel: BaseModel {
     var type:SeletedType = .btnTapped
     //所选择的持仓模型
     dynamic var selectDealModel: PositionModel?
-    //所选择的商品
+    //所选择的商品大类
     var selectProduct: ProductModel?
+    //所选择的商品小类
+    var buyProduct: ProductModel?
     //买涨买跌
     var dealUp: Bool = true
     var buyModel: PositionModel = PositionModel()

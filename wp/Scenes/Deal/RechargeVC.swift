@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import DKNightVersion
 class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDelegate,NSURLConnectionDelegate{
     
     
@@ -23,6 +24,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     @IBOutlet weak var rechargeMoneyCell: UITableViewCell!    //自定义cell
     @IBOutlet weak var rechargeTypeCell: UITableViewCell!     //自定义cell
     @IBOutlet weak var bankTableView: RechargeVcTableView!    //银行卡view
+    @IBOutlet weak var submited: UIButton!    //提交按钮
     var selectRow : Bool!                                     // 来用来判断刷新几个区
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +66,11 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         
         //        self.userIdText.text  =
         //        self.bankTableView.addObserver(self, forKeyPath: "dataArry", options: .new, context: nil)
+        submited.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
+        submited.layer.cornerRadius = 5
+        submited.clipsToBounds = true
+        
+        moneyText.dk_textColorPicker = DKColorTable.shared().picker(withKey: "auxiliary")
         
     }
     //MARK: 属性的变化

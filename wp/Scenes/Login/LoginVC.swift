@@ -22,7 +22,6 @@ class LoginVC: BaseTableViewController {
         initData()
         initUI()
       
-               
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

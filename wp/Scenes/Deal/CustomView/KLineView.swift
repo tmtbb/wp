@@ -14,26 +14,27 @@ class KLineView: UIView {
     @IBOutlet weak var miuCharts: LineChartView!
     @IBOutlet weak var miu15Charts: CombinedChartView!
     @IBOutlet weak var hourCharts: CombinedChartView!
-    @IBOutlet weak var dayCharts: CombinedChartView!
-    var miu15Models: [KChartModel] = []
-    var miu60Models: [KChartModel] = []
-    var dayModels: [KChartModel] = []
+    @IBOutlet weak var miu30Charts: CombinedChartView!
+    @IBOutlet weak var miu5Charts: CombinedChartView!
     
     var selectIndex: NSInteger!{
         didSet{
+          
             switch selectIndex {
-            case 1:
+            case 0:
                 bringSubview(toFront: self.miuCharts)
                 break
+            case 1:
+                bringSubview(toFront: self.miu5Charts)
+                break
             case 2:
-                initMiu15KChartsData()
                 bringSubview(toFront: self.miu15Charts)
                 break
             case 3:
-                bringSubview(toFront: self.hourCharts)
+                bringSubview(toFront: self.miu30Charts)
                 break
             case 4:
-                bringSubview(toFront: self.dayCharts)
+                bringSubview(toFront: self.hourCharts)
                 break
             default:
                 bringSubview(toFront: self.miuCharts)
@@ -52,14 +53,15 @@ class KLineView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         initChartView()
-        refreshKLine()
-        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(refreshKLine), userInfo: nil, repeats: true)
+        initMiuLChartsData()
+        initMiu15KChartsData()
+        initMiu60KChartsData()
         //每隔60秒刷新一次分时数据
         Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(initMiuLChartsData), userInfo: nil, repeats: true)
         //每隔15分钟刷新一次分时数据
-        Timer.scheduledTimer(timeInterval: 15*60, target: self, selector: #selector(initMiu15KChartsData), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(initMiu15KChartsData), userInfo: nil, repeats: true)
         //每隔60分钟刷新一次分时数据
-        Timer.scheduledTimer(timeInterval: 60*60, target: self, selector: #selector(initMiu60KChartsData), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(initMiu60KChartsData), userInfo: nil, repeats: true)
     }
 
     //MARK: --Charts
@@ -77,6 +79,8 @@ class KLineView: UIView {
                 chartsView.leftAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.zoom(scaleX: 2.0, scaleY: 0, x: 0, y: 0)
+        
+                
             }
         }
     }
@@ -85,6 +89,7 @@ class KLineView: UIView {
         initMiu15KChartsData()
         initMiu60KChartsData()
     }
+    
     //MARK: --分时图
     func initMiuLChartsData() {
         let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.symbol
@@ -92,11 +97,12 @@ class KLineView: UIView {
         let toTime: Int = Int(Date.nowTimestemp())
         KLineModel.queryTimelineModels(fromTime: fromTime, toTime: toTime, goodType: type!){[weak self](result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel] {
-                self?.refreshLineChartData(models: models)
+               self?.refreshLineChartData(models: models)
             }
             return nil
         }
     }
+    
     //MARK: --15分钟
     func initMiu15KChartsData() {
         let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.symbol
@@ -128,18 +134,17 @@ class KLineView: UIView {
     }
     //刷新折线
     func refreshLineChartData(models: [KChartModel]) {
+        
         let max = models.count + 100
         if models.count == 0 {
             miuCharts.clearValues()
             return
         }
-
+        
         var entrys: [ChartDataEntry] = []
         for (i, model) in models.enumerated()  {
-            let _ = autoreleasepool(invoking: {
-                let entry = ChartDataEntry.init(x: Double(i), y: model.currentPrice)
-                entrys.append(entry)
-            })
+            let entry = ChartDataEntry.init(x: Double(i), y: model.currentPrice)
+            entrys.append(entry)
         }
         let set: LineChartDataSet = LineChartDataSet.init(values: entrys, label: "折线图")
         set.colors = [UIColor.init(rgbHex: 0x666666)]
@@ -151,24 +156,13 @@ class KLineView: UIView {
         set.fillColor = UIColor.init(rgbHex: 0x999999)
         let data: LineChartData  = LineChartData.init(dataSets: [set])
         miuCharts.data = data
+        miuCharts.data?.notifyDataChanged()
+        miuCharts.setNeedsDisplay()
         miuCharts.xAxis.axisMaximum = Double(max)
     }
     //刷新K线
     func refreshCandleStickData(type: KLineModel.KLineType, models: [KChartModel]) {
         if models.count == 0 {
-            switch type {
-            case .day:
-                dayCharts.clearValues()
-                break
-            case .miu60:
-                hourCharts.clearValues()
-                break
-            case .miu15:
-                miu15Charts.clearValues()
-                break
-            default:
-                return
-            }
             return
         }
         var entrys: [ChartDataEntry] = []
@@ -195,14 +189,21 @@ class KLineView: UIView {
         combinData.candleData = data
         
         switch type {
-        case .day:
-            dayCharts.data = combinData
-            break
-        case .miu60:
-            hourCharts.data = combinData
+        case .miu5:
+            miu5Charts.data = combinData
+            miu5Charts.data?.notifyDataChanged()
             break
         case .miu15:
             miu15Charts.data = combinData
+            miu15Charts.data?.notifyDataChanged()
+            break
+        case .miu30:
+            miu30Charts.data = combinData
+            miu30Charts.data?.notifyDataChanged()
+            break
+        case .miu60:
+            hourCharts.data = combinData
+            hourCharts.data?.notifyDataChanged()
             break
         default:
             return

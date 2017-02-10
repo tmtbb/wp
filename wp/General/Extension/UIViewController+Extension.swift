@@ -93,9 +93,9 @@ extension UIViewController {
 //     let navImageName = clear ? "nav_clear" : "nav_color"
 //        let navImageName = "nav_bg"
 //        navigationController?.navigationBar.setBackgroundImage(UIImage.init(named: navImageName), for: .any, barMetrics: .default)
-//        
+     
       navigationController?.navigationBar.isTranslucent = clear;
-        
+
     }
     
     //MARK: -- 隐藏tabBar导航栏

@@ -11,7 +11,7 @@ import UIKit
 import SVProgressHUD
 import Fabric
 import Crashlytics
-import Alamofire 
+import Alamofire
 import DKNightVersion
 @UIApplicationMain
 
@@ -127,23 +127,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     fileprivate func appearance() {
         
         let navigationBar:UINavigationBar = UINavigationBar.appearance() as UINavigationBar;
+
     
 //        navigationBar.setBackgroundImage(UIImage.init(named: "nav_bg"), for: .any, barMetrics: .default)
+//        navigationBar.shadowImage = UIImage.init(named: "nav_clear")
+//        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
+//        navigationBar.isTranslucent = false;
+//        let colorDic : NSDictionary = DKColorTable.shared().table
+//        let colorBg : NSMutableDictionary = colorDic.object(forKey: "main") as! NSMutableDictionary
+//        let color  : UIColor   =   colorBg.object(forKey: "NIGHT") as! UIColor
+//        navigationBar.tintColor = UIColor.white;
+//        navigationBar.barTintColor = color;
+
+       
+
         navigationBar.shadowImage = UIImage.init(named: "nav_clear")
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
-        navigationBar.isTranslucent = false;
         let colorDic : NSDictionary = DKColorTable.shared().table
         let colorBg : NSMutableDictionary = colorDic.object(forKey: "main") as! NSMutableDictionary
+
         let color  : UIColor   =   colorBg.object(forKey: "NIGHT") as! UIColor
         navigationBar.tintColor = UIColor.white;
-        navigationBar.barTintColor = color;
+      
+         navigationBar.setBackgroundImage(tint(color: color, blendMode: .destinationIn, image: UIImage.init(named: "nav_clear")!), for: .any, barMetrics: .default)
+        
         UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(0, -60), for:.default);
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent;
         UITableView.appearance().backgroundColor = AppConst.Color.C6;
         SVProgressHUD.setDefaultStyle(SVProgressHUDStyle.dark)
         SVProgressHUD.setMinimumDismissTimeInterval(2)
     }
-
+   
     fileprivate func umapp() {
         
         UMAnalyticsConfig.sharedInstance().appKey = AppConst.UMAppkey
@@ -196,7 +210,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
         self.window?.endEditing(true)
     }
    
-
+    func tint(color: UIColor, blendMode: CGBlendMode,image: UIImage) -> UIImage
+    {
+        //(0.0, 0.0,image.size.width , image.size.height)
+        let drawRect = CGRect.init(x: 0, y: -20, width: image.size.width, height: image.size.height+20)
+        UIGraphicsBeginImageContextWithOptions(image.size, false, 1)
+        color.setFill()
+        UIRectFill(drawRect)
+        let tintedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return tintedImage!
+    }
     
     
    

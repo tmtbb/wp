@@ -26,7 +26,7 @@ class TitleItem: UICollectionViewCell {
 
 
 @objc protocol TitleCollectionviewDelegate {
-    func didSelectedObject(object: AnyObject?)
+    func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?)
 }
 
 class TitleCollectionView: UICollectionView , UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
@@ -85,7 +85,7 @@ class TitleCollectionView: UICollectionView , UICollectionViewDelegate, UICollec
         selectIndexPath = indexPath
         if let itemDelegate = itemDelegate {
             let object = objects?[indexPath.row]
-            itemDelegate.didSelectedObject(object: object!)
+            itemDelegate.didSelectedObject(collectionView, object: object)
         }
         collectionView.reloadData()
     }

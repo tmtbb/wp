@@ -14,7 +14,7 @@ class SelectBankVC: BaseListTableViewController {
     var finishBtn = UIButton()
     override func viewDidLoad() {
         //默认开始选择的是第一行
-        selectNumber = 0
+        selectNumber = 100000
         self.title = "我的银行卡"
         super.viewDidLoad()
         
@@ -28,7 +28,7 @@ class SelectBankVC: BaseListTableViewController {
         finishBtn.setTitle("完成", for:  UIControlState.normal)
         
         finishBtn.addTarget(self, action: #selector(finish), for: UIControlEvents.touchUpInside)
-        
+        finishBtn.isHidden = true
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: finishBtn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
         
@@ -102,17 +102,13 @@ class SelectBankVC: BaseListTableViewController {
         if indexPath.section == selectNumber {
             cell.accessoryType =  UITableViewCellAccessoryType .checkmark
         }
-        
         return cell
-        
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        
         selectNumber = indexPath.section
         tableView.reloadData()
-        
-        
-    }
+        finishBtn.isHidden = false
+   }
     //MARK: -- 添加银行卡点击事件
     @IBAction func addbank(_ sender: Any) {
     }
