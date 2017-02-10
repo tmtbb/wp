@@ -8,6 +8,7 @@
 
 import UIKit
 import SideMenuController
+import DKNightVersion
 class UserTableViewController: BaseTableViewController {
     //头像
     @IBOutlet weak var iconImage: UIImageView!
@@ -30,12 +31,18 @@ class UserTableViewController: BaseTableViewController {
     @IBOutlet weak var pushBtn: UIButton!
     //资金按钮
     @IBOutlet weak var myPropertyBtn: UIButton!
-    
+    //个人cell的背景颜色
+    @IBOutlet weak var personBackgroud: UIView!
+    @IBOutlet weak var propertyBackgroud: UIView!
+    @IBOutlet weak var integralBackground: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //       UserModel.getCurrentUser()?.balance
         // ShareModel.share().useMoney = Double(money)
+        personBackgroud.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
+        propertyBackgroud.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
+        integralBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         ShareModel.share().addObserver(self, forKeyPath: "useMoney", options: .new, context: nil)
         registerNotify()
         //更新token
