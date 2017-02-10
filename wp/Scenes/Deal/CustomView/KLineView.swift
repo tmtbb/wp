@@ -59,8 +59,6 @@ class KLineView: UIView {
                 chartsView.leftAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.zoom(scaleX: 2.0, scaleY: 0, x: 0, y: 0)
-        
-                
             }
         }
     }

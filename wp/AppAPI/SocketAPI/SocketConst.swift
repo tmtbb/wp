@@ -73,7 +73,7 @@ class SocketConst: NSObject {
         //历史仓位详情
         case historyDealDetail = 2003
         //建仓
-        case buildDeal = 2004
+        case buildDeal = 5003
         //平仓
         case sellOutDeal = 2005
         //修改持仓
