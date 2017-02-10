@@ -7,8 +7,7 @@
 //
 
 import UIKit
-
-
+import DKNightVersion
 
 class ProdectCell: UITableViewCell {
     
@@ -59,6 +58,13 @@ class ProdectCell: UITableViewCell {
             hightPrice.text = String.init(format: "%.4f", kChartModel!.highPrice)
             lowPrice.text = String.init(format: "%.4f", kChartModel!.lowPrice)
             changeLabel.text = String.init(format: "%.4f", kChartModel!.change)
+            changePer.text = String.init(format: "%.2f%", kChartModel!.change/(kChartModel?.currentPrice)!)
+            
+            let colorKey = kChartModel!.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
+            changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+            changePer.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+            productName.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+            
 
         }
     }

@@ -9,17 +9,11 @@
 import UIKit
 import RealmSwift
 
-class KChartModelQuarter: KChartModel {
-    
+
+class KLineChartModel: KChartModel {
+    dynamic var klineType: Int = -1
 }
 
-class KChartModelHour: KChartModel {
-    
-}
-
-class KChartModelDay: KChartModel {
-    
-}
 
 class KChartModel: Object {
     dynamic var name: String = ""

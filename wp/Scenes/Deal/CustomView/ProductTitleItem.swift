@@ -19,7 +19,7 @@ class ProductTitleItem: TitleItem {
     override func update(object: AnyObject, hiddle: Bool) {
         if let product: ProductModel = object as? ProductModel{
             titleLabel.text = product.name
-            titleLabel.textColor = hiddle ?  UIColor.init(rgbHex: 0x999999) : UIColor.init(rgbHex: 0x268dcf)
+            titleLabel.textColor = hiddle ?  UIColor.init(rgbHex: 0x999999) : AppConst.Color.CMain
             iconImage.isHidden = hiddle
         }
     }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Wui-kV-Unx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Wui-kV-Unx">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,7 +15,7 @@
         <scene sceneID="gJw-9z-5VH">
             <objects>
                 <navigationController storyboardIdentifier="Deal" id="Wui-kV-Unx" customClass="BaseNavigationController" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cx2-MP-Ved">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="cx2-MP-Ved">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -176,7 +176,7 @@
                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p8O-ur-kXW">
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="indirector.png" translatesAutoresizingMaskIntoConstraints="NO" id="p8O-ur-kXW">
                                                                         <rect key="frame" x="10" y="55" width="41" height="5"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="5" id="m2r-pm-wmx"/>
@@ -355,18 +355,6 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icF-sT-DVX" customClass="KLineView" customModule="wp" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="10" width="375" height="190"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4CY-8d-XWV" customClass="CombinedChartView" customModule="Charts">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfS-hm-eZv" customClass="CombinedChartView" customModule="Charts">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03i-sB-ayw" customClass="CombinedChartView" customModule="Charts">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hib-53-TUe" customClass="CombinedChartView" customModule="Charts">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -378,32 +366,17 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="4CY-8d-XWV" secondAttribute="bottom" id="7jF-z1-5IF"/>
                                                         <constraint firstAttribute="bottom" secondItem="cwO-hW-IfW" secondAttribute="bottom" id="Bsh-BX-I9b"/>
-                                                        <constraint firstAttribute="trailing" secondItem="qfS-hm-eZv" secondAttribute="trailing" id="Ehe-hO-woA"/>
                                                         <constraint firstItem="cwO-hW-IfW" firstAttribute="top" secondItem="icF-sT-DVX" secondAttribute="top" id="EvN-nj-vHF"/>
-                                                        <constraint firstItem="qfS-hm-eZv" firstAttribute="top" secondItem="icF-sT-DVX" secondAttribute="top" id="G3L-fG-xtc"/>
-                                                        <constraint firstAttribute="trailing" secondItem="4CY-8d-XWV" secondAttribute="trailing" id="Iid-eP-Jhf"/>
                                                         <constraint firstAttribute="trailing" secondItem="hib-53-TUe" secondAttribute="trailing" id="KYj-c9-aCa"/>
                                                         <constraint firstAttribute="bottom" secondItem="hib-53-TUe" secondAttribute="bottom" id="LVG-g1-EJ2"/>
-                                                        <constraint firstAttribute="trailing" secondItem="03i-sB-ayw" secondAttribute="trailing" id="Leb-vV-6h3"/>
-                                                        <constraint firstAttribute="bottom" secondItem="03i-sB-ayw" secondAttribute="bottom" id="QOc-sD-Jj2"/>
-                                                        <constraint firstItem="4CY-8d-XWV" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="QUq-4w-I46"/>
-                                                        <constraint firstAttribute="bottom" secondItem="qfS-hm-eZv" secondAttribute="bottom" id="U1i-u3-tp2"/>
                                                         <constraint firstItem="hib-53-TUe" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="W2A-dM-Ydp"/>
-                                                        <constraint firstItem="qfS-hm-eZv" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="aIT-fo-qvE"/>
-                                                        <constraint firstItem="03i-sB-ayw" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="cpL-zX-D7W"/>
                                                         <constraint firstAttribute="trailing" secondItem="cwO-hW-IfW" secondAttribute="trailing" id="hHf-BJ-xZq"/>
-                                                        <constraint firstItem="4CY-8d-XWV" firstAttribute="top" secondItem="icF-sT-DVX" secondAttribute="top" id="nzV-ot-CpL"/>
                                                         <constraint firstItem="cwO-hW-IfW" firstAttribute="leading" secondItem="icF-sT-DVX" secondAttribute="leading" id="rkw-QF-J52"/>
                                                         <constraint firstItem="hib-53-TUe" firstAttribute="top" secondItem="icF-sT-DVX" secondAttribute="top" id="xL8-nk-LNH"/>
-                                                        <constraint firstItem="03i-sB-ayw" firstAttribute="top" secondItem="icF-sT-DVX" secondAttribute="top" id="xrG-k4-5FG"/>
                                                     </constraints>
                                                     <connections>
-                                                        <outlet property="hourCharts" destination="qfS-hm-eZv" id="wkB-EJ-N8Q"/>
-                                                        <outlet property="miu15Charts" destination="4CY-8d-XWV" id="F5L-2k-IUs"/>
-                                                        <outlet property="miu30Charts" destination="03i-sB-ayw" id="klP-fQ-Tjo"/>
-                                                        <outlet property="miu5Charts" destination="hib-53-TUe" id="BUE-My-0lm"/>
+                                                        <outlet property="klineCharts" destination="hib-53-TUe" id="Mhl-Bb-bBG"/>
                                                         <outlet property="miuCharts" destination="cwO-hW-IfW" id="U8T-Yk-utN"/>
                                                     </connections>
                                                 </view>
@@ -740,9 +713,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="changeLabel" destination="Cmz-A5-jh9" id="gmp-eg-WWK"/>
+                        <outlet property="changePerLabel" destination="oV9-Gm-RlS" id="Y4A-Bx-5nr"/>
                         <outlet property="closeLabel" destination="TPy-00-z3n" id="jPa-mc-Ub4"/>
                         <outlet property="dealTable" destination="YfU-sG-nLP" id="HSn-MZ-RHr"/>
-                        <outlet property="downLabel" destination="oV9-Gm-RlS" id="hkt-9p-Wkk"/>
                         <outlet property="highLabel" destination="l3m-IE-j6z" id="Mn7-Zb-Hs5"/>
                         <outlet property="kLineView" destination="icF-sT-DVX" id="Oux-pK-pjj"/>
                         <outlet property="klineTitleView" destination="kCI-p1-5l2" id="x2j-BQ-vvA"/>
@@ -755,7 +729,6 @@
                         <outlet property="priceLabel" destination="vcb-qj-9FF" id="fhy-W6-xfi"/>
                         <outlet property="productsView" destination="LgN-7v-ihI" id="itJ-56-YeI"/>
                         <outlet property="titleView" destination="g3o-jq-yC7" id="cYg-EV-WLi"/>
-                        <outlet property="upLabel" destination="Cmz-A5-jh9" id="rgL-iV-147"/>
                         <segue destination="MJH-q6-3Uk" kind="push" identifier="BuyVC" id="j3c-Zb-a9i"/>
                         <segue destination="RRK-xt-Ldv" kind="push" identifier="DealToMyWealtVC" id="zcu-70-shs"/>
                     </connections>
@@ -777,7 +750,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CeI-dk-0lG" id="eiX-06-O59">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3h-ec-adO">
@@ -1186,7 +1159,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="bjM-dk-YVJ">
-                            <rect key="frame" x="0.0" y="647" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="711" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdT-Lc-qQD">
@@ -2501,12 +2474,13 @@
         <image name="buyBg" width="12" height="13"/>
         <image name="buyUnSelcter.png" width="16" height="16"/>
         <image name="detail.png" width="12" height="12"/>
+        <image name="indirector.png" width="90" height="7"/>
         <image name="next.png" width="7" height="12"/>
         <image name="quan.png" width="14" height="11"/>
         <image name="rmb.png" width="12" height="13"/>
         <image name="wain.png" width="10" height="10"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="giv-mJ-A5w"/>
+        <segue reference="zcu-70-shs"/>
     </inferredMetricsTieBreakers>
 </document>

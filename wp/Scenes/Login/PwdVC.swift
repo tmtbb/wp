@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import DKNightVersion
 class PwdVC: BaseTableViewController {
 
     @IBOutlet weak var pwdText: UITextField!
@@ -26,7 +27,7 @@ class PwdVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
-        
+        nextBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
     }
     //MARK: --Function
     @IBAction func nextBtnTapped(_ sender: UIButton) {
