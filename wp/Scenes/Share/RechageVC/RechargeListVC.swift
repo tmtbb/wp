@@ -63,7 +63,6 @@ class RechargeListVC: BasePageListTableViewController {
                 
                 self.tableView.isScrollEnabled = true
                 if selectMonth != "1000000" {
-                    
                     monthLb.text = "2017年" + " " + "\(selectMonth)" + "月"
                 }
             }
