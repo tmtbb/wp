@@ -68,6 +68,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     func initData() {
         //初始化持仓数据
         initDealTableData()
+        YD_CountDownHelper.shared.countDownWithDealTableView(tableView: dealTable)
+
         //初始化下商品数据
         titleView.objects = DealModel.share().productKinds
         if let selectProduct = DealModel.share().selectProduct{
@@ -172,7 +174,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 return nil
             }
             if let resultModel: [PositionModel] = result as! [PositionModel]?{
-                self?.dealTable.dealTableData = resultModel
+//                self?.dealTable.dealTableData = resultModels
             }
             return nil
             }, error: errorBlockFunc())
