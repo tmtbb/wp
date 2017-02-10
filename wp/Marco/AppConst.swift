@@ -38,7 +38,12 @@ class AppConst {
         //wp
         static let CMain = UIColor(rgbHex: 0xe9573f)
         static let CGreen = UIColor(rgbHex: 0x009944)
-        
+
+        static let main = "main"
+        static let background = "background"
+        static let buyUp = "buyUp"
+        static let buyDown = "buyDown"
+        static let auxiliary = "auxiliary"
     };
      class SystemFont {
         static let S1 = UIFont.systemFont(ofSize: 18)
@@ -50,6 +55,7 @@ class AppConst {
     };
     
     class Event {
+        
     }
     
     class Network {

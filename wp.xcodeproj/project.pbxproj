@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2FFBC4EC1DF8EF190039A0E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */; };
 		67563DCFE7C11C493D5E3BE0 /* Pods_wp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB87B95C21847F47B3B5B8C /* Pods_wp.framework */; };
+		8E0679E51E4C7088007EF765 /* BuyProductVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0679E41E4C7088007EF765 /* BuyProductVC.swift */; };
+		8E3008031E4C159700B32717 /* ProductsiCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3008021E4C159700B32717 /* ProductsiCarousel.swift */; };
 		A009AD0E1E28A399008A5014 /* FriendTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009AD0D1E28A399008A5014 /* FriendTableView.swift */; };
 		A009AD111E28BF3E008A5014 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD101E28BF3E008A5014 /* back.png */; };
 		A009AD141E28C864008A5014 /* noticeSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A009AD121E28C864008A5014 /* noticeSelect@2x.png */; };
@@ -335,6 +337,8 @@
 /* Begin PBXFileReference section */
 		2FFBC4EB1DF8EF190039A0E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		34A71E9057EC9BB492D14F0B /* Pods-wp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wp/Pods-wp.debug.xcconfig"; sourceTree = "<group>"; };
+		8E0679E41E4C7088007EF765 /* BuyProductVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyProductVC.swift; sourceTree = "<group>"; };
+		8E3008021E4C159700B32717 /* ProductsiCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsiCarousel.swift; sourceTree = "<group>"; };
 		A009AD0D1E28A399008A5014 /* FriendTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableView.swift; sourceTree = "<group>"; };
 		A009AD101E28BF3E008A5014 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		A009AD121E28C864008A5014 /* noticeSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noticeSelect@2x.png"; sourceTree = "<group>"; };
@@ -746,6 +750,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8E0679CB1E4C6F51007EF765 /* deal */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = deal;
+			sourceTree = "<group>";
+		};
 		A046BF731E1CDEF30035A4FA /* RechageVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -896,6 +907,7 @@
 				BF5E247E1E10AF6B00B5C07A /* CustomView */,
 				BF0479381E0FBEC300C511E7 /* DealVC.swift */,
 				BF43EAD41E1D17F90014B0EE /* HistoryDealVC.swift */,
+				8E0679E41E4C7088007EF765 /* BuyProductVC.swift */,
 			);
 			path = Deal;
 			sourceTree = "<group>";
@@ -1143,6 +1155,7 @@
 				BF5E24811E10BE1E00B5C07A /* KLineView.swift */,
 				BFAC07C81E25DD57002E465F /* TitleCollectionview.swift */,
 				BF259A4A1E26009F00276997 /* ProductTitleItem.swift */,
+				8E3008021E4C159700B32717 /* ProductsiCarousel.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -1292,6 +1305,7 @@
 		BFF019031E23B112008631D6 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				8E0679CB1E4C6F51007EF765 /* deal */,
 				BF9C05841E2F66410033E503 /* login */,
 				A0BC07421E23B5D8003EA7BC /* share */,
 				BFF018FE1E23B112008631D6 /* Assets.xcassets */,
@@ -1840,6 +1854,7 @@
 				A08CB39B1E1E1A8A004BE44B /* RechargeListVC.swift in Sources */,
 				BF04793D1E0FBF5000C511E7 /* RechargeVC.swift in Sources */,
 				A0C2840F1E1FBD1A00A97707 /* SuccessChargeVC.swift in Sources */,
+				8E3008031E4C159700B32717 /* ProductsiCarousel.swift in Sources */,
 				BF259A4B1E26009F00276997 /* ProductTitleItem.swift in Sources */,
 				BF2F643F1E038DFE00917FA1 /* UIViewController+RBStoryboardLink.m in Sources */,
 				D0FA4EDC1E276E840015C012 /* ProdectCell.swift in Sources */,
@@ -1903,6 +1918,7 @@
 				A0C2840B1E1FB24400A97707 /* ValidationPhoneVC.swift in Sources */,
 				BF43EAD51E1D17FA0014B0EE /* HistoryDealVC.swift in Sources */,
 				BF2F642C1E038DFE00917FA1 /* BaseCustomTableViewController.swift in Sources */,
+				8E0679E51E4C7088007EF765 /* BuyProductVC.swift in Sources */,
 				A0BC07361E233DC7003EA7BC /* InputBankPhone.swift in Sources */,
 				BF062B4F1E04E01100618B1B /* LoginNav.swift in Sources */,
 				B058E36E1E1D40DA0046720D /* SocketHelper.swift in Sources */,
@@ -2105,6 +2121,7 @@
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/SMSSDK/SMS_SDK",
 					"$(PROJECT_DIR)/wp/Library/Alipay",
 					"$(PROJECT_DIR)/wp/Library/BCFeedback",
+					"$(PROJECT_DIR)/Pods/iCarousel",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = wp/Other/Info.plist;
@@ -2166,6 +2183,7 @@
 					"$(PROJECT_DIR)/wp/Library/Alipay",
 					"$(PROJECT_DIR)/wp/Library/BCFeedback",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/iCarousel",
 				);
 				INFOPLIST_FILE = wp/Other/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

@@ -24,4 +24,5 @@ target 'wp' do
     pod 'RealmSwift'
     pod "DKNightVersion"
     #pod 'ReactiveCocoa'
+    pod 'iCarousel'
 end

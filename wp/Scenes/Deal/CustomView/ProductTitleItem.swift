@@ -10,7 +10,7 @@ import UIKit
 
 class ProductTitleItem: TitleItem {
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var redView: UIView!
+    @IBOutlet weak var iconImage: UIImageView!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -19,8 +19,27 @@ class ProductTitleItem: TitleItem {
     override func update(object: AnyObject, hiddle: Bool) {
         if let product: ProductModel = object as? ProductModel{
             titleLabel.text = product.name
-            redView.isHidden = hiddle
-            titleLabel.textColor = hiddle == false ? UIColor.init(rgbHex: 0xe9573f) : UIColor.init(rgbHex: 0x333333)
+            titleLabel.textColor = hiddle ?  UIColor.init(rgbHex: 0x999999) : UIColor.init(rgbHex: 0x268dcf)
+            iconImage.isHidden = hiddle
         }
     }
 }
+
+class KLineTitleItem: TitleItem {
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var redImage: UIImageView!
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func update(object: AnyObject, hiddle: Bool) {
+        if let title: String = object as? String{
+            titleLabel.text = title
+            titleLabel.textColor = hiddle ?  UIColor.init(rgbHex: 0x999999) : UIColor.init(rgbHex: 0xe48723)
+            redImage.isHidden = hiddle
+            redImage.backgroundColor = UIColor.init(rgbHex: 0xe48723)
+        }
+    }
+}
+
