@@ -47,7 +47,7 @@ class WithDrawaListVCCell: OEZTableViewCell {
         
         if model.status == 1 {
             status = "处理中"
-        } else if model.status == 1 {
+        } else if model.status == 2 {
             status = "成功"
         }else{
             status = "失败"

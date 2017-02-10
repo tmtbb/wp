@@ -8,9 +8,10 @@
 
 import UIKit
 import SVProgressHUD
-
+import DKNightVersion
 class WithDrawalVC: BaseTableViewController {
-    
+    //提现提交按钮
+    @IBOutlet weak var submited: UIButton!
     var bankId : Int64 = 0
     // 发送验证码
     @IBOutlet weak var voiceCodeBtn: UIButton!
@@ -72,6 +73,13 @@ class WithDrawalVC: BaseTableViewController {
         self.money.placeholder = "最多可提现" + "\(int)" + "元"
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
+        
+        submited.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
+        submited.layer.cornerRadius = 5
+        submited.clipsToBounds = true
+        withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
+        
+        
     }
     //MARK: --属性的变化
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
