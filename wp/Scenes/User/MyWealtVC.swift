@@ -26,34 +26,19 @@ class MyWealtVC: BaseCustomPageListTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         headBg.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
-        didRequest()
+//        didRequest()
         title  = "我的资产"
         recharge.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         recharge.layer.cornerRadius = 5
         recharge.clipsToBounds = true
-        let int : Double = Double((UserModel.getCurrentUser()?.balance)!)
-        let str : String = NSString(format: "%.2f" ,int) as String
-        account.text =  "\(str)"
+       
     }
     //MARK: --界面加载请求方法 保证数据的最新性
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         translucent(clear: false)
         hideTabBarWithAnimationDuration()
-        AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
-            if let object = result {
-                let  money : NSNumber =  object["balance"] as! NSNumber
-                let floatmonet : Float = Float.init(money)
-                let str : String = NSString(format: "%.2f" ,floatmonet) as String
-                self?.account.text =  "\(str)"
-                UserModel.updateUser(info: { (result) -> ()? in
-                    UserModel.getCurrentUser()?.balance = Double(money)
-                    ShareModel.share().useMoney = Double(money)
-                    return nil
-                })
-            }
-            return nil
-            }, error: errorBlockFunc())
+        didRequest()
     }
     //MARK: --界面销毁删除监听机制
     deinit {
@@ -61,13 +46,15 @@ class MyWealtVC: BaseCustomPageListTableViewController {
     }
     //MARK: --网络请求
     override func didRequest(_ pageIndex : Int) {
-        didRequestComplete(["","","","","","","","","","","","","","","","","","","","",""] as AnyObject)
+    didRequestComplete(["","","","","","","","","","","","","","","","","","","","",""] as AnyObject)
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
-               if let object = result {
-                let  money : NSNumber =  object["balance"] as! NSNumber
-                let floatmonet : Float = Float.init(money)
+            if let object = result {
+                let  money : Double =  object["balance"] as! Double
+                let floatmonet : Double = Double.init(money)
                 let str : String = NSString(format: "%.2f" ,floatmonet) as String
                 self?.account.text =  "\(str)"
+                
+                ShareModel.share().useMoney = money
                 UserModel.updateUser(info: { (result) -> ()? in
                     UserModel.getCurrentUser()?.balance = Double(money)
                     return nil
@@ -86,30 +73,30 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         return 0.1
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
-     return 65
+        return 35
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyWealtVCCell", for: indexPath)
-            cell.selectionStyle = .none
-            return cell
+        cell.selectionStyle = .none
+        return cell
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            let  headerView  : UIView = UIView.init(frame:CGRect.init(x: 0, y: 0, width:self.view.frame.size.width, height: 40))
-            
-            headerView.backgroundColor = UIColor.groupTableViewBackground
-            
-            monthLb = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
+        let  headerView  : UIView = UIView.init(frame:CGRect.init(x: 0, y: 0, width:self.view.frame.size.width, height: 40))
+        
+        headerView.backgroundColor = UIColor.groupTableViewBackground
+        
+        monthLb = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
         if section==0 {
-         monthLb.text = "收益情况"
+            monthLb.text = "收益情况"
         }else{
             monthLb.text = "昨日收益"
         }
-            monthLb.textColor = UIColor.init(hexString: "333333")
-            monthLb.font = UIFont.systemFont(ofSize: 16)
-            
-            headerView.addSubview(monthLb)
-            
-            return headerView
+        monthLb.textColor = UIColor.init(hexString: "333333")
+        monthLb.font = UIFont.systemFont(ofSize: 16)
+        
+        headerView.addSubview(monthLb)
+        
+        return headerView
         
     }
     
@@ -129,6 +116,6 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         withDraw.isSelected = true
         self.performSegue(withIdentifier: "PushWithdraw", sender: nil )
     }
-   
-  
+    
+    
 }

@@ -32,7 +32,19 @@ class ProdectCell: UITableViewCell {
     //变化百分比:计算
     @IBOutlet weak var changePer: UILabel!
     
-    @IBOutlet weak var layoutWidth: NSLayoutConstraint!
+    //约束
+    @IBOutlet weak var rightLayout: NSLayoutConstraint!
+    @IBOutlet weak var todayOpenRight: NSLayoutConstraint!
+    @IBOutlet weak var todayLabelRight: NSLayoutConstraint!
+    @IBOutlet weak var hightLabelRight: NSLayoutConstraint!
+    @IBOutlet weak var hightPriceRight: NSLayoutConstraint!
+    @IBOutlet weak var nowPriceRight: NSLayoutConstraint!
+    
+    @IBOutlet weak var imageRight: NSLayoutConstraint!
+    
+    @IBOutlet weak var viewRigtLayout: NSLayoutConstraint!
+    
+    @IBOutlet weak var viewLeftLayout: NSLayoutConstraint!
     
     var kChartModel: KChartModel? {
         didSet{
@@ -60,36 +72,41 @@ class ProdectCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         let screenW = UIScreen.main.bounds.width / 375.0
-        nowPrice.font = UIFont.systemFont(ofSize: 26 * screenW)
-        nowPrice.sizeToFit()
-        todayOpen.font = UIFont.systemFont(ofSize: 14 * screenW)
-        todayOpen.sizeToFit()
-        todayLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
-        todayLabel.sizeToFit()
-        yesterdayOpen.font = UIFont.systemFont(ofSize: 14 * screenW)
-        yesterdayOpen.sizeToFit()
-        yesterdayLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
-        yesterdayLabel.sizeToFit()
-        hightPrice.font = UIFont.systemFont(ofSize: 14 * screenW)
-        hightPrice.sizeToFit()
-        hightLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
-        hightLabel.sizeToFit()
-        lowPrice.font = UIFont.systemFont(ofSize: 14 * screenW)
-        lowPrice.sizeToFit()
-        lowLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
-        lowLabel.sizeToFit()
-        changeLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
-        changeLabel.sizeToFit()
-        changePer.font = UIFont.systemFont(ofSize: 12 * screenW)
-        changePer.sizeToFit()
-//
-//        if screenW < 1 {
-//            layoutWidth.constant = 0
-//            
-//        }
-//        else{
-//            layoutWidth.constant = 3
-//        }
+//        nowPrice.font = UIFont.systemFont(ofSize: 32 * screenW)
+        nowPrice.adjustsFontSizeToFitWidth = true
+//        todayOpen.font = UIFont.systemFont(ofSize: 14 * screenW)
+        todayOpen.adjustsFontSizeToFitWidth = true
+//        todayLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
+        todayLabel.adjustsFontSizeToFitWidth = true
+//        yesterdayOpen.font = UIFont.systemFont(ofSize: 14 * screenW)
+        yesterdayOpen.adjustsFontSizeToFitWidth = true
+//        yesterdayLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
+        yesterdayLabel.adjustsFontSizeToFitWidth = true
+//        hightPrice.font = UIFont.systemFont(ofSize: 14 * screenW)
+        hightPrice.adjustsFontSizeToFitWidth = true
+//        hightLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
+        hightLabel.adjustsFontSizeToFitWidth = true
+//        lowPrice.font = UIFont.systemFont(ofSize: 14 * screenW)
+        lowPrice.adjustsFontSizeToFitWidth = true
+//        lowLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
+        lowLabel.adjustsFontSizeToFitWidth = true
+//        changeLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
+        changeLabel.adjustsFontSizeToFitWidth = true
+//        changePer.font = UIFont.systemFont(ofSize: 12 * screenW)
+        changePer.adjustsFontSizeToFitWidth = true
+        
+        if screenW < 1 {
+            rightLayout.constant = 3
+            todayOpenRight.constant = 1
+            todayLabelRight.constant = 3
+            hightLabelRight.constant = 2
+            hightPriceRight.constant = 2
+            nowPriceRight.constant = 3
+            imageRight.constant = 1
+            viewRigtLayout.constant = 6
+            viewLeftLayout.constant = 6
+        }        
+        
     }
 }
 
