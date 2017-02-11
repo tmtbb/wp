@@ -15,7 +15,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBOutlet weak var myMoneyView: UIView!
     @IBOutlet weak var myQuanLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var highLabel: UILabel!
     @IBOutlet weak var lowLabel: UILabel!
     @IBOutlet weak var openLabel: UILabel!
@@ -198,9 +197,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                         self?.lowLabel.text = String.init(format: "%.4f", model.lowPrice)
                         self?.openLabel.text = String.init(format: "%.4f", model.openingTodayPrice)
                         self?.closeLabel.text = String.init(format: "%.4f", model.closedYesterdayPrice)
-                        self?.nameLabel.text = "\(model.name)(元/千克)"
-                        self?.changeLabel.text = String.init(format: "%.4f", model.change)
-                        self?.changePerLabel.text = String.init(format: "%.2f%", model.change/model.currentPrice)
+                        self?.changePerLabel.text = String.init(format: "%.4f", model.change)
+                        self?.changeLabel.text = String.init(format: "%.2f%%", model.change/model.currentPrice)
                         
                         let colorKey = model.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
                         self?.changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
