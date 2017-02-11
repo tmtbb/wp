@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DKNightVersion
 class DealController: BasePageListTableViewController, TitleCollectionviewDelegate {
     
 
@@ -27,6 +28,7 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     //平仓
     @IBOutlet weak var sell: UILabel!
     
+    @IBOutlet weak var dealBackground: UIView!
     var flowListArray: [FlowOrdersList] =  [FlowOrdersList]()
     
     let strArray:[String] = ["周五 12 - 26","周四 12 - 25","周三 12 - 24","周二 12 - 23","周一 12 - 22"]
@@ -34,6 +36,8 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollection()
+        dealBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
+        
         tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
         tableView.showsVerticalScrollIndicator = false
         //1029 流水列表
