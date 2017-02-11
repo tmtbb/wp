@@ -76,24 +76,24 @@ class BuyVC: BaseTableViewController {
         
         footView.isHidden = DealModel.share().isDealDetail
  
-        lowBtn.setTitle("\((DealModel.share().selectProduct?.profitPerUnit)!)元\n100g", for: .normal)
-        midlleBtn.setTitle("\((DealModel.share().selectProduct?.profitPerUnit)!*10)元\n1000g", for: .normal)
-        highBtn.setTitle("\((DealModel.share().selectProduct?.profitPerUnit)!*50)元\n5000g", for: .normal)
-        
-        if let dealModel = DealModel.share().selectDealModel{
-            dealNameLabel.text = dealModel.name
-            dealPriceLabel.text = "\(dealModel.closePrice)"
-            dealCountLabel.text = "\((DealModel.share().selectProduct?.profitPerUnit)! * Double(dealModel.amount))元\n\(100*dealModel.amount)g"
-           
-            let limittag = Int((dealModel.limit - 1)*10)
-            let limitbtn: UIButton = StopView.viewWithTag(100+limittag) as! UIButton
-            stopWinBtnTapped(limitbtn)
-            
-            
-            let stopTag = Int((dealModel.stop - 1)*10)
-            let stopbtn: UIButton = StopView.viewWithTag(200+stopTag) as! UIButton
-            stopLostBtnTapped(stopbtn)
-        }
+//        lowBtn.setTitle("\((DealModel.share().selectProduct?.profitPerUnit)!)元\n100g", for: .normal)
+//        midlleBtn.setTitle("\((DealModel.share().selectProduct?.profitPerUnit)!*10)元\n1000g", for: .normal)
+//        highBtn.setTitle("\((DealModel.share().selectProduct?.profitPerUnit)!*50)元\n5000g", for: .normal)
+//        
+//        if let dealModel = DealModel.share().selectDealModel{
+//            dealNameLabel.text = dealModel.name
+//            dealPriceLabel.text = "\(dealModel.closePrice)"
+//            dealCountLabel.text = "\((DealModel.share().selectProduct?.profitPerUnit)! * Double(dealModel.amount))元\n\(100*dealModel.amount)g"
+//           
+//            let limittag = Int((dealModel.limit - 1)*10)
+//            let limitbtn: UIButton = StopView.viewWithTag(100+limittag) as! UIButton
+//            stopWinBtnTapped(limitbtn)
+//            
+//            
+//            let stopTag = Int((dealModel.stop - 1)*10)
+//            let stopbtn: UIButton = StopView.viewWithTag(200+stopTag) as! UIButton
+//            stopLostBtnTapped(stopbtn)
+//        }
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
@@ -182,14 +182,14 @@ class BuyVC: BaseTableViewController {
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func buyBtnTapped(_ sender: Any) {
-        DealModel.share().buyModel.id = UserModel.currentUserId
-        DealModel.share().buyModel.token = UserModel.token ?? ""
-        DealModel.share().buyModel.code = (DealModel.share().selectDealModel?.code)!
-        DealModel.share().buyModel.buySell = 1
-        AppAPIHelper.deal().buildDeal(model: DealModel.share().buyModel, complete: { [weak self](result) -> ()? in
-            self?.navigationController?.popViewController(animated: true)
-            return nil
-        }, error: errorBlockFunc())
+//        DealModel.share().buyModel.id = UserModel.currentUserId
+//        DealModel.share().buyModel.token = UserModel.token ?? ""
+//        DealModel.share().buyModel.code = (DealModel.share().selectDealModel?.code)!
+//        DealModel.share().buyModel.buySell = 1
+//        AppAPIHelper.deal().buildDeal(model: , complete: { [weak self](result) -> ()? in
+//            self?.navigationController?.popViewController(animated: true)
+//            return nil
+//        }, error: errorBlockFunc())
     }
     //MARK: --修改持仓
     @IBAction func changeBtnTapped(_ sender: Any) {
