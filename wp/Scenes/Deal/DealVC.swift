@@ -199,7 +199,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                         self?.closeLabel.text = String.init(format: "%.4f", model.closedYesterdayPrice)
                         self?.changePerLabel.text = String.init(format: "%.4f", model.change)
                         self?.changeLabel.text = String.init(format: "%.2f%%", model.change/model.currentPrice)
-                        
                         let colorKey = model.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
                         self?.changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
                         self?.changePerLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
