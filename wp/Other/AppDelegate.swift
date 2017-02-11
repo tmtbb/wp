@@ -99,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
     
         let urlString = url.absoluteString
-        if urlString.hasPrefix("UPPayDemo") {
+        if urlString.hasPrefix("com.yundian.trip") {
             UPPaymentControl.default().handlePaymentResult(url, complete: { (code, data) in
                 if code == "cancel" {
 
@@ -109,6 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
                     let dic : Dictionary = (data as Dictionary?)!
                     let signData = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions(rawValue: 0))
                      let sign : String = String.init(data: signData!, encoding: String.Encoding.utf8)!
+//                      NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: NSNumber.init(value: resp.errCode), userInfo:nil)
 //                    let bool : Bool  =   self.verify(sign: sign)
             
                 }
@@ -129,24 +130,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     fileprivate func appearance() {
         
         let navigationBar:UINavigationBar = UINavigationBar.appearance() as UINavigationBar;
-
-    
-//        navigationBar.setBackgroundImage(UIImage.init(named: "nav_bg"), for: .any, barMetrics: .default)
         navigationBar.shadowImage = UIImage.init(named: "nav_clear")
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
         navigationBar.isTranslucent = false;
-        let colorDic : NSDictionary = DKColorTable.shared().table
-        let colorBg : NSMutableDictionary = colorDic.object(forKey: "main") as! NSMutableDictionary
-        let color  : UIColor   =   colorBg.object(forKey: "NIGHT") as! UIColor
         navigationBar.tintColor = UIColor.white;
-        navigationBar.barTintColor = color;
-
-        navigationBar.shadowImage = UIImage.init(named: "nav_clear")
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
-        navigationBar.tintColor = UIColor.white;
-      
-         navigationBar.setBackgroundImage(tint(color: color, blendMode: .destinationIn, image: UIImage.init(named: "nav_clear")!), for: .any, barMetrics: .default)
-        
+        navigationBar.setBackgroundImage(UIImage.init(named: "nav_main"), for: .any, barMetrics: .default)
         UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(0, -60), for:.default);
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent;
         UITableView.appearance().backgroundColor = AppConst.Color.C6;

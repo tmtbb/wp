@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import DKNightVersion
 class NickNameVC: BaseTableViewController {
     
     @IBOutlet weak var nickNameText: UITextField!
@@ -28,6 +28,7 @@ class NickNameVC: BaseTableViewController {
     func initUI() {
         navigationItem.leftBarButtonItem = nil
         navigationItem.hidesBackButton = true
+        finishBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
     }
     //MARK: --Function
     @IBAction func finishBtnTapped(_ sender: Any) {

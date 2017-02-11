@@ -36,7 +36,7 @@ class AppConst {
         static let C5 = UIColor(rgbHex:0xe2e2e2)
         static let C6 = UIColor(rgbHex:0xf2f2f2)
         //wp
-        static let CMain = UIColor(rgbHex: 0xe9573f)
+        static let CMain = UIColor(rgbHex: 0x268dcf)
         static let CGreen = UIColor(rgbHex: 0x009944)
 
         static let main = "main"
@@ -60,9 +60,9 @@ class AppConst {
     
     class Network {
         #if true //是否测试环境
-        static let TcpServerIP:String = "61.147.114.87";
-        static let TcpServerPort:UInt16 = 16000;
-        static let TttpHostUrl:String = "http://61.147.114.87";
+        static let TcpServerIP:String = "192.168.8.131";
+        static let TcpServerPort:UInt16 = 30001;
+        static let TttpHostUrl:String = "http://192.168.8.131";
         #else
         //61.147.114.87  16000
         static let TcpServerIP:String = "192.168.8.131";

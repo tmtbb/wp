@@ -391,10 +391,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="loginBtn" destination="yQF-Yi-EPP" id="4Wm-ym-0EW"/>
                         <outlet property="phoneText" destination="Lod-JS-up9" id="E8C-oW-bSf"/>
                         <outlet property="phoneView" destination="HVp-uc-QJQ" id="ruk-DL-rp4"/>
                         <outlet property="pwdText" destination="fFs-b4-yKw" id="Y7o-F7-BhN"/>
                         <outlet property="pwdView" destination="NO0-Kb-w1V" id="bn7-BU-HBK"/>
+                        <outlet property="qqBtn" destination="nTS-WN-BJK" id="JpF-6l-V85"/>
+                        <outlet property="sinaBtn" destination="iGR-HD-kTx" id="CTA-pn-OJ7"/>
+                        <outlet property="wechatBtn" destination="7cT-Ug-njN" id="ZNT-Aa-48O"/>
                         <segue destination="GEb-xv-Ecl" kind="push" identifier="LoginToBingPhoneVC" id="mZx-ns-mMd"/>
                         <segue destination="JUo-86-sd7" kind="push" identifier="RegisterVC" id="i8q-fM-lW7"/>
                     </connections>
@@ -788,13 +792,16 @@
                     <connections>
                         <outlet property="codeBtn" destination="bL8-nx-CXy" id="coo-uq-75p"/>
                         <outlet property="codeText" destination="wi4-P9-ynH" id="rXa-AA-h2p"/>
-                        <outlet property="nextBtn" destination="sX4-wW-A5F" id="ov3-GG-Rsk"/>
+                        <outlet property="nextBtn" destination="sX4-wW-A5F" id="97J-ZT-sqA"/>
                         <outlet property="phoneText" destination="aWB-pH-bKF" id="mEe-P6-D5B"/>
                         <outlet property="phoneView" destination="aS0-Gq-Bgp" id="dm7-HT-8vt"/>
                         <outlet property="pwdText" destination="cMr-OO-elL" id="SsR-KY-IcO"/>
+                        <outlet property="qqBtn" destination="cg6-nz-ebS" id="3ya-Cb-mTx"/>
+                        <outlet property="sinaBtn" destination="Rbt-6g-hdr" id="4yG-gV-sjN"/>
                         <outlet property="thindLoginView" destination="DKi-eF-xPb" id="qZ4-en-eVt"/>
                         <outlet property="voiceCodeBtn" destination="7Kk-iG-CXs" id="xPU-RO-96I"/>
                         <outlet property="voiceCodeText" destination="0Qr-Op-XbX" id="q1A-4F-LxH"/>
+                        <outlet property="wechatBtn" destination="oLa-zJ-YoG" id="uSB-Qg-qJQ"/>
                         <segue destination="aHU-WV-JEW" kind="push" identifier="PwdVC" id="kiW-Rz-POO"/>
                         <segue destination="GEb-xv-Ecl" kind="push" identifier="RegisterToBingPhoneVC" id="gCO-m9-kNz"/>
                     </connections>
@@ -1333,6 +1340,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="登录成功" id="sKa-63-YqD"/>
                     <connections>
+                        <outlet property="codeBtn" destination="rUA-74-D1Z" id="V4C-6g-tkg"/>
+                        <outlet property="codeText" destination="w71-QL-cSV" id="MWq-qX-383"/>
+                        <outlet property="nextBtn" destination="Cbw-Nz-VcU" id="Nbh-xr-XAz"/>
+                        <outlet property="phoneText" destination="Amf-X6-7ZG" id="stG-uz-ngc"/>
                         <segue destination="aHU-WV-JEW" kind="push" identifier="BingPhoneVCToPwdVC" id="Hlj-3v-O0g"/>
                     </connections>
                 </tableViewController>
@@ -1358,8 +1369,8 @@
         <image name="wechat.png" width="45" height="46"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="i8q-fM-lW7"/>
-        <segue reference="kiW-Rz-POO"/>
+        <segue reference="Hlj-3v-O0g"/>
         <segue reference="gCO-m9-kNz"/>
+        <segue reference="i8q-fM-lW7"/>
     </inferredMetricsTieBreakers>
 </document>

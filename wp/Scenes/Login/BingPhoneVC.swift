@@ -84,7 +84,7 @@ class BingPhoneVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
-        
+
     }
 
 
