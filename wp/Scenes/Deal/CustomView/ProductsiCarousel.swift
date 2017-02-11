@@ -37,9 +37,9 @@ class ProductiCarousel: UIView {
     var object: ProductModel? {
         didSet{
             if let product: ProductModel = object {
-                titleLabel.text = product.name
-                priceLabel.text = "\(product.profit)/手"
-                feeLabel.text = "手续费\(product.openChargeFee)元 "
+                titleLabel.text = product.showName
+                priceLabel.text = "\(product.depositFee)元"
+                feeLabel.text = " 运费\(product.openChargeFee * 100)% 手续费\(product.openChargeFee * 100)%元 "
             }
         }
     }
@@ -84,6 +84,7 @@ class ProductsiCarousel: iCarousel, iCarouselDelegate, iCarouselDataSource{
         didSet{
            
             reloadData()
+            carouselDidEndDecelerating(self)
         }
     }
 

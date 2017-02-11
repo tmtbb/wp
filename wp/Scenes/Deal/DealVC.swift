@@ -137,6 +137,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             if let model: ProductModel = object as? ProductModel {
                 DealModel.share().selectProduct = model
                 AppDataHelper.instance().initLineChartData()
+                initRealTimeData()
                 kLineView.refreshKLine()
                 reloadProducts()
             }
@@ -225,7 +226,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
    
     //MARK: --买涨/买跌
     @IBAction func dealBtnTapped(_ sender: UIButton) {
-        if checkLogin(){
+        if true || checkLogin(){
+            tableView.scrollToRow(at: IndexPath.init(row: 3, section: 0), at: .top, animated: false)
+            
             if DealModel.share().selectProduct == nil {
                 SVProgressHUD.showWainningMessage(WainningMessage: "暂无商品信息", ForDuration: 1.5, completion: nil)
                 return

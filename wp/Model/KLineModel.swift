@@ -56,7 +56,7 @@ class KLineModel: NSObject {
         })
     }
     
-    //查询更多数据
+    //查询某种商品（goodType）的在某个时间段内（minTime）的某种K线（type）的分时数据来进行计算
     class func queryModels(type: KLineType, goodType: String, minTime: Int){
         let margin = type.rawValue * 60
         var min = minTime > Int(Date.startTimestemp()) ? minTime : Int(Date.startTimestemp())
@@ -69,7 +69,7 @@ class KLineModel: NSObject {
         }
     }
     
-    //查询某个时间段的K线数据并计算出该时间段的K线模型
+    //查询某个时间段的K线数据并计算出该时间段的K线模型缓存起来
     class func queryModel(type: KLineType,goodType: String, fromTime: Int, toTime: Int) {
         let realm = try! Realm()
         let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
