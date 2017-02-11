@@ -42,4 +42,12 @@ class DealModel: BaseModel {
     var isDealDetail: Bool = false
     //数据库是否已经有数据
     var haveDealModel: Bool = false
+    
+    // 缓存建仓数据
+    class func cachePosition(position: PositionModel){
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(position, update: true)
+        }
+    }
 }

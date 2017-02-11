@@ -249,6 +249,12 @@
                                                         <constraint firstAttribute="height" constant="44" id="rnd-CT-Wi3"/>
                                                     </constraints>
                                                     <state key="normal" image="qq.png"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="22"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="wechatBtnTapped:" destination="IdH-9P-vUT" eventType="touchUpInside" id="onJ-LV-4c3"/>
                                                     </connections>
@@ -260,6 +266,12 @@
                                                         <constraint firstAttribute="height" constant="44" id="UZy-ke-JsF"/>
                                                     </constraints>
                                                     <state key="normal" image="wechat.png"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="22"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="sinaBtnTapped:" destination="IdH-9P-vUT" eventType="touchUpInside" id="I7n-fi-yn7"/>
                                                     </connections>
@@ -323,6 +335,12 @@
                                                         <constraint firstAttribute="height" constant="44" id="zfp-uE-7SP"/>
                                                     </constraints>
                                                     <state key="normal" image="sina.png"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="22"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="sinaBtnTapped:" destination="IdH-9P-vUT" eventType="touchUpInside" id="ZNi-G9-eSv"/>
                                                     </connections>
@@ -695,6 +713,12 @@
                                                         <constraint firstAttribute="width" constant="44" id="U5I-Hg-nfZ"/>
                                                     </constraints>
                                                     <state key="normal" image="qq.png"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="22"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oLa-zJ-YoG">
                                                     <rect key="frame" x="166" y="146" width="44" height="44"/>
@@ -703,6 +727,12 @@
                                                         <constraint firstAttribute="width" constant="44" id="BzQ-6O-r2f"/>
                                                     </constraints>
                                                     <state key="normal" image="wechat.png"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="22"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ofd-4L-66q">
                                                     <rect key="frame" x="132" y="86" width="111" height="12"/>
@@ -735,6 +765,12 @@
                                                         <constraint firstAttribute="width" constant="44" id="oq7-QJ-vcc"/>
                                                     </constraints>
                                                     <state key="normal" image="sina.png"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="22"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="09J-1i-Ffp">
                                                     <rect key="frame" x="176" y="198" width="25" height="15"/>
@@ -1369,8 +1405,8 @@
         <image name="wechat.png" width="45" height="46"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Hlj-3v-O0g"/>
-        <segue reference="gCO-m9-kNz"/>
         <segue reference="i8q-fM-lW7"/>
+        <segue reference="gCO-m9-kNz"/>
+        <segue reference="kiW-Rz-POO"/>
     </inferredMetricsTieBreakers>
 </document>

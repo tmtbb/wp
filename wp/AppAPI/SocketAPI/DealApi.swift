@@ -18,7 +18,7 @@ protocol DealApi{
     //历史仓位详情
     func historyDealDetail(positionId: Int, complete: CompleteBlock?, error:ErrorBlock?)
     //建仓
-    func buildDeal(model: PositionModel, complete: CompleteBlock?, error:ErrorBlock?)
+    func buildDeal(model: DealParam, complete: CompleteBlock?, error:ErrorBlock?)
     //平仓
     func sellOutDeal(complete: CompleteBlock?, error:ErrorBlock?)
     //修改持仓

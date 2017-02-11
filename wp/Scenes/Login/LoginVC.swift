@@ -55,7 +55,6 @@ class LoginVC: BaseTableViewController {
         wechatBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         sinaBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         
-        
     }
     //MARK: --手机号登录
     @IBAction func loginBtnTapped(_ sender: UIButton) {
