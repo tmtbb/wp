@@ -54,6 +54,9 @@ class BuyProductVC: UIViewController {
         huoyunBtn.setImage(UIImage.init(named: selectBtnName), for: .selected)
         doubleBtn.setImage(UIImage.init(named: selectBtnName), for: .selected)
         selectTypeBtnTapped(doubleBtn)
+        
+        countSlider.value = Float(DealModel.share().buyProduct!.minLot)
+        changeCount(countSlider)
     }
     
     @IBAction func changeCount(_ sender: UISlider) {
