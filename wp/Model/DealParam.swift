@@ -24,7 +24,7 @@ class DealPriceParam: DealModel {
 }
 
 class DealParam: BaseModel {
-    var id: Int = 0	//用户id
+    var id: Int = 32	//用户id
     var token: String = ""	//唯一标识
 }
 

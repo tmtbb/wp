@@ -65,11 +65,11 @@ class SocketConst: NSObject {
         // 提现
         case withdrawCash = 1023
         //仓位列表
-        case currentDeals = 2000
+        case currentDeals = 5005
         //仓位详情
         case currentDealDetail = 2001
         //历史仓位列表
-        case historyDeals = 2002
+        case historyDeals = 6001
         //历史仓位详情
         case historyDealDetail = 2003
         //建仓
