@@ -30,8 +30,8 @@ class PositionModel: Object {
     dynamic var closeType:Int = 0       //平仓类型	1:普通平仓; 2:自动平仓; 3:爆仓平仓; 4:收盘平仓; 5:强制平仓
     dynamic var isDeferred:Int = 0      //是否过夜
     dynamic var deferred:Int = 0        //累计过夜费
-    dynamic var token:String = ""       //累计过夜费
-    
+    dynamic var token:String = ""           //累计过夜费
+    dynamic var interval = 0
     override static func primaryKey() -> String{
         return "positionId"
     }
