@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DKNightVersion
 fileprivate let kSingCellId = "kSingCellId"
 //代理
 protocol CSSinglerViewDelegate : class {
@@ -143,8 +144,9 @@ extension CSSinglerowView : UICollectionViewDataSource {
             cell.tagLabel?.text = tagSource![indexPath.row % tagSource!.count]
             if tagBackgroundColors!.count > 0 {
                 cell.tagLabel?.backgroundColor = tagBackgroundColors![indexPath.row % tagBackgroundColors!.count]
+                
             }else {
-                cell.tagLabel?.backgroundColor = tagBackgroundColor
+                cell.tagLabel?.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
             }
             if tagTextColors!.count > 0 {
                 cell.tagLabel?.textColor = tagTextColors![indexPath.row % tagTextColors!.count]

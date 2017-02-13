@@ -134,7 +134,7 @@ class HomeVC: BaseTableViewController {
         
         singlerView.tagTextColor = UIColor(rgbHex: 0xFFFFFF)
         singlerView.tagFont = UIFont.systemFont(ofSize: 12)
-        singlerView.tagBackgroundColor = UIColor(rgbHex: 0x00ADB5)
+//        singlerView.tagBackgroundColor = UIColor(rgbHex: 0x00ADB5)
         singlerView.delegate = self
         sunView .addSubview(singlerView)
         if  screenW < 1 {
