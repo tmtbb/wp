@@ -129,8 +129,6 @@ class WithDrawalVC: BaseTableViewController {
         let alertView = UIAlertView.init()
         alertView.alertViewStyle = UIAlertViewStyle.secureTextInput // 密文
         alertView.title = "请输入交易密码"
-        
-        
         alertView.addButton(withTitle: "确定")
         alertView.addButton(withTitle: "取消")
         alertView.delegate = self
@@ -144,9 +142,41 @@ class WithDrawalVC: BaseTableViewController {
             if buttonIndex==0{
                 var money : String
                 if ((self.money.text?.range(of: ".")) != nil) {
-                    money = self.money.text!
+                    //来判断是否包含小数点
+                    if ((self.money.text?.range(of: ".00")) != nil) {
+                      let arr : Array = (self.money.text?.components(separatedBy: "."))!
+                        money = arr[0] + ".000001"
+                    }
+                    else  if ((self.money.text?.range(of: ".0")) != nil) {
+                        let arr : Array = (self.money.text?.components(separatedBy: "."))!
+                        let number : String = arr[1] as String
+                        if number.length()>1 {
+                            print("123")
+                            money = self.money.text!
+                        }else{
+                         money = arr[0] + ".000001"
+                        }
+                    } else  if ((self.money.text?.range(of: ".")) != nil){
+                        let arr : Array = (self.money.text?.components(separatedBy: "."))!
+        
+                        if arr.count > 1{
+                            if arr[1] != ""{
+                                if arr[0] != "" {
+                                    money = "0" + self.money.text!
+                                }else{
+                                    money = self.money.text!
+                                }
+                            }else{
+                             money = arr[0] + ".000001"
+                            }
+                        }else {
+                            money = arr[0] + ".000001"
+                        }
+                    }
+                    else{
+                        money = self.money.text!
+                    }
                 }else{
-                    
                     money = "\(self.money.text!)" + ".000001"
                 }
                 
@@ -226,3 +256,7 @@ class WithDrawalVC: BaseTableViewController {
     }
     
 }
+
+
+
+
