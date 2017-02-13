@@ -72,7 +72,7 @@ class HomeVC: BaseTableViewController {
                 for model in models{
                     for  product in DealModel.share().productKinds{
                         if model.goodType == product.symbol{
-                            model.name = product.symbol
+                            model.name = product.showSymbol
                         }
                     }
                 }

@@ -29,9 +29,13 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     
     //历史仓位列表
     func historyDeals(complete: CompleteBlock?, error:ErrorBlock?){
-        let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 0,
-                                    SocketConst.Key.token: UserModel.token ?? ""]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .historyDeals, dict: param as [String : AnyObject])
+        let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 32,
+                                    SocketConst.Key.token: UserModel.token ?? "adc28ac69625652b46d5c00b"]
+       
+        
+        //  let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 0,
+//        SocketConst.Key.token: UserModel.token ?? ""]
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .historyDeals, dict: param as [String : AnyObject], type: SocketConst.type.time)
         startModelsRequest(packet, listName: "positioninfo", modelClass: PositionModel.self, complete: complete, error: error)
     }
     

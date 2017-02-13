@@ -73,7 +73,9 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         return 0.1
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
-        return 35
+//         return 38
+//         return 65
+       return 93
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyWealtVCCell", for: indexPath)
