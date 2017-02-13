@@ -46,7 +46,6 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     
     //建仓
     internal func buildDeal(model: DealParam, complete: CompleteBlock?, error: ErrorBlock?) {
-        
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .buildDeal, model: model, type: .deal)
         startModelRequest(packet, modelClass: PositionModel.self, complete: complete, error: error)
     }

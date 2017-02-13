@@ -25,6 +25,13 @@ class BuyProductVC: UIViewController {
     @IBOutlet weak var countBtn: UIButton!
     @IBOutlet weak var countConstraint: NSLayoutConstraint!
     @IBOutlet weak var contentView: UIView!
+    var resultBlock: CompleteBlock?
+    
+    enum BuyResultType: Int {
+        case success = 0
+        case cancel = 1
+        case lessMoney = 3
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +74,7 @@ class BuyProductVC: UIViewController {
         buyCountLabel.text = "当前选择手数 \(Int(value))"
         let dingjin = Double(Int(value))*DealModel.share().buyProduct!.depositFee
         dingjinLabel.text = String.init(format: "%.2f", dingjin)
-        moneyLabel.text = "￥\(Int(dingjin))"
+        moneyLabel.text = "￥\(Int(dingjin*(1 - DealModel.share().buyProduct!.openChargeFee)))"
         feeLabel.text = "\(DealModel.share().buyProduct!.openChargeFee*100)%"
     }
     
@@ -85,6 +92,11 @@ class BuyProductVC: UIViewController {
     }
     
     @IBAction func buyBtnTapped(_ sender: UIButton) {
+        if false && Double(dingjinLabel.text!)! > UserModel.share().currentUser!.balance && resultBlock != nil {
+            resultBlock!(BuyResultType.lessMoney as AnyObject)
+            return
+        }
+        
         let buyModel: BuildDealParam = BuildDealParam()
         buyModel.codeId = DealModel.share().buyProduct!.id
         buyModel.buySell = DealModel.share().dealUp ? 1 : -1

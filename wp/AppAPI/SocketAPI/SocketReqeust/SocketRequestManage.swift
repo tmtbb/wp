@@ -12,7 +12,7 @@ import UIKit
 class SocketRequestManage: NSObject {
     
     static let shared = SocketRequestManage();
-    fileprivate var socketRequests = [UInt32: SocketRequest]()
+    fileprivate var socketRequests = [UInt64: SocketRequest]()
     fileprivate var _timer: Timer?
     fileprivate var _lastHeardBeatTime:TimeInterval!
     fileprivate var _lastConnectedTime:TimeInterval!
@@ -56,16 +56,32 @@ class SocketRequestManage: NSObject {
         }
         
     }
+    
+    var sessionId:UInt64 {
+        get {
+            objc_sync_enter(self)
+            if _sessionId > 2000000000 {
+                _sessionId = 10000
+            }
+            _sessionId += 1
+            objc_sync_exit(self)
+            return _sessionId;
+        }
+        
+    }
 
     func notifyResponsePacket(_ packet: SocketDataPacket) {
     
         objc_sync_enter(self)
-        _sessionId = packet.session_id
-        let socketReqeust = socketRequests[UInt32(packet.session_id)]
+        let socketReqeust = socketRequests[packet.session_id]
+        if socketReqeust == nil {
+            print("=====================")
+            print("==========================================")
+        }
         if packet.operate_code ==  SocketConst.OPCode.timeline.rawValue + 1||packet.operate_code == SocketConst.OPCode.products.rawValue + 1{
             
         }else{
-            socketRequests.removeValue(forKey: UInt32(packet.session_id))
+            socketRequests.removeValue(forKey: packet.session_id)
         }
         objc_sync_exit(self)
         let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
@@ -115,10 +131,10 @@ class SocketRequestManage: NSObject {
         socketReqeust.error = error;
         socketReqeust.complete = complete;
         packet.request_id = reqeustId;
-        packet.session_id = _sessionId;
+        packet.session_id = sessionId;
         operate_code = Int(packet.operate_code)
         objc_sync_enter(self)
-        socketRequests[UInt32(packet.session_id)] = socketReqeust;
+        socketRequests[packet.session_id] = socketReqeust;
         objc_sync_exit(self)
         sendRequest(packet)
     }

@@ -154,9 +154,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
 
     }
-    
-
-    
+    //刷新商品数据
     func reloadProducts() {
         var products: [ProductModel] = []
         for product in DealModel.share().allProduct {
@@ -225,6 +223,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     //MARK: --买涨/买跌
     @IBAction func dealBtnTapped(_ sender: UIButton) {
         if true || checkLogin(){
+            
             tableView.scrollToRow(at: IndexPath.init(row: 3, section: 0), at: .top, animated: false)
             
             if DealModel.share().selectProduct == nil {
@@ -235,8 +234,28 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             DealModel.share().isDealDetail = false
 //            performSegue(withIdentifier: BuyVC.className(), sender: nil)
             
-            let controller = UIStoryboard.init(name: "Deal", bundle: nil).instantiateViewController(withIdentifier: BuyProductVC.className())
+            let controller = UIStoryboard.init(name: "Deal", bundle: nil).instantiateViewController(withIdentifier: BuyProductVC.className()) as! BuyProductVC
             controller.modalPresentationStyle = .custom
+            controller.resultBlock = { [weak self](result) in
+                if let status: BuyProductVC.BuyResultType = result as! BuyProductVC.BuyResultType? {
+                    switch status {
+                    case .lessMoney:
+                        let moneyAlter = UIAlertController.init(title: "余额不足", message: "余额不足，请前往充值", preferredStyle: .alert)
+                        let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                        let sureAction = UIAlertAction.init(title: "确认", style: .default, handler: { [weak self](alter) in
+                             let controller = UIStoryboard.init(name: "Share", bundle: nil).instantiateViewController(withIdentifier: RechargeVC.className()) as! RechargeVC
+                            self?.navigationController?.pushViewController(controller, animated: true)
+                        })
+                        moneyAlter.addAction(cancelAction)
+                        moneyAlter.addAction(sureAction)
+                        self?.present(moneyAlter, animated: true, completion: nil)
+                        break
+                    default:
+                        break
+                    }
+                }
+                return nil
+            }
             present(controller, animated: true, completion: nil)
             
         }
