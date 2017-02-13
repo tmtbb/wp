@@ -52,14 +52,17 @@ class DealModel: BaseModel {
     }
     class func getAllPositionModel() -> Results<PositionModel>{
         let realm = try! Realm()
-        return realm.objects(PositionModel.self).sorted(byProperty: "positionTime", ascending: false)
+//        return realm.objects(PositionModel.self).sorted(byProperty: "positionTime", ascending: false)
 //        24 * 60 * 60 = 86400
-//        return realm.objects(PositionModel.self).filter("positionTime > \(Int(NSDate().timeIntervalSince1970) - 86400 )").sorted(byProperty: "positionTime", ascending: false)
+        return realm.objects(PositionModel.self).filter("closeTime > \(Int(NSDate().timeIntervalSince1970))").sorted(byProperty: "positionTime", ascending: false)
     }
     class func cachePositionWithArray(positionArray:Array<PositionModel>) {
         let realm = try! Realm()
-        for positionModel in positionArray {
-            realm.add(positionModel, update: true)
+        
+            try! realm.write {
+                for positionModel in positionArray {
+                    realm.add(positionModel, update: true)
+                }
         }
     }
 }

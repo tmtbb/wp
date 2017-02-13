@@ -130,19 +130,13 @@ class DealListCell: UITableViewCell {
         countLabel.text = "手数\(self.positionModel!.amount)"
         timeCount = YD_CountDownHelper.shared.getResidueCount(startTime: startTime, totalCount: totalCount)
         
-        UIView.animate(withDuration: 1.0) { 
-            self.layoutIfNeeded()
-            self.refreshText()
-        }
-//        setInitWidth()
+//        UIView.animate(withDuration: 1.0) { 
+//            self.progressView.setNeedsLayout()
+//            self.plainImageView.setNeedsLayout()
+//        }
+        self.refreshText()
     }
-    
-//    func setInitWidth() {
-//        UIView.animate(withDuration: 1.0, animations: {
-//            self.progressView.frame = CGRect(x: self.progressView.frame.origin.x, y: self.progressView.frame.origin.y, width: self.curretWidth(), height: self.progressView.frame.size.height)
-//            self.plainImageView.frame = CGRect(x: self.curretWidth() - 5, y: self.plainImageView.frame.origin.y, width: self.plainImageView.frame.size.width, height: self.plainImageView.frame.size.height)
-//        })
-//    }
+
     
     func refreshText() {
         if timeCount >= 0 {
@@ -174,7 +168,7 @@ class DealListCell: UITableViewCell {
     }
     
     func curretWidth() -> CGFloat {
-        return   10 + (1 -  CGFloat(timeCount) / CGFloat(totalCount)) * (backView.frame.size.width - 20)
+        return   10 + (1 -  CGFloat(timeCount) / CGFloat(totalCount)) * (backView.frame.size.width - 10)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -182,13 +176,10 @@ class DealListCell: UITableViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }
