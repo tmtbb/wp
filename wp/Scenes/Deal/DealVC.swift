@@ -153,8 +153,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 }
             }
         }
-        
-        
+
     }
     
 
@@ -202,21 +201,23 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
                 if let models: [KChartModel] = result as! [KChartModel]?{
                     for model in models{
-                        self?.priceLabel.text = String.init(format: "%.4f", model.currentPrice)
-                        self?.highLabel.text = String.init(format: "%.4f", model.highPrice)
-                        self?.lowLabel.text = String.init(format: "%.4f", model.lowPrice)
-                        self?.openLabel.text = String.init(format: "%.4f", model.openingTodayPrice)
-                        self?.closeLabel.text = String.init(format: "%.4f", model.closedYesterdayPrice)
-                        self?.changePerLabel.text = String.init(format: "%.4f", model.change)
-                        self?.changeLabel.text = String.init(format: "%.2f%%", model.change/model.currentPrice)
-                        let colorKey = model.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
-                        self?.changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
-                        self?.changePerLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
-                        self?.priceLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+                        if model.goodType == product.symbol{
+                            self?.priceLabel.text = String.init(format: "%.4f", model.currentPrice)
+                            self?.highLabel.text = String.init(format: "%.4f", model.highPrice)
+                            self?.lowLabel.text = String.init(format: "%.4f", model.lowPrice)
+                            self?.openLabel.text = String.init(format: "%.4f", model.openingTodayPrice)
+                            self?.closeLabel.text = String.init(format: "%.4f", model.closedYesterdayPrice)
+                            self?.changePerLabel.text = String.init(format: "%.4f", model.change)
+                            self?.changeLabel.text = String.init(format: "%.2f%%", model.change/model.currentPrice)
+                            let colorKey = model.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
+                            self?.changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+                            self?.changePerLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+                            self?.priceLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+                        }
                     }
                 }
                 return nil
-                }, error: errorBlockFunc())
+            }, error: errorBlockFunc())
         }
     }
     

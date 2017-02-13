@@ -66,7 +66,7 @@ class BuyProductVC: UIViewController {
         countConstraint.constant = sliderWidth * CGFloat(value) / 10.0 - 34
         countBtn.setTitle("\(Int(value))", for: .normal)
         buyCountLabel.text = "当前选择手数 \(Int(value))"
-        let dingjin = Double(value)*DealModel.share().buyProduct!.depositFee
+        let dingjin = Double(Int(value))*DealModel.share().buyProduct!.depositFee
         dingjinLabel.text = String.init(format: "%.2f", dingjin)
         moneyLabel.text = "￥\(Int(dingjin))"
         feeLabel.text = "\(DealModel.share().buyProduct!.openChargeFee*100)%"
@@ -87,8 +87,6 @@ class BuyProductVC: UIViewController {
     
     @IBAction func buyBtnTapped(_ sender: UIButton) {
         let buyModel: BuildDealParam = BuildDealParam()
-        buyModel.id = 1002
-        buyModel.token = UserModel.token ?? "adc28ac69625652b46d5c00b"
         buyModel.codeId = DealModel.share().buyProduct!.id
         buyModel.buySell = DealModel.share().dealUp ? 1 : -1
         buyModel.amount = Int(countSlider.value)
