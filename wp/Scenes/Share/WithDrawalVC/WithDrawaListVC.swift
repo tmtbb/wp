@@ -41,7 +41,7 @@ class WithDrawaListVCCell: OEZTableViewCell {
         // 提现至
         withDrawTo.text = "提现至" + "\(bankName)"
         
-        moneyLb.text =   "\(model.amount)" + "元"
+        moneyLb.text =   "\(model.amount)" 
         
         var status = String()
         

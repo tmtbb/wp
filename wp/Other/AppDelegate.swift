@@ -99,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
     
         let urlString = url.absoluteString
-        if urlString.hasPrefix("UPPayDemo") {
+        if urlString.hasPrefix("com.yundian.trip") {
             UPPaymentControl.default().handlePaymentResult(url, complete: { (code, data) in
                 if code == "cancel" {
 
@@ -109,6 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
                     let dic : Dictionary = (data as Dictionary?)!
                     let signData = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions(rawValue: 0))
                      let sign : String = String.init(data: signData!, encoding: String.Encoding.utf8)!
+//                      NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: NSNumber.init(value: resp.errCode), userInfo:nil)
 //                    let bool : Bool  =   self.verify(sign: sign)
             
                 }

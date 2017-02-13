@@ -26,6 +26,10 @@ class MainTabBarController: UITabBarController {
             controller?.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.init(rgbHex: 0x666666)], for: .normal)
             controller?.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName: AppConst.Color.CMain], for: .selected)
             addChildViewController(controller!)
+            
+
+        
+
         }
         
     }
