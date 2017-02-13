@@ -658,16 +658,16 @@
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="白银" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8sA-hS-iLM">
                                                         <rect key="frame" x="0.0" y="0.0" width="61" height="60"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hb7-Rz-KBQ">
-                                                        <rect key="frame" x="-20" y="56" width="100" height="4"/>
+                                                        <rect key="frame" x="-20" y="58" width="100" height="2"/>
                                                         <color key="backgroundColor" red="0.14901960784313725" green="0.55294117647058827" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="100" id="8v9-ij-1WO"/>
-                                                            <constraint firstAttribute="height" constant="4" id="efm-ey-9DK"/>
+                                                            <constraint firstAttribute="height" constant="2" id="efm-ey-9DK"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -676,8 +676,10 @@
                                                 <constraint firstItem="hb7-Rz-KBQ" firstAttribute="centerX" secondItem="Eos-34-2MT" secondAttribute="centerX" id="XKI-zR-vdP"/>
                                                 <constraint firstItem="8sA-hS-iLM" firstAttribute="top" secondItem="Eos-34-2MT" secondAttribute="top" id="XdH-DW-roe"/>
                                                 <constraint firstAttribute="bottom" secondItem="hb7-Rz-KBQ" secondAttribute="bottom" id="drf-RX-yeT"/>
+                                                <constraint firstItem="8sA-hS-iLM" firstAttribute="centerY" secondItem="Eos-34-2MT" secondAttribute="centerY" id="erA-pw-aqt"/>
                                                 <constraint firstAttribute="bottom" secondItem="8sA-hS-iLM" secondAttribute="bottom" id="n8y-uL-sJs"/>
                                                 <constraint firstItem="8sA-hS-iLM" firstAttribute="leading" secondItem="Eos-34-2MT" secondAttribute="leading" id="nP2-sz-qZ4"/>
+                                                <constraint firstItem="8sA-hS-iLM" firstAttribute="centerX" secondItem="Eos-34-2MT" secondAttribute="centerX" id="pEK-g2-Eju"/>
                                                 <constraint firstAttribute="trailing" secondItem="8sA-hS-iLM" secondAttribute="trailing" id="vi6-JW-buB"/>
                                             </constraints>
                                             <size key="customSize" width="61" height="60"/>
