@@ -19,6 +19,8 @@ class SocketRequestManage: NSObject {
     fileprivate var _reqeustId:UInt32 = 10000
     fileprivate var _socketHelper:SocketHelper?
     fileprivate var _sessionId:UInt64 = 0
+    fileprivate var timelineRequest: SocketRequest?
+    fileprivate var productsRequest: SocketRequest?
     var receiveChatMsgBlock:CompleteBlock?
     var operate_code = 0
     func start() {
@@ -73,13 +75,11 @@ class SocketRequestManage: NSObject {
     func notifyResponsePacket(_ packet: SocketDataPacket) {
     
         objc_sync_enter(self)
-        let socketReqeust = socketRequests[packet.session_id]
-        if socketReqeust == nil {
-            print("=====================")
-            print("==========================================")
-        }
-        if packet.operate_code ==  SocketConst.OPCode.timeline.rawValue + 1||packet.operate_code == SocketConst.OPCode.products.rawValue + 1{
-            
+        var socketReqeust = socketRequests[packet.session_id]
+        if packet.operate_code ==  SocketConst.OPCode.timeline.rawValue + 1{
+            socketReqeust = timelineRequest
+        }else if packet.operate_code == SocketConst.OPCode.products.rawValue + 1{
+            socketReqeust = productsRequest
         }else{
             socketRequests.removeValue(forKey: packet.session_id)
         }
@@ -134,7 +134,13 @@ class SocketRequestManage: NSObject {
         packet.session_id = sessionId;
         operate_code = Int(packet.operate_code)
         objc_sync_enter(self)
-        socketRequests[packet.session_id] = socketReqeust;
+        if packet.operate_code ==  SocketConst.OPCode.timeline.rawValue{
+            timelineRequest = socketReqeust
+        }else if packet.operate_code == SocketConst.OPCode.products.rawValue{
+            productsRequest = socketReqeust
+        }else{
+            socketRequests[packet.session_id] = socketReqeust;
+        }
         objc_sync_exit(self)
         sendRequest(packet)
     }
