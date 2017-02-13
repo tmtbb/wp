@@ -15,11 +15,9 @@ class DealListCell: UITableViewCell {
     var startTime = 0
     var timeCount = 0
     var totalCount = 0
-    
+    var positionModel:PositionModel?
     lazy var titleLabel:UILabel = {
-        
         let label = UILabel()
-        
         label.text = "上海-法兰克福1分"
         label.textColor = UIColor.init(rgbHex: 0x333333)
         label.font = UIFont.systemFont(ofSize: 14)
@@ -31,7 +29,7 @@ class DealListCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.init(rgbHex: 0x666666)
-        label.text = "持仓数10"
+        label.text = "手数10"
         return label
         
     }()
@@ -70,6 +68,8 @@ class DealListCell: UITableViewCell {
         imageView.image = UIImage(named: "countdown_plain")
         return imageView
     }()
+    
+    
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -120,19 +120,28 @@ class DealListCell: UITableViewCell {
 
     }
     
-    func setCount() {
+    func setData(positionModel:PositionModel) {
+        
+        self.positionModel = positionModel
+        startTime = self.positionModel!.positionTime
+        totalCount = self.positionModel!.closeTime - startTime
+        titleLabel.text = self.positionModel!.name
+        countLabel.text = "手数\(self.positionModel!.amount)"
         timeCount = YD_CountDownHelper.shared.getResidueCount(startTime: startTime, totalCount: totalCount)
         refreshText()
     }
+
     
     func refreshText() {
         if timeCount >= 0 {
             timeCount -= 1
             countDownLabel.text = YD_CountDownHelper.shared.getTextWithStartTime(startTime:startTime, totalCount:totalCount)
             countDownLabel.setNeedsDisplay()
-            UIView.animate(withDuration: 1.0, animations: { 
+            countDownLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+            UIView.animate(withDuration: 1.0, animations: {
                 self.resetProgressViewConstraints()
             })
+            
         }else {
             countDownLabel.text = "00:00:00s"
             countDownLabel.textColor = UIColor.init(rgbHex: 0x999999)
@@ -153,7 +162,7 @@ class DealListCell: UITableViewCell {
     }
     
     func curretWidth() -> CGFloat {
-        return   10 + (1 -  CGFloat(timeCount) / CGFloat(totalCount)) * (backView.frame.size.width - 20)
+        return   10 + (1 -  CGFloat(timeCount) / CGFloat(totalCount)) * (backView.frame.size.width - 10)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -161,13 +170,10 @@ class DealListCell: UITableViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

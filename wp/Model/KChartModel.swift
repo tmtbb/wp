@@ -16,6 +16,7 @@ class KLineChartModel: KChartModel {
 
 
 class KChartModel: Object {
+    dynamic var symbol: String = ""
     dynamic var name: String = ""
     dynamic var goodType: String = ""
     dynamic var exchangeName: String = ""

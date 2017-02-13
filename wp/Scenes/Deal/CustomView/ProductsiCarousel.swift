@@ -39,7 +39,7 @@ class ProductiCarousel: UIView {
             if let product: ProductModel = object {
                 titleLabel.text = product.showName
                 priceLabel.text = "\(product.depositFee)元"
-                feeLabel.text = " 运费\(product.openChargeFee * 100)% 手续费\(product.openChargeFee * 100)%元 "
+                feeLabel.text = " 运费\(product.openChargeFee * 100)% 手续费\(product.openChargeFee * 100)%"
             }
         }
     }

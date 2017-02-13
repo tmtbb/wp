@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import RealmSwift
 protocol CellDelegate: NSObjectProtocol {
     func cellBtnTapped(model: PositionModel)
 }
@@ -43,15 +43,12 @@ class MyDealCell: UITableViewCell {
 
 class MyDealTableView: UITableView,UITableViewDataSource, UITableViewDelegate {
     
-    var dataArray: Array<Int> = Array()
+    var dataArray: Results<PositionModel>?
     
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
         register(DealListCell.self, forCellReuseIdentifier: "DealListCell")
-        
-        for _ in 0...10 {
-            dataArray.append(Int(NSDate().timeIntervalSince1970))
-        }
+        rowHeight = 66
         dataSource = self
         delegate = self
     }
@@ -59,31 +56,20 @@ class MyDealTableView: UITableView,UITableViewDataSource, UITableViewDelegate {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         register(DealListCell.self, forCellReuseIdentifier: "DealListCell")
-        
-        for _ in 0...10 {
-            dataArray.append(Int(NSDate().timeIntervalSince1970))
-        }
+        rowHeight = 66
         dataSource = self
         delegate = self
 
-//        fatalError("init(coder:) has not been implemented")
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 66
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //        return dataArray == nil ? 0 : dataArray.count
+                return dataArray == nil ? 0 : dataArray!.count
         
-        return dataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = dequeueReusableCell(withIdentifier: "DealListCell", for: indexPath) as! DealListCell
-        cell.timeCount = YD_CountDownHelper.shared.getResidueCount(startTime: dataArray[indexPath.row], totalCount: ((indexPath.row + 1) * 100))
-        cell.totalCount = 100 * (indexPath.row + 1)
-        cell.startTime = dataArray[indexPath.row]
-        cell.refreshText()
+        cell.setData(positionModel: dataArray![indexPath.row])
         return cell
     }
     
