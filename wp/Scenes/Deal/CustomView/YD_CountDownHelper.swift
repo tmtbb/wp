@@ -13,9 +13,10 @@ class YD_CountDownHelper: NSObject {
     
     static let shared = YD_CountDownHelper()
     var timer:CADisplayLink?
-    weak var table:UITableView?
+    private var isCountDown = false
+    weak var table:MyDealTableView?
     private override init() {}
-    
+
     func countDown() {
         let cells = table?.visibleCells as? Array<DealListCell>
         guard cells != nil && cells!.count > 0 else {
@@ -27,15 +28,14 @@ class YD_CountDownHelper: NSObject {
     }
     
     func countDownWithDealTableView(tableView:MyDealTableView) {
-
         tableView.reloadData()
         table = tableView
-        start()
+        
+        perform(#selector(YD_CountDownHelper.start), with: nil, afterDelay: 1.0)
+        
     }
-
     
     func getResidueCount(startTime:Int, totalCount:Int) -> Int {
-        
         return  (startTime + totalCount) - Int(NSDate().timeIntervalSince1970)
     }
     func getTextWithStartTime(startTime:Int, totalCount:Int) -> String{
@@ -53,8 +53,14 @@ class YD_CountDownHelper: NSObject {
     }
     
     func reStart() {
+        guard table != nil else {
+            return
+        }
+        table?.dataArray = DealModel.getAllPositionModel()
       table?.reloadData()
-      start()
+        if timer != nil {
+            start()
+        }
     }
     
     func start() {
@@ -65,13 +71,16 @@ class YD_CountDownHelper: NSObject {
         timer = CADisplayLink(target: self, selector: #selector(countDown))
         timer?.frameInterval = 60
         timer?.add(to: RunLoop.current, forMode: .commonModes)
- 
+        isCountDown = true
     }
     
     func pause() {
+        
+        isCountDown = false
         timer?.invalidate()
     }
     func stop() {
+        isCountDown = false
         if timer != nil {
             timer?.invalidate()
             timer = nil

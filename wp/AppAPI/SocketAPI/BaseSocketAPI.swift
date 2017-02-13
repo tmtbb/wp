@@ -93,6 +93,9 @@ class BaseSocketAPI: NSObject {
     func startModelsRequest(_ packet: SocketDataPacket, listName:String, modelClass: AnyClass, complete: CompleteBlock?, error: ErrorBlock?) {
         SocketRequestManage.shared.startJsonRequest(packet, complete: {  (response) in
             let dict:[String:AnyObject]? = ((response as? SocketJsonResponse)?.responseJsonObject()) as? [String:AnyObject]
+            if modelClass == PositionModel.self {
+                
+            }
             if dict != nil {
                 let array:[Any]? = dict?[listName] as? [Any]
                 if array != nil  {

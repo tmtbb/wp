@@ -8,6 +8,7 @@
 
 import UIKit
 import DKNightVersion
+
 class BuyProductVC: UIViewController {
     
     
@@ -93,6 +94,7 @@ class BuyProductVC: UIViewController {
             if let product: PositionModel = result as? PositionModel{
                 self?.dismissController()
                 DealModel.cachePosition(position: product)
+                YD_CountDownHelper.shared.reStart()
             }
             return nil
         }, error: errorBlockFunc())

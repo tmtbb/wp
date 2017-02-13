@@ -39,6 +39,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         showTabBarWithAnimationDuration()
+
+        YD_CountDownHelper.shared.reStart()
         if let money = UserModel.share().currentUser?.balance{
             myMoneyLabel.text = String.init(format: "%.2f", money)
         }
@@ -54,8 +56,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
       //  hideTabBarWithAnimationDuration()
+        YD_CountDownHelper.shared.pause()
     }
     deinit {
         DealModel.share().removeObserver(self, forKeyPath: "selectDealModel")
@@ -68,7 +70,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     func initData() {
         //初始化持仓数据
         initDealTableData()
-        YD_CountDownHelper.shared.countDownWithDealTableView(tableView: dealTable)
 
         //初始化下商品数据
         titleView.objects = DealModel.share().productKinds
@@ -170,15 +171,24 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     // 持仓列表数据
     func initDealTableData() {
+        
+        dealTable.dataArray = DealModel.getAllPositionModel()
+        YD_CountDownHelper.shared.countDownWithDealTableView(tableView: dealTable)
+
         AppAPIHelper.deal().currentDeals(complete: { [weak self](result) -> ()? in
+            
             if result == nil{
                 return nil
             }
             if let resultModel: [PositionModel] = result as! [PositionModel]?{
-//                self?.dealTable.dealTableData = resultModels
+                DealModel.cachePositionWithArray(positionArray: resultModel)
+                self?.dealTable.dataArray = DealModel.getAllPositionModel()
+                YD_CountDownHelper.shared.countDownWithDealTableView(tableView: (self?.dealTable)!)
             }
             return nil
             }, error: errorBlockFunc())
+
+
     }
     // 当前报价
     func initRealTimeData() {
