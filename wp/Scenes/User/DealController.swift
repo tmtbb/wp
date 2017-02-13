@@ -36,7 +36,9 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollection()
-        dealBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
+        dealBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        sumHandNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.auxiliary)
+        sumOneNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.auxiliary)
         
         tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
         tableView.showsVerticalScrollIndicator = false

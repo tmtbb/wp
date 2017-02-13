@@ -136,6 +136,7 @@ extension CSSinglerowView : UICollectionViewDataSource {
         cell.contentLabel?.textColor = contentTextColor
         cell.contentLabel?.text = contentSource![indexPath.row % contentSource!.count]
         cell.contentLabel?.font = contentFont
+        
         if tagSource!.count > 0 {
             
             cell.tagLabel?.font = tagFont

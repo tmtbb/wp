@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import DKNightVersion
 class MyMessageController: BaseTableViewController {
     
     lazy var imagePicker: UIImagePickerController = {
@@ -53,7 +54,7 @@ class MyMessageController: BaseTableViewController {
     func setupFooterView()->(UIView) {
         let footerView =  UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         let footerBtn = UIButton()
-        footerBtn.backgroundColor = UIColor(rgbHex: 0xE9573E)
+        footerBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         footerBtn.layer.cornerRadius = 10
         footerBtn.layer.masksToBounds = true
         footerBtn.setTitle("退出登录", for: .normal)

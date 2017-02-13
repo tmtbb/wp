@@ -31,6 +31,8 @@ class ProdectCell: UITableViewCell {
     @IBOutlet weak var changeLabel: UILabel!
     //变化百分比:计算
     @IBOutlet weak var changePer: UILabel!
+    //设置阴影
+    @IBOutlet weak var viewShadow: UIView!
     
     //约束
     @IBOutlet weak var rightLayout: NSLayoutConstraint!
@@ -63,7 +65,7 @@ class ProdectCell: UITableViewCell {
             let colorKey = kChartModel!.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
             changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
             changePer.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
-            productName.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+//            productName.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
             
 
         }
@@ -71,6 +73,11 @@ class ProdectCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        viewShadow.layer.shadowColor = UIColor.black.cgColor
+        viewShadow.layer.shadowRadius = 3
+        viewShadow.layer.shadowOpacity = 0.3
+        viewShadow.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
+       
         let screenW = UIScreen.main.bounds.width / 375.0
 //        nowPrice.font = UIFont.systemFont(ofSize: 32 * screenW)
         nowPrice.adjustsFontSizeToFitWidth = true
