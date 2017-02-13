@@ -19,11 +19,7 @@ class BindingBankVCCell: UITableViewCell {
     func update(_ data: Any!) {
         
         let model:BankListModel? = data as? BankListModel
-        
-        
-        
         bankName.text = model!.bank
-        
         cardNum.text = "\((model!.cardNo as NSString).substring(to: 4))" + "  ****   ****   *** " + "\((model!.cardNo as NSString).substring(from: model!.cardNo.length()-3))"
         
     }
@@ -47,18 +43,13 @@ class BankCardVC: BaseListTableViewController {
         AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
             
             if let object = result {
-                
                 let Model : BankModel = object as! BankModel
                 self?.didRequestComplete(Model.cardlist as AnyObject)
                 self?.dataArry = Model.cardlist!
-                
                 self?.tableView.reloadData()
-                
             }else {
-                
                 self?.didRequestComplete(nil)
             }
-            
             return nil
             }, error: errorBlockFunc())
         

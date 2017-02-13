@@ -236,25 +236,18 @@ class WithDrawalVC: BaseTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
         //pushaddBank
-        
         if indexPath.section == 0 {
-            
             if indexPath.row == 0 {
-                
                 self.performSegue(withIdentifier: "pushaddBank", sender: nil)
             }
         }
     }
     //MARK: 全部提现导航栏
-    
     @IBAction func withDrawAll(_ sender: Any) {
         //        self.money.text
-        
         let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String
-        
         self.money.text = str
     }
-    
 }
 
 

@@ -171,7 +171,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
     }
     // 银联支付
     func unionpay(title:String,  price:Double, complete: CompleteBlock?, error: ErrorBlock?){
-        let param: [String : Any] = [SocketConst.Key.uid: UserModel.share().currentUser?.uid ?? 0,
+        let param: [String : Any] = [SocketConst.Key.uid: UserModel.share().currentUser?.uid ?? 33,
                                      SocketConst.Key.token: UserModel.token ?? "",
                                      SocketConst.Key.title: title,SocketConst.Key.price: price]
         
@@ -186,6 +186,16 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                                      SocketConst.Key.payResult: payResult,SocketConst.Key.rid: rid]
         
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .payResult, dict: param as [String : AnyObject], type: SocketConst.type.wp)
+        print(param)
+        startRequest(packet, complete: complete, error: error)
+    }
+    // 银联结果查询
+    func unionpayResult(rid: Int64, payResult: Int,complete: CompleteBlock?, error: ErrorBlock?){
+        let param: [String : Any] = [SocketConst.Key.uid: UserModel.share().currentUser?.uid ?? 32,
+                                     SocketConst.Key.token: UserModel.token ?? "",
+                                     SocketConst.Key.payResult: payResult,SocketConst.Key.rid: rid]
+        
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .unionpayResult, dict: param as [String : AnyObject], type: SocketConst.type.wp)
         print(param)
         startRequest(packet, complete: complete, error: error)
     }

@@ -27,18 +27,18 @@ class RechargeVcTableView: UITableView ,UITableViewDelegate, UITableViewDataSour
     }
     func didRequest() {
         
-        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
-            
-            
-            if let object = result {
-                
-                let Model : BankModel = object as! BankModel
-                self?.dataArry = Model.cardlist! as [BankListModel]
-                self?.reloadData()
-                
-            }
-            return nil
-            }, error: nil)
+//        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
+//            
+//            
+//            if let object = result {
+//                
+//                let Model : BankModel = object as! BankModel
+////                self?.dataArry = Model.cardlist! as [BankListModel]
+//                self?.reloadData()
+//                
+//            }
+//            return nil
+//            }, error: nil)
         
     }
     //MARK:-设置表的代理
