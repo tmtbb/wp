@@ -10,10 +10,10 @@ import UIKit
 import Charts
 import RealmSwift
 import SVProgressHUD
-class KLineView: UIView {
+class KLineView: UIView, ChartViewDelegate {
     @IBOutlet weak var miuCharts: LineChartView!
     @IBOutlet weak var klineCharts: CombinedChartView!
-    
+    private var currentModels: [KChartModel] = []
     var selectIndex: NSInteger!{
         didSet{
             switch selectIndex {
@@ -59,7 +59,15 @@ class KLineView: UIView {
                 chartsView.leftAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.zoom(scaleX: 2.0, scaleY: 0, x: 0, y: 0)
+                chartsView.delegate = self
             }
+        }
+    }
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        let index = Int(entry.x)
+        if index >= 0 && index < currentModels.count {
+            let model = currentModels[index]
+            print(model)
         }
     }
     func refreshKLine() {
@@ -92,13 +100,13 @@ class KLineView: UIView {
         KLineModel.queryTimelineModels(fromTime: fromTime, toTime: toTime, goodType: type!){[weak self](result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel] {
                self?.refreshLineChartData(models: models)
+                self?.currentModels = models
             }
             return nil
         }
     }
     //刷新折线
     func refreshLineChartData(models: [KChartModel]) {
-        
         
         if models.count == 0 {
             miuCharts.clearValues()
@@ -127,13 +135,14 @@ class KLineView: UIView {
     }
     //MARK: --读取K线数据
     func initKChartsData(type: KLineModel.KLineType) {
+        
         let goodType = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.symbol
         let fromTime: Int = Int(Date.startTimestemp())
         let toTime: Int = Int(Date.nowTimestemp())
-      
         KLineModel.queryKLineModels(type: type, fromTime: fromTime, toTime: toTime, goodType: goodType!){[weak self](result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel] {
                 self?.refreshCandleStickData(type: type, models: models)
+                self?.currentModels = models
             }
             return nil
         }
