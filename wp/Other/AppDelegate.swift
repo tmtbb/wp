@@ -165,7 +165,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
                              SocketConst.Key.secret : AppConst.WechatKey.Secret,
                              SocketConst.Key.grant_type : "authorization_code"]
                 Alamofire.request(AppConst.WechatKey.AccessTokenUrl, method: .get, parameters: param, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (result) in
-                    
                 })
             }
             return

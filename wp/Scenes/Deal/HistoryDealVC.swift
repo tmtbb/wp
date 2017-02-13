@@ -22,24 +22,25 @@ class HistoryDealCell: OEZTableViewCell{
             timeLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.positionTime)), format: "yyyy.MM.dd HH:mm:ss")
             priceLabel.text = "¥" + "\(model.openPrice)"
             priceLabel.textColor = model.buySell == 1 ? UIColor.init(hexString: "E9573F") : UIColor.init(hexString: "0EAF56")
-          
-            statuslb.backgroundColor = model.result ? UIColor.red :  UIColor.green
+          // UIColor.green
+            statuslb.backgroundColor = model.result == 1  ? UIColor.red : (model.result == -1 ?  UIColor.green :  UIColor.green)
             
-            statuslb.text = model.result ? "盈" :  "亏"
+            statuslb.text =  model.result == 1  ?  "盈" : (model.result == -1 ?  "亏" :  "亏")
+//                model.result ? "盈" :  "亏"
             
 //            let string : NSString =  "\(model.grossProfit)" as NSString
 //            
 //            let rangge : NSRange = string.range(of: "-")
             
-            print("\(model.grossProfit)")
-            if  model.grossProfit < 0{
-                statuslb.backgroundColor = UIColor.init(hexString: "0EAF56")
-                statuslb.text =  "亏"
-            }else{
-                statuslb.backgroundColor =  UIColor.init(hexString: "E9573F")
-                statuslb.text =  "盈"
-
-            }
+//            print("\(model.grossProfit)")
+//            if  model.grossProfit < 0{
+//                statuslb.backgroundColor = UIColor.init(hexString: "0EAF56")
+//                statuslb.text =  "亏"
+//            }else{
+//                statuslb.backgroundColor =  UIColor.init(hexString: "E9573F")
+//                statuslb.text =  "盈"
+//
+//            }
             statuslb.layer.cornerRadius = 3
             
             statuslb.clipsToBounds = true
