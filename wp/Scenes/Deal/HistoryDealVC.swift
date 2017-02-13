@@ -21,11 +21,13 @@ class HistoryDealCell: OEZTableViewCell{
             nameLabel.text = "\(model.name)"
             timeLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.positionTime)), format: "yyyy.MM.dd HH:mm:ss")
             priceLabel.text = "¥" + "\(model.openPrice)"
-            priceLabel.textColor = model.buySell == 1 ? UIColor.init(hexString: "E9573F") : UIColor.init(hexString: "0EAF56")
-          // UIColor.green
-            statuslb.backgroundColor = model.result == 1  ? UIColor.red : (model.result == -1 ?  UIColor.green :  UIColor.green)
+         
+      
+            statuslb.backgroundColor = model.result   ? UIColor.init(hexString: "E9573F") : UIColor.init(hexString: "0EAF56")
             
-            statuslb.text =  model.result == 1  ?  "盈" : (model.result == -1 ?  "亏" :  "亏")
+            statuslb.text =  model.result   ?  "盈" :   "亏"
+            
+            print("\(model.result)")
 //                model.result ? "盈" :  "亏"
             
 //            let string : NSString =  "\(model.grossProfit)" as NSString

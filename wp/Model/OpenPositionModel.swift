@@ -32,7 +32,9 @@ class PositionModel: Object {
     dynamic var deferred:Int = 0        //累计过夜费
     dynamic var token:String = ""           //累计过夜费
 
-    var result :Int  = 0  
+    
+    dynamic var  result : Bool = true
+//    var result :Int  = 0
     dynamic var interval = 0
 
     override static func primaryKey() -> String{

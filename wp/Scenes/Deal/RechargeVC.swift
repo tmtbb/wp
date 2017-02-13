@@ -53,8 +53,10 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         btn.setTitle("充值记录", for:  UIControlState.normal)
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
-        let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String
-        self.moneyText.text  = "\(str)" + "元"
+        if  let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String {
+           self.moneyText.text  = "\(str)" + "元"
+        }
+     
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
         NotificationCenter.default.addObserver(self, selector: #selector(paysuccess(_:)), name: Notification.Name(rawValue:AppConst.WechatPay.WechatKeyErrorCode), object: nil)
