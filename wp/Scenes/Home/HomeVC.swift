@@ -90,13 +90,16 @@ class HomeVC: BaseTableViewController {
         let contentSourceArray: [String] = ["用户0102030405买涨 【上海-东京】赚1...","用户0102030405买涨 【上海-东京】赚1...","用户0102030405买涨 【上海-东京】赚1..."]
         let tagSourceArray: [String] = ["跟 单", "跟 单", "跟 单"]
         tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
+        tableView.tableHeaderView?.layer.shadowColor = UIColor.black.cgColor
+        tableView.tableHeaderView?.layer.shadowOpacity = 0.1
+        tableView.tableHeaderView?.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
         
     }
     
     
     //MARK: --头视图
     func setupHeaderView (cycleImage:[String],contentSourceArray:[String], tagSourceArray:[String]) -> (UIView) {
-        let sunView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 202))
+        let sunView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 203))
         sunView.backgroundColor = UIColor(rgbHex: 0xF9F8FD)
         //创建无限轮播
         let cycleView = CSCycleView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 161), images: cycleImage, titles: [])
@@ -158,10 +161,17 @@ class HomeVC: BaseTableViewController {
         
     }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    
+        let viewBackColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 42))
+        viewBackColor.backgroundColor = UIColor.white
+        return viewBackColor
+        
+    }
     //MARK: --组头高度
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
         if section == 1 {
-            
             return 10
         }
         if section == 2 {

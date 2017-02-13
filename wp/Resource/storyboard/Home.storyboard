@@ -86,7 +86,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcw-La-lWF">
-                                            <rect key="frame" x="12" y="4.5" width="351" height="80.5"/>
+                                            <rect key="frame" x="12" y="8" width="351" height="81"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9.4665" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EAd-5m-VeY">
                                                     <rect key="frame" x="13" y="46" width="98.5" height="24"/>
@@ -252,10 +252,10 @@
                                         </view>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="bcw-La-lWF" secondAttribute="bottom" constant="1" id="RYc-Tl-fOc"/>
                                         <constraint firstAttribute="trailing" secondItem="bcw-La-lWF" secondAttribute="trailing" constant="12" id="aG1-fI-DcW"/>
-                                        <constraint firstItem="bcw-La-lWF" firstAttribute="top" secondItem="6Ad-R4-tWz" secondAttribute="top" constant="4.5" id="lN2-Ir-IOM"/>
+                                        <constraint firstItem="bcw-La-lWF" firstAttribute="top" secondItem="6Ad-R4-tWz" secondAttribute="top" constant="8" id="lN2-Ir-IOM"/>
                                         <constraint firstItem="bcw-La-lWF" firstAttribute="leading" secondItem="6Ad-R4-tWz" secondAttribute="leading" constant="12" id="nUw-Xk-NS5"/>
-                                        <constraint firstAttribute="bottom" secondItem="bcw-La-lWF" secondAttribute="bottom" constant="4.5" id="uZ2-Bw-c1q"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -278,6 +278,7 @@
                                     <outlet property="todayOpenRight" destination="zmY-Da-Ufd" id="d9E-KE-K2o"/>
                                     <outlet property="viewLeftLayout" destination="nUw-Xk-NS5" id="dfz-xA-Jsg"/>
                                     <outlet property="viewRigtLayout" destination="aG1-fI-DcW" id="ock-4M-GZ4"/>
+                                    <outlet property="viewShadow" destination="bcw-La-lWF" id="082-cp-dzM"/>
                                     <outlet property="yesterdayLabel" destination="sDB-Jp-XXe" id="Lwh-4x-pvd"/>
                                     <outlet property="yesterdayOpen" destination="loe-Pg-ebP" id="BE9-04-EZQ"/>
                                 </connections>
@@ -364,6 +365,7 @@
                                             </connections>
                                         </button>
                                     </subviews>
+                                    <color key="backgroundColor" red="0.97647058823529409" green="0.97254901960784312" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstItem="tB7-x6-84A" firstAttribute="top" secondItem="mnp-9G-rtA" secondAttribute="top" constant="9" id="0mc-Vq-659"/>
                                         <constraint firstItem="lUH-Qc-SPO" firstAttribute="top" secondItem="uXO-Xv-jga" secondAttribute="bottom" id="3TT-2n-3zJ"/>
@@ -661,7 +663,7 @@
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hb7-Rz-KBQ">
                                                         <rect key="frame" x="-20" y="56" width="100" height="4"/>
-                                                        <color key="backgroundColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.14901960784313725" green="0.55294117647058827" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="100" id="8v9-ij-1WO"/>
                                                             <constraint firstAttribute="height" constant="4" id="efm-ey-9DK"/>
