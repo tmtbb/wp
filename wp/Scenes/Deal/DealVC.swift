@@ -124,11 +124,17 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     //MARK: --我的资产
     @IBAction func jumpToMyWallet(_ sender: AnyObject) {
-        if checkLogin(){
-            let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: MyWealtVC.className())
-            navigationController?.pushViewController(controller, animated: true)
-        }
+        
+        let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
+        
+        let controller = storyboard.instantiateViewController(withIdentifier: RechargeVC.className())
+        navigationController?.pushViewController(controller, animated: true)
+//        if checkLogin(){
+//            let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
+//            
+//            let controller = storyboard.instantiateViewController(withIdentifier: MyWealtVC.className())
+//            navigationController?.pushViewController(controller, animated: true)
+//        }
     }
     //TitleCollectionView's Delegate
     internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {

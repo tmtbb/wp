@@ -22,10 +22,10 @@ class RechargeListVCCell: OEZTableViewCell {
     override func update(_ data: Any!) {
         let model = data as! Model
         self.moneyCountLb.text = "+" + "\(model.amount)"
-        self.withDrawto.text = model.depositType == 0 ? "微信" :"提现至银行卡"
-        self.withDrawto.text  = "微信"
+        self.withDrawto.text = model.depositType == 0 ? "微信" :"银行卡"
+//        self.withDrawto.text  = "微信"
 //        self.timeLb.text = "\(model.depositTime)"
-        self.statusLb.text = "充值失败"
+        self.statusLb.text = model.status == 0 ? "处理中" : (model.status == 1 ?  "成功":  "失败")
         self.weekLb.text = "\( model.depositTime)"
         //        print(model.status)
         // 设置失败的cell的背景alpha  根据status 来判断 状态view

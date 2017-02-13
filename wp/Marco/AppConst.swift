@@ -59,10 +59,12 @@ class AppConst {
     }
     
     class Network {
+
         #if true //是否测试环境
-        static let TcpServerIP:String = "61.147.114.87";
-        static let TcpServerPort:UInt16 = 16000;
-        static let TttpHostUrl:String = "http://61.147.114.87";
+
+        static let TcpServerIP:String = "192.168.8.131";
+        static let TcpServerPort:UInt16 = 30001;
+        static let TttpHostUrl:String = "http://192.168.8.131";
         #else
         //61.147.114.87  16000
         static let TcpServerIP:String = "192.168.8.131";
@@ -100,8 +102,13 @@ class AppConst {
     
     class WechatPay {
       
-        static let ErrorCode = "ErrorCode"
+        static let WechatKeyErrorCode = "WechatKeyErrorCode"
     }
+    class UnionPay {
+        
+        static let UnionErrorCode = "UnionErrorCode"
+    }
+
     
     class NotifyDefine {
         

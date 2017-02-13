@@ -744,18 +744,12 @@
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3h-ec-adO">
                                             <rect key="frame" x="15" y="16" width="48" height="21"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="yf7-pO-Mnt"/>
-                                            </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥PRICE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVo-j7-eWZ">
-                                            <rect key="frame" x="310" y="16" width="55" height="21"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="vbA-gD-tr0"/>
-                                            </constraints>
+                                            <rect key="frame" x="310" y="17" width="55" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -777,7 +771,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="盈" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7GR-qV-pJV">
-                                            <rect key="frame" x="65" y="18.5" width="16" height="16"/>
+                                            <rect key="frame" x="65" y="17.5" width="16" height="16"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="16" id="9m4-cM-0i8"/>
                                                 <constraint firstAttribute="width" constant="16" id="N6I-Bi-Yvg"/>
@@ -797,7 +791,7 @@
                                         <constraint firstItem="OVo-j7-eWZ" firstAttribute="centerY" secondItem="xxr-nh-Qtz" secondAttribute="centerY" id="jmS-iz-UAJ"/>
                                         <constraint firstItem="W3h-ec-adO" firstAttribute="top" secondItem="eiX-06-O59" secondAttribute="top" constant="16" id="ly9-08-LYb"/>
                                         <constraint firstItem="rAL-l9-NiG" firstAttribute="leading" secondItem="eiX-06-O59" secondAttribute="leading" constant="15" id="m9B-oa-csi"/>
-                                        <constraint firstItem="7GR-qV-pJV" firstAttribute="centerY" secondItem="W3h-ec-adO" secondAttribute="centerY" id="rmd-we-tUx"/>
+                                        <constraint firstItem="7GR-qV-pJV" firstAttribute="centerY" secondItem="W3h-ec-adO" secondAttribute="centerY" constant="-1" id="rmd-we-tUx"/>
                                         <constraint firstItem="7GR-qV-pJV" firstAttribute="leading" secondItem="W3h-ec-adO" secondAttribute="trailing" constant="2" id="ud5-94-TkQ"/>
                                         <constraint firstItem="OVo-j7-eWZ" firstAttribute="centerY" secondItem="W3h-ec-adO" secondAttribute="centerY" id="v4D-hh-Ofl"/>
                                     </constraints>

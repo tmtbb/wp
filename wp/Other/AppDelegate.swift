@@ -99,27 +99,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
     
         let urlString = url.absoluteString
-        if urlString.hasPrefix("com.yundian.trip") {
-            UPPaymentControl.default().handlePaymentResult(url, complete: { (code, data) in
-                if code == "cancel" {
-
-                }
-                else if code == "success" {
-                 
-                    let dic : Dictionary = (data as Dictionary?)!
-                    let signData = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions(rawValue: 0))
-                     let sign : String = String.init(data: signData!, encoding: String.Encoding.utf8)!
-//                      NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: NSNumber.init(value: resp.errCode), userInfo:nil)
-//                    let bool : Bool  =   self.verify(sign: sign)
+        if urlString.hasPrefix("UPPayDemo") {
             
-                }
-                
-                
+           UPPaymentControl.default().handlePaymentResult(url, complete: { (code, data) in
+                 let str : String = "\(code!)"
+                  NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: str, userInfo:nil)
+        
             })
             
+        }else{
+             WXApi.handleOpen(url, delegate: self)
         }
      
-        WXApi.handleOpen(url, delegate: self)
+       
         return true
     }
     func verify(sign : String) -> Bool {
@@ -183,7 +175,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
         if resp.isKind(of: PayResp.classForCoder()) {
             let authResp:PayResp = resp as! PayResp
             
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: NSNumber.init(value: authResp.errCode), userInfo:nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.WechatPay.WechatKeyErrorCode), object: NSNumber.init(value: authResp.errCode), userInfo:nil)
 
             return
         }
