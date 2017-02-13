@@ -22,10 +22,10 @@ class RechargeListVCCell: OEZTableViewCell {
     override func update(_ data: Any!) {
         let model = data as! Model
         self.moneyCountLb.text = "+" + "\(model.amount)"
-        self.withDrawto.text = model.depositType == 0 ? "微信" :"提现至银行卡"
-        self.withDrawto.text  = "微信"
+        self.withDrawto.text = model.depositType == 0 ? "微信" :"银行卡"
+//        self.withDrawto.text  = "微信"
 //        self.timeLb.text = "\(model.depositTime)"
-        self.statusLb.text = "充值失败"
+        self.statusLb.text = model.status == 0 ? "处理中" : (model.status == 1 ?  "成功":  "失败")
         self.weekLb.text = "\( model.depositTime)"
         //        print(model.status)
         // 设置失败的cell的背景alpha  根据status 来判断 状态view
@@ -35,14 +35,15 @@ class RechargeListVCCell: OEZTableViewCell {
 
 class RechargeListVC: BasePageListTableViewController {
     
-    //定义全局的数组装 model
-    // var data :  RechargeListModel!
+   
     //用来接收偏移量
     var contentoffset = CGFloat()
     /** 用来判断刷新列表页第几页 **/
     var pageNumber : Int = 0
     // 设置显示的月份的label
     var  monthLb  = UILabel()
+    //来接受全局的数组
+    var dataModel = [Model]()
     override func viewDidLoad() {
         super.viewDidLoad()
         pageNumber = 0
@@ -74,6 +75,13 @@ class RechargeListVC: BasePageListTableViewController {
             
             if let object = result {
                 let Model : RechargeListModel = object as! RechargeListModel
+                
+                if pageIndex == 1{
+                    self?.dataModel =  Model.depositsinfo!
+                }else{
+                    
+                    self?.dataModel  =   (self?.dataModel)! + Model.depositsinfo!
+                }
                 self?.didRequestComplete(Model.depositsinfo as AnyObject)
             }else{
                 self?.didRequestComplete(nil)
@@ -88,9 +96,7 @@ class RechargeListVC: BasePageListTableViewController {
         let  headerView  = UIView ()
         if section == 0 {
             let  headerView  : UIView = UIView.init(frame:CGRect.init(x: 0, y: 0, width:self.view.frame.size.width, height: 40))
-            
             headerView.backgroundColor = UIColor.groupTableViewBackground
-            
             monthLb = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
             monthLb.text = "2017年 1月"
             monthLb.textColor = UIColor.init(hexString: "333333")

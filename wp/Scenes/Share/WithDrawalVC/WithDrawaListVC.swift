@@ -13,49 +13,39 @@ class WithDrawaListVCCell: OEZTableViewCell {
     
     // 时间lb
     @IBOutlet weak var minuteLb: UILabel!
-    
     // 时间lb
     @IBOutlet weak var timeLb: UILabel!
-    
     // 银行图片
     @IBOutlet weak var bankLogo: UIImageView!
-    
     // 提现金额
     @IBOutlet weak var moneyLb: UILabel!
-    
     //  提现至
     @IBOutlet weak var withDrawTo: UILabel!
     //  状态
     @IBOutlet weak var statusBtn: UIButton!
-    
     //  状态
     @IBOutlet weak var statusLb: UILabel!
-    
-    
     // 刷新cell
     override func update(_ data: Any!) {
-        
         let model : WithdrawModel = data as! WithdrawModel
         // 银行名称
         let bankName : String = model.bank as String
         // 提现至
         withDrawTo.text = "提现至" + "\(bankName)"
-        
         moneyLb.text =   "\(model.amount)" 
-        
         var status = String()
         
-        if model.status == 1 {
-            status = "处理中"
-        } else if model.status == 2 {
-            status = "成功"
-        }else{
-            status = "失败"
-        }
+        status = model.status == 1 ? "处理中" :  (model.status == 2 ? "成功" : "失败")
         
+//        if model.status == 1 {
+//            status = "处理中"
+//        } else if model.status == 2 {
+//            status = "成功"
+//        }else{
+//            status = "失败"
+//        }
         timeLb.text = "\(model.withdrawTime)"
         print(model.status)
-        
         statusBtn.setTitle(status, for: UIControlState.normal)
     }
 }
@@ -73,10 +63,15 @@ class WithDrawaListVC: BasePageListTableViewController {
     override func didRequest(_ pageIndex : Int) {
         
         AppAPIHelper.user().withdrawlist(status: "1,2,3", pos: Int32(pageIndex), count: 10, complete: { [weak self](result) -> ()? in
-            
             if let object = result {
                 let Model : WithdrawListModel = object as! WithdrawListModel
-                self?.dataModel =  Model.withdrawList
+                if pageIndex == 1{
+                    self?.dataModel =  Model.withdrawList
+                }else{
+                
+                    self?.dataModel  =   (self?.dataModel)! + Model.withdrawList
+                }
+                
                 self?.didRequestComplete(Model.withdrawList as AnyObject?)
             }else{
                 self?.didRequestComplete(nil)

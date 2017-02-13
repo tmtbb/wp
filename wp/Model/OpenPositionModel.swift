@@ -31,8 +31,40 @@ class PositionModel: Object {
     dynamic var isDeferred:Int = 0      //是否过夜
     dynamic var deferred:Int = 0        //累计过夜费
     dynamic var token:String = ""           //累计过夜费
+
+    
+    dynamic var  result : Bool = true
+//    var result :Int  = 0
     dynamic var interval = 0
+
     override static func primaryKey() -> String{
         return "positionId"
     }
 }
+//{
+//    "positioninfo": [
+//    {
+//    "amount": 3,
+//    "buySell": 1,
+//    "closePrice": 0,//收盘价
+//    "closeTime": 1486801405,0,
+//    "closeType": 6,0,//定时平仓
+//    "codeId": 10,
+//    "deferred": 0,
+//    "grossProfit": -30.6,//盈亏
+//    "id": 32,//userid
+//    "interval": 60,
+//    "isDeferred": false,//过夜费
+//    "limit": 0,
+//    "name": "上海-法兰克福1分钟",
+//    "openCharge": 0,//定时平仓
+//    "openCost": 30.6,//建仓费用
+//    "openPrice": 7.3005,
+//    "positionId": 177400277812916200,//交易ID
+//    "positionTime": 1486801345,//建仓时间戳
+//    "result": false,//买对
+//    "stop": 0,
+//    "symbol": "fx_seurcnh"
+//    },
+//    
+//}
