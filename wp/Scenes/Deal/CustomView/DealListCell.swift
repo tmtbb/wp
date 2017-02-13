@@ -69,7 +69,6 @@ class DealListCell: UITableViewCell {
         return imageView
     }()
     
-    var widthConstraint:NSLayoutConstraint?
     
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -129,12 +128,7 @@ class DealListCell: UITableViewCell {
         titleLabel.text = self.positionModel!.name
         countLabel.text = "手数\(self.positionModel!.amount)"
         timeCount = YD_CountDownHelper.shared.getResidueCount(startTime: startTime, totalCount: totalCount)
-        
-//        UIView.animate(withDuration: 1.0) { 
-//            self.progressView.setNeedsLayout()
-//            self.plainImageView.setNeedsLayout()
-//        }
-        self.refreshText()
+        refreshText()
     }
 
     
