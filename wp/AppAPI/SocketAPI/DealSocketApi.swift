@@ -12,9 +12,9 @@ class DealSocketApi: BaseSocketAPI, DealApi {
    
     //当前仓位列表
     func currentDeals(complete: CompleteBlock?, error:ErrorBlock?){
-        let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 0,
+        let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 32,
                                     SocketConst.Key.token: UserModel.token ?? ""]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .currentDeals, dict: param as [String : AnyObject])
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .currentDeals, dict: param as [String : AnyObject], type:.time)
         startModelsRequest(packet, listName: "positioninfo", modelClass: PositionModel.self, complete: complete, error: error)
     }
     
@@ -29,9 +29,9 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     
     //历史仓位列表
     func historyDeals(complete: CompleteBlock?, error:ErrorBlock?){
-        let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 0,
+        let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 32,
                                     SocketConst.Key.token: UserModel.token ?? ""]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .historyDeals, dict: param as [String : AnyObject])
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .historyDeals, dict: param as [String : AnyObject], type:.time)
         startModelsRequest(packet, listName: "positioninfo", modelClass: PositionModel.self, complete: complete, error: error)
     }
     
