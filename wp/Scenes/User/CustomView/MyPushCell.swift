@@ -21,7 +21,7 @@ class MyPushCell: UITableViewCell {
     @IBOutlet weak var winRate: UILabel!
     //胜场
     @IBOutlet weak var winNumber: UILabel!
-    let percentNumber:CGFloat = 0.80
+    let percentNumber:CGFloat = 0.45
     
     override func awakeFromNib() {
         super.awakeFromNib()

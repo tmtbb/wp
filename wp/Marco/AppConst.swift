@@ -44,6 +44,7 @@ class AppConst {
         static let buyUp = "buyUp"
         static let buyDown = "buyDown"
         static let auxiliary = "auxiliary"
+        static let lightBlue = "lightBlue"
     };
      class SystemFont {
         static let S1 = UIFont.systemFont(ofSize: 18)

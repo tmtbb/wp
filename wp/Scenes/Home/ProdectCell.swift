@@ -112,7 +112,12 @@ class ProdectCell: UITableViewCell {
             imageRight.constant = 1
             viewRigtLayout.constant = 6
             viewLeftLayout.constant = 6
-        }        
+        }
+        if screenW > 1{
+             rightLayout.constant = 18
+             hightPriceRight.constant = 18
+             hightPriceRight.constant = 16
+        }
         
     }
 }
