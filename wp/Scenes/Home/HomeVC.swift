@@ -16,6 +16,8 @@ class HomeVC: BaseTableViewController {
     lazy var flowListArray: [FlowOrdersList] =  [FlowOrdersList]()
     //行情数据
     lazy var marketArray: [KChartModel] = []
+    @IBOutlet weak var bannerView: BannerView!
+    @IBOutlet weak var noticeView: NoticeICarousel!
     private var priceTimer: Timer?
     var dict:[AnyObject]?
     
@@ -32,16 +34,13 @@ class HomeVC: BaseTableViewController {
         registerNotify()
         initData()
         initUI()
-
     }
-    //MARK: --DATA
-//    func initData() {
-//        
-
-//    }
     //MARK: --DATA
     func initData() {
         AppDataHelper.instance().initProductData()
+        let bannerStr = "http://upload-images.jianshu.io/upload_images/3959281-4914f0f66087c729.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+        bannerView.bannerData = [bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject]
+        noticeView.noticeData = ["" as AnyObject, "" as AnyObject,""as AnyObject]
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
 
@@ -86,81 +85,13 @@ class HomeVC: BaseTableViewController {
     //MARK: --UI
     func initUI() {
         navigationController?.addSideMenuButton()
-        let images: [String] = ["banner", "banner", "banner"]
-        let contentSourceArray: [String] = ["用户0102030405买涨 【上海-东京】赚1...","用户0102030405买涨 【上海-东京】赚1...","用户0102030405买涨 【上海-东京】赚1..."]
-        let tagSourceArray: [String] = ["跟 单", "跟 单", "跟 单"]
-        tableView.tableHeaderView = setupHeaderView(cycleImage: images, contentSourceArray: contentSourceArray, tagSourceArray:tagSourceArray)
         tableView.tableHeaderView?.layer.shadowColor = UIColor.black.cgColor
         tableView.tableHeaderView?.layer.shadowOpacity = 0.1
         tableView.tableHeaderView?.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
-        
-    }
-    
-    
-    //MARK: --头视图
-    func setupHeaderView (cycleImage:[String],contentSourceArray:[String], tagSourceArray:[String]) -> (UIView) {
-        let sunView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 203))
-        sunView.backgroundColor = UIColor(rgbHex: 0xF9F8FD)
-        //创建无限轮播
-        let cycleView = CSCycleView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 161), images: cycleImage, titles: [])
-        cycleView.delegate = self;
-        sunView.addSubview(cycleView)
-        //喇叭图片
-        let hornImage = UIImageView(image: UIImage(named: "horn"))
-        sunView.addSubview(hornImage)
-        hornImage.snp.makeConstraints { (make) in
-            make.top.equalTo(cycleView.snp.bottom).offset(11)
-            make.left.equalTo(sunView).offset(12)
-            make.width.equalTo(20)
-            make.height.equalTo(20)
-        }
-     
-        //跟单轮播
-        let screenWidth = UIScreen.main.bounds.size.width
-        let screenW = screenWidth / 375
-        var width = screenWidth - 54
-        if screenW < 1 {
-            width = width + 8
-        }
-        let singlerView = CSSinglerowView(frame: CGRect(x: 0, y: 0, width: width, height: 41), scrollStyle: .up, roundTime: 2, contentSource: contentSourceArray, tagSource: tagSourceArray)
-        singlerView.backColor = UIColor.clear
-        singlerView.contentTextColor = UIColor(rgbHex: 0x333333)
-        if screenWidth < 1 {
-            singlerView.contentFont = UIFont.systemFont(ofSize: 12 * screenW)
-        }else
-        {
-            singlerView.contentFont = UIFont.systemFont(ofSize: 12)
-        }
-        
-        singlerView.tagTextColor = UIColor(rgbHex: 0xFFFFFF)
-        singlerView.tagFont = UIFont.systemFont(ofSize: 12)
-//        singlerView.tagBackgroundColor = UIColor(rgbHex: 0x00ADB5)
-        singlerView.delegate = self
-        sunView .addSubview(singlerView)
-        if  screenW < 1 {
-            singlerView.snp.makeConstraints { (make) in
-                make.top.equalTo(cycleView.snp.bottom).offset(0)
-                make.left.equalTo(hornImage.snp.right).offset(12)
-                make.bottom.equalTo(sunView).offset(0)
-                make.right.equalTo(sunView).offset(0)
-            }
-        }
-        else{
-            singlerView.snp.makeConstraints { (make) in
-                make.top.equalTo(cycleView.snp.bottom).offset(0)
-                make.left.equalTo(hornImage.snp.right).offset(12)
-                make.bottom.equalTo(sunView).offset(0)
-                make.right.equalTo(sunView).offset(-12)
-            }
-        }
-        return sunView
     }
     
     //MARK: --监听滑动
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-    }
-    
+   
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     
         let viewBackColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 42))
@@ -212,7 +143,6 @@ class HomeVC: BaseTableViewController {
         if indexPath.section==0 {
             if indexPath.item < marketArray.count && marketArray[indexPath.item] != nil {
                 cell.kChartModel = marketArray[indexPath.item]
-                
             }
             return cell
         }
@@ -229,7 +159,6 @@ class HomeVC: BaseTableViewController {
         return cell
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 3
     }
     
@@ -326,17 +255,7 @@ class HomeVC: BaseTableViewController {
     
 }
 //MARK: -- CSCycleViewDelegate,CSSinglerViewDelegate
-extension HomeVC:CSCycleViewDelegate,CSSinglerViewDelegate,SecondViewCellDelegate {
-    
-    func  clickedCycleView(_ cycleView : CSCycleView, selectedIndex index: Int) {
-        
-        print("点击了第\(index)页")
-    }
-    func singlerView(_ singlerowView: CSSinglerowView, selectedIndex index: Int) {
-        
-        print("点击了第\(index)个数据")
-        
-    }
+extension HomeVC:SecondViewCellDelegate {
     func masterDidClick() {
         tabBarController?.selectedIndex = 2
     }

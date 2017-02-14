@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dgh-Id-UDr">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dgh-Id-UDr">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -77,9 +77,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Alb-GP-2QL">
+                            <rect key="frame" x="0.0" y="64" width="375" height="200"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iG5-Hq-iaP" customClass="BannerView" customModule="wp" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
+                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="160" id="ETe-YH-ge7"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9e6-hc-Hwd" customClass="NoticeICarousel" customModule="wp" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="160" width="375" height="40"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="9d7-ke-VYl"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="9e6-hc-Hwd" firstAttribute="leading" secondItem="Alb-GP-2QL" secondAttribute="leading" id="CvO-A5-FMO"/>
+                                <constraint firstItem="iG5-Hq-iaP" firstAttribute="leading" secondItem="Alb-GP-2QL" secondAttribute="leading" id="Ro0-E2-3Jv"/>
+                                <constraint firstItem="iG5-Hq-iaP" firstAttribute="top" secondItem="Alb-GP-2QL" secondAttribute="top" id="TCE-se-bkL"/>
+                                <constraint firstAttribute="trailing" secondItem="9e6-hc-Hwd" secondAttribute="trailing" id="fCT-FH-pYw"/>
+                                <constraint firstAttribute="trailing" secondItem="iG5-Hq-iaP" secondAttribute="trailing" id="ta1-rr-Ple"/>
+                                <constraint firstAttribute="bottom" secondItem="9e6-hc-Hwd" secondAttribute="bottom" id="ywF-QU-e2a"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProdectCell" id="TZA-V1-AjX" customClass="ProdectCell" customModule="wp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="90"/>
+                                <rect key="frame" x="0.0" y="228" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TZA-V1-AjX" id="6Ad-R4-tWz">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
@@ -275,7 +304,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SecondViewCell" rowHeight="155" id="6Qr-6Q-zef" customClass="SecondViewCell" customModule="wp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="118" width="375" height="155"/>
+                                <rect key="frame" x="0.0" y="318" width="375" height="155"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Qr-6Q-zef" id="mnp-9G-rtA">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="155"/>
@@ -394,7 +423,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ThreeCell" rowHeight="106" id="hjs-BS-4Eh" customClass="ThreeCell" customModule="wp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="273" width="375" height="106"/>
+                                <rect key="frame" x="0.0" y="473" width="375" height="106"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hjs-BS-4Eh" id="VUb-CX-dqj">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
@@ -421,6 +450,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="微盘" id="bNI-BL-mNB"/>
                     <connections>
+                        <outlet property="bannerView" destination="iG5-Hq-iaP" id="tyS-BP-LkV"/>
+                        <outlet property="noticeView" destination="9e6-hc-Hwd" id="4iR-A2-Kra"/>
                         <segue destination="b7l-6C-jtK" kind="push" identifier="MyMessageController" id="Etg-7u-L6H"/>
                         <segue destination="UQU-0b-UBA" kind="push" identifier="MyAttentionController" id="N0S-NJ-vWG"/>
                         <segue destination="tAK-XE-Qw8" kind="push" identifier="MyPushController" id="ocE-Pr-sAW"/>
@@ -431,7 +462,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eTt-kp-IPh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-991.20000000000005" y="106.59670164917542"/>
+            <point key="canvasLocation" x="-988" y="-9"/>
         </scene>
         <!--我的推单-->
         <scene sceneID="NzB-IG-GsY">
