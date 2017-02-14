@@ -76,15 +76,19 @@ class KLineView: UIView, ChartViewDelegate {
             initMiuLChartsData()
             break
         case 1:
+//            AppDataHelper.instance().initKLineChartData(.miu5)
             initKChartsData(type: .miu5)
             break
         case 2:
+//            AppDataHelper.instance().initKLineChartData(.miu15)
             initKChartsData(type: .miu15)
             break
         case 3:
+//            AppDataHelper.instance().initKLineChartData(.miu30)
             initKChartsData(type: .miu30)
             break
         case 4:
+//            AppDataHelper.instance().initKLineChartData(.miu60)
             initKChartsData(type: .miu60)
             break
         default:
@@ -183,7 +187,7 @@ class KLineView: UIView, ChartViewDelegate {
     }
     
     func convertModelToCandleDataEntry(model: KChartModel, location:Double) -> CandleChartDataEntry {
-        let entry = CandleChartDataEntry.init(x:location, shadowH: model.highPrice, shadowL: model.lowPrice, open: model.openPrice, close: model.closePrice)
+        let entry = CandleChartDataEntry.init(x:location, shadowH: model.highPrice, shadowL: model.lowPrice, open: model.openingTodayPrice, close: model.closedYesterdayPrice)
         return entry
     }
     

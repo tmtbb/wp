@@ -71,7 +71,7 @@ class HomeVC: BaseTableViewController {
             if let models: [KChartModel] = result as! [KChartModel]?{
                 for model in models{
                     for  product in DealModel.share().productKinds{
-                        if model.goodType == product.symbol{
+                        if model.symbol == product.symbol{
                             model.name = product.showSymbol
                         }
                     }

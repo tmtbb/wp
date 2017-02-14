@@ -20,7 +20,8 @@ class SocketRequestManage: NSObject {
     fileprivate var _socketHelper:SocketHelper?
     fileprivate var _sessionId:UInt64 = 0
     fileprivate var timelineRequest: SocketRequest?
-    fileprivate var productsRequest: SocketRequest?
+    fileprivate var productsRequest:  SocketRequest?
+    fileprivate var kchartRequest: SocketRequest?
     var receiveChatMsgBlock:CompleteBlock?
     var operate_code = 0
     func start() {
@@ -80,6 +81,8 @@ class SocketRequestManage: NSObject {
             socketReqeust = timelineRequest
         }else if packet.operate_code == SocketConst.OPCode.products.rawValue + 1{
             socketReqeust = productsRequest
+        }else if packet.operate_code == SocketConst.OPCode.kChart.rawValue + 1{
+            socketReqeust = kchartRequest
         }else{
             socketRequests.removeValue(forKey: packet.session_id)
         }
@@ -138,6 +141,8 @@ class SocketRequestManage: NSObject {
             timelineRequest = socketReqeust
         }else if packet.operate_code == SocketConst.OPCode.products.rawValue{
             productsRequest = socketReqeust
+        }else if packet.operate_code == SocketConst.OPCode.kChart.rawValue{
+            kchartRequest = socketReqeust
         }else{
             socketRequests[packet.session_id] = socketReqeust;
         }

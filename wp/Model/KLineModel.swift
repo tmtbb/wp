@@ -21,18 +21,21 @@ class KLineModel: NSObject {
     }
     
     //缓存分时数据
-    class func cacheTimelineModels(models: [KChartModel], goodType: String) {
+    class func cacheTimelineModels(models: [KChartModel]) {
         let _ = autoreleasepool(invoking: {
+            if models.count == 0{
+                return
+            }
             queue.async(execute: {
                 let realm = try! Realm()
-                let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
+                let firstModel = models.first
+                let queryStr = NSPredicate.init(format: "symbol = %@",firstModel!.symbol)
                 let result = realm.objects(KChartModel.self).filter(queryStr)
                 let goodMaxTime: Int = result.max(ofProperty: "priceTime") ?? 0
                 let goodMinTime: Int = result.min(ofProperty: "priceTime") ?? 0
                 for (_, model) in models.enumerated() {
                     if model.priceTime > goodMaxTime || model.priceTime < goodMinTime{
-                        model.goodType = goodType
-                        model.onlyKey = "\(goodType)\(model.priceTime)"
+                        model.onlyKey = "\(model.symbol)\(model.priceTime)"
                         //缓存分时线
                         try! realm.write {
                             realm.add(model, update: true)
@@ -42,6 +45,33 @@ class KLineModel: NSObject {
             })
         })
     }
+    
+    //缓存数据
+    class func cacheKChartModels(models: [KLineChartModel]) {
+        let _ = autoreleasepool(invoking: {
+            if models.count == 0{
+                return
+            }
+            queue.async(execute: {
+                let realm = try! Realm()
+                let firstModel = models.first
+                let queryStr = NSPredicate.init(format: "symbol = %@",firstModel!.symbol)
+                let result = realm.objects(KLineChartModel.self).filter(queryStr).filter("klineType = \(firstModel!.klineType)")
+                let goodMaxTime: Int = result.max(ofProperty: "priceTime") ?? 0
+                let goodMinTime: Int = result.min(ofProperty: "priceTime") ?? 0
+                for (_, model) in models.enumerated() {
+                    if model.priceTime > goodMaxTime || model.priceTime < goodMinTime{
+                        model.onlyKey = "\(model.symbol)\(model.priceTime)"
+                        //缓存分时线
+                        try! realm.write {
+                            realm.add(model, update: true)
+                        }
+                    }
+                }
+            })
+        })
+    }
+    
     
     //缓存K线模型
     class func cacheKLineModels(klineType: KLineType, goodType: String) {
@@ -80,7 +110,6 @@ class KLineModel: NSObject {
             if index == 0 {
                 resultModel = KLineChartModel()
                 resultModel!.priceTime = model.priceTime
-                resultModel!.goodType = model.goodType
                 resultModel!.exchangeName = model.exchangeName
                 resultModel!.platformName = model.platformName
                 resultModel!.currentPrice = model.currentPrice
@@ -119,7 +148,7 @@ class KLineModel: NSObject {
         let _ = autoreleasepool(invoking: {
             var models: [KChartModel] = []
             let realm = try! Realm()
-            let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
+            let queryStr = NSPredicate.init(format: "symbol = %@",goodType)
             let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).filter("priceTime > \(fromTime)")
             for model in result {
                 models.append(model)
@@ -134,9 +163,8 @@ class KLineModel: NSObject {
         let _ = autoreleasepool(invoking: {
             var models: [KChartModel] = []
             let realm = try! Realm()
-            let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
-            let queryTypeStr = String.init(format: "klineType = %d", type.rawValue)
-            let result = realm.objects(KLineChartModel.self).sorted(byProperty: "priceTime").filter("priceTime > \(fromTime)").filter(queryStr).filter(queryTypeStr)
+            let queryStr = NSPredicate.init(format: "symbol = %@",goodType)
+            let result = realm.objects(KLineChartModel.self).sorted(byProperty: "priceTime").filter("priceTime > \(fromTime)").filter(queryStr).filter("klineType = \(type.rawValue)")
             for model in result {
                 models.append(model)
             }
