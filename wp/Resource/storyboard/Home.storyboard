@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dgh-Id-UDr">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dgh-Id-UDr">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -77,9 +77,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Alb-GP-2QL">
+                            <rect key="frame" x="0.0" y="64" width="375" height="200"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iG5-Hq-iaP" customClass="BannerView" customModule="wp" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
+                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="160" id="ETe-YH-ge7"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9e6-hc-Hwd" customClass="NoticeICarousel" customModule="wp" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="160" width="375" height="40"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="9d7-ke-VYl"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="9e6-hc-Hwd" firstAttribute="leading" secondItem="Alb-GP-2QL" secondAttribute="leading" id="CvO-A5-FMO"/>
+                                <constraint firstItem="iG5-Hq-iaP" firstAttribute="leading" secondItem="Alb-GP-2QL" secondAttribute="leading" id="Ro0-E2-3Jv"/>
+                                <constraint firstItem="iG5-Hq-iaP" firstAttribute="top" secondItem="Alb-GP-2QL" secondAttribute="top" id="TCE-se-bkL"/>
+                                <constraint firstAttribute="trailing" secondItem="9e6-hc-Hwd" secondAttribute="trailing" id="fCT-FH-pYw"/>
+                                <constraint firstAttribute="trailing" secondItem="iG5-Hq-iaP" secondAttribute="trailing" id="ta1-rr-Ple"/>
+                                <constraint firstAttribute="bottom" secondItem="9e6-hc-Hwd" secondAttribute="bottom" id="ywF-QU-e2a"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProdectCell" id="TZA-V1-AjX" customClass="ProdectCell" customModule="wp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="90"/>
+                                <rect key="frame" x="0.0" y="228" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TZA-V1-AjX" id="6Ad-R4-tWz">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
@@ -105,9 +134,9 @@
                                                     </constraints>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addbank.png" translatesAutoresizingMaskIntoConstraints="NO" id="Dl5-bY-sGE">
-                                                    <rect key="frame" x="117.5" y="46" width="8" height="16"/>
+                                                    <rect key="frame" x="117.5" y="48" width="8" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="16" id="7Bq-We-U7P"/>
+                                                        <constraint firstAttribute="height" constant="20" id="7Bq-We-U7P"/>
                                                         <constraint firstAttribute="width" constant="8" id="af7-jD-JY9"/>
                                                     </constraints>
                                                 </imageView>
@@ -209,6 +238,7 @@
                                                 <constraint firstItem="loe-Pg-ebP" firstAttribute="leading" secondItem="StP-yn-XEd" secondAttribute="leading" id="1mO-lq-2Oe"/>
                                                 <constraint firstItem="7BF-gl-hfa" firstAttribute="leading" secondItem="jtl-7F-NFT" secondAttribute="leading" id="7z8-UN-cz3"/>
                                                 <constraint firstItem="iYg-e5-ffv" firstAttribute="top" secondItem="bcw-La-lWF" secondAttribute="top" constant="9" id="9pl-jS-1JT"/>
+                                                <constraint firstItem="Dl5-bY-sGE" firstAttribute="centerY" secondItem="EAd-5m-VeY" secondAttribute="centerY" id="BVd-nX-eEr"/>
                                                 <constraint firstItem="EVl-kV-RNf" firstAttribute="width" secondItem="EAd-5m-VeY" secondAttribute="width" multiplier="28/96" id="BeM-vd-sSa"/>
                                                 <constraint firstItem="7BF-gl-hfa" firstAttribute="centerY" secondItem="loe-Pg-ebP" secondAttribute="centerY" id="Bx8-FR-qtf"/>
                                                 <constraint firstAttribute="trailing" secondItem="StP-yn-XEd" secondAttribute="trailing" constant="12" id="F5o-4N-Dur"/>
@@ -224,7 +254,6 @@
                                                 <constraint firstItem="EAd-5m-VeY" firstAttribute="leading" secondItem="bcw-La-lWF" secondAttribute="leading" constant="13" id="YpZ-UD-O6k"/>
                                                 <constraint firstItem="8eD-ax-2V1" firstAttribute="width" secondItem="EAd-5m-VeY" secondAttribute="width" multiplier="28/96" id="ZhZ-Os-YPF"/>
                                                 <constraint firstItem="8eD-ax-2V1" firstAttribute="leading" secondItem="jtl-7F-NFT" secondAttribute="trailing" constant="6" id="b9k-BN-S4a"/>
-                                                <constraint firstItem="Dl5-bY-sGE" firstAttribute="top" secondItem="VTs-Vi-D5N" secondAttribute="bottom" constant="14" id="dSW-Ly-360"/>
                                                 <constraint firstItem="StP-yn-XEd" firstAttribute="top" secondItem="VTs-Vi-D5N" secondAttribute="bottom" constant="11" id="eJh-jl-sww"/>
                                                 <constraint firstItem="L2B-ky-yLu" firstAttribute="width" secondItem="EAd-5m-VeY" secondAttribute="width" multiplier="43/96" id="gEY-Hs-O9K"/>
                                                 <constraint firstItem="Dl5-bY-sGE" firstAttribute="leading" secondItem="EAd-5m-VeY" secondAttribute="trailing" constant="6" id="gzn-bd-bFL"/>
@@ -256,6 +285,7 @@
                                     <outlet property="hightLabelRight" destination="MKz-7D-VVL" id="HIe-lo-E8A"/>
                                     <outlet property="hightPrice" destination="jtl-7F-NFT" id="my7-hi-kfX"/>
                                     <outlet property="hightPriceRight" destination="tP6-sP-ZHn" id="T0s-Ab-EWD"/>
+                                    <outlet property="iconImage" destination="Dl5-bY-sGE" id="ees-Tu-xYM"/>
                                     <outlet property="imageRight" destination="gzn-bd-bFL" id="0pD-Xy-8m5"/>
                                     <outlet property="lowLabel" destination="4Bb-mQ-qkb" id="Xe5-Z6-pSa"/>
                                     <outlet property="lowPrice" destination="7BF-gl-hfa" id="Wfl-eN-4HV"/>
@@ -275,7 +305,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SecondViewCell" rowHeight="155" id="6Qr-6Q-zef" customClass="SecondViewCell" customModule="wp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="118" width="375" height="155"/>
+                                <rect key="frame" x="0.0" y="318" width="375" height="155"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Qr-6Q-zef" id="mnp-9G-rtA">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="155"/>
@@ -394,7 +424,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ThreeCell" rowHeight="106" id="hjs-BS-4Eh" customClass="ThreeCell" customModule="wp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="273" width="375" height="106"/>
+                                <rect key="frame" x="0.0" y="473" width="375" height="106"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hjs-BS-4Eh" id="VUb-CX-dqj">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
@@ -421,6 +451,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="微盘" id="bNI-BL-mNB"/>
                     <connections>
+                        <outlet property="bannerView" destination="iG5-Hq-iaP" id="tyS-BP-LkV"/>
+                        <outlet property="noticeView" destination="9e6-hc-Hwd" id="4iR-A2-Kra"/>
                         <segue destination="b7l-6C-jtK" kind="push" identifier="MyMessageController" id="Etg-7u-L6H"/>
                         <segue destination="UQU-0b-UBA" kind="push" identifier="MyAttentionController" id="N0S-NJ-vWG"/>
                         <segue destination="tAK-XE-Qw8" kind="push" identifier="MyPushController" id="ocE-Pr-sAW"/>
@@ -431,7 +463,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eTt-kp-IPh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-991.20000000000005" y="106.59670164917542"/>
+            <point key="canvasLocation" x="-988" y="-9"/>
         </scene>
         <!--我的推单-->
         <scene sceneID="NzB-IG-GsY">

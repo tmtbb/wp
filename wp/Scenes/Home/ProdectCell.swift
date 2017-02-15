@@ -33,6 +33,7 @@ class ProdectCell: UITableViewCell {
     @IBOutlet weak var changePer: UILabel!
     //设置阴影
     @IBOutlet weak var viewShadow: UIView!
+    @IBOutlet weak var iconImage: UIImageView!
     
     //约束
     @IBOutlet weak var rightLayout: NSLayoutConstraint!
@@ -66,8 +67,13 @@ class ProdectCell: UITableViewCell {
             changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
             changePer.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
 //            productName.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+            let iconName =  kChartModel!.change > 0 ? "upPrice" : "downPrice"
+            iconImage.image = UIImage.init(named: iconName)
+            iconImage.alpha = 1
+            UIView.animate(withDuration: 2) { [weak self] in
+                self?.iconImage.alpha = 0
+            }
             
-
         }
     }
     
