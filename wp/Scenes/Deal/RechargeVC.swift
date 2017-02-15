@@ -273,7 +273,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: code, complete: { (result) -> ()? in
                 if let object = result{
                     if let  returnCode : Int = object["returnCode"] as? Int{
-                        if returnCode == 0{
+                        if returnCode == 1{
                             SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
                                 self.navigationController?.popViewController(animated: true)
                             })
