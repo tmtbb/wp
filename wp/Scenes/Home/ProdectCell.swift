@@ -79,27 +79,16 @@ class ProdectCell: UITableViewCell {
         viewShadow.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
        
         let screenW = UIScreen.main.bounds.width / 375.0
-//        nowPrice.font = UIFont.systemFont(ofSize: 32 * screenW)
         nowPrice.adjustsFontSizeToFitWidth = true
-//        todayOpen.font = UIFont.systemFont(ofSize: 14 * screenW)
         todayOpen.adjustsFontSizeToFitWidth = true
-//        todayLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
         todayLabel.adjustsFontSizeToFitWidth = true
-//        yesterdayOpen.font = UIFont.systemFont(ofSize: 14 * screenW)
         yesterdayOpen.adjustsFontSizeToFitWidth = true
-//        yesterdayLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
         yesterdayLabel.adjustsFontSizeToFitWidth = true
-//        hightPrice.font = UIFont.systemFont(ofSize: 14 * screenW)
         hightPrice.adjustsFontSizeToFitWidth = true
-//        hightLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
         hightLabel.adjustsFontSizeToFitWidth = true
-//        lowPrice.font = UIFont.systemFont(ofSize: 14 * screenW)
         lowPrice.adjustsFontSizeToFitWidth = true
-//        lowLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
         lowLabel.adjustsFontSizeToFitWidth = true
-//        changeLabel.font = UIFont.systemFont(ofSize: 12 * screenW)
         changeLabel.adjustsFontSizeToFitWidth = true
-//        changePer.font = UIFont.systemFont(ofSize: 12 * screenW)
         changePer.adjustsFontSizeToFitWidth = true
         
         if screenW < 1 {
