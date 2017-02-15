@@ -162,9 +162,10 @@ extension CSCycleView {
         //        cycleTimer = Timer(timeInterval: 3.0, target: self, selector: #selector(scrollToNextPage), userInfo: nil, repeats: true)
         weak var weakSelf = self//解决循环引用
         if #available(iOS 10.0, *) {
-            cycleTimer = Timer(timeInterval: 3.0, repeats: true, block: {(timer) in
-                weakSelf!.scrollToNextPage()
-            })
+//            cycleTimer = Timer(timeInterval: 3.0, repeats: true, block: {(timer) in
+//                weakSelf!.scrollToNextPage()
+//            })
+            cycleTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(scrollToNextPage), userInfo: nil, repeats: true)
         } else {
             // Fallback on earlier versions
         }

@@ -41,8 +41,12 @@ class UserTableViewController: BaseTableViewController {
         //       UserModel.getCurrentUser()?.balance
         // ShareModel.share().useMoney = Double(money)
         personBackgroud.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
-        propertyBackgroud.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.auxiliary)
-        integralBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.auxiliary)
+        propertyBackgroud.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
+        integralBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
+        loginBtn.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: AppConst.Color.auxiliary), for: .normal)
+        register.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: AppConst.Color.auxiliary), for: .normal)
+        
+        
         ShareModel.share().addObserver(self, forKeyPath: "useMoney", options: .new, context: nil)
         registerNotify()
         //更新token
