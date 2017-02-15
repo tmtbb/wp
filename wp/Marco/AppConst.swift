@@ -26,6 +26,11 @@ class AppConst {
     static let sha256Key = "t1@s#df!"
     static let pid = 1002
     
+    enum KVOKey: String {
+        case selectProduct = "selectProduct"
+        case allProduct = "allProduct"
+    }
+    
     class Color {
         static let C0 = UIColor(rgbHex:0x131f32)
         static let CR = UIColor(rgbHex:0xb82525)
