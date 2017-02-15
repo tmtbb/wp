@@ -57,12 +57,10 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         super.viewWillDisappear(animated)
       //  hideTabBarWithAnimationDuration()
         YD_CountDownHelper.shared.pause()
-        if let selectProduct = DealModel.share().selectProduct{
-            didSelectedObject(titleView, object: selectProduct)
-        }
+        
     }
     deinit {
-        DealModel.share().removeObserver(self, forKeyPath: "selectDealModel")
+        DealModel.share().removeObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue)
         priceTimer?.invalidate()
         priceTimer = nil
         klineTimer?.invalidate()
@@ -72,14 +70,15 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     func initData() {
         //初始化持仓数据
         initDealTableData()
-
         //初始化下商品数据
         titleView.objects = DealModel.share().productKinds
+        if let selectProduct = DealModel.share().selectProduct{
+            didSelectedObject(titleView, object: selectProduct)
+        }
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
         //持仓点击
-        DealModel.share().addObserver(self, forKeyPath: "selectDealModel", options: .new, context: nil)
-        DealModel.share().addObserver(self, forKeyPath: "allProduct", options: .new, context: nil)
+        DealModel.share().addObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue, options: .new, context: nil)
         //k线选择器
         klineTitleView.objects = klineTitles as [AnyObject]?
         if let flowLayout: UICollectionViewFlowLayout = klineTitleView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -88,51 +87,16 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "selectDealModel" {
-            if DealModel.share().type == .btnTapped {
-                //平仓
-                let pwdAlter = UIAlertController.init(title: "平仓", message: "请输入交易密码", preferredStyle: .alert)
-                pwdAlter.addTextField(configurationHandler: { (textField) in
-                    textField.placeholder = "请输入交易密码"
-                    textField.isSecureTextEntry = true
-                })
-                let sureAction = UIAlertAction.init(title: "确认", style: .default, handler: { [weak self](result) in
-                    //校验密码
-                    AppAPIHelper.deal().sellOutDeal(complete: {(result) -> ()? in
-                        SVProgressHUD.showSuccessMessage(SuccessMessage: "平仓成功", ForDuration: 1.5, completion: nil)
-                        return nil
-                    }, error: self?.errorBlockFunc())
-                })
-                let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
-                pwdAlter.addAction(sureAction)
-                pwdAlter.addAction(cancelAction)
-                present(pwdAlter, animated: true, completion: nil)
-                return
-            }
-            
-            if DealModel.share().type == .cellTapped {
-                //修改持仓
-                DealModel.share().isDealDetail = true
-                performSegue(withIdentifier: BuyVC.className(), sender: nil)
-                return
-            }
-        }
         
-        if keyPath == "allProduct"{
+        if keyPath == AppConst.KVOKey.allProduct.rawValue{
             let allProducets: [ProductModel] = DealModel.share().productKinds
             titleView.objects = allProducets
         }
     }
     //MARK: --我的资产
     @IBAction func jumpToMyWallet(_ sender: AnyObject) {
-        
-//        let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
-//        
-//        let controller = storyboard.instantiateViewController(withIdentifier: RechargeVC.className())
-//        navigationController?.pushViewController(controller, animated: true)
         if checkLogin(){
             let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
-            
             let controller = storyboard.instantiateViewController(withIdentifier: MyWealtVC.className())
             navigationController?.pushViewController(controller, animated: true)
         }
@@ -247,7 +211,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             }
             DealModel.share().dealUp = sender.tag == 1
             DealModel.share().isDealDetail = false
-//            performSegue(withIdentifier: BuyVC.className(), sender: nil)
             
             let controller = UIStoryboard.init(name: "Deal", bundle: nil).instantiateViewController(withIdentifier: BuyProductVC.className()) as! BuyProductVC
             controller.modalPresentationStyle = .custom
@@ -276,10 +239,10 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
     }
     
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == BuyVC.className() {
-            return checkLogin()
-        }
-        return true
-    }
 }
+//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+//        if identifier == BuyVC.className() {
+//            return checkLogin()
+//        }
+//        return true
+//    }

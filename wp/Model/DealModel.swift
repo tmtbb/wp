@@ -10,11 +10,6 @@ import UIKit
 import RealmSwift
 class DealModel: BaseModel {
     
-    enum SeletedType: Int {
-        case btnTapped = 0
-        case cellTapped = 1
-    }
-    
     enum ChartType: Int {
         case timeLine = 1
     }
@@ -27,12 +22,8 @@ class DealModel: BaseModel {
     dynamic var allProduct: [ProductModel] = []
     //商品分类列表
     dynamic var productKinds: [ProductModel] = []
-    //点击类型
-    var type:SeletedType = .btnTapped
-    //所选择的持仓模型
-    dynamic var selectDealModel: PositionModel?
     //所选择的商品大类
-    var selectProduct: ProductModel?
+    dynamic var selectProduct: ProductModel?
     //所选择的商品小类
     var buyProduct: ProductModel?
     //买涨买跌
