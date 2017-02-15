@@ -27,9 +27,6 @@ class KLineView: UIView, ChartViewDelegate {
         }
     }
     
- 
-    
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         selectIndex = 1
@@ -76,19 +73,15 @@ class KLineView: UIView, ChartViewDelegate {
             initMiuLChartsData()
             break
         case 1:
-//            AppDataHelper.instance().initKLineChartData(.miu5)
             initKChartsData(type: .miu5)
             break
         case 2:
-//            AppDataHelper.instance().initKLineChartData(.miu15)
             initKChartsData(type: .miu15)
             break
         case 3:
-//            AppDataHelper.instance().initKLineChartData(.miu30)
             initKChartsData(type: .miu30)
             break
         case 4:
-//            AppDataHelper.instance().initKLineChartData(.miu60)
             initKChartsData(type: .miu60)
             break
         default:
