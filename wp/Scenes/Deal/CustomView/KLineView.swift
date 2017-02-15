@@ -27,9 +27,6 @@ class KLineView: UIView, ChartViewDelegate {
         }
     }
     
- 
-    
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         selectIndex = 1
@@ -183,7 +180,7 @@ class KLineView: UIView, ChartViewDelegate {
     }
     
     func convertModelToCandleDataEntry(model: KChartModel, location:Double) -> CandleChartDataEntry {
-        let entry = CandleChartDataEntry.init(x:location, shadowH: model.highPrice, shadowL: model.lowPrice, open: model.openPrice, close: model.closePrice)
+        let entry = CandleChartDataEntry.init(x:location, shadowH: model.highPrice, shadowL: model.lowPrice, open: model.openingTodayPrice, close: model.closedYesterdayPrice)
         return entry
     }
     

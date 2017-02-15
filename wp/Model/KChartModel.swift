@@ -10,9 +10,8 @@ import UIKit
 import RealmSwift
 
 
-class KLineChartModel: KChartModel {
-    dynamic var klineType: Int = -1
-}
+
+
 
 
 class KChartModel: Object {
@@ -36,6 +35,16 @@ class KChartModel: Object {
     }
 }
 
+class KLineChartModel: KChartModel {
+    dynamic var chartType: Int = -1
+}
 
 
-
+class ChartModel: BaseModel {
+    var priceinfo: [KLineChartModel]! = []
+    var chartType: Int = -1
+    
+    class func priceinfoModelClass() -> AnyClass {
+        return KLineChartModel.classForCoder()
+    }
+}

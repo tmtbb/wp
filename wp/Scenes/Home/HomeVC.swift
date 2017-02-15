@@ -41,6 +41,7 @@ class HomeVC: BaseTableViewController {
         let bannerStr = "http://upload-images.jianshu.io/upload_images/3959281-4914f0f66087c729.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
         bannerView.bannerData = [bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject]
         noticeView.noticeData = ["" as AnyObject, "" as AnyObject,""as AnyObject]
+
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
 
@@ -70,7 +71,7 @@ class HomeVC: BaseTableViewController {
             if let models: [KChartModel] = result as! [KChartModel]?{
                 for model in models{
                     for  product in DealModel.share().productKinds{
-                        if model.goodType == product.symbol{
+                        if model.symbol == product.symbol{
                             model.name = product.showSymbol
                         }
                     }

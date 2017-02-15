@@ -20,8 +20,8 @@ class HistoryDealCell: OEZTableViewCell{
         if let model: PositionModel = data as! PositionModel? {
             nameLabel.text = "\(model.name)"
             timeLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.positionTime)), format: "yyyy.MM.dd HH:mm:ss")
-            priceLabel.text = "¥" + "\(model.openPrice)"
-         
+           //com.365hy.BrillianceADCpn
+            priceLabel.text = "¥" + String(format: "%.2f", model.openPrice)
       
             statuslb.backgroundColor = model.result   ? UIColor.init(hexString: "E9573F") : UIColor.init(hexString: "0EAF56")
             

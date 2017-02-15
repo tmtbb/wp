@@ -32,10 +32,6 @@ class DealSocketApi: BaseSocketAPI, DealApi {
         let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 32,
 
                                     SocketConst.Key.token: UserModel.token ?? "adc28ac69625652b46d5c00b"]
-       
-        
-        //  let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 0,
-//        SocketConst.Key.token: UserModel.token ?? ""]
       
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .historyDeals, dict: param as [String : AnyObject], type:.time)
 
@@ -87,12 +83,12 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     func kChartsData(param: KChartParam, complete: CompleteBlock?, error:ErrorBlock?){
         let paramDic: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 0,
                                         SocketConst.Key.token: UserModel.token ?? "",
-                                        SocketConst.Key.goodType: param.symbol,
+                                        SocketConst.Key.symbol: param.symbol,
                                         SocketConst.Key.exchangeName: param.exchangeName,
                                         SocketConst.Key.platformName: param.platformName,
-                                        SocketConst.Key.aType: param.aType]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .kChart, dict: paramDic as [String : AnyObject])
-        startModelsRequest(packet, listName: "priceinfo", modelClass: KChartModel.self, complete: complete, error: error)
+                                        SocketConst.Key.chartType: param.chartType]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .kChart, dict: paramDic as [String : AnyObject], type: .time)
+        startModelRequest(packet, modelClass: ChartModel.self, complete: complete, error: error)
     }
     
     //当时分时数据

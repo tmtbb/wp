@@ -126,23 +126,22 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     //MARK: --我的资产
     @IBAction func jumpToMyWallet(_ sender: AnyObject) {
         
-        let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
-        
-        let controller = storyboard.instantiateViewController(withIdentifier: RechargeVC.className())
-        navigationController?.pushViewController(controller, animated: true)
-//        if checkLogin(){
-//            let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
-//            
-//            let controller = storyboard.instantiateViewController(withIdentifier: MyWealtVC.className())
-//            navigationController?.pushViewController(controller, animated: true)
-//        }
+//        let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
+//        
+//        let controller = storyboard.instantiateViewController(withIdentifier: RechargeVC.className())
+//        navigationController?.pushViewController(controller, animated: true)
+        if checkLogin(){
+            let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
+            
+            let controller = storyboard.instantiateViewController(withIdentifier: MyWealtVC.className())
+            navigationController?.pushViewController(controller, animated: true)
+        }
     }
     //TitleCollectionView's Delegate
     internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
         if collectionView == titleView {
             if let model: ProductModel = object as? ProductModel {
                 DealModel.share().selectProduct = model
-                AppDataHelper.instance().initLineChartData()
                 initRealTimeData()
                 kLineView.refreshKLine()
                 reloadProducts()
@@ -205,7 +204,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
                 if let models: [KChartModel] = result as! [KChartModel]?{
                     for model in models{
-                        if model.goodType == product.symbol{
+                        if model.symbol == product.symbol{
                             self?.priceLabel.text = String.init(format: "%.4f", model.currentPrice)
                             self?.highLabel.text = String.init(format: "%.4f", model.highPrice)
                             self?.lowLabel.text = String.init(format: "%.4f", model.lowPrice)

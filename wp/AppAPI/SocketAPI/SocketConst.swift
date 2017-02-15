@@ -83,7 +83,7 @@ class SocketConst: NSObject {
         //商品列表
         case products = 5001
         //当前K线数据
-        case kChart = 2008
+        case kChart = 4005
         //当前分时数据
         case timeline = 4003
         //当前报价
