@@ -53,9 +53,9 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         btn.setTitle("充值记录", for:  UIControlState.normal)
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
-        if  let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String {
-           self.moneyText.text  = "\(str)" + "元"
-        }
+//        if  let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String {
+//           self.moneyText.text  = "\(str)" + "元"
+//        }
      
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
@@ -258,15 +258,19 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         }
         
         
-    }
-    
+    }    
     //MARK: 监听返回结果
     func paysuccess(_ notice: NSNotification) {
         
         
         if let errorCode: Int = notice.object as? Int{
-            
-            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: errorCode, complete: { (result) -> ()? in
+            var code = Int()
+            if errorCode == 0 {
+            code = 1
+            }else{
+                code = 2
+            }
+            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: code, complete: { (result) -> ()? in
                 if let object = result{
                     if let  returnCode : Int = object["returnCode"] as? Int{
                         if returnCode == 0{

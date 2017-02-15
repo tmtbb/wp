@@ -18,6 +18,10 @@ class BaseNavigationController: UINavigationController,UINavigationControllerDel
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationBar.shadowImage = UIImage.init(named: "nav_clear")
+        self.navigationBar.setBackgroundImage(UIImage.init(named: "nav_main"), for: .any, barMetrics: .default)
+    }
     //MARK: 重新写左面的导航
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         
