@@ -66,8 +66,8 @@ class ProdectCell: UITableViewCell {
             changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
             changePer.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
 //            productName.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+            let iconName =  kChartModel!.change > 0 ? "upPrice" : "downPrice"
             
-
         }
     }
     

@@ -11,12 +11,15 @@ import iCarousel
 import DKNightVersion
 
 class NoticeItem: UIView {
-    let iconImage: UIImageView = UIImageView.init(image: UIImage.init(named: ""))
+    
+    let iconImage: UIImageView = UIImageView.init(image: UIImage.init(named: "noticeMessage"))
     lazy var followBtn: UIButton = {
         let btn = UIButton.init(type: .custom)
         btn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.setTitle("跟单", for: .normal)
+        btn.layer.cornerRadius = 3
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         return btn
     }()
     
@@ -60,9 +63,12 @@ class NoticeICarousel: iCarousel, iCarouselDelegate, iCarouselDataSource {
         super.init(coder: aDecoder)
         delegate = self
         dataSource = self
-        type = .rotary
+        type = .linear
         isVertical = true
         noticeData = []
+        layer.masksToBounds = true
+        scrollSpeed = 0.3
+        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(autoScroll), userInfo: nil, repeats: true)
     }
     
     var noticeData: [AnyObject]!{
@@ -71,6 +77,11 @@ class NoticeICarousel: iCarousel, iCarouselDelegate, iCarouselDataSource {
                 reloadData()
             }
         }
+    }
+    
+    func autoScroll() {
+        let index = currentItemIndex == (noticeData.count - 1) ? 0 :currentItemIndex + 1
+        scrollToItem(at: index, animated: true)
     }
     
     func numberOfItems(in carousel: iCarousel) -> Int {
@@ -82,6 +93,7 @@ class NoticeICarousel: iCarousel, iCarouselDelegate, iCarouselDataSource {
             return reusingView
         }else{
             let item: NoticeItem = NoticeItem.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen.width(), height: frame.size.height))
+            item.titleLabel.text = noticeData[index] as? String
             return item
         }
     }

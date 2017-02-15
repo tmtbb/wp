@@ -27,10 +27,13 @@ class BannerItemView: UIView {
 class BannerView: iCarousel, iCarouselDelegate, iCarouselDataSource {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        backgroundColor = AppConst.Color.CMain
         delegate = self
         dataSource = self
         bannerData = []
-        type = .rotary
+        type = .linear
+        scrollSpeed = 0.3
+        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(autoScroll), userInfo: nil, repeats: true)
     }
     
     var bannerData: [AnyObject]!{
@@ -39,6 +42,11 @@ class BannerView: iCarousel, iCarouselDelegate, iCarouselDataSource {
                 reloadData()
             }
         }
+    }
+    
+    func autoScroll() {
+        let index = currentItemIndex == (bannerData.count - 1) ? 0 :currentItemIndex + 1
+        scrollToItem(at: index, animated: true)
     }
     
     func numberOfItems(in carousel: iCarousel) -> Int {
@@ -57,7 +65,7 @@ class BannerView: iCarousel, iCarouselDelegate, iCarouselDataSource {
             return item
         }
     }
-    
+
     func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
         
     }

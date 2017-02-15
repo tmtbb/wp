@@ -39,8 +39,8 @@ class HomeVC: BaseTableViewController {
     func initData() {
         AppDataHelper.instance().initProductData()
         let bannerStr = "http://upload-images.jianshu.io/upload_images/3959281-4914f0f66087c729.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-        bannerView.bannerData = [bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject]
-        noticeView.noticeData = ["" as AnyObject, "" as AnyObject,""as AnyObject]
+        bannerView.bannerData = [bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject]
+        noticeView.noticeData = ["这是一个测试文案1" as AnyObject, "这是一个测试文案2" as AnyObject,"这是一个测试文案3"as AnyObject, "这是一个测试文案4" as AnyObject,"这是一个测试文案5"as AnyObject]
 
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
