@@ -166,6 +166,8 @@ class MyMessageController: BaseTableViewController {
             UserModel.share().forgetType = .loginPass
             self.navigationController?.pushViewController(registvc, animated: true)
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
