@@ -165,6 +165,13 @@ class HomeVC: BaseTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
+            let price = marketArray[indexPath.item]
+            for model in DealModel.share().productKinds{
+                if price.symbol ==  model.symbol{
+                    DealModel.share().selectProduct = model
+                    break
+                }
+            }
             tabBarController?.selectedIndex = 1
         }
         
@@ -255,7 +262,7 @@ class HomeVC: BaseTableViewController {
     
     
 }
-//MARK: -- CSCycleViewDelegate,CSSinglerViewDelegate
+
 extension HomeVC:SecondViewCellDelegate {
     func masterDidClick() {
         tabBarController?.selectedIndex = 2

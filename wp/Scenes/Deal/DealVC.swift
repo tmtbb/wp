@@ -57,6 +57,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         super.viewWillDisappear(animated)
       //  hideTabBarWithAnimationDuration()
         YD_CountDownHelper.shared.pause()
+        if let selectProduct = DealModel.share().selectProduct{
+            didSelectedObject(titleView, object: selectProduct)
+        }
     }
     deinit {
         DealModel.share().removeObserver(self, forKeyPath: "selectDealModel")
@@ -72,9 +75,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
 
         //初始化下商品数据
         titleView.objects = DealModel.share().productKinds
-        if let selectProduct = DealModel.share().selectProduct{
-            didSelectedObject(titleView, object: selectProduct)
-        }
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
         //持仓点击
