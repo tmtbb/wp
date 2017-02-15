@@ -142,7 +142,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         if collectionView == titleView {
             if let model: ProductModel = object as? ProductModel {
                 DealModel.share().selectProduct = model
-                AppDataHelper.instance().initLineChartData()
                 initRealTimeData()
                 kLineView.refreshKLine()
                 reloadProducts()
@@ -205,7 +204,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
                 if let models: [KChartModel] = result as! [KChartModel]?{
                     for model in models{
-                        if model.goodType == product.symbol{
+                        if model.symbol == product.symbol{
                             self?.priceLabel.text = String.init(format: "%.4f", model.currentPrice)
                             self?.highLabel.text = String.init(format: "%.4f", model.highPrice)
                             self?.lowLabel.text = String.init(format: "%.4f", model.lowPrice)
