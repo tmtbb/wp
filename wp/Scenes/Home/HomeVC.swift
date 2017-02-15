@@ -41,7 +41,7 @@ class HomeVC: BaseTableViewController {
 //    }
     //MARK: --DATA
     func initData() {
-        AppDataHelper.instance().initProductData()
+//        AppDataHelper.instance().initProductData()
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
 
@@ -71,7 +71,7 @@ class HomeVC: BaseTableViewController {
             if let models: [KChartModel] = result as! [KChartModel]?{
                 for model in models{
                     for  product in DealModel.share().productKinds{
-                        if model.goodType == product.symbol{
+                        if model.symbol == product.symbol{
                             model.name = product.showSymbol
                         }
                     }

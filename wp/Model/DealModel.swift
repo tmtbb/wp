@@ -42,6 +42,8 @@ class DealModel: BaseModel {
     var isDealDetail: Bool = false
     //数据库是否已经有数据
     var haveDealModel: Bool = false
+    //当前k线类型
+    var klineTye: KLineModel.KLineType = .miu5
     
     // 缓存建仓数据
     class func cachePosition(position: PositionModel){
@@ -50,10 +52,9 @@ class DealModel: BaseModel {
             realm.add(position, update: true)
         }
     }
+    
     class func getAllPositionModel() -> Results<PositionModel>{
         let realm = try! Realm()
-//        return realm.objects(PositionModel.self).sorted(byProperty: "positionTime", ascending: false)
-//        24 * 60 * 60 = 86400
         return realm.objects(PositionModel.self).filter("closeTime > \(Int(NSDate().timeIntervalSince1970))").sorted(byProperty: "positionTime", ascending: false)
     }
     class func cachePositionWithArray(positionArray:Array<PositionModel>) {

@@ -8,7 +8,7 @@
 
 import UIKit
 import DKNightVersion
-
+import SVProgressHUD
 class BuyProductVC: UIViewController {
     
     
@@ -37,6 +37,10 @@ class BuyProductVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        SVProgressHUD.dismiss()
     }
     
     func initUI() {
@@ -97,13 +101,14 @@ class BuyProductVC: UIViewController {
             resultBlock!(BuyResultType.lessMoney as AnyObject)
             return
         }
-        
+        SVProgressHUD.showProgressMessage(ProgressMessage: "交易中...")
         let buyModel: BuildDealParam = BuildDealParam()
         buyModel.codeId = DealModel.share().buyProduct!.id
         buyModel.buySell = DealModel.share().dealUp ? 1 : -1
         buyModel.amount = Int(countSlider.value)
         buyModel.isDeferred = DealModel.share().buyModel.isDeferred
         AppAPIHelper.deal().buildDeal(model: buyModel, complete: { [weak self](result) -> ()? in
+            SVProgressHUD.dismiss()
             if let product: PositionModel = result as? PositionModel{
                 self?.dismissController()
                 DealModel.cachePosition(position: product)

@@ -19,10 +19,8 @@ class AppDataHelper: NSObject {
     
     func initData() {
         hurtTimer = Timer.scheduledTimer(timeInterval: 15 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 7, target: self, selector: #selector(initKLineModel), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 45, target: self, selector: #selector(initAllData), userInfo: nil, repeats: true)
         initProductData()
-        initKLineModel()
         checkTokenLogin()
     }
     //请求商品数据
@@ -36,12 +34,14 @@ class AppDataHelper: NSObject {
                 //商品分类
                 self?.checkAllProductKinds(allProducts: allProducets)
                 DealModel.share().allProduct = allProducets
-                //请求分时数据
-                self?.initLineChartData()
                 //默认选择商品
                 if allProducets.count > 0{
                     DealModel.share().selectProduct = allProducets[0]
                 }
+                //缓存k线数据
+                self?.initLineChartData(first: true)
+                self?.initKLineModel(first: true)
+
             }else{
     
             }
@@ -51,6 +51,7 @@ class AppDataHelper: NSObject {
             return nil
         }
     }
+    
     //对所有商品进行分类
     func checkAllProductKinds(allProducts: [ProductModel]) {
         for product in allProducts {
@@ -70,33 +71,71 @@ class AppDataHelper: NSObject {
         }
     }
     
+    //预加载所有k线数据
+    func initAllData() {
+        initLineChartData(first: false)
+        initKLineModel(first: false)
+    }
     //根据商品分时数据
-    func initLineChartData(){
-        if let product = DealModel.share().selectProduct{
-            let param = KChartParam()
-            param.symbol = product.symbol
-            param.exchangeName = product.exchangeName
-            param.platformName = product.platformName
-            param.aType = 4
-            AppAPIHelper.deal().timeline(param: param, complete: {(result) -> ()? in
-                if let models: [KChartModel] = result as? [KChartModel]{
-                    KLineModel.cacheTimelineModels(models: models, goodType:param.symbol)
-                }
-                return nil
-            }, error: { (error) ->()? in
-                SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
-                return nil
-            })
+    func initLineChartData(first: Bool){
+        if first {
+            for product in DealModel.share().productKinds{
+                lineChartData(product: product)
+            }
+        }
+        
+        if let product = DealModel.share().selectProduct {
+            lineChartData(product: product)
         }
     }
-    //缓存商品KLine数据
-    func initKLineModel() {
-        if let product = DealModel.share().selectProduct{
-            KLineModel.cacheKLineModels(klineType: .miu15, goodType: product.symbol)
-            KLineModel.cacheKLineModels(klineType: .miu60, goodType: product.symbol)
-            KLineModel.cacheKLineModels(klineType: .miu5, goodType: product.symbol)
-            KLineModel.cacheKLineModels(klineType: .miu30, goodType: product.symbol)
+    func lineChartData(product: ProductModel){
+        let param = KChartParam()
+        param.symbol = product.symbol
+        param.exchangeName = product.exchangeName
+        param.platformName = product.platformName
+        param.aType = 4
+        AppAPIHelper.deal().timeline(param: param, complete: {(result) -> ()? in
+            if let models: [KChartModel] = result as? [KChartModel]{
+                KLineModel.cacheTimelineModels(models: models)
+            }
+            return nil
+        }, error: { (error) ->()? in
+            SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
+            return nil
+        })
+    }
+    //根据商品请求K线数据
+    func initKLineModel(first: Bool) {
+        initKLineChartData(type: .miu5, first: first)
+        initKLineChartData(type: .miu15, first: first)
+        initKLineChartData(type: .miu30, first: first)
+        initKLineChartData(type: .miu60, first: first)
+    }
+    func initKLineChartData(type: KLineModel.KLineType, first: Bool) {
+        if first {
+            for product in DealModel.share().productKinds {
+                kLineChartData(type: type, product: product)
+            }
         }
+        if let product = DealModel.share().selectProduct {
+           kLineChartData(type: type, product: product)
+        }
+    }
+    func kLineChartData(type: KLineModel.KLineType, product: ProductModel) {
+        let param = KChartParam()
+        param.symbol = product.symbol
+        param.exchangeName = product.exchangeName
+        param.platformName = product.platformName
+        param.chartType = type.rawValue
+        AppAPIHelper.deal().kChartsData(param: param, complete: { (result) -> ()? in
+            if let chart: ChartModel = result as? ChartModel{
+                KLineModel.cacheKChartModels(chart: chart)
+            }
+            return nil
+        }, error:{ (error) ->()? in
+            SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
+            return nil
+        })
     }
     
     //验证token登录
