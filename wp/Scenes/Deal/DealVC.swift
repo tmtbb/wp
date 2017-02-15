@@ -142,7 +142,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         if collectionView == titleView {
             if let model: ProductModel = object as? ProductModel {
                 DealModel.share().selectProduct = model
-                AppDataHelper.instance().initAllData()
                 initRealTimeData()
                 kLineView.refreshKLine()
                 reloadProducts()
