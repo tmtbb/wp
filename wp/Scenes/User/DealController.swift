@@ -144,6 +144,10 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 42
     }
+    //组尾高
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.1
+    }
     
     //禁止向上滑动
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
