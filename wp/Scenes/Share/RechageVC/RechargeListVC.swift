@@ -15,18 +15,20 @@ class RechargeListVCCell: OEZTableViewCell {
     @IBOutlet weak var timeLb: UILabel!            // 时间Lb
     @IBOutlet weak var moneyCountLb: UILabel!      // 充值金额Lb
     @IBOutlet weak var statusLb: UILabel!          // 状态Lb
-    @IBOutlet weak var minuteLb: UIButton!         // 分秒
+    @IBOutlet weak var minuteLb: UILabel!          // 分秒
     @IBOutlet weak var bankLogo: UIImageView!      // 银行卡图片
     @IBOutlet weak var withDrawto: UILabel!        // 提现至
     //MARK:--- 刷新cell
     override func update(_ data: Any!) {
         let model = data as! Model
         self.moneyCountLb.text = "+" + "\(model.amount)"
-        self.withDrawto.text = model.depositType == 0 ? "微信" :"银行卡"
-//        self.withDrawto.text  = "微信"
-//        self.timeLb.text = "\(model.depositTime)"
-        self.statusLb.text = model.status == 0 ? "处理中" : (model.status == 1 ?  "成功":  "失败")
-        self.weekLb.text = "\( model.depositTime)"
+        let timestr : Int = Date.stringToTimeStamp(stringTime: model.depositTime)
+        self.withDrawto.text = model.depositType == 1 ? "微信" :"银行卡"
+        self.weekLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "yyyy")
+        self.statusLb.text = model.status == 1 ? "处理中" : (model.status == 2 ?  "充值成功":  "充值失败")
+        self.timeLb.text =  Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "MM-dd")
+        self.minuteLb.text =  Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "HH:mm:ss")
+        self.bankLogo.image = model.depositType == 1 ? UIImage.init(named: "wechat") : UIImage.init(named: "中国建设银行")
         //        print(model.status)
         // 设置失败的cell的背景alpha  根据status 来判断 状态view
         //        self.backgroundColor = UIColor.groupTableViewBackground
@@ -35,7 +37,7 @@ class RechargeListVCCell: OEZTableViewCell {
 
 class RechargeListVC: BasePageListTableViewController {
     
-   
+    
     //用来接收偏移量
     var contentoffset = CGFloat()
     /** 用来判断刷新列表页第几页 **/
@@ -57,7 +59,7 @@ class RechargeListVC: BasePageListTableViewController {
     }
     //MARK: 监听键值对
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-         super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         if keyPath == "selectMonth" {
             
             if let selectMonth = change? [NSKeyValueChangeKey.newKey] as? String {
@@ -71,7 +73,7 @@ class RechargeListVC: BasePageListTableViewController {
     }
     //MARK: 网络请求列表
     override func didRequest(_ pageIndex : Int) {
-    AppAPIHelper.user().creditlist(status: "1,2,3", pos: Int32(pageIndex) , count: 10, complete: {[weak self] (result) -> ()? in
+        AppAPIHelper.user().creditlist(status: "1,2,3", pos: Int32(pageIndex) , count: 10, complete: {[weak self] (result) -> ()? in
             
             if let object = result {
                 let Model : RechargeListModel = object as! RechargeListModel
@@ -91,47 +93,47 @@ class RechargeListVC: BasePageListTableViewController {
         
     }
     
-    override  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let  headerView  = UIView ()
-        if section == 0 {
-            let  headerView  : UIView = UIView.init(frame:CGRect.init(x: 0, y: 0, width:self.view.frame.size.width, height: 40))
-            headerView.backgroundColor = UIColor.groupTableViewBackground
-            monthLb = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
-            monthLb.text = "2017年 1月"
-            monthLb.textColor = UIColor.init(hexString: "333333")
-            monthLb.font = UIFont.systemFont(ofSize: 16)
-            
-            headerView.addSubview(monthLb)
-            
-            let dateBtn :UIButton  = UIButton.init(type: UIButtonType.custom)
-            
-            dateBtn.frame = CGRect.init(x: self.view.frame.size.width-60, y: 8, width: 23, height: 23)
-            
-            dateBtn.setBackgroundImage(UIImage.init(named: "calendar"), for: UIControlState.normal)
-            dateBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-            
-            dateBtn.addTarget(self, action: #selector(selectDate), for: UIControlEvents.touchUpInside)
-            
-            headerView.addSubview(dateBtn)
-            return headerView
-            
-        }
-        
-        
-        return headerView
-    }
+    //    override  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    //
+    //        let  headerView  = UIView ()
+    //        if section == 0 {
+    //            let  headerView  : UIView = UIView.init(frame:CGRect.init(x: 0, y: 0, width:self.view.frame.size.width, height: 40))
+    //            headerView.backgroundColor = UIColor.groupTableViewBackground
+    //            monthLb = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
+    //            monthLb.text = "2017年 1月"
+    //            monthLb.textColor = UIColor.init(hexString: "333333")
+    //            monthLb.font = UIFont.systemFont(ofSize: 16)
+    //
+    //            headerView.addSubview(monthLb)
+    //
+    //            let dateBtn :UIButton  = UIButton.init(type: UIButtonType.custom)
+    //
+    //            dateBtn.frame = CGRect.init(x: self.view.frame.size.width-60, y: 8, width: 23, height: 23)
+    //
+    //            dateBtn.setBackgroundImage(UIImage.init(named: "calendar"), for: UIControlState.normal)
+    //            dateBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+    //
+    //            dateBtn.addTarget(self, action: #selector(selectDate), for: UIControlEvents.touchUpInside)
+    //
+    //            headerView.addSubview(dateBtn)
+    //            return headerView
+    //
+    //        }
+    //
+    //
+    //        return headerView
+    //    }
+    //
+    //    override   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+    //
+    //        return 40
+    //    }
+    //    override  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
+    //
+    //        return 0.1
+    //
+    //    }
     
-    override   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-        
-        return 40
-    }
-    override  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
-        
-        return 0.1
-        
-    }
-
     //MARK: ---视图添加
     func selectDate(){
         

@@ -19,7 +19,7 @@ class RechargeDetailModel: BaseModel {
      //充值金额 
        var amount: Double = 0
      // 入金时间  
-       var depositTime: Int64 = 0
+       var depositTime: String = ""
      // 入金方式 1.微信 2.银行卡	  
        var depositType: Int8 = 0
      //  微信   
@@ -46,7 +46,7 @@ class Model: BaseModel {
     //返回的列表的key
        var rid: Int64 = 0             // 充值订单流水号
        var id: Int64 = 0              // 用户id
-       var depositTime : Int64 = 0    // 入金时间
+       var depositTime : String = ""   // 入金时间
        var depositType: Int8 = 0      // 入金方式 1.微信 2.银行卡
        var depositName: String?       // 微信
        var status: Int8 = 0           // 1-处理中，2-成功，3-失败
