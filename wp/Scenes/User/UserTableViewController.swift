@@ -282,7 +282,12 @@ class UserTableViewController: BaseTableViewController {
     }
     
     deinit {
+     
         NotificationCenter.default.removeObserver(self)
+     
+        ShareModel.share().removeObserver(self, forKeyPath: "useMoney")
+        
+        
     }
     
 }

@@ -18,11 +18,17 @@ class BankLogoColor: NSObject {
         
           let data : NSMutableDictionary = NSMutableDictionary(contentsOfFile:diaryList)!
       
-        model.banklogo = data
+          model.banklogo = data
         
         return model
     }
     func readfilefromlocal(string : String) -> UIColor {
+        
+        if string == "" {
+            return UIColor.init(hexString: "98D8D")
+        }
+        
+        
         
         let str : String =  banklogo[string] as! String
     

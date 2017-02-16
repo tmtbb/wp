@@ -36,7 +36,7 @@ class WithDrawaListVCCell: OEZTableViewCell {
         var status = String()
         let timesp : Int = Date.stringToTimeStamp(stringTime: model.withdrawTime)
         
-       timeLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timesp, format: "yyyy MM dd")
+        timeLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timesp, format: "yyyy-MM-dd")
         minuteLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timesp, format: "HH:mm:ss")
         
         status = model.status == 1 ? "处理中" :  (model.status == 2 ? "充值成功" : "充值失败")
