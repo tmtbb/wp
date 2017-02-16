@@ -13,6 +13,10 @@ class CommenSocketApi: BaseSocketAPI, CommenApi {
         startRequest(SocketDataPacket.init(opcode: .imageToken), complete: complete, error: error)
     }
     
+    func errorCode(complete: CompleteBlock?, error:ErrorBlock?){
+        startRequest(SocketDataPacket.init(opcode: .errorCode), complete: complete, error: error)
+    }
+    
     //发送验证码
     func verifycode(verifyType: Int64, phone: String, complete: CompleteBlock?, error: ErrorBlock?){
         let param = [SocketConst.Key.uid: UserModel.share().currentUser?.uid ?? 0,

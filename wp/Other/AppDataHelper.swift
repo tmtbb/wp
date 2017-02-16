@@ -21,6 +21,7 @@ class AppDataHelper: NSObject {
         hurtTimer = Timer.scheduledTimer(timeInterval: 15 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
         Timer.scheduledTimer(timeInterval: 45, target: self, selector: #selector(initAllData), userInfo: nil, repeats: true)
         initProductData()
+        initErrorCode()
         checkTokenLogin()
     }
     //请求商品数据
@@ -30,7 +31,7 @@ class AppDataHelper: NSObject {
             self?.hurtTimer?.invalidate()
             if let products: [ProductModel] = result as! [ProductModel]?{
                 //拼接所有商品
-                allProducets = products
+                allProducets += products
                 //商品分类
                 self?.checkAllProductKinds(allProducts: allProducets)
                 DealModel.share().allProduct = allProducets
@@ -38,10 +39,8 @@ class AppDataHelper: NSObject {
                 if allProducets.count > 0{
                     DealModel.share().selectProduct = allProducets[0]
                 }
-                //缓存k线数据
-                self?.initLineChartData(first: true)
-                self?.initKLineModel(first: true)
-
+                //请求k线数据
+                self?.initAllData()
             }else{
     
             }
@@ -80,15 +79,22 @@ class AppDataHelper: NSObject {
     func initLineChartData(first: Bool){
         if first {
             for product in DealModel.share().productKinds{
-                lineChartData(product: product)
+                lineChartData(product: product, fromTime: Date.nowTimestemp(), toTime: Date.nowTimestemp() - 3600*2)
             }
         }
         
         if let product = DealModel.share().selectProduct {
-            lineChartData(product: product)
+            let max = KLineModel.maxTime(type: .miu, symbol:product.symbol)
+            lineChartData(product: product, fromTime: max, toTime: max - 3600*2)
         }
     }
-    func lineChartData(product: ProductModel){
+    func moreLineChartData(){
+        if let product = DealModel.share().selectProduct {
+            let min = KLineModel.minTime(type: .miu, symbol:product.symbol)
+            lineChartData(product: product, fromTime: min, toTime: min - 3600*2)
+        }
+    }
+    func lineChartData(product: ProductModel, fromTime: Double, toTime: Double){
         let param = KChartParam()
         param.symbol = product.symbol
         param.exchangeName = product.exchangeName
@@ -114,14 +120,21 @@ class AppDataHelper: NSObject {
     func initKLineChartData(type: KLineModel.KLineType, first: Bool) {
         if first {
             for product in DealModel.share().productKinds {
-                kLineChartData(type: type, product: product)
+                kLineChartData(type: type, product: product, fromTime: Date.nowTimestemp(), toTime: Date.nowTimestemp() - 3600*2 )
             }
         }
         if let product = DealModel.share().selectProduct {
-           kLineChartData(type: type, product: product)
+            let max = KLineModel.maxTime(type: type, symbol:product.symbol)
+           kLineChartData(type: type, product: product, fromTime: max, toTime: max - 3600*2)
         }
     }
-    func kLineChartData(type: KLineModel.KLineType, product: ProductModel) {
+    func moreKLineChartData(type: KLineModel.KLineType){
+        if let product = DealModel.share().selectProduct {
+            let min = KLineModel.minTime(type: type, symbol:product.symbol)
+            kLineChartData(type: type, product: product, fromTime: min, toTime: min - 3600*2)
+        }
+    }
+    func kLineChartData(type: KLineModel.KLineType, product: ProductModel, fromTime: Double, toTime: Double) {
         let param = KChartParam()
         param.symbol = product.symbol
         param.exchangeName = product.exchangeName
@@ -172,5 +185,16 @@ class AppDataHelper: NSObject {
         UserDefaults.standard.removeObject(forKey: SocketConst.Key.token)
         UserModel.share().currentUser = nil
     }
-
+    
+    //获取错误信息
+    func initErrorCode() {
+        AppAPIHelper.commen().errorCode(complete: { (result) -> ()? in
+            if let errorDic: NSDictionary = result as? NSDictionary{
+                let path = Bundle.main.path(forResource: "errorcode.plist", ofType:nil)
+                let success = errorDic.write(toFile: path!, atomically: true)
+                print(success ? "错误码写入成功" : "错误码写入失败")
+            }
+            return nil
+        }, error: nil)
+    }
 }

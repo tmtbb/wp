@@ -57,6 +57,7 @@ class KLineView: UIView, ChartViewDelegate {
                 chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.zoom(scaleX: 2.0, scaleY: 0, x: 0, y: 0)
                 chartsView.delegate = self
+                chartsView.chartDescription?.text = "云巅科技"
             }
         }
     }
@@ -66,6 +67,9 @@ class KLineView: UIView, ChartViewDelegate {
             let model = currentModels[index]
             print(model)
         }
+    }
+    func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat) {
+        
     }
     func refreshKLine() {
         switch selectIndex {
