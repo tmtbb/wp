@@ -97,10 +97,12 @@ class SelectBankVC: BaseListTableViewController {
         let  Model : BankListModel = self.dataArry[indexPath.section]
         
         cell.update(Model.self)
-        cell.accessoryType =  UITableViewCellAccessoryType .none
+        cell.contentView.alpha =  0.7
         
         if indexPath.section == selectNumber {
-            cell.accessoryType =  UITableViewCellAccessoryType .checkmark
+            
+             cell.contentView.alpha =  1
+//            cell.accessoryType =  UITableViewCellAccessoryType .checkmark
         }
         return cell
     }

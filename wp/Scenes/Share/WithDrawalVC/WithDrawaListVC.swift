@@ -34,9 +34,13 @@ class WithDrawaListVCCell: OEZTableViewCell {
         withDrawTo.text = "提现至" + "\(bankName)"
         moneyLb.text =   "\(model.amount)" 
         var status = String()
+        let timesp : Int = Date.stringToTimeStamp(stringTime: model.withdrawTime)
         
-        status = model.status == 1 ? "处理中" :  (model.status == 2 ? "成功" : "失败")
+       timeLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timesp, format: "yyyy MM dd")
+        minuteLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timesp, format: "HH:mm:ss")
         
+        status = model.status == 1 ? "处理中" :  (model.status == 2 ? "充值成功" : "充值失败")
+        bankLogo.image = UIImage.init(named: model.bank)
 //        if model.status == 1 {
 //            status = "处理中"
 //        } else if model.status == 2 {
@@ -44,7 +48,10 @@ class WithDrawaListVCCell: OEZTableViewCell {
 //        }else{
 //            status = "失败"
 //        }
-        timeLb.text = "\(model.withdrawTime)"
+        //yyyy.MM.dd HH:mm:ss
+        
+        
+//        timeLb.text = Date.stringToTimeStamp(stringTime: model.withdrawTime)
         print(model.status)
         statusBtn.setTitle(status, for: UIControlState.normal)
     }
