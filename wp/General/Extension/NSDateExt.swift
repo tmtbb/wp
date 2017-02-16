@@ -13,6 +13,20 @@ extension Date{
     static func nowTimestemp() -> TimeInterval{
         return Date().timeIntervalSince1970
     }
+    /* date 转时间戳*/
+   static  func  stringToTimeStamp(stringTime:String)->Int {
+        
+        let dfmatter = DateFormatter()
+        dfmatter.dateFormat="yyyy.MM.dd HH:mm:ss"
+        let date = dfmatter.date(from: stringTime)
+        
+        let dateStamp:TimeInterval = date!.timeIntervalSince1970
+        let dateSt:Int = Int(dateStamp)
+        print(dateSt)
+        return dateSt
+    }
+    
+
     
     static func startTimestemp() -> TimeInterval{
         let nowDateStr = yt_convertDateToStr(Date(), format: "yyyy-MM-dd")
@@ -52,7 +66,17 @@ extension Date{
         let date = Date.init(timeIntervalSince1970: Double(timeStemp)/1000 as TimeInterval)
         return yt_convertDateToStr(date, format: format)
     }
-    
+    /**
+     *  时间戳转日期字符串
+     */
+    static func yt_convertDateStrWithTimestempWithSecond(_ timeStemp: Int, format: String) -> String {
+        let formatter = DateFormatter.init()
+        formatter.dateFormat = format
+        formatter.timeZone = TimeZone.autoupdatingCurrent
+        let date = Date.init(timeIntervalSince1970: Double(timeStemp) as TimeInterval)
+        return yt_convertDateToStr(date, format: format)
+    }
+
     
     
     /**
@@ -78,6 +102,5 @@ extension Date{
         let compents: DateComponents = (Calendar.current as NSCalendar).components(.day, from: self)
         return compents.day!
     }
-    
-    
+
 }

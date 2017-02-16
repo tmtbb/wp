@@ -46,7 +46,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
     }
     //MARK: --网络请求
     override func didRequest(_ pageIndex : Int) {
-    didRequestComplete(["","","","","","","","","","","","","","","","","","","","",""] as AnyObject)
+    didRequestComplete(["","",""] as AnyObject)
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
             if let object = result {
                 let  money : Double =  object["balance"] as! Double
@@ -65,13 +65,13 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         
     }
     //MARK: --tableView delegate
-    override func numberOfSections(in tableView: UITableView) -> Int{
-        return 2
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int{
+//        return 2
+//    }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
-        return 0.1
-    }
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
+//        return 0.1
+//    }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
 //         return 38
 //         return 65
@@ -102,10 +102,10 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-        
-        return 40
-    }
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+//        
+//        return 40
+//    }
     //MARK: --充值按钮的点击事件
     @IBAction func recharge(_ sender: Any) {
         recharge.isSelected = true
