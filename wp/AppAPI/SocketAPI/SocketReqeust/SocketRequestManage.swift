@@ -84,7 +84,6 @@ class SocketRequestManage: NSObject {
         } else {
             socketReqeust?.onComplete(response)
         }
-        
     }
     
     
@@ -92,6 +91,7 @@ class SocketRequestManage: NSObject {
         objc_sync_enter(self)
         for (key,reqeust) in socketRequests {
             if reqeust.isReqeustTimeout() {
+                print(">>>>>>>>>>>>>>>>>>>>>>>>\(key)")
                 socketRequests.removeValue(forKey: key)
                 reqeust.onError(-11011)
                 break
@@ -139,6 +139,7 @@ class SocketRequestManage: NSObject {
             socketRequests[packet.session_id] = socketReqeust;
         }
         objc_sync_exit(self)
+        print("\(packet.session_id)=======================\(packet.operate_code)")
         sendRequest(packet)
     }
   

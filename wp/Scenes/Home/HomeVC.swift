@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Alamofire
 import DKNightVersion
+import iCarousel
 class HomeVC: BaseTableViewController {
     
     //交易明细数据
@@ -87,6 +88,7 @@ class HomeVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
+        bannerView.bannerDelegate = self
         navigationController?.addSideMenuButton()
         tableView.tableHeaderView?.layer.shadowColor = UIColor.black.cgColor
         tableView.tableHeaderView?.layer.shadowOpacity = 0.1
@@ -269,8 +271,12 @@ class HomeVC: BaseTableViewController {
     
 }
 
-extension HomeVC:SecondViewCellDelegate {
+extension HomeVC:SecondViewCellDelegate, BannerViewDelegate {
     func masterDidClick() {
         tabBarController?.selectedIndex = 2
+    }
+    
+    func banner(_ banner: iCarousel, didSelectItemAt index: Int) {
+        print(index)
     }
 }

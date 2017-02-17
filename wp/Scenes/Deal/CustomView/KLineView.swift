@@ -156,7 +156,10 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         for (index, model) in models.enumerated(){
             let _ = autoreleasepool(invoking: {
                 let location = Double(index+1)
-                let entry = convertModelToCandleDataEntry(model: model, location:location)
+                if index < 5 {
+                    print(model)
+                }
+                let entry = CandleChartDataEntry.init(x:location, shadowH: model.highPrice, shadowL: model.lowPrice, open: model.openingTodayPrice, close: model.closedYesterdayPrice)
                 entrys.append(entry)
                 let _ = autoreleasepool(invoking: {
                     model
@@ -179,15 +182,5 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         klineCharts.data?.notifyDataChanged()
         let max = models.count + 10
         klineCharts.xAxis.axisMaximum = Double(max)
-    }
-    
-    func convertModelToCandleDataEntry(model: KChartModel, location:Double) -> CandleChartDataEntry {
-        let entry = CandleChartDataEntry.init(x:location, shadowH: model.highPrice, shadowL: model.lowPrice, open: model.openingTodayPrice, close: model.closedYesterdayPrice)
-        return entry
-    }
-    
-    func convertModelToLineDataEntry(model: KChartModel, location:Double) -> ChartDataEntry {
-        let entry = ChartDataEntry.init(x: location, y: model.currentPrice)
-        return entry
     }
 }

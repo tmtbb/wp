@@ -24,7 +24,14 @@ class BannerItemView: UIView {
     }
 }
 
+@objc protocol BannerViewDelegate{
+    func banner(_ banner: iCarousel, didSelectItemAt index: Int)
+}
+
 class BannerView: iCarousel, iCarouselDelegate, iCarouselDataSource {
+    
+    weak var bannerDelegate: BannerViewDelegate?
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         backgroundColor = AppConst.Color.CMain
@@ -67,7 +74,9 @@ class BannerView: iCarousel, iCarouselDelegate, iCarouselDataSource {
     }
 
     func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
-        
+        if bannerDelegate != nil  {
+            bannerDelegate?.banner(carousel, didSelectItemAt: index)
+        }
     }
 }
 
