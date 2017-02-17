@@ -34,7 +34,7 @@ class BannerView: iCarousel, iCarouselDelegate, iCarouselDataSource {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        backgroundColor = AppConst.Color.CMain
+        backgroundColor = UIColor.white
         delegate = self
         dataSource = self
         bannerData = []
