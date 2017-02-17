@@ -76,7 +76,7 @@ class HistoryDealVC: BasePageListTableViewController {
                 }else{
                     
                     self?.models = (self?.models)! + models
-                    self?.didRequestComplete(self?.models as AnyObject?)
+                    self?.didRequestComplete(models as AnyObject?)
                 }
             }
                                     return nil
