@@ -26,7 +26,9 @@ class BindingBankVCCell: UITableViewCell {
         banklogo.image = UIImage.init(named: (model?.bank)!)
         bankName.text = model!.bank
         cardNum.text = "\((model!.cardNo as NSString).substring(to: 4))" + "  ****   ****   *** " + "\((model!.cardNo as NSString).substring(from: model!.cardNo.length()-3))"
-        banklogo.image = UIImage.init(named: (model?.bank)!)
+//        banklogo.image = UIImage.init(named: (model?.bank)!)
+        
+         banklogo.image = BankLogoColor.share().checkLocalBank(string: (model?.bank)!) ? UIImage.init(named: (model?.bank)!) : UIImage.init(named: "unionPay")
         
     }
 }
