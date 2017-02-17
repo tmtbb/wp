@@ -49,7 +49,8 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     
     //建仓
     internal func buildDeal(model: DealParam, complete: CompleteBlock?, error: ErrorBlock?) {
-        model.id = 32
+        model.id = UserModel.share().currentUser?.uid ?? 32
+        model.token = UserModel.token ?? "adc28ac69625652b46d5c00b"
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .buildDeal, model: model, type: .deal)
         startModelRequest(packet, modelClass: PositionModel.self, complete: complete, error: error)
     }
