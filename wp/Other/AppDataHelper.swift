@@ -40,7 +40,8 @@ class AppDataHelper: NSObject {
                     DealModel.share().selectProduct = allProducets[0]
                 }
                 //请求k线数据
-                self?.initAllData()
+                self?.initKLineModel(first: true)
+                self?.initLineChartData(first: true)
             }else{
     
             }

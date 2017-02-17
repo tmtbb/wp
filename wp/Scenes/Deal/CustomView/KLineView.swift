@@ -71,12 +71,6 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
 //            print(model)
         }
     }
-    func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat) {
-        print(dX)
-    }
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        print(currentCharts?.frame.origin.x ?? 0)
-    }
     
     func refreshKLine() {
         switch selectIndex {
