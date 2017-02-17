@@ -47,19 +47,19 @@ class SocketRequestManage: NSObject {
         objc_sync_exit(self)
     }
     
-    var reqeustId:UInt32 {
-        get {
-            objc_sync_enter(self)
-            if _reqeustId > 2000000000 {
-                _reqeustId = 10000
-            }
-            _reqeustId += 1
-            objc_sync_exit(self)
-            return _reqeustId;
-        }
-        
-    }
-    
+//    var reqeustId:UInt32 {
+//        get {
+//            objc_sync_enter(self)
+//            if _reqeustId > 2000000000 {
+//                _reqeustId = 10000
+//            }
+//            _reqeustId += 1
+//            objc_sync_exit(self)
+//            return _reqeustId;
+//        }
+//        
+//    }
+//    
     var sessionId:UInt64 {
         get {
             objc_sync_enter(self)
@@ -133,7 +133,7 @@ class SocketRequestManage: NSObject {
         let socketReqeust = SocketRequest();
         socketReqeust.error = error;
         socketReqeust.complete = complete;
-        packet.request_id = reqeustId;
+        packet.request_id = 0;
         packet.session_id = sessionId;
         operate_code = Int(packet.operate_code)
         objc_sync_enter(self)
@@ -149,13 +149,7 @@ class SocketRequestManage: NSObject {
         objc_sync_exit(self)
         sendRequest(packet)
     }
-    
-    func sendChatMsg(_ packet: SocketDataPacket,complete:CompleteBlock,error:ErrorBlock) {
-        packet.request_id = reqeustId;
-        packet.session_id = _sessionId;
-        sendRequest(packet)
-    }
-    
+  
     fileprivate func timeNow() ->TimeInterval {
         return Date().timeIntervalSince1970
     }

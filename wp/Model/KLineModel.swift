@@ -104,6 +104,34 @@ class KLineModel: NSObject {
             print("读取\(type)K分时数据===========================\(Thread.current)")
         })
     }
+    
+    //读取某种商品某种k线的最大值
+    class func maxTime(type: KLineType, symbol:String) -> Double {
+        let realm  = try! Realm()
+        if type == .miu {
+            let queryStr = NSPredicate.init(format: "symbol = %@",symbol)
+            let result = realm.objects(KChartModel.self).filter(queryStr)
+            return result.max(ofProperty: "priceTime") ?? 0
+        }else{
+            let queryStr = NSPredicate.init(format: "symbol = %@",symbol)
+            let result = realm.objects(KLineChartModel.self).filter(queryStr).filter("chartType = \(type.rawValue)")
+            return result.max(ofProperty: "priceTime") ?? 0
+        }
+    }
+    
+    //读取某种商品某种k线的最大值
+    class func minTime(type: KLineType, symbol:String) -> Double {
+        let realm  = try! Realm()
+        if type == .miu {
+            let queryStr = NSPredicate.init(format: "symbol = %@",symbol)
+            let result = realm.objects(KChartModel.self).filter(queryStr)
+            return result.min(ofProperty: "priceTime") ?? 0
+        }else{
+            let queryStr = NSPredicate.init(format: "symbol = %@",symbol)
+            let result = realm.objects(KLineChartModel.self).filter(queryStr).filter("chartType = \(type.rawValue)")
+            return result.min(ofProperty: "priceTime") ?? 0
+        }
+    }
    
 }
 //    //缓存K线模型
