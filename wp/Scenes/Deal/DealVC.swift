@@ -39,7 +39,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         super.viewWillAppear(true)
         showTabBarWithAnimationDuration()
 
-        YD_CountDownHelper.shared.reStart()
         if let money = UserModel.share().currentUser?.balance{
             myMoneyLabel.text = String.init(format: "%.2f", money)
         }
@@ -56,8 +55,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
       //  hideTabBarWithAnimationDuration()
-        YD_CountDownHelper.shared.pause()
-        
     }
     deinit {
         DealModel.share().removeObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue)

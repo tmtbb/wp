@@ -121,7 +121,6 @@ class DealListCell: UITableViewCell {
     }
     
     func setData(positionModel:PositionModel) {
-        
         self.positionModel = positionModel
         startTime = self.positionModel!.positionTime
         totalCount = self.positionModel!.closeTime - startTime
@@ -129,6 +128,9 @@ class DealListCell: UITableViewCell {
         countLabel.text = "手数\(self.positionModel!.amount)"
         timeCount = YD_CountDownHelper.shared.getResidueCount(startTime: startTime, totalCount: totalCount)
         refreshText()
+//        UIView.animate(withDuration: 1.0) {
+//            self.progressView.frame = CGRect(x: self.progressView.frame.origin.x, y: self.progressView.frame.origin.y, width: self.curretWidth(), height: self.progressView.frame.size.height)
+//        }
     }
 
     
@@ -136,11 +138,8 @@ class DealListCell: UITableViewCell {
         if timeCount >= 0 {
             timeCount -= 1
             countDownLabel.text = YD_CountDownHelper.shared.getTextWithStartTime(startTime:startTime, totalCount:totalCount)
-            countDownLabel.setNeedsDisplay()
             countDownLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
-            UIView.animate(withDuration: 1.0, animations: {
-                self.resetProgressViewConstraints()
-            })
+            resetProgressViewConstraints()
             
         }else {
             countDownLabel.text = "00:00:00s"
