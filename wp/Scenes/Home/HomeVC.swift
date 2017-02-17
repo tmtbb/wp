@@ -277,6 +277,12 @@ extension HomeVC:SecondViewCellDelegate, BannerViewDelegate {
     }
     
     func banner(_ banner: iCarousel, didSelectItemAt index: Int) {
-        print(index)
+        let webController = WPWebViewController()
+        webController.title = "交易规则"
+        let url = Bundle.main.url(forResource: "航空运费定盘.html", withExtension: nil)
+        let html = try! String.init(contentsOf: url!, encoding: .utf8)
+        let baseUrl = URL.init(fileURLWithPath: Bundle.main.bundlePath)
+        webController.webView.loadHTMLString(html, baseURL: baseUrl)
+        navigationController?.pushViewController(webController, animated: true)
     }
 }

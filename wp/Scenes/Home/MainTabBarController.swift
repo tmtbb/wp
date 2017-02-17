@@ -15,6 +15,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate {
     var select = Int ()
     override func viewDidLoad() {
         super.viewDidLoad();
+        view.backgroundColor = UIColor.white
         //友盟的帐号统计
         MobClick.profileSignIn(withPUID: "")
         select = 0
