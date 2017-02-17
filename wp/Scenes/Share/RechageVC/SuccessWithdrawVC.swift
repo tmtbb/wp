@@ -10,6 +10,8 @@ import UIKit
 
 class SuccessWithdrawVC: BaseTableViewController {
 
+    
+      @IBOutlet weak var bankLogo: UIImageView!
     // 银行名称
     @IBOutlet weak var bankName: UILabel!
     
@@ -25,7 +27,7 @@ class SuccessWithdrawVC: BaseTableViewController {
         title = "提现状态"
         self.bankName.text = ShareModel.share().detailModel.bank
         let amount : Double =  ShareModel.share().detailModel.amount
-        moneyAccount.text = "\(amount)"
+        moneyAccount.text = "\(amount) 元"
         
         var status = String()
         
@@ -39,7 +41,10 @@ class SuccessWithdrawVC: BaseTableViewController {
         else{
             status = "失败"
         }
-        self.status.text! = status
+        
+          bankLogo.image = BankLogoColor.share().checkLocalBank(string: ShareModel.share().detailModel.bank) ? UIImage.init(named: ShareModel.share().detailModel.bank) : UIImage.init(named: "unionPay")
+           self.status.text! = ShareModel.share().detailModel.status == 1 ? "处理中" :  (ShareModel.share().detailModel.status == 2 ? "提现成功" : "提现失败")
+       
 
     }
 
