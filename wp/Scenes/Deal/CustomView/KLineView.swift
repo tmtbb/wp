@@ -58,7 +58,6 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
                 chartsView.leftAxis.labelFont = UIFont.systemFont(ofSize: 0)
                 chartsView.leftAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
-                chartsView.zoom(scaleX: 2.0, scaleY: 0, x: 0, y: 0)
                 chartsView.delegate = self
                 chartsView.chartDescription?.text = "云巅科技"
             }
@@ -73,6 +72,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
     }
     
     func refreshKLine() {
+        currentCharts?.zoom(scaleX: 0, scaleY: 0, x: 0, y: 0)
         switch selectIndex {
         case 0:
             initMiuLChartsData()
@@ -132,7 +132,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         miuCharts.data = data
         miuCharts.data?.notifyDataChanged()
         miuCharts.setNeedsDisplay()
-        let max = models.count + 100
+        let max = models.count + 30
         miuCharts.xAxis.axisMaximum = Double(max)
     }
     //MARK: --读取K线数据
@@ -179,7 +179,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         
         klineCharts.data = combinData
         klineCharts.data?.notifyDataChanged()
-        let max = models.count + 30
+        let max = models.count + 10
         klineCharts.xAxis.axisMaximum = Double(max)
     }
     
