@@ -14,6 +14,8 @@ class SocketConst: NSObject {
         case heart = 1000
         // 获取图片上传token
         case imageToken = 1047
+        // 错误码
+        case errorCode = 7000
         // 登录
         case login = 3003
         // 注册

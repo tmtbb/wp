@@ -45,8 +45,7 @@ class BankLogoColor: NSObject {
     
     func checkLocalBank(string : String) -> Bool {
         
-        if  banklogo[string] as! String != ""
-           {
+        if banklogo[string] != nil{
         
             return true
         }else{

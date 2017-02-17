@@ -10,17 +10,20 @@ import UIKit
 import Charts
 import RealmSwift
 import SVProgressHUD
-class KLineView: UIView, ChartViewDelegate {
+class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
     @IBOutlet weak var miuCharts: LineChartView!
     @IBOutlet weak var klineCharts: CombinedChartView!
+    private var currentCharts: BarLineChartViewBase?
     private var currentModels: [KChartModel] = []
     var selectIndex: NSInteger!{
         didSet{
             switch selectIndex {
             case 0:
+                currentCharts = self.miuCharts
                 bringSubview(toFront: self.miuCharts)
                 break
             default:
+                currentCharts = self.klineCharts
                 bringSubview(toFront: self.klineCharts)
             }
             refreshKLine()
@@ -57,16 +60,18 @@ class KLineView: UIView, ChartViewDelegate {
                 chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.zoom(scaleX: 2.0, scaleY: 0, x: 0, y: 0)
                 chartsView.delegate = self
+                chartsView.chartDescription?.text = "云巅科技"
             }
         }
     }
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let index = Int(entry.x)
         if index >= 0 && index < currentModels.count {
-            let model = currentModels[index]
-            print(model)
+//            let model = currentModels[index]
+//            print(model)
         }
     }
+    
     func refreshKLine() {
         switch selectIndex {
         case 0:
@@ -91,6 +96,7 @@ class KLineView: UIView, ChartViewDelegate {
     
     //MARK: --读取分时数据
     func initMiuLChartsData() {
+        
         let type = DealModel.share().selectProduct == nil ? "" : DealModel.share().selectProduct?.symbol
         let fromTime: Int = Int(Date.startTimestemp())
         let toTime: Int = Int(Date.nowTimestemp())
@@ -109,7 +115,6 @@ class KLineView: UIView, ChartViewDelegate {
             miuCharts.clearValues()
             return
         }
-        
         var entrys: [ChartDataEntry] = []
         for (i, model) in models.enumerated()  {
             let entry = ChartDataEntry.init(x: Double(i), y: model.currentPrice)
@@ -176,7 +181,6 @@ class KLineView: UIView, ChartViewDelegate {
         klineCharts.data?.notifyDataChanged()
         let max = models.count + 30
         klineCharts.xAxis.axisMaximum = Double(max)
-
     }
     
     func convertModelToCandleDataEntry(model: KChartModel, location:Double) -> CandleChartDataEntry {
