@@ -37,7 +37,6 @@ class RechargeListVCCell: OEZTableViewCell {
 
 class RechargeListVC: BasePageListTableViewController {
     
-    
     //用来接收偏移量
     var contentoffset = CGFloat()
     /** 用来判断刷新列表页第几页 **/
