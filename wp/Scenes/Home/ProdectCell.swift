@@ -62,6 +62,7 @@ class ProdectCell: UITableViewCell {
             lowPrice.text = String.init(format: "%.4f", kChartModel!.lowPrice)
             changeLabel.text = String.init(format: "%.4f", kChartModel!.change)
             changePer.text = String.init(format: "%.2f%%", kChartModel!.pchg)
+            lowPrice.dk_textColorPicker =  DKColorTable.shared().picker(withKey: AppConst.Color.buyDown)
             
             let colorKey = kChartModel!.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
             changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
