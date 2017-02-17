@@ -112,8 +112,17 @@ class SocketDataPacket {
         return outdata as Data;
     }
 
-    func bodyDictionary() -> NSDictionary {
-        return try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary;
+    func dataSerializationDict() ->  NSDictionary! {
+        if data?.count == 0  {
+            return nil
+        }
+        do{
+            return try JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary
+        }catch let error as Error! {
+            debugPrint("解析json \(error)")
+        }
+        return nil
+        
     }
     
 //    deinit {

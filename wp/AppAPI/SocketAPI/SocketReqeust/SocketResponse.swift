@@ -32,7 +32,10 @@ class SocketJsonResponse: SocketResponse {
         get{
             let dict:NSDictionary? = responseJsonObject() as? NSDictionary
             var errorCode: Int = 0;
-            if(  dict != nil && dict?["errorCode"] != nil ) {
+            if ( dict == nil ) {
+                errorCode = -11012; //json解析失败
+            }
+            else if(  dict != nil && dict?["errorCode"] != nil ) {
                 errorCode =  dict?["errorCode"] as! Int;
             }
             else {
@@ -45,8 +48,14 @@ class SocketJsonResponse: SocketResponse {
         if body?.data?.count == 0  {
             return nil
         }
+        
         if _jsonOjbect == nil  {
-            _jsonOjbect = try! JSONSerialization.jsonObject(with: body!.data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject?
+            
+            do{
+                _jsonOjbect = try JSONSerialization.jsonObject(with: body!.data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject?
+            }catch let error as Error! {
+                 debugPrint("解析json \(error)")
+            }
         }
         return _jsonOjbect
     }
