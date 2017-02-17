@@ -28,8 +28,10 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     }
     
     //历史仓位列表
-    func historyDeals(complete: CompleteBlock?, error:ErrorBlock?){
+    func historyDeals(start: Int,count: Int,complete: CompleteBlock?, error:ErrorBlock?){
         let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.uid ?? 32,
+                                    SocketConst.Key.countNuber: count,
+                                    SocketConst.Key.start: start,
 
                                     SocketConst.Key.token: UserModel.token ?? "adc28ac69625652b46d5c00b"]
       

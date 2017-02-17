@@ -28,7 +28,9 @@ class RechargeListVCCell: OEZTableViewCell {
         self.statusLb.text = model.status == 1 ? "处理中" : (model.status == 2 ?  "充值成功":  "充值失败")
         self.timeLb.text =  Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "MM-dd")
         self.minuteLb.text =  Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "HH:mm:ss")
-        self.bankLogo.image = model.depositType == 1 ? UIImage.init(named: "wechat") : UIImage.init(named: "中国建设银行")
+        
+//        BankLogoColor.share().checkLocalBank(string: model.ba)
+        self.bankLogo.image = model.depositType == 1 ? UIImage.init(named: "wechat") : (UIImage.init(named: "unionPay"))
         //        print(model.status)
         // 设置失败的cell的背景alpha  根据status 来判断 状态view
         //        self.backgroundColor = UIColor.groupTableViewBackground
