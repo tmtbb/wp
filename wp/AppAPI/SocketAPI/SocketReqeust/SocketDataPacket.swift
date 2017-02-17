@@ -111,10 +111,6 @@ class SocketDataPacket {
         }
         return outdata as Data;
     }
-
-    func bodyDictionary() -> NSDictionary {
-        return try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary;
-    }
     
 //    deinit {
 //            XCGLogger.debug("deinit \(self)")
