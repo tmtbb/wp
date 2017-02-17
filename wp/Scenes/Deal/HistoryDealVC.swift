@@ -66,31 +66,32 @@ class HistoryDealVC: BasePageListTableViewController {
         initUI()
     }
     override func didRequest(_ pageIndex: Int) {
-        AppAPIHelper.deal().historyDeals(complete: {[weak self] (result) -> ()? in
+
+        AppAPIHelper.deal().historyDeals(start: pageIndex, count: 10, complete: { [weak self](result) -> ()? in
+           
             if let models: [PositionModel] = result as! [PositionModel]?{
                 if pageIndex == 1 {
                     self?.models =  models
                     self?.didRequestComplete(self?.models as AnyObject?)
                 }else{
-                
+                    
                     self?.models = (self?.models)! + models
                     self?.didRequestComplete(self?.models as AnyObject?)
                 }
-               
             }
-            return nil
-            }, error: errorBlockFunc())
-//        initData()
-    }
+                                    return nil
+        }, error: errorBlockFunc())
+            
+        }
     //MARK: --DATA
     func initData() {
-        AppAPIHelper.deal().historyDeals(complete: {[weak self] (result) -> ()? in
-            if let models: [PositionModel] = result as! [PositionModel]?{
-                self?.models = (self?.models)! + models
-                self?.didRequestComplete(self?.models as AnyObject?)
-            }
-            return nil
-        }, error: errorBlockFunc())
+//        AppAPIHelper.deal().historyDeals(start: 0, count: 10, complete: { [weak self](result) -> ()? in
+//            if let models: [PositionModel] = result as! [PositionModel]?{
+//                self?.models = (self?.models)! + models
+//                self?.didRequestComplete(self?.models as AnyObject?)
+//            }
+//            return nil
+//        }, error: errorBlockFunc())
     }
     //MARK: --UI
     func initUI() {

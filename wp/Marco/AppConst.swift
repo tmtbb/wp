@@ -72,6 +72,7 @@ class AppConst {
         static let TcpServerPort:UInt16 = 16001;
         static let TttpHostUrl:String = "http://61.147.114.87";
 
+
         #else
         //61.147.114.87  16000
         static let TcpServerIP:String = "192.168.8.131";
