@@ -59,7 +59,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
                 chartsView.leftAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.delegate = self
-                chartsView.chartDescription?.text = "云巅科技"
+                chartsView.chartDescription?.text = ""
             }
         }
     }
