@@ -180,12 +180,21 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                             self?.changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
                             self?.changePerLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
                             self?.priceLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+                            self?.updatePrice(price: model.currentPrice)
                         }
                     }
                 }
                 return nil
             }, error: errorBlockFunc())
         }
+    }
+    func updatePrice(price: Double) {
+        for product in DealModel.share().allProduct {
+            if product.symbol == DealModel.share().selectProduct!.symbol {
+                product.price = price * product.depositFee
+            }
+        }
+        productsView.reloadData()
     }
     
     //MARK: --UI
