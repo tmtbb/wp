@@ -146,7 +146,6 @@ class SocketRequestManage: NSObject {
         }else{
             socketRequests[packet.session_id] = socketReqeust;
         }
-        print("\(packet.session_id)===============================\(packet.operate_code)")
         objc_sync_exit(self)
         sendRequest(packet)
     }

@@ -73,7 +73,9 @@ class AppDataHelper: NSObject {
     //预加载所有k线数据
     func initAllData() {
         initLineChartData(first: false)
+        moreLineChartData()
         initKLineModel(first: false)
+        moreKLineModel()
     }
     //根据商品分时数据
     func initLineChartData(first: Bool){
@@ -100,6 +102,7 @@ class AppDataHelper: NSObject {
         param.exchangeName = product.exchangeName
         param.platformName = product.platformName
         param.aType = 4
+        param.startTime = Int64(fromTime)
         AppAPIHelper.deal().timeline(param: param, complete: {(result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel]{
                 KLineModel.cacheTimelineModels(models: models)
@@ -116,6 +119,15 @@ class AppDataHelper: NSObject {
         initKLineChartData(type: .miu15, first: first)
         initKLineChartData(type: .miu30, first: first)
         initKLineChartData(type: .miu60, first: first)
+    }
+    func moreKLineModel() {
+        moreKLineChartData(type: .miu5)
+        moreKLineChartData(type: .miu15)
+        moreKLineChartData(type: .miu30)
+        moreKLineChartData(type: .miu60)
+    }
+    func moreLineModel(type: KLineModel.KLineType) {
+        moreKLineChartData(type: .miu5)
     }
     func initKLineChartData(type: KLineModel.KLineType, first: Bool) {
         if first {
@@ -140,6 +152,7 @@ class AppDataHelper: NSObject {
         param.exchangeName = product.exchangeName
         param.platformName = product.platformName
         param.chartType = type.rawValue
+        param.startTime = Int64(fromTime)
         AppAPIHelper.deal().kChartsData(param: param, complete: { (result) -> ()? in
             if let chart: ChartModel = result as? ChartModel{
                 KLineModel.cacheKChartModels(chart: chart)
