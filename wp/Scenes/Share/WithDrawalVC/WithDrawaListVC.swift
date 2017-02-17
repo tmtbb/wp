@@ -40,7 +40,7 @@ class WithDrawaListVCCell: OEZTableViewCell {
         minuteLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timesp, format: "HH:mm:ss")
         
         status = model.status == 1 ? "处理中" :  (model.status == 2 ? "充值成功" : "充值失败")
-        bankLogo.image = UIImage.init(named: model.bank)
+        bankLogo.image = BankLogoColor.share().checkLocalBank(string: model.bank) ? UIImage.init(named: model.bank) : UIImage.init(named: "unionPay")
 //        if model.status == 1 {
 //            status = "处理中"
 //        } else if model.status == 2 {

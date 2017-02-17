@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DealDetailCell: UITableViewCell {
+class DealDetailCell: OEZTableViewCell {
 
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var dealType: UILabel!
