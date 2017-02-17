@@ -66,8 +66,6 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let index = Int(entry.x)
         if index >= 0 && index < currentModels.count {
-//            let model = currentModels[index]
-//            print(model)
         }
     }
     
