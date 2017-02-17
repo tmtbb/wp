@@ -39,7 +39,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         super.viewWillAppear(true)
         showTabBarWithAnimationDuration()
 
-        YD_CountDownHelper.shared.reStart()
         if let money = UserModel.share().currentUser?.balance{
             myMoneyLabel.text = String.init(format: "%.2f", money)
         }
@@ -56,8 +55,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
       //  hideTabBarWithAnimationDuration()
-        YD_CountDownHelper.shared.pause()
-        
     }
     deinit {
         DealModel.share().removeObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue)
@@ -95,6 +92,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     //MARK: --我的资产
     @IBAction func jumpToMyWallet(_ sender: AnyObject) {
+        
+        
         if checkLogin(){
             let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: MyWealtVC.className())

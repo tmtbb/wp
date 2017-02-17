@@ -107,8 +107,10 @@ class BuyProductVC: UIViewController {
         buyModel.buySell = DealModel.share().dealUp ? 1 : -1
         buyModel.amount = Int(countSlider.value)
         buyModel.isDeferred = DealModel.share().buyModel.isDeferred
+
         AppAPIHelper.deal().buildDeal(model: buyModel, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
+
             if let product: PositionModel = result as? PositionModel{
                 self?.dismissController()
                 DealModel.cachePosition(position: product)

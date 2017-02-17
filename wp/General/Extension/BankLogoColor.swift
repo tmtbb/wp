@@ -22,17 +22,35 @@ class BankLogoColor: NSObject {
         
         return model
     }
+    //  读取颜色
     func readfilefromlocal(string : String) -> UIColor {
         
         if string == "" {
             return UIColor.init(hexString: "98D8D")
         }
+        if banklogo[string] != nil {
+            
+             let str : String =  banklogo[string] as! String
+             return UIColor.init(hexString: str)
+        }
+        let dict = ["1":"2","3":"4"]
+       
+        return UIColor.init(hexString: "1D6AAF")
         
-        
-        
-        let str : String =  banklogo[string] as! String
+       
     
-        return UIColor.init(hexString: str)
+       
+    }
+     //  判断是否是本地的五大银行
+    
+    func checkLocalBank(string : String) -> Bool {
         
+        if banklogo[string] != nil{
+        
+            return true
+        }else{
+        
+            return false
+        }
     }
 }

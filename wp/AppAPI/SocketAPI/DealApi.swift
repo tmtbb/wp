@@ -14,7 +14,7 @@ protocol DealApi{
     //当前仓位详情
     func currentDealDetail(positionId: Int, complete: CompleteBlock?, error:ErrorBlock?)
     //历史仓位列表
-    func historyDeals(complete: CompleteBlock?, error:ErrorBlock?)
+    func historyDeals(start: Int,count: Int,complete: CompleteBlock?, error:ErrorBlock?)
     //历史仓位详情
     func historyDealDetail(positionId: Int, complete: CompleteBlock?, error:ErrorBlock?)
     //建仓

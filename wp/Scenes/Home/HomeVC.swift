@@ -40,7 +40,9 @@ class HomeVC: BaseTableViewController {
         AppDataHelper.instance().initProductData()
         let bannerStr = "http://upload-images.jianshu.io/upload_images/3959281-4914f0f66087c729.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
         bannerView.bannerData = [bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject]
-        noticeView.noticeData = ["这是一个测试文案1" as AnyObject, "这是一个测试文案2" as AnyObject,"这是一个测试文案3"as AnyObject, "这是一个测试文案4" as AnyObject,"这是一个测试文案5"as AnyObject]
+//        noticeView.noticeData = ["这是一个测试文案1" as AnyObject, "这是一个测试文案2" as AnyObject,"这是一个测试文案3"as AnyObject, "这是一个测试文案4" as AnyObject,"这是一个测试文案5"as AnyObject]
+        noticeView.isHidden = true
+        
 
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
@@ -89,6 +91,7 @@ class HomeVC: BaseTableViewController {
         tableView.tableHeaderView?.layer.shadowColor = UIColor.black.cgColor
         tableView.tableHeaderView?.layer.shadowOpacity = 0.1
         tableView.tableHeaderView?.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
+        tableView.backgroundColor = UIColor(rgbHex: 0xffffff)
     }
     
     //MARK: --监听滑动
@@ -117,12 +120,12 @@ class HomeVC: BaseTableViewController {
         if section == 0 {
             return marketArray.count
         }
-        if section == 1 {
-            return 1
-        }
-        if section == 2 {
-            return 1
-        }
+//        if section == 1 {
+//            return 1
+//        }
+//        if section == 2 {
+//            return 1
+//        }
         return 0
     }
     //MARK: --行高
@@ -130,12 +133,12 @@ class HomeVC: BaseTableViewController {
         if indexPath.section == 0 {
             return 100
         }
-        if indexPath.section == 1 {
-            return 155
-        }
-        if indexPath.section == 2 {
-            return 106
-        }
+//        if indexPath.section == 1 {
+//            return 155
+//        }
+//        if indexPath.section == 2 {
+//            return 106
+//        }
         return 0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
@@ -147,16 +150,16 @@ class HomeVC: BaseTableViewController {
             }
             return cell
         }
-        if indexPath.section==1 {
-            let cell : SecondViewCell = tableView.dequeueReusableCell(withIdentifier: "SecondViewCell") as! SecondViewCell
-            cell.delegate = self
-            
-            return cell
-        }
-        if indexPath.section == 2 {
-            let cell : ThreeCell = tableView.dequeueReusableCell(withIdentifier: "ThreeCell") as! ThreeCell
-            return cell
-        }
+//        if indexPath.section==1 {
+//            let cell : SecondViewCell = tableView.dequeueReusableCell(withIdentifier: "SecondViewCell") as! SecondViewCell
+//            cell.delegate = self
+//            
+//            return cell
+//        }
+//        if indexPath.section == 2 {
+//            let cell : ThreeCell = tableView.dequeueReusableCell(withIdentifier: "ThreeCell") as! ThreeCell
+//            return cell
+//        }
         return cell
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -164,6 +167,8 @@ class HomeVC: BaseTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
             let price = marketArray[indexPath.item]
             for model in DealModel.share().productKinds{
@@ -174,6 +179,7 @@ class HomeVC: BaseTableViewController {
             }
             tabBarController?.selectedIndex = 1
         }
+        
         
     }
     //MARK: --发送通知
