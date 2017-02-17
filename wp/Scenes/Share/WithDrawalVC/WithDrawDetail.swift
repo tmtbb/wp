@@ -24,22 +24,11 @@ class WithDrawDetail: BaseTableViewController {
         
         title = "提现详情"
         didRequest()
-        self.bankName.text =  ShareModel.share().detailModel.bank
-        self.withDrawtime.text =  "2017.1.8"
-        self.expectTime.text = "2017.1.9"
-        switch ShareModel.share().detailModel.status {
-        case 1:
-            ToAccountTime.text = "处理中"
-            break
-        case 2:
-            ToAccountTime.text = "成功"
-            break
-        case 3:
-            ToAccountTime.text = "失败"
-            break
-        default:
-            self.ToAccountTime.text =  "未到账"
-        }
+        bankName.text =  ShareModel.share().detailModel.bank
+        withDrawtime.text = ShareModel.share().detailModel.withdrawTime
+        expectTime.text = ShareModel.share().detailModel.expectTime
+
+        ToAccountTime.text = ShareModel.share().detailModel.status == 1 ? "处理中"  :  (ShareModel.share().detailModel.status == 2 ? "提现成功" : "提现失败")
         
     }
     

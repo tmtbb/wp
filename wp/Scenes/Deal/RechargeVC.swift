@@ -312,17 +312,17 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     }
     //MARK: -获取银行卡数量的请求
     override func didRequest() {
-        //        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
-        //            if let object = result {
-        //                let Model : BankModel = object as! BankModel
-        //                let Count : Int = (Model.cardlist?.count)!
-        //                let str : String = String(Count)
-        //                self?.bankCount.text = "\(str)" + " " + "张"
-        //            }else {
-        //            }
-        //            
-        //            return nil
-        //            }, error: errorBlockFunc())
+                AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
+                    if let object = result {
+                        let Model : BankModel = object as! BankModel
+                        let Count : Int = (Model.cardlist?.count)!
+                        let str : String = String(Count)
+                        self?.bankCount.text = "\(str)" + " " + "张"
+                    }else {
+                    }
+                    
+                    return nil
+                    }, error: errorBlockFunc())
     }
     
 }

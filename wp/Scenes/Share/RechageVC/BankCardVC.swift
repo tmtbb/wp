@@ -14,13 +14,19 @@ class BindingBankVCCell: UITableViewCell {
     // 银行名称
     @IBOutlet weak var cardNum: UILabel!
     
-    
+    @IBOutlet weak var banklogo: UIImageView!
+    //银行背景
+    @IBOutlet weak var bankBg: UIImageView!
     // 刷新cell
     func update(_ data: Any!) {
         
         let model:BankListModel? = data as? BankListModel
+        
+       bankBg.backgroundColor =    BankLogoColor.share().readfilefromlocal(string: (model?.bank)!)
+        banklogo.image = UIImage.init(named: (model?.bank)!)
         bankName.text = model!.bank
         cardNum.text = "\((model!.cardNo as NSString).substring(to: 4))" + "  ****   ****   *** " + "\((model!.cardNo as NSString).substring(from: model!.cardNo.length()-3))"
+        banklogo.image = UIImage.init(named: (model?.bank)!)
         
     }
 }
