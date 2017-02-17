@@ -86,6 +86,7 @@ class SocketRequestManage: NSObject {
         }else{
             socketRequests.removeValue(forKey: packet.session_id)
         }
+
         objc_sync_exit(self)
         let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
         let statusCode:Int = response.statusCode;

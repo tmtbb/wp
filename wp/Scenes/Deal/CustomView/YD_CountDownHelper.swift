@@ -57,7 +57,7 @@ class YD_CountDownHelper: NSObject {
             return
         }
         table?.dataArray = DealModel.getAllPositionModel()
-      table?.reloadData()
+       table?.reloadData()
         if timer != nil {
             start()
         }
