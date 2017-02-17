@@ -111,19 +111,6 @@ class SocketDataPacket {
         }
         return outdata as Data;
     }
-
-    func dataSerializationDict() ->  NSDictionary! {
-        if data?.count == 0  {
-            return nil
-        }
-        do{
-            return try JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary
-        }catch let error as Error! {
-            debugPrint("解析json \(error)")
-        }
-        return nil
-        
-    }
     
 //    deinit {
 //            XCGLogger.debug("deinit \(self)")

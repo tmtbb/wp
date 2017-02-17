@@ -52,9 +52,17 @@ class SocketJsonResponse: SocketResponse {
         if _jsonOjbect == nil  {
             
             do{
-                _jsonOjbect = try JSONSerialization.jsonObject(with: body!.data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject?
+                #if true
+                 var json = String(data: body!.data!, encoding: .utf8)
+                json = json == nil ? "" : json;
+                debugPrint("\(body!.operate_code) \(body!.data_length) json\(json!)")
+                #endif
+                
+                _jsonOjbect = try JSONSerialization.jsonObject(with: body!.data!, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject?
             }catch let error as Error! {
-                 debugPrint("解析json \(error)")
+                var json = String(data: body!.data!, encoding: .utf8)
+                json = json == nil ? "" : json;
+                 debugPrint("解析json\(json!) \(error) ")
             }
         }
         return _jsonOjbect
