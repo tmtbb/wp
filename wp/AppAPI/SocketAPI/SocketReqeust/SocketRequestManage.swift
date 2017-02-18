@@ -22,6 +22,7 @@ class SocketRequestManage: NSObject {
     fileprivate var timelineRequest: SocketRequest?
     fileprivate var productsRequest:  SocketRequest?
     fileprivate var kchartRequest: SocketRequest?
+    fileprivate var priceRequest: SocketRequest?
     var receiveChatMsgBlock:CompleteBlock?
     var operate_code = 0
     func start() {
@@ -47,19 +48,6 @@ class SocketRequestManage: NSObject {
         objc_sync_exit(self)
     }
     
-//    var reqeustId:UInt32 {
-//        get {
-//            objc_sync_enter(self)
-//            if _reqeustId > 2000000000 {
-//                _reqeustId = 10000
-//            }
-//            _reqeustId += 1
-//            objc_sync_exit(self)
-//            return _reqeustId;
-//        }
-//        
-//    }
-//    
     var sessionId:UInt64 {
         get {
             objc_sync_enter(self)
@@ -74,7 +62,7 @@ class SocketRequestManage: NSObject {
     }
 
     func notifyResponsePacket(_ packet: SocketDataPacket) {
-    
+        
         objc_sync_enter(self)
         var socketReqeust = socketRequests[packet.session_id]
         if packet.operate_code ==  SocketConst.OPCode.timeline.rawValue + 1{
@@ -83,6 +71,8 @@ class SocketRequestManage: NSObject {
             socketReqeust = productsRequest
         }else if packet.operate_code == SocketConst.OPCode.kChart.rawValue + 1{
             socketReqeust = kchartRequest
+        }else if packet.operate_code == SocketConst.OPCode.realtime.rawValue{
+            socketReqeust = priceRequest
         }else{
             socketRequests.removeValue(forKey: packet.session_id)
         }
@@ -95,7 +85,6 @@ class SocketRequestManage: NSObject {
         } else {
             socketReqeust?.onComplete(response)
         }
-        
     }
     
     
@@ -103,6 +92,7 @@ class SocketRequestManage: NSObject {
         objc_sync_enter(self)
         for (key,reqeust) in socketRequests {
             if reqeust.isReqeustTimeout() {
+                print(">>>>>>>>>>>>>>>>>>>>>>>>\(key)")
                 socketRequests.removeValue(forKey: key)
                 reqeust.onError(-11011)
                 break
@@ -144,10 +134,13 @@ class SocketRequestManage: NSObject {
             productsRequest = socketReqeust
         }else if packet.operate_code == SocketConst.OPCode.kChart.rawValue{
             kchartRequest = socketReqeust
+        }else if packet.operate_code == SocketConst.OPCode.realtime.rawValue{
+            priceRequest = socketReqeust
         }else{
             socketRequests[packet.session_id] = socketReqeust;
         }
         objc_sync_exit(self)
+        print("\(packet.session_id)=======================\(packet.operate_code)")
         sendRequest(packet)
     }
   

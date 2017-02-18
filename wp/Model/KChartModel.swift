@@ -30,6 +30,7 @@ class KChartModel: Object {
     dynamic var closePrice: Double = 0.0
     dynamic var priceTime: Int = 0
     dynamic var onlyKey: String = ""
+    dynamic var pchg: Double = 0
     override static func primaryKey() -> String{
         return "onlyKey"
     }

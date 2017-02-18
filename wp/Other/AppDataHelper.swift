@@ -202,6 +202,7 @@ class AppDataHelper: NSObject {
     
     //获取错误信息
     func initErrorCode() {
+        
         AppAPIHelper.commen().errorCode(complete: { (result) -> ()? in
             if let errorDic: NSDictionary = result as? NSDictionary{
                 let path = Bundle.main.path(forResource: "errorcode.plist", ofType:nil)

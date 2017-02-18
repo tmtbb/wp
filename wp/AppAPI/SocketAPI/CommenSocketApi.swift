@@ -10,7 +10,7 @@ import UIKit
 
 class CommenSocketApi: BaseSocketAPI, CommenApi {
     func imageToken(complete: CompleteBlock?, error: ErrorBlock?) {
-        startRequest(SocketDataPacket.init(opcode: .imageToken), complete: complete, error: error)
+        startRequest(SocketDataPacket.init(opcode: .imageToken, type:SocketConst.type.error), complete: complete, error: error)
     }
     
     func errorCode(complete: CompleteBlock?, error:ErrorBlock?){
