@@ -89,6 +89,7 @@ class HomeVC: BaseTableViewController {
     //MARK: --UI
     func initUI() {
         bannerView.bannerDelegate = self
+        title = "航空运费定盘"
         navigationController?.addSideMenuButton()
         tableView.tableHeaderView?.layer.shadowColor = UIColor.black.cgColor
         tableView.tableHeaderView?.layer.shadowOpacity = 0.1

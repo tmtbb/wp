@@ -581,62 +581,8 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="0.0" id="C14-V0-gpV">
-                                        <rect key="frame" x="0.0" y="175" width="375" height="0.0"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" tableViewCell="C14-V0-gpV" id="S3t-7B-XNf">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kk-iG-CXs">
-                                                    <rect key="frame" x="216" y="0.0" width="140" height="0.0"/>
-                                                    <color key="backgroundColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="140" id="yl9-0n-kCm"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <state key="normal" title="获取语音验证码"/>
-                                                    <state key="highlighted" backgroundImage="high_btn.png"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="requestVoiceCode:" destination="JUo-86-sd7" eventType="touchUpInside" id="4XO-6l-P8o"/>
-                                                    </connections>
-                                                </button>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入语音验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Qr-Op-XbX">
-                                                    <rect key="frame" x="10" y="0.0" width="196" height="0.0"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="0Qr-Op-XbX" firstAttribute="leading" secondItem="S3t-7B-XNf" secondAttribute="leading" constant="10" id="Vgs-y9-sk6"/>
-                                                <constraint firstItem="0Qr-Op-XbX" firstAttribute="top" secondItem="S3t-7B-XNf" secondAttribute="top" id="ZNR-e0-FGe"/>
-                                                <constraint firstAttribute="bottom" secondItem="7Kk-iG-CXs" secondAttribute="bottom" id="aUa-hG-JhI"/>
-                                                <constraint firstAttribute="trailing" secondItem="7Kk-iG-CXs" secondAttribute="trailing" constant="19" id="cMt-uI-H8W"/>
-                                                <constraint firstItem="7Kk-iG-CXs" firstAttribute="top" secondItem="S3t-7B-XNf" secondAttribute="top" id="eLC-bg-QVX"/>
-                                                <constraint firstItem="7Kk-iG-CXs" firstAttribute="leading" secondItem="0Qr-Op-XbX" secondAttribute="trailing" constant="10" id="jaK-ZU-ijK"/>
-                                                <constraint firstAttribute="bottom" secondItem="0Qr-Op-XbX" secondAttribute="bottom" id="yMd-Eh-TGY"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="20" id="5of-fw-LZR">
-                                        <rect key="frame" x="0.0" y="175" width="375" height="20"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5of-fw-LZR" id="RHS-ns-fyy">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="45" id="OcD-7N-hdu">
-                                        <rect key="frame" x="0.0" y="195" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="175" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OcD-7N-hdu" id="aiS-a2-ts9">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
@@ -660,7 +606,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="20" id="D2F-jK-i9g">
-                                        <rect key="frame" x="0.0" y="240" width="375" height="20"/>
+                                        <rect key="frame" x="0.0" y="220" width="375" height="20"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D2F-jK-i9g" id="HmC-Me-gBt">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
@@ -669,7 +615,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="45" id="g6d-gg-vyA">
-                                        <rect key="frame" x="0.0" y="260" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="240" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g6d-gg-vyA" id="MPy-lJ-Ynw">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
@@ -699,7 +645,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="220" id="k3F-i3-5C6">
-                                        <rect key="frame" x="0.0" y="305" width="375" height="220"/>
+                                        <rect key="frame" x="0.0" y="285" width="375" height="220"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" tableViewCell="k3F-i3-5C6" id="DKi-eF-xPb">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="220"/>
@@ -835,8 +781,6 @@
                         <outlet property="qqBtn" destination="cg6-nz-ebS" id="3ya-Cb-mTx"/>
                         <outlet property="sinaBtn" destination="Rbt-6g-hdr" id="4yG-gV-sjN"/>
                         <outlet property="thindLoginView" destination="DKi-eF-xPb" id="qZ4-en-eVt"/>
-                        <outlet property="voiceCodeBtn" destination="7Kk-iG-CXs" id="xPU-RO-96I"/>
-                        <outlet property="voiceCodeText" destination="0Qr-Op-XbX" id="q1A-4F-LxH"/>
                         <outlet property="wechatBtn" destination="oLa-zJ-YoG" id="uSB-Qg-qJQ"/>
                         <segue destination="aHU-WV-JEW" kind="push" identifier="PwdVC" id="kiW-Rz-POO"/>
                         <segue destination="GEb-xv-Ecl" kind="push" identifier="RegisterToBingPhoneVC" id="gCO-m9-kNz"/>
