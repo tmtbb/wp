@@ -82,9 +82,7 @@ class ProductiCarousel: UIView {
 class ProductsiCarousel: iCarousel, iCarouselDelegate, iCarouselDataSource{
     var objects: [ProductModel]? {
         didSet{
-           
             reloadData()
-            carouselDidEndDecelerating(self)
         }
     }
 
@@ -117,8 +115,8 @@ class ProductsiCarousel: iCarousel, iCarouselDelegate, iCarouselDataSource{
         return item
     }
     
-    
-    func carouselDidEndDecelerating(_ carousel: iCarousel) {
+
+    func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
         let index = currentItemIndex
         let product = objects![index]
         if productDelegate != nil{
