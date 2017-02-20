@@ -56,92 +56,52 @@ class HistoryDealCell: OEZTableViewCell{
 }
 
 class HistoryDealVC: BasePageListTableViewController {
-   var models: [PositionModel] = []
-//     var models: Results<PositionModel>?
+
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        initData()
-        initUI()
     }
     override func didRequest(_ pageIndex: Int) {
 
         AppAPIHelper.deal().historyDeals(start: pageIndex, count: 10, complete: { [weak self](result) -> ()? in
-           
             if let models: [PositionModel] = result as! [PositionModel]?{
-                
-                
-                self?.models.removeAll()
-//                var dataModel : [PositionModel] = []
                 DealModel.cachePositionWithArray(positionArray: models)
-                for histmodel : PositionModel in DealModel.getAHistoryPositionModel(){
-                    
-                    
-                    self?.models.append(histmodel)
-                }
-//                self?.models = dataModel
-                
-                //                    self?.models = (self?.models)! + models
-                self?.didRequestComplete([] as AnyObject?)
                 if pageIndex == 1 {
-                   self?.didRequestComplete(self?.models as AnyObject?)
+                    var newModels: [PositionModel] = []
+                    let historyModels = DealModel.getHistoryPositionModel()
+                    if historyModels.count == 0{
+                        newModels = models
+                    }else{
+                        for historyModel in historyModels{
+                            newModels.append(historyModel)
+                        }
+                        for model in models{
+                            if model.positionTime > historyModels.first!.positionTime{
+                                newModels.append(model)
+                            }
+                        }
+                    }
+                    self?.didRequestComplete(newModels as AnyObject?)
                 }else{
-                    
-                     self?.didRequestComplete(self?.models as AnyObject?)
-//                    self?.didRequestComplete(nil)
-                }
-                
-//                self?.didRequestComplete(self?.models as AnyObject?)
-//                if pageIndex == 1 {
-//                
-//                    self?.models.removeAll()
-//                    DealModel.cachePositionWithArray(positionArray: models)
-//                    
-////                    self?.models = DealModel.getAHistoryPositionModel()
-//                    var dataModel : [PositionModel] = []
-//                    for histmodel : PositionModel in DealModel.getAHistoryPositionModel(){
-//                        
-//                        dataModel.append(histmodel)
-//                    
-//                    }
-//            
-//                    self?.models = dataModel
-//                    self?.didRequestComplete(self?.models as AnyObject?)
-//                    
-//                   self?.tableView.reloadData()
-//                }else{
-//                    
-//                    self?.models.removeAll()
-//                     var dataModel : [PositionModel] = []
-//                      DealModel.cachePositionWithArray(positionArray: models)
-//                    for histmodel : PositionModel in DealModel.getAHistoryPositionModel(){
-//                        dataModel.append(histmodel)
-//                       
-//                    }
-//                       self?.models = dataModel
-//                    
-////                    self?.models = (self?.models)! + models
-//                  self?.didRequestComplete(self?.models as AnyObject?)
-//                }
+                    var moreModels: [PositionModel] = []
+                    let historyModels = DealModel.getHistoryPositionModel()
+                    if historyModels.count == 0{
+                        moreModels = models
+                    }else{
+                        for model in models{
+                            if model.positionTime < historyModels.last!.positionTime{
+                                moreModels.append(model)
+                            }
+                        }
+                    }
+                    self?.didRequestComplete(moreModels as AnyObject?)                }
             }
-                                    return nil
+            return nil
         }, error: errorBlockFunc())
             
-        }
+    }
+
+
    
-    //MARK: --DATA
-    func initData() {
-//        AppAPIHelper.deal().historyDeals(start: 0, count: 10, complete: { [weak self](result) -> ()? in
-//            if let models: [PositionModel] = result as! [PositionModel]?{
-//                self?.models = (self?.models)! + models
-//                self?.didRequestComplete(self?.models as AnyObject?)
-//            }
-//            return nil
-//        }, error: errorBlockFunc())
-    }
-    //MARK: --UI
-    func initUI() {
-        tableView.rowHeight = 75
-    }
 
 }
