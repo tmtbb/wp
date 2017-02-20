@@ -38,7 +38,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         showTabBarWithAnimationDuration()
-
+        refreshTitleView()
         if let money = UserModel.share().currentUser?.balance{
             myMoneyLabel.text = String.init(format: "%.2f", money)
         }
@@ -76,6 +76,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
         //持仓点击
         DealModel.share().addObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue, options: .new, context: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshTitleView), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.SelectKind), object: nil)
         //k线选择器
         klineTitleView.objects = klineTitles as [AnyObject]?
         if let flowLayout: UICollectionViewFlowLayout = klineTitleView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -94,6 +95,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             let allProducets: [ProductModel] = DealModel.share().productKinds
             titleView.objects = allProducets
         }
+
     }
     //MARK: --我的资产
     @IBAction func jumpToMyWallet(_ sender: AnyObject) {
@@ -106,6 +108,11 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
     }
     //TitleCollectionView's Delegate
+    func refreshTitleView() {
+        titleView.selectIndexPath = IndexPath.init(row: DealModel.share().selectProductIndex, section: 0)
+        didSelectedObject(titleView, object: DealModel.share().selectProduct)
+    }
+    
     internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
         if collectionView == titleView {
             if let model: ProductModel = object as? ProductModel {
@@ -113,6 +120,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 initRealTimeData()
                 kLineView.refreshKLine()
                 reloadProducts()
+                collectionView.reloadData()
             }
         }
         
