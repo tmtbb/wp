@@ -24,7 +24,7 @@ class AppServerHelper: NSObject {
     
     //阿里百川
     func initFeedback() {
-        feedbackKid = YWFeedbackKit.init(appKey: "")
+        feedbackKid = YWFeedbackKit.init(appKey: "23519848")
     }
     
     //Fabric
