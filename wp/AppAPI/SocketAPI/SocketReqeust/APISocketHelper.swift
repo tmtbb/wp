@@ -14,7 +14,7 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
     var socket: GCDAsyncSocket?;
     var dispatch_queue: DispatchQueue!;
     var mutableData: NSMutableData = NSMutableData();
-
+    var packetHead:SocketPacketHead = SocketPacketHead();
     var isConnected : Bool {
         return socket!.isConnected
     }
@@ -53,9 +53,17 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
 
 
     func onPacketData(_ data: Data) {
-   
-        let packet: SocketDataPacket = SocketDataPacket(socketData: data as NSData)
-        SocketRequestManage.shared.notifyResponsePacket(packet)
+        
+        memset(&packetHead,0, MemoryLayout<SocketPacketHead>.size)
+        (data as NSData).getBytes(&packetHead, length: MemoryLayout<SocketPacketHead>.size)
+        if( Int(packetHead.packet_length) - MemoryLayout<SocketPacketHead>.size == Int(packetHead.data_length) ) {
+            let packet: SocketDataPacket = SocketDataPacket(socketData: data as NSData)
+            SocketRequestManage.shared.notifyResponsePacket(packet)
+        }
+        else {
+            debugPrint("onPacketData error packet_length:\(packetHead.packet_length) packet_length:\(packetHead.data_length) data:\(data.count)");
+        }
+       
 //        XCGLogger.debug("onPacketData:\(packet.packetHead.type) \(packet.packetHead.packet_length) \(packet.packetHead.operate_code)")
     }
 
@@ -72,7 +80,7 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
     @objc func socket(_ sock: GCDAsyncSocket, didRead data: Data, withTag tag: CLong) {
 //        XCGLogger.debug("socket:\(data)")
         mutableData.append(data)
-        while mutableData.length > 2 {
+        while mutableData.length >= 26 {
             var packetLen: Int16 = 0;
             mutableData.getBytes(&packetLen, length: MemoryLayout<Int16>.size)
             if mutableData.length >= Int(packetLen) {
