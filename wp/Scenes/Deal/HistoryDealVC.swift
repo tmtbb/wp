@@ -69,34 +69,60 @@ class HistoryDealVC: BasePageListTableViewController {
         AppAPIHelper.deal().historyDeals(start: pageIndex, count: 10, complete: { [weak self](result) -> ()? in
            
             if let models: [PositionModel] = result as! [PositionModel]?{
-                if pageIndex == 1 {
+                
+                
+                self?.models.removeAll()
+//                var dataModel : [PositionModel] = []
+                DealModel.cachePositionWithArray(positionArray: models)
+                for histmodel : PositionModel in DealModel.getAHistoryPositionModel(){
                     
-                   
                     
-                    self?.models.removeAll()
-                    DealModel.cachePositionWithArray(positionArray: models)
-                    
-//                    self?.models = DealModel.getAHistoryPositionModel()
-  
-                    for histmodel : PositionModel in DealModel.getAHistoryPositionModel(){
-                        
                     self?.models.append(histmodel)
-                    }
-            
-                    self?.didRequestComplete(self?.models as AnyObject?)
-                    
-                   self?.tableView.reloadData()
-                }else{
-                      DealModel.cachePositionWithArray(positionArray: models)
-                    for histmodel : PositionModel in DealModel.getAHistoryPositionModel(){
-                        
-                        self?.models.append(histmodel)
-                    }
-
-                    
-//                    self?.models = (self?.models)! + models
-                  self?.didRequestComplete(self?.models as AnyObject?)
                 }
+//                self?.models = dataModel
+                
+                //                    self?.models = (self?.models)! + models
+                self?.didRequestComplete([] as AnyObject?)
+                if pageIndex == 1 {
+                   self?.didRequestComplete(self?.models as AnyObject?)
+                }else{
+                    
+                     self?.didRequestComplete(self?.models as AnyObject?)
+//                    self?.didRequestComplete(nil)
+                }
+                
+//                self?.didRequestComplete(self?.models as AnyObject?)
+//                if pageIndex == 1 {
+//                
+//                    self?.models.removeAll()
+//                    DealModel.cachePositionWithArray(positionArray: models)
+//                    
+////                    self?.models = DealModel.getAHistoryPositionModel()
+//                    var dataModel : [PositionModel] = []
+//                    for histmodel : PositionModel in DealModel.getAHistoryPositionModel(){
+//                        
+//                        dataModel.append(histmodel)
+//                    
+//                    }
+//            
+//                    self?.models = dataModel
+//                    self?.didRequestComplete(self?.models as AnyObject?)
+//                    
+//                   self?.tableView.reloadData()
+//                }else{
+//                    
+//                    self?.models.removeAll()
+//                     var dataModel : [PositionModel] = []
+//                      DealModel.cachePositionWithArray(positionArray: models)
+//                    for histmodel : PositionModel in DealModel.getAHistoryPositionModel(){
+//                        dataModel.append(histmodel)
+//                       
+//                    }
+//                       self?.models = dataModel
+//                    
+////                    self?.models = (self?.models)! + models
+//                  self?.didRequestComplete(self?.models as AnyObject?)
+//                }
             }
                                     return nil
         }, error: errorBlockFunc())
