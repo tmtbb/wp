@@ -21,36 +21,15 @@ class HistoryDealCell: OEZTableViewCell{
             nameLabel.text = "\(model.name)"
             timeLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.positionTime)), format: "yyyy.MM.dd HH:mm:ss")
            //com.yundian.trip
-            priceLabel.text = "¥" + String(format: "%.2f", model.openPrice)
+            priceLabel.text = "¥" + String(format: "%.2f", model.openCost)
       
             statuslb.backgroundColor = model.result   ? UIColor.init(hexString: "E9573F") : UIColor.init(hexString: "0EAF56")
             
             statuslb.text =  model.result   ?  "盈" :   "亏"
-            
-            print("\(model.result)")
-//                model.result ? "盈" :  "亏"
-            
-//            let string : NSString =  "\(model.grossProfit)" as NSString
-//            
-//            let rangge : NSRange = string.range(of: "-")
-            
-//            print("\(model.grossProfit)")
-//            if  model.grossProfit < 0{
-//                statuslb.backgroundColor = UIColor.init(hexString: "0EAF56")
-//                statuslb.text =  "亏"
-//            }else{
-//                statuslb.backgroundColor =  UIColor.init(hexString: "E9573F")
-//                statuslb.text =  "盈"
-//
-//            }
+    
             statuslb.layer.cornerRadius = 3
             
             statuslb.clipsToBounds = true
-//            print(model.buySell)
-            
-            
-//            winLabel.text = model.limit > 0 ? "止盈\(model.limit*10)%" : "止盈无"
-//            failLabel.text = model.stop > 0 ? "止损\(model.stop*10)%" : "止损无"
         }
     }
 }
@@ -100,8 +79,4 @@ class HistoryDealVC: BasePageListTableViewController {
         }, error: errorBlockFunc())
             
     }
-
-
-   
-
 }

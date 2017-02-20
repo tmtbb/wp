@@ -51,6 +51,7 @@ class MyDealTableView: UITableView,UITableViewDataSource, UITableViewDelegate {
         rowHeight = 66
         dataSource = self
         delegate = self
+        isScrollEnabled = false
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,7 +60,7 @@ class MyDealTableView: UITableView,UITableViewDataSource, UITableViewDelegate {
         rowHeight = 66
         dataSource = self
         delegate = self
-
+        isScrollEnabled = false
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

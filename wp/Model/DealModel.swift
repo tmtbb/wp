@@ -24,6 +24,7 @@ class DealModel: BaseModel {
     dynamic var productKinds: [ProductModel] = []
     //所选择的商品大类
     dynamic var selectProduct: ProductModel?
+    dynamic var selectProductIndex: Int = 0
     //所选择的商品小类
     var buyProduct: ProductModel?
     //买涨买跌
@@ -35,6 +36,7 @@ class DealModel: BaseModel {
     var haveDealModel: Bool = false
     //当前k线类型
     var klineTye: KLineModel.KLineType = .miu5
+    
     
     // 缓存建仓数据
     class func cachePosition(position: PositionModel){
