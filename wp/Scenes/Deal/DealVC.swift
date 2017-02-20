@@ -82,6 +82,11 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             flowLayout.itemSize = CGSize.init(width: UIScreen.width()/CGFloat(klineTitles.count), height: 40)
             
         }
+        kLineView.selectModelBlock = { [weak self](result) -> () in
+            if let model: KChartModel = result as? KChartModel{
+                self?.updatePrice(model: model)
+            }
+        }
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
@@ -168,18 +173,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 if let models: [KChartModel] = result as! [KChartModel]?{
                     for model in models{
                         if model.symbol == product.symbol{
-                            self?.priceLabel.text = String.init(format: "%.4f", model.currentPrice)
-                            self?.highLabel.text = String.init(format: "%.4f", model.highPrice)
-                            self?.lowLabel.text = String.init(format: "%.4f", model.lowPrice)
-                            self?.openLabel.text = String.init(format: "%.4f", model.openingTodayPrice)
-                            self?.closeLabel.text = String.init(format: "%.4f", model.closedYesterdayPrice)
-                            self?.changePerLabel.text = String.init(format: "%.4f", model.change)
-                            self?.changeLabel.text = String.init(format: "%.2f%%", model.change/model.currentPrice)
-                            let colorKey = model.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
-                            self?.changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
-                            self?.changePerLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
-                            self?.priceLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
-                            self?.updatePrice(price: model.currentPrice)
+                            self?.updatePrice(model: model)
                         }
                     }
                 }
@@ -187,6 +181,22 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             }, error: errorBlockFunc())
         }
     }
+    
+    func updatePrice(model: KChartModel) {
+        priceLabel.text = String.init(format: "%.4f", model.currentPrice)
+        highLabel.text = String.init(format: "%.4f", model.highPrice)
+        lowLabel.text = String.init(format: "%.4f", model.lowPrice)
+        openLabel.text = String.init(format: "%.4f", model.openingTodayPrice)
+        closeLabel.text = String.init(format: "%.4f", model.closedYesterdayPrice)
+        changePerLabel.text = String.init(format: "%.4f", model.change)
+        changeLabel.text = String.init(format: "%.2f%%", model.change/model.currentPrice)
+        let colorKey = model.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
+        changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+        changePerLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+        priceLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+        updatePrice(price: model.currentPrice)
+    }
+    
     func updatePrice(price: Double) {
         for product in DealModel.share().allProduct {
             if product.symbol == DealModel.share().selectProduct!.symbol {

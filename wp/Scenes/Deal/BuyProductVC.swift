@@ -79,7 +79,7 @@ class BuyProductVC: UIViewController {
         buyCountLabel.text = "当前选择手数 \(Int(value))"
         let dingjin = Double(Int(value))*DealModel.share().buyProduct!.price
         dingjinLabel.text = String.init(format: "%.2f", dingjin)
-        moneyLabel.text = "￥\(Int(dingjin*(1 - DealModel.share().buyProduct!.openChargeFee)))"
+        moneyLabel.text = String.init(format: "%.2f", Double(dingjin*(1 - DealModel.share().buyProduct!.openChargeFee)))
         feeLabel.text = "\(DealModel.share().buyProduct!.openChargeFee*100)%"
     }
     
