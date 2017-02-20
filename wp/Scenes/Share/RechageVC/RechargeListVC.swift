@@ -74,7 +74,7 @@ class RechargeListVC: BasePageListTableViewController {
     }
     //MARK: 网络请求列表
     override func didRequest(_ pageIndex : Int) {
-        AppAPIHelper.user().creditlist(status: "1,2,3", pos: Int32(pageIndex) , count: 10, complete: {[weak self] (result) -> ()? in
+        AppAPIHelper.user().creditlist(status: "1,2,3", pos: Int32((pageIndex - 1) * 10) , count: 10, complete: {[weak self] (result) -> ()? in
             
             if let object = result {
                 let Model : RechargeListModel = object as! RechargeListModel

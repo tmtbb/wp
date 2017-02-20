@@ -69,7 +69,7 @@ class WithDrawaListVC: BasePageListTableViewController {
     //  请求接口刷新数据
     override func didRequest(_ pageIndex : Int) {
         
-        AppAPIHelper.user().withdrawlist(status: "1,2,3", pos: Int32(pageIndex), count: 10, complete: { [weak self](result) -> ()? in
+        AppAPIHelper.user().withdrawlist(status: "1,2,3", pos: Int32((pageIndex - 1) * 10 ), count: 10, complete: { [weak self](result) -> ()? in
             if let object = result {
                 let Model : WithdrawListModel = object as! WithdrawListModel
                 if pageIndex == 1{

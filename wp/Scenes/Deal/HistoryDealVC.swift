@@ -41,7 +41,6 @@ class HistoryDealVC: BasePageListTableViewController {
         super.viewDidLoad()
     }
     override func didRequest(_ pageIndex: Int) {
-        
         let index = pageIndex == 1 ? 0 : DealModel.getHistoryPositionModel().count
         AppAPIHelper.deal().historyDeals(start: index, count: 10, complete: { [weak self](result) -> ()? in
             if let models: [PositionModel] = result as! [PositionModel]?{
