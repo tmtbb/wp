@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import RealmSwift
 class HistoryDealCell: OEZTableViewCell{
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -56,9 +56,8 @@ class HistoryDealCell: OEZTableViewCell{
 }
 
 class HistoryDealVC: BasePageListTableViewController {
-    var models: [PositionModel] = []
-    
-    
+   var models: [PositionModel] = []
+//     var models: Results<PositionModel>?
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,18 +70,39 @@ class HistoryDealVC: BasePageListTableViewController {
            
             if let models: [PositionModel] = result as! [PositionModel]?{
                 if pageIndex == 1 {
-                    self?.models =  models
-                    self?.didRequestComplete(self?.models as AnyObject?)
-                }else{
                     
-                    self?.models = (self?.models)! + models
-                    self?.didRequestComplete(models as AnyObject?)
+                   
+                    
+                    self?.models.removeAll()
+                    DealModel.cachePositionWithArray(positionArray: models)
+                    
+//                    self?.models = DealModel.getAHistoryPositionModel()
+  
+                    for histmodel : PositionModel in DealModel.getAHistoryPositionModel(){
+                        
+                    self?.models.append(histmodel)
+                    }
+            
+                    self?.didRequestComplete(self?.models as AnyObject?)
+                    
+                   self?.tableView.reloadData()
+                }else{
+                      DealModel.cachePositionWithArray(positionArray: models)
+                    for histmodel : PositionModel in DealModel.getAHistoryPositionModel(){
+                        
+                        self?.models.append(histmodel)
+                    }
+
+                    
+//                    self?.models = (self?.models)! + models
+                  self?.didRequestComplete(self?.models as AnyObject?)
                 }
             }
                                     return nil
         }, error: errorBlockFunc())
             
         }
+   
     //MARK: --DATA
     func initData() {
 //        AppAPIHelper.deal().historyDeals(start: 0, count: 10, complete: { [weak self](result) -> ()? in

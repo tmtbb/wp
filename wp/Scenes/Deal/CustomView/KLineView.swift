@@ -58,21 +58,19 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
                 chartsView.leftAxis.labelFont = UIFont.systemFont(ofSize: 0)
                 chartsView.leftAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
-                chartsView.zoom(scaleX: 2.0, scaleY: 0, x: 0, y: 0)
                 chartsView.delegate = self
-                chartsView.chartDescription?.text = "云巅科技"
+                chartsView.chartDescription?.text = ""
             }
         }
     }
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let index = Int(entry.x)
         if index >= 0 && index < currentModels.count {
-//            let model = currentModels[index]
-//            print(model)
         }
     }
     
     func refreshKLine() {
+        currentCharts?.zoom(scaleX: 0, scaleY: 0, x: 0, y: 0)
         switch selectIndex {
         case 0:
             initMiuLChartsData()
@@ -132,7 +130,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         miuCharts.data = data
         miuCharts.data?.notifyDataChanged()
         miuCharts.setNeedsDisplay()
-        let max = models.count + 100
+        let max = models.count + 30
         miuCharts.xAxis.axisMaximum = Double(max)
     }
     //MARK: --读取K线数据
@@ -158,7 +156,10 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         for (index, model) in models.enumerated(){
             let _ = autoreleasepool(invoking: {
                 let location = Double(index+1)
-                let entry = convertModelToCandleDataEntry(model: model, location:location)
+                if index < 5 {
+                    print(model)
+                }
+                let entry = CandleChartDataEntry.init(x:location, shadowH: model.highPrice, shadowL: model.lowPrice, open: model.openingTodayPrice, close: model.closedYesterdayPrice)
                 entrys.append(entry)
                 let _ = autoreleasepool(invoking: {
                     model
@@ -179,17 +180,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         
         klineCharts.data = combinData
         klineCharts.data?.notifyDataChanged()
-        let max = models.count + 30
+        let max = models.count + 10
         klineCharts.xAxis.axisMaximum = Double(max)
-    }
-    
-    func convertModelToCandleDataEntry(model: KChartModel, location:Double) -> CandleChartDataEntry {
-        let entry = CandleChartDataEntry.init(x:location, shadowH: model.highPrice, shadowL: model.lowPrice, open: model.openingTodayPrice, close: model.closedYesterdayPrice)
-        return entry
-    }
-    
-    func convertModelToLineDataEntry(model: KChartModel, location:Double) -> ChartDataEntry {
-        let entry = ChartDataEntry.init(x: location, y: model.currentPrice)
-        return entry
     }
 }

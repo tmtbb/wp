@@ -101,6 +101,7 @@ class BuyProductVC: UIViewController {
             resultBlock!(BuyResultType.lessMoney as AnyObject)
             return
         }
+        view.isUserInteractionEnabled = false
         SVProgressHUD.showProgressMessage(ProgressMessage: "交易中...")
         let buyModel: BuildDealParam = BuildDealParam()
         buyModel.codeId = DealModel.share().buyProduct!.id
@@ -110,7 +111,7 @@ class BuyProductVC: UIViewController {
 
         AppAPIHelper.deal().buildDeal(model: buyModel, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
-
+            self?.view.isUserInteractionEnabled = true
             if let product: PositionModel = result as? PositionModel{
                 self?.dismissController()
                 DealModel.cachePosition(position: product)

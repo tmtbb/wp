@@ -61,12 +61,13 @@ class ProdectCell: UITableViewCell {
             hightPrice.text = String.init(format: "%.4f", kChartModel!.highPrice)
             lowPrice.text = String.init(format: "%.4f", kChartModel!.lowPrice)
             changeLabel.text = String.init(format: "%.4f", kChartModel!.change)
-            changePer.text = String.init(format: "%.2f%", kChartModel!.change/(kChartModel?.currentPrice)!)
+            changePer.text = String.init(format: "%.2f%%", kChartModel!.pchg)
+            lowPrice.dk_textColorPicker =  DKColorTable.shared().picker(withKey: AppConst.Color.buyDown)
             
             let colorKey = kChartModel!.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
             changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
             changePer.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
-//            productName.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+            nowPrice.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
             let iconName =  kChartModel!.change > 0 ? "upPrice" : "downPrice"
             iconImage.image = UIImage.init(named: iconName)
             iconImage.alpha = 1

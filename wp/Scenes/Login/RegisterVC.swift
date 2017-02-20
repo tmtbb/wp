@@ -40,6 +40,10 @@ class RegisterVC: BaseTableViewController {
         hideTabBarWithAnimationDuration()
         translucent(clear: false)
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        SVProgressHUD.dismiss()
+    }
     //MARK: --DATA
     func initData() {
         
@@ -48,7 +52,9 @@ class RegisterVC: BaseTableViewController {
     @IBAction func changeCodePicture(_ sender: UIButton) {
         if checkoutText(){
             let type = UserModel.share().forgetPwd ? 1:0
+            SVProgressHUD.showProgressMessage(ProgressMessage: "请稍候...")
             AppAPIHelper.commen().verifycode(verifyType: Int64(type), phone: phoneText.text!, complete: { [weak self](result) -> ()? in
+                SVProgressHUD.dismiss()
                 if let strongSelf = self{
                     if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
                         if let token = resultDic[SocketConst.Key.vToken]{
@@ -104,7 +110,7 @@ class RegisterVC: BaseTableViewController {
     //注册
     @IBAction func registerBtnTapped(_ sender: Any) {
         if checkoutText(){
-            if checkTextFieldEmpty([phoneText,codeText,voiceCodeText]){
+            if checkTextFieldEmpty([phoneText,codeText]){
                 UserModel.share().code = codeText.text
                 UserModel.share().phone = phoneText.text
                 register()
@@ -171,7 +177,6 @@ class RegisterVC: BaseTableViewController {
         phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
         
         codeBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
-        voiceCodeBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         nextBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         qqBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         wechatBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)

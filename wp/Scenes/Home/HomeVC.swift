@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Alamofire
 import DKNightVersion
+import iCarousel
 class HomeVC: BaseTableViewController {
     
     //交易明细数据
@@ -38,7 +39,7 @@ class HomeVC: BaseTableViewController {
     //MARK: --DATA
     func initData() {
         AppDataHelper.instance().initProductData()
-        let bannerStr = "http://upload-images.jianshu.io/upload_images/3959281-4914f0f66087c729.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+        let bannerStr = "http://upload-images.jianshu.io/upload_images/3959281-9e14f1eaccc36f37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
         bannerView.bannerData = [bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject]
 //        noticeView.noticeData = ["这是一个测试文案1" as AnyObject, "这是一个测试文案2" as AnyObject,"这是一个测试文案3"as AnyObject, "这是一个测试文案4" as AnyObject,"这是一个测试文案5"as AnyObject]
         noticeView.isHidden = true
@@ -87,6 +88,8 @@ class HomeVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
+        bannerView.bannerDelegate = self
+        title = "航空运费定盘"
         navigationController?.addSideMenuButton()
         tableView.tableHeaderView?.layer.shadowColor = UIColor.black.cgColor
         tableView.tableHeaderView?.layer.shadowOpacity = 0.1
@@ -269,8 +272,18 @@ class HomeVC: BaseTableViewController {
     
 }
 
-extension HomeVC:SecondViewCellDelegate {
+extension HomeVC:SecondViewCellDelegate, BannerViewDelegate {
     func masterDidClick() {
         tabBarController?.selectedIndex = 2
+    }
+    
+    func banner(_ banner: iCarousel, didSelectItemAt index: Int) {
+        let webController = WPWebViewController()
+        webController.title = "交易规则"
+        let url = Bundle.main.url(forResource: "role.html", withExtension: nil)
+        let html = try! String.init(contentsOf: url!, encoding: .utf8)
+        let baseUrl = URL.init(fileURLWithPath: Bundle.main.bundlePath)
+        webController.webView.loadHTMLString(html, baseURL: baseUrl)
+        navigationController?.pushViewController(webController, animated: true)
     }
 }
