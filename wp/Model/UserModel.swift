@@ -28,21 +28,7 @@ class UserModel: BaseModel  {
     var timestamp:Int = 0
     var forgetPwd:Bool = false
     var forgetType:Movement?
-    static var temptoken: String?
-    static var token: String!{
-        get{
-            if temptoken == nil {
-                return "adc28ac69625652b46d5c00b"
-            }else{
-                
-                return temptoken
-            }
-        }
-        
-        set{
-            temptoken = newValue
-        }
-    }
+    static var token: String! = ""
     
     static var currentUserId: Int = 0
     // 获取某个用户信息
