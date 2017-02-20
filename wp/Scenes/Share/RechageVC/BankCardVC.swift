@@ -67,15 +67,20 @@ class BankCardVC: BaseListTableViewController {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         
-        
         let share = UITableViewRowAction(style: .normal, title: "删除") { action, index  in
             
-           
-            
+
+            self.UnbindCard(number: indexPath.section)
             ShareModel.share().shareData["number"] = "\(indexPath.section)"
-            
-             self.UnbindCard(number: indexPath.section)
+            self.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
+            tableView.reloadData()
+
+//            ShareModel.share().shareData["number"] = "\(indexPath.section)"
+//            
+//             self.UnbindCard(number: indexPath.section)
+
         }
+        
         share.backgroundColor = UIColor.red
         
         return [share]
@@ -115,7 +120,7 @@ class BankCardVC: BaseListTableViewController {
     //MARK: 解绑逻辑
     func UnbindCard ( number: Int) {
         
-        
+        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.getCurrentUser()?.phone)!, complete: {(result) -> ()? in
         
 //        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.getCurrentUser()?.phone)!, complete: {(result) -> ()? in
 //            
@@ -167,9 +172,18 @@ class BankCardVC: BaseListTableViewController {
             }
             
             return nil
-            }, error: errorBlockFunc())
+        }, error: self.errorBlockFunc())
         
-       
+//        let alertView = UIAlertView.init()
+//        alertView.alertViewStyle = UIAlertViewStyle.plainTextInput // 密文
+//          let str : String = NSString(format: "%@" , (UserModel.getCurrentUser()?.phone)!) as String
+//        alertView.title = "验证码发送到"  + " " + "\(str)"  + " " + "手机上\n" + " " + "请输入验证码"
+//        alertView.addButton(withTitle: "确定")
+//        alertView.addButton(withTitle: "取消")
+//        alertView.delegate = self
+//        alertView.show()
+            return nil
+            }, error: self.errorBlockFunc())
     }
     deinit {
         ShareModel.share().shareData.removeAll()
