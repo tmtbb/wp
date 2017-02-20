@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import RealmSwift
 class HistoryDealCell: OEZTableViewCell{
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -56,17 +56,14 @@ class HistoryDealCell: OEZTableViewCell{
 }
 
 class HistoryDealVC: BasePageListTableViewController {
-    
-    
+
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        initUI()
     }
     override func didRequest(_ pageIndex: Int) {
 
         AppAPIHelper.deal().historyDeals(start: pageIndex, count: 10, complete: { [weak self](result) -> ()? in
-           
             if let models: [PositionModel] = result as! [PositionModel]?{
                 DealModel.cachePositionWithArray(positionArray: models)
                 if pageIndex == 1 {
@@ -99,13 +96,12 @@ class HistoryDealVC: BasePageListTableViewController {
                     }
                     self?.didRequestComplete(moreModels as AnyObject?)                }
             }
-                                    return nil
+            return nil
         }, error: errorBlockFunc())
             
-        }
-    //MARK: --UI
-    func initUI() {
-        tableView.rowHeight = 75
     }
+
+
+   
 
 }
