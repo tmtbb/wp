@@ -28,7 +28,8 @@ class UserModel: BaseModel  {
     var timestamp:Int = 0
     var forgetPwd:Bool = false
     var forgetType:Movement?
-    static var token: String?
+    static var token: String! = ""
+    
     static var currentUserId: Int = 0
     // 获取某个用户信息
     class func userInfo(userId: Int) -> UserInfo? {
