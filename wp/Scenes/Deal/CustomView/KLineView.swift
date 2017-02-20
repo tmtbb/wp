@@ -15,6 +15,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
     @IBOutlet weak var klineCharts: CombinedChartView!
     private var currentCharts: BarLineChartViewBase?
     private var currentModels: [KChartModel] = []
+    var selectModelBlock: CompleteBlock?
     var selectIndex: NSInteger!{
         didSet{
             switch selectIndex {
@@ -66,6 +67,11 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let index = Int(entry.x)
         if index >= 0 && index < currentModels.count {
+            if let model: KChartModel = currentModels[index] as? KChartModel{
+                if selectModelBlock != nil{
+                    selectModelBlock!(model)
+                }
+            }
         }
     }
     
