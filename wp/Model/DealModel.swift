@@ -57,4 +57,9 @@ class DealModel: BaseModel {
                 }
         }
     }
+    
+    class func getAHistoryPositionModel() -> Results<PositionModel>{
+        let realm = try! Realm()
+        return realm.objects(PositionModel.self).filter("closeTime < \(Int(NSDate().timeIntervalSince1970))").sorted(byProperty: "positionTime", ascending: false)
+    }
 }
