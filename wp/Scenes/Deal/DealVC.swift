@@ -26,6 +26,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBOutlet weak var titleView: TitleCollectionView!
     @IBOutlet weak var klineTitleView: TitleCollectionView!
     @IBOutlet weak var productsView: ProductsiCarousel!
+    private var rowHeights: [CGFloat] = [40,50,116,80,200,41,70,35,200]
     private var klineBtn: UIButton?
     private var priceTimer: Timer?
     private var klineTimer: Timer?
@@ -88,6 +89,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 self?.updatePrice(model: model)
             }
         }
+        
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
@@ -160,10 +162,13 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             if let resultModel: [PositionModel] = result as! [PositionModel]?{
                 DealModel.cachePositionWithArray(positionArray: resultModel)
                 self?.dealTable.dataArray = DealModel.getAllPositionModel()
+                self?.rowHeights.removeLast()
+                self?.rowHeights.append(CGFloat((self?.dealTable.dataArray?.count)!)*66.0)
+                self?.tableView.reloadData()
                 YD_CountDownHelper.shared.countDownWithDealTableView(tableView: (self?.dealTable)!)
             }
             return nil
-            }, error: errorBlockFunc())
+        }, error: errorBlockFunc())
 
 
     }
@@ -224,7 +229,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         klineTitleView.reuseIdentifier = KLineTitleItem.className()
     }
     
-   
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return rowHeights[indexPath.row]
+    }
     //MARK: --买涨/买跌
     @IBAction func dealBtnTapped(_ sender: UIButton) {
         if true || checkLogin(){
@@ -266,9 +273,4 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     
 }
-//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-//        if identifier == BuyVC.className() {
-//            return checkLogin()
-//        }
-//        return true
-//    }
+
