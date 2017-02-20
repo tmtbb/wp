@@ -160,7 +160,7 @@ class KLineModel: NSObject {
 //        }
 //    }
 //
-//    //查询某个时间段的K线数据并计算出该时间段的K线模型缓存起来
+//    查询某个时间段的K线数据并计算出该时间段的K线模型缓存起来
 //    class func queryModel(type: KLineType,goodType: String, fromTime: Int, toTime: Int) {
 //        let realm = try! Realm()
 //        let queryStr = NSPredicate.init(format: "goodType = %@",goodType)

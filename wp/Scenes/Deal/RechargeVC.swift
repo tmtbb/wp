@@ -146,7 +146,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                     
                     money = "\(self.rechargeMoneyTF.text!)" + ".00001"
                 }
-                AppAPIHelper.user().weixinpay(title: "微盘-余额充值", price: Double.init(money)! , complete: { (result) -> ()? in
+                AppAPIHelper.user().weixinpay(title: "余额充值", price: Double.init(money)! , complete: { (result) -> ()? in
                     if let object = result {
                         let request : PayReq = PayReq()
                         let  str : String  = object["timestamp"] as! String!

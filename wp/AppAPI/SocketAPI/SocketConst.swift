@@ -113,7 +113,7 @@ class SocketConst: NSObject {
         static let count = "count_"
         static let share_id = "share_id_"
         static let page_type = "page_type_"
-        static let uid = "uid"
+        static let uid = "id"
         static let from_uid = "from_uid_"
         static let to_uid = "to_uid_"
         static let order_id = "order_id_"
