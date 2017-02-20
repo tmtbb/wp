@@ -69,11 +69,16 @@ class BankCardVC: BaseListTableViewController {
         
         let share = UITableViewRowAction(style: .normal, title: "删除") { action, index  in
             
+
             self.UnbindCard(number: indexPath.section)
             ShareModel.share().shareData["number"] = "\(indexPath.section)"
             self.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
             tableView.reloadData()
-            
+
+//            ShareModel.share().shareData["number"] = "\(indexPath.section)"
+//            
+//             self.UnbindCard(number: indexPath.section)
+
         }
         
         share.backgroundColor = UIColor.red
@@ -116,18 +121,20 @@ class BankCardVC: BaseListTableViewController {
     func UnbindCard ( number: Int) {
         
         AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.getCurrentUser()?.phone)!, complete: {(result) -> ()? in
-            
-            if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
-                if let token = resultDic[SocketConst.Key.vToken]{
-                    UserModel.share().codeToken = token as! String
-                }
-                if let timestamp = resultDic[SocketConst.Key.timestamp]{
-                    UserModel.share().timestamp = timestamp as! Int
-                }
-            }
-            return nil
-        }, error: errorBlockFunc())
         
+//        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.getCurrentUser()?.phone)!, complete: {(result) -> ()? in
+//            
+//            if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
+//                if let token = resultDic[SocketConst.Key.vToken]{
+//                    UserModel.share().codeToken = token as! String
+//                }
+//                if let timestamp = resultDic[SocketConst.Key.timestamp]{
+//                    UserModel.share().timestamp = timestamp as! Int
+//                }
+//            }
+//            return nil
+//        }, error: errorBlockFunc())
+//        
 //        let alertView = UIAlertView.init()
 //        alertView.alertViewStyle = UIAlertViewStyle.plainTextInput // 密文
 //          let str : String = NSString(format: "%@" , (UserModel.getCurrentUser()?.phone)!) as String
@@ -137,6 +144,46 @@ class BankCardVC: BaseListTableViewController {
 //        alertView.delegate = self
 //        alertView.show()
         
+        let  model :BankListModel = self.dataArry[Int(ShareModel.share().shareData["number"]!)!] as BankListModel
+        //  func unbindcard( vToken :String,bid: Int32,timestamp: Int64, phone :String, complete: CompleteBlock?, error: ErrorBlock?)
+        //func unbindcard( vToken :String,bid: Int32,timestamp: Int64, phone :String,vCode:String, complete: CompleteBlock?, error: ErrorBlock?)
+        AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) ,phone: (UserModel.getCurrentUser()?.phone)!, vCode:"", complete: { [weak self](result) -> ()? in
+            
+            
+            //
+            //                                                self?.tableView.reloadData()
+            if result != nil{
+                
+                let dic : NSDictionary = result as! NSDictionary
+                if (dic.object(forKey: "error") != nil){
+                    let error : Int = dic.object(forKey: "error") as! Int
+                    if error == -113{
+                        
+                        SVProgressHUD.showError(withStatus: "验证码错误")
+                        self?.tableView.reloadData()
+                        return nil
+                    }
+                }
+                self?.didRequest()
+                self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
+                self?.tableView.reloadData()
+            }else{
+                
+            }
+            
+            return nil
+        }, error: self.errorBlockFunc())
+        
+//        let alertView = UIAlertView.init()
+//        alertView.alertViewStyle = UIAlertViewStyle.plainTextInput // 密文
+//          let str : String = NSString(format: "%@" , (UserModel.getCurrentUser()?.phone)!) as String
+//        alertView.title = "验证码发送到"  + " " + "\(str)"  + " " + "手机上\n" + " " + "请输入验证码"
+//        alertView.addButton(withTitle: "确定")
+//        alertView.addButton(withTitle: "取消")
+//        alertView.delegate = self
+//        alertView.show()
+            return nil
+            }, error: self.errorBlockFunc())
     }
     deinit {
         ShareModel.share().shareData.removeAll()
@@ -149,53 +196,53 @@ class BankCardVC: BaseListTableViewController {
             
             if buttonIndex==0{
                 
-                let  model :BankListModel = self.dataArry[Int(ShareModel.share().shareData["number"]!)!] as BankListModel
+//                let  model :BankListModel = self.dataArry[Int(ShareModel.share().shareData["number"]!)!] as BankListModel
                 
-                AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) , phone: (UserModel.getCurrentUser()?.phone)!, vCode: (alertView.textField(at: 0)?.text)!, complete: { [weak self](result) -> ()? in
-                    
-                
-    //
-                    //                                                self?.tableView.reloadData()
-                                        if result != nil{
-                                            
-                                            let dic : NSDictionary = result as! NSDictionary
-                                            if (dic.object(forKey: "error") != nil){
-                                                let error : Int = dic.object(forKey: "error") as! Int
-                                                if error == -113{
-                                                
-                                                    SVProgressHUD.showError(withStatus: "验证码错误")
-                                                     self?.tableView.reloadData()
-                                                    return nil
-                                                }
-                                            }
-                                            self?.didRequest()
-                                            self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
-                                            self?.tableView.reloadData()
-                                                                }else{
-                    
-                                                                }
-                    
-                    return nil
-                    }, error: errorBlockFunc())
-                //                AppAPIHelper.user().unbindcard(bankId: model.bid, vCode: (alertView.textField(at: 0)?.text)!, complete: { [weak self](result) -> ()? in
-                //
-                //                    if result != nil{
-                //                        self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
-                //
-                //                        self?.tableView.reloadData()
-                //                    }else{
-                //
-                //                    }
-                //
-                //                    
-                //                    //            self?.didRequest()
-                //                    
-                //                    return nil
-                //                    }, error: errorBlockFunc())
-            }
+//                AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) , phone: (UserModel.getCurrentUser()?.phone)!, vCode: (alertView.textField(at: 0)?.text)!, complete: { [weak self](result) -> ()? in
+//                    
+//                
+//    //
+//                    //                                                self?.tableView.reloadData()
+//                                        if result != nil{
+//                                            
+//                                            let dic : NSDictionary = result as! NSDictionary
+//                                            if (dic.object(forKey: "error") != nil){
+//                                                let error : Int = dic.object(forKey: "error") as! Int
+//                                                if error == -113{
+//                                                
+//                                                    SVProgressHUD.showError(withStatus: "验证码错误")
+//                                                     self?.tableView.reloadData()
+//                                                    return nil
+//                                                }
+//                                            }
+//                                            self?.didRequest()
+//                                            self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
+//                                            self?.tableView.reloadData()
+//                                                                }else{
+//                    
+//                                                                }
+//                    
+//                    return nil
+//                    }, error: errorBlockFunc())
+//                //                AppAPIHelper.user().unbindcard(bankId: model.bid, vCode: (alertView.textField(at: 0)?.text)!, complete: { [weak self](result) -> ()? in
+//                //
+//                //                    if result != nil{
+//                //                        self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
+//                //
+//                //                        self?.tableView.reloadData()
+//                //                    }else{
+//                //
+//                //                    }
+//                //
+//                //                    
+//                //                    //            self?.didRequest()
+//                //                    
+//                //                    return nil
+//                //                    }, error: errorBlockFunc())
+//            }
         }
         
-        
+        }
     }
     
 }
