@@ -27,6 +27,7 @@ class AppServerHelper: NSObject {
         feedbackKid = YWFeedbackKit.init(appKey: "")
     }
     
+    //Fabric
     func initFabric() {
         Fabric.with([Crashlytics.self])
     }

@@ -48,6 +48,10 @@ class DealModel: BaseModel {
         let realm = try! Realm()
         return realm.objects(PositionModel.self).filter("closeTime > \(Int(NSDate().timeIntervalSince1970))").sorted(byProperty: "positionTime", ascending: false)
     }
+    class func getHistoryPositionModel() -> Results<PositionModel>{
+        let realm = try! Realm()
+        return realm.objects(PositionModel.self).filter("closeTime <= \(Int(NSDate().timeIntervalSince1970))").sorted(byProperty: "positionTime", ascending: false)
+    }
     class func cachePositionWithArray(positionArray:Array<PositionModel>) {
         let realm = try! Realm()
         

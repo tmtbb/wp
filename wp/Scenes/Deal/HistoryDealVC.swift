@@ -56,13 +56,11 @@ class HistoryDealCell: OEZTableViewCell{
 }
 
 class HistoryDealVC: BasePageListTableViewController {
-    var models: [PositionModel] = []
     
     
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        initData()
         initUI()
     }
     override func didRequest(_ pageIndex: Int) {
@@ -70,29 +68,41 @@ class HistoryDealVC: BasePageListTableViewController {
         AppAPIHelper.deal().historyDeals(start: pageIndex, count: 10, complete: { [weak self](result) -> ()? in
            
             if let models: [PositionModel] = result as! [PositionModel]?{
+                DealModel.cachePositionWithArray(positionArray: models)
                 if pageIndex == 1 {
-                    self?.models =  models
-                    self?.didRequestComplete(self?.models as AnyObject?)
+                    var newModels: [PositionModel] = []
+                    let historyModels = DealModel.getHistoryPositionModel()
+                    if historyModels.count == 0{
+                        newModels = models
+                    }else{
+                        for historyModel in historyModels{
+                            newModels.append(historyModel)
+                        }
+                        for model in models{
+                            if model.positionTime > historyModels.first!.positionTime{
+                                newModels.append(model)
+                            }
+                        }
+                    }
+                    self?.didRequestComplete(newModels as AnyObject?)
                 }else{
-                    
-                    self?.models = (self?.models)! + models
-                    self?.didRequestComplete(models as AnyObject?)
-                }
+                    var moreModels: [PositionModel] = []
+                    let historyModels = DealModel.getHistoryPositionModel()
+                    if historyModels.count == 0{
+                        moreModels = models
+                    }else{
+                        for model in models{
+                            if model.positionTime < historyModels.last!.positionTime{
+                                moreModels.append(model)
+                            }
+                        }
+                    }
+                    self?.didRequestComplete(moreModels as AnyObject?)                }
             }
                                     return nil
         }, error: errorBlockFunc())
             
         }
-    //MARK: --DATA
-    func initData() {
-//        AppAPIHelper.deal().historyDeals(start: 0, count: 10, complete: { [weak self](result) -> ()? in
-//            if let models: [PositionModel] = result as! [PositionModel]?{
-//                self?.models = (self?.models)! + models
-//                self?.didRequestComplete(self?.models as AnyObject?)
-//            }
-//            return nil
-//        }, error: errorBlockFunc())
-    }
     //MARK: --UI
     func initUI() {
         tableView.rowHeight = 75
