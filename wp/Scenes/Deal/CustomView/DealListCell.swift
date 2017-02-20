@@ -126,7 +126,7 @@ class DealListCell: UITableViewCell {
         totalCount = self.positionModel!.closeTime - startTime
         titleLabel.text = self.positionModel!.name
         countLabel.text = "手数\(self.positionModel!.amount)"
-        timeCount = YD_CountDownHelper.shared.getResidueCount(startTime: startTime, totalCount: totalCount)
+        
         refreshText()
 //        UIView.animate(withDuration: 1.0) {
 //            self.progressView.frame = CGRect(x: self.progressView.frame.origin.x, y: self.progressView.frame.origin.y, width: self.curretWidth(), height: self.progressView.frame.size.height)
@@ -135,6 +135,7 @@ class DealListCell: UITableViewCell {
 
     
     func refreshText() {
+        timeCount = YD_CountDownHelper.shared.getResidueCount(startTime: startTime, totalCount: totalCount)
         if timeCount >= 0 {
             timeCount -= 1
             countDownLabel.text = YD_CountDownHelper.shared.getTextWithStartTime(startTime:startTime, totalCount:totalCount)

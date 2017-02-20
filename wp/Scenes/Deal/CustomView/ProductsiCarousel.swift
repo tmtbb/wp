@@ -118,10 +118,12 @@ class ProductsiCarousel: iCarousel, iCarouselDelegate, iCarouselDataSource{
 
     func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
         let index = currentItemIndex
-        let product = objects![index]
-        if productDelegate != nil{
-            productDelegate?.didSelectProduct(product: product)
+        if objects != nil && index < objects!.count{
+            let product = objects![index]
+            if productDelegate != nil{
+                productDelegate?.didSelectProduct(product: product)
+            }
+            DealModel.share().buyProduct = product
         }
-        DealModel.share().buyProduct = product
     }
 }

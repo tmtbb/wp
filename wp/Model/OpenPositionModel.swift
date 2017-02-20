@@ -20,10 +20,10 @@ class PositionModel: Object {
     dynamic var amount:Int = 0          //持仓手数
     dynamic var openPrice:Double = 0       //建仓价格
     dynamic var positionTime:Int = 0    //建仓时间
-    dynamic var openCost:Int = 0        //建仓成本
-    dynamic var openCharge:Int = 0      //建仓手续费
+    dynamic var openCost:Double = 0        //建仓成本
+    dynamic var openCharge:Double = 0      //建仓手续费
     dynamic var closeTime:Int = 0       //平仓时间	(未平仓时为空)
-    dynamic var closePrice:Int = 0      //平仓价格	未平仓时为当前价格
+    dynamic var closePrice:Double = 0      //平仓价格	未平仓时为当前价格
     dynamic var grossProfit:Int = 0     //交易盈亏	未平仓时为当前浮动盈亏
     dynamic var limit:Double = 0        //止盈	不设则为空
     dynamic var stop:Double = 0         //止损不设则为空
@@ -31,7 +31,6 @@ class PositionModel: Object {
     dynamic var isDeferred:Int = 0      //是否过夜
     dynamic var deferred:Int = 0        //累计过夜费
     dynamic var token:String = ""           //累计过夜费
-
     
     dynamic var  result : Bool = true
 //    var result :Int  = 0

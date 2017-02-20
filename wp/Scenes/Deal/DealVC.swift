@@ -26,6 +26,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBOutlet weak var titleView: TitleCollectionView!
     @IBOutlet weak var klineTitleView: TitleCollectionView!
     @IBOutlet weak var productsView: ProductsiCarousel!
+    private var rowHeights: [CGFloat] = [40,50,116,80,200,41,70,35,200]
     private var klineBtn: UIButton?
     private var priceTimer: Timer?
     private var klineTimer: Timer?
@@ -38,7 +39,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         showTabBarWithAnimationDuration()
-
+        refreshTitleView()
         if let money = UserModel.share().currentUser?.balance{
             myMoneyLabel.text = String.init(format: "%.2f", money)
         }
@@ -76,6 +77,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
         //持仓点击
         DealModel.share().addObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue, options: .new, context: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshTitleView), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.SelectKind), object: nil)
         //k线选择器
         klineTitleView.objects = klineTitles as [AnyObject]?
         if let flowLayout: UICollectionViewFlowLayout = klineTitleView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -87,6 +89,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 self?.updatePrice(model: model)
             }
         }
+        
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
@@ -94,6 +97,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             let allProducets: [ProductModel] = DealModel.share().productKinds
             titleView.objects = allProducets
         }
+
     }
     //MARK: --我的资产
     @IBAction func jumpToMyWallet(_ sender: AnyObject) {
@@ -106,6 +110,11 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
     }
     //TitleCollectionView's Delegate
+    func refreshTitleView() {
+        titleView.selectIndexPath = IndexPath.init(row: DealModel.share().selectProductIndex, section: 0)
+        didSelectedObject(titleView, object: DealModel.share().selectProduct)
+    }
+    
     internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
         if collectionView == titleView {
             if let model: ProductModel = object as? ProductModel {
@@ -113,6 +122,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 initRealTimeData()
                 kLineView.refreshKLine()
                 reloadProducts()
+                collectionView.reloadData()
             }
         }
         
@@ -152,10 +162,13 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             if let resultModel: [PositionModel] = result as! [PositionModel]?{
                 DealModel.cachePositionWithArray(positionArray: resultModel)
                 self?.dealTable.dataArray = DealModel.getAllPositionModel()
+                self?.rowHeights.removeLast()
+                self?.rowHeights.append(CGFloat((self?.dealTable.dataArray?.count)!)*66.0)
+                self?.tableView.reloadData()
                 YD_CountDownHelper.shared.countDownWithDealTableView(tableView: (self?.dealTable)!)
             }
             return nil
-            }, error: errorBlockFunc())
+        }, error: errorBlockFunc())
 
 
     }
@@ -216,7 +229,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         klineTitleView.reuseIdentifier = KLineTitleItem.className()
     }
     
-   
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return rowHeights[indexPath.row]
+    }
     //MARK: --买涨/买跌
     @IBAction func dealBtnTapped(_ sender: UIButton) {
         if true || checkLogin(){
@@ -258,9 +273,4 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     
 }
-//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-//        if identifier == BuyVC.className() {
-//            return checkLogin()
-//        }
-//        return true
-//    }
+
