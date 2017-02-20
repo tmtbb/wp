@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 class AppServerHelper: NSObject {
     fileprivate static var helper = AppServerHelper()
     var feedbackKid: YWFeedbackKit?
@@ -17,10 +19,15 @@ class AppServerHelper: NSObject {
     
     func initServer() {
         initFeedback()
+        initFabric()
     }
     
     //阿里百川
     func initFeedback() {
         feedbackKid = YWFeedbackKit.init(appKey: "")
+    }
+    
+    func initFabric() {
+        Fabric.with([Crashlytics.self])
     }
 }
