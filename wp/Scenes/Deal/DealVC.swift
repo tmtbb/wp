@@ -29,7 +29,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     private var rowHeights: [CGFloat] = [40,50,116,80,200,41,70,35,200]
     private var klineBtn: UIButton?
     private var priceTimer: Timer?
-    private var klineTimer: Timer?
     let klineTitles = ["分时图","5分K","15分K","30分K","1小时K"]
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
@@ -61,8 +60,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         DealModel.share().removeObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue)
         priceTimer?.invalidate()
         priceTimer = nil
-        klineTimer?.invalidate()
-        klineTimer = nil
     }
     //MARK: --DATA
     func initData() {
@@ -101,8 +98,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     //MARK: --我的资产
     @IBAction func jumpToMyWallet(_ sender: AnyObject) {
-        
-        
         if checkLogin(){
             let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: MyWealtVC.className())
@@ -120,7 +115,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             if let model: ProductModel = object as? ProductModel {
                 DealModel.share().selectProduct = model
                 initRealTimeData()
-                kLineView.refreshKLine()
+                kLineView.updateKline()
                 reloadProducts()
                 collectionView.reloadData()
             }
@@ -131,6 +126,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 for (index, title) in klineTitles.enumerated() {
                     if title == klineTitle {
                         kLineView.selectIndex = index
+                        DealModel.share().selectIndex = index
                         break
                     }
                 }
@@ -265,6 +261,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                         break
                     }
                 }
+                self?.initDealTableData()
                 return nil
             }
             present(controller, animated: true, completion: nil)

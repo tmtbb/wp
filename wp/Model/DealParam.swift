@@ -15,6 +15,7 @@ class KChartParam: DealParam {
     var aType: Int = 0 //1.股票 2现货 3期货 4.外汇
     var chartType: Int = 0 //	int32	K线类型	60-1分钟K线，300-5分K线，900-15分K线，1800-30分K线，3600-60分K线，5-日K线
     var startTime: Int64 = 0
+    var count: Int = 5
 }
 
 class DealPriceParam: DealModel {

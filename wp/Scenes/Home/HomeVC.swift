@@ -239,7 +239,9 @@ class HomeVC: BaseTableViewController {
     func jumpToFeedbackController() {
         AppServerHelper.instance().feedbackKid?.makeFeedbackViewController(completionBlock: {[weak self] (controller, error) in
             if let feedbackController = controller{
-                self?.navigationController?.pushViewController(feedbackController, animated: true)
+                let nav = BaseNavigationController.init(rootViewController: feedbackController)
+                feedbackController.title = "意见反馈"
+                self?.present(nav, animated: true, completion: nil)
             }
         })
     }

@@ -35,8 +35,32 @@ class DealModel: BaseModel {
     //数据库是否已经有数据
     var haveDealModel: Bool = false
     //当前k线类型
-    var klineTye: KLineModel.KLineType = .miu5
-    
+    var klineTye: KLineModel.KLineType = .miu
+    //当前选择K线索引
+    var selectIndex: NSInteger!{
+        didSet{
+            switch selectIndex {
+            case 0:
+                klineTye = .miu
+                break
+            case 1:
+                klineTye = .miu5
+                break
+            case 2:
+                klineTye = .miu15
+                break
+            case 3:
+                klineTye = .miu30
+                break
+            case 4:
+                klineTye = .miu60
+                break
+            default:
+                klineTye = .miu
+                break
+            }
+        }
+    }
     
     // 缓存建仓数据
     class func cachePosition(position: PositionModel){
