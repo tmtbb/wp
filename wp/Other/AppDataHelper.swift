@@ -19,7 +19,7 @@ class AppDataHelper: NSObject {
     
     func initData() {
         hurtTimer = Timer.scheduledTimer(timeInterval: 15 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(initKLineChartData), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(initSelectKlineChartData), userInfo: nil, repeats: true)
         Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
         initProductData()
         initErrorCode()
@@ -40,6 +40,7 @@ class AppDataHelper: NSObject {
                 if allProducets.count > 0{
                     DealModel.share().selectProduct = allProducets[0]
                 }
+                self?.initAllKlineChartData()
             }else{
     
             }
@@ -98,8 +99,17 @@ class AppDataHelper: NSObject {
         })
     }
     //根据商品请求K线数据
-    func initKLineChartData() {
+    func initAllKlineChartData() {
+        initKLineChartData(type: .miu5)
+        initKLineChartData(type: .miu15)
+        initKLineChartData(type: .miu30)
+        initKLineChartData(type: .miu60)
+    }
+    func initSelectKlineChartData() {
         let type = DealModel.share().klineTye
+        initKLineChartData(type: type)
+    }
+    func initKLineChartData(type: KLineModel.KLineType) {
         if type == .miu{
             return
         }
