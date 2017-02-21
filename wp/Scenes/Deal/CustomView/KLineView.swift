@@ -42,7 +42,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         selectIndex = 0
         refreshKLine()
         //每隔60秒刷新一次分时数据
-        Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(refreshKLine), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refreshKLine), userInfo: nil, repeats: true)
     }
 
     //MARK: --Charts

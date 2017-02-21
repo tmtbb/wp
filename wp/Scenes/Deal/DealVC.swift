@@ -131,6 +131,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 for (index, title) in klineTitles.enumerated() {
                     if title == klineTitle {
                         kLineView.selectIndex = index
+                        DealModel.share().selectIndex = index
                         break
                     }
                 }
