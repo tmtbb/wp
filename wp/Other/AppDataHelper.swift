@@ -70,7 +70,8 @@ class AppDataHelper: NSObject {
     }
     //根据商品分时数据
     func initLineChartData(){
-        if let product = DealModel.share().selectProduct {
+        for product in DealModel.share().productKinds {
+//        if let product = DealModel.share().selectProduct {
             let max = KLineModel.maxTime(type: .miu, symbol:product.symbol)
             if max > Date.nowTimestemp(){
                 return
@@ -102,7 +103,8 @@ class AppDataHelper: NSObject {
         if type == .miu{
             return
         }
-        if let product = DealModel.share().selectProduct {
+        for product in DealModel.share().productKinds {
+//        if let product = DealModel.share().selectProduct {
             let max = KLineModel.maxTime(type: type, symbol:product.symbol)
             if max > Date.nowTimestemp(){
                 return
