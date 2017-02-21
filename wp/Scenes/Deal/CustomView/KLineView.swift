@@ -15,8 +15,10 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
     @IBOutlet weak var klineCharts: CombinedChartView!
     private var currentCharts: BarLineChartViewBase?
     private var currentModels: [KChartModel] = []
-    private var switchData: Bool = true
+    private var currentType: String = ""
+    private var currentKlineType: KLineModel.KLineType = .miu
     var selectModelBlock: CompleteBlock?
+    
     var selectIndex: NSInteger!{
         didSet{
             
@@ -78,7 +80,6 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
     }
     
     func updateKline() {
-        switchData = false
         refreshKLine()
     }
     
@@ -115,11 +116,10 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         let toTime: Int = Int(Date.nowTimestemp())
         let max = KLineModel.maxTime(type: .miu, symbol:type)
         let margin = toTime - Int(max)
-        if switchData && margin < 61{
+        if currentType == type && margin < 61{
             print("======================\(margin)")
             return
         }
-        switchData = true
         KLineModel.queryTimelineModels(fromTime: fromTime, toTime: toTime, goodType: type){[weak self](result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel] {
                self?.refreshLineChartData(models: models)
@@ -137,6 +137,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         }
         var entrys: [ChartDataEntry] = []
         for (i, model) in models.enumerated()  {
+            currentType = model.symbol
             let entry = ChartDataEntry.init(x: Double(i), y: model.currentPrice)
             entrys.append(entry)
         }
@@ -165,11 +166,11 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         let toTime: Int = Int(Date.nowTimestemp())
         let max = KLineModel.maxTime(type: type, symbol:goodType)
         let margin = toTime - Int(max)
-        if switchData && margin < type.rawValue*2{
+        if currentType == goodType && currentKlineType == type && margin < type.rawValue*2{
             print("in======================\(margin)")
             return
         }
-        switchData = true
+        currentKlineType = type
         KLineModel.queryKLineModels(type: type, fromTime: fromTime, toTime: toTime, goodType: goodType){[weak self](result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel] {
                 self?.refreshCandleStickData(type: type, models: models)
@@ -186,6 +187,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         }
         var entrys: [ChartDataEntry] = []
         for (index, model) in models.enumerated(){
+            currentType = model.symbol
             let location = Double(index+1)
             let entry = CandleChartDataEntry.init(x:location, shadowH: model.highPrice, shadowL: model.lowPrice, open: model.openingTodayPrice, close: model.closedYesterdayPrice)
             entrys.append(entry)
