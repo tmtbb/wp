@@ -261,6 +261,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                         break
                     }
                 }
+                self?.initDealTableData()
                 return nil
             }
             present(controller, animated: true, completion: nil)
