@@ -120,9 +120,9 @@ class BankCardVC: BaseListTableViewController {
     //MARK: 解绑逻辑
     func UnbindCard ( number: Int) {
         
-        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.getCurrentUser()?.phone)!, complete: {(result) -> ()? in
+        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.share().getCurrentUser()?.phone)!, complete: {(result) -> ()? in
         
-//        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.getCurrentUser()?.phone)!, complete: {(result) -> ()? in
+//        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.share().getCurrentUser()?.phone)!, complete: {(result) -> ()? in
 //            
 //            if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
 //                if let token = resultDic[SocketConst.Key.vToken]{
@@ -137,7 +137,7 @@ class BankCardVC: BaseListTableViewController {
 //        
 //        let alertView = UIAlertView.init()
 //        alertView.alertViewStyle = UIAlertViewStyle.plainTextInput // 密文
-//          let str : String = NSString(format: "%@" , (UserModel.getCurrentUser()?.phone)!) as String
+//          let str : String = NSString(format: "%@" , (UserModel.share().getCurrentUser()?.phone)!) as String
 //        alertView.title = "验证码发送到"  + " " + "\(str)"  + " " + "手机上\n" + " " + "请输入验证码"
 //        alertView.addButton(withTitle: "确定")
 //        alertView.addButton(withTitle: "取消")
@@ -147,7 +147,7 @@ class BankCardVC: BaseListTableViewController {
         let  model :BankListModel = self.dataArry[Int(ShareModel.share().shareData["number"]!)!] as BankListModel
         //  func unbindcard( vToken :String,bid: Int32,timestamp: Int64, phone :String, complete: CompleteBlock?, error: ErrorBlock?)
         //func unbindcard( vToken :String,bid: Int32,timestamp: Int64, phone :String,vCode:String, complete: CompleteBlock?, error: ErrorBlock?)
-        AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) ,phone: (UserModel.getCurrentUser()?.phone)!, vCode:"", complete: { [weak self](result) -> ()? in
+        AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) ,phone: (UserModel.share().getCurrentUser()?.phone)!, vCode:"", complete: { [weak self](result) -> ()? in
             
             
             //
@@ -176,7 +176,7 @@ class BankCardVC: BaseListTableViewController {
         
 //        let alertView = UIAlertView.init()
 //        alertView.alertViewStyle = UIAlertViewStyle.plainTextInput // 密文
-//          let str : String = NSString(format: "%@" , (UserModel.getCurrentUser()?.phone)!) as String
+//          let str : String = NSString(format: "%@" , (UserModel.share().getCurrentUser()?.phone)!) as String
 //        alertView.title = "验证码发送到"  + " " + "\(str)"  + " " + "手机上\n" + " " + "请输入验证码"
 //        alertView.addButton(withTitle: "确定")
 //        alertView.addButton(withTitle: "取消")
@@ -198,7 +198,7 @@ class BankCardVC: BaseListTableViewController {
                 
 //                let  model :BankListModel = self.dataArry[Int(ShareModel.share().shareData["number"]!)!] as BankListModel
                 
-//                AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) , phone: (UserModel.getCurrentUser()?.phone)!, vCode: (alertView.textField(at: 0)?.text)!, complete: { [weak self](result) -> ()? in
+//                AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) , phone: (UserModel.share().getCurrentUser()?.phone)!, vCode: (alertView.textField(at: 0)?.text)!, complete: { [weak self](result) -> ()? in
 //                    
 //                
 //    //

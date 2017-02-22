@@ -67,12 +67,13 @@ class LoginVC: BaseTableViewController {
             //登录
             let password = ((pwdText.text! + AppConst.sha256Key).sha256()+phoneText.text!).sha256()
             SVProgressHUD.showProgressMessage(ProgressMessage: "登录中...")
+           
             AppAPIHelper.login().login(phone: phoneText.text!, pwd: password, complete: { [weak self]( result) -> ()? in
                 SVProgressHUD.dismiss()
                 //存储用户信息
                 if result != nil{
                     UserDefaults.standard.set(self?.phoneText.text!, forKey: SocketConst.Key.phone)
-                    UserModel.upateUserInfo(userObject: result!)
+                    UserModel.share().upateUserInfo(userObject: result!)
                 }else{
                     SVProgressHUD.showErrorMessage(ErrorMessage: "登录失败，请稍后再试", ForDuration: 1, completion: nil)
                 }
@@ -83,7 +84,6 @@ class LoginVC: BaseTableViewController {
     }
     
     func loginSuccess() {
-        UserModel.share().currentUser = UserModel.getCurrentUser()
         dismissController()
     }
     

@@ -20,7 +20,6 @@ class UserModel: BaseModel  {
         case dealPass = 1
        
     }
-    var registerUser: UserInfo?
     var currentUser: UserInfo?
     var code:String?
     var phone:String?
@@ -28,9 +27,8 @@ class UserModel: BaseModel  {
     var timestamp:Int = 0
     var forgetPwd:Bool = false
     var forgetType:Movement?
-    static var token: String! = ""
-    
-    static var currentUserId: Int = 0
+    var token: String! = ""
+    var currentUserId: Int = 0
     // 获取某个用户信息
     class func userInfo(userId: Int) -> UserInfo? {
         if userId == 0 {
@@ -38,7 +36,7 @@ class UserModel: BaseModel  {
         }
         
         let realm = try! Realm()
-        let filterStr = "uid = \(userId)"
+        let filterStr = "id = \(userId)"
         let user = realm.objects(UserInfo.self).filter(filterStr).first
         if user != nil{
             return user!
@@ -49,7 +47,7 @@ class UserModel: BaseModel  {
    
     
     //获取当前用户
-    class func getCurrentUser() -> UserInfo? {
+    func getCurrentUser() -> UserInfo? {
         let id: Int? = UserDefaults.standard.value(forKey: SocketConst.Key.id) as? Int
         if id == nil{
             return nil
@@ -63,13 +61,13 @@ class UserModel: BaseModel  {
     }
     
     // 更新用户信息
-    class func upateUserInfo(userObject: AnyObject){
+    func upateUserInfo(userObject: AnyObject){
         if let model = userObject as? UserInfoModel {
             token = model.token
             //存储token
             UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
             if let user = model.userinfo {
-                currentUserId = user.uid
+                currentUserId = user.id
                 if let phoneStr = UserDefaults.standard.value(forKey: SocketConst.Key.phone) as? String{
                     user.phone = phoneStr
                 }
@@ -79,6 +77,7 @@ class UserModel: BaseModel  {
                 try! realm.write {
                     realm.add(user, update: true)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
+                    currentUser = getCurrentUser()
                 }
             }
         }

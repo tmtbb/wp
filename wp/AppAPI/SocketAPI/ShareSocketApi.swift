@@ -17,7 +17,7 @@ class ShareSocketApi: BaseSocketAPI, ShareApi {
     
     // 我的晒单网络请求
     func getShareData(userId : String, phone: String,selectIndex: String,pageNumber: String, complete: CompleteBlock?, error: ErrorBlock?){
-        let param: [String: Any] = [SocketConst.Key.uid: UserModel.share().currentUser?.uid  ?? 0,
+        let param: [String: Any] = [SocketConst.Key.uid: UserModel.share().currentUser?.id  ?? 0,
                                     SocketConst.Key.pwd: userId,
                                     SocketConst.Key.code: phone]
         

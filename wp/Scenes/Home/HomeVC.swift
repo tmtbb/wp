@@ -67,8 +67,8 @@ class HomeVC: BaseTableViewController {
                         SocketConst.Key.symbol: product.symbol] as [String : Any]
             goods.append(good as AnyObject)
         }
-        let param: [String: Any] = [SocketConst.Key.id: UserModel.currentUserId,
-                                    SocketConst.Key.token: UserModel.token ?? "",
+        let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUserId,
+                                    SocketConst.Key.token: UserModel.share().token,
                                     SocketConst.Key.symbolInfos: goods]
         AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
             if let models: [KChartModel] = result as! [KChartModel]?{

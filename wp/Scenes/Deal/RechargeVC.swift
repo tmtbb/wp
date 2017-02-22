@@ -61,7 +61,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         self.navigationItem.rightBarButtonItem = barItem
         NotificationCenter.default.addObserver(self, selector: #selector(paysuccess(_:)), name: Notification.Name(rawValue:AppConst.WechatPay.WechatKeyErrorCode), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: nil)
-        self.userIdText.text = UserModel.getCurrentUser()?.phone
+        self.userIdText.text = UserModel.share().getCurrentUser()?.phone
         self.userIdText.isUserInteractionEnabled = false
         //        self.userIdText.text  =
         //        self.bankTableView.addObserver(self, forKeyPath: "dataArry", options: .new, context: nil)

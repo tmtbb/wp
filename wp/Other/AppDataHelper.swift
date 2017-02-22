@@ -23,7 +23,7 @@ class AppDataHelper: NSObject {
         Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
         initProductData()
         initErrorCode()
-        checkTokenLogin()
+//        checkTokenLogin()
     }
     //请求商品数据
     func initProductData() {
@@ -41,6 +41,7 @@ class AppDataHelper: NSObject {
                     DealModel.share().selectProduct = allProducets[0]
                 }
                 self?.initAllKlineChartData()
+                
             }else{
     
             }
@@ -155,8 +156,8 @@ class AppDataHelper: NSObject {
                         }
                        
                         if let user = model.userinfo {
-                            UserDefaults.standard.setValue(user.uid, forKey: SocketConst.Key.id)
-                            UserModel.share().currentUser = UserModel.getCurrentUser()
+                            UserDefaults.standard.setValue(user.id, forKey: SocketConst.Key.id)
+//                            UserModel.share().currentUser = UserModel.getCurrentUser()
                         }
                     }else{
                        self?.clearUserInfo()
@@ -173,7 +174,7 @@ class AppDataHelper: NSObject {
     func clearUserInfo() {
         UserDefaults.standard.removeObject(forKey: SocketConst.Key.uid)
         UserDefaults.standard.removeObject(forKey: SocketConst.Key.token)
-        UserModel.share().currentUser = nil
+//        UserModel.share().currentUser = nil
     }
     
     //获取错误信息

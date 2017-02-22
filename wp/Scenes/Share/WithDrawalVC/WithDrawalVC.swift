@@ -68,7 +68,7 @@ class WithDrawalVC: BaseTableViewController {
         
         btn.addTarget(self, action: #selector(withDrawList), for: UIControlEvents.touchUpInside)
         
-          let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String
+          let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
         let int : Double = Double(str)!
         self.money.placeholder = "最多可提现" + "\(int)" + "元"
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
@@ -108,7 +108,7 @@ class WithDrawalVC: BaseTableViewController {
     @IBAction func withDraw(_ sender: Any) {
         
         // 校验 是否选择银行卡和提现最多金额
-        let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String
+        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
         let account  :  Double = Double(str)!
         
         if self.money.text?.length()==0{
@@ -181,7 +181,7 @@ class WithDrawalVC: BaseTableViewController {
                 }
                 
                 
-              let password = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(UserModel.getCurrentUser()?.phone!)!).sha256()
+              let password = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(UserModel.share().getCurrentUser()?.phone!)!).sha256()
 //                let passWord : String = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(alertView.textField(at: 0)?.text)!).sha256()
                 AppAPIHelper.user().withdrawcash(money: Double.init(money)!, bld: bankId, password: password, complete: { [weak self](result) -> ()? in
                     
@@ -201,7 +201,7 @@ class WithDrawalVC: BaseTableViewController {
     }
     @IBAction func requestVoiceCode(_ sender: UIButton) {
         
-        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.getCurrentUser()?.phone)!, complete: { [weak self](result) -> ()? in
+        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.share().getCurrentUser()?.phone)!, complete: { [weak self](result) -> ()? in
             if let strongSelf = self{
                 if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
                     if let token = resultDic[SocketConst.Key.vToken]{
@@ -245,7 +245,7 @@ class WithDrawalVC: BaseTableViewController {
     //MARK: 全部提现导航栏
     @IBAction func withDrawAll(_ sender: Any) {
         //        self.money.text
-        let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String
+        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
         self.money.text = str
     }
 }

@@ -28,15 +28,15 @@ class MyMessageController: BaseTableViewController {
         tableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0)
         translucent(clear: false)
         tableView.tableFooterView = setupFooterView()
-        if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
-            userImage.image = UIImage(named: "\(UserModel.getCurrentUser()?.avatarLarge)")
+        if ((UserModel.share().getCurrentUser()?.avatarLarge) != ""){
+            userImage.image = UIImage(named: "\(UserModel.share().getCurrentUser()?.avatarLarge)")
             userImage.image = UIImage(named: "default-head")
         }
         else{
             userImage.image = UIImage(named: "default-head")
         }
-        if ((UserModel.getCurrentUser()?.screenName) != "") {
-            userName.text = UserModel.getCurrentUser()?.screenName
+        if ((UserModel.share().getCurrentUser()?.screenName) != "") {
+            userName.text = UserModel.share().getCurrentUser()?.screenName
             userName.sizeToFit()
             tableView.reloadData()
         }
@@ -44,7 +44,7 @@ class MyMessageController: BaseTableViewController {
             userName.text = "Bug退散"
         }
 
-        let four : String = (UserModel.getCurrentUser()?.phone)!
+        let four : String = UserModel.share().getCurrentUser()?.phone ?? "00000000000"
         let str : String = (four as NSString).substring(to: 4)
         let str2 : String = (four as NSString).substring(from: 7)
         phoneNumber.text = str + "****" + str2
@@ -123,12 +123,12 @@ class MyMessageController: BaseTableViewController {
                 
                  SVProgressHUD.show()
                 //七牛没有连接通.暂时还没拿到照片的URL
-                AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: (UserModel.getCurrentUser()?.avatarLarge)!, gender: 0, complete: { [weak self](result) -> ()? in
+                AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: UserModel.share().getCurrentUser()?.avatarLarge ?? "", gender: 0, complete: { [weak self](result) -> ()? in
                     
                     if result == nil {
                       
                         UserModel.updateUser(info: { (result) -> ()? in
-                           UserModel.getCurrentUser()?.screenName = filed.text
+                           UserModel.share().getCurrentUser()?.screenName = filed.text
                         })
                         self?.userName.text = filed.text
                         SVProgressHUD.show(withStatus: "修改昵称成功")
@@ -182,10 +182,10 @@ extension MyMessageController: UIImagePickerControllerDelegate, UINavigationCont
         let image: UIImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
         imagePicker.dismiss(animated: true, completion: nil)
         userImage.image = image
-        UIImage.qiniuUploadImage(image: image, imageName: "test", complete: { (result) -> ()? in
+        UIImage.qiniuUploadImage(image: image, imageName: "\(Int(Date.nowTimestemp()))", complete: { (result) -> ()? in
             
             print(result!)
-            //七牛请求回来url地址  上传到服务器.成功之后.保存到UserModel.getCurrentUser()?.avatarLarge 在通知 更新UI
+            //七牛请求回来url地址  上传到服务器.成功之后.保存到UserModel.share().getCurrentUser()?.avatarLarge 在通知 更新UI
             
             return nil
         }) { (error) -> ()? in

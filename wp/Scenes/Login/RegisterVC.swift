@@ -26,8 +26,8 @@ class RegisterVC: BaseTableViewController {
     @IBOutlet weak var wechatBtn: UIButton!
     private var timer: Timer?
     
-    private var codeTime = 10
-    private var voiceCodeTime = 10
+    private var codeTime = 60
+    private var voiceCodeTime = 60
     
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
