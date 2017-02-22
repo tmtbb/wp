@@ -146,8 +146,7 @@ class SocketConst: NSObject {
         static let status = "status"
         static let pos = "startPos"
         static let start = "start"
-     
-
+        static let gender = "gender"
         static let rid = "rid"
         static let money = "money"
         static let bld = "bld"

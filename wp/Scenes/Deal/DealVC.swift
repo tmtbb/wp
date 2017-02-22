@@ -175,8 +175,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                         SocketConst.Key.exchangeName: product.exchangeName,
                         SocketConst.Key.platformName: product.platformName,
                         SocketConst.Key.symbol: product.symbol] as [String : Any]
-            let param: [String: Any] = [SocketConst.Key.id: UserModel.currentUserId,
-                                        SocketConst.Key.token: UserModel.token ?? "",
+            let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUserId,
+                                        SocketConst.Key.token: UserModel.share().token,
                                         SocketConst.Key.symbolInfos: [good]]
             AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
                 if let models: [KChartModel] = result as! [KChartModel]?{

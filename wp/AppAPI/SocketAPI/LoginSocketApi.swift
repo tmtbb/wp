@@ -11,6 +11,16 @@ import UIKit
 class LoginSocketApi: BaseSocketAPI, LoginApi {
     //登录
     func login(phone: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?){
+        
+        let param: [String: Any] = [SocketConst.Key.phone: phone,
+                                    SocketConst.Key.pwd: pwd,
+                                    SocketConst.Key.source: 1]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .login, dict: param as [String : AnyObject])
+        startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
+    }
+    //测试登录
+    func testlogin(phone: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?){
+        
         let param: [String: Any] = [SocketConst.Key.phone: phone,
                                     SocketConst.Key.pwd: pwd,
                                     SocketConst.Key.source: 1]
@@ -46,7 +56,7 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
                                     SocketConst.Key.type: type,
                                     SocketConst.Key.timestamp: UserModel.share().timestamp,
                                     SocketConst.Key.vToken: UserModel.share().codeToken,
-                                    SocketConst.Key.uid: UserModel.share().currentUser?.uid ?? 0]
+                                    SocketConst.Key.uid: UserModel.share().currentUserId]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .repwd, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }

@@ -16,7 +16,6 @@ class UserInfoModel: BaseModel {
 
 class UserInfo: Object {
     dynamic var id: Int = 0
-    dynamic var uid: Int = 0
     dynamic var screenName: String?
     dynamic var memberId: String?
     dynamic var memberName: String?
@@ -29,7 +28,7 @@ class UserInfo: Object {
     dynamic var phone: String?
     
     override static func primaryKey() -> String?{
-        return "uid"
+        return "id"
     }
 }
 

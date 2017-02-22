@@ -22,7 +22,7 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
         super.init()
         dispatch_queue = DispatchQueue(label: "APISocket_Queue", attributes: DispatchQueue.Attributes.concurrent)
         socket = GCDAsyncSocket.init(delegate: self, delegateQueue: dispatch_queue);
-//        connect()
+        connect()
     }
 
     func connect() {
@@ -32,11 +32,11 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
                 try socket?.connect(toHost: AppConst.Network.TcpServerIP, onPort: AppConst.Network.TcpServerPort, withTimeout: 5)
             }
         } catch GCDAsyncSocketError.closedError {
-
+            print("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
         } catch GCDAsyncSocketError.connectTimeoutError {
-
+            print("<<<<<<<<<<<<<<<<<<<<<<<<")
         } catch {
-
+            print(">>>>>>>>>>>>>>>>>>>>>>>")
         }
     }
     
