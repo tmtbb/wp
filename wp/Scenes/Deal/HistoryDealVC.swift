@@ -61,7 +61,7 @@ class HistoryDealVC: BasePageListTableViewController {
                         }
                     }
                     self?.didRequestComplete(newModels as AnyObject?)
-                }else{
+                }else{ 
                     var moreModels: [PositionModel] = []
                     let historyModels = DealModel.getHistoryPositionModel()
                     if historyModels.count == 0{

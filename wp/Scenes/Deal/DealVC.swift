@@ -153,9 +153,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         
         dealTable.dataArray = DealModel.getAllPositionModel()
         YD_CountDownHelper.shared.countDownWithDealTableView(tableView: dealTable)
-
         AppAPIHelper.deal().currentDeals(complete: { [weak self](result) -> ()? in
-            
             if result == nil{
                 return nil
             }
