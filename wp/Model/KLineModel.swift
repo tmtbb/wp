@@ -49,7 +49,6 @@ class KLineModel: NSObject {
     //缓存数据
     class func cacheKChartModels(chart: ChartModel) {
         let _ = autoreleasepool(invoking: {
-            
             queue.async(execute: {
                 if chart.priceinfo == nil || chart.priceinfo?.count == 0 {
                     return
@@ -62,8 +61,8 @@ class KLineModel: NSObject {
                 let goodMinTime: Int = result.min(ofProperty: "priceTime") ?? 0
                 for (_, model) in chart.priceinfo!.enumerated() {
                     if model.priceTime > goodMaxTime || model.priceTime < goodMinTime{
-                        model.onlyKey = "\(model.symbol)\(model.priceTime)"
                         model.chartType = chart.chartType
+                        model.onlyKey = "\(model.symbol)\(model.priceTime)\(model.chartType)"
                         //缓存分时线
                         try! realm.write {
                             realm.add(model, update: true)
@@ -134,72 +133,3 @@ class KLineModel: NSObject {
     }
    
 }
-//    //缓存K线模型
-//    class func cacheKLineModels(klineType: KLineType, goodType: String) {
-//        let _ = autoreleasepool(invoking: {
-//            queue.async(execute: {
-//                let realm = try! Realm()
-//                let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
-//                let queryTypeStr = NSPredicate.init(format: "klineType = %d",klineType.rawValue)
-//                let goodMaxTime: Int = realm.objects(KLineChartModel.self).filter(queryStr).filter(queryTypeStr).max(ofProperty: "priceTime") ?? 0
-//                queryModels(type: klineType, goodType: goodType, minTime: goodMaxTime)
-//            })
-//        })
-//    }
-//
-//    //查询某种商品（goodType）的在某个时间段内（minTime）的某种K线（type）的分时数据来进行计算
-//    class func queryModels(type: KLineType, goodType: String, minTime: Int){
-//        let margin = type.rawValue * 60
-//        var min = minTime > Int(Date.startTimestemp()) ? minTime : Int(Date.startTimestemp())
-//        var max = min + margin
-//        let current = Int(Date.nowTimestemp())
-//        while max < current {
-//            queryModel(type: type, goodType: goodType, fromTime: min, toTime: max)
-//            min = max
-//            max = min + margin
-//        }
-//    }
-//
-//    查询某个时间段的K线数据并计算出该时间段的K线模型缓存起来
-//    class func queryModel(type: KLineType,goodType: String, fromTime: Int, toTime: Int) {
-//        let realm = try! Realm()
-//        let queryStr = NSPredicate.init(format: "goodType = %@",goodType)
-//        let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).filter("priceTime > \(fromTime)").filter("priceTime < \(toTime)")
-//
-//        var resultModel: KLineChartModel?
-//        for (index, model) in result.enumerated() {
-//            if index == 0 {
-//                resultModel = KLineChartModel()
-//                resultModel!.priceTime = model.priceTime
-//                resultModel!.exchangeName = model.exchangeName
-//                resultModel!.platformName = model.platformName
-//                resultModel!.currentPrice = model.currentPrice
-//                resultModel!.change = model.change
-//                resultModel!.openingTodayPrice = model.openingTodayPrice
-//                resultModel!.closedYesterdayPrice = model.closedYesterdayPrice
-//                resultModel!.highPrice = resultModel!.currentPrice
-//                resultModel!.lowPrice = resultModel!.currentPrice
-//                resultModel!.openPrice = resultModel!.currentPrice
-//                resultModel!.klineType = type.rawValue
-//            }else{
-//                //收盘价
-//                if index == result.count - 1 {
-//                    resultModel?.closePrice = model.currentPrice
-//                    resultModel?.onlyKey = "\(goodType)\(model.priceTime)"
-//                }
-//                //最高价
-//                if resultModel!.highPrice < model.currentPrice {
-//                    resultModel!.highPrice = model.currentPrice
-//                }
-//                //最低价
-//                if resultModel!.lowPrice > model.currentPrice {
-//                    resultModel!.lowPrice = model.currentPrice
-//                }
-//            }
-//        }
-//        if resultModel != nil {
-//            try! realm.write {
-//                realm.add(resultModel!, update: true)
-//            }
-//        }
-//    }

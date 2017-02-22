@@ -114,6 +114,9 @@ class BuyProductVC: UIViewController {
             self?.view.isUserInteractionEnabled = true
             if let product: PositionModel = result as? PositionModel{
                 self?.dismissController()
+                if self?.resultBlock != nil{
+                    self?.resultBlock!(BuyResultType.success as AnyObject)
+                }
                 DealModel.cachePosition(position: product)
                 YD_CountDownHelper.shared.reStart()
             }
