@@ -230,11 +230,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     //MARK: --买涨/买跌
     @IBAction func dealBtnTapped(_ sender: UIButton) {
-        let model = PositionModel()
-        model.positionTime = Int(NSDate().timeIntervalSince1970)
-        model.closeTime = model.positionTime + 50
-        DealModel.cachePosition(position: model)
-        YD_CountDownHelper.shared.reStart()
         if true || checkLogin(){
             
             tableView.scrollToRow(at: IndexPath.init(row: 3, section: 0), at: .top, animated: false)
