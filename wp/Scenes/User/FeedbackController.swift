@@ -42,8 +42,7 @@ class FeedbackController: UIViewController {
         
         setConfig()
         
-    }
-    
+    } 
     func setConfig() {
         
         textView.backgroundColor = UIColor(colorLiteralRed: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 1)
@@ -58,14 +57,12 @@ class FeedbackController: UIViewController {
         
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
 }
-
 //MARK: --UITextViewDelegate
 extension FeedbackController: UITextViewDelegate {
     
