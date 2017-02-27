@@ -52,12 +52,18 @@ class YD_CountDownHelper: NSObject {
         return String(format: "%.2d:%.2d:%.2ds", hours, minutes, seconds)
     }
     
-    func reStart() {
+    
+    func resetDataSource() {
         guard table != nil else {
             return
         }
         table?.dataArray = DealModel.getAllPositionModel()
-       table?.reloadData()
+        table?.reloadData()
+
+    }
+    func reStart() {
+
+        resetDataSource()
         if timer != nil {
             start()
         }
@@ -75,7 +81,6 @@ class YD_CountDownHelper: NSObject {
     }
     
     func pause() {
-        
         isCountDown = false
         timer?.invalidate()
     }

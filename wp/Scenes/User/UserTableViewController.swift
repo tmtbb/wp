@@ -38,7 +38,7 @@ class UserTableViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //       UserModel.getCurrentUser()?.balance
+        //       UserModel.share().getCurrentUser()?.balance
         // ShareModel.share().useMoney = Double(money)
         personBackgroud.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         propertyBackgroud.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
@@ -53,17 +53,17 @@ class UserTableViewController: BaseTableViewController {
         AppDataHelper.instance().checkTokenLogin()
         if checkLogin() {
             loginSuccessIs(bool: true)
-            propertyNumber.text = "\(UserModel.getCurrentUser()!.balance)"
-            if ((UserModel.getCurrentUser()?.avatarLarge) != "" && UserModel.getCurrentUser()?.avatarLarge == "default-head"){
-                iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+            propertyNumber.text = "\(UserModel.share().getCurrentUser()!.balance)"
+            if ((UserModel.share().getCurrentUser()?.avatarLarge) != "" && UserModel.share().getCurrentUser()?.avatarLarge == "default-head"){
+                iconImage.image = UIImage(named: (UserModel.share().getCurrentUser()?.avatarLarge) ?? "")
                 iconImage.image = UIImage(named: "default-head")
             }
             else{
                 iconImage.image = UIImage(named: "default-head")
             }
             
-            if ((UserModel.getCurrentUser()?.screenName) != "") {
-                nameLabel.text = UserModel.getCurrentUser()?.screenName
+            if ((UserModel.share().getCurrentUser()?.screenName) != "") {
+                nameLabel.text = UserModel.share().getCurrentUser()?.screenName
                 nameLabel.sizeToFit()
             }
             else{
@@ -111,16 +111,16 @@ class UserTableViewController: BaseTableViewController {
     //修改个人信息
     func changeUserinfo() {
         
-        if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
-            iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+        if ((UserModel.share().getCurrentUser()?.avatarLarge) != ""){
+            iconImage.image = UIImage(named: (UserModel.share().getCurrentUser()?.avatarLarge) ?? "")
             iconImage.image = UIImage(named: "default-head")
         }
         else{
             iconImage.image = UIImage(named: "default-head")
         }
         
-        if ((UserModel.getCurrentUser()?.screenName) != "") {
-            nameLabel.text = UserModel.getCurrentUser()?.screenName
+        if ((UserModel.share().getCurrentUser()?.screenName) != "") {
+            nameLabel.text = UserModel.share().getCurrentUser()?.screenName
             nameLabel.sizeToFit()
         }
         else{
@@ -130,16 +130,16 @@ class UserTableViewController: BaseTableViewController {
     //登录成功
     func updateUI()  {
         
-        if ((UserModel.getCurrentUser()?.avatarLarge) != "" && (UserModel.getCurrentUser()?.avatarLarge) == "default-head"){
-            iconImage.image = UIImage(named: (UserModel.getCurrentUser()?.avatarLarge) ?? "")
+        if ((UserModel.share().getCurrentUser()?.avatarLarge) != "" && (UserModel.share().getCurrentUser()?.avatarLarge) == "default-head"){
+            iconImage.image = UIImage(named: (UserModel.share().getCurrentUser()?.avatarLarge) ?? "")
             iconImage.image = UIImage(named: "default-head")
         }
         else{
             iconImage.image = UIImage(named: "default-head")
         }
         
-        if ((UserModel.getCurrentUser()?.screenName) != "") {
-            nameLabel.text = UserModel.getCurrentUser()?.screenName
+        if ((UserModel.share().getCurrentUser()?.screenName) != "") {
+            nameLabel.text = UserModel.share().getCurrentUser()?.screenName
             nameLabel.sizeToFit()
         }
         else{
@@ -163,10 +163,10 @@ class UserTableViewController: BaseTableViewController {
                     let model = modes.first
                     UserModel.updateUser(info: { (result) -> ()? in
                         if model!.avatarLarge != nil {
-                            UserModel.getCurrentUser()?.avatarLarge = model!.avatarLarge
+                            UserModel.share().getCurrentUser()?.avatarLarge = model!.avatarLarge
                         }
-                        UserModel.getCurrentUser()?.screenName = model!.screenName
-                        UserModel.getCurrentUser()?.phone = model!.phone
+                        UserModel.share().getCurrentUser()?.screenName = model!.screenName
+                        UserModel.share().getCurrentUser()?.phone = model!.phone
                         return nil
                     })
                 }

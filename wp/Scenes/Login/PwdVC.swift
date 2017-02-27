@@ -83,7 +83,7 @@ class PwdVC: BaseTableViewController {
             SVProgressHUD.dismiss()
             //存储用户信息
             if result != nil{
-                UserModel.upateUserInfo(userObject: result!)
+                UserModel.share().upateUserInfo(userObject: result!)
             }else{
                 SVProgressHUD.showErrorMessage(ErrorMessage: "更新用户信息失败", ForDuration: 1, completion: nil)
             }
