@@ -97,7 +97,7 @@ class AppDataHelper: NSObject {
             if last < zero{
                 return
             }
-            lineChartData(product: product, fromTime: min, endTime: last)
+            lineChartData(product: product, fromTime: min, endTime: zero)
         }
     }
     func lineChartData(product: ProductModel, fromTime: Double, endTime: Double){
@@ -163,7 +163,7 @@ class AppDataHelper: NSObject {
             if last < zero{
                 return
             }
-            kLineChartData(type: type, product: product, fromTime: min, endTime: last)
+            kLineChartData(type: type, product: product, fromTime: min, endTime: zero)
         }
     }
     func kLineChartData(type: KLineModel.KLineType, product: ProductModel, fromTime: Double, endTime: Double) {
