@@ -41,13 +41,20 @@ class MyMessageController: BaseTableViewController {
             tableView.reloadData()
         }
         else{
-            userName.text = "Bug退散"
+            userName.text = "---"
         }
+
+
+////        let four : String = (UserModel.getCurrentUser()?.phone)!
+//        let str : String = (four as NSString).substring(to: 4)
+//        let str2 : String = (four as NSString).substring(from: 7)
+//        phoneNumber.text = str + "****" + str2
 
         let four : String = UserModel.share().getCurrentUser()?.phone ?? "00000000000"
         let str : String = (four as NSString).substring(to: 4)
         let str2 : String = (four as NSString).substring(from: 7)
         phoneNumber.text = str + "****" + str2
+
     }
     
    

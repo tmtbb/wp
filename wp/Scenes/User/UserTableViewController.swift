@@ -67,7 +67,7 @@ class UserTableViewController: BaseTableViewController {
                 nameLabel.sizeToFit()
             }
             else{
-                nameLabel.text = "Bug退散"
+                nameLabel.text = "---"
             }
         }
         else{

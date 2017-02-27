@@ -41,39 +41,43 @@ class HistoryDealVC: BasePageListTableViewController {
         super.viewDidLoad()
     }
     override func didRequest(_ pageIndex: Int) {
-        let index = pageIndex == 1 ? 0 : DealModel.getHistoryPositionModel().count
+        
+        let index = (pageIndex - 1) * 10
+//        let index = pageIndex == 1 ? 0 : DealModel.getHistoryPositionModel().count
         AppAPIHelper.deal().historyDeals(start: index, count: 10, complete: { [weak self](result) -> ()? in
             if let models: [PositionModel] = result as! [PositionModel]?{
                 DealModel.cachePositionWithArray(positionArray: models)
-                if pageIndex == 1 {
-                    var newModels: [PositionModel] = []
-                    let historyModels = DealModel.getHistoryPositionModel()
-                    if historyModels.count == 0{
-                        newModels = models
-                    }else{
-                        for historyModel in historyModels{
-                            newModels.append(historyModel)
-                        }
-                        for model in models{
-                            if model.positionTime > historyModels.first!.positionTime{
-                                newModels.append(model)
-                            }
-                        }
-                    }
-                    self?.didRequestComplete(newModels as AnyObject?)
-                }else{
-                    var moreModels: [PositionModel] = []
-                    let historyModels = DealModel.getHistoryPositionModel()
-                    if historyModels.count == 0{
-                        moreModels = models
-                    }else{
-                        for model in models{
-                            if model.positionTime < historyModels.last!.positionTime{
-                                moreModels.append(model)
-                            }
-                        }
-                    }
-                    self?.didRequestComplete(moreModels as AnyObject?)                }
+//                if pageIndex == 1 {
+//                    var newModels: [PositionModel] = []
+//                    let historyModels = DealModel.getHistoryPositionModel()
+//                    if historyModels.count == 0{
+//                        newModels = models
+//                    }else{
+//                        for historyModel in historyModels{
+//                            newModels.append(historyModel)
+//                        }
+//                        for model in models{
+//                            if model.positionTime > historyModels.first!.positionTime{
+//                                newModels.append(model)
+//                            }
+//                        }
+//                    }
+//                    self?.didRequestComplete(newModels as AnyObject?)
+//                }else{ 
+//                    var moreModels: [PositionModel] = []
+//                    let historyModels = DealModel.getHistoryPositionModel()
+//                    if historyModels.count == 0{
+//                        moreModels = models
+//                    }else{
+//                        for model in models{
+//                            if model.positionTime < historyModels.last!.positionTime{
+//                                moreModels.append(model)
+//                            }
+//                        }
+//                    }
+                
+                    self?.didRequestComplete(models as AnyObject?)
+//            }
             }
             return nil
         }, error: errorBlockFunc())
