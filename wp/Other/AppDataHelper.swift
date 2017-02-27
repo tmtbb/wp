@@ -74,12 +74,14 @@ class AppDataHelper: NSObject {
         moreLineChartData()
         moreSelectKlineChartData()
     }
-    
     //根据商品分时数据
     func initLineChartData(){
         for product in DealModel.share().productKinds {
             let now = Date.nowTimestemp()
-            let last = KLineModel.maxTime(type: .miu, symbol:product.symbol)
+            var last = KLineModel.maxTime(type: .miu, symbol:product.symbol)
+            if last < Date.startTimestemp(){
+                last = Date.startTimestemp()
+            }
             let future = last + 300
             if future > now{
                 return
@@ -130,12 +132,15 @@ class AppDataHelper: NSObject {
     }
     
     func initKLineChartData(type: KLineModel.KLineType) {
-        if type == .miu{
-            return
-        }
+//        if type == .miu{
+//            return
+//        }
         if let product = DealModel.share().selectProduct{
             let now = Date.nowTimestemp()
-            let last = KLineModel.maxTime(type: type, symbol:product.symbol)
+            var last = KLineModel.maxTime(type: type, symbol:product.symbol)
+            if last < Date.startTimestemp(){
+                last = Date.startTimestemp()
+            }
             let future = last + Double(type.rawValue*5)
             if future > now{
                 return
