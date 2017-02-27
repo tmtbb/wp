@@ -109,6 +109,12 @@ class BuyProductVC: UIViewController {
         buyModel.amount = Int(countSlider.value)
         buyModel.isDeferred = DealModel.share().buyModel.isDeferred
 
+        
+//        AppAPIHelper.deal().buildDeal(model: buyModel, complete: { (res) -> ()? in
+//            
+//        }) { (error) -> ()? in
+//            
+//        }
         AppAPIHelper.deal().buildDeal(model: buyModel, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
             self?.view.isUserInteractionEnabled = true
@@ -121,7 +127,15 @@ class BuyProductVC: UIViewController {
                 YD_CountDownHelper.shared.reStart()
             }
             return nil
-        }, error: errorBlockFunc())
+        }) { (error) -> ()? in
+            self.didRequestError(error)
+            self.view.isUserInteractionEnabled = true
+            return nil
+        }
+        
+        
+        
+        
     }
     
 }
