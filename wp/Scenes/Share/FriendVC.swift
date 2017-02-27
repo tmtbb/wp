@@ -105,6 +105,7 @@ class FriendVC: BaseTableViewController {
         ////        benifityBarChart
         ////        xaxis.labelPosition =  .leftBottom
         //
+        
         //        benifityBarChart.descriptionText = ""
         //        xaxis.valueFormatter = formatter
         //        xaxis.spaceMax = 19;

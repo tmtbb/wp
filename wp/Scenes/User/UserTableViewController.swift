@@ -67,7 +67,7 @@ class UserTableViewController: BaseTableViewController {
                 nameLabel.sizeToFit()
             }
             else{
-                nameLabel.text = UserModel.share().currentUser?.phone
+                nameLabel.text = "---"
             }
         }
         else{
