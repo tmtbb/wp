@@ -32,11 +32,8 @@ class DealSocketApi: BaseSocketAPI, DealApi {
         let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.id ?? 32,
                                     SocketConst.Key.countNuber: count,
                                     SocketConst.Key.start: start,
-
                                     SocketConst.Key.token: UserModel.share().token]
-      
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .historyDeals, dict: param as [String : AnyObject], type:.time)
-
         startModelsRequest(packet, listName: "positioninfo", modelClass: PositionModel.self, complete: complete, error: error)
     }
     
@@ -51,8 +48,6 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     
     //建仓
     internal func buildDeal(model: DealParam, complete: CompleteBlock?, error: ErrorBlock?) {
-        model.id = UserModel.share().currentUser?.id ?? 32
-        model.token = UserModel.share().token
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .buildDeal, model: model, type: .deal)
         startModelRequest(packet, modelClass: PositionModel.self, complete: complete, error: error)
     }
@@ -85,26 +80,26 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     
     //当时K线数据
     func kChartsData(param: KChartParam, complete: CompleteBlock?, error:ErrorBlock?){
-        let paramDic: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.id ?? 0,
-                                        SocketConst.Key.token: UserModel.share().token ,
-                                        SocketConst.Key.symbol: param.symbol,
-                                        SocketConst.Key.exchangeName: param.exchangeName,
-                                        SocketConst.Key.platformName: param.platformName,
-                                        SocketConst.Key.chartType: param.chartType]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .kChart, dict: paramDic as [String : AnyObject], type: .time)
+//        let paramDic: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.id ?? 0,
+//                                        SocketConst.Key.token: UserModel.share().token ,
+//                                        SocketConst.Key.symbol: param.symbol,
+//                                        SocketConst.Key.exchangeName: param.exchangeName,
+//                                        SocketConst.Key.platformName: param.platformName,
+//                                        SocketConst.Key.chartType: param.chartType,
+//                                        SocketConst.Key.startTime: param.startTime]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .kChart, model: param, type: .time)
         startModelRequest(packet, modelClass: ChartModel.self, complete: complete, error: error)
     }
     
     //当时分时数据
     func timeline(param: KChartParam, complete: CompleteBlock?, error:ErrorBlock?){
-      
-        let paramDic: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.id ?? 0,
-                                       SocketConst.Key.token: UserModel.share().token ,
-                                       SocketConst.Key.symbol: param.symbol,
-                                       SocketConst.Key.exchangeName: param.exchangeName,
-                                       SocketConst.Key.platformName: param.platformName,
-                                       SocketConst.Key.aType: param.aType]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .timeline, dict: paramDic as [String : AnyObject], type: .time)
+//        let paramDic: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.id ?? 0,
+//                                       SocketConst.Key.token: UserModel.share().token ,
+//                                       SocketConst.Key.symbol: param.symbol,
+//                                       SocketConst.Key.exchangeName: param.exchangeName,
+//                                       SocketConst.Key.platformName: param.platformName,
+//                                       SocketConst.Key.aType: param.aType]
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .timeline, model: param, type: .time)
         startModelsRequest(packet, listName: "priceinfo", modelClass: KChartModel.self, complete: complete, error: error)
     }
     

@@ -179,5 +179,6 @@ class SocketConst: NSObject {
         static let uidStr = "uidStr"
         static let timestamp = "timestamp"
         static let aType = "aType"
+        static let startTime = "startTime"
     }
 }
