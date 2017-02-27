@@ -53,7 +53,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
                 let floatmonet : Double = Double.init(money)
                 let str : String = NSString(format: "%.2f" ,floatmonet) as String
                 self?.account.text =  "\(str)"
-                
+ 
                 ShareModel.share().useMoney = money
                 UserModel.updateUser(info: { (result) -> ()? in
                     UserModel.share().getCurrentUser()?.balance = Double(money)

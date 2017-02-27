@@ -103,8 +103,6 @@
 		8EF59E051E571D8200BABBD0 /* wechat@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EF59D701E571D8200BABBD0 /* wechat@3x.png */; };
 		8EF59E061E571D8200BABBD0 /* 1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EF59D721E571D8200BABBD0 /* 1@2x.png */; };
 		8EF59E071E571D8200BABBD0 /* 1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EF59D731E571D8200BABBD0 /* 1@3x.png */; };
-		8EF59E081E571D8200BABBD0 /* btnselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EF59D741E571D8200BABBD0 /* btnselect@2x.png */; };
-		8EF59E091E571D8200BABBD0 /* btnunselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EF59D751E571D8200BABBD0 /* btnunselect@2x.png */; };
 		8EF59E0A1E571D8200BABBD0 /* DealSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EF59D761E571D8200BABBD0 /* DealSelect@2x.png */; };
 		8EF59E0B1E571D8200BABBD0 /* DealSelect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EF59D771E571D8200BABBD0 /* DealSelect@3x.png */; };
 		8EF59E0C1E571D8200BABBD0 /* DealUnSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EF59D781E571D8200BABBD0 /* DealUnSelect@2x.png */; };
@@ -177,6 +175,7 @@
 		A06396E81E30BED800CBD786 /* DealResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06396E71E30BED800CBD786 /* DealResetPasswordVC.swift */; };
 		A0639A7E1E25C73B0071F62A /* RechargeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0639A7D1E25C73B0071F62A /* RechargeDetailVC.swift */; };
 		A0639A801E25CDEF0071F62A /* BankListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0639A7F1E25CDEF0071F62A /* BankListModel.swift */; };
+		A07029E11E5E8AD8002BFD10 /* MyBaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07029E01E5E8AD8002BFD10 /* MyBaskCell.swift */; };
 		A07F165F1E2CD13A00F94736 /* ShareFriendTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07F165E1E2CD13A00F94736 /* ShareFriendTableView.swift */; };
 		A08CB39B1E1E1A8A004BE44B /* RechargeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08CB39A1E1E1A8A004BE44B /* RechargeListVC.swift */; };
 		A08CB3A11E1E5387004BE44B /* WithDrawaListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08CB3A01E1E5387004BE44B /* WithDrawaListVC.swift */; };
@@ -322,11 +321,9 @@
 		D03831481E1344F400D54295 /* MyPushController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D038313F1E1344F400D54295 /* MyPushController.swift */; };
 		D03831491E1344F400D54295 /* ProductGradeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03831401E1344F400D54295 /* ProductGradeController.swift */; };
 		D038314A1E1344F400D54295 /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03831411E1344F400D54295 /* UserTableViewController.swift */; };
-		D06074F51E233DE70028EB32 /* MyAttentionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06074F31E233DE70028EB32 /* MyAttentionCell.swift */; };
 		D06074F91E23576B0028EB32 /* MyPushCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06074F71E23576B0028EB32 /* MyPushCell.swift */; };
 		D060751B1E236B3B0028EB32 /* DealPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D060751A1E236B3B0028EB32 /* DealPasswordVC.swift */; };
 		D060751D1E236B5F0028EB32 /* EnterPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D060751C1E236B5F0028EB32 /* EnterPasswordVC.swift */; };
-		D0FA4EAA1E246F350015C012 /* MyBaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4EA81E246F350015C012 /* MyBaskCell.swift */; };
 		D0FA4EAE1E24B0950015C012 /* DealDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4EAC1E24B0950015C012 /* DealDetailCell.swift */; };
 		D0FA4EB71E25CD0D0015C012 /* ProductCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4EB61E25CD0D0015C012 /* ProductCollectionCell.swift */; };
 		D0FA4ED91E26208C0015C012 /* DealDetailTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA4ED81E26208C0015C012 /* DealDetailTableVC.swift */; };
@@ -432,8 +429,6 @@
 		8EF59D701E571D8200BABBD0 /* wechat@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wechat@3x.png"; sourceTree = "<group>"; };
 		8EF59D721E571D8200BABBD0 /* 1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1@2x.png"; sourceTree = "<group>"; };
 		8EF59D731E571D8200BABBD0 /* 1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1@3x.png"; sourceTree = "<group>"; };
-		8EF59D741E571D8200BABBD0 /* btnselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnselect@2x.png"; sourceTree = "<group>"; };
-		8EF59D751E571D8200BABBD0 /* btnunselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnunselect@2x.png"; sourceTree = "<group>"; };
 		8EF59D761E571D8200BABBD0 /* DealSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DealSelect@2x.png"; sourceTree = "<group>"; };
 		8EF59D771E571D8200BABBD0 /* DealSelect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DealSelect@3x.png"; sourceTree = "<group>"; };
 		8EF59D781E571D8200BABBD0 /* DealUnSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DealUnSelect@2x.png"; sourceTree = "<group>"; };
@@ -506,6 +501,7 @@
 		A06396E71E30BED800CBD786 /* DealResetPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealResetPasswordVC.swift; sourceTree = "<group>"; };
 		A0639A7D1E25C73B0071F62A /* RechargeDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RechargeDetailVC.swift; sourceTree = "<group>"; };
 		A0639A7F1E25CDEF0071F62A /* BankListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankListModel.swift; sourceTree = "<group>"; };
+		A07029E01E5E8AD8002BFD10 /* MyBaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBaskCell.swift; sourceTree = "<group>"; };
 		A07F165E1E2CD13A00F94736 /* ShareFriendTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareFriendTableView.swift; sourceTree = "<group>"; };
 		A08CB39A1E1E1A8A004BE44B /* RechargeListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RechargeListVC.swift; sourceTree = "<group>"; };
 		A08CB3A01E1E5387004BE44B /* WithDrawaListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawaListVC.swift; sourceTree = "<group>"; };
@@ -670,11 +666,9 @@
 		D038313F1E1344F400D54295 /* MyPushController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPushController.swift; sourceTree = "<group>"; };
 		D03831401E1344F400D54295 /* ProductGradeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductGradeController.swift; sourceTree = "<group>"; };
 		D03831411E1344F400D54295 /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
-		D06074F31E233DE70028EB32 /* MyAttentionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAttentionCell.swift; sourceTree = "<group>"; };
 		D06074F71E23576B0028EB32 /* MyPushCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPushCell.swift; sourceTree = "<group>"; };
 		D060751A1E236B3B0028EB32 /* DealPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealPasswordVC.swift; sourceTree = "<group>"; };
 		D060751C1E236B5F0028EB32 /* EnterPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterPasswordVC.swift; sourceTree = "<group>"; };
-		D0FA4EA81E246F350015C012 /* MyBaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBaskCell.swift; sourceTree = "<group>"; };
 		D0FA4EAC1E24B0950015C012 /* DealDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealDetailCell.swift; sourceTree = "<group>"; };
 		D0FA4EB61E25CD0D0015C012 /* ProductCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCollectionCell.swift; sourceTree = "<group>"; };
 		D0FA4ED81E26208C0015C012 /* DealDetailTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealDetailTableVC.swift; sourceTree = "<group>"; };
@@ -905,8 +899,6 @@
 				8EF59E501E57256500BABBD0 /* Default-568h@2x.png */,
 				8EF59D721E571D8200BABBD0 /* 1@2x.png */,
 				8EF59D731E571D8200BABBD0 /* 1@3x.png */,
-				8EF59D741E571D8200BABBD0 /* btnselect@2x.png */,
-				8EF59D751E571D8200BABBD0 /* btnunselect@2x.png */,
 				8EF59D761E571D8200BABBD0 /* DealSelect@2x.png */,
 				8EF59D771E571D8200BABBD0 /* DealSelect@3x.png */,
 				8EF59D781E571D8200BABBD0 /* DealUnSelect@2x.png */,
@@ -1007,6 +999,7 @@
 		A0A2E5C41E22666E0091D913 /* Mywealth */ = {
 			isa = PBXGroup;
 			children = (
+				A07029E01E5E8AD8002BFD10 /* MyBaskCell.swift */,
 				A0A2E5C51E22669B0091D913 /* MyWealthTableView.swift */,
 				A01F441D1E2E0F9900FD5D96 /* MyWealtVC.swift */,
 			);
@@ -1521,9 +1514,7 @@
 		D06074F21E233CF00028EB32 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				D06074F31E233DE70028EB32 /* MyAttentionCell.swift */,
 				D06074F71E23576B0028EB32 /* MyPushCell.swift */,
-				D0FA4EA81E246F350015C012 /* MyBaskCell.swift */,
 				D0FA4EAC1E24B0950015C012 /* DealDetailCell.swift */,
 				D0FA4EB61E25CD0D0015C012 /* ProductCollectionCell.swift */,
 			);
@@ -1679,7 +1670,6 @@
 				8EF59E141E571D8200BABBD0 /* ShareSelect@3x.png in Resources */,
 				8EF59DF41E571D8200BABBD0 /* eye_close@2x.png in Resources */,
 				8EF59E351E571D8200BABBD0 /* rechargeType@3x.png in Resources */,
-				8EF59E081E571D8200BABBD0 /* btnselect@2x.png in Resources */,
 				8EF59E331E571D8200BABBD0 /* person-r@2x.png in Resources */,
 				8EF59DC01E571D8200BABBD0 /* buyDown@3x.png in Resources */,
 				8EF59E0E1E571D8200BABBD0 /* HomeSelect@2x.png in Resources */,
@@ -1753,7 +1743,6 @@
 				8EF59DE51E571D8200BABBD0 /* icon-12@2x.png in Resources */,
 				8EF59E271E571D8200BABBD0 /* caname@3x.png in Resources */,
 				8EF59DF91E571D8200BABBD0 /* high_btn@3x.png in Resources */,
-				8EF59E091E571D8200BABBD0 /* btnunselect@2x.png in Resources */,
 				8EF59DDD1E571D8200BABBD0 /* horn.png in Resources */,
 				8EF59DC61E571D8200BABBD0 /* buyUp@3x.png in Resources */,
 				8EF59E341E571D8200BABBD0 /* rechargeType@2x.png in Resources */,
@@ -1856,7 +1845,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B058E3701E1D429F0046720D /* LocalSocketHelper.swift in Sources */,
-				D0FA4EAA1E246F350015C012 /* MyBaskCell.swift in Sources */,
 				BF9CD75D1E0A57FD00194A32 /* CommenSocketApi.swift in Sources */,
 				BF2CEA3E1E1CE26900EEA99E /* OpenPositionModel.swift in Sources */,
 				BF062B491E04DF0A00618B1B /* LoginVC.swift in Sources */,
@@ -1896,7 +1884,6 @@
 				BF2F64291E038DFE00917FA1 /* SocketRequest.swift in Sources */,
 				A01F44181E2DC2D700FD5D96 /* ChartView.swift in Sources */,
 				BF2F64371E038DFE00917FA1 /* TableViewHelper.swift in Sources */,
-				D06074F51E233DE70028EB32 /* MyAttentionCell.swift in Sources */,
 				BF2CEA3C1E1CCA9A00EEA99E /* BingPhoneVC.swift in Sources */,
 				BF9BE4A21E1FA10800DB5F1A /* BaseMode+Extension.swift in Sources */,
 				A009AD0E1E28A399008A5014 /* FriendTableView.swift in Sources */,
@@ -1905,6 +1892,7 @@
 				BF2F64261E038DFE00917FA1 /* SocketConst.swift in Sources */,
 				BF9CD7521E0A573400194A32 /* DealSocketApi.swift in Sources */,
 				A06396E81E30BED800CBD786 /* DealResetPasswordVC.swift in Sources */,
+				A07029E11E5E8AD8002BFD10 /* MyBaskCell.swift in Sources */,
 				BF2F642D1E038DFE00917FA1 /* BaseTableViewController.swift in Sources */,
 				D060751D1E236B5F0028EB32 /* EnterPasswordVC.swift in Sources */,
 				BF0479331E0FBDD400C511E7 /* RegisterVC.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyBaskCell: UITableViewCell {
+class MyBaskCell: OEZTableViewCell {
     //产品类型
     @IBOutlet weak var productType: UILabel!
     //建仓时间
@@ -25,6 +25,9 @@ class MyBaskCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+    }
+    override func update(_ data: Any!) {
+    
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

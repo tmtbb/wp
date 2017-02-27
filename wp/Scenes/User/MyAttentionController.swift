@@ -7,6 +7,31 @@
 //
 
 import UIKit
+class MyAttentionCell: OEZTableViewCell {
+    @IBOutlet weak var nuberLabel: UILabel!
+    
+    @IBOutlet weak var iconImage: UIImageView!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    //    var array = []{
+    //        didset{
+    //
+    //        }
+    //    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        
+    }
+    
+}
 class MyAttentionController: BasePageListTableViewController {
 
     var attentionNumber = UILabel()
@@ -61,14 +86,14 @@ class MyAttentionController: BasePageListTableViewController {
         
     }
 
-    // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyAttentionCell", for: indexPath) as! MyAttentionCell
-        let index = indexPath.item
-        cell.nuberLabel.text = "\(index + 1)"        
-        
-        return cell
-    }
+//    // MARK: - Table view data source
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "MyAttentionCell", for: indexPath) as! MyAttentionCell
+//        let index = indexPath.item
+//        cell.nuberLabel.text = "\(index + 1)"        
+//        
+//        return cell
+//    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 56
