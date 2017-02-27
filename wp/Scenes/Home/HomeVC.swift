@@ -24,6 +24,7 @@ class HomeVC: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let _ = checkLogin()
         translucent(clear: false)
         showTabBarWithAnimationDuration()
         tabBarController?.tabBar.isHidden = false

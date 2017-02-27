@@ -90,7 +90,8 @@ class DealSocketApi: BaseSocketAPI, DealApi {
                                         SocketConst.Key.symbol: param.symbol,
                                         SocketConst.Key.exchangeName: param.exchangeName,
                                         SocketConst.Key.platformName: param.platformName,
-                                        SocketConst.Key.chartType: param.chartType]
+                                        SocketConst.Key.chartType: param.chartType,
+                                        SocketConst.Key.startTime: param.startTime]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .kChart, dict: paramDic as [String : AnyObject], type: .time)
         startModelRequest(packet, modelClass: ChartModel.self, complete: complete, error: error)
     }

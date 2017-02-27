@@ -39,44 +39,25 @@ class PwdVC: BaseTableViewController {
                 })
                 return
             }else{
-                //重置密码
-                if true || UserModel.share().forgetPwd {
-                    SVProgressHUD.showProgressMessage(ProgressMessage: "设定中...")
-                    let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
-                    AppAPIHelper.login().repwd(phone: UserModel.share().phone!, type: 1,  pwd: password, code: UserModel.share().code!, complete: { [weak self](result) -> ()? in
-                        SVProgressHUD.showWainningMessage(WainningMessage: "设定成功", ForDuration: 1, completion: {
-//                            self?.navigationController?.popToRootViewController(animated: true)
-                            self?.performSegue(withIdentifier: NickNameVC.className(), sender: nil)
-                            self?.fetchUserInfo(phone: UserModel.share().phone!, pwd: password)
-                        })
-                        return nil
-                    }, error: errorBlockFunc())
-                    return
-                }
-                
-                //注册
-                SVProgressHUD.showProgressMessage(ProgressMessage: "设置中...")
+                //设定交易密码
+                SVProgressHUD.showProgressMessage(ProgressMessage: "设定中...")
                 let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
-                AppAPIHelper.login().register(phone: UserModel.share().phone!, code: UserModel.share().code!, pwd: password, complete: { [weak self](result) -> ()? in
-                    SVProgressHUD.dismiss()
-                    if result != nil {
-                        if let code: Int = result?["result"] as! Int?{
-                            if code == 0{
-                                SVProgressHUD.showErrorMessage(ErrorMessage: "用户已注册", ForDuration: 1, completion: nil)
-                                return nil
-                            }
-                        }
+                AppAPIHelper.login().repwd(phone: UserModel.share().phone!, type: 1,  pwd: password, code: UserModel.share().code!, complete: { [weak self](result) -> ()? in
+                    SVProgressHUD.showWainningMessage(WainningMessage: "设定成功", ForDuration: 1, completion: {
+                        //                            self?.navigationController?.popToRootViewController(animated: true)
+                        self?.performSegue(withIdentifier: NickNameVC.className(), sender: nil)
                         self?.fetchUserInfo(phone: UserModel.share().phone!, pwd: password)
-                       
-                    }else{
-                        SVProgressHUD.showErrorMessage(ErrorMessage: "注册失败，请稍后再试", ForDuration: 1, completion: nil)
-                    }
+                    })
                     return nil
-                    }, error: errorBlockFunc())
-
+                }, error: errorBlockFunc())
             }
         }
     }
+    
+    func popself(){
+        dismissController()
+    }
+    
     
     func fetchUserInfo(phone: String, pwd: String) {
         AppAPIHelper.login().login(phone: phone, pwd: pwd, complete: { ( result) -> ()? in

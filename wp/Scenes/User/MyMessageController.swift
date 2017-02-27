@@ -41,7 +41,7 @@ class MyMessageController: BaseTableViewController {
             tableView.reloadData()
         }
         else{
-            userName.text = "Bug退散"
+            userName.text = UserModel.share().currentUser?.phone
         }
 
         let four : String = UserModel.share().getCurrentUser()?.phone ?? "00000000000"
