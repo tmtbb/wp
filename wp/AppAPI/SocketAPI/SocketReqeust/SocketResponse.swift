@@ -55,7 +55,7 @@ class SocketJsonResponse: SocketResponse {
                 #if false
                  var json = String(data: body!.data!, encoding: .utf8)
                 json = json == nil ? "" : json;
-                debugPrint("\(body!.operate_code) \(body!.data_length) json\(json!)")
+//                debugPrint("\(body!.operate_code) \(body!.data_length) json\(json!)")
                 #endif
                 
                 _jsonOjbect = try JSONSerialization.jsonObject(with: body!.data!, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject?

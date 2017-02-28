@@ -14,6 +14,9 @@ class DealModel: BaseModel {
         case timeLine = 1
     }
     
+    
+    var difftime = 0
+    
     private static var model: DealModel = DealModel()
     class func share() -> DealModel{
         return model
@@ -68,6 +71,7 @@ class DealModel: BaseModel {
         try! realm.write {
             realm.add(position, update: true)
         }
+        DealModel.refreshDifftime()
     }
     
     class func getAllPositionModel() -> Results<PositionModel>{
@@ -91,5 +95,11 @@ class DealModel: BaseModel {
     class func getAHistoryPositionModel() -> Results<PositionModel>{
         let realm = try! Realm()
         return realm.objects(PositionModel.self).filter("closeTime < \(Int(NSDate().timeIntervalSince1970))").sorted(byProperty: "positionTime", ascending: false)
+    }
+    
+    class func refreshDifftime() {
+        let model = getAllPositionModel().first
+        guard model != nil else {return}
+        DealModel.share().difftime = model!.closeTime - model!.interval - Int(NSDate().timeIntervalSince1970)
     }
 }

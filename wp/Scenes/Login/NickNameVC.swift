@@ -42,5 +42,8 @@ class NickNameVC: BaseTableViewController {
             }, error: errorBlockFunc())
         }
     }
+    func popself(){
+        dismissController()
+    }
 
 }

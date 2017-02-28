@@ -33,7 +33,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
         //        initDealTableData()
-        AppDataHelper.instance().initProductData()
+//        AppDataHelper.instance().initProductData()
+        initRealTimeData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -146,7 +147,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     // 持仓列表数据
     func initDealTableData() {
-        
         dealTable.dataArray = DealModel.getAllPositionModel()
         YD_CountDownHelper.shared.countDownWithDealTableView(tableView: dealTable)
         AppAPIHelper.deal().currentDeals(complete: { [weak self](result) -> ()? in
@@ -158,7 +158,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 self?.dealTable.dataArray = DealModel.getAllPositionModel()
                 self?.rowHeights.removeLast()
                 self?.rowHeights.append(CGFloat((self?.dealTable.dataArray?.count)!)*66.0)
-                self?.tableView.reloadData()
+                DealModel.refreshDifftime()
+//                self?.tableView.reloadData()
                 YD_CountDownHelper.shared.countDownWithDealTableView(tableView: (self?.dealTable)!)
             }
             return nil

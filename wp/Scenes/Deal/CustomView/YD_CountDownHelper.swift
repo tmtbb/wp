@@ -23,6 +23,7 @@ class YD_CountDownHelper: NSObject {
             return
         }
         for cell in cells! {
+            cell.timeCount -= 1
             cell.refreshText()
         }
     }
@@ -35,12 +36,12 @@ class YD_CountDownHelper: NSObject {
         
     }
     
-    func getResidueCount(startTime:Int, totalCount:Int) -> Int {
-        return  (startTime + totalCount) - Int(NSDate().timeIntervalSince1970)
+    func getResidueCount(closeTime:Int) -> Int {
+        return  closeTime - Int(NSDate().timeIntervalSince1970) - DealModel.share().difftime
     }
-    func getTextWithStartTime(startTime:Int, totalCount:Int) -> String{
+    func getTextWithStartTime(closeTime:Int) -> String{
         
-        let count = getResidueCount(startTime: startTime, totalCount: totalCount)
+        let count = getResidueCount(closeTime: closeTime)
         
         return getTextWithTimeCount(timeCount: count)
     }

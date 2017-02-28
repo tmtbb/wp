@@ -143,7 +143,7 @@ class UserTableViewController: BaseTableViewController {
             nameLabel.sizeToFit()
         }
         else{
-            nameLabel.text = "Bug退散"
+            nameLabel.text = UserModel.share().currentUser?.phone
         }
         
         loginSuccessIs(bool: true)

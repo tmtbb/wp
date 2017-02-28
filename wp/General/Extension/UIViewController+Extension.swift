@@ -54,7 +54,7 @@ extension UIViewController {
     func userLogout() {
         UserDefaults.standard.removeObject(forKey: SocketConst.Key.uid)
         UserDefaults.standard.removeObject(forKey: SocketConst.Key.token)
-//        UserModel.share().currentUser = nil
+        UserModel.share().currentUser = nil
         UserModel.share().token = ""
         tabBarController?.selectedIndex = 0
     }
