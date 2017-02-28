@@ -9,7 +9,7 @@
 import Foundation
 
 class SocketConst: NSObject {
-    enum:UInt16 {
+    enum OPCode:UInt16 {
         // 心跳包
         case heart = 1000
         // 获取图片上传token
