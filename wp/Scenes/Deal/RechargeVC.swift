@@ -120,7 +120,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                 }else{
                     money = "\(self.rechargeMoneyTF.text!)" + ".00001"
                 }
-                AppAPIHelper.user().unionpay(title: "微盘-余额充值", price: Double.init(money)!, complete: { (result) -> ()? in
+                AppAPIHelper.user().unionpay(title: "余额充值", price: Double.init(money)!, complete: { (result) -> ()? in
                  
                       SVProgressHUD.dismiss()
                     if let object = result {
