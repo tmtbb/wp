@@ -69,9 +69,9 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         }
     }
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        let index = Int(entry.x)
+        let index = chartView == miuCharts ? Int(entry.x) : Int(entry.x-1)
         if index >= 0 && index < currentModels.count {
-            if let model: KChartModel = currentModels[index] as? KChartModel{
+            if let model: KChartModel = currentModels[index]{
                 if selectModelBlock != nil{
                     selectModelBlock!(model)
                 }

@@ -80,7 +80,7 @@ class BuyProductVC: UIViewController {
         let dingjin = Double(Int(value))*DealModel.share().buyProduct!.price
         dingjinLabel.text = String.init(format: "%.2f", dingjin)
         moneyLabel.text = String.init(format: "%.2f", Double(dingjin*(1 - DealModel.share().buyProduct!.openChargeFee)))
-//        feeLabel.text = "\(DealModel.share().buyProduct!.openChargeFee*100)%"
+        feeLabel.text = "\(DealModel.share().buyProduct!.openChargeFee*100)%"
     }
     
     @IBAction func selectTypeBtnTapped(_ sender: UIButton) {
@@ -109,12 +109,6 @@ class BuyProductVC: UIViewController {
         buyModel.amount = Int(countSlider.value)
         buyModel.isDeferred = DealModel.share().buyModel.isDeferred
 
-        
-//        AppAPIHelper.deal().buildDeal(model: buyModel, complete: { (res) -> ()? in
-//            
-//        }) { (error) -> ()? in
-//            
-//        }
         AppAPIHelper.deal().buildDeal(model: buyModel, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
             self?.view.isUserInteractionEnabled = true

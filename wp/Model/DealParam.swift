@@ -28,7 +28,7 @@ class DealPriceParam: DealModel {
 }
 
 class DealParam: BaseModel {
-    var id: Int = UserModel.share().currentUserId
+    var id: Int = 32//UserModel.share().currentUserId
     var token: String = UserModel.share().token
 }
 

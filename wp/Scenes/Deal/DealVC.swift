@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 import DKNightVersion
+import Realm
 class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     
     @IBOutlet weak var myMoneyLabel: UILabel!
@@ -26,15 +27,20 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBOutlet weak var titleView: TitleCollectionView!
     @IBOutlet weak var klineTitleView: TitleCollectionView!
     @IBOutlet weak var productsView: ProductsiCarousel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var highTitleLabel: UILabel!
+    @IBOutlet weak var shouTitleLabel: UILabel!
+    @IBOutlet weak var lowTitleLabel: UILabel!
+    @IBOutlet weak var openTitleLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var priceView: UIView!
     private var rowHeights: [CGFloat] = [40,50,116,80,200,41,70,35,200]
     private var klineBtn: UIButton?
     private var priceTimer: Timer?
     let klineTitles = ["分时图","5分K","15分K","30分K","1小时K"]
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
-        //        initDealTableData()
-//        AppDataHelper.instance().initProductData()
-        initRealTimeData()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -84,7 +90,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
         kLineView.selectModelBlock = { [weak self](result) -> () in
             if let model: KChartModel = result as? KChartModel{
-                self?.updatePrice(model: model)
+                print(model)
+                self?.updateOldPrice(model: model)
             }
         }
         
@@ -188,8 +195,12 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             }, error: errorBlockFunc())
         }
     }
-    
+   
     func updatePrice(model: KChartModel) {
+        for view in priceView.subviews {
+            view.isHidden = false
+            
+        }
         priceLabel.text = String.init(format: "%.4f", model.currentPrice)
         highLabel.text = String.init(format: "%.4f", model.highPrice)
         lowLabel.text = String.init(format: "%.4f", model.lowPrice)
@@ -197,11 +208,39 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         closeLabel.text = String.init(format: "%.4f", model.closedYesterdayPrice)
         changePerLabel.text = String.init(format: "%.4f", model.change)
         changeLabel.text = String.init(format: "%.2f%%", model.change/model.currentPrice)
+        timeLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.priceTime)), format: "HH:mm")
+        dateLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.priceTime)), format: "MM-dd")
         let colorKey = model.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
         changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
         changePerLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
         priceLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
         updatePrice(price: model.currentPrice)
+        highLabel.textColor = UIColor.init(rgbHex: 0x333333)
+        lowLabel.textColor = UIColor.init(rgbHex: 0x333333)
+        openLabel.textColor = UIColor.init(rgbHex: 0x333333)
+        closeLabel.textColor = UIColor.init(rgbHex: 0x333333)
+    }
+    
+    func updateOldPrice(model: KChartModel) {
+        let kline: Bool = DealModel.share().klineTye == .miu
+        openTitleLabel.isHidden = kline
+        shouTitleLabel.isHidden = kline
+        lowTitleLabel.isHidden = kline
+        highTitleLabel.isHidden = kline
+        priceLabel.text = kline ? String.init(format: "%.4f", model.currentPrice) : ""
+        highLabel.text = kline ? "" :String.init(format: "%.4f", model.highPrice)
+        lowLabel.text = kline ? "" : String.init(format: "%.4f", model.lowPrice)
+        openLabel.text = kline ? "" :String.init(format: "%.4f", model.openingTodayPrice)
+        closeLabel.text = kline ? "" :String.init(format: "%.4f", model.closedYesterdayPrice)
+        changePerLabel.text = kline ? String.init(format: "%.4f", model.change) : ""
+        changeLabel.text = kline ? String.init(format: "%.2f%%", model.change/model.currentPrice):""
+        timeLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.priceTime)), format: "HH:mm")
+        dateLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.priceTime)), format: "MM-dd")
+        let colorKey = model.closedYesterdayPrice <= model.openingTodayPrice ? AppConst.Color.buyDown : AppConst.Color.buyUp
+        highLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+        lowLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+        openLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+        closeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
     }
     
     func updatePrice(price: Double) {
