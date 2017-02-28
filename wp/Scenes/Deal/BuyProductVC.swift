@@ -67,7 +67,7 @@ class BuyProductVC: UIViewController {
         doubleBtn.setImage(UIImage.init(named: selectBtnName), for: .selected)
         selectTypeBtnTapped(doubleBtn)
         
-        countSlider.value = Float(DealModel.share().buyProduct!.minLot)
+        countSlider.value = 3.0
         changeCount(countSlider)
     }
     
@@ -80,7 +80,7 @@ class BuyProductVC: UIViewController {
         let dingjin = Double(Int(value))*DealModel.share().buyProduct!.price
         dingjinLabel.text = String.init(format: "%.2f", dingjin)
         moneyLabel.text = String.init(format: "%.2f", Double(dingjin*(1 - DealModel.share().buyProduct!.openChargeFee)))
-//        feeLabel.text = "\(DealModel.share().buyProduct!.openChargeFee*100)%"
+        feeLabel.text = "\(DealModel.share().buyProduct!.openChargeFee*100)%"
     }
     
     @IBAction func selectTypeBtnTapped(_ sender: UIButton) {
