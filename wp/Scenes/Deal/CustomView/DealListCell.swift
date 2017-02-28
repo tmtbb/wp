@@ -156,7 +156,7 @@ class DealListCell: UITableViewCell {
     }
     
     func curretWidth() -> CGFloat {
-        return   10 + (1 -  CGFloat(timeCount) / CGFloat(totalCount)) * (backView.frame.size.width - 10)
+        return 10 + (1 -  CGFloat(timeCount) / CGFloat(totalCount)) * (backView.frame.size.width - 10)
     }
     
     required init?(coder aDecoder: NSCoder) {
