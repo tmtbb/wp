@@ -123,7 +123,7 @@ class DealListCell: UITableViewCell {
     func setData(positionModel:PositionModel) {
         self.positionModel = positionModel
         startTime = self.positionModel!.positionTime
-//        totalCount = self.positionModel!.closeTime - startTime
+        totalCount = self.positionModel!.closeTime - startTime
         titleLabel.text = self.positionModel!.name
         countLabel.text = "手数\(self.positionModel!.amount)"
         refreshText()
