@@ -123,17 +123,17 @@ class DealListCell: UITableViewCell {
     func setData(positionModel:PositionModel) {
         self.positionModel = positionModel
         startTime = self.positionModel!.positionTime
-        totalCount = self.positionModel!.closeTime - startTime
+//        totalCount = self.positionModel!.closeTime - startTime
         titleLabel.text = self.positionModel!.name
         countLabel.text = "手数\(self.positionModel!.amount)"
         refreshText()
     }
     
     func refreshText() {
-        timeCount = YD_CountDownHelper.shared.getResidueCount(startTime: startTime, totalCount: totalCount)
+        timeCount = YD_CountDownHelper.shared.getResidueCount(closeTime: positionModel!.closeTime)
         if timeCount >= 0 {
             timeCount -= 1
-            countDownLabel.text = YD_CountDownHelper.shared.getTextWithStartTime(startTime:startTime, totalCount:totalCount)
+            countDownLabel.text = YD_CountDownHelper.shared.getTextWithStartTime(closeTime: positionModel!.closeTime)
             countDownLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
             resetProgressViewConstraints()
         }else {

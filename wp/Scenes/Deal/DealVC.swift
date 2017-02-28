@@ -158,7 +158,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 self?.dealTable.dataArray = DealModel.getAllPositionModel()
                 self?.rowHeights.removeLast()
                 self?.rowHeights.append(CGFloat((self?.dealTable.dataArray?.count)!)*66.0)
-                self?.tableView.reloadData()
+                DealModel.refreshDifftime()
+//                self?.tableView.reloadData()
                 YD_CountDownHelper.shared.countDownWithDealTableView(tableView: (self?.dealTable)!)
             }
             return nil
