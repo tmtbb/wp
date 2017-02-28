@@ -215,10 +215,11 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         changePerLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
         priceLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
         updatePrice(price: model.currentPrice)
-        highLabel.textColor = UIColor.init(rgbHex: 0x333333)
-        lowLabel.textColor = UIColor.init(rgbHex: 0x333333)
-        openLabel.textColor = UIColor.init(rgbHex: 0x333333)
-        closeLabel.textColor = UIColor.init(rgbHex: 0x333333)
+        let valueColor = UIColor.init(rgbHex: 0x333333)
+        highLabel.textColor = valueColor
+        lowLabel.textColor = valueColor
+        openLabel.textColor = valueColor
+        closeLabel.textColor = valueColor
     }
     
     func updateOldPrice(model: KChartModel) {
