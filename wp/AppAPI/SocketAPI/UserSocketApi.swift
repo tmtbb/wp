@@ -228,6 +228,16 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .changeUserInfo, dict: param as [String : AnyObject], type: SocketConst.type.wp)
         startRequest(packet, complete: complete, error: error)
     }
+    func everyday(start: Int32,count: Int32, complete: CompleteBlock?, error: ErrorBlock?){
+        let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
+                     SocketConst.Key.token: UserModel.share().token ,
+                     SocketConst.Key.start: start,
+                     SocketConst.Key.countNuber: count,] as [String : Any]
+          let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .everyday, dict: param as [String : AnyObject], type: SocketConst.type.operate)
+        startRequest(packet, complete: complete, error: error)
+
+        
+    }
     
 }
 

@@ -53,10 +53,8 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         btn.setTitle("充值记录", for:  UIControlState.normal)
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
-//        if  let str : String = NSString(format: "%.2f" , (UserModel.getCurrentUser()?.balance)!) as String {
-//           self.moneyText.text  = "\(str)" + "元"
-//        }
-     
+        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
+        self.moneyText.text  = str + "元"
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
         NotificationCenter.default.addObserver(self, selector: #selector(paysuccess(_:)), name: Notification.Name(rawValue:AppConst.WechatPay.WechatKeyErrorCode), object: nil)
@@ -138,6 +136,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         }else{
             if checkTextFieldEmpty([self.rechargeMoneyTF]) {
                 var money : String
+                  SVProgressHUD.show(withStatus: "加载中")
                 if ((self.rechargeMoneyTF.text?.range(of: ".")) != nil) {
                     money = self.rechargeMoneyTF.text!
                     
@@ -147,6 +146,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                     money = "\(self.rechargeMoneyTF.text!)" + ".00001"
                 }
                 AppAPIHelper.user().weixinpay(title: "余额充值", price: Double.init(money)! , complete: { (result) -> ()? in
+                    SVProgressHUD.dismiss()
                     if let object = result {
                         let request : PayReq = PayReq()
                         let  str : String  = object["timestamp"] as! String!
@@ -202,29 +202,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         
         self.view.endEditing(true)
     }
-    //MARK: -银联支付sdk调用
-    //    func connection(_ connection: NSURLConnection, didReceive response: URLResponse){
-    //
-    //        let rsp : HTTPURLResponse = response as! HTTPURLResponse
-    //        let code : NSInteger = rsp.statusCode
-    //        if code != 200{
-    //        }
-    //        else
-    //        {
-    //            responseData = NSMutableData()
-    //        }
-    //    }
-    //    func connection(_ connection: NSURLConnection, didReceive data: Data){
-    //
-    //        responseData.append(data)
-    //    }
-    //    func connectionDidFinishLoading(_ connection: NSURLConnection){
-    //
-    //        let tn : String = NSMutableString.init(data: responseData as Data, encoding: 4)! as String
-    //        if  tn.length()>0  {
-    //            UPPaymentControl.default().startPay(tn as String!, fromScheme: "UPPayDemo", mode: "01", viewController: self)
-    //        }
-    //    }
+   
     //MARK: 监听返回结果
     func errorCode(_ notice: NSNotification){
         
