@@ -247,7 +247,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         
         let packet = SocketDataPacket(opcode: .totalHistroy, dict: param as [String : AnyObject], type: .operate)
         
-        startRequest(packet, complete: complete, error: error)
+        startModelRequest(packet, modelClass: TotalHistoryModel.self, complete: complete, error: error)
     }
 }
 

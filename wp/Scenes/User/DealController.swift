@@ -32,10 +32,13 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     var allDataDict:[String:Array<PositionModel>] = Dictionary()
     var dateArray:[String] = Array()
     
-    var currentSelectProduct:ProductModel = DealModel.share().productKinds.first!
+    var currentSelectProduct:ProductModel?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        currentSelectProduct  = DealModel.share().productKinds.first
         setupCollection()
+        
         dealBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         sumHandNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
         sumOneNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
@@ -55,14 +58,18 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     
     internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
 
-        currentSelectProduct = object as! ProductModel
-        setupDataWithFilter(filter: "symbol == '\(currentSelectProduct.symbol)'")
+        currentSelectProduct = object as? ProductModel
+        setupDataWithFilter(filter: "symbol == '\(currentSelectProduct!.symbol)'")
     }
     
     func requstTotalHistroy() {
+        
         AppAPIHelper.user().getTotalHistoryData(complete: { [weak self](result) -> ()? in
-            
-          
+            if let model = result as? TotalHistoryModel {
+                self?.moneyNumber.text = String(format: "%.2f", model.profit)
+                self?.sumHandNumber.setTitle("\(model.amount)", for: .normal)
+                self?.sumOneNumber.setTitle("\(model.count)", for: .normal)
+            }
             return nil
         }, error: errorBlockFunc())
     }
@@ -73,7 +80,7 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
             if let models: [PositionModel] = result as! [PositionModel]?{
                 DealModel.cachePositionWithArray(positionArray: models)
                 self?.didRequestComplete(models as AnyObject?)
-                self?.setupDataWithFilter(filter: "symbol == '\((self?.currentSelectProduct.symbol)!)'")
+                self?.setupDataWithFilter(filter: "symbol == '\((self?.currentSelectProduct?.symbol)!)'")
             }
             
             return nil
