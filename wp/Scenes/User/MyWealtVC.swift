@@ -11,19 +11,19 @@ import DKNightVersion
 class MyWealtVCCell: OEZTableViewCell {
     //时间lab
     @IBOutlet weak var timeLb: UILabel!
-    
     //第一个lab
-    @IBOutlet weak var first: UILabel!
-     //第二个lab
-     @IBOutlet weak var second: UILabel!
-     //第三个lab
-    @IBOutlet weak var three: UILabel!
-     //第一个lab金额
-    @IBOutlet weak var firstMoney: UILabel!
+    @IBOutlet weak var firstLb: UILabel!
+    //第二个lab
+    @IBOutlet weak var secondLb: UILabel!
+    //第三个lab
+    @IBOutlet weak var threeLb: UILabel!
+    //第一个lab金额
+    @IBOutlet weak var firstMoneyLb: UILabel!
     //第二个lab金额
-    @IBOutlet weak var secondMoney: UILabel!
+    @IBOutlet weak var secondMoneyLb: UILabel!
     //第三个lab金额
-    @IBOutlet weak var threeMoney: UILabel!
+    @IBOutlet weak var threeMoneyLb: UILabel!
+   
     override func update(_ data: Any!) {
         
         let dic = data as! NSDictionary
@@ -34,53 +34,53 @@ class MyWealtVCCell: OEZTableViewCell {
             if arr.count == 1 {
                 
                 let dic : NSDictionary = arr[0] as! NSDictionary
-                first.text = dic["name"] as? String
+                firstLb.text = dic["name"] as? String
                 
                 let firststr  = String(format: "%.2f", dic["profit"] as! Double)
-                firstMoney.text = firststr
-                firstMoney.textColor = firststr.range(of: "-") != nil ? UIColor.init(hexString: "0EAF56") : UIColor.init(hexString: "E9573F")
+                firstMoneyLb.text = firststr
+                firstMoneyLb.textColor = firststr.range(of: "-") != nil ? UIColor.init(hexString: "0EAF56") : UIColor.init(hexString: "E9573F")
             }
                 // 有两个个数据
             else if arr.count == 2 {
                 
                 let dic : NSDictionary = arr[0] as! NSDictionary
-                first.text = dic["name"] as? String
+                firstLb.text = dic["name"] as? String
                 
                 let firststr  = String(format: "%.2f", dic["profit"] as! Double)
-                firstMoney.text = firststr
-                firstMoney.textColor = firststr.range(of: "-") != nil ?UIColor.init(hexString: "0EAF56") : UIColor.init(hexString: "E9573F")
+                firstMoneyLb.text = firststr
+                firstMoneyLb.textColor = firststr.range(of: "-") != nil ?UIColor.init(hexString: "0EAF56") : UIColor.init(hexString: "E9573F")
                 
                 let dic1 : NSDictionary = arr[1] as! NSDictionary
-                second.text = dic1["name"] as? String
+                secondLb.text = dic1["name"] as? String
                 
                 let secondstr  = String(format: "%.2f", dic1["profit"] as! Double)
-                secondMoney.text = secondstr
-                secondMoney.textColor = secondstr.range(of: "-") != nil ? UIColor.init(hexString: "0EAF56") : UIColor.init(hexString: "E9573F")
+                secondMoneyLb.text = secondstr
+                secondMoneyLb.textColor = secondstr.range(of: "-") != nil ? UIColor.init(hexString: "0EAF56") : UIColor.init(hexString: "E9573F")
             }
                 // 有三个数据
             else {
                 let dic : NSDictionary = arr[0] as! NSDictionary
-                first.text = dic["name"] as? String
+                firstLb.text = dic["name"] as? String
                 
                 let dic1 : NSDictionary = arr[1] as! NSDictionary
-                second.text = dic1["name"] as? String
+                secondLb.text = dic1["name"] as? String
                 
                 let dic2 : NSDictionary = arr[2] as! NSDictionary
-                three.text = dic2["name"] as? String
+                threeLb.text = dic2["name"] as? String
                 
                 let firststr  = String(format: "%.2f", dic["profit"] as! Double)
-                firstMoney.text = firststr
-                firstMoney.textColor = firststr.range(of: "-") != nil ? UIColor.init(hexString: "0EAF56") : UIColor.init(hexString: "E9573F")
+                firstMoneyLb.text = firststr
+                firstMoneyLb.textColor = firststr.range(of: "-") != nil ? UIColor.init(hexString: "0EAF56") : UIColor.init(hexString: "E9573F")
                 
                 let secondstr  = String(format: "%.2f", dic1["profit"] as! Double)
-                secondMoney.text = secondstr
-                secondMoney.textColor = secondstr.range(of: "-") != nil ? UIColor.init(hexString: "0EAF56") : UIColor.init(hexString: "E9573F")
+                secondMoneyLb.text = secondstr
+                secondMoneyLb.textColor = secondstr.range(of: "-") != nil ? UIColor.init(hexString: "0EAF56") : UIColor.init(hexString: "E9573F")
                 
                 let threestr  = String(format: "%.2f", dic2["profit"] as! Double)
-                threeMoney.text = threestr
-                threeMoney.textColor = threestr.range(of: "-") != nil ?UIColor.init(hexString: "0EAF56") : UIColor.init(hexString: "E9573F")
+                threeMoneyLb.text = threestr
+                threeMoneyLb.textColor = threestr.range(of: "-") != nil ?UIColor.init(hexString: "0EAF56") : UIColor.init(hexString: "E9573F")
             }
-
+            
         }
         
     }
@@ -107,7 +107,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         recharge.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         recharge.layer.cornerRadius = 5
         recharge.clipsToBounds = true
-       
+        
     }
     //MARK: --界面加载请求方法 保证数据的最新性
     override func viewWillAppear(_ animated: Bool) {
@@ -138,24 +138,24 @@ class MyWealtVC: BaseCustomPageListTableViewController {
     }
     //MARK: --网络请求
     override func didRequest(_ pageIndex : Int) {
-
-     let index = (pageIndex - 1) * 10
-      AppAPIHelper.user().everyday(start: Int32(index), count: 10, complete: { [weak self](result) -> ()? in
-        if result != nil{
-            if pageIndex == 1{
-                  if let resultArray = result?["everyday"] as? [AnyObject]{
-                   self?.dataArry = result?["everyday"] as! Array
+        
+        let index = (pageIndex - 1) * 10
+        AppAPIHelper.user().everyday(start: Int32(index), count: 10, complete: { [weak self](result) -> ()? in
+            if result != nil{
+                if pageIndex == 1{
+                    if let resultArray = result?["everyday"] as? [AnyObject]{
+                        self?.dataArry = result?["everyday"] as! Array
+                    }
+                }else{
+                    if let resultArray = result?["everyday"] as? [AnyObject]{
+                        self?.dataArry  =  (self?.dataArry)! + (result?["everyday"] as! Array)
+                    }
                 }
-            }else{
-               if let resultArray = result?["everyday"] as? [AnyObject]{
-                  self?.dataArry  =  (self?.dataArry)! + (result?["everyday"] as! Array)
-                }
-        }
-        self?.didRequestComplete( result?["everyday"] as AnyObject)
-            
-        }
-        return nil
-    }, error: errorBlockFunc())
+                self?.didRequestComplete( result?["everyday"] as AnyObject)
+                
+            }
+            return nil
+            }, error: errorBlockFunc())
         
         
     }
@@ -176,11 +176,11 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         let arr : NSArray = dic[string] as! NSArray
         return arr.count == 0 ? 0 : (arr.count == 1 ? 38 : (arr.count == 2) ? 65 : 93)
         
-//         return 38
-//         return 65
-//       return 93
+        //         return 38
+        //         return 65
+        //       return 93
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let  headerView  : UIView = UIView.init(frame:CGRect.init(x: 0, y: 0, width:self.view.frame.size.width, height: 40))
         
@@ -198,9 +198,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         headerView.addSubview(monthLb)
         
         return headerView
-        
     }
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
         
         return 40
