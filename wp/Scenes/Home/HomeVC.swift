@@ -124,12 +124,7 @@ class HomeVC: BaseTableViewController {
         if section == 0 {
             return marketArray.count
         }
-//        if section == 1 {
-//            return 1
-//        }
-//        if section == 2 {
-//            return 1
-//        }
+
         return 0
     }
     //MARK: --行高
@@ -137,12 +132,7 @@ class HomeVC: BaseTableViewController {
         if indexPath.section == 0 {
             return 100
         }
-//        if indexPath.section == 1 {
-//            return 155
-//        }
-//        if indexPath.section == 2 {
-//            return 106
-//        }
+
         return 0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
@@ -206,6 +196,7 @@ class HomeVC: BaseTableViewController {
         
         performSegue(withIdentifier: MyMessageController.className(), sender: nil)
     }
+    
     
     //我的关注
     func jumpToMyAttentionController() {
