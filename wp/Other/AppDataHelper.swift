@@ -18,9 +18,9 @@ class AppDataHelper: NSObject {
     private var hurtTimer: Timer?
     func initData() {
         hurtTimer = Timer.scheduledTimer(timeInterval: 15 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(moreChartData), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
+//        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
+//        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(moreChartData), userInfo: nil, repeats: true)
         initProductData()
         initErrorCode()
         checkTokenLogin()
@@ -40,7 +40,7 @@ class AppDataHelper: NSObject {
                 if allProducets.count > 0{
                     DealModel.share().selectProduct = allProducets[0]
                 }
-//                self?.initAllKlineChartData()
+                self?.initAllKlineChartData()
                 
             }else{
     
@@ -82,11 +82,12 @@ class AppDataHelper: NSObject {
             if last < Date.startTimestemp(){
                 last = Date.startTimestemp()
             }
-            let future = last + 300
+            let future = last + 60
             if future > now{
                 return
             }
-            lineChartData(product: product, fromTime: now, endTime: last)
+            let end = now - 60*60
+            lineChartData(product: product, fromTime: now, endTime: end)
         }
     }
     func moreLineChartData(){
@@ -121,6 +122,7 @@ class AppDataHelper: NSObject {
     
     //根据商品请求K线数据
     func initAllKlineChartData() {
+        initLineChartData()
         initKLineChartData(type: .miu5)
         initKLineChartData(type: .miu15)
         initKLineChartData(type: .miu30)
@@ -135,17 +137,18 @@ class AppDataHelper: NSObject {
 //        if type == .miu{
 //            return
 //        }
-        if let product = DealModel.share().selectProduct{
+        for product in DealModel.share().productKinds{
             let now = Date.nowTimestemp()
             var last = KLineModel.maxTime(type: type, symbol:product.symbol)
             if last < Date.startTimestemp(){
                 last = Date.startTimestemp()
             }
-            let future = last + Double(type.rawValue*5)
+            let future = last + Double(type.rawValue)
             if future > now{
                 return
             }
-            kLineChartData(type: type, product: product, fromTime: now, endTime: last)
+            let end = now - Double(type.rawValue)*50
+            kLineChartData(type: type, product: product, fromTime: now, endTime: end)
         }
     }
     func moreSelectKlineChartData() {

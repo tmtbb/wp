@@ -123,7 +123,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             if let model: ProductModel = object as? ProductModel {
                 DealModel.share().selectProduct = model
                 initRealTimeData()
-                kLineView.updateKline()
+                kLineView.refreshKLine()
                 reloadProducts()
                 collectionView.reloadData()
             }

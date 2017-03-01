@@ -48,6 +48,7 @@ class RegisterVC: BaseTableViewController {
     func initData() {
         
     }
+    
     //获取图片验证码
     @IBAction func changeCodePicture(_ sender: UIButton) {
         if checkoutText(){
@@ -146,7 +147,8 @@ class RegisterVC: BaseTableViewController {
                     }
                 }
                 
-                self?.performSegue(withIdentifier: PwdVC.className(), sender: nil)
+//                self?.performSegue(withIdentifier: PwdVC.className(), sender: nil)
+                UserModel.share().fetchUserInfo(phone: self?.phoneText.text ?? "", pwd: self?.pwdText.text ?? "")
             }else{
                 SVProgressHUD.showErrorMessage(ErrorMessage: "注册失败，请稍后再试", ForDuration: 1, completion: nil)
             }

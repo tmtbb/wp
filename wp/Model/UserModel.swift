@@ -60,6 +60,23 @@ class UserModel: BaseModel  {
         }
     }
     
+    //从服务端拉取用户信息
+    func fetchUserInfo(phone: String, pwd: String) {
+        AppAPIHelper.login().login(phone: phone, pwd: pwd, complete: { [weak self]( result) -> ()? in
+            //存储用户信息
+            if result != nil{
+                self?.upateUserInfo(userObject: result!)
+            }else{
+                AppDataHelper.instance().clearUserInfo()
+            }
+            return nil
+        }, error: { (error) in
+                AppDataHelper.instance().clearUserInfo()
+            return nil
+        })
+    }
+
+    
     // 更新用户信息
     func upateUserInfo(userObject: AnyObject){
         if let model = userObject as? UserInfoModel {
