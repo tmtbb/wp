@@ -68,7 +68,7 @@ class WithDrawalVC: BaseTableViewController {
         
         btn.addTarget(self, action: #selector(withDrawList), for: UIControlEvents.touchUpInside)
         
-          let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
+        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
         let int : Double = Double(str)!
         self.money.placeholder = "最多可提现" + "\(int)" + "元"
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)

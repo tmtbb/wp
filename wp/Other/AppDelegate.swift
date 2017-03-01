@@ -21,12 +21,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        
+        
+    
+        
+        //URL types
         Fabric.with([Crashlytics.self])
         appearance()
         window?.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
 //        pushMessageRegister()
 //        umapp()
         wechat()
+      
+////        测试修改微信充值的 appkey
+//        let str : String = Bundle.main.path(forResource: "Info", ofType: "plist")!
+//        
+//        var  dic : NSMutableDictionary = NSMutableDictionary.init(contentsOfFile: str)!
+//        
+//        let arr : NSArray =  dic.object(forKey: "CFBundleURLTypes") as! NSArray
+//        
+//        var dicc : NSMutableDictionary = arr[0] as! NSMutableDictionary
+//        
+//        dicc.setValue("11", forKey: "CFBundleTypeRole")
+//        
+//        let url : URL =  URL.init(string: str)!
+//        dic.write(to: url as URL, atomically: true)
+//         var  dic1111 : NSMutableDictionary = NSMutableDictionary.init(contentsOfFile: str)!
         AppDataHelper.instance().initData()
         AppServerHelper.instance().initServer()
         return true

@@ -20,6 +20,8 @@ protocol UserApi {
     
     //账户信息
     func accinfo(complete: CompleteBlock?, error: ErrorBlock?)
+     //每天的数据
+    func everyday(start: Int32,count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
     //银行卡列表
     func bankcardList(complete: CompleteBlock?, error: ErrorBlock?)
     //绑定银行卡
