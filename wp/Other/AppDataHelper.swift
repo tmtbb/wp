@@ -17,16 +17,19 @@ class AppDataHelper: NSObject {
     
     private var hurtTimer: Timer?
     func initData() {
-        hurtTimer = Timer.scheduledTimer(timeInterval: 15 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(moreChartData), userInfo: nil, repeats: true)
+        hurtTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
+//        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
+//        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(moreChartData), userInfo: nil, repeats: true)
         initProductData()
         initErrorCode()
         checkTokenLogin()
     }
     //请求商品数据 
     func initProductData() {
+        if UserModel.share().token.length() <= 0{
+            return
+        }
         var allProducets: [ProductModel] = []
         AppAPIHelper.deal().products(pid: 0, complete: {[weak self](result) -> ()? in
             self?.hurtTimer?.invalidate()
@@ -40,7 +43,8 @@ class AppDataHelper: NSObject {
                 if allProducets.count > 0{
                     DealModel.share().selectProduct = allProducets[0]
                 }
-//                self?.initAllKlineChartData()
+                self?.initAllKlineChartData()
+
             }else{
             }
             return nil
@@ -81,11 +85,12 @@ class AppDataHelper: NSObject {
             if last < Date.startTimestemp(){
                 last = Date.startTimestemp()
             }
-            let future = last + 300
+            let future = last + 60
             if future > now{
                 return
             }
-            lineChartData(product: product, fromTime: now, endTime: last)
+            let end = now - 60*60
+            lineChartData(product: product, fromTime: now, endTime: end)
         }
     }
     func moreLineChartData(){
@@ -120,6 +125,7 @@ class AppDataHelper: NSObject {
     
     //根据商品请求K线数据
     func initAllKlineChartData() {
+        initLineChartData()
         initKLineChartData(type: .miu5)
         initKLineChartData(type: .miu15)
         initKLineChartData(type: .miu30)
@@ -134,17 +140,18 @@ class AppDataHelper: NSObject {
 //        if type == .miu{
 //            return
 //        }
-        if let product = DealModel.share().selectProduct{
+        for product in DealModel.share().productKinds{
             let now = Date.nowTimestemp()
             var last = KLineModel.maxTime(type: type, symbol:product.symbol)
             if last < Date.startTimestemp(){
                 last = Date.startTimestemp()
             }
-            let future = last + Double(type.rawValue*5)
+            let future = last + Double(type.rawValue)
             if future > now{
                 return
             }
-            kLineChartData(type: type, product: product, fromTime: now, endTime: last)
+            let end = now - Double(type.rawValue)*50
+            kLineChartData(type: type, product: product, fromTime: now, endTime: end)
         }
     }
     func moreSelectKlineChartData() {
@@ -200,6 +207,7 @@ class AppDataHelper: NSObject {
                         if let user = model.userinfo {
                             UserDefaults.standard.setValue(user.id, forKey: SocketConst.Key.id)
                         }
+                        UserModel.share().upateUserInfo(userObject: model as AnyObject)
                     }else{
                        self?.clearUserInfo()
                     }
@@ -221,6 +229,7 @@ class AppDataHelper: NSObject {
     
     //获取错误信息
     func initErrorCode() {
+        return 
         AppAPIHelper.commen().errorCode(complete: { (result) -> ()? in
             if let errorDic: NSDictionary = result as? NSDictionary{
                 let path = Bundle.main.path(forResource: "errorcode.plist", ofType:nil)
