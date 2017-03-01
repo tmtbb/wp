@@ -34,7 +34,6 @@ class LoginVC: BaseTableViewController {
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
