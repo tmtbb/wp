@@ -34,7 +34,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBOutlet weak var openTitleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var priceView: UIView!
-    private var rowHeights: [CGFloat] = [40,50,116,80,200,41,70,35,200]
+    private var rowHeights: [CGFloat] = [40,50,116,80,200,41,70,35,0]
     private var klineBtn: UIButton?
     private var priceTimer: Timer?
     let klineTitles = ["分时图","5分K","15分K","30分K","1小时K"]

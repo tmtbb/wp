@@ -85,9 +85,6 @@ class UserModel: BaseModel  {
             UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
             if let user = model.userinfo {
                 currentUserId = user.id
-                if let phoneStr = UserDefaults.standard.value(forKey: SocketConst.Key.phone) as? String{
-                    user.phone = phoneStr
-                }
                 //存储uid
                 UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
                 let realm = try! Realm()
