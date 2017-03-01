@@ -20,7 +20,7 @@ class UserModel: BaseModel  {
         case dealPass = 1
        
     }
-    var currentUser: UserInfo?
+    var currentUser: UserInfo? 
     var code:String?
     var phone:String?
     var codeToken:String = ""
@@ -60,6 +60,23 @@ class UserModel: BaseModel  {
         }
     }
     
+    //从服务端拉取用户信息
+    func fetchUserInfo(phone: String, pwd: String) {
+        AppAPIHelper.login().login(phone: phone, pwd: pwd, complete: { [weak self]( result) -> ()? in
+            //存储用户信息
+            if result != nil{
+                self?.upateUserInfo(userObject: result!)
+            }else{
+                AppDataHelper.instance().clearUserInfo()
+            }
+            return nil
+        }, error: { (error) in
+                AppDataHelper.instance().clearUserInfo()
+            return nil
+        })
+    }
+
+    
     // 更新用户信息
     func upateUserInfo(userObject: AnyObject){
         if let model = userObject as? UserInfoModel {
@@ -68,9 +85,6 @@ class UserModel: BaseModel  {
             UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
             if let user = model.userinfo {
                 currentUserId = user.id
-                if let phoneStr = UserDefaults.standard.value(forKey: SocketConst.Key.phone) as? String{
-                    user.phone = phoneStr
-                }
                 //存储uid
                 UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
                 let realm = try! Realm()

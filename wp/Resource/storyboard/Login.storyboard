@@ -290,7 +290,7 @@
                                                         <segue destination="JUo-86-sd7" kind="push" id="Gp8-yp-m1D"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRZ-qV-Rjc">
+                                                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRZ-qV-Rjc">
                                                     <rect key="frame" x="292" y="33" width="62" height="12"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="12" id="Kfu-gr-w4X"/>
@@ -402,7 +402,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="登录" id="k8b-uC-nF5">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="ri2-oT-mhK">
+                        <barButtonItem key="leftBarButtonItem" id="ri2-oT-mhK">
                             <connections>
                                 <action selector="cancelBtnTapped:" destination="IdH-9P-vUT" id="uc8-5R-iTL"/>
                             </connections>
@@ -623,7 +623,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sX4-wW-A5F">
                                                     <rect key="frame" x="10" y="0.0" width="355" height="45"/>
                                                     <color key="backgroundColor" red="0.91372549020000005" green="0.3411764706" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <state key="normal" title="下一步"/>
+                                                    <state key="normal" title="注册"/>
                                                     <state key="highlighted" backgroundImage="high_btn.png"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1350,7 +1350,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="i8q-fM-lW7"/>
+        <segue reference="mZx-ns-mMd"/>
         <segue reference="kiW-Rz-POO"/>
-        <segue reference="gCO-m9-kNz"/>
     </inferredMetricsTieBreakers>
 </document>
