@@ -20,7 +20,7 @@ class UserModel: BaseModel  {
         case dealPass = 1
        
     }
-    var currentUser: UserInfo?
+    var currentUser: UserInfo? 
     var code:String?
     var phone:String?
     var codeToken:String = ""

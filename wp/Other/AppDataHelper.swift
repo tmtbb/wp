@@ -17,7 +17,7 @@ class AppDataHelper: NSObject {
     
     private var hurtTimer: Timer?
     func initData() {
-        hurtTimer = Timer.scheduledTimer(timeInterval: 15 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
+        hurtTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
 //        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
 //        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(moreChartData), userInfo: nil, repeats: true)
@@ -27,6 +27,9 @@ class AppDataHelper: NSObject {
     }
     //请求商品数据 
     func initProductData() {
+        if UserModel.share().token.length() <= 0{
+            return
+        }
         var allProducets: [ProductModel] = []
         AppAPIHelper.deal().products(pid: 0, complete: {[weak self](result) -> ()? in
             self?.hurtTimer?.invalidate()
@@ -204,6 +207,7 @@ class AppDataHelper: NSObject {
                         if let user = model.userinfo {
                             UserDefaults.standard.setValue(user.id, forKey: SocketConst.Key.id)
                         }
+                        UserModel.share().upateUserInfo(userObject: model as AnyObject)
                     }else{
                        self?.clearUserInfo()
                     }
@@ -225,6 +229,7 @@ class AppDataHelper: NSObject {
     
     //获取错误信息
     func initErrorCode() {
+        return 
         AppAPIHelper.commen().errorCode(complete: { (result) -> ()? in
             if let errorDic: NSDictionary = result as? NSDictionary{
                 let path = Bundle.main.path(forResource: "errorcode.plist", ofType:nil)

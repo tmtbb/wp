@@ -37,6 +37,7 @@ class BuyProductVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updatePrice), userInfo: nil, repeats: true)
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -71,6 +72,10 @@ class BuyProductVC: UIViewController {
         changeCount(countSlider)
     }
     
+    func updatePrice() {
+        changeCount(countSlider)
+    }
+    
     @IBAction func changeCount(_ sender: UISlider) {
         let value = sender.value
         let sliderWidth = countSlider.frame.width
@@ -97,8 +102,9 @@ class BuyProductVC: UIViewController {
     }
     
     @IBAction func buyBtnTapped(_ sender: UIButton) {
-        if false && Double(dingjinLabel.text!)! > UserModel.share().currentUser!.balance && resultBlock != nil {
+        if Double(dingjinLabel.text!)! > UserModel.share().currentUser!.balance && resultBlock != nil {
             resultBlock!(BuyResultType.lessMoney as AnyObject)
+//            dismissController()
             return
         }
         view.isUserInteractionEnabled = false
@@ -126,8 +132,6 @@ class BuyProductVC: UIViewController {
             self.view.isUserInteractionEnabled = true
             return nil
         }
-        
-        
         
         
     }

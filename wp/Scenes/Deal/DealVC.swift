@@ -86,7 +86,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         klineTitleView.objects = klineTitles as [AnyObject]?
         if let flowLayout: UICollectionViewFlowLayout = klineTitleView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.itemSize = CGSize.init(width: UIScreen.width()/CGFloat(klineTitles.count), height: 40)
-            
         }
         kLineView.selectModelBlock = { [weak self](result) -> () in
             if let model: KChartModel = result as? KChartModel{
@@ -166,13 +165,11 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 self?.rowHeights.removeLast()
                 self?.rowHeights.append(CGFloat((self?.dealTable.dataArray?.count)!)*66.0)
                 DealModel.refreshDifftime()
-//                self?.tableView.reloadData()
+                self?.tableView.reloadData()
                 YD_CountDownHelper.shared.countDownWithDealTableView(tableView: (self?.dealTable)!)
             }
             return nil
         }, error: errorBlockFunc())
-
-
     }
     // 当前报价
     func initRealTimeData() {
@@ -269,10 +266,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     //MARK: --买涨/买跌
     @IBAction func dealBtnTapped(_ sender: UIButton) {
-        if true || checkLogin(){
-            
+        if checkLogin(){
             tableView.scrollToRow(at: IndexPath.init(row: 3, section: 0), at: .top, animated: false)
-            
             if DealModel.share().selectProduct == nil {
                 SVProgressHUD.showWainningMessage(WainningMessage: "暂无商品信息", ForDuration: 1.5, completion: nil)
                 return
@@ -286,6 +281,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 if let status: BuyProductVC.BuyResultType = result as! BuyProductVC.BuyResultType? {
                     switch status {
                     case .lessMoney:
+                        controller.dismissController()
                         let moneyAlter = UIAlertController.init(title: "余额不足", message: "余额不足，请前往充值", preferredStyle: .alert)
                         let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
                         let sureAction = UIAlertAction.init(title: "确认", style: .default, handler: { [weak self](alter) in

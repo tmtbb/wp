@@ -146,7 +146,7 @@ class RegisterVC: BaseTableViewController {
                         return nil
                     }
                 }
-                
+
 //                self?.performSegue(withIdentifier: PwdVC.className(), sender: nil)
                 UserModel.share().fetchUserInfo(phone: self?.phoneText.text ?? "", pwd: self?.pwdText.text ?? "")
             }else{
