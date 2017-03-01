@@ -28,7 +28,6 @@ class MyAttentionCell: OEZTableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        
     }
     
 }
@@ -43,8 +42,7 @@ class MyAttentionController: BasePageListTableViewController {
 
     }
     func backDidClick() {
-        navigationController?.popToRootViewController(animated: true)
-
+        _ = navigationController?.popToRootViewController(animated: true)
     }
     
     //MARK: -- 头视图

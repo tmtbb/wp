@@ -62,7 +62,7 @@ class MyDealTableView: UITableView,UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                return dataArray == nil ? 0 : dataArray!.count
+        return dataArray == nil ? 0 : dataArray!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

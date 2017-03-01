@@ -229,6 +229,16 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         startRequest(packet, complete: complete, error: error)
     }
     
+
+    //交易总概况
+    func getTotalHistoryData(complete: CompleteBlock?, error: ErrorBlock?) {
+        let param: [String : Any] = [SocketConst.Key.uid: UserModel.share().currentUserId,
+                                     SocketConst.Key.token: UserModel.share().token]
+        
+        let packet = SocketDataPacket(opcode: .totalHistroy, dict: param as [String : AnyObject], type: .histroy)
+        
+        startRequest(packet, complete: complete, error: error)
+    }
 }
 
 

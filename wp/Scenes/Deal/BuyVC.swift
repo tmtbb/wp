@@ -179,7 +179,7 @@ class BuyVC: BaseTableViewController {
     }
     //MARK: --买涨/买跌(建仓)
     @IBAction func cancelBtnTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     @IBAction func buyBtnTapped(_ sender: Any) {
 //        DealModel.share().buyModel.id = UserModel.currentUserId
