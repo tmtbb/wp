@@ -81,7 +81,7 @@ class MyMessageController: BaseTableViewController {
     func quitEnterClick() {
         userLogout()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
-        navigationController?.popToRootViewController(animated: true)
+        _ = navigationController?.popToRootViewController(animated: true)
         print("退出登录")
     }
     
@@ -95,7 +95,9 @@ class MyMessageController: BaseTableViewController {
         return 0
     }
     
-    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         translucent(clear: true)
@@ -119,7 +121,7 @@ class MyMessageController: BaseTableViewController {
             present((imagePicker), animated: true, completion: nil)
         }
         //昵称修改
-        if indexPath.section == 2{
+        if indexPath.section == 1{
             let alertController = UIAlertController(title: "修改昵称", message: nil, preferredStyle: UIAlertControllerStyle.alert);
             alertController.addTextField { [weak self](textField:UITextField!) -> Void in
                 textField.text = self?.userName.text
@@ -164,7 +166,7 @@ class MyMessageController: BaseTableViewController {
             self.navigationController?.pushViewController(registvc, animated: true)
         }
         //登录密码
-        if indexPath.section == 4{
+        if indexPath.section == 2{
             let story : UIStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
             
             let registvc : RegisterVC  = story.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC

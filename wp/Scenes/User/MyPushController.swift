@@ -22,7 +22,7 @@ class MyPushController: BasePageListTableViewController {
         
     }
     func backDidClick() {
-        navigationController?.popToRootViewController(animated: true)
+      _ = navigationController?.popToRootViewController(animated: true)
 
     }
     

@@ -35,6 +35,16 @@ class UserTableViewController: BaseTableViewController {
     @IBOutlet weak var personBackgroud: UIView!
     @IBOutlet weak var propertyBackgroud: UIView!
     @IBOutlet weak var integralBackground: UIView!
+    @IBOutlet weak var integralButton: UIButton!
+    
+    let jumpNotifyDict = [1 : AppConst.NotifyDefine.jumpToDeal,
+                          2 : AppConst.NotifyDefine.jumpToMyBask,
+                          3 : AppConst.NotifyDefine.jumpToMyPush,
+                          4 : AppConst.NotifyDefine.jumpToFeedback,
+                          5 : AppConst.NotifyDefine.jumpToMyMessage,
+                          6 : AppConst.NotifyDefine.jumpToMyAttention,
+                          7 : AppConst.NotifyDefine.jumpToMyWealtVC,
+                          8 : AppConst.NotifyDefine.jumpToAttentionUs]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -187,7 +197,7 @@ class UserTableViewController: BaseTableViewController {
     //MARK: -- 判断是否登录成功
     func loginSuccessIs(bool:Bool){
         nameLabel.isHidden = bool ? false : true
-        yuanLabel.isHidden = bool ? false : true
+//        yuanLabel.isHidden = bool ? false : true
         concealLabel.isHidden = bool ? true : false
         loginBtn.isHidden = bool ? true : false
         register.isHidden = bool ? true : false
@@ -242,42 +252,13 @@ class UserTableViewController: BaseTableViewController {
     @IBAction func myIntegral(_ sender: Any) {
         
     }
-    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let section =  indexPath.section
-        switch section {
-        case 1:
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyAttention), object: nil, userInfo: nil)
-            sideMenuController?.toggle()
-            print("我的关注")
-        case 2:
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyPush), object: nil, userInfo: nil)
-            sideMenuController?.toggle()
-            print("我的推单")
-        case 3:
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyBask), object: nil, userInfo: nil)
-            sideMenuController?.toggle()
-            print("我的晒单")
-        case 4:
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToDeal), object: nil, userInfo: nil)
-            sideMenuController?.toggle()
-            
-            print("交易明细")
-        case 5:
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToFeedback), object: nil, userInfo: nil)
-            sideMenuController?.toggle()
-            print("意见反馈")
-        case 6:
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToProductGrade), object: nil, userInfo: nil)
-            sideMenuController?.toggle()
-            print("产品评分")
-        case 7:
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToAttentionUs), object: nil, userInfo: nil)
-            sideMenuController?.toggle()
-            print("关注我们")
-        default: break
-        }
+
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: jumpNotifyDict[indexPath.section]!), object: nil, userInfo: nil)
+        sideMenuController?.toggle()
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

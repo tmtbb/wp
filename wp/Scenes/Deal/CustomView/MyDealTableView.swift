@@ -42,9 +42,7 @@ class MyDealCell: UITableViewCell {
 }
 
 class MyDealTableView: UITableView,UITableViewDataSource, UITableViewDelegate {
-    
     var dataArray: Results<PositionModel>?
-    
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
         register(DealListCell.self, forCellReuseIdentifier: "DealListCell")
@@ -53,7 +51,7 @@ class MyDealTableView: UITableView,UITableViewDataSource, UITableViewDelegate {
         delegate = self
         isScrollEnabled = false
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         register(DealListCell.self, forCellReuseIdentifier: "DealListCell")
@@ -64,8 +62,7 @@ class MyDealTableView: UITableView,UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                return dataArray == nil ? 0 : dataArray!.count
-        
+        return dataArray == nil ? 0 : dataArray!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

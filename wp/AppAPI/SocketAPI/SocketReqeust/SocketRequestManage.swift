@@ -145,7 +145,8 @@ class SocketRequestManage: NSObject {
         }else if packet.operate_code == SocketConst.OPCode.realtime.rawValue{
             priceRequest = socketReqeust
         }else{
-            socketRequests[packet.session_id] = socketReqeust;
+
+            socketRequests[packet.session_id] = socketReqeust
         }
         objc_sync_exit(self)
         sendRequest(packet)

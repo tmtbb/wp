@@ -222,8 +222,8 @@ class HomeVC: BaseTableViewController {
     }
     //我的交易明细
     func jumpToDealController() {
+        self.performSegue(withIdentifier: DealController.className(), sender: nil)
         if checkLogin() {
-            self.performSegue(withIdentifier: DealController.className(), sender: nil)
         }
         
     }

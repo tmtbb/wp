@@ -18,6 +18,19 @@ class DealDetailCell: OEZTableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    func setData(model:PositionModel) {
+   
+        
+        let isUp = (model.buySell == -1)
+        let string = isUp ? "买涨" : "买跌"
+        iconImage.image = isUp ? UIImage(named: "buyUp") : UIImage(named:"buyDown")
+        dealType.text = "\(string)(\(model.name))"
+       
+        let isWinString = model.result ? "+" : "-"
+        
+        price.text = String(format: "\(isWinString)%.2f", model.grossProfit)
+        
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

@@ -44,9 +44,8 @@ class AppDataHelper: NSObject {
                     DealModel.share().selectProduct = allProducets[0]
                 }
                 self?.initAllKlineChartData()
-                
+
             }else{
-    
             }
             return nil
         }) {(error) -> ()? in
@@ -55,6 +54,7 @@ class AppDataHelper: NSObject {
         }
     }
     
+
     //对所有商品进行分类
     func checkAllProductKinds(allProducts: [ProductModel]) {
         for product in allProducts {
