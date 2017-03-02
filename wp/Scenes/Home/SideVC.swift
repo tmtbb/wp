@@ -57,10 +57,10 @@ extension SideVC{
     }
     
     func wpToggle() {
-//        if checkLogin() {
+        if checkLogin() {
             self.wpToggle()
             super.toggle()
             tabBarController?.tabBar.isHidden = true
-//        }
+        }
     }
 }
