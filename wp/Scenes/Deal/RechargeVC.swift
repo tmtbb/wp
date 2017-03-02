@@ -118,21 +118,21 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                 }else{
                     money = "\(self.rechargeMoneyTF.text!)" + ".00001"
                 }
-//                AppAPIHelper.user().unionpay(title: "余额充值", price: Double.init(money)!, complete: { (result) -> ()? in
-//                 
-//                      SVProgressHUD.dismiss()
-//                    if let object = result {
-//                       
-////                        ShareModel.share().shareData["rid"] =  object["rid"] as! String!
-//                        self.rid = object["rid"] as! Int64
-//                        UPPaymentControl.default().startPay(object["tn"]  as! String!, fromScheme: "UPPayDemo", mode: "01", viewController: self)
+                AppAPIHelper.user().unionpay(title: "余额充值", price: Double.init(money)!, complete: { (result) -> ()? in
+                 
+                      SVProgressHUD.dismiss()
+                    if let object = result {
+                       
+//                        ShareModel.share().shareData["rid"] =  object["rid"] as! String!
+                        self.rid = object["rid"] as! Int64
+                        UPPaymentControl.default().startPay(object["tn"]  as! String!, fromScheme: "com.newxfin.goods", mode: "00", viewController: self)
                 
-                 UPPaymentControl.default().startPay("520347581233618317400", fromScheme: "com.yundian.trip", mode: "01", viewController: self)
+               
                 
-//                    }
-//                    return nil
-//                }, error: errorBlockFunc())
-                
+                    }
+                    return nil
+                }, error: errorBlockFunc())
+              //    UPPaymentControl.default().startPay("520347581233618317400", fromScheme: "com.yundian.trip", mode: "01", viewController: self)
 //                let urlRequest : NSURLRequest = NSURLRequest.init(url:   NSURL.init(string: "http://101.231.204.84:8091/sim/getacptn") as! URL)
 //                let urlConn : NSURLConnection = NSURLConnection.init(request: urlRequest as URLRequest, delegate: self)!
 //                urlConn.start()

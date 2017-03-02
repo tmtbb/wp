@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     
         
         let urlString = url.absoluteString
-        if urlString.hasPrefix("com.yundian.trip") {
+        if urlString.hasPrefix("com.newxfin.goods") {
             
            UPPaymentControl.default().handlePaymentResult(url, complete: { (code, data) in
                  let str : String = "\(code!)"
