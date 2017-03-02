@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 import DKNightVersion
 class DealController: BasePageListTableViewController, TitleCollectionviewDelegate {
     
@@ -38,15 +39,14 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
         
         currentSelectProduct  = DealModel.share().productKinds.first
         setupCollection()
-        
-        dealBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
-        sumHandNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
-        sumOneNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
         beginRefreshing()
-        
+
+        dealBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+//        sumHandNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
+//        sumOneNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
+//        
         tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
         tableView.showsVerticalScrollIndicator = false
-        requstTotalHistroy()
     }
     
     //MARK: -- 设置collectionView
@@ -59,20 +59,12 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
 
         currentSelectProduct = object as? ProductModel
+        dateArray.removeAll()
+        allDataDict.removeAll()
         setupDataWithFilter(filter: "symbol == '\(currentSelectProduct!.symbol)'")
     }
     
-    func requstTotalHistroy() {
-        
-        AppAPIHelper.user().getTotalHistoryData(complete: { [weak self](result) -> ()? in
-            if let model = result as? TotalHistoryModel {
-                self?.moneyNumber.text = String(format: "%.2f", model.profit)
-                self?.sumHandNumber.setTitle("\(model.amount)", for: .normal)
-                self?.sumOneNumber.setTitle("\(model.count)", for: .normal)
-            }
-            return nil
-        }, error: errorBlockFunc())
-    }
+
     
     override func didRequest(_ pageIndex : Int){
         let index = (pageIndex - 1) * 10
@@ -90,8 +82,6 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE MM-dd"
         let recordList = DealModel.getHistoryPositionModel().filter(filter)
-        dateArray.removeAll()
-        allDataDict.removeAll()
         for model in recordList {
             let dateString = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(model.closeTime)))
             if dateArray.contains(dateString) {
@@ -109,8 +99,8 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarWithAnimationDuration()
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = true
