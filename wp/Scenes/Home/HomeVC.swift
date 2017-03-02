@@ -190,6 +190,9 @@ class HomeVC: BaseTableViewController {
         notificationCenter.addObserver(self, selector: #selector(jumpToProductGradeController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToProductGrade), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToAttentionUsController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToAttentionUs), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToMyWealtVC), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(jumpToRecharge), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToRecharge), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(jumpToWithdraw), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToWithdraw), object: nil)
+
     }
     //MARK: --通知方法实现
     func jumpToMyMessageController() {
@@ -197,7 +200,26 @@ class HomeVC: BaseTableViewController {
         performSegue(withIdentifier: MyMessageController.className(), sender: nil)
     }
     
-    
+    func jumpToRecharge() {
+        
+        if checkLogin() {
+        
+            let stroyBoard = UIStoryboard(name: "Share", bundle: nil)
+            let vc = stroyBoard.instantiateViewController(withIdentifier: "RechargeVC")
+            
+            _ = navigationController?.pushViewController(vc, animated: true)
+            
+        }
+    }
+    func jumpToWithdraw() {
+        if checkLogin() {
+            
+            let stroyBoard = UIStoryboard(name: "Share", bundle: nil)
+            let vc = stroyBoard.instantiateViewController(withIdentifier: "WithDrawalVC")
+            _ = navigationController?.pushViewController(vc, animated: true)
+
+        }
+    }
     //我的关注
     func jumpToMyAttentionController() {
         
@@ -222,8 +244,8 @@ class HomeVC: BaseTableViewController {
     }
     //我的交易明细
     func jumpToDealController() {
-        self.performSegue(withIdentifier: DealController.className(), sender: nil)
         if checkLogin() {
+            self.performSegue(withIdentifier: DealController.className(), sender: nil)
         }
         
     }

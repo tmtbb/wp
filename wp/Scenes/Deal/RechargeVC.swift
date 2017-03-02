@@ -212,7 +212,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             else if errorCode == "success"{
 
                 SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
-                    self.navigationController?.popViewController(animated: true)
+                    _ = self.navigationController?.popViewController(animated: true)
                     })
 //                AppAPIHelper.user().unionpayResult(rid: self.rid, payResult: 1, complete: { (result) -> ()? in
 //                    SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
@@ -251,7 +251,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                     if let  returnCode : Int = object["returnCode"] as? Int{
                         if returnCode == 1{
                             SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
-                                self.navigationController?.popViewController(animated: true)
+                                _ = self.navigationController?.popViewController(animated: true)
                             })
                         }else{
                             SVProgressHUD.showError(withStatus: "支付失败")
