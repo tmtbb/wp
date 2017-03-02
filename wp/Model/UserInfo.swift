@@ -40,3 +40,8 @@ class TotalHistoryModel: BaseModel {
 }
 
 
+class TransactionDetailModel: BaseModel {
+    var allDataDict:[String : Array<PositionModel>] = [:]
+    var dateArray:[String] = []
+}
+

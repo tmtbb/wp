@@ -14,15 +14,15 @@ class UserTableViewController: BaseTableViewController {
     @IBOutlet weak var iconImage: UIImageView!
     //用户名
     @IBOutlet weak var nameLabel: UILabel!
-    //资金
+    //总单数
     @IBOutlet weak var propertyNumber: UILabel!
     @IBOutlet weak var yuanLabel: UILabel!
-    //积分
+    //总手数
     @IBOutlet weak var integralLabel: UILabel!
     @IBOutlet weak var fenLabel: UILabel!
-    //未登录时的占位
-    @IBOutlet weak var concealLabel: UILabel!
-    @IBOutlet weak var placeholderLabel: UILabel!
+
+    //退出登录
+    @IBOutlet weak var logoutButton: UIButton!
     //登录
     @IBOutlet weak var loginBtn: UIButton!
     //注册
@@ -38,8 +38,8 @@ class UserTableViewController: BaseTableViewController {
     @IBOutlet weak var integralButton: UIButton!
     
     let jumpNotifyDict = [1 : AppConst.NotifyDefine.jumpToDeal,
-                          2 : AppConst.NotifyDefine.jumpToMyBask,
-                          3 : AppConst.NotifyDefine.jumpToMyPush,
+                          2 : AppConst.NotifyDefine.jumpToWithdraw,
+                          3 : AppConst.NotifyDefine.jumpToRecharge,
                           4 : AppConst.NotifyDefine.jumpToFeedback,
                           5 : AppConst.NotifyDefine.jumpToMyMessage,
                           6 : AppConst.NotifyDefine.jumpToMyAttention,
@@ -48,13 +48,15 @@ class UserTableViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //       UserModel.share().getCurrentUser()?.balance
-        // ShareModel.share().useMoney = Double(money)
+        
+        tableView.backgroundColor = UIColor(hexString: "#F5F5F5")
         personBackgroud.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         propertyBackgroud.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
         integralBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
         loginBtn.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: AppConst.Color.auxiliary), for: .normal)
         register.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: AppConst.Color.auxiliary), for: .normal)
+        logoutButton.layer.borderWidth = 1
+        logoutButton.layer.borderColor = UIColor(hexString: "#cccccc").cgColor
         
         
         ShareModel.share().addObserver(self, forKeyPath: "useMoney", options: .new, context: nil)
@@ -63,27 +65,29 @@ class UserTableViewController: BaseTableViewController {
         AppDataHelper.instance().checkTokenLogin()
         if checkLogin() {
             loginSuccessIs(bool: true)
-            propertyNumber.text = "\(UserModel.share().getCurrentUser()!.balance)"
-            if ((UserModel.share().getCurrentUser()?.avatarLarge) != "" && UserModel.share().getCurrentUser()?.avatarLarge == "default-head"){
-                iconImage.image = UIImage(named: (UserModel.share().getCurrentUser()?.avatarLarge) ?? "")
-                iconImage.image = UIImage(named: "default-head")
-            }
-            else{
-                iconImage.image = UIImage(named: "default-head")
-            }
-            
-            if ((UserModel.share().getCurrentUser()?.screenName) != "") {
-                nameLabel.text = UserModel.share().getCurrentUser()?.screenName
-                nameLabel.sizeToFit()
-            }
-            else{
-                nameLabel.text = "---"
-            }
-        }
-        else{
+            nameLabel.text = "\(UserModel.share().getCurrentUser()!.balance)"
+//            if ((UserModel.share().getCurrentUser()?.avatarLarge) != "" && UserModel.share().getCurrentUser()?.avatarLarge == "default-head"){
+//                iconImage.image = UIImage(named: (UserModel.share().getCurrentUser()?.avatarLarge) ?? "")
+//                iconImage.image = UIImage(named: "default-head")
+//            }
+//            else{
+//                iconImage.image = UIImage(named: "default-head")
+//            }
+//            
+//            if ((UserModel.share().getCurrentUser()?.screenName) != "") {
+//                nameLabel.text = UserModel.share().getCurrentUser()?.screenName
+//                nameLabel.sizeToFit()
+//            }
+//            else{
+//                nameLabel.text = "---"
+//            }
+        }  else{
             loginSuccessIs(bool: false)
             tableView.isScrollEnabled = false
         }
+        
+        requstTotalHistroy()
+
         
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -92,20 +96,21 @@ class UserTableViewController: BaseTableViewController {
             if let base = change? [NSKeyValueChangeKey.newKey] as? Double {
                 
                 let str : String = NSString(format: "%.2f" ,base) as String
-                self.propertyNumber.text =  "\(str)"
+                self.nameLabel.text =  "\(str)"
             }
             
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+
+    func requstTotalHistroy() {
         
-        
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
+        AppAPIHelper.user().getTotalHistoryData(complete: { [weak self](result) -> ()? in
+            if let model = result as? TotalHistoryModel {
+                self?.propertyNumber.text = "\(model.amount)"
+                self?.integralLabel.text = "\(model.count)"
+            }
+            return nil
+            }, error: errorBlockFunc())
     }
     //MARK: -- 添加通知
     func registerNotify() {
@@ -137,51 +142,53 @@ class UserTableViewController: BaseTableViewController {
             nameLabel.text = "---"
         }
     }
+    
     //登录成功
     func updateUI()  {
-        
-        if ((UserModel.share().getCurrentUser()?.avatarLarge) != "" && (UserModel.share().getCurrentUser()?.avatarLarge) == "default-head"){
-            iconImage.image = UIImage(named: (UserModel.share().getCurrentUser()?.avatarLarge) ?? "")
-            iconImage.image = UIImage(named: "default-head")
-        }
-        else{
-            iconImage.image = UIImage(named: "default-head")
-        }
-        
-        if ((UserModel.share().getCurrentUser()?.screenName) != "") {
-            nameLabel.text = UserModel.share().getCurrentUser()?.screenName
-            nameLabel.sizeToFit()
-        }
-        else{
-            nameLabel.text = UserModel.share().currentUser?.phone
-        }
+//        
+//        if ((UserModel.share().getCurrentUser()?.avatarLarge) != "" && (UserModel.share().getCurrentUser()?.avatarLarge) == "default-head"){
+//            iconImage.image = UIImage(named: (UserModel.share().getCurrentUser()?.avatarLarge) ?? "")
+//            iconImage.image = UIImage(named: "default-head")
+//        }
+//        else{
+//            iconImage.image = UIImage(named: "default-head")
+//        }
+//        
+//        if ((UserModel.share().getCurrentUser()?.screenName) != "") {
+//            nameLabel.text = UserModel.share().getCurrentUser()?.screenName
+//            nameLabel.sizeToFit()
+//        }
+//        else{
+//            nameLabel.text = UserModel.share().currentUser?.phone
+//        }
         
         loginSuccessIs(bool: true)
         //用户余额数据请求
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
-            if let object = result {
-                let  money : Double =  object["balance"] as! Double
-                let str : String = NSString(format: "%.2f" ,money) as String
-                self?.propertyNumber.text =  "\(str)"
-                UserModel.updateUser(info: { (result)-> ()? in
-                    UserModel.share().currentUser?.balance = Double(str as String)!
-                })
-            }
-            //个人信息数据请求
-            AppAPIHelper.user().getUserinfo(complete: { [weak self](result) -> ()? in
-                if let modes: [UserInfo] = result as? [UserInfo]{
-                    let model = modes.first
-                    UserModel.updateUser(info: { (result) -> ()? in
-                        if model!.avatarLarge != nil {
-                            UserModel.share().getCurrentUser()?.avatarLarge = model!.avatarLarge
-                        }
-                        UserModel.share().getCurrentUser()?.screenName = model!.screenName
-                        UserModel.share().getCurrentUser()?.phone = model!.phone
-                        return nil
+            if let object = result as? Dictionary<String,Any> {
+                if let  money : Double =  object["balance"] as? Double {
+                    let str : String = String(format: "%.2f", money)
+                    self?.nameLabel.text =  str
+                    UserModel.updateUser(info: { (result)-> ()? in
+                        UserModel.share().currentUser?.balance = Double(str as String)!
                     })
                 }
-                return nil
-                }, error: self?.errorBlockFunc())
+            }
+//            //个人信息数据请求
+//            AppAPIHelper.user().getUserinfo(complete: { [weak self](result) -> ()? in
+//                if let modes: [UserInfo] = result as? [UserInfo]{
+//                    let model = modes.first
+//                    UserModel.updateUser(info: { (result) -> ()? in
+//                        if model!.avatarLarge != nil {
+//                            UserModel.share().getCurrentUser()?.avatarLarge = model!.avatarLarge
+//                        }
+//                        UserModel.share().getCurrentUser()?.screenName = model!.screenName
+//                        UserModel.share().getCurrentUser()?.phone = model!.phone
+//                        return nil
+//                    })
+//                }
+//                return nil
+//                }, error: self?.errorBlockFunc())
             return nil
             }, error: errorBlockFunc())
         
@@ -197,8 +204,8 @@ class UserTableViewController: BaseTableViewController {
     //MARK: -- 判断是否登录成功
     func loginSuccessIs(bool:Bool){
         nameLabel.isHidden = bool ? false : true
-//        yuanLabel.isHidden = bool ? false : true
-        concealLabel.isHidden = bool ? true : false
+        yuanLabel.isHidden = bool ? false : true
+//        concealLabel.isHidden = bool ? true : false
         loginBtn.isHidden = bool ? true : false
         register.isHidden = bool ? true : false
         pushBtn.isHidden = bool ? false : true
@@ -218,6 +225,13 @@ class UserTableViewController: BaseTableViewController {
         return 0
     }
     //登录按钮
+    @IBAction func logout(_ sender: Any) {
+        userLogout()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
+        sideMenuController?.toggle()
+        _ = navigationController?.popToRootViewController(animated: true)
+        _ = checkLogin()
+    }
     @IBAction func enterDidClick(_ sender: Any) {
         
         if checkLogin() {
@@ -234,41 +248,37 @@ class UserTableViewController: BaseTableViewController {
         controller.title = "注册"
         nav.pushViewController(controller, animated: true)
         present(nav, animated: true, completion: nil)
-        print("我的注册")
         
     }
     //我的资产
     @IBAction func myPropertyDidClick(_ sender: Any) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil, userInfo: nil)
-        print("我的资产")
-        sideMenuController?.toggle()
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil, userInfo: nil)
+//        sideMenuController?.toggle()
     }
     //个人中心
     @IBAction func myMessageDidClick(_ sender: Any) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyMessage), object: nil, userInfo: nil)
-        sideMenuController?.toggle()
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyMessage), object: nil, userInfo: nil)
+//        sideMenuController?.toggle()
     }
     //我的积分
     @IBAction func myIntegral(_ sender: Any) {
         
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 4
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        if indexPath.section == 0 {
+            return
+        }
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: jumpNotifyDict[indexPath.section]!), object: nil, userInfo: nil)
         sideMenuController?.toggle()
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     deinit {
-     
         NotificationCenter.default.removeObserver(self)
-     
         ShareModel.share().removeObserver(self, forKeyPath: "useMoney")
-        
-        
     }
     
 }

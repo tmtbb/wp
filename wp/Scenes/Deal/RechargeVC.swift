@@ -258,7 +258,9 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                     if let  returnCode : Int = object["returnCode"] as? Int{
                         if returnCode == 1{
                             SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
+
                           _ = self.navigationController?.popViewController(animated: true)
+
                             })
                         }else{
                             SVProgressHUD.showError(withStatus: "支付失败")
