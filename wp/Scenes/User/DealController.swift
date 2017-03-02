@@ -29,60 +29,81 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     @IBOutlet weak var sell: UILabel!
     
     @IBOutlet weak var dealBackground: UIView!
-    var flowListArray: [FlowOrdersList] =  [FlowOrdersList]()
+    var allDataDict:[String:Array<PositionModel>] = Dictionary()
+    var dateArray:[String] = Array()
     
-    let strArray:[String] = ["周五 12 - 26","周四 12 - 25","周三 12 - 24","周二 12 - 23","周一 12 - 22"]
-    
+    var currentSelectProduct:ProductModel?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        currentSelectProduct  = DealModel.share().productKinds.first
         setupCollection()
+        
         dealBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         sumHandNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
         sumOneNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
+        beginRefreshing()
         
         tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
         tableView.showsVerticalScrollIndicator = false
-        //1029 流水列表
-        AppAPIHelper.user().flowList(flowType: "1,2,3", startPos: 0, count: 10, complete: { (result) -> ()? in
-            
-            if result != nil {
-            if let dataArray: [FlowOrdersList] = result as! [FlowOrdersList]?{
-                for model in dataArray{
-                    self.flowListArray.append(model)
-                }
-                print("我是数组分割线")
-                print(self.flowListArray)
-                print("我是数组元素分割线")
-                print(self.flowListArray[0].amount)
-            }
-            }else
-            {
-                print("nil")
-            }
-            return nil
-        }, error: errorBlockFunc())
-        
+        requstTotalHistroy()
     }
     
     //MARK: -- 设置collectionView
     func setupCollection() {
         productCollection.itemDelegate = self
         productCollection.reuseIdentifier = ProductCollectionCell.className()
-        productCollection.objects = ["上海-法兰克福" as AnyObject,"上海-纽约" as AnyObject,"上海-东京" as AnyObject]
+        productCollection.objects = DealModel.share().productKinds as [AnyObject]
     }
-    func didSelectedProduct(object: AnyObject?) {
-        if let test: String = object as? String {
-            print(test)
-        }
-        //        func didSelectedObjects(object: AnyObject?) {
-        //            if let product = object as? ProductModel {
-        //                DealModel.share().selectProduct = product
-        //            }
-        //        }
+    
+    internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
+
+        currentSelectProduct = object as? ProductModel
+        setupDataWithFilter(filter: "symbol == '\(currentSelectProduct!.symbol)'")
+    }
+    
+    func requstTotalHistroy() {
+        
+        AppAPIHelper.user().getTotalHistoryData(complete: { [weak self](result) -> ()? in
+            if let model = result as? TotalHistoryModel {
+                self?.moneyNumber.text = String(format: "%.2f", model.profit)
+                self?.sumHandNumber.setTitle("\(model.amount)", for: .normal)
+                self?.sumOneNumber.setTitle("\(model.count)", for: .normal)
+            }
+            return nil
+        }, error: errorBlockFunc())
     }
     
     override func didRequest(_ pageIndex : Int){
-        didRequestComplete(["",""] as AnyObject)
+        let index = (pageIndex - 1) * 10
+        AppAPIHelper.deal().historyDeals(start: index, count: 10, complete: { [weak self](result) -> ()? in
+            if let models: [PositionModel] = result as! [PositionModel]?{
+                DealModel.cachePositionWithArray(positionArray: models)
+                self?.didRequestComplete(models as AnyObject?)
+                self?.setupDataWithFilter(filter: "symbol == '\((self?.currentSelectProduct?.symbol)!)'")
+            }
+            
+            return nil
+            }, error: errorBlockFunc())
+    }
+    private func setupDataWithFilter(filter:String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE MM-dd"
+        let recordList = DealModel.getHistoryPositionModel().filter(filter)
+        dateArray.removeAll()
+        allDataDict.removeAll()
+        for model in recordList {
+            let dateString = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(model.closeTime)))
+            if dateArray.contains(dateString) {
+                allDataDict[dateString]!.append(model)
+            } else {
+                var list:[PositionModel] = Array()
+                list.append(model)
+                dateArray.append(dateString)
+                allDataDict[dateString] = list
+            }
+        }
+        tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -106,29 +127,29 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 5
+        return dateArray.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 3
+        let array = allDataDict[dateArray[section]]
+        
+        return array == nil ? 0 : array!.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DealDetailCell", for: indexPath) as! DealDetailCell
-        
+        let array = allDataDict[dateArray[indexPath.section]]
+
+        cell.setData(model: array![indexPath.row])
         return cell
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 45
     }
-    internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
-        
-    }
     //MARK: -- 返回组标题索引
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-        label.text = strArray[section]
+        label.text = dateArray[section]
         label.textColor = UIColor(rgbHex: 0x666666)
         label.font = UIFont.systemFont(ofSize: 14)
         let sumView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 42))
@@ -159,8 +180,16 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        performSegue(withIdentifier: DealDetailTableVC.className(), sender: nil)
+        performSegue(withIdentifier: DealDetailTableVC.className(), sender: indexPath)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == DealDetailTableVC.className() {
+            let dealDetailTableVC = segue.destination as! DealDetailTableVC
+            let indexPath = sender as! IndexPath
+            let array = allDataDict[dateArray[indexPath.section]]
+            dealDetailTableVC.positionModel = array![indexPath.row]
+        }
         
     }
 }

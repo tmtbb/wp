@@ -43,7 +43,7 @@ class SelectBankVC: BaseListTableViewController {
             
             ShareModel.share().selectBank  =  Model
             
-            self.navigationController?.popViewController(animated: true)
+            _ = self.navigationController?.popViewController(animated: true)
         }
         
     }

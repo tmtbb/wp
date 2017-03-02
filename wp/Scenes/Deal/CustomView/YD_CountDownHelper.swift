@@ -23,7 +23,6 @@ class YD_CountDownHelper: NSObject {
             return
         }
         for cell in cells! {
-            cell.timeCount -= 1
             cell.refreshText()
         }
     }

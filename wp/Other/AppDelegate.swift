@@ -119,11 +119,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
     
+        
         let urlString = url.absoluteString
-        if urlString.hasPrefix("UPPayDemo") {
+        if urlString.hasPrefix("com.yundian.trip") {
             
            UPPaymentControl.default().handlePaymentResult(url, complete: { (code, data) in
                  let str : String = "\(code!)"
+            //校验签名
+//            let strdata = try? JSONSerialization.data(withJSONObject: data!, options: [])
+            
+//             let signdata = String(data:strdata!, encoding: String.Encoding.utf8)
+            
                   NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: str, userInfo:nil)
         
             })
@@ -172,7 +178,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     //MARK: --Wechat
     fileprivate func wechat() {
         
-        WXApi.registerApp("wx9dc39aec13ee3158")
+        WXApi.registerApp("wx012941fcfbec7a23")
     }
     func onResp(_ resp: BaseResp!) {
         //微信登录返回

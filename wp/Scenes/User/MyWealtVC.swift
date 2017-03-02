@@ -143,11 +143,11 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         AppAPIHelper.user().everyday(start: Int32(index), count: 10, complete: { [weak self](result) -> ()? in
             if result != nil{
                 if pageIndex == 1{
-                    if let resultArray = result?["everyday"] as? [AnyObject]{
+                    if let _ = result?["everyday"] as? [AnyObject]{
                         self?.dataArry = result?["everyday"] as! Array
                     }
                 }else{
-                    if let resultArray = result?["everyday"] as? [AnyObject]{
+                    if let _ = result?["everyday"] as? [AnyObject]{
                         self?.dataArry  =  (self?.dataArry)! + (result?["everyday"] as! Array)
                     }
                 }

@@ -30,6 +30,13 @@ class UserInfo: Object {
     override static func primaryKey() -> String?{
         return "id"
     }
+
+}
+class TotalHistoryModel: BaseModel {
+    
+    var profit:Double = 0.0
+    var count:Int64 = 0
+    var amount:Int64 = 0
 }
 
 

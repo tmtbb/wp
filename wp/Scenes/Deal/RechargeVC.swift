@@ -57,7 +57,9 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         self.navigationItem.rightBarButtonItem = barItem
         NotificationCenter.default.addObserver(self, selector: #selector(paysuccess(_:)), name: Notification.Name(rawValue:AppConst.WechatPay.WechatKeyErrorCode), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: nil)
-        self.userIdText.text = UserModel.share().getCurrentUser()?.phone
+//        self.userIdText.text = UserModel.share().getCurrentUser()?.phone
+        
+        self.userIdText.text = UserDefaults.standard.object(forKey: SocketConst.Key.phone) as! String?
         self.userIdText.isUserInteractionEnabled = false
         //        self.userIdText.text  =
         //        self.bankTableView.addObserver(self, forKeyPath: "dataArry", options: .new, context: nil)
@@ -116,20 +118,25 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                 }else{
                     money = "\(self.rechargeMoneyTF.text!)" + ".00001"
                 }
-                AppAPIHelper.user().unionpay(title: "余额充值", price: Double.init(money)!, complete: { (result) -> ()? in
-                 
-                      SVProgressHUD.dismiss()
-                    if let object = result {
-                       
-//                        ShareModel.share().shareData["rid"] =  object["rid"] as! String!
-                        self.rid = object["rid"] as! Int64
-                        UPPaymentControl.default().startPay(object["tn"]  as! String!, fromScheme: "UPPayDemo", mode: "01", viewController: self)
-                    }
-                    return nil
-                }, error: errorBlockFunc())
-                //                let urlRequest : NSURLRequest = NSURLRequest.init(url:   NSURL.init(string: "http://101.231.204.84:8091/sim/getacptn") as! URL)
-                //                let urlConn : NSURLConnection = NSURLConnection.init(request: urlRequest as URLRequest, delegate: self)!
-                //                urlConn.start()
+//                AppAPIHelper.user().unionpay(title: "余额充值", price: Double.init(money)!, complete: { (result) -> ()? in
+//                 
+//                      SVProgressHUD.dismiss()
+//                    if let object = result {
+//                       
+////                        ShareModel.share().shareData["rid"] =  object["rid"] as! String!
+//                        self.rid = object["rid"] as! Int64
+//                        UPPaymentControl.default().startPay(object["tn"]  as! String!, fromScheme: "UPPayDemo", mode: "01", viewController: self)
+                
+                 UPPaymentControl.default().startPay("520347581233618317400", fromScheme: "com.yundian.trip", mode: "01", viewController: self)
+                
+//                    }
+//                    return nil
+//                }, error: errorBlockFunc())
+                
+//                let urlRequest : NSURLRequest = NSURLRequest.init(url:   NSURL.init(string: "http://101.231.204.84:8091/sim/getacptn") as! URL)
+//                let urlConn : NSURLConnection = NSURLConnection.init(request: urlRequest as URLRequest, delegate: self)!
+//                urlConn.start()
+
             }
         }else{
             if checkTextFieldEmpty([self.rechargeMoneyTF]) {
@@ -212,7 +219,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             else if errorCode == "success"{
 
                 SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
-                    self.navigationController?.popViewController(animated: true)
+                    _ = self.navigationController?.popViewController(animated: true)
                     })
 //                AppAPIHelper.user().unionpayResult(rid: self.rid, payResult: 1, complete: { (result) -> ()? in
 //                    SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
@@ -251,12 +258,12 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                     if let  returnCode : Int = object["returnCode"] as? Int{
                         if returnCode == 1{
                             SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
-                                self.navigationController?.popViewController(animated: true)
+                          _ = self.navigationController?.popViewController(animated: true)
                             })
                         }else{
                             SVProgressHUD.showError(withStatus: "支付失败")
                         }
-                    }else if let  returnCode : Int = object["error"] as? Int{
+                    }else if let  _ : Int = object["error"] as? Int{
                         SVProgressHUD.showError(withStatus: "支付失败")
                         
                     }

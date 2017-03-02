@@ -29,7 +29,7 @@ class ProductModel: BaseModel {
      var status: Int = 0
      var symbol: String = ""
      var unit: String = ""
-    var price: Double = 0
+     var price: Double = 0
     
 
 }
