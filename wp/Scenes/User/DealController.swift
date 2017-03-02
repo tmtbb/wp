@@ -195,7 +195,7 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
         if segue.identifier == DealDetailTableVC.className() {
             let dealDetailTableVC = segue.destination as! DealDetailTableVC
             let indexPath = sender as! IndexPath
-            let array = allDataDict[dateArray[indexPath.section]]
+            let array = currentTDModel!.allDataDict[currentTDModel!.dateArray[indexPath.section]]
             dealDetailTableVC.positionModel = array![indexPath.row]
         }
         
