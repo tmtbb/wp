@@ -226,11 +226,11 @@ class UserTableViewController: BaseTableViewController {
     }
     //登录按钮
     @IBAction func logout(_ sender: Any) {
-        userLogout()
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
+        AppDataHelper.instance().clearUserInfo()
         sideMenuController?.toggle()
-        _ = navigationController?.popToRootViewController(animated: true)
         _ = checkLogin()
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
+//        _ = checkLogin()
     }
     @IBAction func enterDidClick(_ sender: Any) {
         
