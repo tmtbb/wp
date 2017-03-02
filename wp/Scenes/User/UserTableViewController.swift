@@ -172,6 +172,9 @@ class UserTableViewController: BaseTableViewController {
                     UserModel.updateUser(info: { (result)-> ()? in
                         UserModel.share().currentUser?.balance = Double(str as String)!
                     })
+                } else {
+                    self?.nameLabel.text =  "0.00"
+
                 }
             }
 //            //个人信息数据请求
