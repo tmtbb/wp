@@ -46,9 +46,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         super.viewWillAppear(true)
         showTabBarWithAnimationDuration()
         refreshTitleView()
-        if let money = UserModel.share().currentUser?.balance{
-            myMoneyLabel.text = String.init(format: "%.2f", money)
-        }
+       
     }
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
@@ -61,10 +59,11 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-      //  hideTabBarWithAnimationDuration()
     }
     deinit {
         DealModel.share().removeObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue)
+        UserModel.share().removeObserver(self, forKeyPath: AppConst.KVOKey.currentUserId.rawValue)
+        NotificationCenter.default.removeObserver(self)
         priceTimer?.invalidate()
         priceTimer = nil
     }
@@ -81,7 +80,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
         //持仓点击
         DealModel.share().addObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue, options: .new, context: nil)
+        UserModel.share().addObserver(self, forKeyPath: AppConst.KVOKey.currentUserId.rawValue, options: .new, context: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTitleView), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.SelectKind), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(initUI), name: Notification.Name(rawValue:AppConst.NotifyDefine.UpdateUserInfo), object: nil)
         //k线选择器
         klineTitleView.objects = klineTitles as [AnyObject]?
         if let flowLayout: UICollectionViewFlowLayout = klineTitleView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -101,6 +102,10 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             let allProducets: [ProductModel] = DealModel.share().productKinds
             titleView.objects = allProducets
         }
+        
+        if keyPath == AppConst.KVOKey.currentUserId.rawValue{
+            initUI()
+        }
 
     }
     //MARK: --我的资产
@@ -118,6 +123,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     
     internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
+       
         if collectionView == titleView {
             if let model: ProductModel = object as? ProductModel {
                 DealModel.share().selectProduct = model
@@ -139,7 +145,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 }
             }
         }
-
     }
     //刷新商品数据
     func reloadProducts() {
@@ -253,6 +258,10 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     
     //MARK: --UI
     func initUI() {
+        if let money = UserModel.share().getCurrentUser()?.balance{
+            myMoneyLabel.text = String.init(format: "%.2f", money)
+        }
+        
         myMoneyView.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         titleView.itemDelegate = self
         titleView.reuseIdentifier = ProductTitleItem.className()

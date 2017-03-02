@@ -29,6 +29,7 @@ class AppConst {
     enum KVOKey: String {
         case selectProduct = "selectProduct"
         case allProduct = "allProduct"
+        case currentUserId = "currentUserId"
     }
     
     class Color {
