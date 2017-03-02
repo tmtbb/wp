@@ -166,7 +166,7 @@ class UserTableViewController: BaseTableViewController {
                 UserModel.updateUser(info: { (result)-> ()? in
                     UserModel.share().currentUser?.balance = Double(str as String)!
                 })
-            }
+        }
             //个人信息数据请求
             AppAPIHelper.user().getUserinfo(complete: { [weak self](result) -> ()? in
                 if let modes: [UserInfo] = result as? [UserInfo]{

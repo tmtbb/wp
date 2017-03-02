@@ -203,7 +203,6 @@ class AppDataHelper: NSObject {
                             //更新token
                             UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
                         }
-                       
                         if let user = model.userinfo {
                             UserDefaults.standard.setValue(user.id, forKey: SocketConst.Key.id)
                         }
