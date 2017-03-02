@@ -30,9 +30,14 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     @IBOutlet weak var sell: UILabel!
     
     @IBOutlet weak var dealBackground: UIView!
+    
+    
+    var allData:[String:TransactionDetailModel] = [:]
     var allDataDict:[String:Array<PositionModel>] = Dictionary()
     var dateArray:[String] = Array()
     
+    
+    var currentTDModel:TransactionDetailModel?
     var currentSelectProduct:ProductModel?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,14 +59,21 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
         productCollection.itemDelegate = self
         productCollection.reuseIdentifier = ProductCollectionCell.className()
         productCollection.objects = DealModel.share().productKinds as [AnyObject]
+        for product in DealModel.share().productKinds {
+            let model = TransactionDetailModel()
+            allData[product.symbol] = model
+        }
     }
     
     internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
 
+
         currentSelectProduct = object as? ProductModel
-        dateArray.removeAll()
-        allDataDict.removeAll()
-        setupDataWithFilter(filter: "symbol == '\(currentSelectProduct!.symbol)'")
+        currentTDModel = allData[currentSelectProduct!.symbol]
+        tableView.reloadData()
+//        dateArray.removeAll()
+//        allDataDict.removeAll()
+//        setupDataWithFilter(filter: "symbol == '\(currentSelectProduct!.symbol)'")
     }
     
 
@@ -70,29 +82,36 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
         let index = (pageIndex - 1) * 10
         AppAPIHelper.deal().historyDeals(start: index, count: 10, complete: { [weak self](result) -> ()? in
             if let models: [PositionModel] = result as! [PositionModel]?{
-                DealModel.cachePositionWithArray(positionArray: models)
+//                DealModel.cachePositionWithArray(positionArray: models)
                 self?.didRequestComplete(models as AnyObject?)
-                self?.setupDataWithFilter(filter: "symbol == '\((self?.currentSelectProduct?.symbol)!)'")
+//                self?.setupDataWithFilter(filter: "symbol == '\((self?.currentSelectProduct?.symbol)!)'")
+                self?.setupDataWithModels(models: models)
             }
-            
             return nil
             }, error: errorBlockFunc())
     }
-    private func setupDataWithFilter(filter:String) {
+
+    private func setupDataWithModels(models:[PositionModel]) {
         let dateFormatter = DateFormatter()
+        //        let recordList = DealModel.getHistoryPositionModel().filter(filter)
         dateFormatter.dateFormat = "EEE MM-dd"
-        let recordList = DealModel.getHistoryPositionModel().filter(filter)
-        for model in recordList {
+        for model in models {
+            let tdModel = allData[model.symbol!]
+            guard tdModel != nil else {
+                continue
+            }
             let dateString = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(model.closeTime)))
-            if dateArray.contains(dateString) {
-                allDataDict[dateString]!.append(model)
+            if tdModel!.dateArray.contains(dateString) {
+                tdModel!.allDataDict[dateString]!.append(model)
             } else {
                 var list:[PositionModel] = Array()
                 list.append(model)
-                dateArray.append(dateString)
-                allDataDict[dateString] = list
+                tdModel!.dateArray.append(dateString)
+                tdModel!.allDataDict[dateString] = list
             }
         }
+        let product = DealModel.share().productKinds.first
+        currentTDModel = allData[product!.symbol]
         tableView.reloadData()
     }
     
@@ -116,19 +135,18 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return dateArray.count
+        return currentTDModel == nil ? 0 : currentTDModel!.dateArray.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let array = allDataDict[dateArray[section]]
+        let array = currentTDModel?.allDataDict[currentTDModel!.dateArray[section]]
         
         return array == nil ? 0 : array!.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DealDetailCell", for: indexPath) as! DealDetailCell
-        let array = allDataDict[dateArray[indexPath.section]]
+        let array = currentTDModel!.allDataDict[currentTDModel!.dateArray[indexPath.section]]
 
         cell.setData(model: array![indexPath.row])
         return cell
@@ -139,7 +157,7 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     //MARK: -- 返回组标题索引
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-        label.text = dateArray[section]
+        label.text = currentTDModel!.dateArray[section]
         label.textColor = UIColor(rgbHex: 0x666666)
         label.font = UIFont.systemFont(ofSize: 14)
         let sumView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 42))
