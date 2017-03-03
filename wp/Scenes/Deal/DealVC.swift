@@ -168,6 +168,10 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     func initDealTableData() {
         dealTable.dataArray = DealModel.getAllPositionModel()
         YD_CountDownHelper.shared.countDownWithDealTableView(tableView: dealTable)
+        YD_CountDownHelper.shared.finishBlock = { [weak self] (result)in
+            self?.refreshTable()
+            return nil
+        }
         AppAPIHelper.deal().currentDeals(complete: { [weak self](result) -> ()? in
             if result == nil{
                 return nil
@@ -175,14 +179,18 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             if let resultModel: [PositionModel] = result as! [PositionModel]?{
                 DealModel.cachePositionWithArray(positionArray: resultModel)
                 self?.dealTable.dataArray = DealModel.getAllPositionModel()
-                self?.rowHeights.removeLast()
-                self?.rowHeights.append(CGFloat((self?.dealTable.dataArray?.count)!)*66.0)
                 DealModel.refreshDifftime()
-                self?.tableView.reloadData()
+                self?.refreshTable()
                 YD_CountDownHelper.shared.countDownWithDealTableView(tableView: (self?.dealTable)!)
             }
             return nil
         }, error: errorBlockFunc())
+    }
+    func refreshTable()  {
+        rowHeights.removeLast()
+        let height = CGFloat((dealTable.dataArray?.count)!)*66.0
+        rowHeights.append(height > 200 ? height : 200)
+        tableView.reloadData()
     }
     // 当前报价
     func initRealTimeData() {
