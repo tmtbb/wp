@@ -165,6 +165,7 @@ class UserTableViewController: BaseTableViewController {
         loginSuccessIs(bool: true)
         //用户余额数据请求
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
+
             if let object = result as? Dictionary<String,Any> {
                 if let  money : Double =  object["balance"] as? Double {
                     let str : String = String(format: "%.2f", money)

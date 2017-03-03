@@ -34,7 +34,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBOutlet weak var openTitleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var priceView: UIView!
-    private var rowHeights: [CGFloat] = [40,50,116,80,200,41,70,35,0]
+    private var rowHeights: [CGFloat] = [40,50,116,80,200,41,70,35,200]
     private var klineBtn: UIButton?
     private var priceTimer: Timer?
     let klineTitles = ["分时图","5分K","15分K","30分K","1小时K"]
@@ -46,25 +46,24 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         super.viewWillAppear(true)
         showTabBarWithAnimationDuration()
         refreshTitleView()
-        if let money = UserModel.share().currentUser?.balance{
-            myMoneyLabel.text = String.init(format: "%.2f", money)
-        }
+       
     }
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         initData()
         initUI()
+        initKVOAndNotice()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-      //  hideTabBarWithAnimationDuration()
     }
     deinit {
         DealModel.share().removeObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue)
+        NotificationCenter.default.removeObserver(self)
         priceTimer?.invalidate()
         priceTimer = nil
     }
@@ -72,6 +71,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     func initData() {
         //初始化持仓数据
         initDealTableData()
+        refreshUserCash()
         //初始化下商品数据
         titleView.objects = DealModel.share().productKinds
         if let selectProduct = DealModel.share().selectProduct{
@@ -79,9 +79,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
-        //持仓点击
-        DealModel.share().addObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue, options: .new, context: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshTitleView), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.SelectKind), object: nil)
         //k线选择器
         klineTitleView.objects = klineTitles as [AnyObject]?
         if let flowLayout: UICollectionViewFlowLayout = klineTitleView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -89,11 +86,16 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
         kLineView.selectModelBlock = { [weak self](result) -> () in
             if let model: KChartModel = result as? KChartModel{
-                print(model)
                 self?.updateOldPrice(model: model)
             }
         }
         
+    }
+    
+    func initKVOAndNotice(){
+        DealModel.share().addObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue, options: .new, context: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshTitleView), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.SelectKind), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshUserCash), name: Notification.Name(rawValue:AppConst.NotifyDefine.UpdateUserInfo), object: nil)
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
@@ -101,6 +103,17 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             let allProducets: [ProductModel] = DealModel.share().productKinds
             titleView.objects = allProducets
         }
+    }
+    func refreshUserCash() {
+        //用户余额数据请求
+        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
+            if let resultDic = result as? [String: AnyObject] {
+                if let money = resultDic["balance"] as? Double{
+                    self?.myMoneyLabel.text = String.init(format: "%.2f", money)
+                }
+            }
+            return nil
+        }, error: errorBlockFunc())
 
     }
     //MARK: --我的资产
@@ -118,6 +131,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     
     internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
+       
         if collectionView == titleView {
             if let model: ProductModel = object as? ProductModel {
                 DealModel.share().selectProduct = model
@@ -139,7 +153,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 }
             }
         }
-
     }
     //刷新商品数据
     func reloadProducts() {
@@ -155,6 +168,10 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     func initDealTableData() {
         dealTable.dataArray = DealModel.getAllPositionModel()
         YD_CountDownHelper.shared.countDownWithDealTableView(tableView: dealTable)
+        YD_CountDownHelper.shared.finishBlock = { [weak self] (result)in
+            self?.refreshTable()
+            return nil
+        }
         AppAPIHelper.deal().currentDeals(complete: { [weak self](result) -> ()? in
             if result == nil{
                 return nil
@@ -162,14 +179,18 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             if let resultModel: [PositionModel] = result as! [PositionModel]?{
                 DealModel.cachePositionWithArray(positionArray: resultModel)
                 self?.dealTable.dataArray = DealModel.getAllPositionModel()
-                self?.rowHeights.removeLast()
-                self?.rowHeights.append(CGFloat((self?.dealTable.dataArray?.count)!)*66.0)
                 DealModel.refreshDifftime()
-                self?.tableView.reloadData()
+                self?.refreshTable()
                 YD_CountDownHelper.shared.countDownWithDealTableView(tableView: (self?.dealTable)!)
             }
             return nil
         }, error: errorBlockFunc())
+    }
+    func refreshTable()  {
+        rowHeights.removeLast()
+        let height = CGFloat((dealTable.dataArray?.count)!)*66.0
+        rowHeights.append(height > 200 ? height : 200)
+        tableView.reloadData()
     }
     // 当前报价
     func initRealTimeData() {
@@ -253,6 +274,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     
     //MARK: --UI
     func initUI() {
+        
         myMoneyView.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         titleView.itemDelegate = self
         titleView.reuseIdentifier = ProductTitleItem.className()
@@ -266,8 +288,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     //MARK: --买涨/买跌
     @IBAction func dealBtnTapped(_ sender: UIButton) {
+        
+        tableView.scrollToRow(at: IndexPath.init(row: 3, section: 0), at: .top, animated: false)
         if checkLogin(){
-            tableView.scrollToRow(at: IndexPath.init(row: 3, section: 0), at: .top, animated: false)
             if DealModel.share().selectProduct == nil {
                 SVProgressHUD.showWainningMessage(WainningMessage: "暂无商品信息", ForDuration: 1.5, completion: nil)
                 return
