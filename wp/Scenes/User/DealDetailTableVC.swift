@@ -44,7 +44,7 @@ class DealDetailTableVC: BaseTableViewController{
         dealType.text = string
         dealTime.text = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval((positionModel!.positionTime))))
         dealProduct.text = positionModel!.name
-        dealMoney.text = "\(positionModel!.openCost)"
+        dealMoney.text = String(format: "%.2f", positionModel!.openCost)
         
     }
        

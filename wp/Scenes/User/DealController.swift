@@ -36,8 +36,10 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     var allDataDict:[String:Array<PositionModel>] = Dictionary()
     var dateArray:[String] = Array()
     
-    
+    //当前选择的分组数据Model
     var currentTDModel:TransactionDetailModel?
+  
+    //当前选择的分组
     var currentSelectProduct:ProductModel?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,41 +61,47 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
         productCollection.itemDelegate = self
         productCollection.reuseIdentifier = ProductCollectionCell.className()
         productCollection.objects = DealModel.share().productKinds as [AnyObject]
+        /*
+         - 根据分组多少创建存放分组数据的model，以分组标识为Key 存放到字典
+         */
         for product in DealModel.share().productKinds {
             let model = TransactionDetailModel()
             allData[product.symbol] = model
         }
     }
     
+    /*
+      - 点击分组回调
+     */
     internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
-
-
         currentSelectProduct = object as? ProductModel
         currentTDModel = allData[currentSelectProduct!.symbol]
         tableView.reloadData()
-//        dateArray.removeAll()
-//        allDataDict.removeAll()
-//        setupDataWithFilter(filter: "symbol == '\(currentSelectProduct!.symbol)'")
     }
     
 
+    
+    override func isOverspreadLoadMore() -> Bool {
+        return false
+    }
     
     override func didRequest(_ pageIndex : Int){
         let index = (pageIndex - 1) * 10
         AppAPIHelper.deal().historyDeals(start: index, count: 10, complete: { [weak self](result) -> ()? in
             if let models: [PositionModel] = result as! [PositionModel]?{
-//                DealModel.cachePositionWithArray(positionArray: models)
                 self?.didRequestComplete(models as AnyObject?)
-//                self?.setupDataWithFilter(filter: "symbol == '\((self?.currentSelectProduct?.symbol)!)'")
                 self?.setupDataWithModels(models: models)
             }
             return nil
             }, error: errorBlockFunc())
     }
 
+    /*
+     - 将数据放入各分组
+     - 以时间戳转化成时间为key，对应的value为 key 当天的所有数据
+     */
     private func setupDataWithModels(models:[PositionModel]) {
         let dateFormatter = DateFormatter()
-        //        let recordList = DealModel.getHistoryPositionModel().filter(filter)
         dateFormatter.dateFormat = "EEE MM-dd"
         for model in models {
             let tdModel = allData[model.symbol!]
@@ -101,6 +109,11 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
                 continue
             }
             let dateString = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(model.closeTime)))
+            /*
+             - 判断 model 对应的分组 是否已经有当天数据信息
+             - 如果已经有信息则直接将model 插入当天信息array
+             - 反之，创建当天分组array 插入数据
+             */
             if tdModel!.dateArray.contains(dateString) {
                 tdModel!.allDataDict[dateString]!.append(model)
             } else {
@@ -110,8 +123,7 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
                 tdModel!.allDataDict[dateString] = list
             }
         }
-        let product = DealModel.share().productKinds.first
-        currentTDModel = allData[product!.symbol]
+        currentTDModel = allData[currentSelectProduct!.symbol]
         tableView.reloadData()
     }
     
@@ -129,10 +141,6 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     }
     
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return currentTDModel == nil ? 0 : currentTDModel!.dateArray.count
@@ -167,7 +175,6 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
             make.bottom.equalTo(sumView).offset(-10)
         }
         return sumView
-        
     }
     //组头高
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -191,6 +198,8 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
         performSegue(withIdentifier: DealDetailTableVC.className(), sender: indexPath)
     }
     
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == DealDetailTableVC.className() {
             let dealDetailTableVC = segue.destination as! DealDetailTableVC
@@ -200,6 +209,11 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
         }
         
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
 }
 
 
