@@ -88,6 +88,9 @@ class UserModel: BaseModel  {
                 currentUserId = user.id
                 //存储uid
                 UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
+                if let phone = user.phone{
+                    UserDefaults.standard.setValue(phone, forKey: SocketConst.Key.phone)
+                }
                 let realm = try! Realm()
                 try! realm.write {
                     currentUser  =  user

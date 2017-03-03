@@ -111,7 +111,7 @@ class RegisterVC: BaseTableViewController {
     //注册
     @IBAction func registerBtnTapped(_ sender: Any) {
         if checkoutText(){
-            if checkTextFieldEmpty([phoneText,codeText]){
+            if checkTextFieldEmpty([phoneText,pwdText,codeText]){
                 UserModel.share().code = codeText.text
                 UserModel.share().phone = phoneText.text
                 register()
@@ -128,7 +128,7 @@ class RegisterVC: BaseTableViewController {
             AppAPIHelper.login().repwd(phone: UserModel.share().phone!, type: (type?.rawValue)!,  pwd: password, code: UserModel.share().code!, complete: { [weak self](result) -> ()? in
                 
                 SVProgressHUD.showWainningMessage(WainningMessage: "重置成功", ForDuration: 1, completion: nil)
-                self?.navigationController?.popToRootViewController(animated: true)
+                _ = self?.navigationController?.popToRootViewController(animated: true)
                 return nil
                 }, error: errorBlockFunc())
             return

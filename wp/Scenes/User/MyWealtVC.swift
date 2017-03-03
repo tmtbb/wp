@@ -116,21 +116,30 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         hideTabBarWithAnimationDuration()
         let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
         self.account.text =  str
-        AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
-            if let object = result {
-                let  money : Double =  object["balance"] as! Double
-                let floatmonet : Double = Double.init(money)
-                let str : String = NSString(format: "%.2f" ,floatmonet) as String
-                self?.account.text =  "\(str)"
-                
-                ShareModel.share().useMoney = money
-                UserModel.updateUser(info: { (result) -> ()? in
-                    UserModel.share().getCurrentUser()?.balance = Double(money)
-                    return nil
-                })
+        //用户余额数据请求
+        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
+            if let resultDic = result as? [String: AnyObject] {
+                if let money = resultDic["balance"] as? Double{
+                    self?.account.text = String.init(format: "%.2f", money)
+                }
             }
             return nil
-            }, error: errorBlockFunc())
+        }, error: errorBlockFunc())
+//        AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
+//            if let object = result {
+//                let  money : Double =  object["balance"] as! Double
+//                let floatmonet : Double = Double.init(money)
+//                let str : String = NSString(format: "%.2f" ,floatmonet) as String
+//                self?.account.text =  "\(str)"
+//                
+//                ShareModel.share().useMoney = money
+//                UserModel.updateUser(info: { (result) -> ()? in
+//                    UserModel.share().getCurrentUser()?.balance = Double(money)
+//                    return nil
+//                })
+//            }
+//            return nil
+//            }, error: errorBlockFunc())
     }
     //MARK: --界面销毁删除监听机制
     deinit {

@@ -71,6 +71,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     func initData() {
         //初始化持仓数据
         initDealTableData()
+        refreshUserCash()
         //初始化下商品数据
         titleView.objects = DealModel.share().productKinds
         if let selectProduct = DealModel.share().selectProduct{
