@@ -65,7 +65,7 @@ class UserTableViewController: BaseTableViewController {
         AppDataHelper.instance().checkTokenLogin()
         if checkLogin() {
             loginSuccessIs(bool: true)
-            nameLabel.text = "\(UserModel.share().getCurrentUser()!.balance)"
+//            nameLabel.text = "\(UserModel.share().getCurrentUser()?.balance)"
 //            if ((UserModel.share().getCurrentUser()?.avatarLarge) != "" && UserModel.share().getCurrentUser()?.avatarLarge == "default-head"){
 //                iconImage.image = UIImage(named: (UserModel.share().getCurrentUser()?.avatarLarge) ?? "")
 //                iconImage.image = UIImage(named: "default-head")

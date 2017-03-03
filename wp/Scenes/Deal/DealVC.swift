@@ -291,7 +291,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         
         tableView.scrollToRow(at: IndexPath.init(row: 3, section: 0), at: .top, animated: false)
         if checkLogin(){
-            if DealModel.share().selectProduct == nil {
+            if DealModel.share().buyProduct == nil {
                 SVProgressHUD.showWainningMessage(WainningMessage: "暂无商品信息", ForDuration: 1.5, completion: nil)
                 return
             }
