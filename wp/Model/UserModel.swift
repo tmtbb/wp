@@ -81,17 +81,22 @@ class UserModel: BaseModel  {
     func upateUserInfo(userObject: AnyObject){
         if let model = userObject as? UserInfoModel {
             token = model.token!
+            
             //存储token
             UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
             if let user = model.userinfo {
                 currentUserId = user.id
                 //存储uid
                 UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
+                if let phone = user.phone{
+                    UserDefaults.standard.setValue(phone, forKey: SocketConst.Key.phone)
+                }
                 let realm = try! Realm()
                 try! realm.write {
+                    currentUser  =  user
                     realm.add(user, update: true)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
-                    currentUser = getCurrentUser()
+                    
                 }
             }
         }

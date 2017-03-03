@@ -55,7 +55,7 @@ class UserTableViewController: BaseTableViewController {
         integralBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
         loginBtn.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: AppConst.Color.auxiliary), for: .normal)
         register.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: AppConst.Color.auxiliary), for: .normal)
-        logoutButton.layer.borderWidth = 1
+        logoutButton.layer.borderWidth = 0.7
         logoutButton.layer.borderColor = UIColor(hexString: "#cccccc").cgColor
         
         
@@ -165,6 +165,7 @@ class UserTableViewController: BaseTableViewController {
         loginSuccessIs(bool: true)
         //用户余额数据请求
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
+
             if let object = result as? Dictionary<String,Any> {
                 if let  money : Double =  object["balance"] as? Double {
                     let str : String = String(format: "%.2f", money)
@@ -172,6 +173,9 @@ class UserTableViewController: BaseTableViewController {
                     UserModel.updateUser(info: { (result)-> ()? in
                         UserModel.share().currentUser?.balance = Double(str as String)!
                     })
+                } else {
+                    self?.nameLabel.text =  "0.00"
+
                 }
             }
 //            //个人信息数据请求

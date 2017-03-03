@@ -44,7 +44,7 @@ class DealDetailTableVC: BaseTableViewController{
         dealType.text = string
         dealTime.text = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval((positionModel!.positionTime))))
         dealProduct.text = positionModel!.name
-        dealMoney.text = "\(positionModel!.openCost)"
+        dealMoney.text = String(format: "%.2f", positionModel!.openCost)
         
     }
        
@@ -61,6 +61,8 @@ class DealDetailTableVC: BaseTableViewController{
         translucent(clear: false)
     }
     
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
 }

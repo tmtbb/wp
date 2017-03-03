@@ -82,7 +82,6 @@ class MyMessageController: BaseTableViewController {
         userLogout()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
         _ = navigationController?.popToRootViewController(animated: true)
-        print("退出登录")
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
