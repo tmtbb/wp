@@ -75,6 +75,22 @@ class UserModel: BaseModel  {
             return nil
         })
     }
+    
+    //更新realm
+    func updateRealm(){
+        let buildNumber = Bundle.main.infoDictionary?[AppConst.BundleInfo.CFBundleVersion.rawValue]
+        var config = Realm.Configuration()
+        config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("\(UserModel.share().currentUserId).realm")
+        config.schemaVersion = UInt64(buildNumber as! String)!
+        config.migrationBlock = { migration, oldSchemaVersion in
+            if oldSchemaVersion < UInt64(buildNumber as! String)!{
+                
+            }
+        }
+        Realm.Configuration.defaultConfiguration = config
+        _ = try! Realm()
+        YD_CountDownHelper.shared.resetDataSource()
+    }
 
     
     // 更新用户信息
@@ -86,6 +102,7 @@ class UserModel: BaseModel  {
             UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
             if let user = model.userinfo {
                 currentUserId = user.id
+                updateRealm()
                 //存储uid
                 UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
                 if let phone = user.phone{

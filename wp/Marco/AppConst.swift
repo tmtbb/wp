@@ -100,6 +100,14 @@ class AppConst {
         case callPhone = 10001
         case handleOrder = 11001
     }
+    
+    enum BundleInfo:String {
+        case CFBundleDisplayName = "CFBundleDisplayName"
+        case CFBundleShortVersionString = "CFBundleShortVersionString"
+        case CFBundleVersion = "CFBundleVersion"
+    }
+    
+    
 
     class WechatKey {
         static let Scope = "snsapi_userinfo"
