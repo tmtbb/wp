@@ -37,6 +37,13 @@ class UserTableViewController: BaseTableViewController {
     @IBOutlet weak var integralBackground: UIView!
     @IBOutlet weak var integralButton: UIButton!
     
+    
+    lazy var numberFormatter:NumberFormatter = {
+       let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        return formatter
+    }()
+    
     let jumpNotifyDict = [1 : AppConst.NotifyDefine.jumpToDeal,
                           2 : AppConst.NotifyDefine.jumpToWithdraw,
                           3 : AppConst.NotifyDefine.jumpToRecharge,
@@ -48,7 +55,7 @@ class UserTableViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.contentSize = CGSize(width: 0, height: 600.0)
         tableView.backgroundColor = UIColor(hexString: "#F5F5F5")
         personBackgroud.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         propertyBackgroud.backgroundColor = UIColor(red: 255.0 / 255.0, green: 255.0 / 255.0, blue: 255.0 / 255.0, alpha: 0.2)
@@ -58,14 +65,15 @@ class UserTableViewController: BaseTableViewController {
         logoutButton.layer.borderWidth = 0.7
         logoutButton.layer.borderColor = UIColor(hexString: "#cccccc").cgColor
         
-        
         ShareModel.share().addObserver(self, forKeyPath: "useMoney", options: .new, context: nil)
         registerNotify()
         //更新token
         AppDataHelper.instance().checkTokenLogin()
         if checkLogin() {
             loginSuccessIs(bool: true)
-            nameLabel.text = "\(UserModel.share().getCurrentUser()!.balance)"
+            
+            let str = numberFormatter.string(from: NSNumber(value: UserModel.share().getCurrentUser()!.balance))
+            nameLabel.text = str?.substring(from: (",".endIndex))
 //            if ((UserModel.share().getCurrentUser()?.avatarLarge) != "" && UserModel.share().getCurrentUser()?.avatarLarge == "default-head"){
 //                iconImage.image = UIImage(named: (UserModel.share().getCurrentUser()?.avatarLarge) ?? "")
 //                iconImage.image = UIImage(named: "default-head")
@@ -94,9 +102,8 @@ class UserTableViewController: BaseTableViewController {
         super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         if keyPath == "useMoney" {
             if let base = change? [NSKeyValueChangeKey.newKey] as? Double {
-                
-                let str : String = NSString(format: "%.2f" ,base) as String
-                self.nameLabel.text =  "\(str)"
+                let str = numberFormatter.string(from: NSNumber(value: base))
+                nameLabel.text =  str?.substring(from: (",".endIndex))
             }
             
         }
@@ -167,11 +174,12 @@ class UserTableViewController: BaseTableViewController {
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
 
             if let object = result as? Dictionary<String,Any> {
-                if let  money : Double =  object["balance"] as? Double {
-                    let str : String = String(format: "%.2f", money)
-                    self?.nameLabel.text =  str
+                if let  money =  object["balance"] as? Double {
+                    
+                    let str = self?.numberFormatter.string(from: NSNumber(value: money))
+                    self?.nameLabel.text =  str?.substring(from: (",".endIndex))
                     UserModel.updateUser(info: { (result)-> ()? in
-                        UserModel.share().currentUser?.balance = Double(str as String)!
+                        UserModel.share().currentUser?.balance = money
                     })
                 } else {
                     self?.nameLabel.text =  "0.00"
