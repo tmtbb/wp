@@ -52,6 +52,7 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
 //        sumHandNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
 //        sumOneNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
 //        
+
         tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
         tableView.showsVerticalScrollIndicator = false
     }
