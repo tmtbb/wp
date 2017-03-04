@@ -25,7 +25,7 @@ class AppConst {
     static let isMock = false
     static let sha256Key = "t1@s#df!"
     static let pid = 1002
-    
+    static let klineCount: Double = 30
     enum KVOKey: String {
         case selectProduct = "selectProduct"
         case allProduct = "allProduct"
