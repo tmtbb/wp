@@ -41,19 +41,12 @@ class FullBankInfomationVC: BaseTableViewController {
         if checkTextFieldEmpty([name,bankNumber,branceAddress]){
             
             if !onlyInputTheNumber(bankNumber.text!) {
-                
-                SVProgressHUD.showErrorMessage(ErrorMessage: "输入正确的银行卡号", ForDuration: 1
-                    , completion: { 
-                        
-                })
+             SVProgressHUD.showErrorMessage(ErrorMessage: "输入正确的银行卡号", ForDuration: 1, completion: {})
                 return
             }
             didRequest()
-           
-            
             return
         }
-        
     }
     //MARK: 网络请求
     override func didRequest() {
@@ -62,8 +55,6 @@ class FullBankInfomationVC: BaseTableViewController {
         AppAPIHelper.user().getBankName(withbankld:bankNumber.text!, complete: { [weak self](result) -> ()? in
             
             if let object = result{
-                
-            
               let  bankId : Int = object["bankId"] as! Int
                 ShareModel.share().shareData["cardNo"] = (self?.bankNumber.text!)!
                 ShareModel.share().shareData["branchBank"] = (self?.branceAddress.text!)!
@@ -72,8 +63,6 @@ class FullBankInfomationVC: BaseTableViewController {
                 ShareModel.share().shareData["bankId"] = "\(bankId)"
                 self?.performSegue(withIdentifier: pushInputPhone, sender: nil)
             }
-            //
-            //
             return nil
             }, error: errorBlockFunc())
         

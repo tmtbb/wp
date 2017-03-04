@@ -43,11 +43,11 @@ class InputBankPhone: UITableViewController {
                             if nav.isKind(of: BankCardVC.self){
                                 
                                 
-                                self?.navigationController?.popToViewController(nav, animated: true)
+                                _ = self?.navigationController?.popToViewController(nav, animated: true)
                             }
                             if nav.isKind(of: WithDrawalVC.self){
                                 
-                                self?.navigationController?.popToViewController(nav, animated: true)
+                                _ = self?.navigationController?.popToViewController(nav, animated: true)
                             }
                             
                         }

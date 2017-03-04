@@ -51,24 +51,25 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         btn.setTitle("充值记录", for:  UIControlState.normal)
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
-        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
+        let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
         self.moneyText.text  = str + "元"
+        
+        let format = NumberFormatter()
+        format.numberStyle = .currency
+        let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
+        let index = account.index(account.startIndex, offsetBy: 1)
+        self.moneyText.text = account.substring(from: index) + "元"
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
         NotificationCenter.default.addObserver(self, selector: #selector(paysuccess(_:)), name: Notification.Name(rawValue:AppConst.WechatPay.WechatKeyErrorCode), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: nil)
-//        self.userIdText.text = UserModel.share().getCurrentUser()?.phone
-        
+        //        self.userIdText.text = UserModel.share().getCurrentUser()?.phone
         self.userIdText.text = UserDefaults.standard.object(forKey: SocketConst.Key.phone) as! String?
         self.userIdText.isUserInteractionEnabled = false
-        //        self.userIdText.text  =
-        //        self.bankTableView.addObserver(self, forKeyPath: "dataArry", options: .new, context: nil)
         submited.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         submited.layer.cornerRadius = 5
         submited.clipsToBounds = true
-        
         moneyText.dk_textColorPicker = DKColorTable.shared().picker(withKey: "auxiliary")
-        
     }
     //MARK: 属性的变化
     //    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -119,32 +120,28 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                     money = "\(self.rechargeMoneyTF.text!)" + ".00001"
                 }
                 AppAPIHelper.user().unionpay(title: "余额充值", price: Double.init(money)!, complete: { (result) -> ()? in
-                 
-                      SVProgressHUD.dismiss()
+                    
+                    SVProgressHUD.dismiss()
                     if let object = result {
-                       
-//                        ShareModel.share().shareData["rid"] =  object["rid"] as! String!
+                        
+                        //                        ShareModel.share().shareData["rid"] =  object["rid"] as! String!
                         self.rid = object["rid"] as! Int64
                         UPPaymentControl.default().startPay(object["tn"]  as! String!, fromScheme: "com.newxfin.goods", mode: "00", viewController: self)
-                
-               
-                
+                        
                     }
                     return nil
                 }, error: errorBlockFunc())
-              //    UPPaymentControl.default().startPay("520347581233618317400", fromScheme: "com.yundian.trip", mode: "01", viewController: self)
-//                let urlRequest : NSURLRequest = NSURLRequest.init(url:   NSURL.init(string: "http://101.231.204.84:8091/sim/getacptn") as! URL)
-//                let urlConn : NSURLConnection = NSURLConnection.init(request: urlRequest as URLRequest, delegate: self)!
-//                urlConn.start()
-
+                //    UPPaymentControl.default().startPay("520347581233618317400", fromScheme: "com.yundian.trip", mode: "01", viewController: self)
+                //                let urlRequest : NSURLRequest = NSURLRequest.init(url:   NSURL.init(string: "http://101.231.204.84:8091/sim/getacptn") as! URL)
+                //                let urlConn : NSURLConnection = NSURLConnection.init(request: urlRequest as URLRequest, delegate: self)!
+                //                urlConn.start()
             }
         }else{
             if checkTextFieldEmpty([self.rechargeMoneyTF]) {
                 var money : String
-                  SVProgressHUD.show(withStatus: "加载中")
+                SVProgressHUD.show(withStatus: "加载中")
                 if ((self.rechargeMoneyTF.text?.range(of: ".")) != nil) {
                     money = self.rechargeMoneyTF.text!
-                    
                     
                 }else{
                     
@@ -154,7 +151,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                     SVProgressHUD.dismiss()
                     if let object = result {
                         let request : PayReq = PayReq()
-                        let  str : String  = object["timestamp"] as! String!
+                        let str : String = object["timestamp"] as! String!
                         ShareModel.share().shareData["rid"] =  object["rid"] as! String!
                         request.timeStamp = UInt32(str)!
                         request.sign = object["sign"] as! String!
@@ -207,7 +204,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         
         self.view.endEditing(true)
     }
-   
+    
     //MARK: 监听返回结果
     func errorCode(_ notice: NSNotification){
         
@@ -217,31 +214,29 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                 SVProgressHUD.showError(withStatus: "支付失败")
             }
             else if errorCode == "success"{
-
+                
                 SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
                     _ = self.navigationController?.popViewController(animated: true)
-                    })
-//                AppAPIHelper.user().unionpayResult(rid: self.rid, payResult: 1, complete: { (result) -> ()? in
-//                    SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
-//                        self.navigationController?.popViewController(animated: true)
-//                        })
-//                    if let object = result{
-//                        let  returnCode : Int = object["returnCode"] as! Int
-//                        if returnCode == 0{
-//                            SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
-//                                self.navigationController?.popViewController(animated: true)
-//                            })
-//                        }else{
-//                            SVProgressHUD.showError(withStatus: "支付失败")
-//                        }
-//                    }
-//                    return nil
-//                }, error: errorBlockFunc())
+                })
+                //                AppAPIHelper.user().unionpayResult(rid: self.rid, payResult: 1, complete: { (result) -> ()? in
+                //                    SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
+                //                        self.navigationController?.popViewController(animated: true)
+                //                        })
+                //                    if let object = result{
+                //                        let  returnCode : Int = object["returnCode"] as! Int
+                //                        if returnCode == 0{//                                self.navigationController?.popViewController(animated: true)
+                //                            })
+                //                        }else{
+                //                            SVProgressHUD.showError(withStatus: "支付失败")
+                //                        }
+                //                    }
+                //                    return nil
+                //                }, error: errorBlockFunc())
             }
         }
         
         
-    }    
+    }
     //MARK: 监听返回结果
     func paysuccess(_ notice: NSNotification) {
         
@@ -249,7 +244,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         if let errorCode: Int = notice.object as? Int{
             var code = Int()
             if errorCode == 0 {
-            code = 1
+                code = 1
             }else{
                 code = 2
             }
@@ -258,9 +253,9 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                     if let  returnCode : Int = object["returnCode"] as? Int{
                         if returnCode == 1{
                             SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
-
-                          _ = self.navigationController?.popViewController(animated: true)
-
+                                
+                                _ = self.navigationController?.popViewController(animated: true)
+                                
                             })
                         }else{
                             SVProgressHUD.showError(withStatus: "支付失败")
@@ -269,7 +264,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                         SVProgressHUD.showError(withStatus: "支付失败")
                         
                     }
-                   
+                    
                 }
                 return nil
             }, error: errorBlockFunc())
@@ -297,17 +292,17 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     }
     //MARK: -获取银行卡数量的请求
     override func didRequest() {
-                AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
-                    if let object = result {
-                        let Model : BankModel = object as! BankModel
-                        let Count : Int = (Model.cardlist?.count)!
-                        let str : String = String(Count)
-                        self?.bankCount.text = "\(str)" + " " + "张"
-                    }else {
-                    }
-                    
-                    return nil
-                    }, error: errorBlockFunc())
+        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
+            if let object = result {
+                let Model : BankModel = object as! BankModel
+                let Count : Int = (Model.cardlist?.count)!
+                let str : String = String(Count)
+                self?.bankCount.text = "\(str)" + " " + "张"
+            }else {
+            }
+            
+            return nil
+            }, error: errorBlockFunc())
     }
     
 }
