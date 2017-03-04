@@ -8,6 +8,7 @@
 
 import UIKit
 import DKNightVersion
+import Charts
 class MyWealtVCCell: OEZTableViewCell {
     //时间lab
     @IBOutlet weak var timeLb: UILabel!
@@ -114,13 +115,28 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         super.viewWillAppear(animated)
         translucent(clear: false)
         hideTabBarWithAnimationDuration()
-        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
-        self.account.text =  str
+        //NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
+//        let str : String = String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
+        
+        let format = NumberFormatter()
+        format.numberStyle = .currency
+        let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
+         let index = account.index(account.startIndex, offsetBy: 1)
+        self.account.text = account.substring(from: index)
         //用户余额数据请求
         AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
             if let resultDic = result as? [String: AnyObject] {
                 if let money = resultDic["balance"] as? Double{
-                    self?.account.text = String.init(format: "%.2f", money)
+                    
+                    UserModel.updateUser(info: { (result) -> ()? in
+                                            UserModel.share().getCurrentUser()?.balance = Double(money)
+                                            return nil
+                                        })
+                    let format = NumberFormatter()
+                    format.numberStyle = .currency
+                     let account : String =   format.string(from: NSNumber(value: money))!
+                    let index = account.index(account.startIndex, offsetBy: 1)
+                    self?.account.text = account.substring(from: index)
                 }
             }
             return nil

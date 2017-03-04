@@ -23,9 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         
-        
-    
-        
         //URL types
         Fabric.with([Crashlytics.self])
         appearance()
@@ -177,8 +174,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     
     //MARK: --Wechat
     fileprivate func wechat() {
-        
-        WXApi.registerApp("wx012941fcfbec7a23")
+        //wxadf8e3bbeb283ba9 测试的demo光彩
+        //wx012941fcfbec7a23自己的
+        WXApi.registerApp("wx9dc39aec13ee3158")
     }
     func onResp(_ resp: BaseResp!) {
         //微信登录返回
