@@ -281,6 +281,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         
         klineTitleView.itemDelegate = self
         klineTitleView.reuseIdentifier = KLineTitleItem.className()
+        
+    
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
