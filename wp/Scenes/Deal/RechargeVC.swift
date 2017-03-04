@@ -143,7 +143,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                 if ((self.rechargeMoneyTF.text?.range(of: ".")) != nil) {
                     money = self.rechargeMoneyTF.text!
                     
-                    
                 }else{
                     
                     money = "\(self.rechargeMoneyTF.text!)" + ".00001"
@@ -152,7 +151,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                     SVProgressHUD.dismiss()
                     if let object = result {
                         let request : PayReq = PayReq()
-                        let  str : String  = object["timestamp"] as! String!
+                        let str : String = object["timestamp"] as! String!
                         ShareModel.share().shareData["rid"] =  object["rid"] as! String!
                         request.timeStamp = UInt32(str)!
                         request.sign = object["sign"] as! String!
