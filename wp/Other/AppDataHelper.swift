@@ -89,7 +89,7 @@ class AppDataHelper: NSObject {
             if future > now{
                 return
             }
-            let end = now - 60*60
+            let end = now - 60*AppConst.klineCount
             lineChartData(product: product, fromTime: now, endTime: end)
         }
     }
@@ -150,7 +150,7 @@ class AppDataHelper: NSObject {
             if future > now{
                 return
             }
-            let end = now - Double(type.rawValue)*50
+            let end = now - Double(type.rawValue)*AppConst.klineCount
             kLineChartData(type: type, product: product, fromTime: now, endTime: end)
         }
     }

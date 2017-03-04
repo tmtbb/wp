@@ -65,7 +65,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
                 chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.delegate = self
                 chartsView.chartDescription?.text = ""
-                chartsView.xAxis.axisMaximum = 51
+                chartsView.xAxis.axisMaximum = AppConst.klineCount+1
                 chartsView.animate(xAxisDuration: 1)
             }
         }
@@ -112,7 +112,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         }
         let type =  DealModel.share().selectProduct!.symbol
         let toTime: Int = Int(Date.nowTimestemp())
-        let fromTime: Int = toTime - 60*50
+        let fromTime: Int = toTime - 60*Int(AppConst.klineCount)
         KLineModel.queryTimelineModels(fromTime: fromTime, toTime: toTime, goodType: type){[weak self](result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel] {
                self?.refreshLineChartData(models: models)
@@ -154,7 +154,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         }
         let goodType = DealModel.share().selectProduct!.symbol
         let toTime: Int = Int(Date.nowTimestemp())
-        let fromTime: Int = toTime - Int(type.rawValue)*50
+        let fromTime: Int = toTime - Int(type.rawValue)*Int(AppConst.klineCount)
         KLineModel.queryKLineModels(type: type, fromTime: fromTime, toTime: toTime, goodType: goodType){[weak self](result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel] {
                 self?.refreshCandleStickData(type: type, models: models)

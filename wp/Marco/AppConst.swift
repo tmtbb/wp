@@ -25,7 +25,7 @@ class AppConst {
     static let isMock = false
     static let sha256Key = "t1@s#df!"
     static let pid = 1002
-    
+    static let klineCount: Double = 30
     enum KVOKey: String {
         case selectProduct = "selectProduct"
         case allProduct = "allProduct"
@@ -100,6 +100,14 @@ class AppConst {
         case callPhone = 10001
         case handleOrder = 11001
     }
+    
+    enum BundleInfo:String {
+        case CFBundleDisplayName = "CFBundleDisplayName"
+        case CFBundleShortVersionString = "CFBundleShortVersionString"
+        case CFBundleVersion = "CFBundleVersion"
+    }
+    
+    
 
     class WechatKey {
         static let Scope = "snsapi_userinfo"

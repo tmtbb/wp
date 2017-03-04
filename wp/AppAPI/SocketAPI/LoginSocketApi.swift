@@ -43,7 +43,7 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
                                      SocketConst.Key.memberId: 0,
                                      SocketConst.Key.agentId: "",
                                      SocketConst.Key.recommend: "",
-                                     SocketConst.Key.timestamp: Date.nowTimestemp(),
+                                     SocketConst.Key.timestamp: UserModel.share().timestamp,
                                      SocketConst.Key.vToken: UserModel.share().codeToken]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .register, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
