@@ -53,12 +53,14 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
         let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
         self.moneyText.text  = str + "元"
-        
         let format = NumberFormatter()
         format.numberStyle = .currency
+        
         let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
-        let index = account.index(account.startIndex, offsetBy: 1)
-        self.moneyText.text = account.substring(from: index) + "元"
+        
+        let arry : Array =    account.components(separatedBy: "¥")
+      
+        self.moneyText.text = arry[1] + "元"
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
         NotificationCenter.default.addObserver(self, selector: #selector(paysuccess(_:)), name: Notification.Name(rawValue:AppConst.WechatPay.WechatKeyErrorCode), object: nil)
@@ -123,11 +125,9 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                     
                     SVProgressHUD.dismiss()
                     if let object = result {
-                        
-                        //                        ShareModel.share().shareData["rid"] =  object["rid"] as! String!
+                        //ShareModel.share().shareData["rid"] =  object["rid"] as! String!
                         self.rid = object["rid"] as! Int64
                         UPPaymentControl.default().startPay(object["tn"]  as! String!, fromScheme: "com.newxfin.goods", mode: "00", viewController: self)
-                        
                     }
                     return nil
                 }, error: errorBlockFunc())
@@ -142,9 +142,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                 SVProgressHUD.show(withStatus: "加载中")
                 if ((self.rechargeMoneyTF.text?.range(of: ".")) != nil) {
                     money = self.rechargeMoneyTF.text!
-                    
                 }else{
-                    
                     money = "\(self.rechargeMoneyTF.text!)" + ".00001"
                 }
                 AppAPIHelper.user().weixinpay(title: "余额充值", price: Double.init(money)! , complete: { (result) -> ()? in
@@ -169,7 +167,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     }
     //MARK: -tableView dataSource
     override   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        
         if section==0 {
             return 2
         }
@@ -283,11 +280,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                     if errorCode == 0{
                         SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1
                             , completion: {
-                                
-                                self.performSegue(withIdentifier: "PushTolist", sender: nil)
-
-        
-                        })
+                                self.performSegue(withIdentifier: "PushTolist", sender: nil)})
                         return
                     }
         
