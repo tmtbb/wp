@@ -23,6 +23,9 @@ class ShareModel: BaseModel {
     var detailModel  =  WithdrawModel()
     // 选中的银行
     dynamic var selectBank  = BankListModel()
+    // 用来判读是充值详情还是体现详情
+    var comeFromRechage :  Bool = true
+    
     //定义全局的字典 用来传值
     var shareData = Dictionary<String, String>()
     

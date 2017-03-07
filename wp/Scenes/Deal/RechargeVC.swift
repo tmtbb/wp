@@ -241,53 +241,57 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     func paysuccess(_ notice: NSNotification) {
         
         
-        if let errorCode: Int = notice.object as? Int{
-            var code = Int()
-            if errorCode == 0 {
-                code = 1
-            }else{
-                code = 2
-            }
-            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: code, complete: { (result) -> ()? in
-                if let object = result{
-                    if let  returnCode : Int = object["returnCode"] as? Int{
-                        if returnCode == 1{
-                            SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
-                                
-                                _ = self.navigationController?.popViewController(animated: true)
-                                
-                            })
-                        }else{
-                            SVProgressHUD.showError(withStatus: "支付失败")
-                        }
-                    }else if let  _ : Int = object["error"] as? Int{
+//        if let errorCode: Int = notice.object as? Int{
+//            var code = Int()
+//            if errorCode == 0 {
+//                code = 1
+//                 self.performSegue(withIdentifier: "PushTolist", sender: nil)
+//            }else{
+//                code = 2
+//                 SVProgressHUD.showError(withStatus: "支付失败")
+//            }
+////            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: code, complete: { (result) -> ()? in
+////                if let object = result{
+////                    if let  returnCode : Int = object["returnCode"] as? Int{
+////                        if returnCode == 1{
+////                            SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
+////                                
+////                                _ = self.navigationController?.popViewController(animated: true)
+////                                
+////                            })
+////                        }else{
+////                            SVProgressHUD.showError(withStatus: "支付失败")
+////                        }
+////                    }else if let  _ : Int = object["error"] as? Int{
+////                        SVProgressHUD.showError(withStatus: "支付失败")
+////                        
+////                    }
+////                    
+////                }
+////                return nil
+////            }, error: errorBlockFunc())
+//        }
+                if let errorCode: Int = notice.object as? Int{
+                    if errorCode == -4{
                         SVProgressHUD.showError(withStatus: "支付失败")
-                        
+                        return
                     }
-                    
+                    if errorCode == -2{
+                        SVProgressHUD.showError(withStatus: "用户中途取消")
+                        return
+                    }
+                    if errorCode == 0{
+                        SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1
+                            , completion: {
+                                
+                                self.performSegue(withIdentifier: "PushTolist", sender: nil)
+
+        
+                        })
+                        return
+                    }
+        
                 }
-                return nil
-            }, error: errorBlockFunc())
-        }
-        //        if let errorCode: Int = notice.object as? Int{
-        //            if errorCode == -4{
-        //
-        //                return
-        //            }
-        //            if errorCode == -2{
-        //
-        //                SVProgressHUD.showError(withStatus: "用户中途取消")
-        //                return
-        //            }
-        //            if errorCode == 0{
-        //                SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1
-        //                    , completion: {
-        //
-        //                })
-        //                return
-        //            }
-        //
-        //        }
         
     }
     //MARK: -获取银行卡数量的请求
