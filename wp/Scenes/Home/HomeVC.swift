@@ -97,78 +97,17 @@ class HomeVC: BaseTableViewController {
         tableView.backgroundColor = UIColor(rgbHex: 0xffffff)
     }
     
-    //MARK: --监听滑动
-   
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    
-        let viewBackColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 42))
-        viewBackColor.backgroundColor = UIColor.white
-        return viewBackColor
-        
-    }
-    //MARK: --组头高度
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        if section == 1 {
-            return 10
-        }
-        if section == 2 {
-            return 11
-        }
-        return 0
-    }
-    
+    //MARK: --table's delegate and datasource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        
-        if section == 0 {
-            return marketArray.count
-        }
-//        if section == 1 {
-//            return 1
-//        }
-//        if section == 2 {
-//            return 1
-//        }
-        return 0
-    }
-    //MARK: --行高
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 100
-        }
-//        if indexPath.section == 1 {
-//            return 155
-//        }
-//        if indexPath.section == 2 {
-//            return 106
-//        }
-        return 0
+        return marketArray.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        
-        let cell : ProdectCell = tableView.dequeueReusableCell(withIdentifier: "ProdectCell") as! ProdectCell
-        if indexPath.section==0 {
-            if indexPath.item < marketArray.count && marketArray[indexPath.item] != nil {
-                cell.kChartModel = marketArray[indexPath.item]
-            }
-            return cell
+        let cell : ProdectCell = tableView.dequeueReusableCell(withIdentifier: ProdectCell.className()) as! ProdectCell
+        if indexPath.item < marketArray.count && marketArray[indexPath.item] != nil {
+            cell.kChartModel = marketArray[indexPath.item]
         }
-//        if indexPath.section==1 {
-//            let cell : SecondViewCell = tableView.dequeueReusableCell(withIdentifier: "SecondViewCell") as! SecondViewCell
-//            cell.delegate = self
-//            
-//            return cell
-//        }
-//        if indexPath.section == 2 {
-//            let cell : ThreeCell = tableView.dequeueReusableCell(withIdentifier: "ThreeCell") as! ThreeCell
-//            return cell
-//        }
         return cell
     }
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -187,7 +126,7 @@ class HomeVC: BaseTableViewController {
         
         
     }
-    //MARK: --发送通知
+    //MARK: --通知
     func registerNotify() {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(jumpToMyMessageController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyMessage), object: nil)
@@ -200,7 +139,7 @@ class HomeVC: BaseTableViewController {
         notificationCenter.addObserver(self, selector: #selector(jumpToAttentionUsController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToAttentionUs), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToMyWealtVC), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil)
     }
-    //MARK: --通知方法实现
+    //我的消息
     func jumpToMyMessageController() {
         
         performSegue(withIdentifier: MyMessageController.className(), sender: nil)
@@ -208,18 +147,14 @@ class HomeVC: BaseTableViewController {
     
     //我的关注
     func jumpToMyAttentionController() {
-        
         if checkLogin(){
             performSegue(withIdentifier: MyAttentionController.className(), sender: nil)
         }
     }
     //我的推单
     func jumpToMyPushController() {
-        
-        
         if checkLogin(){
             performSegue(withIdentifier: MyPushController.className(), sender: nil)
-            
         }
     }
     //我的晒单
@@ -233,7 +168,6 @@ class HomeVC: BaseTableViewController {
         if checkLogin() {
             self.performSegue(withIdentifier: DealController.className(), sender: nil)
         }
-        
     }
     //意见反馈
     func jumpToFeedbackController() {
@@ -256,15 +190,11 @@ class HomeVC: BaseTableViewController {
     }
     //通知跳转到资金页面
     func jumpToMyWealtVC() {
-        
         let story : UIStoryboard = UIStoryboard.init(name: "Share", bundle: nil)
-        
-        let wealth  = story.instantiateViewController(withIdentifier: "MyWealtVC")
-        
+        let wealth  = story.instantiateViewController(withIdentifier: MyWealtVC.className())
         navigationController?.pushViewController(wealth, animated: true)
         
     }
-    
     //移除通知
     deinit {
         NotificationCenter.default.removeObserver(self)
