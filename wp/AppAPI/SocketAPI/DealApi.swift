@@ -30,6 +30,10 @@ protocol DealApi{
     //当时分时数据
     func timeline(param: KChartParam, complete: CompleteBlock?, error:ErrorBlock?)
     //当前报价
-    func realtime(param: [String: Any], complete: CompleteBlock?, error:ErrorBlock?) 
+    func realtime(param: [String: Any], complete: CompleteBlock?, error:ErrorBlock?)
+    //仓位信息
+    func position(param: PositionParam, complete: CompleteBlock?, error:ErrorBlock?)
+    //收益选择
+    func benifity(param: BenifityParam, complete: CompleteBlock?, error:ErrorBlock?)
 }
 

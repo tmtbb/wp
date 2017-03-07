@@ -83,4 +83,27 @@ class HistoryDealVC: BasePageListTableViewController {
         }, error: errorBlockFunc())
             
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let model = self.dataSource?[indexPath.row] as? PositionModel{
+            if true || model.result{
+                let param = BenifityParam()
+                let alterController = UIAlertController.init(title: "恭喜盈利", message: "请选择盈利方式", preferredStyle: .alert)
+                let productAction = UIAlertAction.init(title: "货运", style: .default, handler: {[weak self] (resultDic) in
+                    AppAPIHelper.deal().benifity(param: param, complete: { (result) -> ()? in
+                        
+                        return nil
+                    }, error: self?.errorBlockFunc())
+                })
+                let moneyAction = UIAlertAction.init(title: "双倍返回", style: .default, handler: { [weak self](resultDic) in
+                    AppAPIHelper.deal().benifity(param: param, complete: { (result) -> ()? in
+                        
+                        return nil
+                    }, error: self?.errorBlockFunc())
+                })
+                alterController.addAction(productAction)
+                alterController.addAction(moneyAction)
+            }
+        }
+    }
 }

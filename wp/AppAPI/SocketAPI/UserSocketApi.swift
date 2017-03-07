@@ -234,9 +234,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.start: start,
                      SocketConst.Key.countNuber: count,] as [String : Any]
           let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .everyday, dict: param as [String : AnyObject], type: SocketConst.type.operate)
-        startRequest(packet, complete: complete, error: error)
-
-        
+        startRequest(packet, complete: complete, error: error)        
     }
     
 

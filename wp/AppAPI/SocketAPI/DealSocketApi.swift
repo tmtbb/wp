@@ -95,6 +95,16 @@ class DealSocketApi: BaseSocketAPI, DealApi {
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .realtime, dict: param as [String : AnyObject], type: .time)
         startModelsRequest(packet, listName: "priceinfo", modelClass: KChartModel.self, complete: complete, error: error)
     }
+    //仓位信息
+    func position(param: PositionParam, complete: CompleteBlock?, error:ErrorBlock?){
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .position, model: param, type: .time)
+        startModelRequest(packet, modelClass: ChartModel.self, complete: complete, error: error)
+    }
+    //收益选择
+    func benifity(param: BenifityParam, complete: CompleteBlock?, error:ErrorBlock?){
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .benifity, model: param, type: .time)
+        startModelRequest(packet, modelClass: ChartModel.self, complete: complete, error: error)
+    }
     
  
 }
