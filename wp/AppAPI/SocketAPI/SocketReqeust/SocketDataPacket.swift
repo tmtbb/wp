@@ -1,4 +1,4 @@
-//
+ //
 //  SocketDataPacket.swift
 //  viossvc
 //
@@ -93,10 +93,16 @@ class SocketDataPacket {
     
     init(socketData: NSData) {
         memset(&packetHead,0, MemoryLayout<SocketPacketHead>.size)
-        (socketData as NSData).getBytes(&packetHead, length: MemoryLayout<SocketPacketHead>.size)
-        var range:NSRange = NSMakeRange(0,Int(data_length))
-        range.location = Int(packet_length - data_length)
-        self.data = socketData.subdata(with: range)
+        socketData.getBytes(&packetHead, length: MemoryLayout<SocketPacketHead>.size)
+        if( Int(packet_length ) - MemoryLayout<SocketPacketHead>.size == Int(data_length)) {
+            var range:NSRange = NSMakeRange(0,Int(data_length))
+            range.location = Int(packet_length - data_length)
+            self.data = socketData.subdata(with: range)
+        }
+        else {
+            debugPrint("onPacketData error packet_length:\(packet_length) packet_length:\(data_length) data:\(socketData.length)");
+        }
+    
     }
     
 

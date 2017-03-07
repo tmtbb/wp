@@ -23,17 +23,33 @@ class DealDetailTableVC: BaseTableViewController{
     //手续费率
     @IBOutlet weak var poundage: UILabel!
     
+    lazy var dateFormatter:DateFormatter = {
+       
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
+        return dateFormatter
+    }()
+    var positionModel:PositionModel?
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0)
         title = "交易详情"
         
+        setData()
+    }
+    
+    func setData() {
+        let isUp = (positionModel!.buySell == -1)
+        let string = isUp ? "买涨" : "买跌"
+        dealType.text = string
+        dealTime.text = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval((positionModel!.positionTime))))
+        dealProduct.text = positionModel!.name
+        dealMoney.text = String(format: "%.2f", positionModel!.openCost)
         
     }
-
+       
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -45,6 +61,8 @@ class DealDetailTableVC: BaseTableViewController{
         translucent(clear: false)
     }
     
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
 }

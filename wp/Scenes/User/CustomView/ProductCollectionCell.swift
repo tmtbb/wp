@@ -19,8 +19,8 @@ class ProductCollectionCell: TitleItem {
         
     }
     override func update(object: AnyObject, hiddle: Bool) {
-        if let title: String = object as? String {
-            productLabel.text = title
+        if let model = object as? ProductModel {
+            productLabel.text = model.showSymbol
             
             redView.isHidden = hiddle
             selectorBtn.isSelected = hiddle ? false : true

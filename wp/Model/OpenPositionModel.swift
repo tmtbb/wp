@@ -24,14 +24,14 @@ class PositionModel: Object {
     dynamic var openCharge:Double = 0      //建仓手续费
     dynamic var closeTime:Int = 0       //平仓时间	(未平仓时为空)
     dynamic var closePrice:Double = 0      //平仓价格	未平仓时为当前价格
-    dynamic var grossProfit:Int = 0     //交易盈亏	未平仓时为当前浮动盈亏
+    dynamic var grossProfit:Double = 0     //交易盈亏	未平仓时为当前浮动盈亏
     dynamic var limit:Double = 0        //止盈	不设则为空
     dynamic var stop:Double = 0         //止损不设则为空
     dynamic var closeType:Int = 0       //平仓类型	1:普通平仓; 2:自动平仓; 3:爆仓平仓; 4:收盘平仓; 5:强制平仓
     dynamic var isDeferred:Int = 0      //是否过夜
     dynamic var deferred:Int = 0        //累计过夜费
     dynamic var token:String = ""           //累计过夜费
-    
+    dynamic var symbol:String?
     dynamic var  result : Bool = true
 //    var result :Int  = 0
     dynamic var interval = 0

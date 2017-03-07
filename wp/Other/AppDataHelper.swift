@@ -16,17 +16,20 @@ class AppDataHelper: NSObject {
     }
     
     private var hurtTimer: Timer?
-    
     func initData() {
-        hurtTimer = Timer.scheduledTimer(timeInterval: 15 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(initKLineChartData), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
+        hurtTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
+//        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
+//        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(moreChartData), userInfo: nil, repeats: true)
         initProductData()
-        initErrorCode()
+//        initErrorCode()
         checkTokenLogin()
     }
-    //请求商品数据
+    //请求商品数据 
     func initProductData() {
+        if UserModel.share().token.length() <= 0{
+            return
+        }
         var allProducets: [ProductModel] = []
         AppAPIHelper.deal().products(pid: 0, complete: {[weak self](result) -> ()? in
             self?.hurtTimer?.invalidate()
@@ -40,8 +43,9 @@ class AppDataHelper: NSObject {
                 if allProducets.count > 0{
                     DealModel.share().selectProduct = allProducets[0]
                 }
+                self?.initAllKlineChartData()
+
             }else{
-    
             }
             return nil
         }) {(error) -> ()? in
@@ -50,6 +54,7 @@ class AppDataHelper: NSObject {
         }
     }
     
+
     //对所有商品进行分类
     func checkAllProductKinds(allProducts: [ProductModel]) {
         for product in allProducts {
@@ -68,25 +73,45 @@ class AppDataHelper: NSObject {
             }
         }
     }
+    func moreChartData() {
+        moreLineChartData()
+        moreSelectKlineChartData()
+    }
     //根据商品分时数据
     func initLineChartData(){
         for product in DealModel.share().productKinds {
-//        if let product = DealModel.share().selectProduct {
-            let max = KLineModel.maxTime(type: .miu, symbol:product.symbol)
-            if max > Date.nowTimestemp(){
+            let now = Date.nowTimestemp()
+            var last = KLineModel.maxTime(type: .miu, symbol:product.symbol)
+            if last < Date.startTimestemp(){
+                last = Date.startTimestemp()
+            }
+            let future = last + 60
+            if future > now{
                 return
             }
-            let startTime = max > Date.startTimestemp() ? max+300 : Date.startTimestemp()
-            lineChartData(product: product, fromTime: startTime)
+            let end = now - 60*AppConst.klineCount
+            lineChartData(product: product, fromTime: now, endTime: end)
         }
     }
-    func lineChartData(product: ProductModel, fromTime: Double){
+    func moreLineChartData(){
+        if let product = DealModel.share().selectProduct{
+            let zero = Date.startTimestemp()
+            let min = KLineModel.minTime(type: .miu, symbol:product.symbol)
+            let last = min - 300
+            if last < zero{
+                return
+            }
+            lineChartData(product: product, fromTime: min, endTime: zero)
+        }
+    }
+    func lineChartData(product: ProductModel, fromTime: Double, endTime: Double){
         let param = KChartParam()
         param.symbol = product.symbol
         param.exchangeName = product.exchangeName
         param.platformName = product.platformName
         param.aType = 4
         param.startTime = Int64(fromTime)
+        param.endTime = Int64(endTime)
         AppAPIHelper.deal().timeline(param: param, complete: {(result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel]{
                 KLineModel.cacheTimelineModels(models: models)
@@ -97,29 +122,64 @@ class AppDataHelper: NSObject {
             return nil
         })
     }
+    
     //根据商品请求K线数据
-    func initKLineChartData() {
+    func initAllKlineChartData() {
+        initLineChartData()
+        initKLineChartData(type: .miu5)
+        initKLineChartData(type: .miu15)
+        initKLineChartData(type: .miu30)
+        initKLineChartData(type: .miu60)
+    }
+    func initSelectKlineChartData() {
         let type = DealModel.share().klineTye
+        initKLineChartData(type: type)
+    }
+    
+    func initKLineChartData(type: KLineModel.KLineType) {
+//        if type == .miu{
+//            return
+//        }
+        for product in DealModel.share().productKinds{
+            let now = Date.nowTimestemp()
+            var last = KLineModel.maxTime(type: type, symbol:product.symbol)
+            if last < Date.startTimestemp(){
+                last = Date.startTimestemp()
+            }
+            let future = last + Double(type.rawValue)
+            if future > now{
+                return
+            }
+            let end = now - Double(type.rawValue)*AppConst.klineCount
+            kLineChartData(type: type, product: product, fromTime: now, endTime: end)
+        }
+    }
+    func moreSelectKlineChartData() {
+        let type = DealModel.share().klineTye
+        moreKLineChartData(type: type)
+    }
+    func moreKLineChartData(type: KLineModel.KLineType) {
         if type == .miu{
             return
         }
         for product in DealModel.share().productKinds {
-//        if let product = DealModel.share().selectProduct {
-            let max = KLineModel.maxTime(type: type, symbol:product.symbol)
-            if max > Date.nowTimestemp(){
+            let zero = Date.startTimestemp()
+            let min = KLineModel.minTime(type: type, symbol:product.symbol)
+            let last = min - Double(type.rawValue*5)
+            if last < zero{
                 return
             }
-            let startTime = max > Date.startTimestemp() ? max+Double(type.rawValue*5) : Date.startTimestemp()
-            kLineChartData(type: type, product: product, fromTime: startTime)
+            kLineChartData(type: type, product: product, fromTime: min, endTime: zero)
         }
     }
-    func kLineChartData(type: KLineModel.KLineType, product: ProductModel, fromTime: Double) {
+    func kLineChartData(type: KLineModel.KLineType, product: ProductModel, fromTime: Double, endTime: Double) {
         let param = KChartParam()
         param.symbol = product.symbol
         param.exchangeName = product.exchangeName
         param.platformName = product.platformName
         param.chartType = type.rawValue
         param.startTime = Int64(fromTime)
+        param.endTime = Int64(endTime)
         AppAPIHelper.deal().kChartsData(param: param, complete: { (result) -> ()? in
             if let chart: ChartModel = result as? ChartModel{
                 KLineModel.cacheKChartModels(chart: chart)
@@ -143,11 +203,10 @@ class AppDataHelper: NSObject {
                             //更新token
                             UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
                         }
-                       
                         if let user = model.userinfo {
-                            UserDefaults.standard.setValue(user.uid, forKey: SocketConst.Key.id)
-                            UserModel.share().currentUser = UserModel.getCurrentUser()
+                            UserDefaults.standard.setValue(user.id, forKey: SocketConst.Key.id)
                         }
+                        UserModel.share().upateUserInfo(userObject: model as AnyObject)
                     }else{
                        self?.clearUserInfo()
                     }
@@ -163,12 +222,12 @@ class AppDataHelper: NSObject {
     func clearUserInfo() {
         UserDefaults.standard.removeObject(forKey: SocketConst.Key.uid)
         UserDefaults.standard.removeObject(forKey: SocketConst.Key.token)
-        UserModel.share().currentUser = nil
+        UserModel.share().token = ""
+        UserModel.share().currentUserId = 0
     }
     
     //获取错误信息
     func initErrorCode() {
-        
         AppAPIHelper.commen().errorCode(complete: { (result) -> ()? in
             if let errorDic: NSDictionary = result as? NSDictionary{
                 let path = Bundle.main.path(forResource: "errorcode.plist", ofType:nil)

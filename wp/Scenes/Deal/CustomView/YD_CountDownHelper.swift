@@ -16,6 +16,7 @@ class YD_CountDownHelper: NSObject {
     private var isCountDown = false
     weak var table:MyDealTableView?
     private override init() {}
+    var finishBlock: CompleteBlock?
 
     func countDown() {
         let cells = table?.visibleCells as? Array<DealListCell>
@@ -35,12 +36,12 @@ class YD_CountDownHelper: NSObject {
         
     }
     
-    func getResidueCount(startTime:Int, totalCount:Int) -> Int {
-        return  (startTime + totalCount) - Int(NSDate().timeIntervalSince1970)
+    func getResidueCount(closeTime:Int) -> Int {
+        return  closeTime - Int(NSDate().timeIntervalSince1970) - DealModel.share().difftime
     }
-    func getTextWithStartTime(startTime:Int, totalCount:Int) -> String{
+    func getTextWithStartTime(closeTime:Int) -> String{
         
-        let count = getResidueCount(startTime: startTime, totalCount: totalCount)
+        let count = getResidueCount(closeTime: closeTime)
         
         return getTextWithTimeCount(timeCount: count)
     }
@@ -52,12 +53,21 @@ class YD_CountDownHelper: NSObject {
         return String(format: "%.2d:%.2d:%.2ds", hours, minutes, seconds)
     }
     
-    func reStart() {
+    
+    func resetDataSource() {
         guard table != nil else {
             return
         }
         table?.dataArray = DealModel.getAllPositionModel()
-       table?.reloadData()
+        table?.reloadData()
+        if let finish = finishBlock{
+            finish(nil)
+        }
+
+    }
+    func reStart() {
+
+        resetDataSource()
         if timer != nil {
             start()
         }
@@ -75,7 +85,6 @@ class YD_CountDownHelper: NSObject {
     }
     
     func pause() {
-        
         isCountDown = false
         timer?.invalidate()
     }

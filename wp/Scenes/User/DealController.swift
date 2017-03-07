@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 import DKNightVersion
 class DealController: BasePageListTableViewController, TitleCollectionviewDelegate {
     
@@ -29,67 +30,109 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     @IBOutlet weak var sell: UILabel!
     
     @IBOutlet weak var dealBackground: UIView!
-    var flowListArray: [FlowOrdersList] =  [FlowOrdersList]()
     
-    let strArray:[String] = ["周五 12 - 26","周四 12 - 25","周三 12 - 24","周二 12 - 23","周一 12 - 22"]
     
+    var allData:[String:TransactionDetailModel] = [:]
+    var allDataDict:[String:Array<PositionModel>] = Dictionary()
+    var dateArray:[String] = Array()
+    
+    //当前选择的分组数据Model
+    var currentTDModel:TransactionDetailModel?
+  
+    //当前选择的分组
+    var currentSelectProduct:ProductModel?
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCollection()
-        dealBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
-        sumHandNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
-        sumOneNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
         
+        currentSelectProduct  = DealModel.share().productKinds.first
+        setupCollection()
+        beginRefreshing()
+
+        dealBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+//        sumHandNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
+//        sumOneNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
+//        
+
         tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
         tableView.showsVerticalScrollIndicator = false
-        //1029 流水列表
-        AppAPIHelper.user().flowList(flowType: "1,2,3", startPos: 0, count: 10, complete: { (result) -> ()? in
-            
-            if result != nil {
-            if let dataArray: [FlowOrdersList] = result as! [FlowOrdersList]?{
-                for model in dataArray{
-                    self.flowListArray.append(model)
-                }
-                print("我是数组分割线")
-                print(self.flowListArray)
-                print("我是数组元素分割线")
-                print(self.flowListArray[0].amount)
-            }
-            }else
-            {
-                print("nil")
-            }
-            return nil
-        }, error: errorBlockFunc())
-        
     }
     
     //MARK: -- 设置collectionView
     func setupCollection() {
         productCollection.itemDelegate = self
         productCollection.reuseIdentifier = ProductCollectionCell.className()
-        productCollection.objects = ["上海-法兰克福" as AnyObject,"上海-纽约" as AnyObject,"上海-东京" as AnyObject]
-    }
-    func didSelectedProduct(object: AnyObject?) {
-        if let test: String = object as? String {
-            print(test)
+        productCollection.objects = DealModel.share().productKinds as [AnyObject]
+        /*
+         - 根据分组多少创建存放分组数据的model，以分组标识为Key 存放到字典
+         */
+        for product in DealModel.share().productKinds {
+            let model = TransactionDetailModel()
+            allData[product.symbol] = model
         }
-        //        func didSelectedObjects(object: AnyObject?) {
-        //            if let product = object as? ProductModel {
-        //                DealModel.share().selectProduct = product
-        //            }
-        //        }
+    }
+    
+    /*
+      - 点击分组回调
+     */
+    internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
+        currentSelectProduct = object as? ProductModel
+        currentTDModel = allData[currentSelectProduct!.symbol]
+        tableView.reloadData()
+    }
+    
+
+    
+    override func isOverspreadLoadMore() -> Bool {
+        return false
     }
     
     override func didRequest(_ pageIndex : Int){
-        didRequestComplete(["",""] as AnyObject)
+        let index = (pageIndex - 1) * 10
+        AppAPIHelper.deal().historyDeals(start: index, count: 10, complete: { [weak self](result) -> ()? in
+            if let models: [PositionModel] = result as! [PositionModel]?{
+                self?.didRequestComplete(models as AnyObject?)
+                self?.setupDataWithModels(models: models)
+            }
+            return nil
+            }, error: errorBlockFunc())
+    }
+
+    /*
+     - 将数据放入各分组
+     - 以时间戳转化成时间为key，对应的value为 key 当天的所有数据
+     */
+    private func setupDataWithModels(models:[PositionModel]) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE MM-dd"
+        for model in models {
+            let tdModel = allData[model.symbol!]
+            guard tdModel != nil else {
+                continue
+            }
+            let dateString = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(model.closeTime)))
+            /*
+             - 判断 model 对应的分组 是否已经有当天数据信息
+             - 如果已经有信息则直接将model 插入当天信息array
+             - 反之，创建当天分组array 插入数据
+             */
+            if tdModel!.dateArray.contains(dateString) {
+                tdModel!.allDataDict[dateString]!.append(model)
+            } else {
+                var list:[PositionModel] = Array()
+                list.append(model)
+                tdModel!.dateArray.append(dateString)
+                tdModel!.allDataDict[dateString] = list
+            }
+        }
+        currentTDModel = allData[currentSelectProduct!.symbol]
+        tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         showTabBarWithAnimationDuration()
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = true
@@ -99,36 +142,31 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     }
     
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 5
+        return currentTDModel == nil ? 0 : currentTDModel!.dateArray.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 3
+        let array = currentTDModel?.allDataDict[currentTDModel!.dateArray[section]]
+        
+        return array == nil ? 0 : array!.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DealDetailCell", for: indexPath) as! DealDetailCell
-        
+        let array = currentTDModel!.allDataDict[currentTDModel!.dateArray[indexPath.section]]
+
+        cell.setData(model: array![indexPath.row])
         return cell
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 45
     }
-    internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
-        
-    }
     //MARK: -- 返回组标题索引
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-        label.text = strArray[section]
+        label.text = currentTDModel!.dateArray[section]
         label.textColor = UIColor(rgbHex: 0x666666)
         label.font = UIFont.systemFont(ofSize: 14)
         let sumView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 42))
@@ -138,7 +176,6 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
             make.bottom.equalTo(sumView).offset(-10)
         }
         return sumView
-        
     }
     //组头高
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -159,10 +196,25 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        performSegue(withIdentifier: DealDetailTableVC.className(), sender: nil)
+        performSegue(withIdentifier: DealDetailTableVC.className(), sender: indexPath)
+    }
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == DealDetailTableVC.className() {
+            let dealDetailTableVC = segue.destination as! DealDetailTableVC
+            let indexPath = sender as! IndexPath
+            let array = currentTDModel!.allDataDict[currentTDModel!.dateArray[indexPath.section]]
+            dealDetailTableVC.positionModel = array![indexPath.row]
+        }
         
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
 }
 
 

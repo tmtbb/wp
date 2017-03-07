@@ -28,26 +28,33 @@ class MyMessageController: BaseTableViewController {
         tableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0)
         translucent(clear: false)
         tableView.tableFooterView = setupFooterView()
-        if ((UserModel.getCurrentUser()?.avatarLarge) != ""){
-            userImage.image = UIImage(named: "\(UserModel.getCurrentUser()?.avatarLarge)")
+        if ((UserModel.share().getCurrentUser()?.avatarLarge) != ""){
+            userImage.image = UIImage(named: "\(UserModel.share().getCurrentUser()?.avatarLarge)")
             userImage.image = UIImage(named: "default-head")
         }
         else{
             userImage.image = UIImage(named: "default-head")
         }
-        if ((UserModel.getCurrentUser()?.screenName) != "") {
-            userName.text = UserModel.getCurrentUser()?.screenName
+        if ((UserModel.share().getCurrentUser()?.screenName) != "") {
+            userName.text = UserModel.share().getCurrentUser()?.screenName
             userName.sizeToFit()
             tableView.reloadData()
         }
         else{
-            userName.text = "Bug退散"
+            userName.text = "---"
         }
 
-        let four : String = (UserModel.getCurrentUser()?.phone)!
+
+////        let four : String = (UserModel.getCurrentUser()?.phone)!
+//        let str : String = (four as NSString).substring(to: 4)
+//        let str2 : String = (four as NSString).substring(from: 7)
+//        phoneNumber.text = str + "****" + str2
+
+        let four : String = UserModel.share().getCurrentUser()?.phone ?? "00000000000"
         let str : String = (four as NSString).substring(to: 4)
         let str2 : String = (four as NSString).substring(from: 7)
         phoneNumber.text = str + "****" + str2
+
     }
     
    
@@ -74,8 +81,7 @@ class MyMessageController: BaseTableViewController {
     func quitEnterClick() {
         userLogout()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
-        navigationController?.popToRootViewController(animated: true)
-        print("退出登录")
+        _ = navigationController?.popToRootViewController(animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -88,7 +94,9 @@ class MyMessageController: BaseTableViewController {
         return 0
     }
     
-    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         translucent(clear: true)
@@ -112,7 +120,7 @@ class MyMessageController: BaseTableViewController {
             present((imagePicker), animated: true, completion: nil)
         }
         //昵称修改
-        if indexPath.section == 2{
+        if indexPath.section == 1{
             let alertController = UIAlertController(title: "修改昵称", message: nil, preferredStyle: UIAlertControllerStyle.alert);
             alertController.addTextField { [weak self](textField:UITextField!) -> Void in
                 textField.text = self?.userName.text
@@ -123,12 +131,12 @@ class MyMessageController: BaseTableViewController {
                 
                  SVProgressHUD.show()
                 //七牛没有连接通.暂时还没拿到照片的URL
-                AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: (UserModel.getCurrentUser()?.avatarLarge)!, gender: 0, complete: { [weak self](result) -> ()? in
+                AppAPIHelper.user().revisePersonDetail(screenName: filed.text!, avatarLarge: UserModel.share().getCurrentUser()?.avatarLarge ?? "", gender: 0, complete: { [weak self](result) -> ()? in
                     
                     if result == nil {
                       
                         UserModel.updateUser(info: { (result) -> ()? in
-                           UserModel.getCurrentUser()?.screenName = filed.text
+                           UserModel.share().getCurrentUser()?.screenName = filed.text
                         })
                         self?.userName.text = filed.text
                         SVProgressHUD.show(withStatus: "修改昵称成功")
@@ -157,7 +165,7 @@ class MyMessageController: BaseTableViewController {
             self.navigationController?.pushViewController(registvc, animated: true)
         }
         //登录密码
-        if indexPath.section == 4{
+        if indexPath.section == 2{
             let story : UIStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
             
             let registvc : RegisterVC  = story.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC
@@ -182,10 +190,10 @@ extension MyMessageController: UIImagePickerControllerDelegate, UINavigationCont
         let image: UIImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
         imagePicker.dismiss(animated: true, completion: nil)
         userImage.image = image
-        UIImage.qiniuUploadImage(image: image, imageName: "test", complete: { (result) -> ()? in
+        UIImage.qiniuUploadImage(image: image, imageName: "\(Int(Date.nowTimestemp()))", complete: { (result) -> ()? in
             
             print(result!)
-            //七牛请求回来url地址  上传到服务器.成功之后.保存到UserModel.getCurrentUser()?.avatarLarge 在通知 更新UI
+            //七牛请求回来url地址  上传到服务器.成功之后.保存到UserModel.share().getCurrentUser()?.avatarLarge 在通知 更新UI
             
             return nil
         }) { (error) -> ()? in

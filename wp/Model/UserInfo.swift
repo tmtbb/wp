@@ -16,7 +16,6 @@ class UserInfoModel: BaseModel {
 
 class UserInfo: Object {
     dynamic var id: Int = 0
-    dynamic var uid: Int = 0
     dynamic var screenName: String?
     dynamic var memberId: String?
     dynamic var memberName: String?
@@ -29,8 +28,20 @@ class UserInfo: Object {
     dynamic var phone: String?
     
     override static func primaryKey() -> String?{
-        return "uid"
+        return "id"
     }
+
+}
+class TotalHistoryModel: BaseModel {
+    
+    var profit:Double = 0.0
+    var count:Int64 = 0
+    var amount:Int64 = 0
 }
 
+
+class TransactionDetailModel: BaseModel {
+    var allDataDict:[String : Array<PositionModel>] = [:]
+    var dateArray:[String] = []
+}
 

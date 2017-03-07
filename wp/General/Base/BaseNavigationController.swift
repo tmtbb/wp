@@ -42,8 +42,11 @@ class BaseNavigationController: UINavigationController,UINavigationControllerDel
         interactivePopGestureRecognizer?.delegate = self
     }
     func popself(){
-     
-       self.popViewController(animated: true)
+        if viewControllers.count > 1 {
+            self.popViewController(animated: true)
+        }else{
+            dismissController()
+        }
     }
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if (viewControllers.count <= 1)

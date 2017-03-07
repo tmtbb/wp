@@ -20,12 +20,15 @@ protocol UserApi {
     
     //账户信息
     func accinfo(complete: CompleteBlock?, error: ErrorBlock?)
+     //每天的数据
+    func everyday(start: Int32,count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
     //银行卡列表
     func bankcardList(complete: CompleteBlock?, error: ErrorBlock?)
     //绑定银行卡
     func bingcard(bank: Int64, branchBank: String, cardNo: String, name:String, complete: CompleteBlock?, error: ErrorBlock?)
     //解绑银行卡
     func unbindcard( vToken :String,bid: Int32,timestamp: Int64, phone :String,vCode:String, complete: CompleteBlock?, error: ErrorBlock?)
+    
     //充值列表
     func creditlist(status: String, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
     //充值详情
@@ -52,4 +55,7 @@ protocol UserApi {
     func revisePersonDetail(screenName:String, avatarLarge: String, gender:Int64, complete: CompleteBlock?, error: ErrorBlock?)
     //修改用户昵称
     func resetUserScreenName(screenName:String, complete: CompleteBlock?, error: ErrorBlock?)
+
+    //交易总概况
+    func getTotalHistoryData(complete: CompleteBlock?, error: ErrorBlock?)
 }

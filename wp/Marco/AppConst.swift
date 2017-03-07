@@ -25,10 +25,11 @@ class AppConst {
     static let isMock = false
     static let sha256Key = "t1@s#df!"
     static let pid = 1002
-    
+    static let klineCount: Double = 30
     enum KVOKey: String {
         case selectProduct = "selectProduct"
         case allProduct = "allProduct"
+        case currentUserId = "currentUserId"
     }
     
     class Color {
@@ -65,15 +66,20 @@ class AppConst {
         
     }
     class Network {
-
+        //61.147.114.87  18002
         #if true //是否测试环境
         static let TcpServerIP:String = "61.147.114.87";
-        static let TcpServerPort:UInt16 = 16001;
+        static let TcpServerPort:UInt16 = 17002;
         static let TttpHostUrl:String = "http://61.147.114.87";
         #else
-        static let TcpServerIP:String = "61.147.114.78";
+//        static let TcpServerIP:String = "61.147.114.78";
+//        static let TcpServerPort:UInt16 = 30001;
+//        static let HttpHostUrl:String = "http://61.147.114.78";
+        
+        static let TcpServerIP:String = "192.168.8.131";
         static let TcpServerPort:UInt16 = 30001;
-        static let HttpHostUrl:String = "http://61.147.114.78";
+        static let HttpHostUrl:String = "http://192.168.8.131";
+
         #endif
         static let TimeoutSec:UInt16 = 10
         static let qiniuHost = "http://ofr5nvpm7.bkt.clouddn.com/"
@@ -94,6 +100,14 @@ class AppConst {
         case callPhone = 10001
         case handleOrder = 11001
     }
+    
+    enum BundleInfo:String {
+        case CFBundleDisplayName = "CFBundleDisplayName"
+        case CFBundleShortVersionString = "CFBundleShortVersionString"
+        case CFBundleVersion = "CFBundleVersion"
+    }
+    
+    
 
     class WechatKey {
         static let Scope = "snsapi_userinfo"
@@ -125,6 +139,8 @@ class AppConst {
         static let jumpToProductGrade = "jumpToProductGrade"
         static let jumpToAttentionUs = "jumpToAttentionUs"
         static let jumpToMyWealtVC = "jumpToMyWealtVC"
+        static let jumpToWithdraw = "jumoToWithdraw"
+        static let jumpToRecharge = "jumpToRecharge"
         static let UpdateUserInfo = "UpdateUserInfo"
         static let BingPhoneVCToPwdVC = "BingPhoneVCToPwdVC"
         static let LoginToBingPhoneVC = "LoginToBingPhoneVC"

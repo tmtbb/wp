@@ -26,8 +26,8 @@ class RegisterVC: BaseTableViewController {
     @IBOutlet weak var wechatBtn: UIButton!
     private var timer: Timer?
     
-    private var codeTime = 10
-    private var voiceCodeTime = 10
+    private var codeTime = 60
+    private var voiceCodeTime = 60
     
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
@@ -48,6 +48,7 @@ class RegisterVC: BaseTableViewController {
     func initData() {
         
     }
+    
     //获取图片验证码
     @IBAction func changeCodePicture(_ sender: UIButton) {
         if checkoutText(){
@@ -110,7 +111,7 @@ class RegisterVC: BaseTableViewController {
     //注册
     @IBAction func registerBtnTapped(_ sender: Any) {
         if checkoutText(){
-            if checkTextFieldEmpty([phoneText,codeText]){
+            if checkTextFieldEmpty([phoneText,pwdText,codeText]){
                 UserModel.share().code = codeText.text
                 UserModel.share().phone = phoneText.text
                 register()
@@ -127,7 +128,7 @@ class RegisterVC: BaseTableViewController {
             AppAPIHelper.login().repwd(phone: UserModel.share().phone!, type: (type?.rawValue)!,  pwd: password, code: UserModel.share().code!, complete: { [weak self](result) -> ()? in
                 
                 SVProgressHUD.showWainningMessage(WainningMessage: "重置成功", ForDuration: 1, completion: nil)
-                self?.navigationController?.popToRootViewController(animated: true)
+                _ = self?.navigationController?.popToRootViewController(animated: true)
                 return nil
                 }, error: errorBlockFunc())
             return
@@ -145,8 +146,9 @@ class RegisterVC: BaseTableViewController {
                         return nil
                     }
                 }
-                
-                self?.performSegue(withIdentifier: PwdVC.className(), sender: nil)
+
+//                self?.performSegue(withIdentifier: PwdVC.className(), sender: nil)
+                UserModel.share().fetchUserInfo(phone: self?.phoneText.text ?? "", pwd: self?.pwdText.text ?? "")
             }else{
                 SVProgressHUD.showErrorMessage(ErrorMessage: "注册失败，请稍后再试", ForDuration: 1, completion: nil)
             }

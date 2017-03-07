@@ -41,17 +41,7 @@ class WithDrawaListVCCell: OEZTableViewCell {
         
         status = model.status == 1 ? "处理中" :  (model.status == 2 ? "提现成功" : "提现失败")
         bankLogo.image = BankLogoColor.share().checkLocalBank(string: model.bank) ? UIImage.init(named: model.bank) : UIImage.init(named: "unionPay")
-//        if model.status == 1 {
-//            status = "处理中"
-//        } else if model.status == 2 {
-//            status = "成功"
-//        }else{
-//            status = "失败"
-//        }
-        //yyyy.MM.dd HH:mm:ss
-        
-        
-//        timeLb.text = Date.stringToTimeStamp(stringTime: model.withdrawTime)
+
         print(model.status)
         statusBtn.setTitle(status, for: UIControlState.normal)
     }
@@ -69,7 +59,7 @@ class WithDrawaListVC: BasePageListTableViewController {
     //  请求接口刷新数据
     override func didRequest(_ pageIndex : Int) {
         
-        AppAPIHelper.user().withdrawlist(status: "1,2,3", pos: Int32(pageIndex), count: 10, complete: { [weak self](result) -> ()? in
+        AppAPIHelper.user().withdrawlist(status: "1,2,3", pos: Int32((pageIndex - 1) * 10 ), count: 10, complete: { [weak self](result) -> ()? in
             if let object = result {
                 let Model : WithdrawListModel = object as! WithdrawListModel
                 if pageIndex == 1{

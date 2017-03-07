@@ -21,12 +21,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        
+        //URL types
         Fabric.with([Crashlytics.self])
         appearance()
         window?.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
 //        pushMessageRegister()
 //        umapp()
         wechat()
+      
+////        测试修改微信充值的 appkey
+//        let str : String = Bundle.main.path(forResource: "Info", ofType: "plist")!
+//        
+//        var  dic : NSMutableDictionary = NSMutableDictionary.init(contentsOfFile: str)!
+//        
+//        let arr : NSArray =  dic.object(forKey: "CFBundleURLTypes") as! NSArray
+//        
+//        var dicc : NSMutableDictionary = arr[0] as! NSMutableDictionary
+//        
+//        dicc.setValue("11", forKey: "CFBundleTypeRole")
+//        
+//        let url : URL =  URL.init(string: str)!
+//        dic.write(to: url as URL, atomically: true)
+//         var  dic1111 : NSMutableDictionary = NSMutableDictionary.init(contentsOfFile: str)!
         AppDataHelper.instance().initData()
         AppServerHelper.instance().initServer()
         return true
@@ -98,11 +116,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
     
+        
         let urlString = url.absoluteString
-        if urlString.hasPrefix("UPPayDemo") {
+        if urlString.hasPrefix("com.newxfin.goods") {
             
            UPPaymentControl.default().handlePaymentResult(url, complete: { (code, data) in
                  let str : String = "\(code!)"
+            //校验签名
+//            let strdata = try? JSONSerialization.data(withJSONObject: data!, options: [])
+            
+//             let signdata = String(data:strdata!, encoding: String.Encoding.utf8)
+            
                   NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: str, userInfo:nil)
         
             })
@@ -150,7 +174,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     
     //MARK: --Wechat
     fileprivate func wechat() {
-        
+        //wxadf8e3bbeb283ba9 测试的demo光彩
+        //wx012941fcfbec7a23自己的
         WXApi.registerApp("wx9dc39aec13ee3158")
     }
     func onResp(_ resp: BaseResp!) {

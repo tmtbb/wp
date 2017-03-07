@@ -15,11 +15,13 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
     @IBOutlet weak var klineCharts: CombinedChartView!
     private var currentCharts: BarLineChartViewBase?
     private var currentModels: [KChartModel] = []
-    private var switchData: Bool = true
+    private var currentType: String = ""
+    private var currentKlineType: KLineModel.KLineType = .miu
     var selectModelBlock: CompleteBlock?
+    
     var selectIndex: NSInteger!{
         didSet{
-            
+            currentCharts?.zoom(scaleX: 0, scaleY: 0, x: 0, y: 0)
             switch selectIndex {
             case 0:
                 currentCharts = self.miuCharts
@@ -29,7 +31,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
                 currentCharts = self.klineCharts
                 bringSubview(toFront: self.klineCharts)
             }
-            updateKline()
+            refreshKLine()
         }
     }
     
@@ -42,7 +44,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         super.awakeFromNib()
         initChartView()
         selectIndex = 0
-        updateKline()
+        refreshKLine()
         //每隔60秒刷新一次分时数据
         Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(refreshKLine), userInfo: nil, repeats: true)
     }
@@ -63,13 +65,16 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
                 chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.delegate = self
                 chartsView.chartDescription?.text = ""
+                chartsView.xAxis.axisMaximum = AppConst.klineCount+1
+                chartsView.animate(xAxisDuration: 1)
             }
         }
+        klineCharts.animate(yAxisDuration: 1)
     }
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        let index = Int(entry.x)
+        let index = chartView == miuCharts ? Int(entry.x) : Int(entry.x-1)
         if index >= 0 && index < currentModels.count {
-            if let model: KChartModel = currentModels[index] as? KChartModel{
+            if let model: KChartModel = currentModels[index]{
                 if selectModelBlock != nil{
                     selectModelBlock!(model)
                 }
@@ -77,13 +82,8 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         }
     }
     
-    func updateKline() {
-        switchData = false
-        refreshKLine()
-    }
-    
+    //MARK: --刷新K线
     func refreshKLine() {
-        currentCharts?.zoom(scaleX: 0, scaleY: 0, x: 0, y: 0)
         switch selectIndex {
         case 0:
             initMiuLChartsData()
@@ -111,15 +111,8 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
             return
         }
         let type =  DealModel.share().selectProduct!.symbol
-        let fromTime: Int = Int(Date.startTimestemp())
         let toTime: Int = Int(Date.nowTimestemp())
-        let max = KLineModel.maxTime(type: .miu, symbol:type)
-        let margin = toTime - Int(max)
-        if switchData && margin < 61{
-            print("======================\(margin)")
-            return
-        }
-        switchData = true
+        let fromTime: Int = toTime - 60*Int(AppConst.klineCount)
         KLineModel.queryTimelineModels(fromTime: fromTime, toTime: toTime, goodType: type){[weak self](result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel] {
                self?.refreshLineChartData(models: models)
@@ -137,6 +130,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         }
         var entrys: [ChartDataEntry] = []
         for (i, model) in models.enumerated()  {
+            currentType = model.symbol
             let entry = ChartDataEntry.init(x: Double(i), y: model.currentPrice)
             entrys.append(entry)
         }
@@ -152,8 +146,6 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         miuCharts.data = data
         miuCharts.data?.notifyDataChanged()
         miuCharts.setNeedsDisplay()
-        let max = models.count + 30
-        miuCharts.xAxis.axisMaximum = Double(max)
     }
     //MARK: --读取K线数据
     func initKChartsData(type: KLineModel.KLineType) {
@@ -161,15 +153,8 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
             return
         }
         let goodType = DealModel.share().selectProduct!.symbol
-        let fromTime: Int = Int(Date.startTimestemp())
         let toTime: Int = Int(Date.nowTimestemp())
-        let max = KLineModel.maxTime(type: type, symbol:goodType)
-        let margin = toTime - Int(max)
-        if switchData && margin < type.rawValue*2{
-            print("in======================\(margin)")
-            return
-        }
-        switchData = true
+        let fromTime: Int = toTime - Int(type.rawValue)*Int(AppConst.klineCount)
         KLineModel.queryKLineModels(type: type, fromTime: fromTime, toTime: toTime, goodType: goodType){[weak self](result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel] {
                 self?.refreshCandleStickData(type: type, models: models)
@@ -186,6 +171,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         }
         var entrys: [ChartDataEntry] = []
         for (index, model) in models.enumerated(){
+            currentType = model.symbol
             let location = Double(index+1)
             let entry = CandleChartDataEntry.init(x:location, shadowH: model.highPrice, shadowL: model.lowPrice, open: model.openingTodayPrice, close: model.closedYesterdayPrice)
             entrys.append(entry)
@@ -193,6 +179,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         let set: CandleChartDataSet = CandleChartDataSet.init(values: entrys, label: nil)
         set.increasingColor = UIColor.init(rgbHex: 0xE9573f)
         set.decreasingColor = UIColor.init(rgbHex: 0x009944)
+        set.neutralColor = UIColor.init(rgbHex: 0x009944)
         set.increasingFilled = true
         set.shadowColorSameAsCandle = true
         set.formLineWidth = 5
@@ -204,8 +191,6 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         
         klineCharts.data = combinData
         klineCharts.data?.notifyDataChanged()
-        let max = models.count + 10
-        klineCharts.xAxis.axisMaximum = Double(max)
         
     }
 }

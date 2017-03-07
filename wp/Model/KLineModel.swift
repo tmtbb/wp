@@ -81,11 +81,10 @@ class KLineModel: NSObject {
             let realm = try! Realm()
             let queryStr = NSPredicate.init(format: "symbol = %@",goodType)
             let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).filter("priceTime > \(fromTime)")
-            for model in result {
+            for  model in result {
                 models.append(model)
             }
             complete(models as AnyObject?)
-            print("读取分时数据===========================\(Thread.current)")
         })
     }
     
@@ -96,11 +95,10 @@ class KLineModel: NSObject {
             let realm = try! Realm()
             let queryStr = NSPredicate.init(format: "symbol = %@",goodType)
             let result = realm.objects(KLineChartModel.self).sorted(byProperty: "priceTime").filter("priceTime > \(fromTime)").filter(queryStr).filter("chartType = \(type.rawValue)")
-            for model in result {
+            for model in result{
                 models.append(model)
             }
             complete(models as AnyObject?)
-            print("读取\(type)K分时数据===========================\(Thread.current)")
         })
     }
     
