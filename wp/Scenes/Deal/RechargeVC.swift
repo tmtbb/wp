@@ -10,7 +10,7 @@ import UIKit
 import SVProgressHUD
 import DKNightVersion
 class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDelegate,NSURLConnectionDelegate{
-
+    
     var selectType =  Int()                                    //选择支付方式 0银联 1 微信
     var rid = Int64()
     @IBOutlet weak var arrow: UIImageView!                     // 箭头
@@ -41,7 +41,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                     let format = NumberFormatter()
                     format.numberStyle = .currency
                     let account : String =   format.string(from: NSNumber(value: money))!
-                    self?.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)! + "元"
+                    self?.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
                 }
             }
             return nil
