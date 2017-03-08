@@ -22,7 +22,8 @@ class WithDrawDetail: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "提现详情"
+        //"提现详情"
+        title = ShareModel.share().comeFromRechage ? "充值详情" : "提现详情"
         didRequest()
         bankName.text =  ShareModel.share().detailModel.bank
         withDrawtime.text = ShareModel.share().detailModel.withdrawTime
