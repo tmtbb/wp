@@ -72,6 +72,7 @@ class UserTableViewController: BaseTableViewController {
         if checkLogin() {
             loginSuccessIs(bool: true)
             
+
             guard UserModel.share().getCurrentUser() != nil else {return}
             let str = numberFormatter.string(from: NSNumber(value: UserModel.share().getCurrentUser()!.balance))
             nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
@@ -120,7 +121,7 @@ class UserTableViewController: BaseTableViewController {
                 self?.integralLabel.text = "\(model.count)"
             }
             return nil
-            }, error: errorBlockFunc())
+        }, error: errorBlockFunc())
     }
     //MARK: -- 添加通知
     func registerNotify() {

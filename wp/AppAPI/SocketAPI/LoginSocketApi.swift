@@ -41,7 +41,7 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
                                      SocketConst.Key.code: code,
                                      SocketConst.Key.pwd: pwd,
                                      SocketConst.Key.memberId: 0,
-                                     SocketConst.Key.agentId: "",
+                                     SocketConst.Key.agentId: "",  
                                      SocketConst.Key.recommend: "",
                                      SocketConst.Key.timestamp: UserModel.share().timestamp,
                                      SocketConst.Key.vToken: UserModel.share().codeToken]

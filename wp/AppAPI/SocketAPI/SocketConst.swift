@@ -93,7 +93,10 @@ class SocketConst: NSObject {
         case realtime = 4001
         //交易总概况
         case totalHistroy = 6003
-        
+        //航运仓位
+        case position = 7002
+        //收益选择
+        case benifity = 7001
         
     }
     enum type:UInt8 {

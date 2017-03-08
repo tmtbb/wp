@@ -32,7 +32,6 @@ class RegisterVC: BaseTableViewController {
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        initData()
         initUI()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -45,9 +44,7 @@ class RegisterVC: BaseTableViewController {
         SVProgressHUD.dismiss()
     }
     //MARK: --DATA
-    func initData() {
-        
-    }
+
     
     //获取图片验证码
     @IBAction func changeCodePicture(_ sender: UIButton) {
@@ -88,6 +85,7 @@ class RegisterVC: BaseTableViewController {
         codeBtn.backgroundColor = UIColor.init(rgbHex: 0xCCCCCC)
     }
     //获取声音验证码
+    
     @IBAction func requestVoiceCode(_ sender: UIButton) {
         if checkoutText(){
 
@@ -108,6 +106,7 @@ class RegisterVC: BaseTableViewController {
         voiceCodeBtn.setTitle(title, for: .normal)
         voiceCodeBtn.backgroundColor = UIColor.init(rgbHex: 0xCCCCCC)
     }
+    
     //注册
     @IBAction func registerBtnTapped(_ sender: Any) {
         if checkoutText(){
