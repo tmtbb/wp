@@ -55,22 +55,25 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         btn.setTitle("充值记录", for:  UIControlState.normal)
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
        
-        let format = NumberFormatter()
-        format.numberStyle = .currency
-        let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
-        self.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)! + "元"
+      
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
         NotificationCenter.default.addObserver(self, selector: #selector(paysuccess(_:)), name: Notification.Name(rawValue:AppConst.WechatPay.WechatKeyErrorCode), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: nil)
-        //        self.userIdText.text = UserModel.share().getCurrentUser()?.phone
-        self.userIdText.text = UserDefaults.standard.object(forKey: SocketConst.Key.phone) as! String?
+        self.userIdText.text = UserModel.share().currentUser?.phone ?? ""
+//        self.userIdText.text = UserDefaults.standard.object(forKey: SocketConst.Key.phone) as! String?
         self.userIdText.isUserInteractionEnabled = false
         submited.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         submited.layer.cornerRadius = 5
         submited.clipsToBounds = true
         ShareModel.share().addObserver(self, forKeyPath: "userMoney", options: .new, context: nil)
         moneyText.dk_textColorPicker = DKColorTable.shared().picker(withKey: "auxiliary")
+        
+        guard UserModel.share().getCurrentUser() != nil else {return}
+        let format = NumberFormatter()
+        format.numberStyle = .currency
+        let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
+        self.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)! + "元"
     }
        // MARK: 属性的变化
         override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

@@ -53,6 +53,8 @@ class HomeVC: BaseTableViewController {
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
         DealModel.share().addObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue, options: .new, context: nil)
+        
+        
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == AppConst.KVOKey.allProduct.rawValue {
@@ -162,32 +164,32 @@ extension HomeVC{
         notificationCenter.addObserver(self, selector: #selector(jumpToMyWealtVC), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToRecharge), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToRecharge), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToWithdraw), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToWithdraw), object: nil)
-        
+        notificationCenter.addObserver(self, selector: #selector(checkLogin), name: NSNotification.Name(rawValue: AppConst.NoticeKey.logoutNotice.rawValue), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(sideHide), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.EnterBackground), object: nil)
     }
     //我的消息
     func jumpToMyMessageController() {
         
         performSegue(withIdentifier: MyMessageController.className(), sender: nil)
     }
-    
+    func sideHide() {
+        sideMenuController?.toggle()
+    }
     func jumpToRecharge() {
         
         if checkLogin() {
             
             let stroyBoard = UIStoryboard(name: "Share", bundle: nil)
             let vc = stroyBoard.instantiateViewController(withIdentifier: "RechargeVC")
-            
             _ = navigationController?.pushViewController(vc, animated: true)
             
         }
     }
     func jumpToWithdraw() {
         if checkLogin() {
-            
             let stroyBoard = UIStoryboard(name: "Share", bundle: nil)
             let vc = stroyBoard.instantiateViewController(withIdentifier: "WithDrawalVC")
             _ = navigationController?.pushViewController(vc, animated: true)
-            
         }
     }
     //我的关注

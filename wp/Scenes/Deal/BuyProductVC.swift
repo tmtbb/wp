@@ -53,6 +53,16 @@ class BuyProductVC: UIViewController {
         SVProgressHUD.dismiss()
     }
     
+    func requestShippingSpaceInfo() {
+        
+        let positionParm = PositionParam()
+        AppAPIHelper.deal().position(param: positionParm, complete: { [weak self](result) -> ()? in
+            self?.cangWeiLabel.text = ""
+            return nil
+        }, error: errorBlockFunc())
+        
+    }
+    
     func initUI() {
         view.backgroundColor = UIColor.clear
         contentView.layer.cornerRadius = 3

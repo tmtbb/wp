@@ -31,4 +31,34 @@ class AppServerHelper: NSObject {
     func initFabric() {
         Fabric.with([Crashlytics.self])
     }
+    
+    //友盟
+    fileprivate func umapp() {
+        UMAnalyticsConfig.sharedInstance().appKey = AppConst.UMAppkey
+        UMAnalyticsConfig.sharedInstance().channelId = ""
+        MobClick.start(withConfigure: UMAnalyticsConfig.sharedInstance())
+        //version标识
+        let version: String? = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
+        MobClick.setAppVersion(version)
+        //日志加密设置
+        MobClick.setEncryptEnabled(true)
+        //使用集成测试服务
+        MobClick.setLogEnabled(true)
+    }
+    
+    //个推
+    func pushMessageRegister() {
+        //注册消息推送
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: { () in
+            
+            #if true
+                GeTuiSdk.start(withAppId: "d2YVUlrbRU6yF0PFQJfPkA", appKey: "yEIPB4YFxw64Ag9yJpaXT9", appSecret: "TMQWRB2KrG7QAipcBKGEyA", delegate: nil)
+            #endif
+            
+            let notifySettings = UIUserNotificationSettings.init(types: [.alert, .badge, .sound], categories: nil)
+            UIApplication.shared.registerUserNotificationSettings(notifySettings)
+            UIApplication.shared.registerForRemoteNotifications()
+            
+        })
+    }
 }

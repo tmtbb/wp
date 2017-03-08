@@ -26,7 +26,7 @@ class UserInfo: Object {
     dynamic var gender: Int = 0
     dynamic var nickname: String?
     dynamic var phone: String?
-    
+    dynamic var type: Int = 0
     override static func primaryKey() -> String?{
         return "id"
     }

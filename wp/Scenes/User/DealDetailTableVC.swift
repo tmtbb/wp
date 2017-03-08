@@ -34,13 +34,12 @@ class DealDetailTableVC: BaseTableViewController{
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0)
         title = "交易详情"
-        
         setData()
     }
     
     func setData() {
         let isUp = (positionModel!.buySell == -1)
-        let string = isUp ? "买涨" : "买跌"
+        let string = isUp ? "买入" : "卖出"
         dealType.text = string
         dealTime.text = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval((positionModel!.positionTime))))
         dealProduct.text = positionModel!.name

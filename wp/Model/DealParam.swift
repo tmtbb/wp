@@ -44,7 +44,7 @@ class BuildDealParam: DealParam {
 
 //航班接口信息
 class PositionParam: DealParam{
-    
+    var gid = 0
 }
 
 class BenifityParam: DealParam{
