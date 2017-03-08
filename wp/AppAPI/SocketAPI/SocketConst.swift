@@ -33,7 +33,7 @@ class SocketConst: NSObject {
         //修改个人信息
         case changeUserInfo = 1031
         //每天的数据
-        case everyday = 6005
+        case everyday = 6011
         case accinfo = 1003
         //流水列表
         case flowList = 1077
@@ -54,19 +54,19 @@ class SocketConst: NSObject {
         // 我的晒单
         case userShare = 1020
         // 充值列表
-        case rechageList = 1019
+        case rechageList = 6003
         // 微信充值
         case weixinpay = 1033
         // 银联充值
-        case unionpay = 1039
+        case unionpay = 7033
         // 充值结果
         case unionpayResult = 1041
         // 充值结果
-        case payResult = 1035
+        case payResult = 7035
         // 充值详情
         case recharge = 10012
         // 提现列表
-        case withdrawList = 1025
+        case withdrawList = 6005
         // 提现
         case withdrawCash = 1023
         //仓位列表
@@ -92,7 +92,7 @@ class SocketConst: NSObject {
         //当前报价
         case realtime = 4001
         //交易总概况
-        case totalHistroy = 6003
+        case totalHistroy = 6010
         
         
     }

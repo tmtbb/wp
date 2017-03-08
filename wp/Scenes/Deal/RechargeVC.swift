@@ -45,7 +45,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     func initUI(){
         
         selectType = 0
-        arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
+//        arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
         // 设置 提现记录按钮
         let btn : UIButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 70, height: 30))
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
@@ -57,6 +57,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         format.numberStyle = .currency
         
         let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
+//         let arry = Array()
         
         let arry : Array =    account.components(separatedBy: "¥")
       
@@ -184,7 +185,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             if indexPath.row == 3 {
                 let  cell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 3, section: 1) as IndexPath)!
                 cell.accessoryType =  .checkmark
-                selectType = 0
+                selectType = 1
                 let  uncell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 4, section: 1) as IndexPath)!
                 uncell.accessoryType =  .none
             }
@@ -238,53 +239,53 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     func paysuccess(_ notice: NSNotification) {
         
         
-//        if let errorCode: Int = notice.object as? Int{
-//            var code = Int()
-//            if errorCode == 0 {
-//                code = 1
-//                 self.performSegue(withIdentifier: "PushTolist", sender: nil)
-//            }else{
-//                code = 2
-//                 SVProgressHUD.showError(withStatus: "支付失败")
-//            }
-////            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: code, complete: { (result) -> ()? in
-////                if let object = result{
-////                    if let  returnCode : Int = object["returnCode"] as? Int{
-////                        if returnCode == 1{
-////                            SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
-////                                
-////                                _ = self.navigationController?.popViewController(animated: true)
-////                                
-////                            })
-////                        }else{
-////                            SVProgressHUD.showError(withStatus: "支付失败")
-////                        }
-////                    }else if let  _ : Int = object["error"] as? Int{
-////                        SVProgressHUD.showError(withStatus: "支付失败")
-////                        
-////                    }
-////                    
-////                }
-////                return nil
-////            }, error: errorBlockFunc())
-//        }
-                if let errorCode: Int = notice.object as? Int{
-                    if errorCode == -4{
+        if let errorCode: Int = notice.object as? Int{
+            var code = Int()
+            if errorCode == 0 {
+                code = 1
+                 self.performSegue(withIdentifier: "PushTolist", sender: nil)
+            }else{
+                code = 2
+                 SVProgressHUD.showError(withStatus: "支付失败")
+            }
+            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: code, complete: { (result) -> ()? in
+                if let object = result{
+                    if let  returnCode : Int = object["returnCode"] as? Int{
+                        if returnCode == 1{
+                            SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
+                                
+                                _ = self.navigationController?.popViewController(animated: true)
+                                
+                            })
+                        }else{
+                            SVProgressHUD.showError(withStatus: "支付失败")
+                        }
+                    }else if let  _ : Int = object["error"] as? Int{
                         SVProgressHUD.showError(withStatus: "支付失败")
-                        return
+                        
                     }
-                    if errorCode == -2{
-                        SVProgressHUD.showError(withStatus: "用户中途取消")
-                        return
-                    }
-                    if errorCode == 0{
-                        SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1
-                            , completion: {
-                                self.performSegue(withIdentifier: "PushTolist", sender: nil)})
-                        return
-                    }
-        
+                    
                 }
+                return nil
+            }, error: errorBlockFunc())
+        }
+//                if let errorCode: Int = notice.object as? Int{
+//                    if errorCode == -4{
+//                        SVProgressHUD.showError(withStatus: "支付失败")
+//                        return
+//                    }
+//                    if errorCode == -2{
+//                        SVProgressHUD.showError(withStatus: "用户中途取消")
+//                        return
+//                    }
+//                    if errorCode == 0{
+//                        SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1
+//                            , completion: {
+//                                self.performSegue(withIdentifier: "PushTolist", sender: nil)})
+//                        return
+//                    }
+//        
+//                }
         
     }
     //MARK: -获取银行卡数量的请求

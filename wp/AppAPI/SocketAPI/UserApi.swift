@@ -30,7 +30,7 @@ protocol UserApi {
     func unbindcard( vToken :String,bid: Int32,timestamp: Int64, phone :String,vCode:String, complete: CompleteBlock?, error: ErrorBlock?)
     
     //充值列表
-    func creditlist(status: String, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
+    func creditlist(status: Int32, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
     //充值详情
     func creditdetail(rid: Int64, complete: CompleteBlock?, error: ErrorBlock?)
     // 结果查询
