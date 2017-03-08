@@ -165,14 +165,16 @@ extension HomeVC{
         notificationCenter.addObserver(self, selector: #selector(jumpToRecharge), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToRecharge), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToWithdraw), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToWithdraw), object: nil)
         notificationCenter.addObserver(self, selector: #selector(checkLogin), name: NSNotification.Name(rawValue: AppConst.NoticeKey.logoutNotice.rawValue), object: nil)
-        
+        notificationCenter.addObserver(self, selector: #selector(sideHide), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.EnterBackground), object: nil)
     }
     //我的消息
     func jumpToMyMessageController() {
         
         performSegue(withIdentifier: MyMessageController.className(), sender: nil)
     }
-    
+    func sideHide() {
+        sideMenuController?.toggle()
+    }
     func jumpToRecharge() {
         
         if checkLogin() {

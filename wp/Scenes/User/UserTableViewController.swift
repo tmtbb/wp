@@ -76,6 +76,9 @@ class UserTableViewController: BaseTableViewController {
             guard UserModel.share().getCurrentUser() != nil else {return}
             let str = numberFormatter.string(from: NSNumber(value: UserModel.share().getCurrentUser()!.balance))
             nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
+            if UserModel.share().getCurrentUser()!.balance > 9999999.0 {
+                nameLabel.adjustsFontSizeToFitWidth = true
+            }
 //            nameLabel.text = "\(UserModel.share().getCurrentUser()?.balance)"
 // >>>>>>> master
 //            if ((UserModel.share().getCurrentUser()?.avatarLarge) != "" && UserModel.share().getCurrentUser()?.avatarLarge == "default-head"){
@@ -104,12 +107,8 @@ class UserTableViewController: BaseTableViewController {
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        if keyPath == "userMoney" {
-            if let base = change? [NSKeyValueChangeKey.newKey] as? Double {
-                let str = numberFormatter.string(from: NSNumber(value: base))
-                nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
-            }
-            
+        if keyPath == "useMoney" {
+            updateUI()
         }
     }
 
@@ -179,15 +178,17 @@ class UserTableViewController: BaseTableViewController {
 
             if let object = result as? Dictionary<String,Any> {
                 if let  money =  object["balance"] as? Double {
-                    
                     let str = self?.numberFormatter.string(from: NSNumber(value: money))
                     self?.nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
+                    if UserModel.share().getCurrentUser()!.balance > 9999999.0 {
+                        self?.nameLabel.adjustsFontSizeToFitWidth = true
+                    }
+                    ShareModel.share().userMoney = money
                     UserModel.updateUser(info: { (result)-> ()? in
                         UserModel.share().currentUser?.balance = money
                     })
                 } else {
                     self?.nameLabel.text =  "0.00"
-
                 }
             }
 //            //个人信息数据请求
@@ -278,7 +279,6 @@ class UserTableViewController: BaseTableViewController {
     }
     //我的积分
     @IBAction func myIntegral(_ sender: Any) {
-        
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 4

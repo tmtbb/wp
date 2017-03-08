@@ -94,7 +94,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.code: vCode,
                      SocketConst.Key.timestamp: timestamp,
                      SocketConst.Key.vToken: "3021",
-                   ] as [String : Any]
+                    ] as [String : Any]
         print(param)
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .unbindcard, dict: param as [String : AnyObject], type: SocketConst.type.wp)
         startRequest(packet, complete: complete, error: error)
