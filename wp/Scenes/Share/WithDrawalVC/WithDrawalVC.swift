@@ -61,16 +61,9 @@ class WithDrawalVC: BaseTableViewController {
     func initUI(){
         // 设置 提现记录按钮
         let btn : UIButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 70, height: 30))
-        
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        
         btn.setTitle("提现记录", for:  UIControlState.normal)
-        
         btn.addTarget(self, action: #selector(withDrawList), for: UIControlEvents.touchUpInside)
-        
-        let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
-        let int : Double = Double(str)!
-        self.money.placeholder = "最多可提现" + "\(int)" + "元"
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
         
@@ -78,7 +71,10 @@ class WithDrawalVC: BaseTableViewController {
         submited.layer.cornerRadius = 5
         submited.clipsToBounds = true
         withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
-        
+        guard UserModel.share().getCurrentUser() != nil else {return}
+        let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
+        let int : Double = Double(str)!
+        self.money.placeholder = "最多可提现" + "\(int)" + "元"
         
     }
     //MARK: --属性的变化

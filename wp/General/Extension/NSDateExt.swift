@@ -76,7 +76,33 @@ extension Date{
         let date = Date.init(timeIntervalSince1970: Double(timeStemp) as TimeInterval)
         return yt_convertDateToStr(date, format: format)
     }
+    /**
+     *  时间戳转日期字符串
+     */
+    static func getWeekDay(dateTime:String)->String{
+        
+        let weekDays = [NSNull.init(),"周日","周一","周二","周三","周四","周五","周六","周日"] as [Any]
+        let dateFmt = DateFormatter()
+        dateFmt.dateFormat = "yyyy-MM-dd"
+        
+        let currentdate = NSDate()
+        let timeInterval = currentdate.timeIntervalSince1970
+//        if dateFmt.date(from: dateTime) ==  date{
+//        
+//            return "今天"
+//        }
+        
 
+        dateFmt.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = dateFmt.date(from: dateTime)
+        let interval = Int(date!.timeIntervalSince1970)
+       
+        let days = Int(interval/86400) // 24*60*60
+        let weekday = (days - 3) % 7
+        
+        // ? 7 : weekday
+        return   weekday == 0 ? "周日" : weekDays[weekday+1] as! String
+    }
     
     
     /**

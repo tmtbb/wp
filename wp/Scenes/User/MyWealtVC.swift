@@ -118,11 +118,11 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         //NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
 //        let str : String = String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
         
-        let format = NumberFormatter()
-        format.numberStyle = .currency
-        let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
-         let index = account.index(account.startIndex, offsetBy: 1)
-        self.account.text = account.substring(from: index)
+//        let format = NumberFormatter()
+//        format.numberStyle = .currency
+//        let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
+//         let index = account.index(account.startIndex, offsetBy: 1)
+//        self.account.text = account.substring(from: index)
         //用户余额数据请求
         AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
             if let resultDic = result as? [String: AnyObject] {
@@ -141,6 +141,13 @@ class MyWealtVC: BaseCustomPageListTableViewController {
             }
             return nil
         }, error: errorBlockFunc())
+        
+        
+        guard UserModel.share().getCurrentUser() != nil else {return}
+        let format = NumberFormatter()
+        format.numberStyle = .currency
+        let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
+        self.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)! + "元"
 //        AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
 //            if let object = result {
 //                let  money : Double =  object["balance"] as! Double

@@ -108,6 +108,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     }
     //用户余额数据请求
     func refreshUserCash() {
+        
         AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
             if let resultDic = result as? [String: AnyObject] {
                 if let money = resultDic["balance"] as? Double{

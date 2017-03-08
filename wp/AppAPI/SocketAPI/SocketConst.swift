@@ -34,7 +34,7 @@ class SocketConst: NSObject {
         case changeUserInfo = 1031
         //每天的数据
         case everyday = 6011
-        case accinfo = 1003
+        case accinfo = 3007
         //流水列表
         case flowList = 1077
         //流水详情
@@ -56,9 +56,9 @@ class SocketConst: NSObject {
         // 充值列表
         case rechageList = 6003
         // 微信充值
-        case weixinpay = 1033
+        case weixinpay = 7033
         // 银联充值
-        case unionpay = 7033
+        case unionpay = 1033
         // 充值结果
         case unionpayResult = 1041
         // 充值结果
@@ -100,7 +100,7 @@ class SocketConst: NSObject {
         //收益选择
         case benifity = 6007
         
-        case balance = 7100
+        case balance = 7002
         
     }
     enum type:UInt8 {

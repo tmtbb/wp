@@ -46,7 +46,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     }
     func initUI(){
         
-        ShareModel.share().addObserver(self, forKeyPath: "userMoney", options: .new, context: nil)
+//        ShareModel.share().addObserver(self, forKeyPath: "userMoney", options: .new, context: nil)
         selectType = 1
 //        arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
         // 设置 提现记录按钮
@@ -54,11 +54,8 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         btn.setTitle("充值记录", for:  UIControlState.normal)
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
-       
-        let format = NumberFormatter()
-        format.numberStyle = .currency
-        let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
-        self.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)! + "元"
+        self.bankCount.text = "0" + " " + "张"
+        
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
         NotificationCenter.default.addObserver(self, selector: #selector(paysuccess(_:)), name: Notification.Name(rawValue:AppConst.WechatPay.WechatKeyErrorCode), object: nil)
@@ -69,14 +66,24 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         submited.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         submited.layer.cornerRadius = 5
         submited.clipsToBounds = true
+        ShareModel.share().addObserver(self, forKeyPath: "userMoney", options: .new, context: nil)
         moneyText.dk_textColorPicker = DKColorTable.shared().picker(withKey: "auxiliary")
+        
+        guard UserModel.share().getCurrentUser() != nil else {return}
+        let format = NumberFormatter()
+        format.numberStyle = .currency
+        let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
+        self.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)! + "元"
     }
        // MARK: 属性的变化
         override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
     
             if keyPath == "userMoney" {
-    
-//                if let  base = change? [NSKeyValueChangeKey.newKey] as? [BankListModel] {
+                // 
+                SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 2, completion: {
+                     self.performSegue(withIdentifier: "PushTolist", sender: nil)
+                })
+                //                if let  base = change? [NSKeyValueChangeKey.newKey] as? [BankListModel] {
 //    
 //                    let Count : Int = base.count as Int
 //                    let str : String = String(Count)
@@ -238,15 +245,16 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         
         
         if let errorCode: Int = notice.object as? Int{
-            var code = Int()
+//            var code = Int()
             if errorCode == 0 {
-                code = 1
+//                code = 1
+//                 SVProgressHUD.show(withStatus: "加载中")
                 
             }else{
-                code = 2
+//                code = 2
                  SVProgressHUD.showError(withStatus: "支付失败")
             }
-            ShareModel.share().userMoney = 0
+//            ShareModel.share().userMoney = 0
 //            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: code, complete: { (result) -> ()? in
 //                if let object = result{
 //                    if let  returnCode : Int = object["returnCode"] as? Int{
@@ -289,17 +297,17 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     }
     //MARK: -获取银行卡数量的请求
     override func didRequest() {
-        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
-            if let object = result {
-                let Model : BankModel = object as! BankModel
-                let Count : Int = (Model.cardlist?.count)!
-                let str : String = String(Count)
-                self?.bankCount.text = "\(str)" + " " + "张"
-            }else {
-            }
-            
-            return nil
-            }, error: errorBlockFunc())
+//        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
+//            if let object = result {
+//                let Model : BankModel = object as! BankModel
+//                let Count : Int = (Model.cardlist?.count)!
+//                let str : String = String(Count)
+//                self?.bankCount.text = "\(str)" + " " + "张"
+//            }else {
+//            }
+//            
+//            return nil
+//            }, error: errorBlockFunc())
     }
     
 }
