@@ -69,7 +69,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         btn.setTitle("充值记录", for:  UIControlState.normal)
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
-        self.bankCount.text = "0" + " " + "张"
+//        self.bankCount.text = "0" + " " + "张"
         
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
@@ -192,7 +192,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             return 2
         }
         if section==1 {
-            return 4
+            return 3
         }
         if selectRow == true  {
             return 1
