@@ -30,7 +30,7 @@ protocol UserApi {
     func unbindcard( vToken :String,bid: Int32,timestamp: Int64, phone :String,vCode:String, complete: CompleteBlock?, error: ErrorBlock?)
     
     //充值列表
-    func creditlist(status: String, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
+    func creditlist(status: Int32, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
     //充值详情
     func creditdetail(rid: Int64, complete: CompleteBlock?, error: ErrorBlock?)
     // 结果查询
@@ -44,7 +44,7 @@ protocol UserApi {
     //银行卡提现
     func withdrawcash(money: Double, bld: Int64, password: String, complete: CompleteBlock?, error: ErrorBlock?)
     //提现列表
-    func withdrawlist(status: String, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
+    func withdrawlist(status: Int32, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
     //提现详情
     func withdrawdetail( withdrawld: Int64, complete: CompleteBlock?, error: ErrorBlock?)
     // 获取银行卡名称

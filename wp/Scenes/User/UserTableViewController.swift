@@ -65,7 +65,7 @@ class UserTableViewController: BaseTableViewController {
         logoutButton.layer.borderWidth = 0.7
         logoutButton.layer.borderColor = UIColor(hexString: "#cccccc").cgColor
         
-        ShareModel.share().addObserver(self, forKeyPath: "useMoney", options: .new, context: nil)
+        ShareModel.share().addObserver(self, forKeyPath: "userMoney", options: .new, context: nil)
         registerNotify()
         //更新token
         AppDataHelper.instance().checkTokenLogin()
@@ -109,7 +109,6 @@ class UserTableViewController: BaseTableViewController {
         super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         if keyPath == "useMoney" {
             updateUI()
-            
         }
     }
 
@@ -184,7 +183,7 @@ class UserTableViewController: BaseTableViewController {
                     if UserModel.share().getCurrentUser()!.balance > 9999999.0 {
                         self?.nameLabel.adjustsFontSizeToFitWidth = true
                     }
-                    ShareModel.share().useMoney = money
+                    ShareModel.share().userMoney = money
                     UserModel.updateUser(info: { (result)-> ()? in
                         UserModel.share().currentUser?.balance = money
                     })
@@ -295,7 +294,7 @@ class UserTableViewController: BaseTableViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        ShareModel.share().removeObserver(self, forKeyPath: "useMoney")
+        ShareModel.share().removeObserver(self, forKeyPath: "userMoney")
     }
     
 }
