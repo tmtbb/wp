@@ -48,5 +48,6 @@ class PositionParam: DealParam{
 }
 
 class BenifityParam: DealParam{
-    
+    var tid = 0
+    var handle = 0
 }

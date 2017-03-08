@@ -102,8 +102,9 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     }
     //收益选择
     func benifity(param: BenifityParam, complete: CompleteBlock?, error:ErrorBlock?){
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .benifity, model: param, type: .time)
-        startModelRequest(packet, modelClass: ChartModel.self, complete: complete, error: error)
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .benifity, model: param, type: .operate)
+//        startModelRequest(packet, modelClass: PositionModel.self, complete: complete, error: error)
+        startRequest(packet, complete: complete, error: error)
     }
     
  

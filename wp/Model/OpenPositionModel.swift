@@ -33,6 +33,7 @@ class PositionModel: Object {
     dynamic var token:String = ""           //累计过夜费
     dynamic var symbol:String?
     dynamic var  result : Bool = true
+    dynamic var handle: Int = 0
 //    var result :Int  = 0
     dynamic var interval = 0
 
