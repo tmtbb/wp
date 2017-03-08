@@ -172,8 +172,12 @@ extension HomeVC{
         
         performSegue(withIdentifier: MyMessageController.className(), sender: nil)
     }
+    
     func sideHide() {
-        sideMenuController?.toggle()
+        if (sideMenuController?.sidePanelVisible)! {
+            
+            sideMenuController?.toggle()
+        }
     }
     func jumpToRecharge() {
         

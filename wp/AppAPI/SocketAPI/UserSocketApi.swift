@@ -52,7 +52,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
     func bankcardList(complete: CompleteBlock?, error: ErrorBlock?){
         let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
                      SocketConst.Key.token: UserModel.share().token ] as [String : Any]
-        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject], type: SocketConst.type.wp)
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject], type: SocketConst.type.user)
         startModelRequest(packet, modelClass: BankModel.self, complete: complete, error: error)
         print(param)
         //        startModelsRequest(packet, listName: "cardlist", modelClass: BankModel.self, complete: complete, error: error)
