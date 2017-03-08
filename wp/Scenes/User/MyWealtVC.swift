@@ -135,7 +135,8 @@ class MyWealtVC: BaseCustomPageListTableViewController {
                     let format = NumberFormatter()
                     format.numberStyle = .currency
                     let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
-                    self?.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)! + "元"
+                    self?.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)!
+                    self?.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! 
                 }
             }
             return nil
@@ -170,7 +171,9 @@ class MyWealtVC: BaseCustomPageListTableViewController {
     }
     //MARK: --网络请求
     override func didRequest(_ pageIndex : Int) {
+
         didRequestComplete(nil)
+
 //        let index = (pageIndex - 1) * 10
 //        AppAPIHelper.user().everyday(start: Int32(index), count: 10, complete: { [weak self](result) -> ()? in
 //            if result != nil{

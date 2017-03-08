@@ -10,7 +10,7 @@ import UIKit
 import SVProgressHUD
 import DKNightVersion
 class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDelegate,NSURLConnectionDelegate{
-
+    
     var selectType =  Int()                                    //选择支付方式 0银联 1 微信
     var rid = Int64()
     @IBOutlet weak var arrow: UIImageView!                     // 箭头
@@ -41,7 +41,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                     let format = NumberFormatter()
                     format.numberStyle = .currency
                     let account : String =   format.string(from: NSNumber(value: money))!
-                    self?.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)! + "元"
+                    self?.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
                 }
             }
             return nil
@@ -69,7 +69,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         btn.setTitle("充值记录", for:  UIControlState.normal)
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
-        self.bankCount.text = "0" + " " + "张"
+//        self.bankCount.text = "0" + " " + "张"
         
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
@@ -192,7 +192,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             return 2
         }
         if section==1 {
-            return 4
+            return 3
         }
         if selectRow == true  {
             return 1

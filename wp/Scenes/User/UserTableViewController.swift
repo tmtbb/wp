@@ -81,7 +81,7 @@ class UserTableViewController: BaseTableViewController {
 
             guard UserModel.share().currentUser != nil else {return}
             let str = numberFormatter.string(from: NSNumber(value: UserModel.share().currentUser!.balance))
-            nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
+            nameLabel.text = str?.components(separatedBy: "￥").last?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
             if UserModel.share().getCurrentUser()!.balance > 999999.0 {
                 nameLabel.adjustsFontSizeToFitWidth = true
             }
@@ -122,7 +122,7 @@ class UserTableViewController: BaseTableViewController {
             if let result = json as? Dictionary<String,Any> {
                 if let balance = result["balance"] as? Double {
                     let str = self.numberFormatter.string(from: NSNumber(value: balance))
-                    self.nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
+                    self.nameLabel.text = str?.components(separatedBy: "￥").last?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
                     if balance > 999999.0 {
                         self.nameLabel.adjustsFontSizeToFitWidth = true
                     }
@@ -213,7 +213,7 @@ class UserTableViewController: BaseTableViewController {
             if let object = result as? Dictionary<String,Any> {
                 if let  money =  object["balance"] as? Double {
                     let str = self?.numberFormatter.string(from: NSNumber(value: money))
-                    self?.nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
+                    self?.nameLabel.text = str?.components(separatedBy: "￥").last?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
                     if money > 999999.0 {
                         self?.nameLabel.adjustsFontSizeToFitWidth = true
                     }
