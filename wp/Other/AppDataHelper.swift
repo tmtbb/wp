@@ -211,9 +211,10 @@ class AppDataHelper: NSObject {
                        self?.clearUserInfo()
                     }
                     return nil
-                }, error: { (error) ->()? in
-                        SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
-                        return nil
+                }, error: {[weak self] (error) ->()? in
+                    self?.clearUserInfo()
+                    SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
+                    return nil
                 })
             }
         }

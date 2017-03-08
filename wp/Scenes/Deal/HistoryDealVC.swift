@@ -8,12 +8,14 @@
 
 import UIKit
 import RealmSwift
+import DKNightVersion
 class HistoryDealCell: OEZTableViewCell{
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var winLabel: UILabel!
     @IBOutlet weak var failLabel: UILabel!
+    @IBOutlet weak var handleLabel: UILabel!
     // 盈亏
     @IBOutlet weak var statuslb: UILabel!
     override func update(_ data: Any!) {
@@ -22,14 +24,22 @@ class HistoryDealCell: OEZTableViewCell{
             timeLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.closeTime)), format: "yyyy.MM.dd HH:mm:ss")
            //com.yundian.trip
             priceLabel.text = "¥" + String(format: "%.2f", model.openCost)
-      
+            priceLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+
             statuslb.backgroundColor = model.result   ? UIColor.init(hexString: "E9573F") : UIColor.init(hexString: "0EAF56")
-            
             statuslb.text =  model.result   ?  "盈" :   "亏"
-    
-            statuslb.layer.cornerRadius = 3
             
-            statuslb.clipsToBounds = true
+            let handleText = [" 未操作 "," 双倍返回 "," 货运 ",""]
+            handleLabel.text = handleText[model.handle]
+            
+            if model.result == false{
+                handleLabel.backgroundColor = UIColor.clear
+                handleLabel.text = ""
+            }else if model.handle == 0{
+                handleLabel.backgroundColor = UIColor.init(rgbHex: 0xc2cfd7)
+            }else{
+                handleLabel.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+            }
         }
     }
 }
@@ -86,7 +96,10 @@ class HistoryDealVC: BasePageListTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let model = self.dataSource?[indexPath.row] as? PositionModel{
-            if true || model.result{
+            if  model.result{
+                if model.buySell == 2 && UserModel.share().currentUser?.type == 1{
+                    return
+                }
                 let param = BenifityParam()
                 let alterController = UIAlertController.init(title: "恭喜盈利", message: "请选择盈利方式", preferredStyle: .alert)
                 let productAction = UIAlertAction.init(title: "货运", style: .default, handler: {[weak self] (resultDic) in
