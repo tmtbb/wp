@@ -71,11 +71,11 @@ class UserTableViewController: BaseTableViewController {
         AppDataHelper.instance().checkTokenLogin()
         if checkLogin() {
             loginSuccessIs(bool: true)
-// <<<<<<< master
             
-//            let str = numberFormatter.string(from: NSNumber(value: UserModel.share().getCurrentUser()!.balance))
-//            nameLabel.text = str?.substring(from: (",".endIndex))
-// =======
+
+            guard UserModel.share().getCurrentUser() != nil else {return}
+            let str = numberFormatter.string(from: NSNumber(value: UserModel.share().getCurrentUser()!.balance))
+            nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
 //            nameLabel.text = "\(UserModel.share().getCurrentUser()?.balance)"
 // >>>>>>> master
 //            if ((UserModel.share().getCurrentUser()?.avatarLarge) != "" && UserModel.share().getCurrentUser()?.avatarLarge == "default-head"){
@@ -107,7 +107,7 @@ class UserTableViewController: BaseTableViewController {
         if keyPath == "useMoney" {
             if let base = change? [NSKeyValueChangeKey.newKey] as? Double {
                 let str = numberFormatter.string(from: NSNumber(value: base))
-                nameLabel.text =  str?.substring(from: (",".endIndex))
+                nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
             }
             
         }
@@ -181,7 +181,7 @@ class UserTableViewController: BaseTableViewController {
                 if let  money =  object["balance"] as? Double {
                     
                     let str = self?.numberFormatter.string(from: NSNumber(value: money))
-                    self?.nameLabel.text =  str?.substring(from: (",".endIndex))
+                    self?.nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
                     UserModel.updateUser(info: { (result)-> ()? in
                         UserModel.share().currentUser?.balance = money
                     })
