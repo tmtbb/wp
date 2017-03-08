@@ -151,6 +151,7 @@ class AppConst {
         static let BuyToMyWealtVC = "BuyToMyWealtVC"
         static let DealToMyWealtVC = "DealToMyWealtVC"
         static let SelectKind = "SelectKind"
+        static let EnterBackground = "EnterBackground"
     }
     
     

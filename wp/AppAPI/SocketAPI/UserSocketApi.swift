@@ -90,7 +90,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
                      SocketConst.Key.token: UserModel.share().token ,
                      SocketConst.Key.bid: bid,
-                      SocketConst.Key.phone: phone,
+                     SocketConst.Key.phone: phone,
                        SocketConst.Key.code: vCode,
                         SocketConst.Key.timestamp: timestamp,
                          SocketConst.Key.vToken: "3021",
