@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
 //        let url : URL =  URL.init(string: str)!
 //        dic.write(to: url as URL, atomically: true)
 //         var  dic1111 : NSMutableDictionary = NSMutableDictionary.init(contentsOfFile: str)!
-//        AppDataHelper.instance().initData()
+        AppDataHelper.instance().initData()
         AppServerHelper.instance().initServer()
         return true
     }
