@@ -277,7 +277,6 @@ class UserTableViewController: BaseTableViewController {
     }
     //我的积分
     @IBAction func myIntegral(_ sender: Any) {
-        
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 4

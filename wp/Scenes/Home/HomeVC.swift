@@ -192,6 +192,7 @@ class HomeVC: BaseTableViewController {
         notificationCenter.addObserver(self, selector: #selector(jumpToMyWealtVC), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToRecharge), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToRecharge), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToWithdraw), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToWithdraw), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(sideHide), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.EnterBackground), object: nil)
 
     }
     //MARK: --通知方法实现
@@ -199,7 +200,9 @@ class HomeVC: BaseTableViewController {
         
         performSegue(withIdentifier: MyMessageController.className(), sender: nil)
     }
-    
+    func sideHide() {
+        sideMenuController?.toggle()
+    }
     func jumpToRecharge() {
         
         if checkLogin() {
