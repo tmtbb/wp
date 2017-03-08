@@ -98,7 +98,7 @@ class SocketConst: NSObject {
         //航运仓位
         case position = 5007
         //收益选择
-        case benifity = 7001
+        case benifity = 6007
         
         case balance = 7100
         
@@ -167,6 +167,7 @@ class SocketConst: NSObject {
         static let wid = "wid"
         static let title = "title"
         static let id = "id"
+        static let handle = "handle"
         static let positionId = "positionId"
         static let token = "token"
         static let vToken = "vToken"

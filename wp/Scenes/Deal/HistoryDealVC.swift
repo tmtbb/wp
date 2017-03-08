@@ -29,7 +29,7 @@ class HistoryDealCell: OEZTableViewCell{
             statuslb.backgroundColor = model.result   ? UIColor.init(hexString: "E9573F") : UIColor.init(hexString: "0EAF56")
             statuslb.text =  model.result   ?  "盈" :   "亏"
             
-            let handleText = [" 未操作 "," 双倍返回 "," 货运 ",""]
+            let handleText = [" 未操作 "," 双倍返回 "," 货运 "," 补退仓费 "]
             handleLabel.text = handleText[model.handle]
             
             if model.result == false{
@@ -100,22 +100,61 @@ class HistoryDealVC: BasePageListTableViewController {
                 if model.buySell == 2 && UserModel.share().currentUser?.type == 1{
                     return
                 }
+                if model.handle != 0{
+                    return
+                }
                 let param = BenifityParam()
+                param.tid = model.positionId
+            
                 let alterController = UIAlertController.init(title: "恭喜盈利", message: "请选择盈利方式", preferredStyle: .alert)
                 let productAction = UIAlertAction.init(title: "货运", style: .default, handler: {[weak self] (resultDic) in
-                    AppAPIHelper.deal().benifity(param: param, complete: { (result) -> ()? in
-                        
+                    param.handle = 2
+                    AppAPIHelper.deal().benifity(param: param, complete: {(result) -> ()? in
+                        if let resultDic: [String: AnyObject] = result as? [String: AnyObject]{
+                            if let id = resultDic[SocketConst.Key.id] as? Int{
+                                if id != UserModel.share().currentUserId{
+                                    return nil
+                                }
+                            }
+                            if let handle = resultDic[SocketConst.Key.handle] as? Int{
+                                if let selectModel = self?.dataSource?[indexPath.row] as? PositionModel{
+                                    UserModel.updateUser(info: { (info) -> ()? in
+                                        selectModel.handle = handle
+                                        tableView.reloadData()
+                                        return nil
+                                    })
+                                }
+                            }
+                        }
                         return nil
                     }, error: self?.errorBlockFunc())
                 })
                 let moneyAction = UIAlertAction.init(title: "双倍返回", style: .default, handler: { [weak self](resultDic) in
-                    AppAPIHelper.deal().benifity(param: param, complete: { (result) -> ()? in
-                        
+                    param.handle = 1
+                    AppAPIHelper.deal().benifity(param: param, complete: {(result) -> ()? in
+                        if let resultDic: [String: AnyObject] = result as? [String: AnyObject]{
+                            if let id = resultDic[SocketConst.Key.id] as? Int{
+                                if id != UserModel.share().currentUserId{
+                                    return nil
+                                }
+                            }
+                            if let handle = resultDic[SocketConst.Key.handle] as? Int{
+                                if let selectModel = self?.dataSource?[indexPath.row] as? PositionModel{
+                                    UserModel.updateUser(info: { (info) -> ()? in
+                                        selectModel.handle = handle
+                                        tableView.reloadData()
+                                        return nil
+                                    })
+                                }
+                            }
+                        }
                         return nil
                     }, error: self?.errorBlockFunc())
                 })
+                if UserModel.share().currentUser?.type != 1 || model.buySell != 2{
+                    alterController.addAction(moneyAction)
+                }
                 alterController.addAction(productAction)
-                alterController.addAction(moneyAction)
                 present(alterController, animated: true, completion: nil)
             }
         }
