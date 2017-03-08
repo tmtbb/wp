@@ -53,4 +53,29 @@ class BankLogoColor: NSObject {
             return false
         }
     }
+    func checkLocalBankImg(string : String) -> String {
+        
+            
+            if string == "中国工商银行" {
+                return "gongshang"
+            }
+            if string == "中国交通银行" {
+                return "jiaotong"
+            }
+            if string == "中国农业银行" {
+                return "nongye"
+            }
+            if string == "中国建设银行" {
+                return "jianshe"
+            }
+            if string == "中国银行" {
+                return "zhongguo"
+            }
+            
+            return "ccbc"
+        }
+    
+
+    
+    
 }
