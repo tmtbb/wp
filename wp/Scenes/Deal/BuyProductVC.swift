@@ -39,6 +39,7 @@ class BuyProductVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
+        requestShippingSpaceInfo()
         Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updatePrice), userInfo: nil, repeats: true)
     }
     
@@ -56,8 +57,11 @@ class BuyProductVC: UIViewController {
     func requestShippingSpaceInfo() {
         
         let positionParm = PositionParam()
+        positionParm.gid = DealModel.share().buyProduct!.id
         AppAPIHelper.deal().position(param: positionParm, complete: { [weak self](result) -> ()? in
-            self?.cangWeiLabel.text = ""
+            if let model = result as? ProductPositionModel {
+                self?.cangWeiLabel.text = "当前仓位航班: \(model.name)"
+            }
             return nil
         }, error: errorBlockFunc())
         
