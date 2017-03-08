@@ -180,7 +180,7 @@ class UserTableViewController: BaseTableViewController {
                 if let  money =  object["balance"] as? Double {
                     let str = self?.numberFormatter.string(from: NSNumber(value: money))
                     self?.nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
-                    if UserModel.share().getCurrentUser()!.balance > 9999999.0 {
+                    if UserModel.share().getCurrentUser()!.balance > 999999.0 {
                         self?.nameLabel.adjustsFontSizeToFitWidth = true
                     }
                     ShareModel.share().userMoney = money

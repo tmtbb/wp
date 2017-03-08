@@ -49,3 +49,11 @@ class ChartModel: BaseModel {
         return KLineChartModel.classForCoder()
     }
 }
+
+class ProductPositionModel: BaseModel {
+    var gid = 0
+    var id = 0
+    var name = ""
+    
+    
+}
