@@ -37,14 +37,18 @@ class HomeVC: BaseTableViewController {
         initData()
         initUI()
     }
+    deinit {
+        //移除通知
+        NotificationCenter.default.removeObserver(self)
+        //移除KVO
+        DealModel.share().removeObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue)
+    }
     //MARK: --DATA
     func initData() {
         AppDataHelper.instance().initProductData()
         let bannerStr = "http://upload-images.jianshu.io/upload_images/3959281-9e14f1eaccc36f37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
         bannerView.bannerData = [bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject]
-//        noticeView.noticeData = ["这是一个测试文案1" as AnyObject, "这是一个测试文案2" as AnyObject,"这是一个测试文案3"as AnyObject, "这是一个测试文案4" as AnyObject,"这是一个测试文案5"as AnyObject]
         noticeView.isHidden = true
-        
 
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
@@ -98,70 +102,21 @@ class HomeVC: BaseTableViewController {
         tableView.backgroundColor = UIColor(rgbHex: 0xffffff)
     }
     
-    //MARK: --监听滑动
-   
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    
-        let viewBackColor = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 42))
-        viewBackColor.backgroundColor = UIColor.white
-        return viewBackColor
-        
-    }
-    //MARK: --组头高度
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        if section == 1 {
-            return 10
-        }
-        if section == 2 {
-            return 11
-        }
-        return 0
-    }
-    
+}
+
+extension HomeVC{
+    //MARK: --table's delegate and datasource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        
-        if section == 0 {
-            return marketArray.count
-        }
-
-        return 0
-    }
-    //MARK: --行高
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 100
-        }
-
-        return 0
+        return marketArray.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        
-        let cell : ProdectCell = tableView.dequeueReusableCell(withIdentifier: "ProdectCell") as! ProdectCell
-        if indexPath.section==0 {
-            if indexPath.item < marketArray.count && marketArray[indexPath.item] != nil {
-                cell.kChartModel = marketArray[indexPath.item]
-            }
-            return cell
+        let cell : ProdectCell = tableView.dequeueReusableCell(withIdentifier: ProdectCell.className()) as! ProdectCell
+        if indexPath.item < marketArray.count {
+            cell.kChartModel = marketArray[indexPath.item]
         }
-//        if indexPath.section==1 {
-//            let cell : SecondViewCell = tableView.dequeueReusableCell(withIdentifier: "SecondViewCell") as! SecondViewCell
-//            cell.delegate = self
-//            
-//            return cell
-//        }
-//        if indexPath.section == 2 {
-//            let cell : ThreeCell = tableView.dequeueReusableCell(withIdentifier: "ThreeCell") as! ThreeCell
-//            return cell
-//        }
         return cell
     }
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
             let price = marketArray[indexPath.item]
@@ -175,10 +130,25 @@ class HomeVC: BaseTableViewController {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.SelectKind), object: nil, userInfo: nil)
             tabBarController?.selectedIndex = 1
         }
-        
-        
     }
-    //MARK: --发送通知
+    
+}
+
+extension HomeVC: BannerViewDelegate {
+
+    func banner(_ banner: iCarousel, didSelectItemAt index: Int) {
+        let webController = WPWebViewController()
+        webController.title = "交易规则"
+        let url = Bundle.main.url(forResource: "role.html", withExtension: nil)
+        let html = try! String.init(contentsOf: url!, encoding: .utf8)
+        let baseUrl = URL.init(fileURLWithPath: Bundle.main.bundlePath)
+        webController.webView.loadHTMLString(html, baseURL: baseUrl)
+        navigationController?.pushViewController(webController, animated: true)
+    }
+}
+
+extension HomeVC{
+    //MARK: --通知
     func registerNotify() {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(jumpToMyMessageController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyMessage), object: nil)
@@ -192,9 +162,9 @@ class HomeVC: BaseTableViewController {
         notificationCenter.addObserver(self, selector: #selector(jumpToMyWealtVC), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToRecharge), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToRecharge), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToWithdraw), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToWithdraw), object: nil)
-
+        
     }
-    //MARK: --通知方法实现
+    //我的消息
     func jumpToMyMessageController() {
         
         performSegue(withIdentifier: MyMessageController.className(), sender: nil)
@@ -203,7 +173,7 @@ class HomeVC: BaseTableViewController {
     func jumpToRecharge() {
         
         if checkLogin() {
-        
+            
             let stroyBoard = UIStoryboard(name: "Share", bundle: nil)
             let vc = stroyBoard.instantiateViewController(withIdentifier: "RechargeVC")
             
@@ -217,23 +187,19 @@ class HomeVC: BaseTableViewController {
             let stroyBoard = UIStoryboard(name: "Share", bundle: nil)
             let vc = stroyBoard.instantiateViewController(withIdentifier: "WithDrawalVC")
             _ = navigationController?.pushViewController(vc, animated: true)
-
+            
         }
     }
     //我的关注
     func jumpToMyAttentionController() {
-        
         if checkLogin(){
             performSegue(withIdentifier: MyAttentionController.className(), sender: nil)
         }
     }
     //我的推单
     func jumpToMyPushController() {
-        
-        
         if checkLogin(){
             performSegue(withIdentifier: MyPushController.className(), sender: nil)
-            
         }
     }
     //我的晒单
@@ -247,7 +213,6 @@ class HomeVC: BaseTableViewController {
         if checkLogin() {
             self.performSegue(withIdentifier: DealController.className(), sender: nil)
         }
-        
     }
     //意见反馈
     func jumpToFeedbackController() {
@@ -272,36 +237,10 @@ class HomeVC: BaseTableViewController {
     }
     //通知跳转到资金页面
     func jumpToMyWealtVC() {
-        
         let story : UIStoryboard = UIStoryboard.init(name: "Share", bundle: nil)
-        
-        let wealth  = story.instantiateViewController(withIdentifier: "MyWealtVC")
-        
+        let wealth  = story.instantiateViewController(withIdentifier: MyWealtVC.className())
         navigationController?.pushViewController(wealth, animated: true)
         
     }
     
-    //移除通知
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-        DealModel.share().removeObserver(self, forKeyPath: "allProduct")
-    }
-    
-    
-}
-
-extension HomeVC:SecondViewCellDelegate, BannerViewDelegate {
-    func masterDidClick() {
-        tabBarController?.selectedIndex = 2
-    }
-    
-    func banner(_ banner: iCarousel, didSelectItemAt index: Int) {
-        let webController = WPWebViewController()
-        webController.title = "交易规则"
-        let url = Bundle.main.url(forResource: "role.html", withExtension: nil)
-        let html = try! String.init(contentsOf: url!, encoding: .utf8)
-        let baseUrl = URL.init(fileURLWithPath: Bundle.main.bundlePath)
-        webController.webView.loadHTMLString(html, baseURL: baseUrl)
-        navigationController?.pushViewController(webController, animated: true)
-    }
 }

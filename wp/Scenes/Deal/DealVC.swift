@@ -42,18 +42,20 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBAction func testItemTapped(_ sender: Any) {
         
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        showTabBarWithAnimationDuration()
-        refreshTitleView()
-       
-    }
     //MARK: --LIFECYCLE
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initData()
         initUI()
         initKVOAndNotice()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        showTabBarWithAnimationDuration()
+        refreshTitleView()
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -104,8 +106,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             titleView.objects = allProducets
         }
     }
+    //用户余额数据请求
     func refreshUserCash() {
-        //用户余额数据请求
         AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
             if let resultDic = result as? [String: AnyObject] {
                 if let money = resultDic["balance"] as? Double{
@@ -116,7 +118,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }, error: errorBlockFunc())
 
     }
-    //MARK: --我的资产
+    //我的资产
     @IBAction func jumpToMyWallet(_ sender: AnyObject) {
         if checkLogin(){
             let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
@@ -192,6 +194,66 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         rowHeights.append(height > 200 ? height : 200)
         tableView.reloadData()
     }
+    
+    //MARK: --UI
+    func initUI() {
+        
+        myMoneyView.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        titleView.itemDelegate = self
+        titleView.reuseIdentifier = ProductTitleItem.className()
+        
+        klineTitleView.itemDelegate = self
+        klineTitleView.reuseIdentifier = KLineTitleItem.className()
+        
+    
+    }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return rowHeights[indexPath.row]
+    }
+    //MARK: --买涨/买跌
+    @IBAction func dealBtnTapped(_ sender: UIButton) {
+        
+        tableView.scrollToRow(at: IndexPath.init(row: 3, section: 0), at: .top, animated: false)
+        if checkLogin(){
+            if DealModel.share().buyProduct == nil {
+                SVProgressHUD.showWainningMessage(WainningMessage: "暂无商品信息", ForDuration: 1.5, completion: nil)
+                return
+            }
+            DealModel.share().dealUp = sender.tag == 1
+            DealModel.share().isDealDetail = false
+            
+            let controller = UIStoryboard.init(name: "Deal", bundle: nil).instantiateViewController(withIdentifier: BuyProductVC.className()) as! BuyProductVC
+            controller.modalPresentationStyle = .custom
+            controller.resultBlock = { [weak self](result) in
+                if let status: BuyProductVC.BuyResultType = result as! BuyProductVC.BuyResultType? {
+                    switch status {
+                    case .lessMoney:
+                        controller.dismissController()
+                        let moneyAlter = UIAlertController.init(title: "余额不足", message: "余额不足，请前往充值", preferredStyle: .alert)
+                        let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                        let sureAction = UIAlertAction.init(title: "确认", style: .default, handler: { [weak self](alter) in
+                             let controller = UIStoryboard.init(name: "Share", bundle: nil).instantiateViewController(withIdentifier: RechargeVC.className()) as! RechargeVC
+                            self?.navigationController?.pushViewController(controller, animated: true)
+                        })
+                        moneyAlter.addAction(cancelAction)
+                        moneyAlter.addAction(sureAction)
+                        self?.present(moneyAlter, animated: true, completion: nil)
+                        break
+                    default:
+                        break
+                    }
+                }
+                self?.initDealTableData()
+                return nil
+            }
+            present(controller, animated: true, completion: nil)
+            
+        }
+    }
+    
+}
+extension DealVC{
+    
     // 当前报价
     func initRealTimeData() {
         if let product = DealModel.share().selectProduct {
@@ -206,16 +268,16 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 if let models: [KChartModel] = result as! [KChartModel]?{
                     for model in models{
                         if model.symbol == product.symbol{
-                            self?.updatePrice(model: model)
+                            self?.updateNewPrice(model: model)
                         }
                     }
                 }
                 return nil
-            }, error: errorBlockFunc())
+                }, error: errorBlockFunc())
         }
     }
-   
-    func updatePrice(model: KChartModel) {
+    
+    func updateNewPrice(model: KChartModel) {
         for view in priceView.subviews {
             view.isHidden = false
             
@@ -263,6 +325,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         closeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
     }
     
+    
     func updatePrice(price: Double) {
         for product in DealModel.share().allProduct {
             if product.symbol == DealModel.share().selectProduct!.symbol {
@@ -271,61 +334,4 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
         productsView.reloadData()
     }
-    
-    //MARK: --UI
-    func initUI() {
-        
-        myMoneyView.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
-        titleView.itemDelegate = self
-        titleView.reuseIdentifier = ProductTitleItem.className()
-        
-        klineTitleView.itemDelegate = self
-        klineTitleView.reuseIdentifier = KLineTitleItem.className()
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return rowHeights[indexPath.row]
-    }
-    //MARK: --买涨/买跌
-    @IBAction func dealBtnTapped(_ sender: UIButton) {
-        
-        tableView.scrollToRow(at: IndexPath.init(row: 3, section: 0), at: .top, animated: false)
-        if checkLogin(){
-            if DealModel.share().buyProduct == nil {
-                SVProgressHUD.showWainningMessage(WainningMessage: "暂无商品信息", ForDuration: 1.5, completion: nil)
-                return
-            }
-            DealModel.share().dealUp = sender.tag == 1
-            DealModel.share().isDealDetail = false
-            
-            let controller = UIStoryboard.init(name: "Deal", bundle: nil).instantiateViewController(withIdentifier: BuyProductVC.className()) as! BuyProductVC
-            controller.modalPresentationStyle = .custom
-            controller.resultBlock = { [weak self](result) in
-                if let status: BuyProductVC.BuyResultType = result as! BuyProductVC.BuyResultType? {
-                    switch status {
-                    case .lessMoney:
-                        controller.dismissController()
-                        let moneyAlter = UIAlertController.init(title: "余额不足", message: "余额不足，请前往充值", preferredStyle: .alert)
-                        let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
-                        let sureAction = UIAlertAction.init(title: "确认", style: .default, handler: { [weak self](alter) in
-                             let controller = UIStoryboard.init(name: "Share", bundle: nil).instantiateViewController(withIdentifier: RechargeVC.className()) as! RechargeVC
-                            self?.navigationController?.pushViewController(controller, animated: true)
-                        })
-                        moneyAlter.addAction(cancelAction)
-                        moneyAlter.addAction(sureAction)
-                        self?.present(moneyAlter, animated: true, completion: nil)
-                        break
-                    default:
-                        break
-                    }
-                }
-                self?.initDealTableData()
-                return nil
-            }
-            present(controller, animated: true, completion: nil)
-            
-        }
-    }
-    
 }
-

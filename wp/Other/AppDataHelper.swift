@@ -21,9 +21,9 @@ class AppDataHelper: NSObject {
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
 //        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
 //        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(moreChartData), userInfo: nil, repeats: true)
-        initProductData()
-        initErrorCode()
+//        initErrorCode()
         checkTokenLogin()
+        initProductData()
     }
     //请求商品数据 
     func initProductData() {
@@ -228,7 +228,6 @@ class AppDataHelper: NSObject {
     
     //获取错误信息
     func initErrorCode() {
-        return 
         AppAPIHelper.commen().errorCode(complete: { (result) -> ()? in
             if let errorDic: NSDictionary = result as? NSDictionary{
                 let path = Bundle.main.path(forResource: "errorcode.plist", ofType:nil)

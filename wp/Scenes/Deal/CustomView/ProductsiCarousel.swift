@@ -38,7 +38,7 @@ class ProductiCarousel: UIView {
         didSet{
             if let product: ProductModel = object {
                 titleLabel.text = product.showName
-                priceLabel.text = String.init(format: "%.2f元", product.price)
+                priceLabel.text = String.init(format: "%.2f元/公斤", product.price)
                 feeLabel.text = "手续费\(product.openChargeFee * 100)%"
             }
         }
