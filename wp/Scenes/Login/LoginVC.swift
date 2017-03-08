@@ -29,7 +29,6 @@ class LoginVC: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(loginSuccess), name: Notification.Name(rawValue:AppConst.NotifyDefine.UpdateUserInfo), object: nil)
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -117,7 +116,6 @@ class LoginVC: BaseTableViewController {
     //MARK: --快速注册
     @IBAction func registerBtnTapped(_ sender: UIButton) {
         UserModel.share().forgetPwd = false
-        
         UserModel.share().forgetType = .loginPass
     }
     //MARK: --新浪登录
