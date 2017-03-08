@@ -21,9 +21,9 @@ class RechargeListVCCell: OEZTableViewCell {
     //MARK:--- 刷新cell
     override func update(_ data: Any!) {
         let model = data as! Model
-        self.moneyCountLb.text = "+" + "\(model.amount)"
+        self.moneyCountLb.text = "+" + " "  + "\(model.amount)"
         let timestr : Int = Date.stringToTimeStamp(stringTime: model.depositTime)
-        self.withDrawto.text = model.depositType == 1 ? "微信" :"银行卡"
+        self.withDrawto.text = model.depositType == 1 ? "微信支付" :"银行卡"
         self.weekLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "yyyy")
         self.statusLb.text = model.status == 1 ? "处理中" : (model.status == 2 ?  "充值成功":  "充值失败")
         self.timeLb.text =  Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "MM-dd")
@@ -34,6 +34,7 @@ class RechargeListVCCell: OEZTableViewCell {
         //        print(model.status)
         // 设置失败的cell的背景alpha  根据status 来判断 状态view
         //        self.backgroundColor = UIColor.groupTableViewBackground
+        self.alpha = model.status == 2 ? 1 :  (model.status == 1 ? 1 : 0.6)
     }
 }
 
@@ -57,6 +58,9 @@ class RechargeListVC: BasePageListTableViewController {
     //MARK:  界面销毁删除监听
     deinit {
         ShareModel.share().removeObserver(self, forKeyPath: "selectMonth", context: nil)
+    }
+    override func isOverspreadLoadMore() -> Bool {
+        return false
     }
     //MARK: 监听键值对
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

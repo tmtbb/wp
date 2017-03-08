@@ -54,7 +54,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         btn.setTitle("充值记录", for:  UIControlState.normal)
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
-       
+       self.bankCount.text = "0" + " " + "张"
       
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
@@ -79,9 +79,8 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
     
             if keyPath == "userMoney" {
-    
-                SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 5, completion: { 
-                    
+                SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 2, completion: {
+                     self.performSegue(withIdentifier: "PushTolist", sender: nil)
                 })
                 //                if let  base = change? [NSKeyValueChangeKey.newKey] as? [BankListModel] {
 //    
@@ -248,7 +247,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
 //            var code = Int()
             if errorCode == 0 {
 //                code = 1
-                 SVProgressHUD.show(withStatus: "加载中")
+//                 SVProgressHUD.show(withStatus: "加载中")
                 
             }else{
 //                code = 2
@@ -297,17 +296,17 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     }
     //MARK: -获取银行卡数量的请求
     override func didRequest() {
-        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
-            if let object = result {
-                let Model : BankModel = object as! BankModel
-                let Count : Int = (Model.cardlist?.count)!
-                let str : String = String(Count)
-                self?.bankCount.text = "\(str)" + " " + "张"
-            }else {
-            }
-            
-            return nil
-            }, error: errorBlockFunc())
+//        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
+//            if let object = result {
+//                let Model : BankModel = object as! BankModel
+//                let Count : Int = (Model.cardlist?.count)!
+//                let str : String = String(Count)
+//                self?.bankCount.text = "\(str)" + " " + "张"
+//            }else {
+//            }
+//            
+//            return nil
+//            }, error: errorBlockFunc())
     }
     
 }

@@ -25,6 +25,7 @@ class SocketRequestManage: NSObject {
     fileprivate var priceRequest: SocketRequest?
     fileprivate var balanceRequest: SocketRequest?
     var receiveChatMsgBlock:CompleteBlock?
+    var receiveBalanceBlock:CompleteBlock?
     var operate_code = 0
     func start() {
         _lastHeardBeatTime = timeNow()
@@ -75,8 +76,9 @@ class SocketRequestManage: NSObject {
             socketReqeust = kchartRequest
         }else if packet.operate_code == SocketConst.OPCode.realtime.rawValue{
             socketReqeust = priceRequest
-        }else if packet.operate_code == SocketConst.OPCode.accinfo.rawValue{
-            socketReqeust = balanceRequest
+        }else if packet.operate_code == SocketConst.OPCode.balance.rawValue{
+            let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
+            receiveBalanceBlock?(response)
         }else{
             socketRequests.removeValue(forKey: packet.session_id)
         }

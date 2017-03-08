@@ -69,6 +69,8 @@ class UserTableViewController: BaseTableViewController {
         registerNotify()
         //更新token
         AppDataHelper.instance().checkTokenLogin()
+        requstTotalHistroy()
+        initReceiveBalanceBlock()
         if checkLogin() {
             loginSuccessIs(bool: true)
             
@@ -101,10 +103,11 @@ class UserTableViewController: BaseTableViewController {
             tableView.isScrollEnabled = false
         }
         
-        requstTotalHistroy()
-
-        
+      
     }
+    
+    
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         if keyPath == "useMoney" {
@@ -112,6 +115,33 @@ class UserTableViewController: BaseTableViewController {
         }
     }
 
+    func initReceiveBalanceBlock() {
+        SocketRequestManage.shared.receiveBalanceBlock = { (response) in
+            let jsonResponse = response as! SocketJsonResponse
+            let json = jsonResponse.responseJsonObject()
+            if let result = json as? Dictionary<String,Any> {
+                if let balance = result["balance"] as? Double {
+                    let str = self.numberFormatter.string(from: NSNumber(value: balance))
+                    self.nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
+                    if UserModel.share().getCurrentUser()!.balance > 999999.0 {
+                        self.nameLabel.adjustsFontSizeToFitWidth = true
+                    }
+                    ShareModel.share().userMoney = balance
+                    DispatchQueue.main.async {
+                        UserModel.updateUser(info: { (result)-> ()? in
+                            UserModel.share().currentUser?.balance = balance
+                        })
+                    }
+                    
+                    
+                }
+            }
+            
+            return nil
+        }
+        
+    }
+    
     func requstTotalHistroy() {
         
         AppAPIHelper.user().getTotalHistoryData(complete: { [weak self](result) -> ()? in
@@ -180,7 +210,7 @@ class UserTableViewController: BaseTableViewController {
                 if let  money =  object["balance"] as? Double {
                     let str = self?.numberFormatter.string(from: NSNumber(value: money))
                     self?.nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
-                    if UserModel.share().getCurrentUser()!.balance > 9999999.0 {
+                    if UserModel.share().getCurrentUser()!.balance > 999999.0 {
                         self?.nameLabel.adjustsFontSizeToFitWidth = true
                     }
                     ShareModel.share().userMoney = money
