@@ -111,7 +111,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
             return
         }
         let type =  DealModel.share().selectProduct!.symbol
-        let toTime: Int = Int(Date.nowTimestemp())
+        let toTime: Int = Int(KLineModel.maxTime(type: .miu, symbol: type))// Int(Date.nowTimestemp())
         let fromTime: Int = toTime - 60*Int(AppConst.klineCount)
         KLineModel.queryTimelineModels(fromTime: fromTime, toTime: toTime, goodType: type){[weak self](result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel] {
@@ -153,7 +153,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
             return
         }
         let goodType = DealModel.share().selectProduct!.symbol
-        let toTime: Int = Int(Date.nowTimestemp())
+        let toTime: Int = Int(KLineModel.maxTime(type: type, symbol: goodType))//Int(Date.nowTimestemp())
         let fromTime: Int = toTime - Int(type.rawValue)*Int(AppConst.klineCount)
         KLineModel.queryKLineModels(type: type, fromTime: fromTime, toTime: toTime, goodType: goodType){[weak self](result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel] {

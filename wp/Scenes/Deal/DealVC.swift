@@ -113,6 +113,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             if let resultDic = result as? [String: AnyObject] {
                 if let money = resultDic["balance"] as? Double{
                     self?.myMoneyLabel.text = String.init(format: "%.2f", money)
+                    UserModel.updateUser(info: { (resultDic) -> ()? in
+                        UserModel.share().currentUser?.balance = money
+                    })
                 }
             }
             return nil
@@ -237,6 +240,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                         moneyAlter.addAction(cancelAction)
                         moneyAlter.addAction(sureAction)
                         self?.present(moneyAlter, animated: true, completion: nil)
+                        break
+                    case .success:
+                        self?.refreshUserCash()
                         break
                     default:
                         break

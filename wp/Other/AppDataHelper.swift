@@ -22,7 +22,7 @@ class AppDataHelper: NSObject {
 //        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
 //        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(moreChartData), userInfo: nil, repeats: true)
 //        initErrorCode()
-        checkTokenLogin()
+//        checkTokenLogin()
         initProductData()
     }
     //请求商品数据 
@@ -211,9 +211,10 @@ class AppDataHelper: NSObject {
                        self?.clearUserInfo()
                     }
                     return nil
-                }, error: { (error) ->()? in
-                        SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
-                        return nil
+                }, error: {[weak self] (error) ->()? in
+                    self?.clearUserInfo()
+//                    SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
+                    return nil
                 })
             }
         }

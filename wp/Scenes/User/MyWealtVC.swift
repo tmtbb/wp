@@ -142,6 +142,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
             return nil
         }, error: errorBlockFunc())
         
+
 //        
 //        guard UserModel.share().getCurrentUser() != nil else {return}
 //        let format = NumberFormatter()
@@ -170,7 +171,9 @@ class MyWealtVC: BaseCustomPageListTableViewController {
     }
     //MARK: --网络请求
     override func didRequest(_ pageIndex : Int) {
-        
+
+        didRequestComplete(nil)
+
 //        let index = (pageIndex - 1) * 10
 //        AppAPIHelper.user().everyday(start: Int32(index), count: 10, complete: { [weak self](result) -> ()? in
 //            if result != nil{
