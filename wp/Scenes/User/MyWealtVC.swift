@@ -134,20 +134,20 @@ class MyWealtVC: BaseCustomPageListTableViewController {
                                         })
                     let format = NumberFormatter()
                     format.numberStyle = .currency
-                     let account : String =   format.string(from: NSNumber(value: money))!
-                    let index = account.index(account.startIndex, offsetBy: 1)
-                    self?.account.text = account.substring(from: index)
+                    let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
+                    self?.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)! + "元"
                 }
             }
             return nil
         }, error: errorBlockFunc())
         
-        
-        guard UserModel.share().getCurrentUser() != nil else {return}
-        let format = NumberFormatter()
-        format.numberStyle = .currency
-        let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
-        self.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)! 
+
+//        
+//        guard UserModel.share().getCurrentUser() != nil else {return}
+//        let format = NumberFormatter()
+//        format.numberStyle = .currency
+//        let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
+//        self.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)! + "元"
 //        AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
 //            if let object = result {
 //                let  money : Double =  object["balance"] as! Double
