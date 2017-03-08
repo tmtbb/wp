@@ -29,7 +29,6 @@ class LoginVC: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(loginSuccess), name: Notification.Name(rawValue:AppConst.NotifyDefine.UpdateUserInfo), object: nil)
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -66,7 +65,6 @@ class LoginVC: BaseTableViewController {
             //登录
             let password = ((pwdText.text! + AppConst.sha256Key).sha256()+phoneText.text!).sha256()
             SVProgressHUD.showProgressMessage(ProgressMessage: "登录中...")
-            
             AppAPIHelper.login().login(phone: phoneText.text!, pwd: password, complete: { [weak self]( result) -> ()? in
                 SVProgressHUD.dismiss()
                 //存储用户信息
@@ -117,7 +115,6 @@ class LoginVC: BaseTableViewController {
     //MARK: --快速注册
     @IBAction func registerBtnTapped(_ sender: UIButton) {
         UserModel.share().forgetPwd = false
-        
         UserModel.share().forgetType = .loginPass
     }
     //MARK: --新浪登录

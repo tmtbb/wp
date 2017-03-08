@@ -26,6 +26,8 @@ class BuyProductVC: UIViewController {
     @IBOutlet weak var countBtn: UIButton!
     @IBOutlet weak var countConstraint: NSLayoutConstraint!
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var cangWeiLabel: UILabel!
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     var resultBlock: CompleteBlock?
     
     enum BuyResultType: Int {
@@ -39,6 +41,13 @@ class BuyProductVC: UIViewController {
         initUI()
         Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updatePrice), userInfo: nil, repeats: true)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        countSlider.value = 3.0
+        changeCount(countSlider)
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         SVProgressHUD.dismiss()
@@ -54,7 +63,7 @@ class BuyProductVC: UIViewController {
         maxCountLabel.text = "\(DealModel.share().buyProduct!.maxLot)"
         buyCountLabel.text = "当前选择手数\(DealModel.share().buyProduct!.minLot)"
         countBtn.setTitle("\(DealModel.share().buyProduct?.minLot)", for: .normal)
-        buyBtn.setTitle(DealModel.share().dealUp ? "买涨" : "买跌", for: .normal)
+        buyBtn.setTitle(DealModel.share().dealUp ? "买入" : "卖出", for: .normal)
         
         let colorKey = DealModel.share().dealUp ? AppConst.Color.buyUp : AppConst.Color.buyDown
         dingjinLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
@@ -68,8 +77,9 @@ class BuyProductVC: UIViewController {
         doubleBtn.setImage(UIImage.init(named: selectBtnName), for: .selected)
         selectTypeBtnTapped(doubleBtn)
         
-        countSlider.value = 3.0
-        changeCount(countSlider)
+//        let contentHeight: CGFloat = DealModel.share().dealUp ?  330 : 300
+//        heightConstraint.constant = contentHeight
+//        cangWeiLabel.text = ""
     }
     
     func updatePrice() {

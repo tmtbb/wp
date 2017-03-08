@@ -41,3 +41,12 @@ class BuildDealParam: DealParam {
     var stop: Int = 0
     var isDeferred: Int = 0
 }
+
+//航班接口信息
+class PositionParam: DealParam{
+    
+}
+
+class BenifityParam: DealParam{
+    
+}

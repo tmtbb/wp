@@ -95,6 +95,7 @@ class SocketRequestManage: NSObject {
             if reqeust.isReqeustTimeout() {
                 socketRequests.removeValue(forKey: key)
                 reqeust.onError(-11011)
+                print(">>>>>>>>>>>>>>>>>>>>>>>>>>\(key)")
                 break
             }
         }
@@ -137,10 +138,10 @@ class SocketRequestManage: NSObject {
         }else if packet.operate_code == SocketConst.OPCode.realtime.rawValue{
             priceRequest = socketReqeust
         }else{
-
             socketRequests[packet.session_id] = socketReqeust
         }
         objc_sync_exit(self)
+        print("\(packet.session_id)=================================\(packet.operate_code)")
         sendRequest(packet)
     }
   
