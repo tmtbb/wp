@@ -103,6 +103,7 @@ class HistoryDealVC: BasePageListTableViewController {
                 })
                 alterController.addAction(productAction)
                 alterController.addAction(moneyAction)
+                present(alterController, animated: true, completion: nil)
             }
         }
     }

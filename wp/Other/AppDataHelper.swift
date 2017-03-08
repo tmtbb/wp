@@ -21,9 +21,9 @@ class AppDataHelper: NSObject {
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
 //        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
 //        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(moreChartData), userInfo: nil, repeats: true)
-        initProductData()
 //        initErrorCode()
         checkTokenLogin()
+        initProductData()
     }
     //请求商品数据 
     func initProductData() {
