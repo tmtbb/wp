@@ -18,7 +18,7 @@ class ShareModel: BaseModel {
     //选中的月份
     dynamic var selectMonth : String = " "
     //用户的金额
-    dynamic var useMoney : Double = 0
+    dynamic var userMoney : Double = 0
     //用来传详情的model
     var detailModel  =  WithdrawModel()
     // 选中的银行

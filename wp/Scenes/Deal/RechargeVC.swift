@@ -36,32 +36,29 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     //MARK: --UI
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        
     }
     deinit {
         ShareModel.share().shareData.removeValue(forKey: "rid")
+        ShareModel.share().removeObserver(self, forKeyPath: "userMoney")
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppConst.WechatPay.WechatKeyErrorCode), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: nil)
     }
     func initUI(){
         
-        selectType = 0
+        ShareModel.share().addObserver(self, forKeyPath: "userMoney", options: .new, context: nil)
+        selectType = 1
 //        arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
         // 设置 提现记录按钮
         let btn : UIButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 70, height: 30))
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         btn.setTitle("充值记录", for:  UIControlState.normal)
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
-        let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
-        self.moneyText.text  = str + "元"
+       
         let format = NumberFormatter()
         format.numberStyle = .currency
-        
         let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
-//         let arry = Array()
-        
-        let arry : Array =    account.components(separatedBy: "¥")
-      
-        self.moneyText.text = arry[1] + "元"
+        self.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)! + "元"
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
         NotificationCenter.default.addObserver(self, selector: #selector(paysuccess(_:)), name: Notification.Name(rawValue:AppConst.WechatPay.WechatKeyErrorCode), object: nil)
@@ -74,20 +71,20 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         submited.clipsToBounds = true
         moneyText.dk_textColorPicker = DKColorTable.shared().picker(withKey: "auxiliary")
     }
-    //MARK: 属性的变化
-    //    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    //
-    //        if keyPath == "dataArry" {
-    //
-    //            if let  base = change? [NSKeyValueChangeKey.newKey] as? [BankListModel] {
-    //
-    //                let Count : Int = base.count as Int
-    //                let str : String = String(Count)
-    //                bankCount.text = "\(str)" + " " + "张"
-    //
-    //            }
-    //        }
-    //    }
+       // MARK: 属性的变化
+        override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    
+            if keyPath == "userMoney" {
+    
+//                if let  base = change? [NSKeyValueChangeKey.newKey] as? [BankListModel] {
+//    
+//                    let Count : Int = base.count as Int
+//                    let str : String = String(Count)
+//                    bankCount.text = "\(str)" + " " + "张"
+//    
+//                }
+            }
+        }
     //MARK:-进入充值吗列表页面
     func rechargeList(){
         self.performSegue(withIdentifier: "PushTolist", sender: nil)
@@ -97,6 +94,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         super.viewDidLoad()
         selectRow = false
         title = "充值"
+        selectType = 1
         initData()
         initUI()
     }
@@ -172,7 +170,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             return 2
         }
         if section==1 {
-            return 5
+            return 4
         }
         if selectRow == true  {
             return 1
@@ -180,24 +178,24 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             return 0
         }
     }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(indexPath.section==1){
-            if indexPath.row == 3 {
-                let  cell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 3, section: 1) as IndexPath)!
-                cell.accessoryType =  .checkmark
-                selectType = 1
-                let  uncell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 4, section: 1) as IndexPath)!
-                uncell.accessoryType =  .none
-            }
-            if indexPath.row == 4 {
-                selectType = 1
-                let  cell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 4 , section: 1) as IndexPath)!
-                cell.accessoryType =  .checkmark
-                let  uncell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 3, section: 1) as IndexPath)!
-                uncell.accessoryType =  .none
-            }
-        }
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if(indexPath.section==1){
+//            if indexPath.row == 3 {
+//                let  cell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 3, section: 1) as IndexPath)!
+//                cell.accessoryType =  .checkmark
+//                selectType = 1
+//                let  uncell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 4, section: 1) as IndexPath)!
+//                uncell.accessoryType =  .none
+//            }
+//            if indexPath.row == 4 {
+//                selectType = 1
+//                let  cell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 4 , section: 1) as IndexPath)!
+//                cell.accessoryType =  .checkmark
+//                let  uncell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 3, section: 1) as IndexPath)!
+//                uncell.accessoryType =  .none
+//            }
+//        }
+//    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         self.view.endEditing(true)
@@ -243,31 +241,32 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             var code = Int()
             if errorCode == 0 {
                 code = 1
-                 self.performSegue(withIdentifier: "PushTolist", sender: nil)
+                
             }else{
                 code = 2
                  SVProgressHUD.showError(withStatus: "支付失败")
             }
-            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: code, complete: { (result) -> ()? in
-                if let object = result{
-                    if let  returnCode : Int = object["returnCode"] as? Int{
-                        if returnCode == 1{
-                            SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
-                                
-                                _ = self.navigationController?.popViewController(animated: true)
-                                
-                            })
-                        }else{
-                            SVProgressHUD.showError(withStatus: "支付失败")
-                        }
-                    }else if let  _ : Int = object["error"] as? Int{
-                        SVProgressHUD.showError(withStatus: "支付失败")
-                        
-                    }
-                    
-                }
-                return nil
-            }, error: errorBlockFunc())
+            ShareModel.share().userMoney = 0
+//            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: code, complete: { (result) -> ()? in
+//                if let object = result{
+//                    if let  returnCode : Int = object["returnCode"] as? Int{
+//                        if returnCode == 1{
+//                            SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
+//                                 self.performSegue(withIdentifier: "PushTolist", sender: nil)
+////                                _ = self.navigationController?.popViewController(animated: true)
+//                                
+//                            })
+//                        }else{
+//                            SVProgressHUD.showError(withStatus: "支付失败")
+//                        }
+//                    }else if let  _ : Int = object["error"] as? Int{
+//                        SVProgressHUD.showError(withStatus: "支付失败")
+//                        
+//                    }
+//                    
+//                }
+//                return nil
+//            }, error: errorBlockFunc())
         }
 //                if let errorCode: Int = notice.object as? Int{
 //                    if errorCode == -4{

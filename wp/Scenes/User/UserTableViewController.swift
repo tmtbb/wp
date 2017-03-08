@@ -65,17 +65,16 @@ class UserTableViewController: BaseTableViewController {
         logoutButton.layer.borderWidth = 0.7
         logoutButton.layer.borderColor = UIColor(hexString: "#cccccc").cgColor
         
-        ShareModel.share().addObserver(self, forKeyPath: "useMoney", options: .new, context: nil)
+        ShareModel.share().addObserver(self, forKeyPath: "userMoney", options: .new, context: nil)
         registerNotify()
         //更新token
         AppDataHelper.instance().checkTokenLogin()
         if checkLogin() {
             loginSuccessIs(bool: true)
-// <<<<<<< master
             
+            guard UserModel.share().getCurrentUser() != nil else {return}
             let str = numberFormatter.string(from: NSNumber(value: UserModel.share().getCurrentUser()!.balance))
-            nameLabel.text = str?.substring(from: (",".endIndex))
-// =======
+            nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
 //            nameLabel.text = "\(UserModel.share().getCurrentUser()?.balance)"
 // >>>>>>> master
 //            if ((UserModel.share().getCurrentUser()?.avatarLarge) != "" && UserModel.share().getCurrentUser()?.avatarLarge == "default-head"){
@@ -104,10 +103,10 @@ class UserTableViewController: BaseTableViewController {
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        if keyPath == "useMoney" {
+        if keyPath == "userMoney" {
             if let base = change? [NSKeyValueChangeKey.newKey] as? Double {
                 let str = numberFormatter.string(from: NSNumber(value: base))
-                nameLabel.text =  str?.substring(from: (",".endIndex))
+                nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
             }
             
         }
@@ -181,7 +180,7 @@ class UserTableViewController: BaseTableViewController {
                 if let  money =  object["balance"] as? Double {
                     
                     let str = self?.numberFormatter.string(from: NSNumber(value: money))
-                    self?.nameLabel.text =  str?.substring(from: (",".endIndex))
+                    self?.nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
                     UserModel.updateUser(info: { (result)-> ()? in
                         UserModel.share().currentUser?.balance = money
                     })
@@ -294,7 +293,7 @@ class UserTableViewController: BaseTableViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        ShareModel.share().removeObserver(self, forKeyPath: "useMoney")
+        ShareModel.share().removeObserver(self, forKeyPath: "userMoney")
     }
     
 }

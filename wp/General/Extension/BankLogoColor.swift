@@ -33,7 +33,7 @@ class BankLogoColor: NSObject {
              let str : String =  banklogo[string] as! String
              return UIColor.init(hexString: str)
         }
-        let dict = ["1":"2","3":"4"]
+        _ = ["1":"2","3":"4"]
        
         return UIColor.init(hexString: "1D6AAF")
         

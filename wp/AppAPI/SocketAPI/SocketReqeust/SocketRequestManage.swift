@@ -23,6 +23,7 @@ class SocketRequestManage: NSObject {
     fileprivate var productsRequest:  SocketRequest?
     fileprivate var kchartRequest: SocketRequest?
     fileprivate var priceRequest: SocketRequest?
+    fileprivate var balanceRequest: SocketRequest?
     var receiveChatMsgBlock:CompleteBlock?
     var operate_code = 0
     func start() {
@@ -74,6 +75,8 @@ class SocketRequestManage: NSObject {
             socketReqeust = kchartRequest
         }else if packet.operate_code == SocketConst.OPCode.realtime.rawValue{
             socketReqeust = priceRequest
+        }else if packet.operate_code == SocketConst.OPCode.accinfo.rawValue{
+            socketReqeust = balanceRequest
         }else{
             socketRequests.removeValue(forKey: packet.session_id)
         }
@@ -95,6 +98,7 @@ class SocketRequestManage: NSObject {
             if reqeust.isReqeustTimeout() {
                 socketRequests.removeValue(forKey: key)
                 reqeust.onError(-11011)
+                print(">>>>>>>>>>>>>>>>>>>>>>>>>>\(key)")
                 break
             }
         }
@@ -136,11 +140,13 @@ class SocketRequestManage: NSObject {
             kchartRequest = socketReqeust
         }else if packet.operate_code == SocketConst.OPCode.realtime.rawValue{
             priceRequest = socketReqeust
+        }else if packet.operate_code == SocketConst.OPCode.accinfo.rawValue{
+            balanceRequest = socketReqeust
         }else{
-
             socketRequests[packet.session_id] = socketReqeust
         }
         objc_sync_exit(self)
+        print("\(packet.session_id)=================================\(packet.operate_code)")
         sendRequest(packet)
     }
   

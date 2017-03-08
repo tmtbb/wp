@@ -30,7 +30,7 @@ class RechargeListVCCell: OEZTableViewCell {
         self.minuteLb.text =  Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "HH:mm:ss")
         
 //        BankLogoColor.share().checkLocalBank(string: model.ba)
-        self.bankLogo.image = model.depositType == 1 ? UIImage.init(named: "wechat") : (UIImage.init(named: "unionPay"))
+        self.bankLogo.image = model.depositType == 1 ? UIImage.init(named: "weixinpay") : (UIImage.init(named: "unionPay"))
         //        print(model.status)
         // 设置失败的cell的背景alpha  根据status 来判断 状态view
         //        self.backgroundColor = UIColor.groupTableViewBackground
