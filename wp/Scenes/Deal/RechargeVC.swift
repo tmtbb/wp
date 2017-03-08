@@ -63,8 +63,8 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         self.navigationItem.rightBarButtonItem = barItem
         NotificationCenter.default.addObserver(self, selector: #selector(paysuccess(_:)), name: Notification.Name(rawValue:AppConst.WechatPay.WechatKeyErrorCode), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: nil)
-        //        self.userIdText.text = UserModel.share().getCurrentUser()?.phone
-        self.userIdText.text = UserDefaults.standard.object(forKey: SocketConst.Key.phone) as! String?
+        self.userIdText.text = UserModel.share().currentUser?.phone ?? ""
+//        self.userIdText.text = UserDefaults.standard.object(forKey: SocketConst.Key.phone) as! String?
         self.userIdText.isUserInteractionEnabled = false
         submited.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         submited.layer.cornerRadius = 5
