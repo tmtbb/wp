@@ -46,7 +46,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     }
     func initUI(){
         
-        ShareModel.share().addObserver(self, forKeyPath: "userMoney", options: .new, context: nil)
+//        ShareModel.share().addObserver(self, forKeyPath: "userMoney", options: .new, context: nil)
         selectType = 1
 //        arrow.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI*0.5))
         // 设置 提现记录按钮
@@ -69,6 +69,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         submited.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         submited.layer.cornerRadius = 5
         submited.clipsToBounds = true
+        ShareModel.share().addObserver(self, forKeyPath: "userMoney", options: .new, context: nil)
         moneyText.dk_textColorPicker = DKColorTable.shared().picker(withKey: "auxiliary")
     }
        // MARK: 属性的变化
@@ -76,7 +77,10 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     
             if keyPath == "userMoney" {
     
-//                if let  base = change? [NSKeyValueChangeKey.newKey] as? [BankListModel] {
+                SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 5, completion: { 
+                    
+                })
+                //                if let  base = change? [NSKeyValueChangeKey.newKey] as? [BankListModel] {
 //    
 //                    let Count : Int = base.count as Int
 //                    let str : String = String(Count)
@@ -238,15 +242,16 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         
         
         if let errorCode: Int = notice.object as? Int{
-            var code = Int()
+//            var code = Int()
             if errorCode == 0 {
-                code = 1
+//                code = 1
+                 SVProgressHUD.show(withStatus: "加载中")
                 
             }else{
-                code = 2
+//                code = 2
                  SVProgressHUD.showError(withStatus: "支付失败")
             }
-            ShareModel.share().userMoney = 0
+//            ShareModel.share().userMoney = 0
 //            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: code, complete: { (result) -> ()? in
 //                if let object = result{
 //                    if let  returnCode : Int = object["returnCode"] as? Int{
