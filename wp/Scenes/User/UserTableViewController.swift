@@ -37,6 +37,7 @@ class UserTableViewController: BaseTableViewController {
     @IBOutlet weak var integralBackground: UIView!
     @IBOutlet weak var integralButton: UIButton!
     
+    @IBOutlet weak var memberImageView: UIImageView!
     
     lazy var numberFormatter:NumberFormatter = {
        let formatter = NumberFormatter()
@@ -65,20 +66,24 @@ class UserTableViewController: BaseTableViewController {
         logoutButton.layer.borderWidth = 0.7
         logoutButton.layer.borderColor = UIColor(hexString: "#cccccc").cgColor
         
-        ShareModel.share().addObserver(self, forKeyPath: "userMoney", options: .new, context: nil)
         registerNotify()
         //更新token
         AppDataHelper.instance().checkTokenLogin()
         if checkLogin() {
             loginSuccessIs(bool: true)
             
+            memberImageView.isHidden = UserModel.share().getCurrentUser()?.type == 0
+            if UserModel.share().getCurrentUser() == nil {
+                memberImageView.isHidden = true
+            }
 
-            guard UserModel.share().getCurrentUser() != nil else {return}
-            let str = numberFormatter.string(from: NSNumber(value: UserModel.share().getCurrentUser()!.balance))
+            guard UserModel.share().currentUser != nil else {return}
+            let str = numberFormatter.string(from: NSNumber(value: UserModel.share().currentUser!.balance))
             nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
-            if UserModel.share().getCurrentUser()!.balance > 9999999.0 {
+            if UserModel.share().getCurrentUser()!.balance > 999999.0 {
                 nameLabel.adjustsFontSizeToFitWidth = true
             }
+            
 //            nameLabel.text = "\(UserModel.share().getCurrentUser()?.balance)"
 // >>>>>>> master
 //            if ((UserModel.share().getCurrentUser()?.avatarLarge) != "" && UserModel.share().getCurrentUser()?.avatarLarge == "default-head"){
@@ -107,12 +112,7 @@ class UserTableViewController: BaseTableViewController {
     
     
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        if keyPath == "useMoney" {
-            updateUI()
-        }
-    }
+
 
     func initReceiveBalanceBlock() {
         SocketRequestManage.shared.receiveBalanceBlock = { (response) in
@@ -122,7 +122,7 @@ class UserTableViewController: BaseTableViewController {
                 if let balance = result["balance"] as? Double {
                     let str = self.numberFormatter.string(from: NSNumber(value: balance))
                     self.nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
-                    if UserModel.share().getCurrentUser()!.balance > 999999.0 {
+                    if balance > 999999.0 {
                         self.nameLabel.adjustsFontSizeToFitWidth = true
                     }
                     ShareModel.share().userMoney = balance
@@ -178,7 +178,9 @@ class UserTableViewController: BaseTableViewController {
             nameLabel.text = "---"
         }
     }
-    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     //登录成功
     func updateUI()  {
 //        
@@ -199,14 +201,16 @@ class UserTableViewController: BaseTableViewController {
 //        }
         
         loginSuccessIs(bool: true)
+        memberImageView.isHidden = UserModel.share().getCurrentUser()?.type == 0
         //用户余额数据请求
+
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
 
             if let object = result as? Dictionary<String,Any> {
                 if let  money =  object["balance"] as? Double {
                     let str = self?.numberFormatter.string(from: NSNumber(value: money))
                     self?.nameLabel.text = str?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
-                    if UserModel.share().getCurrentUser()!.balance > 999999.0 {
+                    if money > 999999.0 {
                         self?.nameLabel.adjustsFontSizeToFitWidth = true
                     }
                     ShareModel.share().userMoney = money
@@ -320,7 +324,6 @@ class UserTableViewController: BaseTableViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        ShareModel.share().removeObserver(self, forKeyPath: "userMoney")
     }
     
 }

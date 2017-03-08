@@ -68,6 +68,9 @@ class SocketRequestManage: NSObject {
         objc_sync_enter(self)
         var socketReqeust = socketRequests[packet.session_id]
 
+        if packet.operate_code == SocketConst.OPCode.accinfo.rawValue + 1{
+            
+        }
         if packet.operate_code ==  SocketConst.OPCode.timeline.rawValue + 1{
             socketReqeust = timelineRequest
         }else if packet.operate_code == SocketConst.OPCode.products.rawValue + 1{
@@ -80,7 +83,9 @@ class SocketRequestManage: NSObject {
             let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
             receiveBalanceBlock?(response)
         }else{
+
             socketRequests.removeValue(forKey: packet.session_id)
+
         }
 
         objc_sync_exit(self)
@@ -142,7 +147,7 @@ class SocketRequestManage: NSObject {
             kchartRequest = socketReqeust
         }else if packet.operate_code == SocketConst.OPCode.realtime.rawValue{
             priceRequest = socketReqeust
-        }else if packet.operate_code == SocketConst.OPCode.accinfo.rawValue{
+        }else if packet.operate_code == SocketConst.OPCode.balance.rawValue{
             balanceRequest = socketReqeust
         }else{
             socketRequests[packet.session_id] = socketReqeust

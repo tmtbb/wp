@@ -15,7 +15,8 @@ class SideVC: SideMenuController, SideMenuControllerDelegate {
         SideMenuController.preferences.drawing.sidePanelPosition = .overCenterPanelLeft
         SideMenuController.preferences.drawing.sidePanelWidth = UIScreen.main.bounds.size.width * 0.80
         SideMenuController.preferences.drawing.centerPanelShadow = true
-        SideMenuController.preferences.animating.statusBarBehaviour = .showUnderlay
+        SideMenuController.preferences.animating.statusBarBehaviour = .slideAnimation
+        
         super.init(coder: aDecoder)
     }
     
