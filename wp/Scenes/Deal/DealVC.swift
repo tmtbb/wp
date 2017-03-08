@@ -204,8 +204,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         
         klineTitleView.itemDelegate = self
         klineTitleView.reuseIdentifier = KLineTitleItem.className()
-        
-    
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return rowHeights[indexPath.row]
@@ -280,7 +278,6 @@ extension DealVC{
     func updateNewPrice(model: KChartModel) {
         for view in priceView.subviews {
             view.isHidden = false
-            
         }
         priceLabel.text = String.init(format: "%.4f", model.currentPrice)
         highLabel.text = String.init(format: "%.4f", model.highPrice)

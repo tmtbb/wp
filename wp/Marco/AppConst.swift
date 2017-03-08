@@ -26,10 +26,15 @@ class AppConst {
     static let sha256Key = "t1@s#df!"
     static let pid = 1002
     static let klineCount: Double = 30
+    
     enum KVOKey: String {
         case selectProduct = "selectProduct"
         case allProduct = "allProduct"
         case currentUserId = "currentUserId"
+    }
+    
+    enum NoticeKey: String {
+        case logoutNotice = "LogoutNotice"
     }
     
     class Color {

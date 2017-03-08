@@ -139,14 +139,6 @@ class RegisterVC: BaseTableViewController {
         AppAPIHelper.login().register(phone: UserModel.share().phone!, code: UserModel.share().code!, pwd: password, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
             if result != nil {
-                if let code: Int = result?["result"] as! Int?{
-                    if code == 0{
-                        SVProgressHUD.showErrorMessage(ErrorMessage: "用户已注册", ForDuration: 1, completion: nil)
-                        return nil
-                    }
-                }
-
-//                self?.performSegue(withIdentifier: PwdVC.className(), sender: nil)
                 UserModel.share().fetchUserInfo(phone: self?.phoneText.text ?? "", pwd: self?.pwdText.text ?? "")
             }else{
                 SVProgressHUD.showErrorMessage(ErrorMessage: "注册失败，请稍后再试", ForDuration: 1, completion: nil)

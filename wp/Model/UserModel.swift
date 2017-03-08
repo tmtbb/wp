@@ -48,11 +48,7 @@ class UserModel: BaseModel  {
     
     //获取当前用户
     func getCurrentUser() -> UserInfo? {
-        let id: Int? = UserDefaults.standard.value(forKey: SocketConst.Key.id) as? Int
-        if id == nil{
-            return nil
-        }
-        let user = UserModel.userInfo(userId:id!)
+        let user = UserModel.userInfo(userId:currentUserId)
         if user != nil {
             return user
         }else{
@@ -62,7 +58,8 @@ class UserModel: BaseModel  {
     
     //从服务端拉取用户信息
     func fetchUserInfo(phone: String, pwd: String) {
-        AppAPIHelper.login().login(phone: phone, pwd: pwd, complete: { [weak self]( result) -> ()? in
+        let password = ((phone + AppConst.sha256Key).sha256()+pwd).sha256()
+        AppAPIHelper.login().login(phone: phone, pwd: password, complete: { [weak self]( result) -> ()? in
             //存储用户信息
             if result != nil{
                 self?.upateUserInfo(userObject: result!)
@@ -97,14 +94,12 @@ class UserModel: BaseModel  {
     func upateUserInfo(userObject: AnyObject){
         if let model = userObject as? UserInfoModel {
             token = model.token!
-            
             //存储token
             UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
             if let user = model.userinfo {
                 currentUserId = user.id
                 updateRealm()
                 //存储uid
-                UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.id)
                 if let phone = user.phone{
                     UserDefaults.standard.setValue(phone, forKey: SocketConst.Key.phone)
                 }
