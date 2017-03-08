@@ -69,6 +69,8 @@ class UserTableViewController: BaseTableViewController {
         registerNotify()
         //更新token
         AppDataHelper.instance().checkTokenLogin()
+        requstTotalHistroy()
+        initReceiveBalanceBlock()
         if checkLogin() {
             loginSuccessIs(bool: true)
             
@@ -101,8 +103,7 @@ class UserTableViewController: BaseTableViewController {
             tableView.isScrollEnabled = false
         }
         
-        requstTotalHistroy()
-        initReceiveBalanceBlock()
+      
     }
     
     
@@ -117,7 +118,7 @@ class UserTableViewController: BaseTableViewController {
     func initReceiveBalanceBlock() {
         SocketRequestManage.shared.receiveBalanceBlock = { (response) in
             let jsonResponse = response as! SocketJsonResponse
-            let json = jsonResponse.responseJson()
+            let json = jsonResponse.responseJsonObject()
             if let result = json as? Dictionary<String,Any> {
                 if let balance = result["balance"] as? Double {
                     let str = self.numberFormatter.string(from: NSNumber(value: balance))
@@ -126,9 +127,12 @@ class UserTableViewController: BaseTableViewController {
                         self.nameLabel.adjustsFontSizeToFitWidth = true
                     }
                     ShareModel.share().userMoney = balance
-                    UserModel.updateUser(info: { (result)-> ()? in
-                        UserModel.share().currentUser?.balance = balance
-                    })
+                    DispatchQueue.main.async {
+                        UserModel.updateUser(info: { (result)-> ()? in
+                            UserModel.share().currentUser?.balance = balance
+                        })
+                    }
+                    
                     
                 }
             }

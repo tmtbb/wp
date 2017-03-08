@@ -56,9 +56,9 @@ class SocketConst: NSObject {
         // 充值列表
         case rechageList = 6003
         // 微信充值
-        case weixinpay = 1033
+        case weixinpay = 7033
         // 银联充值
-        case unionpay = 7033
+        case unionpay = 1033
         // 充值结果
         case unionpayResult = 1041
         // 充值结果
@@ -100,7 +100,7 @@ class SocketConst: NSObject {
         //收益选择
         case benifity = 7001
         
-        case balance = 7100
+        case balance = 7002
         
     }
     enum type:UInt8 {
