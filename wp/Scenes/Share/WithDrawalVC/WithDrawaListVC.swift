@@ -64,10 +64,8 @@ class WithDrawaListVC: BasePageListTableViewController {
                 if pageIndex == 1{
                     self?.dataModel =  Model.withdrawList
                 }else{
-                
                     self?.dataModel  =   (self?.dataModel)! + Model.withdrawList
                 }
-                
                 self?.didRequestComplete(Model.withdrawList as AnyObject?)
             }else{
                 self?.didRequestComplete(nil)
@@ -76,13 +74,10 @@ class WithDrawaListVC: BasePageListTableViewController {
             }, error: errorBlockFunc())
         
     }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
         let model = self.dataModel[indexPath.row]
-        
         ShareModel.share().shareData["wid"] = "\(model.wid)"
-        
         ShareModel.share().detailModel = model
         self.performSegue(withIdentifier: "PushWithDrawDetail", sender: nil)
         
