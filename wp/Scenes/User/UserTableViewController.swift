@@ -68,7 +68,7 @@ class UserTableViewController: BaseTableViewController {
         registerNotify()
         //更新token
         AppDataHelper.instance().checkTokenLogin()
-        UserModel.share().currentUser?.addObserver(self, forKeyPath: "balance", options: .new, context: nil)
+
         requstTotalHistroy()
         initReceiveBalanceBlock()
         if checkLogin() {
@@ -109,7 +109,7 @@ class UserTableViewController: BaseTableViewController {
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        if keyPath == "balance" {
+        if keyPath == AppConst.KVOKey.balance.rawValue {
             guard UserModel.share().currentUser != nil else { return }
             setBalanceText(balance: (UserModel.share().currentUser?.balance)!)
         }
@@ -214,7 +214,7 @@ class UserTableViewController: BaseTableViewController {
         loginSuccessIs(bool: true)
         memberImageView.isHidden = UserModel.share().getCurrentUser()?.type == 0
         //用户余额数据请求
-
+        UserModel.share().currentUser?.addObserver(self, forKeyPath: AppConst.KVOKey.balance.rawValue, options: .new, context: nil)
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
 
             if let object = result as? Dictionary<String,Any> {
