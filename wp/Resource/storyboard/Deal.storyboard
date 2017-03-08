@@ -509,9 +509,9 @@
                                                             </constraints>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eJE-VD-ZHz">
-                                                            <rect key="frame" x="288" y="2.5" width="62" height="30"/>
+                                                            <rect key="frame" x="273" y="2.5" width="77" height="30"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <state key="normal" title="历史交易">
+                                                            <state key="normal" title="未处理交易">
                                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>
                                                             <connections>
@@ -716,7 +716,7 @@
             </objects>
             <point key="canvasLocation" x="336.80000000000001" y="260.41979010494754"/>
         </scene>
-        <!--仓位历史交易记录-->
+        <!--未处理交易-->
         <scene sceneID="aeR-o6-Wl4">
             <objects>
                 <tableViewController hidesBottomBarWhenPushed="YES" id="qq6-GU-JHg" customClass="HistoryDealVC" customModule="wp" customModuleProvider="target" sceneMemberID="viewController">
@@ -810,7 +810,7 @@
                             <outlet property="delegate" destination="qq6-GU-JHg" id="jbG-jh-7Ly"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="仓位历史交易记录" id="zqG-WA-zmM"/>
+                    <navigationItem key="navigationItem" title="未处理交易" id="zqG-WA-zmM"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JxB-UT-TZe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2487,6 +2487,6 @@
         <image name="wain.png" width="10" height="10"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="giv-mJ-A5w"/>
+        <segue reference="zcu-70-shs"/>
     </inferredMetricsTieBreakers>
 </document>
