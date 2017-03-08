@@ -13,6 +13,9 @@ class WithDrawalVC: BaseTableViewController {
     //提现提交按钮
     @IBOutlet weak var submited: UIButton!
     var bankId : Int64 = 0
+    
+    // 提现金额
+    var accountMoney : Double = 0
     // 发送验证码
     @IBOutlet weak var voiceCodeBtn: UIButton!
     // 定时器
@@ -71,10 +74,25 @@ class WithDrawalVC: BaseTableViewController {
         submited.layer.cornerRadius = 5
         submited.clipsToBounds = true
         withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
-        guard UserModel.share().getCurrentUser() != nil else {return}
-        let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
-        let int : Double = Double(str)!
-        self.money.placeholder = "最多可提现" + "\(int)" + "元"
+//        guard UserModel.share().getCurrentUser() != nil else {return}
+//        let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
+//        let int : Double = Double(str)!
+//        self.money.placeholder = "最多可提现" + "\(int)" + "元"
+        
+        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
+            if let resultDic = result as? [String: AnyObject] {
+                if let money = resultDic["balance"] as? Double{
+                    
+                    UserModel.updateUser(info: { (result) -> ()? in
+                        UserModel.share().getCurrentUser()?.balance = Double(money)
+                        return nil
+                    })
+                    self?.accountMoney = money
+                    self?.money.placeholder = "最多可提现" + "\(money)" + "元"
+                }
+            }
+            return nil
+            }, error: errorBlockFunc())
         
     }
     //MARK: --属性的变化
@@ -104,8 +122,8 @@ class WithDrawalVC: BaseTableViewController {
     @IBAction func withDraw(_ sender: Any) {
         
         // 校验 是否选择银行卡和提现最多金额
-        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
-        let account  :  Double = Double(str)!
+//        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
+        let account  = accountMoney
         
         if self.money.text?.length()==0{
             SVProgressHUD.showError(withStatus: "请输入提现金额")
@@ -241,7 +259,7 @@ class WithDrawalVC: BaseTableViewController {
     //MARK: 全部提现导航栏
     @IBAction func withDrawAll(_ sender: Any) {
         //        self.money.text
-        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
+        let str : String = NSString(format: "%.2f" , self.accountMoney) as String
         self.money.text = str
     }
 }
