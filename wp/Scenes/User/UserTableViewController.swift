@@ -65,23 +65,20 @@ class UserTableViewController: BaseTableViewController {
         register.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: AppConst.Color.auxiliary), for: .normal)
         logoutButton.layer.borderWidth = 0.7
         logoutButton.layer.borderColor = UIColor(hexString: "#cccccc").cgColor
-        
         registerNotify()
         //更新token
         AppDataHelper.instance().checkTokenLogin()
+
         requstTotalHistroy()
         initReceiveBalanceBlock()
         if checkLogin() {
             loginSuccessIs(bool: true)
-            
             memberImageView.isHidden = UserModel.share().getCurrentUser()?.type == 0
             if UserModel.share().getCurrentUser() == nil {
                 memberImageView.isHidden = true
             }
-
             guard UserModel.share().currentUser != nil else {return}
-            let str = numberFormatter.string(from: NSNumber(value: UserModel.share().currentUser!.balance))
-            nameLabel.text = str?.components(separatedBy: "￥").last?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
+            nameLabel.text = formatMoneyString(balance: UserModel.share().currentUser!.balance)
             if UserModel.share().getCurrentUser()!.balance > 999999.0 {
                 nameLabel.adjustsFontSizeToFitWidth = true
             }
@@ -110,10 +107,33 @@ class UserTableViewController: BaseTableViewController {
         
       
     }
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        if keyPath == AppConst.KVOKey.balance.rawValue {
+            guard UserModel.share().currentUser != nil else { return }
+            setBalanceText(balance: (UserModel.share().currentUser?.balance)!)
+        }
+        
+    }
     
+    func formatMoneyString(balance:Double) -> String? {
+       let str = numberFormatter.string(from: NSNumber(value: balance))
+        return str?.components(separatedBy: "￥").last?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
+    }
     
+    func setBalanceText(balance:Double) {
+        nameLabel.text = formatMoneyString(balance: balance)
+        if balance > 999999.0 {
+            nameLabel.adjustsFontSizeToFitWidth = true
+        }
+        ShareModel.share().userMoney = balance
+        DispatchQueue.main.async {
+            UserModel.updateUser(info: { (result)-> ()? in
+                UserModel.share().currentUser?.balance = balance
+            })
+        }
+    }
     
-
 
     func initReceiveBalanceBlock() {
         SocketRequestManage.shared.receiveBalanceBlock = { (response) in
@@ -121,22 +141,9 @@ class UserTableViewController: BaseTableViewController {
             let json = jsonResponse.responseJsonObject()
             if let result = json as? Dictionary<String,Any> {
                 if let balance = result["balance"] as? Double {
-                    let str = self.numberFormatter.string(from: NSNumber(value: balance))
-                    self.nameLabel.text = str?.components(separatedBy: "￥").last?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
-                    if balance > 999999.0 {
-                        self.nameLabel.adjustsFontSizeToFitWidth = true
-                    }
-                    ShareModel.share().userMoney = balance
-                    DispatchQueue.main.async {
-                        UserModel.updateUser(info: { (result)-> ()? in
-                            UserModel.share().currentUser?.balance = balance
-                        })
-                    }
-                    
-                    
+                    self.setBalanceText(balance: balance)
                 }
             }
-            
             return nil
         }
         
@@ -207,20 +214,12 @@ class UserTableViewController: BaseTableViewController {
         loginSuccessIs(bool: true)
         memberImageView.isHidden = UserModel.share().getCurrentUser()?.type == 0
         //用户余额数据请求
-
+        UserModel.share().currentUser?.addObserver(self, forKeyPath: AppConst.KVOKey.balance.rawValue, options: .new, context: nil)
         AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
 
             if let object = result as? Dictionary<String,Any> {
                 if let  money =  object["balance"] as? Double {
-                    let str = self?.numberFormatter.string(from: NSNumber(value: money))
-                    self?.nameLabel.text = str?.components(separatedBy: "￥").last?.components(separatedBy: "¥").last?.components(separatedBy: "$").last
-                    if money > 999999.0 {
-                        self?.nameLabel.adjustsFontSizeToFitWidth = true
-                    }
-                    ShareModel.share().userMoney = money
-                    UserModel.updateUser(info: { (result)-> ()? in
-                        UserModel.share().currentUser?.balance = money
-                    })
+                self?.setBalanceText(balance: money)
                 } else {
                     self?.nameLabel.text =  "0.00"
                 }
@@ -279,9 +278,6 @@ class UserTableViewController: BaseTableViewController {
     @IBAction func logout(_ sender: Any) {
         AppDataHelper.instance().clearUserInfo()
         sideMenuController?.toggle()
-//        _ = checkLogin()
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
-//        _ = checkLogin()
     }
     @IBAction func enterDidClick(_ sender: Any) {
         
@@ -327,6 +323,7 @@ class UserTableViewController: BaseTableViewController {
     }
     
     deinit {
+        UserModel.share().currentUser?.removeObserver(self, forKeyPath: "balance")
         NotificationCenter.default.removeObserver(self)
     }
     
