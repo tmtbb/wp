@@ -24,27 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
         
         
         //URL types
-        Fabric.with([Crashlytics.self])
+        
         appearance()
         window?.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
-//        pushMessageRegister()
-//        umapp()
         wechat()
       
-////        测试修改微信充值的 appkey
-//        let str : String = Bundle.main.path(forResource: "Info", ofType: "plist")!
-//        
-//        var  dic : NSMutableDictionary = NSMutableDictionary.init(contentsOfFile: str)!
-//        
-//        let arr : NSArray =  dic.object(forKey: "CFBundleURLTypes") as! NSArray
-//        
-//        var dicc : NSMutableDictionary = arr[0] as! NSMutableDictionary
-//        
-//        dicc.setValue("11", forKey: "CFBundleTypeRole")
-//        
-//        let url : URL =  URL.init(string: str)!
-//        dic.write(to: url as URL, atomically: true)
-//         var  dic1111 : NSMutableDictionary = NSMutableDictionary.init(contentsOfFile: str)!
         AppDataHelper.instance().initData()
         AppServerHelper.instance().initServer()
         return true
@@ -75,20 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     }
    
     
-    func pushMessageRegister() {
-        //注册消息推送
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: { () in
-            
-#if true
-            GeTuiSdk.start(withAppId: "d2YVUlrbRU6yF0PFQJfPkA", appKey: "yEIPB4YFxw64Ag9yJpaXT9", appSecret: "TMQWRB2KrG7QAipcBKGEyA", delegate: self)
-#endif
-            
-            let notifySettings = UIUserNotificationSettings.init(types: [.alert, .badge, .sound], categories: nil)
-            UIApplication.shared.registerUserNotificationSettings(notifySettings)
-            UIApplication.shared.registerForRemoteNotifications()
-            
-        })
-    }
+
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         var token = deviceToken.description
@@ -124,10 +95,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
                  let str : String = "\(code!)"
             //校验签名
 //            let strdata = try? JSONSerialization.data(withJSONObject: data!, options: [])
-            
 //             let signdata = String(data:strdata!, encoding: String.Encoding.utf8)
             
-                  NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: str, userInfo:nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: str, userInfo:nil)
         
             })
             
@@ -139,12 +109,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
         return true
     }
     func verify(sign : String) -> Bool {
-        
         return false
     }
   
     fileprivate func appearance() {
-        
         let navigationBar:UINavigationBar = UINavigationBar.appearance() as UINavigationBar;
         navigationBar.shadowImage = UIImage.init(named: "nav_clear")
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
@@ -158,24 +126,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
         SVProgressHUD.setMinimumDismissTimeInterval(2)
     }
    
-    fileprivate func umapp() {
-        
-        UMAnalyticsConfig.sharedInstance().appKey = AppConst.UMAppkey
-        UMAnalyticsConfig.sharedInstance().channelId = ""
-        MobClick.start(withConfigure: UMAnalyticsConfig.sharedInstance())
-        //version标识
-        let version: String? = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
-        MobClick.setAppVersion(version)
-        //日志加密设置
-        MobClick.setEncryptEnabled(true)
-        //使用集成测试服务
-        MobClick.setLogEnabled(true)
-    }
+   
     
     //MARK: --Wechat
     fileprivate func wechat() {
-        //wxadf8e3bbeb283ba9 测试的demo光彩
-        //wx012941fcfbec7a23自己的
         WXApi.registerApp("wx9dc39aec13ee3158")
     }
     func onResp(_ resp: BaseResp!) {
@@ -224,6 +178,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     
     
    
- }
+}
 
 

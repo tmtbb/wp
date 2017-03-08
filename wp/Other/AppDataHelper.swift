@@ -224,6 +224,7 @@ class AppDataHelper: NSObject {
         UserDefaults.standard.removeObject(forKey: SocketConst.Key.token)
         UserModel.share().token = ""
         UserModel.share().currentUserId = 0
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NoticeKey.logoutNotice.rawValue), object: nil, userInfo: nil)
     }
     
     //获取错误信息

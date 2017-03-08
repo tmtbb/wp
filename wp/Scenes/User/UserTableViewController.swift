@@ -244,7 +244,7 @@ class UserTableViewController: BaseTableViewController {
     @IBAction func logout(_ sender: Any) {
         AppDataHelper.instance().clearUserInfo()
         sideMenuController?.toggle()
-        _ = checkLogin()
+//        _ = checkLogin()
 //        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.QuitEnterClick), object: nil)
 //        _ = checkLogin()
     }

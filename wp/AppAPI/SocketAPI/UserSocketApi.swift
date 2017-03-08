@@ -90,10 +90,10 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
                      SocketConst.Key.token: UserModel.share().token ,
                      SocketConst.Key.bid: bid,
-                      SocketConst.Key.phone: phone,
-                       SocketConst.Key.code: vCode,
-                        SocketConst.Key.timestamp: timestamp,
-                         SocketConst.Key.vToken: "3021",
+                     SocketConst.Key.phone: phone,
+                     SocketConst.Key.code: vCode,
+                     SocketConst.Key.timestamp: timestamp,
+                     SocketConst.Key.vToken: "3021",
                    ] as [String : Any]
         print(param)
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .unbindcard, dict: param as [String : AnyObject], type: SocketConst.type.wp)
