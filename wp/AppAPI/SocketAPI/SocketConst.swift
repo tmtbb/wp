@@ -96,9 +96,11 @@ class SocketConst: NSObject {
         
 
         //航运仓位
-        case position = 7002
+        case position = 5007
         //收益选择
         case benifity = 7001
+        
+        case balance = 7100
         
     }
     enum type:UInt8 {
