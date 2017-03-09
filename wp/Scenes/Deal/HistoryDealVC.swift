@@ -21,6 +21,7 @@ class HistoryDealCell: OEZTableViewCell{
     @IBOutlet weak var statuslb: UILabel!
     override func update(_ data: Any!) {
         if let model: PositionModel = data as! PositionModel? {
+            print(model.description)
             nameLabel.text = "\(model.name)"
             timeLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.closeTime)), format: "yyyy.MM.dd HH:mm:ss")
            //com.yundian.trip
@@ -31,9 +32,13 @@ class HistoryDealCell: OEZTableViewCell{
             statuslb.text =  model.result   ?  "盈" :   "亏"
             titleLabel.text = model.buySell == 1 ? "买入" : "卖出"
             let handleText = [" 未操作 "," 双倍返回 "," 货运 "," 退仓 "]
-            handleLabel.text = handleText[model.handle]
+            if let handle = model.handle  {
+                if handle < handleText.count{
+                    handleLabel.text = handleText[model.handle]
+                }
+            }
             
-            if model.result == false{
+            if model.buySell == -1 && UserModel.share().currentUser?.type == 0{
                 handleLabel.backgroundColor = UIColor.clear
                 handleLabel.text = ""
             }else if model.handle == 0{
@@ -97,69 +102,68 @@ class HistoryDealVC: BasePageListTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let model = self.dataSource?[indexPath.row] as? PositionModel{
-            if  model.result{
-                if model.handle != 0{
-                    return
+           
+            if model.handle != 0{
+                return
+            }
+            let param = BenifityParam()
+            param.tid = model.positionId
+            let alterController = UIAlertController.init(title: "恭喜盈利", message: "请选择盈利方式", preferredStyle: .alert)
+            let productAction = UIAlertAction.init(title: "货运", style: .default, handler: {[weak self] (resultDic) in
+                param.handle = 2
+                AppAPIHelper.deal().benifity(param: param, complete: {(result) -> ()? in
+                    if let resultDic: [String: AnyObject] = result as? [String: AnyObject]{
+                        if let id = resultDic[SocketConst.Key.id] as? Int{
+                            if id != UserModel.share().currentUserId{
+                                return nil
+                            }
+                        }
+                        if let handle = resultDic[SocketConst.Key.handle] as? Int{
+                            if let selectModel = self?.dataSource?[indexPath.row] as? PositionModel{
+                                UserModel.updateUser(info: { (info) -> ()? in
+                                    selectModel.handle = handle
+                                    tableView.reloadData()
+                                    return nil
+                                })
+                            }
+                        }
+                    }
+                    return nil
+                }, error: self?.errorBlockFunc())
+            })
+            let moneyAction = UIAlertAction.init(title: "双倍返回", style: .default, handler: { [weak self](resultDic) in
+                param.handle = 1
+                AppAPIHelper.deal().benifity(param: param, complete: {(result) -> ()? in
+                    if let resultDic: [String: AnyObject] = result as? [String: AnyObject]{
+                        if let id = resultDic[SocketConst.Key.id] as? Int{
+                            if id != UserModel.share().currentUserId{
+                                return nil
+                            }
+                        }
+                        if let handle = resultDic[SocketConst.Key.handle] as? Int{
+                            if let selectModel = self?.dataSource?[indexPath.row] as? PositionModel{
+                                UserModel.updateUser(info: { (info) -> ()? in
+                                    selectModel.handle = handle
+                                    tableView.reloadData()
+                                    return nil
+                                })
+                            }
+                        }
+                    }
+                    return nil
+                }, error: self?.errorBlockFunc())
+            })
+            
+            if model.buySell == 1{
+                if model.result{
+                    alterController.addAction(moneyAction)
                 }
-                let param = BenifityParam()
-                param.tid = model.positionId
-                let alterController = UIAlertController.init(title: "恭喜盈利", message: "请选择盈利方式", preferredStyle: .alert)
-                let productAction = UIAlertAction.init(title: "货运", style: .default, handler: {[weak self] (resultDic) in
-                    param.handle = 2
-                    AppAPIHelper.deal().benifity(param: param, complete: {(result) -> ()? in
-                        if let resultDic: [String: AnyObject] = result as? [String: AnyObject]{
-                            if let id = resultDic[SocketConst.Key.id] as? Int{
-                                if id != UserModel.share().currentUserId{
-                                    return nil
-                                }
-                            }
-                            if let handle = resultDic[SocketConst.Key.handle] as? Int{
-                                if let selectModel = self?.dataSource?[indexPath.row] as? PositionModel{
-                                    UserModel.updateUser(info: { (info) -> ()? in
-                                        selectModel.handle = handle
-                                        tableView.reloadData()
-                                        return nil
-                                    })
-                                }
-                            }
-                        }
-                        return nil
-                    }, error: self?.errorBlockFunc())
-                })
-                let moneyAction = UIAlertAction.init(title: "双倍返回", style: .default, handler: { [weak self](resultDic) in
-                    param.handle = 1
-                    AppAPIHelper.deal().benifity(param: param, complete: {(result) -> ()? in
-                        if let resultDic: [String: AnyObject] = result as? [String: AnyObject]{
-                            if let id = resultDic[SocketConst.Key.id] as? Int{
-                                if id != UserModel.share().currentUserId{
-                                    return nil
-                                }
-                            }
-                            if let handle = resultDic[SocketConst.Key.handle] as? Int{
-                                if let selectModel = self?.dataSource?[indexPath.row] as? PositionModel{
-                                    UserModel.updateUser(info: { (info) -> ()? in
-                                        selectModel.handle = handle
-                                        tableView.reloadData()
-                                        return nil
-                                    })
-                                }
-                            }
-                        }
-                        return nil
-                    }, error: self?.errorBlockFunc())
-                })
-                
-                if model.buySell == 1{
-                    if model.result{
-                        alterController.addAction(moneyAction)
-                    }
-                    alterController.addAction(productAction)
+                alterController.addAction(productAction)
+                present(alterController, animated: true, completion: nil)
+            }else{
+                if UserModel.share().currentUser?.type == 0 && model.result{
+                    alterController.addAction(moneyAction)
                     present(alterController, animated: true, completion: nil)
-                }else{
-                    if UserModel.share().currentUser?.type == 0 && model.result == false{
-                        alterController.addAction(moneyAction)
-                        present(alterController, animated: true, completion: nil)
-                    }
                 }
             }
         }

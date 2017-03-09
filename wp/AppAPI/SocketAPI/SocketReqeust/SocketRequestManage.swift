@@ -68,8 +68,8 @@ class SocketRequestManage: NSObject {
         objc_sync_enter(self)
         var socketReqeust = socketRequests[packet.session_id]
 
-        if packet.operate_code == SocketConst.OPCode.accinfo.rawValue + 1{
-            
+        if packet.operate_code == SocketConst.OPCode.benifity.rawValue + 1{
+            print("================")
         }
         if packet.operate_code ==  SocketConst.OPCode.timeline.rawValue + 1{
             socketReqeust = timelineRequest
@@ -83,9 +83,7 @@ class SocketRequestManage: NSObject {
             let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
             receiveBalanceBlock?(response)
         }else{
-
             socketRequests.removeValue(forKey: packet.session_id)
-
         }
 
         objc_sync_exit(self)

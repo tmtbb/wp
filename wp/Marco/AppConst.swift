@@ -75,7 +75,7 @@ class AppConst {
         //61.147.114.87  18002
         #if true //是否测试环境
         static let TcpServerIP:String = "61.147.114.87";
-        static let TcpServerPort:UInt16 = 16006;
+        static let TcpServerPort:UInt16 = 16005;
         static let TttpHostUrl:String = "http://61.147.114.87";
         #else
 //        static let TcpServerIP:String = "61.147.114.78";
@@ -112,8 +112,6 @@ class AppConst {
         case CFBundleShortVersionString = "CFBundleShortVersionString"
         case CFBundleVersion = "CFBundleVersion"
     }
-    
-    
 
     class WechatKey {
         static let Scope = "snsapi_userinfo"
@@ -125,14 +123,12 @@ class AppConst {
     }
     
     class WechatPay {
-      
         static let WechatKeyErrorCode = "WechatKeyErrorCode"
     }
+    
     class UnionPay {
-        
         static let UnionErrorCode = "UnionErrorCode"
     }
-
     
     class NotifyDefine {
         
