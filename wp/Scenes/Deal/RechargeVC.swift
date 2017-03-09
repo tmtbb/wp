@@ -26,6 +26,23 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     @IBOutlet weak var submited: UIButton!    //提交按钮
     var selectRow : Bool!                                     // 来用来判断刷新几个区
     
+    
+    
+    //MARK: --界面销毁删除监听
+    deinit {
+        ShareModel.share().shareData.removeValue(forKey: "rid")
+        ShareModel.share().removeObserver(self, forKeyPath: "userMoney")
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppConst.WechatPay.WechatKeyErrorCode), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: nil)
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        selectRow = false
+        title = "充值"
+        selectType = 1
+        initData()
+        initUI()
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTabBarWithAnimationDuration()
@@ -47,18 +64,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             return nil
             }, error: errorBlockFunc())
     }
-    
     //MARK: --UI
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-    }
-    deinit {
-        ShareModel.share().shareData.removeValue(forKey: "rid")
-        ShareModel.share().removeObserver(self, forKeyPath: "userMoney")
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppConst.WechatPay.WechatKeyErrorCode), object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: nil)
-    }
     func initUI(){
         selectType = 1
         // 设置 提现记录按钮
@@ -67,7 +73,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         btn.setTitle("充值记录", for:  UIControlState.normal)
         btn.addTarget(self, action: #selector(rechargeList), for: UIControlEvents.touchUpInside)
         //        self.bankCount.text = "0" + " " + "张"
-        
         let barItem :UIBarButtonItem = UIBarButtonItem.init(customView: btn as UIView)
         self.navigationItem.rightBarButtonItem = barItem
         NotificationCenter.default.addObserver(self, selector: #selector(paysuccess(_:)), name: Notification.Name(rawValue:AppConst.WechatPay.WechatKeyErrorCode), object: nil)
@@ -79,37 +84,10 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         submited.clipsToBounds = true
         ShareModel.share().addObserver(self, forKeyPath: "userMoney", options: .new, context: nil)
         moneyText.dk_textColorPicker = DKColorTable.shared().picker(withKey: "auxiliary")
-        
     }
-    // MARK: 属性的变化
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
-        if keyPath == "userMoney" {
-            //
-            SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 2, completion: {
-                self.performSegue(withIdentifier: "PushTolist", sender: nil)
-            })
-            //                if let  base = change? [NSKeyValueChangeKey.newKey] as? [BankListModel] {
-            //
-            //                    let Count : Int = base.count as Int
-            //                    let str : String = String(Count)
-            //                    bankCount.text = "\(str)" + " " + "张"
-            //
-            //                }
-        }
-    }
-    //MARK:-进入充值吗列表页面
+    //MARK:-进入充值吗列表
     func rechargeList(){
         self.performSegue(withIdentifier: "PushTolist", sender: nil)
-    }
-    //MARK: --LIFECYCLE
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        selectRow = false
-        title = "充值"
-        selectType = 1
-        initData()
-        initUI()
     }
     //MARK: --DATA
     func initData() {
@@ -208,7 +186,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     }
     
     
-    //MARK: 监听返回结果
+    //MARK: 监听银联返回结果
     func errorCode(_ notice: NSNotification){
         
         if let errorCode: String = notice.object as? String{
@@ -240,19 +218,22 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         
         
     }
-    //MARK: 监听返回结果
+    //MARK: 监听微信支付返回结果
     func paysuccess(_ notice: NSNotification) {
-        
-        
         if let errorCode: Int = notice.object as? Int{
             //            var code = Int()
             if errorCode == 0 {
                 //                code = 1
                 //                 SVProgressHUD.show(withStatus: "加载中")
                 
-            }else{
-                //                code = 2
+            }
+            else if errorCode == -4{
                 SVProgressHUD.showError(withStatus: "支付失败")
+                return
+            }
+            else   if errorCode == -2{
+                SVProgressHUD.showError(withStatus: "用户中途取消")
+                return
             }
             //            ShareModel.share().userMoney = 0
             //            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: code, complete: { (result) -> ()? in
@@ -305,9 +286,22 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         //                self?.bankCount.text = "\(str)" + " " + "张"
         //            }else {
         //            }
-        //            
+        //
         //            return nil
         //            }, error: errorBlockFunc())
     }
+    
+    // MARK: 属性的变化 后台返回余额变化进入充值列表
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        if keyPath == "userMoney" {
+            //
+            SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 2, completion: {
+                self.performSegue(withIdentifier: "PushTolist", sender: nil)
+            })
+            
+        }
+    }
+    
     
 }

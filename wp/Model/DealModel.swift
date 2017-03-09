@@ -76,7 +76,7 @@ class DealModel: BaseModel {
     
     class func getAllPositionModel() -> Results<PositionModel>{
         let realm = try! Realm()
-        return realm.objects(PositionModel.self).filter("closeTime > \(Int(NSDate().timeIntervalSince1970))").sorted(byProperty: "positionTime", ascending: false)
+        return realm.objects(PositionModel.self).filter("closeTime > \(Int(NSDate().timeIntervalSince1970) + DealModel.share().difftime)").sorted(byProperty: "positionTime", ascending: false)
     }
     class func getHistoryPositionModel() -> Results<PositionModel>{
         let realm = try! Realm()

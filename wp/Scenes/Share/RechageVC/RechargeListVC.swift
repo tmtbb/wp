@@ -8,7 +8,6 @@
 //
 
 import UIKit
-//OEZTableViewCell
 class RechargeListVCCell: OEZTableViewCell {
     
     @IBOutlet weak var weekLb: UILabel!            // 姓名LbstatusLb
@@ -40,14 +39,11 @@ class RechargeListVCCell: OEZTableViewCell {
 
 class RechargeListVC: BasePageListTableViewController {
     
-    //用来接收偏移量
-    var contentoffset = CGFloat()
-    /** 用来判断刷新列表页第几页 **/
-    var pageNumber : Int = 0
-    // 设置显示的月份的label
-    var  monthLb  = UILabel()
-    //来接受全局的数组
-    var dataModel = [Model]()
+    
+    var contentoffset = CGFloat()          //用来接收偏移量
+    var pageNumber : Int = 0               //用来判断刷新列表页第几页
+    var  monthLb  = UILabel()              // 设置显示的月份的label
+    var dataModel = [Model]()              //来接收全局的数组
     override func viewDidLoad() {
         super.viewDidLoad()
         pageNumber = 0

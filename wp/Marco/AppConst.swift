@@ -31,6 +31,7 @@ class AppConst {
         case selectProduct = "selectProduct"
         case allProduct = "allProduct"
         case currentUserId = "currentUserId"
+        case balance = "balance"
     }
     
     enum NoticeKey: String {

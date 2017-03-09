@@ -29,22 +29,9 @@ class SuccessWithdrawVC: BaseTableViewController {
         let amount : Double =  ShareModel.share().detailModel.amount
         moneyAccount.text = "\(amount) 元"
         
-//        var status = String()
-//        
-//        if  ShareModel.share().detailModel.status == 1 {
-//            status = "处理中"
-//        } else if ShareModel.share().detailModel.status == 2 {
-//            status = "成功"
-//        }else if ShareModel.share().detailModel.status == -1{
-//             status = "余额不足"
-//        }
-//        else{
-//            status = "失败"
-//        }
-        
-          bankLogo.image = BankLogoColor.share().checkLocalBank(string: ShareModel.share().detailModel.bank) ? UIImage.init(named: BankLogoColor.share().checkLocalBankImg(string:ShareModel.share().detailModel.bank)) : UIImage.init(named: "unionPay")
+//          bankLogo.image = BankLogoColor.share().checkLocalBank(string: ShareModel.share().detailModel.bank) ? UIImage.init(named: BankLogoColor.share().checkLocalBankImg(string:ShareModel.share().detailModel.bank)) : UIImage.init(named: "unionPay")
         self.status.text! = ShareModel.share().detailModel.status == 1 ? "处理中" :  (ShareModel.share().detailModel.status == 2 ? "提现成功" : "提现失败")
-       
+       bankLogo.image = BankLogoColor.share().checkLocalBank(string: ShareModel.share().detailModel.bank) ? UIImage.init(named: BankLogoColor.share().checkLocalBankImg(string: ShareModel.share().detailModel.bank)) : UIImage.init(named: "unionPay")
 
     }
 

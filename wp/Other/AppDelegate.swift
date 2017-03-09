@@ -41,12 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         
-//        YD_CountDownHelper.shared.pause()
+        YD_CountDownHelper.shared.pause()
 //        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.EnterBackground), object: nil, userInfo: nil)
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-//        YD_CountDownHelper.shared.reStart()
+        YD_CountDownHelper.shared.reStart()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
