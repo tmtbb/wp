@@ -46,23 +46,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTabBarWithAnimationDuration()
-        
-        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
-            if let resultDic = result as? [String: AnyObject] {
-                if let money = resultDic["balance"] as? Double{
-                    
-                    UserModel.updateUser(info: { (result) -> ()? in
-                        UserModel.share().getCurrentUser()?.balance = Double(money)
-                        return nil
-                    })
-                    let format = NumberFormatter()
-                    format.numberStyle = .currency
-                    let account : String =   format.string(from: NSNumber(value: money))!
-                    self?.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
-                }
-            }
-            return nil
-            }, error: errorBlockFunc())
+
     }
     //MARK: --UI
     func initUI(){
@@ -92,6 +76,8 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     //MARK: --DATA
     func initData() {
         didRequest()
+        
+        
     }
     //MARK: -进入绑定银行卡
     @IBAction func addBank(_ sender: Any) {
@@ -278,6 +264,35 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     }
     //MARK: -获取银行卡数量的请求
     override func didRequest() {
+        
+        if UserModel.share().getCurrentUser() != nil{
+            let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
+            let int : Double = Double(str)!
+            
+            let format = NumberFormatter()
+            format.numberStyle = .currency
+            let account : String =   format.string(from: NSNumber(value: int))!
+            self.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
+            self.moneyText.placeholder = "最多可提现" + "\(int)" + "元"
+        }
+        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
+            if let resultDic = result as? [String: AnyObject] {
+                if let money = resultDic["balance"] as? Double{
+                    
+                    UserModel.updateUser(info: { (result) -> ()? in
+                        UserModel.share().getCurrentUser()?.balance = Double(money)
+                        return nil
+                    })
+                    let format = NumberFormatter()
+                    format.numberStyle = .currency
+                    let account : String =   format.string(from: NSNumber(value: money))!
+                    self?.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
+                }
+            }
+            return nil
+            }, error: errorBlockFunc())
+        
+        
         //        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
         //            if let object = result {
         //                let Model : BankModel = object as! BankModel
@@ -295,6 +310,8 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == "userMoney" {
+              let  account = String.init(format: "%.2d", ShareModel.share().userMoney)
+              self.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
             //
             SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 2, completion: {
                 self.performSegue(withIdentifier: "PushTolist", sender: nil)

@@ -15,6 +15,7 @@ class HistoryDealCell: OEZTableViewCell{
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var winLabel: UILabel!
     @IBOutlet weak var failLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var handleLabel: UILabel!
     // 盈亏
     @IBOutlet weak var statuslb: UILabel!
@@ -28,8 +29,8 @@ class HistoryDealCell: OEZTableViewCell{
 
             statuslb.backgroundColor = model.result   ? UIColor.init(hexString: "E9573F") : UIColor.init(hexString: "0EAF56")
             statuslb.text =  model.result   ?  "盈" :   "亏"
-            
-            let handleText = [" 未操作 "," 双倍返回 "," 货运 "," 补退仓费 "]
+            titleLabel.text = model.buySell == 1 ? "买入" : "卖出"
+            let handleText = [" 未操作 "," 双倍返回 "," 货运 "," 退仓 "]
             handleLabel.text = handleText[model.handle]
             
             if model.result == false{
@@ -97,15 +98,11 @@ class HistoryDealVC: BasePageListTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let model = self.dataSource?[indexPath.row] as? PositionModel{
             if  model.result{
-                if model.buySell == 2 && UserModel.share().currentUser?.type == 1{
-                    return
-                }
                 if model.handle != 0{
                     return
                 }
                 let param = BenifityParam()
                 param.tid = model.positionId
-            
                 let alterController = UIAlertController.init(title: "恭喜盈利", message: "请选择盈利方式", preferredStyle: .alert)
                 let productAction = UIAlertAction.init(title: "货运", style: .default, handler: {[weak self] (resultDic) in
                     param.handle = 2
@@ -151,11 +148,19 @@ class HistoryDealVC: BasePageListTableViewController {
                         return nil
                     }, error: self?.errorBlockFunc())
                 })
-                if UserModel.share().currentUser?.type != 1 || model.buySell != 2{
-                    alterController.addAction(moneyAction)
+                
+                if model.buySell == 1{
+                    if model.result{
+                        alterController.addAction(moneyAction)
+                    }
+                    alterController.addAction(productAction)
+                    present(alterController, animated: true, completion: nil)
+                }else{
+                    if UserModel.share().currentUser?.type == 0 && model.result == false{
+                        alterController.addAction(moneyAction)
+                        present(alterController, animated: true, completion: nil)
+                    }
                 }
-                alterController.addAction(productAction)
-                present(alterController, animated: true, completion: nil)
             }
         }
     }

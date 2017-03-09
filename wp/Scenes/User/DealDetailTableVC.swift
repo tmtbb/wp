@@ -38,7 +38,7 @@ class DealDetailTableVC: BaseTableViewController{
     }
     
     func setData() {
-        let isUp = (positionModel!.buySell == -1)
+        let isUp = (positionModel!.buySell == 1)
         let string = isUp ? "买入" : "卖出"
         dealType.text = string
         dealTime.text = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval((positionModel!.positionTime))))

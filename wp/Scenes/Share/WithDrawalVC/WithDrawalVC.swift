@@ -74,10 +74,17 @@ class WithDrawalVC: BaseTableViewController {
         submited.layer.cornerRadius = 5
         submited.clipsToBounds = true
         withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
-//        guard UserModel.share().getCurrentUser() != nil else {return}
-//        let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
-//        let int : Double = Double(str)!
-//        self.money.placeholder = "最多可提现" + "\(int)" + "元"
+//
+        initData()
+      
+        
+    }
+    func initData(){
+        if UserModel.share().getCurrentUser() != nil{
+            let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
+            let int : Double = Double(str)!
+            self.money.placeholder = "最多可提现" + "\(int)" + "元"
+        }
         
         AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
             if let resultDic = result as? [String: AnyObject] {
@@ -93,7 +100,6 @@ class WithDrawalVC: BaseTableViewController {
             }
             return nil
             }, error: errorBlockFunc())
-        
     }
     //MARK: --属性的变化
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
