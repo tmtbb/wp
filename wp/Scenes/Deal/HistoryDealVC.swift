@@ -32,13 +32,13 @@ class HistoryDealCell: OEZTableViewCell{
             statuslb.text =  model.result   ?  "盈" :   "亏"
             titleLabel.text = model.buySell == 1 ? "买入" : "卖出"
             let handleText = [" 未操作 "," 双倍返回 "," 货运 "," 退仓 "]
-            if let handle = model.handle  {
+            if let handle = model.handle as? Int {
                 if handle < handleText.count{
                     handleLabel.text = handleText[model.handle]
                 }
             }
             
-            if model.buySell == -1 && UserModel.share().currentUser?.type == 0{
+            if model.buySell == -1 && UserModel.share().currentUser?.type == 0 && model.result == false{
                 handleLabel.backgroundColor = UIColor.clear
                 handleLabel.text = ""
             }else if model.handle == 0{
@@ -163,8 +163,10 @@ class HistoryDealVC: BasePageListTableViewController {
             }else{
                 if UserModel.share().currentUser?.type == 0 && model.result{
                     alterController.addAction(moneyAction)
-                    present(alterController, animated: true, completion: nil)
+                }else{
+                    alterController.addAction(productAction)
                 }
+                present(alterController, animated: true, completion: nil)
             }
         }
     }
