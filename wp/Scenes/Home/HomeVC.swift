@@ -47,7 +47,7 @@ class HomeVC: BaseTableViewController {
     func initData() {
         AppDataHelper.instance().initProductData()
         let bannerStr = "http://upload-images.jianshu.io/upload_images/3959281-9e14f1eaccc36f37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-        bannerView.bannerData = [bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject,bannerStr as AnyObject]
+        bannerView.bannerData = ["http://upload-images.jianshu.io/upload_images/961368-e215d5256123aea3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" as AnyObject,bannerStr as AnyObject]
         noticeView.isHidden = true
 
         //每隔3秒请求商品报价
@@ -140,8 +140,8 @@ extension HomeVC: BannerViewDelegate {
 
     func banner(_ banner: iCarousel, didSelectItemAt index: Int) {
         let webController = WPWebViewController()
-        webController.title = "交易规则"
-        let url = Bundle.main.url(forResource: "role.html", withExtension: nil)
+        webController.title = index == 0 ? "航班线路":"交易规则"
+        let url = Bundle.main.url(forResource: index == 0 ? "fly.html":"role.html", withExtension: nil)
         let html = try! String.init(contentsOf: url!, encoding: .utf8)
         let baseUrl = URL.init(fileURLWithPath: Bundle.main.bundlePath)
         webController.webView.loadHTMLString(html, baseURL: baseUrl)

@@ -141,7 +141,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
     }
     //提现列表
     func withdrawlist(status: Int32, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?){
-        let param = [SocketConst.Key.uid: 32,
+        let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
                      SocketConst.Key.token: UserModel.share().token ,
                      SocketConst.Key.status: status,
                      SocketConst.Key.pos: pos,

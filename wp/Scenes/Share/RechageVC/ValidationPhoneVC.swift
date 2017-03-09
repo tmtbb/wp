@@ -33,10 +33,6 @@ class ValidationPhoneVC: BaseTableViewController {
     override func didRequest() {
         
         
-        
-        
-        
-        
 //       AppAPIHelper.user().bingcard(bank: "", branchBank: "", province: "", city: "", cardNo: "", name: "", complete: { (result) -> ()? in
 //        
 //       }, error: errorBlockFunc())
