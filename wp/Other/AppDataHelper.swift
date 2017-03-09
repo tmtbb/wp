@@ -186,7 +186,7 @@ class AppDataHelper: NSObject {
             }
             return nil
         }, error:{ (error) ->()? in
-            SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
+//            SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
             return nil
         })
     }

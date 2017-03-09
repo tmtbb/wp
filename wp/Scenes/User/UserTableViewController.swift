@@ -111,7 +111,10 @@ class UserTableViewController: BaseTableViewController {
         
         if keyPath == AppConst.KVOKey.balance.rawValue {
             guard UserModel.share().currentUser != nil else { return }
-            setBalanceText(balance: (UserModel.share().currentUser?.balance)!)
+//            setBalanceText(balance: (UserModel.share().currentUser?.balance)!)
+            nameLabel.text = formatMoneyString(balance: (UserModel.share().currentUser?.balance)! )
+            nameLabel.adjustsFontSizeToFitWidth = true
+
         }
         
     }
