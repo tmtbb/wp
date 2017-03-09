@@ -190,7 +190,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 YD_CountDownHelper.shared.countDownWithDealTableView(tableView: (self?.dealTable)!)
             }
             return nil
-        }, error: errorBlockFunc())
+            }, error:{ (error) ->()? in
+                return nil
+        })
     }
     func refreshTable()  {
         rowHeights.removeLast()
