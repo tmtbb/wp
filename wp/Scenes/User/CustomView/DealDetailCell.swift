@@ -19,7 +19,7 @@ class DealDetailCell: OEZTableViewCell {
         // Initialization code
     }
     func setData(model:PositionModel) {
-        let isUp = (model.buySell == -1)
+        let isUp = (model.buySell == 1)
         let string = isUp ? "买入" : "卖出"
         iconImage.image = isUp ? UIImage(named: "buyUp") : UIImage(named:"buyDown")
         dealType.text = "\(string)(\(model.name))"
