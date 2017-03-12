@@ -195,8 +195,8 @@ class AppDataHelper: NSObject {
     func checkTokenLogin() {
         //token是否存在
         if let token = UserDefaults.standard.value(forKey: SocketConst.Key.token){
-            if let phone = UserDefaults.standard.value(forKey: SocketConst.Key.phone){
-                AppAPIHelper.login().tokenLogin(phone: phone as! String, token: token as! String, complete: { [weak self]( result) -> ()? in
+            if let id = UserDefaults.standard.value(forKey: SocketConst.Key.uid){
+                AppAPIHelper.login().tokenLogin(uid: id as! Int , token: token as! String, complete: { [weak self]( result) -> ()? in
                     //存储用户信息
                     if let model = result as? UserInfoModel {
                         if let token = model.token{

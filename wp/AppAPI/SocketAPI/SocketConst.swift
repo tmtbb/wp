@@ -35,6 +35,7 @@ class SocketConst: NSObject {
         //每天的数据
         case everyday = 6011
         case accinfo = 3007
+        case tokenLogin = 3009
         //流水列表
         case flowList = 1077
         //流水详情
