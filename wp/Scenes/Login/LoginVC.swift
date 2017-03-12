@@ -67,6 +67,7 @@ class LoginVC: BaseTableViewController {
             SVProgressHUD.showProgressMessage(ProgressMessage: "登录中...")
             AppAPIHelper.login().login(phone: phoneText.text!, pwd: password, complete: { [weak self]( result) -> ()? in
                 SVProgressHUD.dismiss()
+                DealModel.share().isFirstGetPrice = true
                 //存储用户信息
                 if result != nil{
                     UserDefaults.standard.set(self?.phoneText.text!, forKey: SocketConst.Key.phone)

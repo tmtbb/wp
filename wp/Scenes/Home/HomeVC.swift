@@ -11,6 +11,8 @@ import SnapKit
 import Alamofire
 import DKNightVersion
 import iCarousel
+import SVProgressHUD
+
 class HomeVC: BaseTableViewController {
     
     //交易明细数据
@@ -66,6 +68,9 @@ class HomeVC: BaseTableViewController {
         if DealModel.share().productKinds.count == 0 {
             return
         }
+        if DealModel.share().isFirstGetPrice {
+            SVProgressHUD.showProgressMessage(ProgressMessage: "加载中...")
+        }
         var goods: [AnyObject] = []
         for  product in DealModel.share().productKinds {
             let good = [SocketConst.Key.aType: SocketConst.aType.currency.rawValue,
@@ -78,6 +83,8 @@ class HomeVC: BaseTableViewController {
                                     SocketConst.Key.token: UserModel.share().token,
                                     SocketConst.Key.symbolInfos: goods]
         AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
+            SVProgressHUD.dismiss()
+            DealModel.share().isFirstGetPrice = false
             if let models: [KChartModel] = result as! [KChartModel]?{
                 for model in models{
                     for  product in DealModel.share().productKinds{
