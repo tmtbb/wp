@@ -106,7 +106,11 @@ class DealSocketApi: BaseSocketAPI, DealApi {
 //        startModelRequest(packet, modelClass: PositionModel.self, complete: complete, error: error)
         startRequest(packet, complete: complete, error: error)
     }
-    
+    //明细列表
+    func requestDealDetailList(pram:DealHistoryDetailParam, complete: CompleteBlock?, error:ErrorBlock?) {
+        let packet = SocketDataPacket(opcode: .historyDeals, model: pram, type: .time)
+        startModelsRequest(packet, listName: "positioninfo", modelClass: PositionModel.self, complete: complete, error: error)
+    }
  
 }
 

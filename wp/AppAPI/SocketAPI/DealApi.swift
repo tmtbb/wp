@@ -35,5 +35,8 @@ protocol DealApi{
     func position(param: PositionParam, complete: CompleteBlock?, error:ErrorBlock?)
     //收益选择
     func benifity(param: BenifityParam, complete: CompleteBlock?, error:ErrorBlock?)
+    //明细列表
+    func requestDealDetailList(pram:DealHistoryDetailParam, complete: CompleteBlock?, error:ErrorBlock?)
+    
 }
 
