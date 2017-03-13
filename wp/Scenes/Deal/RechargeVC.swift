@@ -143,7 +143,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             return 2
         }
         if section==1 {
-            return 3
+            return 4
         }
         if selectRow == true  {
             return 1
@@ -272,10 +272,9 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == "userMoney" {
-              let  account = String.init(format: "%.2d", ShareModel.share().userMoney)
+              let  account = String.init(format: "%.2f", ShareModel.share().userMoney)
               self.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
-            //
-            SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 2, completion: {
+              SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 2, completion: {
                 self.performSegue(withIdentifier: "PushTolist", sender: nil)
             })
             
