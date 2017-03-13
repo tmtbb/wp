@@ -45,7 +45,7 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
         
         currentSelectProduct  = DealModel.share().productKinds.first
         setupCollection()
-        beginRefreshing()
+//        beginRefreshing()
 
         dealBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
 //        sumHandNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
@@ -83,16 +83,17 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     
 
     
-    override func isOverspreadLoadMore() -> Bool {
-        return false
-    }
-    
+//    override func isOverspreadLoadMore() -> Bool {
+//        return false
+//    }
+//    
     override func didRequest(_ pageIndex : Int){
         guard currentSelectProduct != nil else {return}
         let requestModel = DealHistoryDetailParam()
         let index = pageIndexs[currentSelectProduct!.symbol]
         requestModel.start = index! * 10
         requestModel.count = 10
+        pageIndexs[currentSelectProduct!.symbol] = index! + 1
         requestModel.symbol = currentSelectProduct!.symbol
         AppAPIHelper.deal().requestDealDetailList(pram: requestModel, complete: { [weak self](result) -> ()?  in
             
