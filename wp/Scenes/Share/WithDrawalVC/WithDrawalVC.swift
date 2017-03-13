@@ -199,7 +199,7 @@ class WithDrawalVC: BaseTableViewController {
                 
               _ = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(UserModel.share().getCurrentUser()?.phone!)!).sha256()
 //                let passWord : String = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(alertView.textField(at: 0)?.text)!).sha256()
-               
+
             }
         }
     }
