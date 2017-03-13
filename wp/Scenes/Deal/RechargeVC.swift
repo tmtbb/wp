@@ -129,7 +129,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                         request.package = object["package"] as! String!
                         request.nonceStr = object["noncestr"] as! String!
                         request.partnerId = object["partnerid"] as! String!
-                        request.sign = object["sign"] as! String!
                         request.prepayId = object["prepayid"] as! String!
                         WXApi.send(request)
                     }
@@ -144,7 +143,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             return 2
         }
         if section==1 {
-            return 4
+            return 3
         }
         if selectRow == true  {
             return 1
@@ -209,8 +208,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         if let errorCode: Int = notice.object as? Int{
             //            var code = Int()
             if errorCode == 0 {
-                //                code = 1
-                //                 SVProgressHUD.show(withStatus: "加载中")
+                return
                 
             }
             else if errorCode == -4{
@@ -221,50 +219,13 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                 SVProgressHUD.showError(withStatus: "用户中途取消")
                 return
             }
-            //            ShareModel.share().userMoney = 0
-            //            AppAPIHelper.user().rechargeResults(rid: Int64( ShareModel.share().shareData["rid"]!)!, payResult: code, complete: { (result) -> ()? in
-            //                if let object = result{
-            //                    if let  returnCode : Int = object["returnCode"] as? Int{
-            //                        if returnCode == 1{
-            //                            SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
-            //                                 self.performSegue(withIdentifier: "PushTolist", sender: nil)
-            ////                                _ = self.navigationController?.popViewController(animated: true)
-            //
-            //                            })
-            //                        }else{
-            //                            SVProgressHUD.showError(withStatus: "支付失败")
-            //                        }
-            //                    }else if let  _ : Int = object["error"] as? Int{
-            //                        SVProgressHUD.showError(withStatus: "支付失败")
-            //
-            //                    }
-            //
-            //                }
-            //                return nil
-            //            }, error: errorBlockFunc())
         }
-        //                if let errorCode: Int = notice.object as? Int{
-        //                    if errorCode == -4{
-        //                        SVProgressHUD.showError(withStatus: "支付失败")
-        //                        return
-        //                    }
-        //                    if errorCode == -2{
-        //                        SVProgressHUD.showError(withStatus: "用户中途取消")
-        //                        return
-        //                    }
-        //                    if errorCode == 0{
-        //                        SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1
-        //                            , completion: {
-        //                                self.performSegue(withIdentifier: "PushTolist", sender: nil)})
-        //                        return
-        //                    }
-        //
-        //                }
+
         
     }
     //MARK: -获取银行卡数量的请求
     override func didRequest() {
-        
+        //用来判断请求
         if UserModel.share().getCurrentUser() != nil{
             let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
             let int : Double = Double(str)!
@@ -275,6 +236,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             self.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
             self.moneyText.placeholder = "最多可提现" + "\(int)" + "元"
         }
+         //请求金额
         AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
             if let resultDic = result as? [String: AnyObject] {
                 if let money = resultDic["balance"] as? Double{
