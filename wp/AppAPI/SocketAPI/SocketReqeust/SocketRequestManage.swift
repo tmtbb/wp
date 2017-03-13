@@ -68,7 +68,7 @@ class SocketRequestManage: NSObject {
         objc_sync_enter(self)
         var socketReqeust = socketRequests[packet.session_id]
 
-        if packet.operate_code == SocketConst.OPCode.login.rawValue + 1{
+        if packet.operate_code == SocketConst.OPCode.verifycode.rawValue + 1{
             print("================")
         }
         if packet.operate_code ==  SocketConst.OPCode.timeline.rawValue + 1{
@@ -129,7 +129,10 @@ class SocketRequestManage: NSObject {
     }
     
     func startJsonRequest(_ packet: SocketDataPacket, complete: CompleteBlock?, error: ErrorBlock?) {
-        
+        if UserModel.share().token.length() == 0 && packet.type != 3 && packet.operate_code != 1011{
+            print(packet.type)
+            return
+        }
         let socketReqeust = SocketRequest();
         socketReqeust.error = error;
         socketReqeust.complete = complete;
