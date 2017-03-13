@@ -33,8 +33,9 @@ class SocketConst: NSObject {
         //修改个人信息
         case changeUserInfo = 1031
         //每天的数据
-        case everyday = 6011
+//        case everyday = 6011
         case accinfo = 3007
+        case tokenLogin = 3009
         //流水列表
         case flowList = 1077
         //流水详情
@@ -68,7 +69,7 @@ class SocketConst: NSObject {
         // 提现列表
         case withdrawList = 6005
         // 提现
-        case withdrawCash = 1023
+        case withdrawCash = 6011
         //仓位列表
         case currentDeals = 5005
         //仓位详情
@@ -163,6 +164,8 @@ class SocketConst: NSObject {
         static let money = "money"
         static let bld = "bld"
         static let password = "password"
+        static let price = "price"
+        static let comment = "comment"
         static let withdrawld = "withdrawld"
         static let wid = "wid"
         static let title = "title"
@@ -172,7 +175,6 @@ class SocketConst: NSObject {
         static let token = "token"
         static let vToken = "vToken"
         static let position = "position"
-        static let price = "price"
         static let pid = "pid"
         static let goodType = "goodType"
         static let exchangeName = "exchangeName"
@@ -183,7 +185,6 @@ class SocketConst: NSObject {
         static let symbol = "symbol"
         static let exchange_name = "exchange_name"
         static let platform_name = "platform_name"
-        static let bid = "bid"
         static let payResult = "payResult"
         static let newid = "uid"
         static let verifyType = "verifyType"

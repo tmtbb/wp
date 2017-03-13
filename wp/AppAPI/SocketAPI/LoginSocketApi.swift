@@ -28,11 +28,11 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
         startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
     }
     //token登录
-    func tokenLogin(phone: String, token: String, complete: CompleteBlock?, error: ErrorBlock?){
-        let param: [String: Any] = [SocketConst.Key.phone: phone,
+    func tokenLogin(uid: Int, token: String, complete: CompleteBlock?, error: ErrorBlock?){
+        let param: [String: Any] = [SocketConst.Key.uid: uid,
                                     SocketConst.Key.token: token,
                                     SocketConst.Key.source: 1]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .login, dict: param as [String : AnyObject])
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .tokenLogin, dict: param as [String : AnyObject], type:.user)
         startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
     }
     //注册

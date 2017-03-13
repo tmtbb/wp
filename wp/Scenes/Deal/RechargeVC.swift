@@ -129,7 +129,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                         request.package = object["package"] as! String!
                         request.nonceStr = object["noncestr"] as! String!
                         request.partnerId = object["partnerid"] as! String!
-                        request.sign = object["sign"] as! String!
                         request.prepayId = object["prepayid"] as! String!
                         WXApi.send(request)
                     }
@@ -144,7 +143,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             return 2
         }
         if section==1 {
-            return 4
+            return 3
         }
         if selectRow == true  {
             return 1

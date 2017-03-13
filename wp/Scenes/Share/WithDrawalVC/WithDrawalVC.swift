@@ -12,7 +12,7 @@ import DKNightVersion
 class WithDrawalVC: BaseTableViewController {
     //提现提交按钮
     @IBOutlet weak var submited: UIButton!
-    var bankId : Int64 = 0
+    var bankId : Int64 = 49
     
     // 提现金额
     var accountMoney : Double = 0
@@ -84,6 +84,8 @@ class WithDrawalVC: BaseTableViewController {
             let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
             let int : Double = Double(str)!
             self.money.placeholder = "最多可提现" + "\(int)" + "元"
+            
+          accountMoney = (UserModel.share().getCurrentUser()?.balance)!
         }
         
         AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
@@ -146,13 +148,67 @@ class WithDrawalVC: BaseTableViewController {
             SVProgressHUD.showError(withStatus: "最多提现" + "\(account)" + "元")
             return
         }
-        let alertView = UIAlertView.init()
-        alertView.alertViewStyle = UIAlertViewStyle.secureTextInput // 密文
-        alertView.title = "请输入交易密码"
-        alertView.addButton(withTitle: "确定")
-        alertView.addButton(withTitle: "取消")
-        alertView.delegate = self
-        alertView.show()
+//        let alertView = UIAlertView.init()
+//        alertView.alertViewStyle = UIAlertViewStyle.secureTextInput // 密文
+//        alertView.title = "请输入交易密码"
+//        alertView.addButton(withTitle: "确定")
+//        alertView.addButton(withTitle: "取消")
+//        alertView.delegate = self
+//        alertView.show()
+        
+        var money : String
+        if ((self.money.text?.range(of: ".")) != nil) {
+            //来判断是否包含小数点
+            if ((self.money.text?.range(of: ".00")) != nil) {
+                let arr : Array = (self.money.text?.components(separatedBy: "."))!
+                money = arr[0] + ".000001"
+            }
+            else  if ((self.money.text?.range(of: ".0")) != nil) {
+                let arr : Array = (self.money.text?.components(separatedBy: "."))!
+                let number : String = arr[1] as String
+                if number.length()>1 {
+                    print("123")
+                    money = self.money.text!
+                }else{
+                    money = arr[0] + ".000001"
+                }
+            } else  if ((self.money.text?.range(of: ".")) != nil){
+                let arr : Array = (self.money.text?.components(separatedBy: "."))!
+                
+                if arr.count > 1{
+                    if arr[1] != ""{
+                        if arr[0] != "" {
+                            money = "0" + self.money.text!
+                        }else{
+                            money = self.money.text!
+                        }
+                    }else{
+                        money = arr[0] + ".000001"
+                    }
+                }else {
+                    money = arr[0] + ".000001"
+                }
+            }
+            else{
+                money = self.money.text!
+            }
+        }else{
+            money = "\(self.money.text!)" + ".000001"
+        }
+        AppAPIHelper.user().withdrawcash(money: Double.init(money)!, bld: bankId, password: "123213213", complete: { [weak self](result) -> ()? in
+            
+            if let object = result{
+                let Model : WithdrawModel = object as! WithdrawModel
+                ShareModel.share().detailModel = Model
+                if( ShareModel.share().detailModel.status == -3){
+                    SVProgressHUD.showError(withStatus: "提现密码错误")
+                    return nil
+                }
+                self?.performSegue(withIdentifier: "SuccessWithdrawVC", sender: nil)
+            }
+            return nil
+            }, error: errorBlockFunc())
+        
     }
     
     //输入密码 的代理方法
@@ -160,62 +216,11 @@ class WithDrawalVC: BaseTableViewController {
         if buttonIndex==0{
             
             if buttonIndex==0{
-                var money : String
-                if ((self.money.text?.range(of: ".")) != nil) {
-                    //来判断是否包含小数点
-                    if ((self.money.text?.range(of: ".00")) != nil) {
-                      let arr : Array = (self.money.text?.components(separatedBy: "."))!
-                        money = arr[0] + ".000001"
-                    }
-                    else  if ((self.money.text?.range(of: ".0")) != nil) {
-                        let arr : Array = (self.money.text?.components(separatedBy: "."))!
-                        let number : String = arr[1] as String
-                        if number.length()>1 {
-                            print("123")
-                            money = self.money.text!
-                        }else{
-                         money = arr[0] + ".000001"
-                        }
-                    } else  if ((self.money.text?.range(of: ".")) != nil){
-                        let arr : Array = (self.money.text?.components(separatedBy: "."))!
-        
-                        if arr.count > 1{
-                            if arr[1] != ""{
-                                if arr[0] != "" {
-                                    money = "0" + self.money.text!
-                                }else{
-                                    money = self.money.text!
-                                }
-                            }else{
-                             money = arr[0] + ".000001"
-                            }
-                        }else {
-                            money = arr[0] + ".000001"
-                        }
-                    }
-                    else{
-                        money = self.money.text!
-                    }
-                }else{
-                    money = "\(self.money.text!)" + ".000001"
-                }
                 
                 
-              let password = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(UserModel.share().getCurrentUser()?.phone!)!).sha256()
+              _ = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(UserModel.share().getCurrentUser()?.phone!)!).sha256()
 //                let passWord : String = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(alertView.textField(at: 0)?.text)!).sha256()
-                AppAPIHelper.user().withdrawcash(money: Double.init(money)!, bld: bankId, password: password, complete: { [weak self](result) -> ()? in
-                    
-                    if let object = result{
-                        let Model : WithdrawModel = object as! WithdrawModel
-                        ShareModel.share().detailModel = Model
-                        if( ShareModel.share().detailModel.status == -3){
-                            SVProgressHUD.showError(withStatus: "提现密码错误")
-                            return nil
-                        }
-                        self?.performSegue(withIdentifier: "SuccessWithdrawVC", sender: nil)
-                    }
-                    return nil
-                    }, error: errorBlockFunc())
+               
             }
         }
     }

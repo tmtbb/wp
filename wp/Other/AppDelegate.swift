@@ -24,11 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
         
         
         //URL types
-        
         appearance()
         window?.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         wechat()
-      
+
         AppDataHelper.instance().initData()
         AppServerHelper.instance().initServer()
         return true

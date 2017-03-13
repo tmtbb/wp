@@ -217,6 +217,11 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     //MARK: --买涨/买跌
     @IBAction func dealBtnTapped(_ sender: UIButton) {
         
+        if DealModel.checkIfSuspended() {
+            SVProgressHUD.showWainningMessage(WainningMessage: "已停盘", ForDuration: 1.5, completion: nil)
+
+            return
+        }
         tableView.scrollToRow(at: IndexPath.init(row: 3, section: 0), at: .top, animated: false)
         if checkLogin(){
             if DealModel.share().buyProduct == nil {

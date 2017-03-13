@@ -41,13 +41,13 @@ class WithDrawaListVCCell: OEZTableViewCell {
         status = model.status == 1 ? "处理中" :  (model.status == 2 ? "提现成功" : "提现失败")
         bankLogo.image = BankLogoColor.share().checkLocalBank(string: model.bank) ? UIImage.init(named: BankLogoColor.share().checkLocalBankImg(string: model.bank)) : UIImage.init(named: "unionPay")
 
-        print(model.status)
         statusBtn.setTitle(status, for: UIControlState.normal)
     }
 }
 class WithDrawaListVC: BasePageListTableViewController {
     
     var dataModel = [WithdrawModel]()
+    var check : Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "提现记录"
@@ -58,13 +58,14 @@ class WithDrawaListVC: BasePageListTableViewController {
     //  请求接口刷新数据
     override func didRequest(_ pageIndex : Int) {
         
+        print(pageIndex)
         AppAPIHelper.user().withdrawlist(status: 0 , pos: Int32((pageIndex - 1) * 10 ), count: 10, complete: { [weak self](result) -> ()? in
             if let object = result {
                 let Model : WithdrawListModel = object as! WithdrawListModel
                 if pageIndex == 1{
-                    self?.dataModel =  Model.withdrawList
+//                     _ =  self?.isOverspreadLoadMore()
                 }else{
-                    self?.dataModel  =   (self?.dataModel)! + Model.withdrawList
+                  
                 }
                 self?.didRequestComplete(Model.withdrawList as AnyObject?)
             }else{
@@ -76,14 +77,18 @@ class WithDrawaListVC: BasePageListTableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
-        let model = self.dataModel[indexPath.row]
+        let model = self.dataSource?[indexPath.row] as! WithdrawModel
         ShareModel.share().shareData["wid"] = "\(model.wid)"
         ShareModel.share().detailModel = model
         self.performSegue(withIdentifier: "PushWithDrawDetail", sender: nil)
         
         
     }
-    override func isOverspreadLoadMore() -> Bool {
-        return false
-    }
+//    override func isOverspreadLoadMore() -> Bool {
+//        if self.dataModel.count == 10 {
+//             return false
+//        }
+//        
+//        return true
+//    }
 }

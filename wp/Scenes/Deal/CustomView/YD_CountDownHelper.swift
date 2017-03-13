@@ -60,6 +60,9 @@ class YD_CountDownHelper: NSObject {
         }
         table?.dataArray = DealModel.getAllPositionModel()
         table?.reloadData()
+        if table?.dataArray?.count == 0 {
+            timer?.invalidate()
+        }
         if let finish = finishBlock{
             finish(nil)
         }

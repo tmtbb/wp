@@ -14,7 +14,7 @@ protocol LoginApi {
     //测试登录
     func testlogin(phone: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?)
     //token登录
-    func tokenLogin(phone: String, token: String, complete: CompleteBlock?, error: ErrorBlock?)
+    func tokenLogin(uid: Int, token: String, complete: CompleteBlock?, error: ErrorBlock?)
     //注册
     func register(phone: String, code: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?)
     //重置密码
