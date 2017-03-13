@@ -10,41 +10,28 @@ import UIKit
 import SVProgressHUD
 import DKNightVersion
 class WithDrawalVC: BaseTableViewController {
-    //提现提交按钮
-    @IBOutlet weak var submited: UIButton!
-    var bankId : Int64 = 49
-    
-    // 提现金额
-    var accountMoney : Double = 0
-    // 发送验证码
-    @IBOutlet weak var voiceCodeBtn: UIButton!
-    // 定时器
-    private var timer: Timer?
-    // 时间
-    private var codeTime = 60
-    // 银行名
-    @IBOutlet weak var bankTd: UITextField!
-    // 支行名称
-    @IBOutlet weak var branceTd: UITextField!
-    //  姓名
-    @IBOutlet weak var nameTd: UITextField!
-    //  银行卡号
-    @IBOutlet weak var bankNumberLb: UITextField!
-    //  全部提现
-    @IBOutlet weak var withDrawAll: UIButton!
+  
+    @IBOutlet weak var submited: UIButton!        //提现提交按钮
+    var bankId : Int64 = 0
+//    var bankId : Int64 = 49
+    var accountMoney : Double = 0                      // 提现金额
+    @IBOutlet weak var voiceCodeBtn: UIButton!         // 发送验证码
+    var timer: Timer?                                  // 定时器
+    var codeTime = 60                                  // 时间
+    @IBOutlet weak var bankTd: UITextField!            // 银行名
+    @IBOutlet weak var branceTd: UITextField!          // 支行名称
+    @IBOutlet weak var nameTd: UITextField!            //  姓名
+    @IBOutlet weak var bankNumberLb: UITextField!      //  银行卡号
+    @IBOutlet weak var withDrawAll: UIButton!          //  全部提现
     @IBOutlet weak var codeTd: UITextField!
-    // 金额
-    @IBOutlet weak var money: UITextField!
+    @IBOutlet weak var money: UITextField!              // 金额
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
         title = "提现"
-        
         // 设置 提现记录按钮
         initUI()
-        
         ShareModel.share().addObserver(self, forKeyPath: "selectBank", options: .new, context: nil)
         
     }
@@ -109,8 +96,6 @@ class WithDrawalVC: BaseTableViewController {
         if keyPath == "selectBank" {
             
             if let base = change? [NSKeyValueChangeKey.newKey] as? BankListModel {
-                
-                
                 bankId =  Int64(base.bid)
                 self.bankTd.text! = base.bank
                 self.branceTd.text! = base.branchBank
@@ -122,9 +107,7 @@ class WithDrawalVC: BaseTableViewController {
     
     // MARK: -进入提现列表
     func withDrawList(){
-        
         self.performSegue(withIdentifier: "PushTolist", sender: nil)
-        
     }
     //MARK: -提现
     @IBAction func withDraw(_ sender: Any) {
@@ -132,19 +115,16 @@ class WithDrawalVC: BaseTableViewController {
         // 校验 是否选择银行卡和提现最多金额
 //        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
         let account  = accountMoney
-        
-        if self.money.text?.length()==0{
+            if self.money.text?.length()==0{
             SVProgressHUD.showError(withStatus: "请输入提现金额")
             return
         }
-    
         let input : Double = Double(self.money.text!)!
         if  bankId == 0{
             SVProgressHUD.showError(withStatus: "请选择银行卡")
             return
         }
         if account < input{
-            
             SVProgressHUD.showError(withStatus: "最多提现" + "\(account)" + "元")
             return
         }
@@ -155,8 +135,7 @@ class WithDrawalVC: BaseTableViewController {
 //        alertView.addButton(withTitle: "取消")
 //        alertView.delegate = self
 //        alertView.show()
-        
-        var money : String
+          var money : String
         if ((self.money.text?.range(of: ".")) != nil) {
             //来判断是否包含小数点
             if ((self.money.text?.range(of: ".00")) != nil) {

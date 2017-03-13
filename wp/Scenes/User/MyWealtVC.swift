@@ -108,9 +108,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         recharge.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         recharge.layer.cornerRadius = 5
         recharge.clipsToBounds = true
-        
         initdata()
-        
     }
     //MARK: --界面加载请求方法 保证数据的最新性
     override func viewWillAppear(_ animated: Bool) {
@@ -193,10 +191,7 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         let string = dic.allKeys[0]
         let arr : NSArray = dic[string] as! NSArray
         return arr.count == 0 ? 0 : (arr.count == 1 ? 38 : (arr.count == 2) ? 65 : 93)
-        
-        //         return 38
-        //         return 65
-        //       return 93
+
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
