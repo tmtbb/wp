@@ -55,9 +55,9 @@ class RechargeListVC: BasePageListTableViewController {
     deinit {
         ShareModel.share().removeObserver(self, forKeyPath: "selectMonth", context: nil)
     }
-    override func isOverspreadLoadMore() -> Bool {
-        return false
-    }
+//    override func isOverspreadLoadMore() -> Bool {
+//        return false
+//    }
     //MARK: 监听键值对
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)

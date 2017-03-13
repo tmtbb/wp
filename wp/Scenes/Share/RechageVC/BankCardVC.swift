@@ -25,9 +25,12 @@ class BindingBankVCCell: UITableViewCell {
        bankBg.backgroundColor =    BankLogoColor.share().readfilefromlocal(string: (model?.bank)!)
         banklogo.image = UIImage.init(named: (model?.bank)!)
         bankName.text = model!.bank
-        cardNum.text = "\((model!.cardNo as NSString).substring(to: 4))" + "  ****   ****   *** " + "\((model!.cardNo as NSString).substring(from: model!.cardNo.length()-3))"
-//        banklogo.image = UIImage.init(named: (model?.bank)!)
+        //"\((model!.cardNo as NSString).substring(to: 4))" + "  ****   ****   *** " + "\((model!.cardNo as NSString).substring(from: model!.cardNo.length()-3))"
         
+         let index = model!.cardNo.index(model!.cardNo.startIndex,  offsetBy: 4)
+         let index1 = model!.cardNo.index(model!.cardNo.startIndex,  offsetBy: model!.cardNo.length()-3)
+        
+         cardNum.text =  model!.cardNo.substring(to: index) + "  ****   ****   *** " + model!.cardNo.substring(from: index1)
          banklogo.image = BankLogoColor.share().checkLocalBank(string: (model?.bank)!) ? UIImage.init(named: (model?.bank)!) : UIImage.init(named: "unionPay")
         
     }
