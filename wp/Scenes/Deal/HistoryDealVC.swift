@@ -50,27 +50,25 @@ class HistoryDealCell: OEZTableViewCell{
 }
 
 class HistoryDealVC: BasePageListTableViewController {
-
+    
+    var historyModels: [PositionModel] = []
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     override func didRequest(_ pageIndex: Int) {
-        let index =  DealModel.getHistoryPositionModel().count
+        historyModels = dataSource == nil ? [] : dataSource as! [PositionModel]
+        let index =  historyModels.count
         AppAPIHelper.deal().historyDeals(start: index, count: 10, complete: { [weak self](result) -> ()? in
             if let models: [PositionModel] = result as! [PositionModel]?{
-                DealModel.cachePositionWithArray(positionArray: models)
                 if pageIndex == 1 {
                     var newModels: [PositionModel] = []
-                    let historyModels = DealModel.getHistoryPositionModel()
-                    if historyModels.count == 0{
+                    if self?.historyModels.count == 0{
                         newModels = models
+                        self?.historyModels = models
                     }else{
-                        for historyModel in historyModels{
-                            newModels.append(historyModel)
-                        }
                         for model in models{
-                            if model.closeTime > historyModels.first!.closeTime{
+                            if model.closeTime > (self?.historyModels.first!.closeTime)!{
                                 newModels.append(model)
                             }
                         }
@@ -78,14 +76,9 @@ class HistoryDealVC: BasePageListTableViewController {
                     self?.didRequestComplete(newModels as AnyObject?)
                 }else{ 
                     var moreModels: [PositionModel] = []
-                    let historyModels = DealModel.getHistoryPositionModel()
-                    if historyModels.count == 0{
-                        moreModels = models
-                    }else{
-                        for model in models{
-                            if model.closeTime < historyModels.last!.closeTime{
-                                moreModels.append(model)
-                            }
+                    for model in models{
+                        if model.closeTime < (self?.historyModels.last!.closeTime)!{
+                            moreModels.append(model)
                         }
                     }
                     self?.didRequestComplete(moreModels as AnyObject?)
