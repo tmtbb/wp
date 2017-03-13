@@ -89,7 +89,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         
         let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
                      SocketConst.Key.token: UserModel.share().token ,
-                     SocketConst.Key.bid: bid,
+                     SocketConst.Key.bankId: bid,
                      SocketConst.Key.phone: phone,
                      SocketConst.Key.code: vCode,
                      SocketConst.Key.timestamp: timestamp,
@@ -127,10 +127,11 @@ class UserSocketApi: BaseSocketAPI, UserApi {
     //银行卡提现
     func withdrawcash(money: Double, bld: Int64, password: String, complete: CompleteBlock?, error: ErrorBlock?){
         let param: [String : Any] = [SocketConst.Key.uid: UserModel.share().currentUserId,
-                                     SocketConst.Key.token: UserModel.share().token ,
-                                     SocketConst.Key.money: money,
-                                     SocketConst.Key.bid: bld,
-                                     SocketConst.Key.pwd: password]
+                                     SocketConst.Key.token:  UserModel.share().token ,
+                                     SocketConst.Key.price: money,
+                                     SocketConst.Key.bankId: bld,
+                                     SocketConst.Key.comment: "五",
+                                     SocketConst.Key.password: password]
         
         //        print(param)
         //        WithdrawBankCashModel
