@@ -60,11 +60,6 @@ class WithDrawaListVC: BasePageListTableViewController {
         AppAPIHelper.user().withdrawlist(status: 0 , pos: Int32((pageIndex - 1) * 10 ), count: 10, complete: { [weak self](result) -> ()? in
             if let object = result {
                 let Model : WithdrawListModel = object as! WithdrawListModel
-                if pageIndex == 1{
-//                     _ =  self?.isOverspreadLoadMore()
-                }else{
-                  
-                }
                 self?.didRequestComplete(Model.withdrawList as AnyObject?)
             }else{
                 self?.didRequestComplete(nil)

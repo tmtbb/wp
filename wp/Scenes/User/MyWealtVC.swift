@@ -109,23 +109,18 @@ class MyWealtVC: BaseCustomPageListTableViewController {
         recharge.layer.cornerRadius = 5
         recharge.clipsToBounds = true
         
+        initdata()
+        
     }
     //MARK: --界面加载请求方法 保证数据的最新性
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         translucent(clear: false)
         hideTabBarWithAnimationDuration()
-        //NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
-//        let str : String = String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
-        
-//        let format = NumberFormatter()
-//        format.numberStyle = .currency
-//        let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
-//         let index = account.index(account.startIndex, offsetBy: 1)
-//        self.account.text = account.substring(from: index)
-        //用户余额数据请求
-        
-        if UserModel.share().getCurrentUser() != nil{
+
+    }
+    func initdata(){
+         if UserModel.share().getCurrentUser() != nil{
             let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
             let int : Double = Double(str)!
             
@@ -133,48 +128,25 @@ class MyWealtVC: BaseCustomPageListTableViewController {
             format.numberStyle = .currency
             let account : String =   format.string(from: NSNumber(value: int))!
             self.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
-
+            
         }
         AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
             if let resultDic = result as? [String: AnyObject] {
                 if let money = resultDic["balance"] as? Double{
                     
                     UserModel.updateUser(info: { (result) -> ()? in
-                                            UserModel.share().getCurrentUser()?.balance = Double(money)
-                                            return nil
-                                        })
+                        UserModel.share().getCurrentUser()?.balance = Double(money)
+                        return nil
+                    })
                     let format = NumberFormatter()
                     format.numberStyle = .currency
                     let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
                     self?.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)!
-                    self?.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! 
+                    self?.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)!
                 }
             }
             return nil
-        }, error: errorBlockFunc())
-        
-
-//        
-//        guard UserModel.share().getCurrentUser() != nil else {return}
-//        let format = NumberFormatter()
-//        format.numberStyle = .currency
-//        let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
-//        self.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)! + "元"
-//        AppAPIHelper.user().accinfo(complete: {[weak self](result) -> ()? in
-//            if let object = result {
-//                let  money : Double =  object["balance"] as! Double
-//                let floatmonet : Double = Double.init(money)
-//                let str : String = NSString(format: "%.2f" ,floatmonet) as String
-//                self?.account.text =  "\(str)"
-//                
-//                ShareModel.share().useMoney = money
-//                UserModel.updateUser(info: { (result) -> ()? in
-//                    UserModel.share().getCurrentUser()?.balance = Double(money)
-//                    return nil
-//                })
-//            }
-//            return nil
-//            }, error: errorBlockFunc())
+            }, error: errorBlockFunc())
     }
     //MARK: --界面销毁删除监听机制
     deinit {
