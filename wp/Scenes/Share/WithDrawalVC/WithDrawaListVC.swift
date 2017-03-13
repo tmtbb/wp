@@ -50,9 +50,6 @@ class WithDrawaListVC: BasePageListTableViewController {
         super.viewDidLoad()
         title = "提现记录"
     }
-    deinit {
-        //        ShareModel.share().shareData.removeAll()
-    }
     //  请求接口刷新数据
     override func didRequest(_ pageIndex : Int) {
         
