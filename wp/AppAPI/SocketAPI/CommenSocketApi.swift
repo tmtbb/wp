@@ -19,11 +19,12 @@ class CommenSocketApi: BaseSocketAPI, CommenApi {
     
     //发送验证码
     func verifycode(verifyType: Int64, phone: String, complete: CompleteBlock?, error: ErrorBlock?){
-        let param = [SocketConst.Key.uid: UserModel.share().currentUser?.id ?? 0,
-                     SocketConst.Key.token: UserModel.share().token,
-                     SocketConst.Key.phone: phone,
-                     SocketConst.Key.verifyType: verifyType] as [String : Any]
-        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .verifycode, dict: param as [String : AnyObject], type: SocketConst.type.wp)
+//        let param = [SocketConst.Key.uid: UserModel.share().currentUser?.id ?? 0,
+//                     SocketConst.Key.token: UserModel.share().token,
+//                     SocketConst.Key.phone: phone,
+//                     SocketConst.Key.verifyType: verifyType] as [String : Any]
+        let param = [SocketConst.Key.phone: phone]
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .verifycode, dict: param as [String : AnyObject] , type: SocketConst.type.wp)
         startRequest(packet, complete: complete, error: error)
     }
     func test(phone: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?){

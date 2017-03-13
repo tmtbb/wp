@@ -46,8 +46,6 @@ class WithDrawaListVCCell: OEZTableViewCell {
 }
 class WithDrawaListVC: BasePageListTableViewController {
     
-    var dataModel = [WithdrawModel]()
-    var check : Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "提现记录"
@@ -84,11 +82,4 @@ class WithDrawaListVC: BasePageListTableViewController {
         
         
     }
-//    override func isOverspreadLoadMore() -> Bool {
-//        if self.dataModel.count == 10 {
-//             return false
-//        }
-//        
-//        return true
-//    }
 }

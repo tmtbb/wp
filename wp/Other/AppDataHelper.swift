@@ -19,9 +19,7 @@ class AppDataHelper: NSObject {
     func initData() {
         hurtTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
-//        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initLineChartData), userInfo: nil, repeats: true)
-//        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(moreChartData), userInfo: nil, repeats: true)
-//        initErrorCode()
+        initErrorCode()
 //        checkTokenLogin()
         initProductData()
     }
@@ -215,7 +213,6 @@ class AppDataHelper: NSObject {
                     return nil
                 }, error: {[weak self] (error) ->()? in
                     self?.clearUserInfo()
-//                    SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
                     return nil
                 })
             }
