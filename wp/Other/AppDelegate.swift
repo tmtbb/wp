@@ -7,27 +7,18 @@
 //
 
 import UIKit
-//import XCGLogger
 import SVProgressHUD
-import Fabric
-import Crashlytics
-import Alamofire
 import DKNightVersion
 @UIApplicationMain
 
-class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        
         //URL types
         appearance()
-        window?.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
-        wechat()
-
         AppDataHelper.instance().initData()
         AppServerHelper.instance().initServer()
         return true
@@ -64,14 +55,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
         token = token.replacingOccurrences(of: " ", with: "")
         token = token.replacingOccurrences(of: "<", with: "")
         token = token.replacingOccurrences(of: ">", with: "")
-        
-//        XCGLogger.debug("\(token)")
 #if true
         DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: { () in
             GeTuiSdk.registerDeviceToken(token)
         })
 #endif
-       
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -79,38 +67,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
     }
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
-        WXApi.handleOpen(url, delegate: self)
+        WXApi.handleOpen(url, delegate: AppServerHelper.instance())
         return true
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
     
-        
         let urlString = url.absoluteString
-        if urlString.hasPrefix("com.newxfin.goods") {
-            
+        if urlString.hasPrefix(AppConst.bundleId) {
            UPPaymentControl.default().handlePaymentResult(url, complete: { (code, data) in
                  let str : String = "\(code!)"
-            //校验签名
-//            let strdata = try? JSONSerialization.data(withJSONObject: data!, options: [])
-//             let signdata = String(data:strdata!, encoding: String.Encoding.utf8)
-            
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: str, userInfo:nil)
-        
             })
-            
         }else{
-             WXApi.handleOpen(url, delegate: self)
+             WXApi.handleOpen(url, delegate: AppServerHelper.instance())
         }
-     
-       
         return true
     }
-    func verify(sign : String) -> Bool {
-        return false
-    }
-  
+    
     fileprivate func appearance() {
+        
+        window?.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         let navigationBar:UINavigationBar = UINavigationBar.appearance() as UINavigationBar;
         navigationBar.shadowImage = UIImage.init(named: "nav_clear")
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white];
@@ -123,57 +100,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GeTuiSdkDelegate, WXApiDe
         SVProgressHUD.setDefaultStyle(SVProgressHUDStyle.dark)
         SVProgressHUD.setMinimumDismissTimeInterval(2)
     }
-   
-   
     
-    //MARK: --Wechat
-    fileprivate func wechat() {
-        WXApi.registerApp("wx9dc39aec13ee3158")
-    }
-    func onResp(_ resp: BaseResp!) {
-        //微信登录返回
-        if resp.isKind(of: SendAuthResp.classForCoder()) {
-            let authResp:SendAuthResp = resp as! SendAuthResp
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: NSNumber.init(value: resp.errCode), userInfo:nil)
-            if authResp.errCode == 0{
-                let param = [SocketConst.Key.appid : AppConst.WechatKey.Appid,
-                             SocketConst.Key.code : authResp.code,
-                             SocketConst.Key.secret : AppConst.WechatKey.Secret,
-                             SocketConst.Key.grant_type : "authorization_code"]
-                Alamofire.request(AppConst.WechatKey.AccessTokenUrl, method: .get, parameters: param, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (result) in
-                })
-            }
-            return
-        }
-
-        // 支付返回
-        if resp.isKind(of: PayResp.classForCoder()) {
-            let authResp:PayResp = resp as! PayResp
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.WechatPay.WechatKeyErrorCode), object: NSNumber.init(value: authResp.errCode), userInfo:nil)
-
-            return
-        }
-
-    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         self.window?.endEditing(true)
     }
-   
-    func tint(color: UIColor, blendMode: CGBlendMode,image: UIImage) -> UIImage
-    {
-        //(0.0, 0.0,image.size.width , image.size.height)
-        let drawRect = CGRect.init(x: 0, y: -20, width: image.size.width, height: image.size.height+20)
-        UIGraphicsBeginImageContextWithOptions(image.size, false, 1)
-        color.setFill()
-        UIRectFill(drawRect)
-        let tintedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return tintedImage!
-    }
-    
     
    
 }

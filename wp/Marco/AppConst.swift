@@ -26,6 +26,7 @@ class AppConst {
     static let sha256Key = "t1@s#df!"
     static let pid = 1002
     static let klineCount: Double = 30
+    static let bundleId = "com.newxfin.goods"
     
     enum KVOKey: String {
         case selectProduct = "selectProduct"
