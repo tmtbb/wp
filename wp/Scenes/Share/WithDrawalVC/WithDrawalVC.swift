@@ -12,8 +12,8 @@ import DKNightVersion
 class WithDrawalVC: BaseTableViewController {
   
     @IBOutlet weak var submited: UIButton!        //提现提交按钮
-    var bankId : Int64 = 0
-//    var bankId : Int64 = 49
+//    var bankId : Int64 = 0
+    var bankId : Int64 = 49
     var accountMoney : Double = 0                      // 提现金额
     @IBOutlet weak var voiceCodeBtn: UIButton!         // 发送验证码
     var timer: Timer?                                  // 定时器
@@ -238,7 +238,7 @@ class WithDrawalVC: BaseTableViewController {
         voiceCodeBtn.setTitle(title, for: .normal)
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        
+        return
         //pushaddBank
         if indexPath.section == 0 {
             if indexPath.row == 0 {

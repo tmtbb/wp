@@ -58,23 +58,29 @@ class HistoryDealVC: BasePageListTableViewController {
     }
     override func didRequest(_ pageIndex: Int) {
         historyModels = dataSource == nil ? [] : dataSource as! [PositionModel]
-        let index =  historyModels.count
+        let index =  pageIndex == 1 ? 0: historyModels.count
         AppAPIHelper.deal().historyDeals(start: index, count: 10, complete: { [weak self](result) -> ()? in
             if let models: [PositionModel] = result as! [PositionModel]?{
                 if pageIndex == 1 {
-                    var newModels: [PositionModel] = []
-                    if self?.historyModels.count == 0{
-                        newModels = models
-                        self?.historyModels = models
-                    }else{
-                        for model in models{
-                            if model.closeTime > (self?.historyModels.first!.closeTime)!{
-                                newModels.append(model)
-                            }
-                        }
-                    }
-                    self?.didRequestComplete(newModels as AnyObject?)
-                }else{ 
+//                    var newModels: [PositionModel] = []
+//                    if self?.historyModels.count == 0{
+//                        newModels = models
+//                        self?.historyModels = models
+//                    }else{
+//                        
+//                        for model in models{
+//                            if model.closeTime > (self?.historyModels.first!.closeTime)!{
+//                                newModels.append(model)
+//                            }
+//                        }
+//                    }
+//                    if newModels.count == 0{
+//                        self?.didRequestComplete(nil)
+//                    }else{
+//                        self?.didRequestComplete(newModels as AnyObject?)
+//                    }
+                    self?.didRequestComplete(models as AnyObject?)
+                }else{
                     var moreModels: [PositionModel] = []
                     for model in models{
                         if model.closeTime < (self?.historyModels.last!.closeTime)!{
@@ -83,7 +89,6 @@ class HistoryDealVC: BasePageListTableViewController {
                     }
                     self?.didRequestComplete(moreModels as AnyObject?)
                 }
-                
             }
             return nil
         }, error: errorBlockFunc())
