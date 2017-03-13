@@ -78,7 +78,7 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
 
     //MARK: GCDAsyncSocketDelegate
     @objc func socket(_ sock: GCDAsyncSocket, didConnectToHost host: String, port: UInt16) {
-//        XCGLogger.debug("didConnectToHost:\(host)  \(port)")
+        debugPrint("didConnectToHost host:\(host) port:\(port)")
         sock.perform({
             () -> Void in
             sock.enableBackgroundingOnSocket()

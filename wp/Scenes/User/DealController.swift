@@ -34,8 +34,7 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     
     var allData:[String:TransactionDetailModel] = [:]
     var allDataDict:[String:Array<PositionModel>] = Dictionary()
-    var dateArray:[String] = Array()
-    
+    var pageIndexs:[String:Int] = [:]
     //当前选择的分组数据Model
     var currentTDModel:TransactionDetailModel?
   
@@ -68,6 +67,7 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
         for product in DealModel.share().productKinds {
             let model = TransactionDetailModel()
             allData[product.symbol] = model
+            pageIndexs[product.symbol] = 0
         }
     }
     
@@ -77,6 +77,7 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
         currentSelectProduct = object as? ProductModel
         currentTDModel = allData[currentSelectProduct!.symbol]
+        beginRefreshing()
         tableView.reloadData()
     }
     
@@ -87,14 +88,22 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     }
     
     override func didRequest(_ pageIndex : Int){
-        let index = (pageIndex - 1) * 10
-        AppAPIHelper.deal().historyDeals(start: index, count: 10, complete: { [weak self](result) -> ()? in
+        guard currentSelectProduct != nil else {return}
+        let requestModel = DealHistoryDetailParam()
+        let index = pageIndexs[currentSelectProduct!.symbol]
+        requestModel.start = index! * 10
+        requestModel.count = 10
+        requestModel.symbol = currentSelectProduct!.symbol
+        AppAPIHelper.deal().requestDealDetailList(pram: requestModel, complete: { [weak self](result) -> ()?  in
+            
             if let models: [PositionModel] = result as! [PositionModel]?{
                 self?.didRequestComplete(models as AnyObject?)
                 self?.setupDataWithModels(models: models)
             }
             return nil
-            }, error: errorBlockFunc())
+        }, error: errorBlockFunc())
+        
+
     }
 
     /*
@@ -124,6 +133,7 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
                 tdModel!.allDataDict[dateString] = list
             }
         }
+        guard currentSelectProduct != nil else { return }
         currentTDModel = allData[currentSelectProduct!.symbol]
         tableView.reloadData()
     }

@@ -98,6 +98,8 @@ class UserModel: BaseModel  {
             UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
             if let user = model.userinfo {
                 currentUserId = user.id
+                UserDefaults.standard.setValue(currentUserId, forKey: SocketConst.Key.uid)
+
                 updateRealm()
                 //存储uid
                 if let phone = user.phone{

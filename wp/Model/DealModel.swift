@@ -14,7 +14,7 @@ class DealModel: BaseModel {
         case timeLine = 1
     }
     
-    
+    var isFirstGetPrice = false
     var difftime = 0
     
     private static var model: DealModel = DealModel()
@@ -63,6 +63,20 @@ class DealModel: BaseModel {
                 break
             }
         }
+    }
+    
+    class func checkIfSuspended() -> Bool {
+        
+        let realm = try! Realm()
+        
+        let model = realm.objects(KChartModel.self).sorted(byProperty: "priceTime", ascending: false).first
+        
+        guard model != nil else {
+            return true
+        }
+        return model!.systemTime - model!.priceTime > 60
+        
+        
     }
     
     // 缓存建仓数据

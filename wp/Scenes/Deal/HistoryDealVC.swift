@@ -32,6 +32,7 @@ class HistoryDealCell: OEZTableViewCell{
             statuslb.text =  model.result   ?  "盈" :   "亏"
             titleLabel.text = model.buySell == 1 ? "买入" : "卖出"
             let handleText = [" 未操作 "," 双倍返回 "," 货运 "," 退仓 "]
+
             if let handle = model.handle as? Int {
                 if handle < handleText.count{
                     handleLabel.text = handleText[model.handle]
