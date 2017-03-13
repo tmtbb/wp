@@ -124,6 +124,17 @@ class MyWealtVC: BaseCustomPageListTableViewController {
 //         let index = account.index(account.startIndex, offsetBy: 1)
 //        self.account.text = account.substring(from: index)
         //用户余额数据请求
+        
+        if UserModel.share().getCurrentUser() != nil{
+            let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
+            let int : Double = Double(str)!
+            
+            let format = NumberFormatter()
+            format.numberStyle = .currency
+            let account : String =   format.string(from: NSNumber(value: int))!
+            self.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
+
+        }
         AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
             if let resultDic = result as? [String: AnyObject] {
                 if let money = resultDic["balance"] as? Double{
