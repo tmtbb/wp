@@ -134,7 +134,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         
         //        print(param)
         //        WithdrawBankCashModel
-        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .withdrawCash, dict: param as [String : AnyObject], type: SocketConst.type.wp)
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .withdrawCash, dict: param as [String : AnyObject], type: SocketConst.type.operate)
         
             startModelRequest(packet, modelClass: WithdrawModel.self, complete: complete, error: error)
 //               startRequest(packet, complete: complete, error: error)
@@ -233,8 +233,8 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.token: UserModel.share().token ,
                      SocketConst.Key.start: start,
                      SocketConst.Key.countNuber: count,] as [String : Any]
-          let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .everyday, dict: param as [String : AnyObject], type: SocketConst.type.operate)
-        startRequest(packet, complete: complete, error: error)        
+//          let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .everyday, dict: param as [String : AnyObject], type: SocketConst.type.operate)
+//        startRequest(packet, complete: complete, error: error)
     }
     
 

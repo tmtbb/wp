@@ -68,6 +68,7 @@ class LoginVC: BaseTableViewController {
             AppAPIHelper.login().login(phone: phoneText.text!, pwd: password, complete: { [weak self]( result) -> ()? in
                 SVProgressHUD.dismiss()
                 DealModel.share().isFirstGetPrice = true
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
                 //存储用户信息
                 if result != nil{
                     UserDefaults.standard.set(self?.phoneText.text!, forKey: SocketConst.Key.phone)

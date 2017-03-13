@@ -21,7 +21,7 @@ class HomeVC: BaseTableViewController {
     lazy var marketArray: [KChartModel] = []
     @IBOutlet weak var bannerView: BannerView!
     @IBOutlet weak var noticeView: NoticeICarousel!
-    private var priceTimer: Timer?
+    var priceTimer: Timer?
     var dict:[AnyObject]?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,7 +51,7 @@ class HomeVC: BaseTableViewController {
         let bannerStr = "http://upload-images.jianshu.io/upload_images/3959281-9e14f1eaccc36f37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
         bannerView.bannerData = ["http://upload-images.jianshu.io/upload_images/961368-e215d5256123aea3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" as AnyObject,bannerStr as AnyObject]
         noticeView.isHidden = true
-
+        
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
         DealModel.share().addObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue, options: .new, context: nil)
@@ -70,6 +70,7 @@ class HomeVC: BaseTableViewController {
         }
         if DealModel.share().isFirstGetPrice {
             SVProgressHUD.showProgressMessage(ProgressMessage: "加载中...")
+            DealModel.share().isFirstGetPrice = false
         }
         var goods: [AnyObject] = []
         for  product in DealModel.share().productKinds {
@@ -84,7 +85,6 @@ class HomeVC: BaseTableViewController {
                                     SocketConst.Key.symbolInfos: goods]
         AppAPIHelper.deal().realtime(param: param, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
-            DealModel.share().isFirstGetPrice = false
             if let models: [KChartModel] = result as! [KChartModel]?{
                 for model in models{
                     for  product in DealModel.share().productKinds{
@@ -173,6 +173,16 @@ extension HomeVC{
         notificationCenter.addObserver(self, selector: #selector(jumpToWithdraw), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToWithdraw), object: nil)
         notificationCenter.addObserver(self, selector: #selector(checkLogin), name: NSNotification.Name(rawValue: AppConst.NoticeKey.logoutNotice.rawValue), object: nil)
         notificationCenter.addObserver(self, selector: #selector(sideHide), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.EnterBackground), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(initRequestPrice), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
+    }
+    func initRequestPrice() {
+        
+        if priceTimer != nil {
+            priceTimer?.invalidate()
+            priceTimer = nil
+        }
+        //每隔3秒请求商品报价
+        priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
     }
     //我的消息
     func jumpToMyMessageController() {

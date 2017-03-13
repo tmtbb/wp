@@ -207,6 +207,8 @@ class AppDataHelper: NSObject {
                             UserDefaults.standard.setValue(user.id, forKey: SocketConst.Key.id)
                         }
                         UserModel.share().upateUserInfo(userObject: model as AnyObject)
+                        DealModel.share().isFirstGetPrice = true
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
                     }else{
                        self?.clearUserInfo()
                     }

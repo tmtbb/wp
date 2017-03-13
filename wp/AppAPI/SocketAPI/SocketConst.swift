@@ -33,7 +33,7 @@ class SocketConst: NSObject {
         //修改个人信息
         case changeUserInfo = 1031
         //每天的数据
-        case everyday = 6011
+//        case everyday = 6011
         case accinfo = 3007
         case tokenLogin = 3009
         //流水列表
@@ -69,7 +69,7 @@ class SocketConst: NSObject {
         // 提现列表
         case withdrawList = 6005
         // 提现
-        case withdrawCash = 1023
+        case withdrawCash = 6011
         //仓位列表
         case currentDeals = 5005
         //仓位详情
