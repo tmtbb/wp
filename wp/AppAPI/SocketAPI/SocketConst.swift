@@ -43,13 +43,13 @@ class SocketConst: NSObject {
         //银行卡列表
         case bankcardList = 1009
         //银行卡详情
-        case bingcard = 1011
+        case bingcard = 1029
         //解绑银行卡
         case unbindcard = 1013
         //获取银行卡名称
         case getbankname = 1017
         //获取验证码
-        case verifycode = 1029
+        case verifycode = 1011
         //提现详情
         case withdrawDetail = 101
         // 我的晒单
