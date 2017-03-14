@@ -33,10 +33,8 @@ class HistoryDealCell: OEZTableViewCell{
             titleLabel.text = model.buySell == 1 ? "买入" : "卖出"
             let handleText = [" 未操作 "," 双倍返回 "," 货运 "," 退仓 "]
 
-            if let handle = model.handle as? Int {
-                if handle < handleText.count{
-                    handleLabel.text = handleText[model.handle]
-                }
+            if model.handle < handleText.count{
+                handleLabel.text = handleText[model.handle]
             }
             
             if model.buySell == -1 && UserModel.share().currentUser?.type == 0 && model.result == false{
@@ -52,61 +50,63 @@ class HistoryDealCell: OEZTableViewCell{
 }
 
 class HistoryDealVC: BasePageListTableViewController {
-
+    
+    var historyModels: [PositionModel] = []
     //MARK: --LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     override func didRequest(_ pageIndex: Int) {
-        
-        let index = (pageIndex - 1) * 10
-//        let index = pageIndex == 1 ? 0 : DealModel.getHistoryPositionModel().count
+        historyModels = dataSource == nil ? [] : dataSource as! [PositionModel]
+        let index =  pageIndex == 1 ? 0: historyModels.count
         AppAPIHelper.deal().historyDeals(start: index, count: 10, complete: { [weak self](result) -> ()? in
             if let models: [PositionModel] = result as! [PositionModel]?{
-                DealModel.cachePositionWithArray(positionArray: models)
-//                if pageIndex == 1 {
+                if pageIndex == 1 {
 //                    var newModels: [PositionModel] = []
-//                    let historyModels = DealModel.getHistoryPositionModel()
-//                    if historyModels.count == 0{
+//                    if self?.historyModels.count == 0{
 //                        newModels = models
+//                        self?.historyModels = models
 //                    }else{
-//                        for historyModel in historyModels{
-//                            newModels.append(historyModel)
-//                        }
+//                        
 //                        for model in models{
-//                            if model.positionTime > historyModels.first!.positionTime{
+//                            if model.closeTime > (self?.historyModels.first!.closeTime)!{
 //                                newModels.append(model)
 //                            }
 //                        }
 //                    }
-//                    self?.didRequestComplete(newModels as AnyObject?)
-//                }else{ 
-//                    var moreModels: [PositionModel] = []
-//                    let historyModels = DealModel.getHistoryPositionModel()
-//                    if historyModels.count == 0{
-//                        moreModels = models
+//                    if newModels.count == 0{
+//                        self?.didRequestComplete(nil)
 //                    }else{
-//                        for model in models{
-//                            if model.positionTime < historyModels.last!.positionTime{
-//                                moreModels.append(model)
-//                            }
-//                        }
+//                        self?.didRequestComplete(newModels as AnyObject?)
 //                    }
-                
                     self?.didRequestComplete(models as AnyObject?)
-//            }
+                }else{
+                    var moreModels: [PositionModel] = []
+                    for model in models{
+                        if model.closeTime < (self?.historyModels.last!.closeTime)!{
+                            moreModels.append(model)
+                        }
+                    }
+                    self?.didRequestComplete(moreModels as AnyObject?)
+                }
             }
             return nil
         }, error: errorBlockFunc())
             
     }
     
+   
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let model = self.dataSource?[indexPath.row] as? PositionModel{
-           
+            print(model.handle)
             if model.handle != 0{
                 return
             }
+            if model.buySell == -1 && UserModel.share().currentUser?.type == 0 && model.result == false{
+                return
+            }
+            
             let param = BenifityParam()
             param.tid = model.positionId
             let alterController = UIAlertController.init(title: "恭喜盈利", message: "请选择盈利方式", preferredStyle: .alert)

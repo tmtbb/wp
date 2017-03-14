@@ -26,6 +26,7 @@ class AppConst {
     static let sha256Key = "t1@s#df!"
     static let pid = 1002
     static let klineCount: Double = 30
+    static let bundleId = "com.newxfin.goods"
     
     enum KVOKey: String {
         case selectProduct = "selectProduct"
@@ -78,10 +79,6 @@ class AppConst {
         static let TcpServerPort:UInt16 = 16005
         static let TttpHostUrl:String = "http://61.147.114.87";
         #else
-//        static let TcpServerIP:String = "61.147.114.78";
-//        static let TcpServerPort:UInt16 = 30001;
-//        static let HttpHostUrl:String = "http://61.147.114.78";
-        
         static let TcpServerIP:String = "192.168.8.131";
         static let TcpServerPort:UInt16 = 30001;
         static let HttpHostUrl:String = "http://192.168.8.131";
