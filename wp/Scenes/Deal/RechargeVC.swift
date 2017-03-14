@@ -143,7 +143,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             return 2
         }
         if section==1 {
-            return 4
+            return 3
         }
         if selectRow == true  {
             return 1

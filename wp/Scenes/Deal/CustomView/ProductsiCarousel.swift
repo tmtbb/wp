@@ -98,19 +98,12 @@ class ProductsiCarousel: iCarousel, iCarouselDelegate, iCarouselDataSource{
     func numberOfItems(in carousel: iCarousel) -> Int {
         return objects?.count == nil ? 0 : (objects?.count)!
     }
-
-
-    func carouselItemWidth(_ carousel: iCarousel) -> CGFloat {
-        return UIScreen.width()/2
-    }
-    
-   
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         if let reuserView: ProductiCarousel  = view as? ProductiCarousel{
             return reuserView
         }
-        let item =  ProductiCarousel.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen.width()/2, height: 88))
+        let item =  ProductiCarousel.init(frame: CGRect.init(x: 0, y: 0, width: UIScreen.width()*0.66, height: 88))
         item.object = objects![index]
         return item
     }

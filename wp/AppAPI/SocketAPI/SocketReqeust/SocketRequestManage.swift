@@ -130,7 +130,6 @@ class SocketRequestManage: NSObject {
     
     func startJsonRequest(_ packet: SocketDataPacket, complete: CompleteBlock?, error: ErrorBlock?) {
         if UserModel.share().token.length() == 0 && packet.type != 3 && packet.operate_code != 1011{
-            print(packet.type)
             return
         }
         let socketReqeust = SocketRequest();
@@ -154,7 +153,7 @@ class SocketRequestManage: NSObject {
             socketRequests[packet.session_id] = socketReqeust
         }
         objc_sync_exit(self)
-        print("\(packet.session_id)=================================\(packet.operate_code)")
+//        print("\(packet.session_id)=================================\(packet.operate_code)")
         sendRequest(packet)
     }
   

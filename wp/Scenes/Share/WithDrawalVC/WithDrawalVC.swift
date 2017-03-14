@@ -12,8 +12,8 @@ import DKNightVersion
 class WithDrawalVC: BaseTableViewController {
   
     @IBOutlet weak var submited: UIButton!        //提现提交按钮
-    var bankId : Int64 = 0
-//    var bankId : Int64 = 49
+//    var bankId : Int64 = 0
+    var bankId : Int64 = 49
     var accountMoney : Double = 0                      // 提现金额
     @IBOutlet weak var voiceCodeBtn: UIButton!         // 发送验证码
     var timer: Timer?                                  // 定时器
@@ -109,8 +109,14 @@ class WithDrawalVC: BaseTableViewController {
     func withDrawList(){
         self.performSegue(withIdentifier: "PushTolist", sender: nil)
     }
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
     //MARK: -提现
     @IBAction func withDraw(_ sender: Any) {
+        if !checkTextFieldEmpty([bankTd,branceTd,nameTd,bankNumberLb]){
+            return
+        }
         
         // 校验 是否选择银行卡和提现最多金额
 //        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
@@ -128,6 +134,9 @@ class WithDrawalVC: BaseTableViewController {
             SVProgressHUD.showError(withStatus: "最多提现" + "\(account)" + "元")
             return
         }
+        
+        
+        
 //        let alertView = UIAlertView.init()
 //        alertView.alertViewStyle = UIAlertViewStyle.secureTextInput // 密文
 //        alertView.title = "请输入交易密码"
@@ -238,7 +247,7 @@ class WithDrawalVC: BaseTableViewController {
         voiceCodeBtn.setTitle(title, for: .normal)
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        
+        return
         //pushaddBank
         if indexPath.section == 0 {
             if indexPath.row == 0 {

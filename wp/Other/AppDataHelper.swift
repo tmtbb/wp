@@ -15,9 +15,9 @@ class AppDataHelper: NSObject {
         return helper
     }
     
-    private var hurtTimer: Timer?
+    private var productTimer: Timer?
     func initData() {
-        hurtTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
+        productTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
         initErrorCode()
 //        checkTokenLogin()
@@ -30,7 +30,7 @@ class AppDataHelper: NSObject {
         }
         var allProducets: [ProductModel] = []
         AppAPIHelper.deal().products(pid: 0, complete: {[weak self](result) -> ()? in
-            self?.hurtTimer?.invalidate()
+            self?.productTimer?.invalidate()
             if let products: [ProductModel] = result as! [ProductModel]?{
                 //拼接所有商品
                 allProducets += products
