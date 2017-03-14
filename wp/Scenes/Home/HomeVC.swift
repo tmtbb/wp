@@ -21,6 +21,9 @@ class HomeVC: BaseTableViewController {
     lazy var marketArray: [KChartModel] = []
     @IBOutlet weak var bannerView: BannerView!
     @IBOutlet weak var noticeView: NoticeICarousel!
+    @IBOutlet weak var errorImage: UIImageView!
+    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var footErrorView: UIView!
     var priceTimer: Timer?
     var dict:[AnyObject]?
     
@@ -94,11 +97,21 @@ class HomeVC: BaseTableViewController {
                     }
                 }
                 self?.marketArray = models
-                //3,刷新商品报价
                 self?.tableView.reloadData()
+                if models.count == 0{
+                    self?.footErrorView.alpha = 1
+                    self?.errorImage.image = UIImage.init(named: "shouye-shujujiazai")
+                    self?.errorLabel.text = "正在同步市场实时数据..."
+                }else{
+                    self?.footErrorView.alpha = 0
+                }
             }
             return nil
-        }, error: errorBlockFunc())
+            }, error: { [weak self](error) -> () in
+                self?.errorImage.image = UIImage.init(named: "shouye-shouye-jiazaishibai")
+                self?.errorLabel.text = "加载失败"
+                self?.footErrorView.alpha = 1
+        })
     }
     //MARK: --UI
     func initUI() {
