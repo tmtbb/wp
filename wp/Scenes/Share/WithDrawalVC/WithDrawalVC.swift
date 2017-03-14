@@ -109,8 +109,14 @@ class WithDrawalVC: BaseTableViewController {
     func withDrawList(){
         self.performSegue(withIdentifier: "PushTolist", sender: nil)
     }
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
     //MARK: -提现
     @IBAction func withDraw(_ sender: Any) {
+        if !checkTextFieldEmpty([bankTd,branceTd,nameTd,bankNumberLb]){
+            return
+        }
         
         // 校验 是否选择银行卡和提现最多金额
 //        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
@@ -128,6 +134,9 @@ class WithDrawalVC: BaseTableViewController {
             SVProgressHUD.showError(withStatus: "最多提现" + "\(account)" + "元")
             return
         }
+        
+        
+        
 //        let alertView = UIAlertView.init()
 //        alertView.alertViewStyle = UIAlertViewStyle.secureTextInput // 密文
 //        alertView.title = "请输入交易密码"

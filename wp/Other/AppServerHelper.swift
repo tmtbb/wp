@@ -22,6 +22,7 @@ class AppServerHelper: NSObject , WXApiDelegate{
     func initServer() {
         initFeedback()
         initFabric()
+        wechat()
     }
     
     //阿里百川
