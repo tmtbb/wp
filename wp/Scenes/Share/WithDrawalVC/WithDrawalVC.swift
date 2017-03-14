@@ -12,19 +12,19 @@ import DKNightVersion
 class WithDrawalVC: BaseTableViewController {
   
     @IBOutlet weak var submited: UIButton!        //提现提交按钮
-    var bankId : Int64 = 0
-//    var bankId : Int64 = 49
-    var accountMoney : Double = 0                      // 提现金额
+//    var bankId : Int64 = 0
+    var bankId : Int64 = 49
+    var accountmoneyTd : Double = 0                      // 提现金额
     @IBOutlet weak var voiceCodeBtn: UIButton!         // 发送验证码
     var timer: Timer?                                  // 定时器
     var codeTime = 60                                  // 时间
     @IBOutlet weak var bankTd: UITextField!            // 银行名
     @IBOutlet weak var branceTd: UITextField!          // 支行名称
     @IBOutlet weak var nameTd: UITextField!            //  姓名
-    @IBOutlet weak var bankNumberLb: UITextField!      //  银行卡号
+    @IBOutlet weak var bankNumberTd: UITextField!      //  银行卡号
     @IBOutlet weak var withDrawAll: UIButton!          //  全部提现
     @IBOutlet weak var codeTd: UITextField!
-    @IBOutlet weak var money: UITextField!              // 金额
+    @IBOutlet weak var moneyTd: UITextField!              // 金额
     
     override func viewDidLoad() {
         
@@ -70,21 +70,21 @@ class WithDrawalVC: BaseTableViewController {
         if UserModel.share().getCurrentUser() != nil{
             let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
             let int : Double = Double(str)!
-            self.money.placeholder = "最多可提现" + "\(int)" + "元"
+            self.moneyTd.placeholder = "最多可提现" + "\(int)" + "元"
             
-          accountMoney = (UserModel.share().getCurrentUser()?.balance)!
+          accountmoneyTd = (UserModel.share().getCurrentUser()?.balance)!
         }
         
         AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
             if let resultDic = result as? [String: AnyObject] {
-                if let money = resultDic["balance"] as? Double{
+                if let moneyTd = resultDic["balance"] as? Double{
                     
                     UserModel.updateUser(info: { (result) -> ()? in
-                        UserModel.share().getCurrentUser()?.balance = Double(money)
+                        UserModel.share().getCurrentUser()?.balance = Double(moneyTd)
                         return nil
                     })
-                    self?.accountMoney = money
-                    self?.money.placeholder = "最多可提现" + "\(money)" + "元"
+                    self?.accountmoneyTd = moneyTd
+                    self?.moneyTd.placeholder = "最多可提现" + "\(moneyTd)" + "元"
                 }
             }
             return nil
@@ -99,7 +99,7 @@ class WithDrawalVC: BaseTableViewController {
                 bankId =  Int64(base.bid)
                 self.bankTd.text! = base.bank
                 self.branceTd.text! = base.branchBank
-                self.bankNumberLb.text! = base.cardNo
+                self.bankNumberTd.text! = base.cardNo
                 self.nameTd.text!=base.name
             }
         }
@@ -114,12 +114,12 @@ class WithDrawalVC: BaseTableViewController {
         
         // 校验 是否选择银行卡和提现最多金额
 //        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
-        let account  = accountMoney
-            if self.money.text?.length()==0{
+        let account  = accountmoneyTd
+            if self.moneyTd.text?.length()==0{
             SVProgressHUD.showError(withStatus: "请输入提现金额")
             return
         }
-        let input : Double = Double(self.money.text!)!
+        let input : Double = Double(self.moneyTd.text!)!
         if  bankId == 0{
             SVProgressHUD.showError(withStatus: "请选择银行卡")
             return
@@ -135,46 +135,46 @@ class WithDrawalVC: BaseTableViewController {
 //        alertView.addButton(withTitle: "取消")
 //        alertView.delegate = self
 //        alertView.show()
-          var money : String
-        if ((self.money.text?.range(of: ".")) != nil) {
+          var moneyTd : String
+        if ((self.moneyTd.text?.range(of: ".")) != nil) {
             //来判断是否包含小数点
-            if ((self.money.text?.range(of: ".00")) != nil) {
-                let arr : Array = (self.money.text?.components(separatedBy: "."))!
-                money = arr[0] + ".000001"
+            if ((self.moneyTd.text?.range(of: ".00")) != nil) {
+                let arr : Array = (self.moneyTd.text?.components(separatedBy: "."))!
+                moneyTd = arr[0] + ".000001"
             }
-            else  if ((self.money.text?.range(of: ".0")) != nil) {
-                let arr : Array = (self.money.text?.components(separatedBy: "."))!
+            else  if ((self.moneyTd.text?.range(of: ".0")) != nil) {
+                let arr : Array = (self.moneyTd.text?.components(separatedBy: "."))!
                 let number : String = arr[1] as String
                 if number.length()>1 {
                     print("123")
-                    money = self.money.text!
+                    moneyTd = self.moneyTd.text!
                 }else{
-                    money = arr[0] + ".000001"
+                    moneyTd = arr[0] + ".000001"
                 }
-            } else  if ((self.money.text?.range(of: ".")) != nil){
-                let arr : Array = (self.money.text?.components(separatedBy: "."))!
+            } else  if ((self.moneyTd.text?.range(of: ".")) != nil){
+                let arr : Array = (self.moneyTd.text?.components(separatedBy: "."))!
                 
                 if arr.count > 1{
                     if arr[1] != ""{
                         if arr[0] != "" {
-                            money = "0" + self.money.text!
+                            moneyTd = "0" + self.moneyTd.text!
                         }else{
-                            money = self.money.text!
+                            moneyTd = self.moneyTd.text!
                         }
                     }else{
-                        money = arr[0] + ".000001"
+                        moneyTd = arr[0] + ".000001"
                     }
                 }else {
-                    money = arr[0] + ".000001"
+                    moneyTd = arr[0] + ".000001"
                 }
             }
             else{
-                money = self.money.text!
+                moneyTd = self.moneyTd.text!
             }
         }else{
-            money = "\(self.money.text!)" + ".000001"
+            moneyTd = "\(self.moneyTd.text!)" + ".000001"
         }
-        AppAPIHelper.user().withdrawcash(money: Double.init(money)!, bld: bankId, password: "123213213", complete: { [weak self](result) -> ()? in
+        AppAPIHelper.user().withdrawcash(money: Double.init(moneyTd)!, bld: bankId, password: "123213213", complete: { [weak self](result) -> ()? in
             
             if let object = result{
                 let Model : WithdrawModel = object as! WithdrawModel
@@ -239,6 +239,7 @@ class WithDrawalVC: BaseTableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
+        return
         //pushaddBank
         if indexPath.section == 0 {
             if indexPath.row == 0 {
@@ -248,9 +249,9 @@ class WithDrawalVC: BaseTableViewController {
     }
     //MARK: 全部提现导航栏
     @IBAction func withDrawAll(_ sender: Any) {
-        //        self.money.text
-        let str : String = NSString(format: "%.2f" , self.accountMoney) as String
-        self.money.text = str
+        //        self.moneyTd.text
+        let str : String = NSString(format: "%.2f" , self.accountmoneyTd) as String
+        self.moneyTd.text = str
     }
 }
 

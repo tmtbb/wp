@@ -229,7 +229,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         if UserModel.share().getCurrentUser() != nil{
             let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
             let int : Double = Double(str)!
-            
             let format = NumberFormatter()
             format.numberStyle = .currency
             let account : String =   format.string(from: NSNumber(value: int))!
@@ -253,21 +252,8 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             }
             return nil
             }, error: errorBlockFunc())
-        
-        
-        //        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
-        //            if let object = result {
-        //                let Model : BankModel = object as! BankModel
-        //                let Count : Int = (Model.cardlist?.count)!
-        //                let str : String = String(Count)
-        //                self?.bankCount.text = "\(str)" + " " + "张"
-        //            }else {
-        //            }
-        //
-        //            return nil
-        //            }, error: errorBlockFunc())
+      
     }
-    
     // MARK: 属性的变化 后台返回余额变化进入充值列表
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
