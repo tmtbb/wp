@@ -33,7 +33,6 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     
     
     var allData:[String:TransactionDetailModel] = [:]
-    var allDataDict:[String:Array<PositionModel>] = Dictionary()
     var pageIndexs:[String:Int] = [:]
     //当前选择的分组数据Model
     var currentTDModel:TransactionDetailModel?
@@ -42,17 +41,11 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     var currentSelectProduct:ProductModel?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.bounces = false
         currentSelectProduct  = DealModel.share().productKinds.first
         setupCollection()
-//        beginRefreshing()
-
         dealBackground.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
-//        sumHandNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
-//        sumOneNumber.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.lightBlue)
-//        
-
-        tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
+        endRefreshing()
         tableView.showsVerticalScrollIndicator = false
     }
     
@@ -77,16 +70,16 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     internal func didSelectedObject(_ collectionView: UICollectionView, object: AnyObject?) {
         currentSelectProduct = object as? ProductModel
         currentTDModel = allData[currentSelectProduct!.symbol]
-        beginRefreshing()
         tableView.reloadData()
+        didRequest(1)
     }
     
 
     
-//    override func isOverspreadLoadMore() -> Bool {
-//        return false
-//    }
-//    
+    override func isOverspreadLoadMore() -> Bool {
+        return false
+    }
+    
     override func didRequest(_ pageIndex : Int){
         guard currentSelectProduct != nil else {return}
         let index = pageIndexs[currentSelectProduct!.symbol]
@@ -199,15 +192,6 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     //组尾高
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
-    }
-    
-    //禁止向上滑动
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        let off_y = scrollView.contentOffset.y
-        if off_y < 0 {
-            self.tableView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
-        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

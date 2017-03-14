@@ -93,7 +93,7 @@ class AppConst {
         static let SMSVerifyCodeErr  = "获取验证码失败"
         static let PasswordTwoErr = "两次密码不一致"
         static let ReSMSVerifyCode = "重新获取"
-        static let ErrorDomain = "com.yundian.viossvc"
+        static let ErrorDomain = "com.newxfin.goods"
         static let PhoneFormat = "^1[3|4|5|7|8][0-9]\\d{8}$"
         static let RegisterPhoneError = "输入的手机号已注册"
     }
