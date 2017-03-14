@@ -29,11 +29,11 @@ class DealSocketApi: BaseSocketAPI, DealApi {
     
     //历史仓位列表
     func historyDeals(start: Int,count: Int,complete: CompleteBlock?, error:ErrorBlock?){
-        let param: [String: Any] = [SocketConst.Key.id: UserModel.share().currentUser?.id ?? 32,
-                                    SocketConst.Key.countNuber: count,
-                                    SocketConst.Key.start: start,
-                                    SocketConst.Key.token: UserModel.share().token]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .historyDeals, dict: param as [String : AnyObject], type:.time)
+        let param: UndealParam = UndealParam()
+        param.start = start
+        param.count = count
+        param.htype = 1
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .historyDeals, model: param, type:.time)
         startModelsRequest(packet, listName: "positioninfo", modelClass: PositionModel.self, complete: complete, error: error)
     }
     

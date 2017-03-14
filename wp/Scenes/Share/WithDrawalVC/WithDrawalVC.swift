@@ -9,12 +9,13 @@
 import UIKit
 import SVProgressHUD
 import DKNightVersion
-class WithDrawalVC: BaseTableViewController {
+class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
   
     @IBOutlet weak var submited: UIButton!        //提现提交按钮
 //    var bankId : Int64 = 0
     var bankId : Int64 = 49
     var accountmoneyTd : Double = 0                      // 提现金额
+    var accountMoney : Double = 0                      // 提现金额
     @IBOutlet weak var voiceCodeBtn: UIButton!         // 发送验证码
     var timer: Timer?                                  // 定时器
     var codeTime = 60                                  // 时间
@@ -25,6 +26,8 @@ class WithDrawalVC: BaseTableViewController {
     @IBOutlet weak var withDrawAll: UIButton!          //  全部提现
     @IBOutlet weak var codeTd: UITextField!
     @IBOutlet weak var moneyTd: UITextField!              // 金额
+    var rangePoint:NSRange!
+    var isFirst = true
     
     override func viewDidLoad() {
         
@@ -38,6 +41,8 @@ class WithDrawalVC: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         hideTabBarWithAnimationDuration()
+        
+//        self.moneyTd.delegate = self
         
     }
     //MARK:  界面销毁删除监听
@@ -109,8 +114,14 @@ class WithDrawalVC: BaseTableViewController {
     func withDrawList(){
         self.performSegue(withIdentifier: "PushTolist", sender: nil)
     }
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
     //MARK: -提现
     @IBAction func withDraw(_ sender: Any) {
+        if !checkTextFieldEmpty([bankTd,branceTd,nameTd,bankNumberTd]){
+            return
+        }
         
         // 校验 是否选择银行卡和提现最多金额
 //        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
@@ -128,6 +139,9 @@ class WithDrawalVC: BaseTableViewController {
             SVProgressHUD.showError(withStatus: "最多提现" + "\(account)" + "元")
             return
         }
+        
+        
+        
 //        let alertView = UIAlertView.init()
 //        alertView.alertViewStyle = UIAlertViewStyle.secureTextInput // 密文
 //        alertView.title = "请输入交易密码"
@@ -199,7 +213,7 @@ class WithDrawalVC: BaseTableViewController {
                 
               _ = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(UserModel.share().getCurrentUser()?.phone!)!).sha256()
 //                let passWord : String = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(alertView.textField(at: 0)?.text)!).sha256()
-               
+
             }
         }
     }
@@ -238,7 +252,7 @@ class WithDrawalVC: BaseTableViewController {
         voiceCodeBtn.setTitle(title, for: .normal)
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        
+
         return
         //pushaddBank
         if indexPath.section == 0 {
@@ -253,6 +267,54 @@ class WithDrawalVC: BaseTableViewController {
         let str : String = NSString(format: "%.2f" , self.accountmoneyTd) as String
         self.moneyTd.text = str
     }
+    
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        
+//        let result : Bool = onlyInputTheNumber(string)
+//        
+//        if !result {
+//            if string == "."{
+//                //            return true
+//            }else{
+//                return false
+//            }
+//            
+//            
+//        }
+//        if string == "" || string == "\n" || result == true{
+//            if rangePoint != nil {
+//                if range.location == rangePoint.location {
+//                    isFirst = true
+//                }
+//            }
+//            return true
+//        }
+//        let single : unichar =  (string as NSString).character(at: 0)
+//        if ( single >= 48 && single <= 57 ) || string == "." {
+//            if isFirst == true {
+//                if string == "." {
+//                    isFirst = false
+//                    rangePoint = range
+//                    return true
+//                }
+//            }else if isFirst == false {
+//                if string == "." {
+//                    return false
+//                }else if range.location - rangePoint.location > 2 {
+//                    return false
+//                }
+//            }
+//        }else {return false}
+//        return true
+//        
+//    }
+    
+//    func onlyInputTheNumber(_ string: String) -> Bool {
+//        let numString = "[0-9]*"
+//        let predicate = NSPredicate(format: "SELF MATCHES %@", numString)
+//        let number = predicate.evaluate(with: string)
+//        return number
+//    }
 }
 
 

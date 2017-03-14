@@ -52,6 +52,12 @@ class BenifityParam: DealParam{
     var handle = 0
 }
 
+class UndealParam: DealParam {
+    var htype = 0
+    var start = 0
+    var count = 10
+}
+
 class DealHistoryDetailParam: DealParam {
     var symbol:String = ""
     var start = 0
