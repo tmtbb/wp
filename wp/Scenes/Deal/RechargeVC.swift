@@ -9,9 +9,12 @@
 import UIKit
 import SVProgressHUD
 import DKNightVersion
-class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDelegate,NSURLConnectionDelegate{
+class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDelegate,NSURLConnectionDelegate , UITextFieldDelegate{
     
-    var selectType =  Int()                                    //选择支付方式 0银联 1 微信
+    var selectType =  Int()
+     var rangePoint:NSRange!
+     var isFirst = true
+    //选择支付方式 0银联 1 微信
     var rid = Int64()
     @IBOutlet weak var arrow: UIImageView!                     // 箭头
     @IBOutlet weak var userIdText: UITextField!                //用户账户
@@ -28,13 +31,14 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     
     
     
-    //MARK: --界面销毁删除监听
+    //MARK: -界面销毁删除监听
     deinit {
         ShareModel.share().shareData.removeValue(forKey: "rid")
         ShareModel.share().removeObserver(self, forKeyPath: "userMoney")
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppConst.WechatPay.WechatKeyErrorCode), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: nil)
     }
+    //MARK: -UI
     override func viewDidLoad() {
         super.viewDidLoad()
         selectRow = false
@@ -48,7 +52,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         hideTabBarWithAnimationDuration()
 
     }
-    //MARK: --UI
     func initUI(){
         selectType = 1
         // 设置 提现记录按钮
@@ -68,24 +71,31 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         submited.clipsToBounds = true
         ShareModel.share().addObserver(self, forKeyPath: "userMoney", options: .new, context: nil)
         moneyText.dk_textColorPicker = DKColorTable.shared().picker(withKey: "auxiliary")
+        rechargeMoneyTF.delegate = self
+//        rechargeMoneyTF.addTarget(self, action: #selector(TextFieldchange(_:)), for: UIControlEvents.valueChanged)
     }
-    //MARK:-进入充值吗列表
-    func rechargeList(){
-        self.performSegue(withIdentifier: "PushTolist", sender: nil)
-    }
-    //MARK: --DATA
+    //MARK: -DATA
     func initData() {
         didRequest()
         
-        
     }
+//    func TextFieldchange(_ notice: UITextField){
+//        if onlyInputTheNumber(notice.text!) ==  true{
+//        
+//        }
+//        
+//    }
+    //MARK: -进入充值列表
+    func rechargeList(){
+        self.performSegue(withIdentifier: "PushTolist", sender: nil)
+    }
+  
     //MARK: -进入绑定银行卡
     @IBAction func addBank(_ sender: Any) {
         self.performSegue(withIdentifier: "addBankCard", sender: nil)
     }
     //MARK: -提交
     @IBAction func submitBtnTapped(_ sender: UIButton) {
-        
         //kURL_TN_Normal
         if selectType == 0 {
             if checkTextFieldEmpty([self.rechargeMoneyTF]) {
@@ -111,7 +121,13 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             }
         }else{
             if checkTextFieldEmpty([self.rechargeMoneyTF]) {
-                var money : String
+                
+                let account : Double = Double.init(self.rechargeMoneyTF.text!)!
+                if account <= 0 {
+                     return
+                }
+                    var money : String
+                
                 SVProgressHUD.show(withStatus: "加载中")
                 if ((self.rechargeMoneyTF.text?.range(of: ".")) != nil) {
                     money = self.rechargeMoneyTF.text!
@@ -137,41 +153,10 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             }
         }
     }
-    //MARK: -tableView dataSource
-    override   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        if section==0 {
-            return 2
-        }
-        if section==1 {
-            return 3
-        }
-        if selectRow == true  {
-            return 1
-        }else{
-            return 0
-        }
-    }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(indexPath.section==1){
-            if indexPath.row == 2 {
-                let  cell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 2, section: 1) as IndexPath)!
-                cell.accessoryType =  .checkmark
-                selectType = 1
-                let  uncell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 3, section: 1) as IndexPath)!
-                uncell.accessoryType =  .none
-            }
-            if indexPath.row == 3 {
-                selectType = 0
-                let  cell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 3 , section: 1) as IndexPath)!
-                cell.accessoryType =  .checkmark
-                let  uncell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 2, section: 1) as IndexPath)!
-                uncell.accessoryType =  .none
-            }
-        }
-    }
+  
     
     
-    //MARK: 监听银联返回结果
+    //MARK: -监听银联返回结果
     func errorCode(_ notice: NSNotification){
         
         if let errorCode: String = notice.object as? String{
@@ -200,10 +185,8 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                 //                }, error: errorBlockFunc())
             }
         }
-        
-        
     }
-    //MARK: 监听微信支付返回结果
+    //MARK: -监听微信支付返回结果
     func paysuccess(_ notice: NSNotification) {
         if let errorCode: Int = notice.object as? Int{
             //            var code = Int()
@@ -229,7 +212,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         if UserModel.share().getCurrentUser() != nil{
             let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
             let int : Double = Double(str)!
-            
             let format = NumberFormatter()
             format.numberStyle = .currency
             let account : String =   format.string(from: NSNumber(value: int))!
@@ -253,22 +235,9 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             }
             return nil
             }, error: errorBlockFunc())
-        
-        
-        //        AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
-        //            if let object = result {
-        //                let Model : BankModel = object as! BankModel
-        //                let Count : Int = (Model.cardlist?.count)!
-        //                let str : String = String(Count)
-        //                self?.bankCount.text = "\(str)" + " " + "张"
-        //            }else {
-        //            }
-        //
-        //            return nil
-        //            }, error: errorBlockFunc())
+      
     }
-    
-    // MARK: 属性的变化 后台返回余额变化进入充值列表
+    // MARK: -属性的变化 后台返回余额变化进入充值列表
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == "userMoney" {
@@ -280,6 +249,49 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             
         }
     }
+    
+    //MARK: -tableView dataSource
+    override   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        if section==0 {
+            return 2
+        }
+        if section==1 {
+            return 3
+        }
+        if selectRow == true  {
+            return 1
+        }else{
+            return 0
+        }
+    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+////        if(indexPath.section==1){
+////            if indexPath.row == 2 {
+////                let  cell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 2, section: 1) as IndexPath)!
+////                cell.accessoryType =  .checkmark
+////                selectType = 1
+////                let  uncell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 3, section: 1) as IndexPath)!
+////                uncell.accessoryType =  .none
+////            }
+////            if indexPath.row == 3 {
+////                selectType = 0
+////                let  cell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 3 , section: 1) as IndexPath)!
+////                cell.accessoryType =  .checkmark
+////                let  uncell : UITableViewCell = tableView.cellForRow(at: NSIndexPath.init(row: 2, section: 1) as IndexPath)!
+////                uncell.accessoryType =  .none
+////            }
+////        }
+//    }
+    
+    
+   
+    
+//    func onlyInputTheNumber(_ string: String) -> Bool {
+//        let numString = "^[0-9]*((\\\\.|,)[0-9]{0,2})?$"
+//        let predicate = NSPredicate(format: "SELF MATCHES %@", numString)
+//        let number = predicate.evaluate(with: string)
+//        return number
+//    }
     
     
 }
