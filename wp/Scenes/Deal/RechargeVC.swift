@@ -79,11 +79,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         didRequest()
         
     }
-//    func TextFieldchange(_ notice: UITextField){
-//        if onlyInputTheNumber(notice.text!) ==  true{
-//        
-//        }
-//        
+   
 //    }
     //MARK: -进入充值列表
     func rechargeList(){
@@ -282,16 +278,39 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
 ////            }
 ////        }
 //    }
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     
+    
+            if string == "" || string == "\n" {
+                if rangePoint != nil {
+                    if range.location == rangePoint.location {
+                        isFirst = true
+                    }
+                }
+                return true
+            }
+            let single : unichar =  (string as NSString).character(at: 0)
+            if ( single >= 48 && single <= 57 ) || string == "." {
+                if isFirst == true {
+                    if string == "." {
+                        isFirst = false
+                        rangePoint = range
+                        return true
+                    }
+                }else if isFirst == false {
+                    if string == "." {
+                        return false
+                    }else if range.location - rangePoint.location > 2 {
+                        return false
+                    }
+                }
+            }else {return false}
+            return true
+            
+        }
     
    
     
-//    func onlyInputTheNumber(_ string: String) -> Bool {
-//        let numString = "^[0-9]*((\\\\.|,)[0-9]{0,2})?$"
-//        let predicate = NSPredicate(format: "SELF MATCHES %@", numString)
-//        let number = predicate.evaluate(with: string)
-//        return number
-//    }
-    
+
     
 }
