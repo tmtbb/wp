@@ -216,6 +216,8 @@ class AppDataHelper: NSObject {
                     return nil
                 })
             }
+        }else{
+            clearUserInfo()
         }
     }
     //清楚用户数据

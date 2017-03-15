@@ -20,7 +20,7 @@ class RechargeListVCCell: OEZTableViewCell {
     //MARK:--- 刷新cell
     override func update(_ data: Any!) {
         let model = data as! Model
-        self.moneyCountLb.text = "+" + " "  + "\(model.amount)"
+        self.moneyCountLb.text = "+" + " "  + String.init(format: "%.2f", model.amount)
         let timestr : Int = Date.stringToTimeStamp(stringTime: model.depositTime)
         self.withDrawto.text = model.depositType == 1 ? "微信支付" :"银行卡"
         self.weekLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "yyyy")
