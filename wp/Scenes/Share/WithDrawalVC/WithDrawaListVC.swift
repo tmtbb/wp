@@ -11,7 +11,7 @@ import UIKit
 // 定义 WithDrawaListVCCell cell
 class WithDrawaListVCCell: OEZTableViewCell {
     
-    // 时间lb
+    // 时间lb 
     @IBOutlet weak var minuteLb: UILabel!
     // 时间lb
     @IBOutlet weak var timeLb: UILabel!

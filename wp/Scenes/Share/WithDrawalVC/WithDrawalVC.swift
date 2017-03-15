@@ -14,7 +14,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     @IBOutlet weak var submited: UIButton!        //提现提交按钮
 //    var bankId : Int64 = 0
     var bankId : Int64 = 49
-    var accountmoneyTd : Double = 0                      // 提现金额
+    var accountmoney : Double = 0                      // 提现金额
     var accountMoney : Double = 0                      // 提现金额
     @IBOutlet weak var voiceCodeBtn: UIButton!         // 发送验证码
     var timer: Timer?                                  // 定时器
@@ -42,7 +42,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         
         hideTabBarWithAnimationDuration()
         
-//        self.moneyTd.delegate = self
+        self.moneyTd.delegate = self
         
     }
     //MARK:  界面销毁删除监听
@@ -77,7 +77,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             let int : Double = Double(str)!
             self.moneyTd.placeholder = "最多可提现" + "\(int)" + "元"
             
-          accountmoneyTd = (UserModel.share().getCurrentUser()?.balance)!
+            accountmoney = (UserModel.share().getCurrentUser()?.balance)!
         }
         
         AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
@@ -88,7 +88,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
                         UserModel.share().getCurrentUser()?.balance = Double(moneyTd)
                         return nil
                     })
-                    self?.accountmoneyTd = moneyTd
+                    self?.accountmoney = moneyTd
                     self?.moneyTd.placeholder = "最多可提现" + "\(moneyTd)" + "元"
                 }
             }
@@ -125,7 +125,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         
         // 校验 是否选择银行卡和提现最多金额
 //        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
-        let account  = accountmoneyTd
+        let account  = accountmoney
             if self.moneyTd.text?.length()==0{
             SVProgressHUD.showError(withStatus: "请输入提现金额")
             return
@@ -139,9 +139,6 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             SVProgressHUD.showError(withStatus: "最多提现" + "\(account)" + "元")
             return
         }
-        
-        
-        
 //        let alertView = UIAlertView.init()
 //        alertView.alertViewStyle = UIAlertViewStyle.secureTextInput // 密文
 //        alertView.title = "请输入交易密码"
@@ -160,7 +157,6 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
                 let arr : Array = (self.moneyTd.text?.components(separatedBy: "."))!
                 let number : String = arr[1] as String
                 if number.length()>1 {
-                    print("123")
                     moneyTd = self.moneyTd.text!
                 }else{
                     moneyTd = arr[0] + ".000001"
@@ -217,97 +213,87 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             }
         }
     }
-    @IBAction func requestVoiceCode(_ sender: UIButton) {
-        
-        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.share().getCurrentUser()?.phone)!, complete: { [weak self](result) -> ()? in
-            if let strongSelf = self{
-                if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
-                    if let token = resultDic[SocketConst.Key.vToken]{
-                        UserModel.share().codeToken = token as! String
-                    }
-                    if let timestamp = resultDic[SocketConst.Key.timestamp]{
-                        UserModel.share().timestamp = timestamp as! Int
-                    }
-                }
-                strongSelf.voiceCodeBtn.isEnabled = false
-                strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updateBtnTitle), userInfo: nil, repeats: true)
-            }
-            return nil
-            }, error: errorBlockFunc())
-
-//        self.voiceCodeBtn.isEnabled = false
-//        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateBtnTitle), userInfo: nil, repeats: true)
-    }
-    func updateBtnTitle() {
-        if codeTime == 0 {
-            voiceCodeBtn.isEnabled = true
-            voiceCodeBtn.setTitle("重新发送", for: .normal)
-            codeTime = 60
-            timer?.invalidate()
-            return
-        }
-        voiceCodeBtn.isEnabled = false
-        codeTime = codeTime - 1
-        let title: String = "\(codeTime)S"
-        voiceCodeBtn.setTitle(title, for: .normal)
-    }
+//    @IBAction func requestVoiceCode(_ sender: UIButton) {
+//        
+//        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.share().getCurrentUser()?.phone)!, complete: { [weak self](result) -> ()? in
+//            if let strongSelf = self{
+//                if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
+//                    if let token = resultDic[SocketConst.Key.vToken]{
+//                        UserModel.share().codeToken = token as! String
+//                    }
+//                    if let timestamp = resultDic[SocketConst.Key.timestamp]{
+//                        UserModel.share().timestamp = timestamp as! Int
+//                    }
+//                }
+//                strongSelf.voiceCodeBtn.isEnabled = false
+//                strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updateBtnTitle), userInfo: nil, repeats: true)
+//            }
+//            return nil
+//            }, error: errorBlockFunc())
+//
+////        self.voiceCodeBtn.isEnabled = false
+////        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateBtnTitle), userInfo: nil, repeats: true)
+//    }
+//    func updateBtnTitle() {
+//        if codeTime == 0 {
+//            voiceCodeBtn.isEnabled = true
+//            voiceCodeBtn.setTitle("重新发送", for: .normal)
+//            codeTime = 60
+//            timer?.invalidate()
+//            return
+//        }
+//        voiceCodeBtn.isEnabled = false
+//        codeTime = codeTime - 1
+//        let title: String = "\(codeTime)S"
+//        voiceCodeBtn.setTitle(title, for: .normal)
+//    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
 
         return
         //pushaddBank
-        if indexPath.section == 0 {
-            if indexPath.row == 0 {
-                self.performSegue(withIdentifier: "pushaddBank", sender: nil)
-            }
-        }
+//        if indexPath.section == 0 {
+//            if indexPath.row == 0 {
+//                self.performSegue(withIdentifier: "pushaddBank", sender: nil)
+//            }
+//        }
     }
     //MARK: 全部提现导航栏
     @IBAction func withDrawAll(_ sender: Any) {
         //        self.moneyTd.text
-        let str : String = NSString(format: "%.2f" , self.accountmoneyTd) as String
+        let str : String = NSString(format: "%.2f" , self.accountmoney) as String
         self.moneyTd.text = str
     }
     
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        
-//        let result : Bool = onlyInputTheNumber(string)
-//        
-//        if !result {
-//            if string == "."{
-//                //            return true
-//            }else{
-//                return false
-//            }
-//            
-//            
-//        }
-//        if string == "" || string == "\n" || result == true{
-//            if rangePoint != nil {
-//                if range.location == rangePoint.location {
-//                    isFirst = true
-//                }
-//            }
-//            return true
-//        }
-//        let single : unichar =  (string as NSString).character(at: 0)
-//        if ( single >= 48 && single <= 57 ) || string == "." {
-//            if isFirst == true {
-//                if string == "." {
-//                    isFirst = false
-//                    rangePoint = range
-//                    return true
-//                }
-//            }else if isFirst == false {
-//                if string == "." {
-//                    return false
-//                }else if range.location - rangePoint.location > 2 {
-//                    return false
-//                }
-//            }
-//        }else {return false}
-//        return true
-//        
-//    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        
+        if string == "" || string == "\n" {
+            if rangePoint != nil {
+                if range.location == rangePoint.location {
+                    isFirst = true
+                }
+            }
+            return true
+        }
+        let single : unichar =  (string as NSString).character(at: 0)
+        if ( single >= 48 && single <= 57 ) || string == "." {
+            if isFirst == true {
+                if string == "." {
+                    isFirst = false
+                    rangePoint = range
+                    return true
+                }
+            }else if isFirst == false {
+                if string == "." {
+                    return false
+                }else if range.location - rangePoint.location > 2 {
+                    return false
+                }
+            }
+        }else {return false}
+        return true
+        
+    }
     
 //    func onlyInputTheNumber(_ string: String) -> Bool {
 //        let numString = "[0-9]*"
