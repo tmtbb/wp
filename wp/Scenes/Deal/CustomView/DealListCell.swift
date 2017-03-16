@@ -125,7 +125,7 @@ class DealListCell: UITableViewCell {
         startTime = self.positionModel!.positionTime
         totalCount = self.positionModel!.closeTime - startTime
         titleLabel.text = self.positionModel!.name
-        countLabel.text = "手数\(self.positionModel!.amount)"
+        countLabel.text = "公斤数\(self.positionModel!.amount)"
         refreshText()
     }
     

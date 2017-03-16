@@ -31,7 +31,7 @@ class HistoryDealCell: OEZTableViewCell{
             statuslb.backgroundColor = model.result   ? UIColor.init(hexString: "E9573F") : UIColor.init(hexString: "0EAF56")
             statuslb.text =  model.result   ?  "盈" :   "亏"
             titleLabel.text = model.buySell == 1 ? "买入" : "卖出"
-            let handleText = [" 未操作 "," 双倍返回 "," 货运 "," 退仓 "]
+            let handleText = [" 未操作 "," 退舱/转让 "," 货运 "," 退舱 "]
 
             if model.handle < handleText.count{
                 handleLabel.text = handleText[model.handle]
@@ -109,7 +109,7 @@ class HistoryDealVC: BasePageListTableViewController {
             
             let param = BenifityParam()
             param.tid = model.positionId
-            let alterController = UIAlertController.init(title: "恭喜盈利", message: "请选择盈利方式", preferredStyle: .alert)
+            let alterController = UIAlertController.init(title: "订舱成功", message: "请选择", preferredStyle: .alert)
             let productAction = UIAlertAction.init(title: "货运", style: .default, handler: {[weak self] (resultDic) in
                 param.handle = 2
                 AppAPIHelper.deal().benifity(param: param, complete: {(result) -> ()? in
@@ -132,7 +132,7 @@ class HistoryDealVC: BasePageListTableViewController {
                     return nil
                 }, error: self?.errorBlockFunc())
             })
-            let moneyAction = UIAlertAction.init(title: "双倍返回", style: .default, handler: { [weak self](resultDic) in
+            let moneyAction = UIAlertAction.init(title: "退舱/转让", style: .default, handler: { [weak self](resultDic) in
                 param.handle = 1
                 AppAPIHelper.deal().benifity(param: param, complete: {(result) -> ()? in
                     if let resultDic: [String: AnyObject] = result as? [String: AnyObject]{
