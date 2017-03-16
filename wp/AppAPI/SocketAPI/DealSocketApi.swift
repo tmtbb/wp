@@ -32,7 +32,7 @@ class DealSocketApi: BaseSocketAPI, DealApi {
         let param: UndealParam = UndealParam()
         param.start = start
         param.count = count
-        param.htype = 0
+        param.htype = 1
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .historyDeals, model: param, type:.time)
         startModelsRequest(packet, listName: "positioninfo", modelClass: PositionModel.self, complete: complete, error: error)
     }
