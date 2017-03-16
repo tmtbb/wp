@@ -28,7 +28,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     @IBOutlet weak var moneyTd: UITextField!              // 金额
     var rangePoint:NSRange!
     var isFirst = true
-    
+    //MARK: - initUI()
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -45,14 +45,6 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         self.moneyTd.delegate = self
         
     }
-    //MARK:  界面销毁删除监听
-    deinit {
-        ShareModel.share().removeObserver(self, forKeyPath: "selectBank", context: nil)
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-    // MARK - 导航栏右侧
     func initUI(){
         // 设置 提现记录按钮
         let btn : UIButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 70, height: 30))
@@ -66,9 +58,9 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         submited.layer.cornerRadius = 5
         submited.clipsToBounds = true
         withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
-//
+        //
         initData()
-      
+        
         
     }
     func initData(){
@@ -95,7 +87,12 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             return nil
             }, error: errorBlockFunc())
     }
-    //MARK: --属性的变化
+    //MARK: - 界面销毁删除监听
+    deinit {
+        ShareModel.share().removeObserver(self, forKeyPath: "selectBank", context: nil)
+    }
+    
+    //MARK: - 属性的变化
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == "selectBank" {
@@ -110,14 +107,14 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         }
     }
     
-    // MARK: -进入提现列表
+    // MARK: - 进入提现列表
     func withDrawList(){
         self.performSegue(withIdentifier: "PushTolist", sender: nil)
     }
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         view.endEditing(true)
     }
-    //MARK: -提现
+    //MARK: - 提现
     @IBAction func withDraw(_ sender: Any) {
         if !checkTextFieldEmpty([bankTd,branceTd,nameTd,bankNumberTd]){
             return
@@ -257,13 +254,13 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
 //            }
 //        }
     }
-    //MARK: 全部提现导航栏
+    //MARK: - 全部提现导航栏
     @IBAction func withDrawAll(_ sender: Any) {
         //        self.moneyTd.text
         let str : String = NSString(format: "%.2f" , self.accountmoney) as String
         self.moneyTd.text = str
     }
-    
+     //MARK: - textField delegate
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         

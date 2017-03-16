@@ -31,14 +31,14 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     
     
     
-    //MARK: -界面销毁删除监听
+    //MARK: - 界面销毁删除监听
     deinit {
         ShareModel.share().shareData.removeValue(forKey: "rid")
         ShareModel.share().removeObserver(self, forKeyPath: "userMoney")
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppConst.WechatPay.WechatKeyErrorCode), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: nil)
     }
-    //MARK: -UI
+    //MARK: - UI
     override func viewDidLoad() {
         super.viewDidLoad()
         selectRow = false
@@ -74,23 +74,23 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         rechargeMoneyTF.delegate = self
 //        rechargeMoneyTF.addTarget(self, action: #selector(TextFieldchange(_:)), for: UIControlEvents.valueChanged)
     }
-    //MARK: -DATA
+    //MARK: - DATA
     func initData() {
         didRequest()
         
     }
    
 //    }
-    //MARK: -进入充值列表
+    //MARK: - 进入充值列表
     func rechargeList(){
         self.performSegue(withIdentifier: "PushTolist", sender: nil)
     }
   
-    //MARK: -进入绑定银行卡
+    //MARK: - 进入绑定银行卡
     @IBAction func addBank(_ sender: Any) {
         self.performSegue(withIdentifier: "addBankCard", sender: nil)
     }
-    //MARK: -提交
+    //MARK: - 提交
     @IBAction func submitBtnTapped(_ sender: UIButton) {
         //kURL_TN_Normal
         if selectType == 0 {
@@ -152,7 +152,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
   
     
     
-    //MARK: -监听银联返回结果
+    //MARK: - 监听银联返回结果
     func errorCode(_ notice: NSNotification){
         
         if let errorCode: String = notice.object as? String{
@@ -233,7 +233,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             }, error: errorBlockFunc())
       
     }
-    // MARK: -属性的变化 后台返回余额变化进入充值列表
+    // MARK: - 属性的变化 后台返回余额变化进入充值列表
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == "userMoney" {
@@ -246,7 +246,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
         }
     }
     
-    //MARK: -tableView dataSource
+    //MARK: - tableView dataSource
     override   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         if section==0 {
             return 2
@@ -278,7 +278,8 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
 ////            }
 ////        }
 //    }
-        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    //MARK: - textField delegate
+      func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     
     
             if string == "" || string == "\n" {
