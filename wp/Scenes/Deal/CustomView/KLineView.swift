@@ -65,7 +65,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
                 chartsView.rightAxis.gridColor = UIColor.init(rgbHex: 0xf2f2f2)
                 chartsView.delegate = self
                 chartsView.chartDescription?.text = ""
-                chartsView.xAxis.axisMaximum = AppConst.klineCount+1
+                chartsView.xAxis.axisMaximum = AppConst.klineCount+5
                 chartsView.animate(xAxisDuration: 1)
             }
         }

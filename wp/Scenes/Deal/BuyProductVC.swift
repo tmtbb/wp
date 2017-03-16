@@ -60,7 +60,7 @@ class BuyProductVC: UIViewController {
         positionParm.gid = DealModel.share().buyProduct!.id
         AppAPIHelper.deal().position(param: positionParm, complete: { [weak self](result) -> ()? in
             if let model = result as? ProductPositionModel {
-                self?.cangWeiLabel.text = "当前仓位航班: \(model.name)"
+                self?.cangWeiLabel.text = "当前舱位航班: \(model.name)"
             }
             return nil
         }, error: errorBlockFunc())
