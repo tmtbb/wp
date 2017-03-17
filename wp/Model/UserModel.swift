@@ -106,7 +106,7 @@ class UserModel: BaseModel  {
                     UserDefaults.standard.setValue(phone, forKey: SocketConst.Key.phone)
                 }
                 let realm = try! Realm()
-                try! realm.write {
+                try! realm.write {  
                     currentUser  =  user
                     realm.add(user, update: true)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)

@@ -80,8 +80,15 @@ class KLineModel: NSObject {
             var models: [KChartModel] = []
             let realm = try! Realm()
             let queryStr = NSPredicate.init(format: "symbol = %@",goodType)
-            let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).filter("priceTime > \(fromTime)")
-            for  model in result {
+//            let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).filter("priceTime > \(fromTime)")
+//            for  model in result {
+//                models.append(model)
+//            }
+            let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr)
+            for (index,model) in result.enumerated(){
+                if index > Int(AppConst.klineCount){
+                    break
+                }
                 models.append(model)
             }
             complete(models as AnyObject?)
@@ -94,8 +101,16 @@ class KLineModel: NSObject {
             var models: [KChartModel] = []
             let realm = try! Realm()
             let queryStr = NSPredicate.init(format: "symbol = %@",goodType)
-            let result = realm.objects(KLineChartModel.self).sorted(byProperty: "priceTime").filter("priceTime > \(fromTime)").filter(queryStr).filter("chartType = \(type.rawValue)")
-            for model in result{
+//            let result = realm.objects(KLineChartModel.self).sorted(byProperty: "priceTime").filter("priceTime > \(fromTime)").filter(queryStr).filter("chartType = \(type.rawValue)")
+//            for model in result{
+//                models.append(model)
+//            }
+            
+        let result = realm.objects(KLineChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).filter("chartType = \(type.rawValue)")
+            for (index,model) in result.enumerated(){
+                if index > Int(AppConst.klineCount){
+                    break
+                }
                 models.append(model)
             }
             complete(models as AnyObject?)
