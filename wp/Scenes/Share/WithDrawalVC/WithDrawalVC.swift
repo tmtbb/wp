@@ -272,7 +272,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     //MARK: - 全部提现导航栏
     @IBAction func withDrawAll(_ sender: Any) {
         //        self.moneyTd.text
-        let str : String = NSString(format: "%f" , self.accountmoney) as String
+        let str : String = NSString(format: "%.2f" , self.accountmoney) as String
         self.moneyTd.text = str
     }
      //MARK: - textField delegate
