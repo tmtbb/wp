@@ -15,7 +15,6 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
 //    var bankId : Int64 = 0
     var bankId : Int64 = 49
     var accountmoney : Double = 0                      // 提现金额
-    var accountMoney : Double = 0                      // 提现金额
     @IBOutlet weak var voiceCodeBtn: UIButton!         // 发送验证码
     var timer: Timer?                                  // 定时器
     var codeTime = 60                                  // 时间
@@ -78,7 +77,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
                     
                     self?.accountmoney = moneyTd
                     
-                    let str : String =  String.init(format:  "%.2f", moneyTd)
+                    let str : String =  String.init(format:  "%f", moneyTd)
                     self?.moneyTd.placeholder = "最多可提现" + "\(str)" + "元"
                     
                     UserModel.updateUser(info: { (result) -> ()? in
@@ -127,20 +126,27 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         // 校验 是否选择银行卡和提现最多金额
 //        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
         let account  = accountmoney
-            if self.moneyTd.text?.length()==0{
+        let input : Double = Double(self.moneyTd.text!)!
+        if self.moneyTd.text?.length()==0{
             SVProgressHUD.showError(withStatus: "请输入提现金额")
             return
         }
-        if Float.init(self.moneyTd.text!) == 0{
-         SVProgressHUD.showError(withStatus: "提现金额大于0")
+        if input < 0.01{
+            SVProgressHUD.showError(withStatus: "提现金额大于0.01")
             return
         }
-        let input : Double = Double(self.moneyTd.text!)!
+        if Double.init(self.moneyTd.text!) == 0{
+            SVProgressHUD.showError(withStatus: "提现金额大于0")
+            return
+        }
+       
         if  bankId == 0{
             SVProgressHUD.showError(withStatus: "请选择银行卡")
             return
         }
-        if account < input{
+        let str : String = NSString(format: "%f" , self.accountmoney) as String
+        let count : Double = Double.init(str)!
+        if count < input{
             SVProgressHUD.showError(withStatus: "最多提现" + "\(account)" + "元")
             return
         }
@@ -266,7 +272,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     //MARK: - 全部提现导航栏
     @IBAction func withDrawAll(_ sender: Any) {
         //        self.moneyTd.text
-        let str : String = NSString(format: "%.2f" , self.accountmoney) as String
+        let str : String = NSString(format: "%f" , self.accountmoney) as String
         self.moneyTd.text = str
     }
      //MARK: - textField delegate
