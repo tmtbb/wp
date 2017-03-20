@@ -71,6 +71,7 @@ class SocketRequestManage: NSObject {
         if packet.operate_code == SocketConst.OPCode.verifycode.rawValue + 1{
             print("================")
         }
+        print("\(packet.operate_code)===============")
         if packet.operate_code ==  SocketConst.OPCode.timeline.rawValue + 1{
             socketReqeust = timelineRequest
         }else if packet.operate_code == SocketConst.OPCode.products.rawValue + 1{

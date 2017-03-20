@@ -71,7 +71,7 @@ class AppConst {
     class Network {
         #if true //是否测试环境
         static let TcpServerIP:String = "61.147.114.87";
-        static let TcpServerPort:UInt16 = 16008
+        static let TcpServerPort:UInt16 = 16005
         static let TttpHostUrl:String = "http://61.147.114.87";
         #else
         static let TcpServerIP:String = "192.168.8.131";

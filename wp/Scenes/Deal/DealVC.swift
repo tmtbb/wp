@@ -40,7 +40,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     let klineTitles = ["分时图","5分K","15分K","30分K","1小时K"]
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
-        
+        refreshUserCash()
     }
     //MARK: --LIFECYCLE
     
