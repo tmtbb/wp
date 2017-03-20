@@ -108,7 +108,7 @@ class AppDataHelper: NSObject {
         param.exchangeName = product.exchangeName
         param.platformName = product.platformName
         param.aType = 4
-//        param.startTime = Int64(fromTime)
+        param.startTime = Int64(fromTime)
 //        param.endTime = Int64(endTime)
         AppAPIHelper.deal().timeline(param: param, complete: {(result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel]{
@@ -176,7 +176,7 @@ class AppDataHelper: NSObject {
         param.exchangeName = product.exchangeName
         param.platformName = product.platformName
         param.chartType = type.rawValue
-//        param.startTime = Int64(fromTime)
+        param.startTime = Int64(fromTime)
 //        param.endTime = Int64(endTime)
         AppAPIHelper.deal().kChartsData(param: param, complete: { (result) -> ()? in
             if let chart: ChartModel = result as? ChartModel{
