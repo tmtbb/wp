@@ -85,8 +85,8 @@ extension Date{
         let dateFmt = DateFormatter()
         dateFmt.dateFormat = "yyyy-MM-dd"
         
-        let currentdate = NSDate()
-        let timeInterval = currentdate.timeIntervalSince1970
+//        let currentdate = NSDate()
+//        let timeInterval = currentdate.timeIntervalSince1970
 //        if dateFmt.date(from: dateTime) ==  date{
 //        
 //            return "今天"

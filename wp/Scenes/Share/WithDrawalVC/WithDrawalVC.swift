@@ -15,7 +15,6 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
 //    var bankId : Int64 = 0
     var bankId : Int64 = 49
     var accountmoney : Double = 0                      // 提现金额
-    var accountMoney : Double = 0                      // 提现金额
     @IBOutlet weak var voiceCodeBtn: UIButton!         // 发送验证码
     var timer: Timer?                                  // 定时器
     var codeTime = 60                                  // 时间
@@ -28,7 +27,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     @IBOutlet weak var moneyTd: UITextField!              // 金额
     var rangePoint:NSRange!
     var isFirst = true
-    
+    //MARK: - initUI()
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -45,14 +44,6 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         self.moneyTd.delegate = self
         
     }
-    //MARK:  界面销毁删除监听
-    deinit {
-        ShareModel.share().removeObserver(self, forKeyPath: "selectBank", context: nil)
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-    // MARK - 导航栏右侧
     func initUI(){
         // 设置 提现记录按钮
         let btn : UIButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 70, height: 30))
@@ -66,9 +57,9 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         submited.layer.cornerRadius = 5
         submited.clipsToBounds = true
         withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
-//
+        //
         initData()
-      
+        
         
     }
     func initData(){
@@ -84,18 +75,27 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             if let resultDic = result as? [String: AnyObject] {
                 if let moneyTd = resultDic["balance"] as? Double{
                     
+                    self?.accountmoney = moneyTd
+                    
+                    let str : String =  String.init(format:  "%f", moneyTd)
+                    self?.moneyTd.placeholder = "最多可提现" + "\(str)" + "元"
+                    
                     UserModel.updateUser(info: { (result) -> ()? in
                         UserModel.share().getCurrentUser()?.balance = Double(moneyTd)
                         return nil
                     })
-                    self?.accountmoney = moneyTd
-                    self?.moneyTd.placeholder = "最多可提现" + "\(moneyTd)" + "元"
+                    
                 }
             }
             return nil
             }, error: errorBlockFunc())
     }
-    //MARK: --属性的变化
+    //MARK: - 界面销毁删除监听
+    deinit {
+        ShareModel.share().removeObserver(self, forKeyPath: "selectBank", context: nil)
+    }
+    
+    //MARK: - 属性的变化
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == "selectBank" {
@@ -110,14 +110,14 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         }
     }
     
-    // MARK: -进入提现列表
+    // MARK: - 进入提现列表
     func withDrawList(){
         self.performSegue(withIdentifier: "PushTolist", sender: nil)
     }
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         view.endEditing(true)
     }
-    //MARK: -提现
+    //MARK: - 提现
     @IBAction func withDraw(_ sender: Any) {
         if !checkTextFieldEmpty([bankTd,branceTd,nameTd,bankNumberTd]){
             return
@@ -126,16 +126,27 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         // 校验 是否选择银行卡和提现最多金额
 //        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
         let account  = accountmoney
-            if self.moneyTd.text?.length()==0{
+        let input : Double = Double(self.moneyTd.text!)!
+        if self.moneyTd.text?.length()==0{
             SVProgressHUD.showError(withStatus: "请输入提现金额")
             return
         }
-        let input : Double = Double(self.moneyTd.text!)!
+        if input < 0.01{
+            SVProgressHUD.showError(withStatus: "提现金额大于0.01")
+            return
+        }
+        if Double.init(self.moneyTd.text!) == 0{
+            SVProgressHUD.showError(withStatus: "提现金额大于0")
+            return
+        }
+       
         if  bankId == 0{
             SVProgressHUD.showError(withStatus: "请选择银行卡")
             return
         }
-        if account < input{
+        let str : String = NSString(format: "%f" , self.accountmoney) as String
+        let count : Double = Double.init(str)!
+        if count < input{
             SVProgressHUD.showError(withStatus: "最多提现" + "\(account)" + "元")
             return
         }
@@ -184,6 +195,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         }else{
             moneyTd = "\(self.moneyTd.text!)" + ".000001"
         }
+        
         AppAPIHelper.user().withdrawcash(money: Double.init(moneyTd)!, bld: bankId, password: "123213213", complete: { [weak self](result) -> ()? in
             
             if let object = result{
@@ -257,13 +269,13 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
 //            }
 //        }
     }
-    //MARK: 全部提现导航栏
+    //MARK: - 全部提现导航栏
     @IBAction func withDrawAll(_ sender: Any) {
         //        self.moneyTd.text
-        let str : String = NSString(format: "%.2f" , self.accountmoney) as String
+        let str : String = NSString(format: "%f" , self.accountmoney) as String
         self.moneyTd.text = str
     }
-    
+     //MARK: - textField delegate
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         
