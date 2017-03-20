@@ -24,6 +24,7 @@ class SuccessWithdrawVC: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navLeftBtn()
         title = "提现状态"
          let index = ShareModel.share().detailModel.cardNo.index(ShareModel.share().detailModel.cardNo.startIndex, offsetBy: ShareModel.share().detailModel.cardNo.length() - 4)
         self.bankName.text = ShareModel.share().detailModel.bank + " ( " +  ShareModel.share().detailModel.cardNo.substring(from: index) + " )"
@@ -33,8 +34,25 @@ class SuccessWithdrawVC: BaseTableViewController {
        bankLogo.image = BankLogoColor.share().checkLocalBank(string: ShareModel.share().detailModel.bank) ? UIImage.init(named: BankLogoColor.share().checkLocalBankImg(string: ShareModel.share().detailModel.bank)) : UIImage.init(named: "unionPay")
 
     }
-
-   
+    
+    
+     func navLeftBtn(){
+    
+        let btn : UIButton = UIButton.init(type: UIButtonType.custom)
+        
+        btn.setTitle("", for: UIControlState.normal)
+        
+        btn.setBackgroundImage(UIImage.init(named: "back"), for: UIControlState.normal )
+        
+        btn.addTarget(self, action: #selector(popself), for: UIControlEvents.touchUpInside)
+        
+        btn.frame = CGRect.init(x: 0, y: 0, width: 20, height: 20)
+        let barItem : UIBarButtonItem = UIBarButtonItem.init(customView: btn)
+        self.navigationItem.leftBarButtonItem = barItem
+        }
+    func popself(){
+     let _ = self.navigationController?.popToRootViewController(animated: true)
+    }
     // 请求接口
     override func didRequest() {
         

@@ -122,8 +122,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                 if account <= 0 {
                      return
                 }
-                    var money : String
-                
+                var money : String
                 SVProgressHUD.show(withStatus: "加载中")
                 if ((self.rechargeMoneyTF.text?.range(of: ".")) != nil) {
                     money = self.rechargeMoneyTF.text!
@@ -149,9 +148,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             }
         }
     }
-  
-    
-    
+
     //MARK: - 监听银联返回结果
     func errorCode(_ notice: NSNotification){
         

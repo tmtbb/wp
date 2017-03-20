@@ -76,12 +76,16 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             if let resultDic = result as? [String: AnyObject] {
                 if let moneyTd = resultDic["balance"] as? Double{
                     
+                    self?.accountmoney = moneyTd
+                    
+                    let str : String =  String.init(format:  "%.2f", moneyTd)
+                    self?.moneyTd.placeholder = "最多可提现" + "\(str)" + "元"
+                    
                     UserModel.updateUser(info: { (result) -> ()? in
                         UserModel.share().getCurrentUser()?.balance = Double(moneyTd)
                         return nil
                     })
-                    self?.accountmoney = moneyTd
-                    self?.moneyTd.placeholder = "最多可提现" + "\(moneyTd)" + "元"
+                    
                 }
             }
             return nil
@@ -125,6 +129,10 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         let account  = accountmoney
             if self.moneyTd.text?.length()==0{
             SVProgressHUD.showError(withStatus: "请输入提现金额")
+            return
+        }
+        if Float.init(self.moneyTd.text!) == 0{
+         SVProgressHUD.showError(withStatus: "提现金额大于0")
             return
         }
         let input : Double = Double(self.moneyTd.text!)!
@@ -181,6 +189,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         }else{
             moneyTd = "\(self.moneyTd.text!)" + ".000001"
         }
+        
         AppAPIHelper.user().withdrawcash(money: Double.init(moneyTd)!, bld: bankId, password: "123213213", complete: { [weak self](result) -> ()? in
             
             if let object = result{
