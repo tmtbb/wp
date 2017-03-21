@@ -209,7 +209,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             format.numberStyle = .currency
             let account : String =   format.string(from: NSNumber(value: int))!
             self.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
-            self.moneyText.placeholder = "最多可提现" + "\(int)" + "元"
+//            self.moneyText.placeholder = "最多可提现" + "\(int)" + "元"
         }
          //请求金额
         AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
