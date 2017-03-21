@@ -27,12 +27,8 @@ class RechargeListVCCell: OEZTableViewCell {
         self.statusLb.text = model.status == 1 ? "处理中" : (model.status == 2 ?  "充值成功":  "充值失败")
         self.timeLb.text =  Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "MM-dd")
         self.minuteLb.text =  Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "HH:mm:ss")
-        
-//        BankLogoColor.share().checkLocalBank(string: model.ba)
         self.bankLogo.image = model.depositType == 1 ? UIImage.init(named: "weixinpay") : (UIImage.init(named: "unionPay"))
-        //        print(model.status)
         // 设置失败的cell的背景alpha  根据status 来判断 状态view
-        //        self.backgroundColor = UIColor.groupTableViewBackground
         self.alpha = model.status == 2 ? 1 :  (model.status == 1 ? 1 : 0.6)
     }
 }
@@ -55,9 +51,6 @@ class RechargeListVC: BasePageListTableViewController {
     deinit {
         ShareModel.share().removeObserver(self, forKeyPath: "selectMonth", context: nil)
     }
-//    override func isOverspreadLoadMore() -> Bool {
-//        return false
-//    }
     //MARK: 监听键值对
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
@@ -74,20 +67,10 @@ class RechargeListVC: BasePageListTableViewController {
     }
     //MARK: 网络请求列表
     override func didRequest(_ pageIndex : Int) {
-        
-        
-        
         AppAPIHelper.user().creditlist(status: 0, pos: Int32((pageIndex - 1) * 10) , count: 10, complete: {[weak self] (result) -> ()? in
             
             if let object = result {
                 let Model : RechargeListModel = object as! RechargeListModel
-                
-                if pageIndex == 1{
-                    self?.dataModel =  Model.depositsinfo!
-                }else{
-                    
-                    self?.dataModel  =   (self?.dataModel)! + Model.depositsinfo!
-                }
                 self?.didRequestComplete(Model.depositsinfo as AnyObject)
             }else{
                 self?.didRequestComplete(nil)
@@ -96,7 +79,6 @@ class RechargeListVC: BasePageListTableViewController {
             }, error: errorBlockFunc())
         
     }
-    
     //    override  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     //
     //        let  headerView  = UIView ()
@@ -148,7 +130,6 @@ class RechargeListVC: BasePageListTableViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView){
         
         contentoffset   = scrollView.contentOffset.y
-        
         
     }
     
