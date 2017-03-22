@@ -84,12 +84,12 @@ class KLineModel: NSObject {
 //            for  model in result {
 //                models.append(model)
 //            }
-            let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime").filter(queryStr)
+            let result = realm.objects(KChartModel.self).sorted(byProperty: "priceTime", ascending:false).filter(queryStr)
             for (index,model) in result.enumerated(){
                 if index > Int(AppConst.klineCount){
                     break
                 }
-                models.append(model)
+                models.insert(model, at: 0)
             }
             complete(models as AnyObject?)
         })
@@ -106,12 +106,12 @@ class KLineModel: NSObject {
 //                models.append(model)
 //            }
             
-        let result = realm.objects(KLineChartModel.self).sorted(byProperty: "priceTime").filter(queryStr).filter("chartType = \(type.rawValue)")
+            let result = realm.objects(KLineChartModel.self).sorted(byProperty: "priceTime", ascending:false).filter(queryStr).filter("chartType = \(type.rawValue)")
             for (index,model) in result.enumerated(){
                 if index > Int(AppConst.klineCount){
                     break
                 }
-                models.append(model)
+                models.insert(model, at: 0)
             }
             complete(models as AnyObject?)
         })
