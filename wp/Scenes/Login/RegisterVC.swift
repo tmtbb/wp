@@ -46,7 +46,7 @@ class RegisterVC: BaseTableViewController {
     //MARK: --DATA
 
     
-    //获取图片验证码
+    //获取验证码
     @IBAction func changeCodePicture(_ sender: UIButton) {
         if checkoutText(){
             let type = UserModel.share().forgetPwd ? 1:0

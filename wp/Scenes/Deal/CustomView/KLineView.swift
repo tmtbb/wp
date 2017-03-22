@@ -10,6 +10,42 @@ import UIKit
 import Charts
 import RealmSwift
 import SVProgressHUD
+
+class WPMarkerLineView: UIView {
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.numberOfLines = 0
+        label.textColor = UIColor.white
+        return label
+    }()
+    
+    lazy var backView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black
+        view.alpha = 0.8
+        return view
+    }()
+    
+    required override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        backgroundColor = UIColor.clear
+        layer.cornerRadius = 5
+        layer.masksToBounds = true
+        backView.frame = frame
+        titleLabel.frame = CGRect.init(x: 2, y: 2, width: frame.size.width-4, height: frame.size.height-4)
+        addSubview(backView)
+        addSubview(titleLabel)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+
 class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
     @IBOutlet weak var miuCharts: LineChartView!
     @IBOutlet weak var klineCharts: CombinedChartView!
@@ -17,8 +53,9 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
     private var currentModels: [KChartModel] = []
     private var currentType: String = ""
     private var currentKlineType: KLineModel.KLineType = .miu
-    var selectModelBlock: CompleteBlock?
+    private var marker: MarkerImage = MarkerImage()
     
+    var selectModelBlock: CompleteBlock?
     var selectIndex: NSInteger!{
         didSet{
             currentCharts?.zoom(scaleX: 0, scaleY: 0, x: 0, y: 0)
@@ -78,9 +115,32 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
                 if selectModelBlock != nil{
                     selectModelBlock!(model)
                 }
+                let markerHeight = chartView == self.miuCharts ? 33 : 100
+                let markerView = WPMarkerLineView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: markerHeight))
+                markerView.titleLabel.text = chartView == self.miuCharts ? markerLineText(model: model): markerKLineText(model: model)
+                let marker = MarkerImage.init()
+                marker.chartView = chartView
+                marker.image = UIImage.imageFromUIView(markerView)
+                chartView.marker = marker
             }
         }
     }
+    
+    func markerLineText(model: KChartModel) -> String {
+        let time = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.priceTime)), format: "MM-dd HH:mm")
+        let price = "\(model.currentPrice)"
+        return "\(time)\n最新价\(price)"
+    }
+    
+    func markerKLineText(model: KChartModel) -> String {
+        let time = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.priceTime)), format: "MM-dd HH:mm")
+        let high = "\(model.highPrice)"
+        let low = "\(model.lowPrice)"
+        let close = "\(model.closedYesterdayPrice)"
+        let open = "\(model.openingTodayPrice)"
+        return "\(time)\n高\(high)\n低\(low)\n开\(open)\n收\(close)"
+    }
+    
     
     //MARK: --刷新K线
     func refreshKLine() {

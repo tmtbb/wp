@@ -73,4 +73,13 @@ extension UIImage{
         let filePath: String = String(format: "%@%@", documentPath, key)
         return filePath
     }
+    
+    
+    class func imageFromUIView(_ view: UIView) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, UIScreen.main.scale)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let viewImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return viewImage!
+    }
 }
