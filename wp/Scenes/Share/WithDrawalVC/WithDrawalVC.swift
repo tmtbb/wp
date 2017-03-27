@@ -56,10 +56,8 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         submited.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         submited.layer.cornerRadius = 5
         submited.clipsToBounds = true
-        withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
-        //
+        withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)  
         initData()
-        
         
     }
     func initData(){
@@ -77,7 +75,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
                     
                     self?.accountmoney = moneyTd
                     
-                    let str : String =  String.init(format:  "%f", moneyTd)
+                    let str : String =  String.init(format:  "%.2f", moneyTd)
                     self?.moneyTd.placeholder = "最多可提现" + "\(str)" + "元"
                     
                     UserModel.updateUser(info: { (result) -> ()? in
@@ -144,7 +142,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             SVProgressHUD.showError(withStatus: "请选择银行卡")
             return
         }
-        let str : String = NSString(format: "%f" , self.accountmoney) as String
+        let str : String = NSString(format: "%.2f" , self.accountmoney) as String
         let count : Double = Double.init(str)!
         if count < input{
             SVProgressHUD.showError(withStatus: "最多提现" + "\(account)" + "元")

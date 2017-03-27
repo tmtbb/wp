@@ -102,6 +102,7 @@ class DealModel: BaseModel {
             try! realm.write {
                 for positionModel in positionArray {
                     realm.add(positionModel, update: true)
+               
                 }
         }
     }

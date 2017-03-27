@@ -22,24 +22,17 @@ class FullBankInfomationVC: BaseTableViewController {
     // 持卡人姓名
     @IBOutlet weak var name: UITextField!
     
-    
-    
-    override func viewDidLoad() {
-        
-        title = "输入银行卡信息"
-        
+       override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+         title = "输入银行卡信息"
     }
     deinit {
         ShareModel.share().shareData.removeAll()
     }
     @IBAction func nextInputPhone(_ sender: Any) {
-        
-        
+      
         if checkTextFieldEmpty([name,bankNumber,branceAddress]){
-            
+    
             if !onlyInputTheNumber(bankNumber.text!) {
              SVProgressHUD.showErrorMessage(ErrorMessage: "输入正确的银行卡号", ForDuration: 1, completion: {})
                 return
@@ -50,9 +43,7 @@ class FullBankInfomationVC: BaseTableViewController {
     }
     //MARK: 网络请求
     override func didRequest() {
-        
-        
-        AppAPIHelper.user().getBankName(withbankld:bankNumber.text!, complete: { [weak self](result) -> ()? in
+         AppAPIHelper.user().getBankName(withbankld:bankNumber.text!, complete: { [weak self](result) -> ()? in
             
             if let object = result{
               let  bankId : Int = object["bankId"] as! Int
@@ -65,7 +56,6 @@ class FullBankInfomationVC: BaseTableViewController {
             }
             return nil
             }, error: errorBlockFunc())
-        
     }
     func onlyInputTheNumber(_ string: String) -> Bool {
         let numString = "[0-9]*"

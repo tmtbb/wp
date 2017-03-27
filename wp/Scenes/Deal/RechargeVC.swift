@@ -77,7 +77,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     //MARK: - DATA
     func initData() {
         didRequest()
-        
     }
    
 //    }
@@ -185,7 +184,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             //            var code = Int()
             if errorCode == 0 {
                 return
-                
             }
             else if errorCode == -4{
                 SVProgressHUD.showError(withStatus: "支付失败")
@@ -196,8 +194,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                 return
             }
         }
-
-        
     }
     //MARK: -获取银行卡数量的请求
     override func didRequest() {
@@ -209,7 +205,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             format.numberStyle = .currency
             let account : String =   format.string(from: NSNumber(value: int))!
             self.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
-//            self.moneyText.placeholder = "最多可提现" + "\(int)" + "元"
         }
          //请求金额
         AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
