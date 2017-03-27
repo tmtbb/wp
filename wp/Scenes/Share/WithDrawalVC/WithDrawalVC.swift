@@ -56,10 +56,8 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         submited.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         submited.layer.cornerRadius = 5
         submited.clipsToBounds = true
-        withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
-        //
+        withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)  
         initData()
-        
         
     }
     func initData(){
@@ -77,7 +75,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
                     
                     self?.accountmoney = moneyTd
                     
-                    let str : String =  String.init(format:  "%f", moneyTd)
+                    let str : String =  String.init(format:  "%.2f", moneyTd)
                     self?.moneyTd.placeholder = "最多可提现" + "\(str)" + "元"
                     
                     UserModel.updateUser(info: { (result) -> ()? in

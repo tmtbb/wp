@@ -31,7 +31,7 @@ class HistoryDealCell: OEZTableViewCell{
             statuslb.backgroundColor = model.result   ? UIColor.init(hexString: "E9573F") : UIColor.init(hexString: "0EAF56")
             statuslb.text =  model.result   ?  "盈" :   "亏"
             titleLabel.text = model.buySell == 1 ? "买入" : "卖出"
-            let handleText = [" 未操作 "," 退舱/转让 "," 货运 "," 退舱 "]
+            let handleText = [" 未操作 "," 双倍返还 "," 货运 "," 退舱 "]
 
             if model.handle < handleText.count{
                 handleLabel.text = handleText[model.handle]
@@ -62,23 +62,6 @@ class HistoryDealVC: BasePageListTableViewController {
         AppAPIHelper.deal().historyDeals(start: index, count: 10, complete: { [weak self](result) -> ()? in
             if let models: [PositionModel] = result as! [PositionModel]?{
                 if pageIndex == 1 {
-//                    var newModels: [PositionModel] = []
-//                    if self?.historyModels.count == 0{
-//                        newModels = models
-//                        self?.historyModels = models
-//                    }else{
-//                        
-//                        for model in models{
-//                            if model.closeTime > (self?.historyModels.first!.closeTime)!{
-//                                newModels.append(model)
-//                            }
-//                        }
-//                    }
-//                    if newModels.count == 0{
-//                        self?.didRequestComplete(nil)
-//                    }else{
-//                        self?.didRequestComplete(newModels as AnyObject?)
-//                    }
                     self?.didRequestComplete(models as AnyObject?)
                 }else{
                     var moreModels: [PositionModel] = []
@@ -109,7 +92,7 @@ class HistoryDealVC: BasePageListTableViewController {
             
             let param = BenifityParam()
             param.tid = model.positionId
-            let alterController = UIAlertController.init(title: "订舱成功", message: "请选择", preferredStyle: .alert)
+            let alterController = UIAlertController.init(title: "恭喜盈利", message: "请选择盈利方式", preferredStyle: .alert)
             let productAction = UIAlertAction.init(title: "货运", style: .default, handler: {[weak self] (resultDic) in
                 param.handle = 2
                 AppAPIHelper.deal().benifity(param: param, complete: {(result) -> ()? in
@@ -132,7 +115,7 @@ class HistoryDealVC: BasePageListTableViewController {
                     return nil
                 }, error: self?.errorBlockFunc())
             })
-            let moneyAction = UIAlertAction.init(title: "退舱/转让", style: .default, handler: { [weak self](resultDic) in
+            let moneyAction = UIAlertAction.init(title: "双倍返还", style: .default, handler: { [weak self](resultDic) in
                 param.handle = 1
                 AppAPIHelper.deal().benifity(param: param, complete: {(result) -> ()? in
                     if let resultDic: [String: AnyObject] = result as? [String: AnyObject]{

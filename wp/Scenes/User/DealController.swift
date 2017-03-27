@@ -118,7 +118,7 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
             }
             let dateString = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(model.closeTime)))
             /*
-             - 判断 model 对应的分组 是否已经有当天数据信息
+             - 判断 model 对应a分组 是否已经有当天数据信息
              - 如果已经有信息则直接将model 插入当天信息array
              - 反之，创建当天分组array 插入数据
              */

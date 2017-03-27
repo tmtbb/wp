@@ -51,7 +51,7 @@ class HomeVC: BaseTableViewController {
     //MARK: --DATA
     func initData() {
         AppDataHelper.instance().initProductData()
-        let bannerStr = "http://upload-images.jianshu.io/upload_images/3959281-9e14f1eaccc36f37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+        let bannerStr = "http://upload-images.jianshu.io/upload_images/961368-77eb018b3fb23d07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
         bannerView.bannerData = ["http://upload-images.jianshu.io/upload_images/961368-e215d5256123aea3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" as AnyObject,bannerStr as AnyObject]
         noticeView.isHidden = true
         

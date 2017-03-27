@@ -28,7 +28,9 @@ class SuccessWithdrawVC: BaseTableViewController {
         title = "提现状态"
         let index = ShareModel.share().detailModel.cardNo.index(ShareModel.share().detailModel.cardNo.startIndex, offsetBy: ShareModel.share().detailModel.cardNo.length() - 4)
         self.bankName.text = ShareModel.share().detailModel.bank + " ( " +  ShareModel.share().detailModel.cardNo.substring(from: index) + " )"
+
         moneyAccount.text = String.init(format: "%.2f", ShareModel.share().detailModel.amount)
+
         self.status.text! = ShareModel.share().detailModel.status == 1 ? "处理中" :  (ShareModel.share().detailModel.status == 2 ? "提现成功" : "提现失败")
         bankLogo.image = BankLogoColor.share().checkLocalBank(string: ShareModel.share().detailModel.bank) ? UIImage.init(named: BankLogoColor.share().checkLocalBankImg(string: ShareModel.share().detailModel.bank)) : UIImage.init(named: "unionPay")
 
