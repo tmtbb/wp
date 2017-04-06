@@ -128,7 +128,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
     
     func markerLineText(model: KChartModel) -> String {
         let time = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.priceTime)), format: "MM-dd HH:mm")
-        let price = "\(model.currentPrice)"
+        let price = String.init(format: "%.4f", model.currentPrice)
         return "\(time)\n最新价\(price)"
     }
     
@@ -198,7 +198,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         set.colors = [UIColor.init(rgbHex: 0x666666)]
         set.circleRadius = 0
         set.circleHoleRadius = 0
-        set.mode = .cubicBezier
+        set.mode = currentType == AppConst.JapanMoney ? .linear :.cubicBezier
         set.valueFont = UIFont.systemFont(ofSize: 0)
         set.drawFilledEnabled = true
         set.fillColor = UIColor.init(rgbHex: 0x999999)

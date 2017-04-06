@@ -27,6 +27,7 @@ class AppConst {
     static let pid = 1002
     static let klineCount: Double = 30
     static let bundleId = "com.newxfin.goods"
+    static let JapanMoney = "fx_sjpycnh"
     
     enum KVOKey: String {
         case selectProduct = "selectProduct"
@@ -70,9 +71,9 @@ class AppConst {
     
     class Network {
         #if true //是否测试环境
-        static let TcpServerIP:String = "61.147.114.87";
-        static let TcpServerPort:UInt16 = 16008
-        static let TttpHostUrl:String = "http://61.147.114.87";
+        static let TcpServerIP:String = "139.224.34.22";
+        static let TcpServerPort:UInt16 = 16005
+        static let TttpHostUrl:String = "http://139.224.34.22";
         #else
         static let TcpServerIP:String = "192.168.8.131";
         static let TcpServerPort:UInt16 = 30001;
