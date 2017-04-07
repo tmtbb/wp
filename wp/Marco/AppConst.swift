@@ -149,6 +149,8 @@ class AppConst {
         static let RequestPrice = "RequestPrice"
     }
     
-    
+    enum SegueIndentifier:String{
+        case drawCashToBankListSegue = "DrawCashToBankListSegue"
+    }
   
 }

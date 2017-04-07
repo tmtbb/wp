@@ -113,13 +113,13 @@ class BankCardVC: BaseListTableViewController {
     {
         let cell : BindingBankVCCell = tableView.dequeueReusableCell(withIdentifier: "BankCardVCCell") as! BindingBankVCCell
         
-        
         let  Model : BankListModel = self.dataArry[indexPath.section]
         
         cell.update(Model.self)
         return cell
         
     }
+   
     //MARK: 解绑逻辑
     func UnbindCard ( number: Int) {
         

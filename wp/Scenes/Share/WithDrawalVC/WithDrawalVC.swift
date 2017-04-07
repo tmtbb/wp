@@ -59,7 +59,8 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
         //
         initData()
-        
+        //
+        bankTd.isUserInteractionEnabled = true
         
     }
     func initData(){
@@ -261,13 +262,6 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
 //    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
 
-        return
-        //pushaddBank
-//        if indexPath.section == 0 {
-//            if indexPath.row == 0 {
-//                self.performSegue(withIdentifier: "pushaddBank", sender: nil)
-//            }
-//        }
     }
     //MARK: - 全部提现导航栏
     @IBAction func withDrawAll(_ sender: Any) {
@@ -276,6 +270,14 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         self.moneyTd.text = str
     }
      //MARK: - textField delegate
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField == bankTd{
+            let segue = AppConst.SegueIndentifier.drawCashToBankListSegue.rawValue
+            performSegue(withIdentifier: segue, sender: nil)
+            return false
+        }
+        return true
+    }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         
