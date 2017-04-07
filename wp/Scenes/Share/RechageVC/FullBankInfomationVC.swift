@@ -50,8 +50,6 @@ class FullBankInfomationVC: BaseTableViewController {
     }
     //MARK: 网络请求
     override func didRequest() {
-        
-        
         AppAPIHelper.user().getBankName(withbankld:bankNumber.text!, complete: { [weak self](result) -> ()? in
             
             if let object = result{
