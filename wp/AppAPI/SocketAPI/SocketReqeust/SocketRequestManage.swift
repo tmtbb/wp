@@ -69,7 +69,7 @@ class SocketRequestManage: NSObject {
         var socketReqeust = socketRequests[packet.session_id]
 
         if packet.operate_code == SocketConst.OPCode.verifycode.rawValue + 1{
-            print("================")
+            
         }
         if packet.operate_code ==  SocketConst.OPCode.timeline.rawValue + 1{
             socketReqeust = timelineRequest

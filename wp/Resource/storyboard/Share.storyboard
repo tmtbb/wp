@@ -1671,6 +1671,9 @@
                                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="lHC-78-uEj" id="GXY-C4-jeg"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -1902,6 +1905,7 @@
                         <outlet property="withDrawAll" destination="d7q-3K-T7P" id="11i-gp-uiC"/>
                         <segue destination="dFu-Fi-IcX" kind="push" identifier="PushTolist" id="4bX-oy-gbl"/>
                         <segue destination="pcN-cB-p9t" kind="push" identifier="SuccessWithdrawVC" id="pod-ua-eY5"/>
+                        <segue destination="ql7-dn-n1j" kind="push" identifier="DrawCashToBankListSegue" id="jMl-Il-Gc5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e9r-XJ-aln" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2415,7 +2419,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I0E-1b-dMw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3252" y="635.53223388305855"/>
+            <point key="canvasLocation" x="3279" y="624"/>
         </scene>
         <!--充值列表-->
         <scene sceneID="AdP-q1-2Oh">
@@ -4417,6 +4421,7 @@
         <image name="userID.png" width="15" height="12"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="jMl-Il-Gc5"/>
         <segue reference="nid-Mo-x7e"/>
     </inferredMetricsTieBreakers>
 </document>

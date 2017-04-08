@@ -76,7 +76,7 @@ class AppConst {
         static let TttpHostUrl:String = "http://139.224.34.22";
         #else
         static let TcpServerIP:String = "192.168.8.131";
-        static let TcpServerPort:UInt16 = 30001;
+        static let TcpServerPort:UInt16 = 30001;	
         static let HttpHostUrl:String = "http://192.168.8.131";
 
         #endif
@@ -150,6 +150,8 @@ class AppConst {
         static let RequestPrice = "RequestPrice"
     }
     
-    
+    enum SegueIndentifier:String{
+        case drawCashToBankListSegue = "DrawCashToBankListSegue"
+    }
   
 }
