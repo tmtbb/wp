@@ -27,6 +27,7 @@ class AppConst {
     static let pid = 1002
     static let klineCount: Double = 30
     static let bundleId = "com.newxfin.goods"
+    static let JapanMoney = "fx_sjpycnh"
     
     enum KVOKey: String {
         case selectProduct = "selectProduct"

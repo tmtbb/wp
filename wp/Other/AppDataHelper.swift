@@ -109,10 +109,24 @@ class AppDataHelper: NSObject {
         param.platformName = product.platformName
         param.aType = 4
         param.startTime = Int64(fromTime)
-//        param.endTime = Int64(endTime)
+//        param.endTime = Int64(endTime)Ø
         AppAPIHelper.deal().timeline(param: param, complete: {(result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel]{
-                KLineModel.cacheTimelineModels(models: models)
+                if param.symbol == AppConst.JapanMoney{
+                    var japanModels:[KChartModel] = []
+                    for model in models{
+                        for index in 0...4{
+                            let janpanModel: KChartModel = KChartModel()
+                            model.convertToTargetObject(janpanModel)
+                            janpanModel.priceTime = model.priceTime - index*60
+                            japanModels.append(janpanModel)
+                        }
+                    }
+                     
+                    KLineModel.cacheTimelineModels(models: japanModels)
+                }else{
+                    KLineModel.cacheTimelineModels(models: models)
+                }
             }
             return nil
         }, error: { (error) ->()? in
