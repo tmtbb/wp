@@ -176,7 +176,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="btN-ph-SQc" id="ctf-oj-a6d">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="79i-Xf-hBh">
@@ -1182,7 +1182,7 @@
                                                             <rect key="frame" x="0.0" y="28" width="375" height="66"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KVR-lG-Uto" id="TZ2-6W-Wla">
-                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="原油" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCL-RG-Fkl">
@@ -1905,7 +1905,7 @@
                         <outlet property="withDrawAll" destination="d7q-3K-T7P" id="11i-gp-uiC"/>
                         <segue destination="dFu-Fi-IcX" kind="push" identifier="PushTolist" id="4bX-oy-gbl"/>
                         <segue destination="pcN-cB-p9t" kind="push" identifier="SuccessWithdrawVC" id="pod-ua-eY5"/>
-                        <segue destination="ql7-dn-n1j" kind="push" identifier="DrawCashToBankListSegue" id="jMl-Il-Gc5"/>
+                        <segue destination="ftr-hd-oAO" kind="push" identifier="DrawCashToBankListSegue" id="3JI-3B-FF6"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e9r-XJ-aln" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4013,7 +4013,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h2j-uv-9DM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3656.8000000000002" y="1485.6071964017992"/>
+            <point key="canvasLocation" x="3322" y="1486"/>
         </scene>
         <!--充值-->
         <scene sceneID="k6s-Aa-1zi">
@@ -4421,7 +4421,6 @@
         <image name="userID.png" width="15" height="12"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jMl-Il-Gc5"/>
-        <segue reference="nid-Mo-x7e"/>
+        <segue reference="ef1-4n-SOP"/>
     </inferredMetricsTieBreakers>
 </document>
