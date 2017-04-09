@@ -5,6 +5,9 @@
 //  Created by sum on 2017/1/11.
 //  Copyright © 2017年 com.yundian. All rights reserved.
 //
+
+import SVProgressHUD
+
 class SelectBankVC: BaseListTableViewController {
     //定义选择的行数
     var selectNumber = Int()
@@ -89,20 +92,14 @@ class SelectBankVC: BaseListTableViewController {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell : BindingBankVCCell = tableView.dequeueReusableCell(withIdentifier: "BankCardVCCell") as! BindingBankVCCell
-        
-        
         let  Model : BankListModel = self.dataArry[indexPath.section]
-        
         cell.update(Model.self)
-        cell.contentView.alpha =  0.7
-        
+        cell.contentView.alpha =  0.5
         if indexPath.section == selectNumber {
-            
-             cell.contentView.alpha =  1
-//            cell.accessoryType =  UITableViewCellAccessoryType .checkmark
+            cell.contentView.alpha =  1
+            cell.accessoryType =  UITableViewCellAccessoryType .checkmark
         }
         return cell
     }
@@ -111,9 +108,37 @@ class SelectBankVC: BaseListTableViewController {
         tableView.reloadData()
         finishBtn.isHidden = false
    }
-    //MARK: -- 添加银行卡点击事件
-    @IBAction func addbank(_ sender: Any) {
+    //MARK: 实现银行卡左滑删除的代理
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let share = UITableViewRowAction(style: .normal, title: "删除") { action, index  in
+            ShareModel.share().shareData["number"] = "\(indexPath.section)"
+            self.UnbindCard(number: indexPath.section)
+            self.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
+            tableView.reloadData()
+        }
+        share.backgroundColor = UIColor.red
+        return [share]
     }
+    //MARK: 解绑逻辑
+    func UnbindCard ( number: Int) {
+        let index = Int(ShareModel.share().shareData["number"]!)
+        let  model :BankListModel = self.dataArry[index!]
+        AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) ,phone: (UserModel.share().getCurrentUser()?.phone)!, vCode:"", complete: { [weak self](result) -> ()? in
+            
+            self?.tableView.reloadData()
+            if result != nil{
+                
+                self?.didRequest()
+                self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
+                self?.tableView.reloadData()
+            }
+            return nil
+        }, error: self.errorBlockFunc())
+    }
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
     
     
     
