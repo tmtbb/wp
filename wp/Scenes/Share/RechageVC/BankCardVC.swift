@@ -20,19 +20,14 @@ class BindingBankVCCell: UITableViewCell {
     // 刷新cell
     func update(_ data: Any!) {
         
-        let model:BankListModel? = data as? BankListModel
-        
-       bankBg.backgroundColor =    BankLogoColor.share().readfilefromlocal(string: (model?.bank)!)
-        banklogo.image = UIImage.init(named: (model?.bank)!)
-        bankName.text = model!.bank
-        //"\((model!.cardNo as NSString).substring(to: 4))" + "  ****   ****   *** " + "\((model!.cardNo as NSString).substring(from: model!.cardNo.length()-3))"
-        
-         let index = model!.cardNo.index(model!.cardNo.startIndex,  offsetBy: 4)
-         let index1 = model!.cardNo.index(model!.cardNo.startIndex,  offsetBy: model!.cardNo.length()-3)
-        
-         cardNum.text =  model!.cardNo.substring(to: index) + "  ****   ****   *** " + model!.cardNo.substring(from: index1)
-         banklogo.image = BankLogoColor.share().checkLocalBank(string: (model?.bank)!) ? UIImage.init(named: (model?.bank)!) : UIImage.init(named: "unionPay")
-        
+        if let model = data as? BankListModel{
+            bankBg.backgroundColor =    BankLogoColor.share().readfilefromlocal(string: model.bank)
+            bankName.text = model.bank
+            let index = model.cardNo.index(model.cardNo.startIndex,  offsetBy: 4)
+            let index1 = model.cardNo.index(model.cardNo.startIndex,  offsetBy: model.cardNo.length()-3)
+            cardNum.text =  model.cardNo.substring(to: index) + "  ****   ****   *** " + model.cardNo.substring(from: index1)
+            banklogo.image = BankLogoColor.share().checkLocalBank(string: model.bank) ? UIImage.init(named: BankLogoColor.share().checkLocalBankImg(string: model.bank)) : UIImage.init(named: "unionPay")
+        }
     }
 }
 class BankCardVC: BaseListTableViewController {
@@ -55,8 +50,8 @@ class BankCardVC: BaseListTableViewController {
             
             if let object = result {
                 let Model : BankModel = object as! BankModel
-                self?.didRequestComplete(Model.cardlist as AnyObject)
-                self?.dataArry = Model.cardlist!
+                self?.didRequestComplete(Model.cardList as AnyObject)
+                self?.dataArry = Model.cardList!
                 self?.tableView.reloadData()
             }else {
                 self?.didRequestComplete(nil)

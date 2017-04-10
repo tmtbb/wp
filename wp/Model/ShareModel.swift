@@ -21,6 +21,7 @@ class ShareModel: BaseModel {
     dynamic var userMoney : Double = 0
     //用来传详情的model
     var detailModel  =  WithdrawModel()
+    var withdrawResultModel = WithdrawResultModel()
     // 选中的银行
     dynamic var selectBank  = BankListModel()
     // 用来判读是充值详情还是体现详情

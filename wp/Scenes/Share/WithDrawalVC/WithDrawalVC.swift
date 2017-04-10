@@ -196,20 +196,26 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         }else{
             moneyTd = "\(self.moneyTd.text!)" + ".000001"
         }
-        
+        /*
+         
+         let index = ShareModel.share().detailModel.cardNo.index(ShareModel.share().detailModel.cardNo.startIndex, offsetBy: ShareModel.share().detailModel.cardNo.length() - 4)
+         self.bankName.text = ShareModel.share().detailModel.bank + " ( " +  ShareModel.share().detailModel.cardNo.substring(from: index) + " )"
+        */
         AppAPIHelper.user().withdrawcash(money: Double.init(moneyTd)!, bld: bankId, password: "123213213", complete: { [weak self](result) -> ()? in
             
             if let object = result{
-                let Model : WithdrawModel = object as! WithdrawModel
-                ShareModel.share().detailModel = Model
-                if( ShareModel.share().detailModel.status == -3){
-                    SVProgressHUD.showError(withStatus: "提现密码错误")
-                    return nil
+                let model : WithdrawResultModel = object as! WithdrawResultModel
+                ShareModel.share().detailModel.cardNo = ShareModel.share().selectBank.cardNo
+                ShareModel.share().detailModel.bank = ShareModel.share().selectBank.bank
+                ShareModel.share().withdrawResultModel = model
+                if model.result == 1{
+                    self?.performSegue(withIdentifier: SuccessWithdrawVC.className(), sender: nil)
+                }else{
+                    SVProgressHUD.showWainningMessage(WainningMessage: "提现失败，请稍候再试", ForDuration: 1, completion: nil)
                 }
-                self?.performSegue(withIdentifier: "SuccessWithdrawVC", sender: nil)
             }
             return nil
-            }, error: errorBlockFunc())
+    }, error: errorBlockFunc())
         
     }
     

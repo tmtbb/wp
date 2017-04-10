@@ -62,8 +62,8 @@ class SelectBankVC: BaseListTableViewController {
             if let object = result {
                 
                 let Model : BankModel = object as! BankModel
-                self?.didRequestComplete(Model.cardlist as AnyObject)
-                self?.dataArry = Model.cardlist!
+                self?.didRequestComplete(Model.cardList as AnyObject)
+                self?.dataArry = Model.cardList!
                 
                 self?.tableView.reloadData()
                 
@@ -96,10 +96,12 @@ class SelectBankVC: BaseListTableViewController {
         let cell : BindingBankVCCell = tableView.dequeueReusableCell(withIdentifier: "BankCardVCCell") as! BindingBankVCCell
         let  Model : BankListModel = self.dataArry[indexPath.section]
         cell.update(Model.self)
-        cell.contentView.alpha =  0.5
         if indexPath.section == selectNumber {
             cell.contentView.alpha =  1
             cell.accessoryType =  UITableViewCellAccessoryType .checkmark
+        }else{
+            cell.contentView.alpha =  0.5
+            cell.accessoryType =  .none
         }
         return cell
     }
@@ -124,10 +126,7 @@ class SelectBankVC: BaseListTableViewController {
         let index = Int(ShareModel.share().shareData["number"]!)
         let  model :BankListModel = self.dataArry[index!]
         AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) ,phone: (UserModel.share().getCurrentUser()?.phone)!, vCode:"", complete: { [weak self](result) -> ()? in
-            
-            self?.tableView.reloadData()
             if result != nil{
-                
                 self?.didRequest()
                 self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
                 self?.tableView.reloadData()

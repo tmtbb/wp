@@ -50,6 +50,13 @@ class FullBankInfomationVC: BaseTableViewController {
     }
     //MARK: 网络请求
     override func didRequest() {
+//        ShareModel.share().shareData["cardNo"] = bankNumber.text!
+//        ShareModel.share().shareData["branchBank"] = branceAddress.text!
+//        ShareModel.share().shareData["name"] = name.text!
+//        ShareModel.share().shareData["bankName"] = "农业银行-借记卡"
+//        ShareModel.share().shareData["bankId"] = "1001"
+//        performSegue(withIdentifier: pushInputPhone, sender: nil)
+//        return
         AppAPIHelper.user().getBankName(withbankld:bankNumber.text!, complete: { [weak self](result) -> ()? in
             
             if let object = result{
@@ -62,7 +69,7 @@ class FullBankInfomationVC: BaseTableViewController {
                 self?.performSegue(withIdentifier: pushInputPhone, sender: nil)
             }
             return nil
-            }, error: errorBlockFunc())
+        }, error: errorBlockFunc())
         
     }
     func onlyInputTheNumber(_ string: String) -> Bool {

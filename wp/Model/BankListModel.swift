@@ -12,13 +12,11 @@ import UIKit
 class  BankModel: BaseModel {
     
     //返回的列表的key
-    var cardlist : [BankListModel]?
+    var cardList : [BankListModel]?
     
-    class func  cardlistModelClass() ->AnyClass {
+    class func  cardListModelClass() ->AnyClass {
         return  BankListModel.classForCoder()
     }
-    
-    
 }
 
 //  银行卡返回列表model
@@ -36,9 +34,11 @@ class BankListModel: BaseModel {
     var cardNo: String = "cardNo"
     //  微信
     var name: String = "name"
-
-    
 }
 
 
-
+class WithdrawResultModel: BaseModel{
+    
+    var balance: Int = 0
+    var result: Int = 0
+}

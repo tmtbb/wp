@@ -29,13 +29,10 @@ class InputBankPhone: UITableViewController {
                 return
             }
              ShareModel.share().shareData["phone"] =  phone.text!
-            AppAPIHelper.user().bingcard(bank: Int64(ShareModel.share().shareData["bankId"]!)!, branchBank: ShareModel.share().shareData["branchBank"]!, cardNo: ShareModel.share().shareData["cardNo"]!, name: ShareModel.share().shareData["name"]!, complete: { (result) -> ()? in
+            AppAPIHelper.user().bingcard(bank: Int64(ShareModel.share().shareData["bankId"]!)!, branchBank: ShareModel.share().shareData["branchBank"]!, cardNo: ShareModel.share().shareData["cardNo"]!, name: ShareModel.share().shareData["name"]!, bankName: typeBank.text!,complete: { (result) -> ()? in
                 
                 if result != nil {
-                    
-                    
-                    //             let  bankId : Int = object["bankId"] as! Int
-                    
+                    //let  bankId : Int = object["bankId"] as! Int
                     SVProgressHUD.showSuccessMessage(SuccessMessage: "绑定成功", ForDuration: 1, completion: {
                         [weak self] in
                         for  nav : UIViewController in (self?.navigationController?.viewControllers)! {

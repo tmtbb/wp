@@ -52,24 +52,19 @@ class UserSocketApi: BaseSocketAPI, UserApi {
     func bankcardList(complete: CompleteBlock?, error: ErrorBlock?){
         let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
                      SocketConst.Key.token: UserModel.share().token ] as [String : Any]
-        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject], type: SocketConst.type.user)
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject], type: SocketConst.type.drawcash)
         startModelRequest(packet, modelClass: BankModel.self, complete: complete, error: error)
-        print(param)
-        //        startModelsRequest(packet, listName: "cardlist", modelClass: BankModel.self, complete: complete, error: error)
-        
     }
     //绑定银行卡
-    func bingcard(bank: Int64, branchBank: String, cardNo: String, name:String, complete: CompleteBlock?, error: ErrorBlock?){
-        let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
-                     SocketConst.Key.token: UserModel.share().token ,
-                     SocketConst.Key.bankId: bank,
-                     SocketConst.Key.branchBank: branchBank,
-                     SocketConst.Key.cardNo:cardNo,
-                     SocketConst.Key.name: name] as [String : Any]
-        
-        print(param)
-        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .bingcard, dict: param as [String : AnyObject], type: SocketConst.type.wp)
-        
+    func bingcard(bank: Int64, branchBank: String, cardNo: String, name:String,bankName:String , complete: CompleteBlock?, error: ErrorBlock?){
+        let param: [String: Any] = [SocketConst.Key.uid: UserModel.share().currentUserId,
+                                    SocketConst.Key.token: UserModel.share().token ,
+                                    SocketConst.Key.bankId: bank,
+                                    SocketConst.Key.branchBank: branchBank,
+                                    SocketConst.Key.bankName: bankName,
+                                    SocketConst.Key.cardNO:cardNo,
+                                    SocketConst.Key.name: name]
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .bingcard, dict: param as [String : AnyObject], type: SocketConst.type.drawcash)
         startRequest(packet, complete: complete, error: error)
         
     }
@@ -79,8 +74,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                                      SocketConst.Key.token: UserModel.share().token ,
                                      SocketConst.Key.cardNo: withbankld]
         
-        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .getbankname, dict: param as [String : AnyObject], type: SocketConst.type.wp)
-        
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .getbankname, dict: param as [String : AnyObject], type: SocketConst.type.drawcash)
         startRequest(packet, complete: complete, error: error)
         
     }
@@ -89,14 +83,9 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         
         let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
                      SocketConst.Key.token: UserModel.share().token ,
-                     SocketConst.Key.bankId: bid,
-                     SocketConst.Key.phone: phone,
-                     SocketConst.Key.code: vCode,
-                     SocketConst.Key.timestamp: timestamp,
-                     SocketConst.Key.vToken: "3021",
-                    ] as [String : Any]
-        print(param)
-        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .unbindcard, dict: param as [String : AnyObject], type: SocketConst.type.wp)
+                     SocketConst.Key.bankCardId: bid,
+                     SocketConst.Key.verCode: vCode] as [String : Any]
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .unbindcard, dict: param as [String : AnyObject], type: SocketConst.type.drawcash)
         startRequest(packet, complete: complete, error: error)
     }
     //充值列表
@@ -128,17 +117,12 @@ class UserSocketApi: BaseSocketAPI, UserApi {
     func withdrawcash(money: Double, bld: Int64, password: String, complete: CompleteBlock?, error: ErrorBlock?){
         let param: [String : Any] = [SocketConst.Key.uid: UserModel.share().currentUserId,
                                      SocketConst.Key.token:  UserModel.share().token ,
-                                     SocketConst.Key.price: money,
-                                     SocketConst.Key.bankId: bld,
-                                     SocketConst.Key.comment: "五",
+                                     SocketConst.Key.money: money,
+                                     SocketConst.Key.cardId: bld,
                                      SocketConst.Key.password: password]
         
-        //        print(param)
-        //        WithdrawBankCashModel
-        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .withdrawCash, dict: param as [String : AnyObject], type: SocketConst.type.operate)
-        
-            startModelRequest(packet, modelClass: WithdrawModel.self, complete: complete, error: error)
-//               startRequest(packet, complete: complete, error: error)
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .withdrawCash, dict: param as [String : AnyObject], type: SocketConst.type.drawcash)
+        startModelRequest(packet, modelClass: WithdrawResultModel.self, complete: complete, error: error)
     }
     //提现列表
     func withdrawlist(status: Int32, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?){

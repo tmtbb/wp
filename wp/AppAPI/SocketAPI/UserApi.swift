@@ -25,7 +25,7 @@ protocol UserApi {
     //银行卡列表
     func bankcardList(complete: CompleteBlock?, error: ErrorBlock?)
     //绑定银行卡
-    func bingcard(bank: Int64, branchBank: String, cardNo: String, name:String, complete: CompleteBlock?, error: ErrorBlock?)
+    func bingcard(bank: Int64, branchBank: String, cardNo: String, name:String,bankName:String , complete: CompleteBlock?, error: ErrorBlock?)
     //解绑银行卡
     func unbindcard( vToken :String,bid: Int32,timestamp: Int64, phone :String,vCode:String, complete: CompleteBlock?, error: ErrorBlock?)
     
