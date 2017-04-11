@@ -128,8 +128,6 @@ class SelectBankVC: BaseListTableViewController {
         AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) ,phone: (UserModel.share().getCurrentUser()?.phone)!, vCode:"", complete: { [weak self](result) -> ()? in
             if result != nil{
                 self?.didRequest()
-                self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
-                self?.tableView.reloadData()
             }
             return nil
         }, error: self.errorBlockFunc())

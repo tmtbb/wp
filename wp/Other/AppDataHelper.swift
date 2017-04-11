@@ -19,7 +19,7 @@ class AppDataHelper: NSObject {
     func initData() {
         productTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
-        initErrorCode()
+//        initErrorCode()
 //        checkTokenLogin()
         initProductData()
     }

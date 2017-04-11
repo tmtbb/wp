@@ -29,12 +29,16 @@ class SuccessWithdrawVC: BaseTableViewController {
          let index = ShareModel.share().detailModel.cardNo.index(ShareModel.share().detailModel.cardNo.startIndex, offsetBy: ShareModel.share().detailModel.cardNo.length() - 4)
         self.bankName.text = ShareModel.share().detailModel.bank + " ( " +  ShareModel.share().detailModel.cardNo.substring(from: index) + " )"
         let amount : Double =  Double(ShareModel.share().withdrawResultModel.balance)
-        moneyAccount.text = String.init(format: "%.2f", amount)
+        moneyAccount.text = String.init(format: "%.2f", UserModel.share().currentUser!.balance - amount)
         self.status.text! = "提现成功"
        bankLogo.image = BankLogoColor.share().checkLocalBank(string: ShareModel.share().detailModel.bank) ? UIImage.init(named: BankLogoColor.share().checkLocalBankImg(string: ShareModel.share().detailModel.bank)) : UIImage.init(named: "unionPay")
 
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
     
      func navLeftBtn(){
     
@@ -49,7 +53,9 @@ class SuccessWithdrawVC: BaseTableViewController {
         btn.frame = CGRect.init(x: 0, y: 0, width: 20, height: 20)
         let barItem : UIBarButtonItem = UIBarButtonItem.init(customView: btn)
         self.navigationItem.leftBarButtonItem = barItem
-        }
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.UpdateUserInfo), object: nil)
+    }
     func popself(){
      let _ = self.navigationController?.popToRootViewController(animated: true)
     }

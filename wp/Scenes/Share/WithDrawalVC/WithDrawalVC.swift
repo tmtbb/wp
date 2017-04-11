@@ -78,7 +78,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
                     
                     self?.accountmoney = moneyTd
                     
-                    let str : String =  String.init(format:  "%f", moneyTd)
+                    let str : String =  String.init(format:  "%.2f", moneyTd)
                     self?.moneyTd.placeholder = "最多可提现" + "\(str)" + "元"
                     
                     UserModel.updateUser(info: { (result) -> ()? in
@@ -125,17 +125,18 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         }
         
         // 校验 是否选择银行卡和提现最多金额
-//        let str : String = NSString(format: "%.2f" , (UserModel.share().getCurrentUser()?.balance)!) as String
         let account  = accountmoney
         let input : Double = Double(self.moneyTd.text!)!
         if self.moneyTd.text?.length()==0{
             SVProgressHUD.showError(withStatus: "请输入提现金额")
             return
         }
+        
         if input < 0.01{
             SVProgressHUD.showError(withStatus: "提现金额大于0.01")
             return
         }
+        
         if Double.init(self.moneyTd.text!) == 0{
             SVProgressHUD.showError(withStatus: "提现金额大于0")
             return
@@ -151,57 +152,8 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             SVProgressHUD.showError(withStatus: "最多提现" + "\(account)" + "元")
             return
         }
-//        let alertView = UIAlertView.init()
-//        alertView.alertViewStyle = UIAlertViewStyle.secureTextInput // 密文
-//        alertView.title = "请输入交易密码"
-//        alertView.addButton(withTitle: "确定")
-//        alertView.addButton(withTitle: "取消")
-//        alertView.delegate = self
-//        alertView.show()
-          var moneyTd : String
-        if ((self.moneyTd.text?.range(of: ".")) != nil) {
-            //来判断是否包含小数点
-            if ((self.moneyTd.text?.range(of: ".00")) != nil) {
-                let arr : Array = (self.moneyTd.text?.components(separatedBy: "."))!
-                moneyTd = arr[0] + ".000001"
-            }
-            else  if ((self.moneyTd.text?.range(of: ".0")) != nil) {
-                let arr : Array = (self.moneyTd.text?.components(separatedBy: "."))!
-                let number : String = arr[1] as String
-                if number.length()>1 {
-                    moneyTd = self.moneyTd.text!
-                }else{
-                    moneyTd = arr[0] + ".000001"
-                }
-            } else  if ((self.moneyTd.text?.range(of: ".")) != nil){
-                let arr : Array = (self.moneyTd.text?.components(separatedBy: "."))!
-                
-                if arr.count > 1{
-                    if arr[1] != ""{
-                        if arr[0] != "" {
-                            moneyTd = "0" + self.moneyTd.text!
-                        }else{
-                            moneyTd = self.moneyTd.text!
-                        }
-                    }else{
-                        moneyTd = arr[0] + ".000001"
-                    }
-                }else {
-                    moneyTd = arr[0] + ".000001"
-                }
-            }
-            else{
-                moneyTd = self.moneyTd.text!
-            }
-        }else{
-            moneyTd = "\(self.moneyTd.text!)" + ".000001"
-        }
-        /*
-         
-         let index = ShareModel.share().detailModel.cardNo.index(ShareModel.share().detailModel.cardNo.startIndex, offsetBy: ShareModel.share().detailModel.cardNo.length() - 4)
-         self.bankName.text = ShareModel.share().detailModel.bank + " ( " +  ShareModel.share().detailModel.cardNo.substring(from: index) + " )"
-        */
-        AppAPIHelper.user().withdrawcash(money: Double.init(moneyTd)!, bld: bankId, password: "123213213", complete: { [weak self](result) -> ()? in
+        
+        AppAPIHelper.user().withdrawcash(money: input, bld: bankId, password: "", complete: { [weak self](result) -> ()? in
             
             if let object = result{
                 let model : WithdrawResultModel = object as! WithdrawResultModel
@@ -215,57 +167,11 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
                 }
             }
             return nil
-    }, error: errorBlockFunc())
+        }, error: errorBlockFunc())
         
     }
     
-    //输入密码 的代理方法
-    override func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
-        if buttonIndex==0{
-            
-            if buttonIndex==0{
-                
-                
-              _ = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(UserModel.share().getCurrentUser()?.phone!)!).sha256()
-//                let passWord : String = (((alertView.textField(at: 0)?.text)! + AppConst.sha256Key).sha256()+(alertView.textField(at: 0)?.text)!).sha256()
 
-            }
-        }
-    }
-//    @IBAction func requestVoiceCode(_ sender: UIButton) {
-//        
-//        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.share().getCurrentUser()?.phone)!, complete: { [weak self](result) -> ()? in
-//            if let strongSelf = self{
-//                if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
-//                    if let token = resultDic[SocketConst.Key.vToken]{
-//                        UserModel.share().codeToken = token as! String
-//                    }
-//                    if let timestamp = resultDic[SocketConst.Key.timestamp]{
-//                        UserModel.share().timestamp = timestamp as! Int
-//                    }
-//                }
-//                strongSelf.voiceCodeBtn.isEnabled = false
-//                strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updateBtnTitle), userInfo: nil, repeats: true)
-//            }
-//            return nil
-//            }, error: errorBlockFunc())
-//
-////        self.voiceCodeBtn.isEnabled = false
-////        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateBtnTitle), userInfo: nil, repeats: true)
-//    }
-//    func updateBtnTitle() {
-//        if codeTime == 0 {
-//            voiceCodeBtn.isEnabled = true
-//            voiceCodeBtn.setTitle("重新发送", for: .normal)
-//            codeTime = 60
-//            timer?.invalidate()
-//            return
-//        }
-//        voiceCodeBtn.isEnabled = false
-//        codeTime = codeTime - 1
-//        let title: String = "\(codeTime)S"
-//        voiceCodeBtn.setTitle(title, for: .normal)
-//    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
 
     }
@@ -314,13 +220,6 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         return true
         
     }
-    
-//    func onlyInputTheNumber(_ string: String) -> Bool {
-//        let numString = "[0-9]*"
-//        let predicate = NSPredicate(format: "SELF MATCHES %@", numString)
-//        let number = predicate.evaluate(with: string)
-//        return number
-//    }
 }
 
 

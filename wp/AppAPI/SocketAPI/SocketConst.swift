@@ -94,13 +94,11 @@ class SocketConst: NSObject {
         case realtime = 4001
         //交易总概况
         case totalHistroy = 6010
-        
-
         //航运仓位
         case position = 5007
         //收益选择
         case benifity = 6007
-        
+        //余额
         case balance = 7002
         
     }
