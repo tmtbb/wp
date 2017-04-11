@@ -39,6 +39,7 @@ class BankListModel: BaseModel {
 
 class WithdrawResultModel: BaseModel{
     
-    var balance: Int = 0
+    //余额
+    var balance: Double = 0
     var result: Int = 0
 }

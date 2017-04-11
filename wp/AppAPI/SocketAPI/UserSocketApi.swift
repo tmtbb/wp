@@ -45,11 +45,12 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.token: UserModel.share().token ] as [String : Any]
         
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .accinfo, dict: param as [String : AnyObject], type: SocketConst.type.wp)
-        print(param)
+        
         startRequest(packet, complete: complete, error: error)
     }
     //银行卡列表
     func bankcardList(complete: CompleteBlock?, error: ErrorBlock?){
+        
         let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
                      SocketConst.Key.token: UserModel.share().token ] as [String : Any]
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .bankcardList, dict: param as [String : AnyObject], type: SocketConst.type.drawcash)
@@ -57,6 +58,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
     }
     //绑定银行卡
     func bingcard(bank: Int64, branchBank: String, cardNo: String, name:String,bankName:String , complete: CompleteBlock?, error: ErrorBlock?){
+        
         let param: [String: Any] = [SocketConst.Key.uid: UserModel.share().currentUserId,
                                     SocketConst.Key.token: UserModel.share().token ,
                                     SocketConst.Key.bankId: bank,
@@ -70,6 +72,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
     }
     // 获取银行卡名称
     func getBankName( withbankld: String, complete: CompleteBlock?, error: ErrorBlock?){
+        
         let param: [String : Any] = [SocketConst.Key.uid: UserModel.share().currentUserId ,
                                      SocketConst.Key.token: UserModel.share().token ,
                                      SocketConst.Key.cardNo: withbankld]
@@ -95,10 +98,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                      SocketConst.Key.status: status,
                      SocketConst.Key.pos: pos,
                      SocketConst.Key.countNuber: count] as [String : Any]
-        
-        
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .rechageList, dict: param as [String : AnyObject], type: SocketConst.type.wp)
-        print(param)
         startModelRequest(packet, modelClass: RechargeListModel.self, complete: complete, error: error)
         
     }
@@ -151,7 +151,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                                      SocketConst.Key.title: title,SocketConst.Key.price: price]
         
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .weixinpay, dict: param as [String : AnyObject], type: SocketConst.type.wp)
-        print(param)
+        
         startRequest(packet, complete: complete, error: error)
     }
     // 银联支付
@@ -161,17 +161,15 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                                      SocketConst.Key.title: title,SocketConst.Key.price: price]
         
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .unionpay, dict: param as [String : AnyObject], type: SocketConst.type.wp)
-        print(param)
         startRequest(packet, complete: complete, error: error)
     }
     // 结果查询
     func rechargeResults(rid: Int64, payResult: Int,complete: CompleteBlock?, error: ErrorBlock?){
+        
         let param: [String : Any] = [SocketConst.Key.uid: UserModel.share().currentUser?.id ?? 0,
                                      SocketConst.Key.token: UserModel.share().token ,
                                      SocketConst.Key.payResult: payResult,SocketConst.Key.rid: rid]
-        
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .payResult, dict: param as [String : AnyObject], type: SocketConst.type.wp)
-        print(param)
         startRequest(packet, complete: complete, error: error)
     }
     // 银联结果查询
@@ -181,7 +179,6 @@ class UserSocketApi: BaseSocketAPI, UserApi {
                                      SocketConst.Key.payResult: payResult,SocketConst.Key.rid: rid]
         
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .unionpayResult, dict: param as [String : AnyObject], type: SocketConst.type.wp)
-        print(param)
         startRequest(packet, complete: complete, error: error)
     }
     //拉取用户信息
@@ -213,6 +210,8 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .changeUserInfo, dict: param as [String : AnyObject], type: SocketConst.type.wp)
         startRequest(packet, complete: complete, error: error)
     }
+    
+    
     func everyday(start: Int32,count: Int32, complete: CompleteBlock?, error: ErrorBlock?){
         let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
                      SocketConst.Key.token: UserModel.share().token ,

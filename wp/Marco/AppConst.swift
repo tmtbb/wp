@@ -78,7 +78,6 @@ class AppConst {
         static let TcpServerIP:String = "192.168.8.131";
         static let TcpServerPort:UInt16 = 30001;	
         static let HttpHostUrl:String = "http://192.168.8.131";
-
         #endif
         static let TimeoutSec:UInt16 = 10
         static let qiniuHost = "http://ofr5nvpm7.bkt.clouddn.com/"
