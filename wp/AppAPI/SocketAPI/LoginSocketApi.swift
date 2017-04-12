@@ -26,19 +26,6 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .tokenLogin, dict: param as [String : AnyObject], type:.user)
         startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
     }
-    //注册
-    func register(phone: String, code: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?){
-        let param: [String : Any] = [SocketConst.Key.phone: phone,
-                                     SocketConst.Key.code: code,
-                                     SocketConst.Key.pwd: pwd,
-                                     SocketConst.Key.memberId: 0,
-                                     SocketConst.Key.agentId: "",  
-                                     SocketConst.Key.recommend: "",
-                                     "timeStamp" : UserModel.share().timestamp,
-                                     SocketConst.Key.vToken: UserModel.share().codeToken]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .register, dict: param as [String : AnyObject])
-        startRequest(packet, complete: complete, error: error)
-    }
     //注册（模型）
     func register(model:RegisterParam, complete: CompleteBlock?, error: ErrorBlock?){
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .register, model: model)
@@ -56,11 +43,4 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .repwd, dict: param as [String : AnyObject])
         startRequest(packet, complete: complete, error: error)
     }
-    //获取声音验证码
-    func voiceCode(phone: String, complete: CompleteBlock?, error: ErrorBlock?){
-        let param = [SocketConst.Key.phone: phone]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .voiceCode, dict: param as [String : AnyObject])
-        startRequest(packet, complete: complete, error: error)
-    }
-
 }

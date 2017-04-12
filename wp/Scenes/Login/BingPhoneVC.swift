@@ -27,20 +27,6 @@ class BingPhoneVC: BaseTableViewController {
     func initData() {
         
     }
-
-    //获取声音验证码
-    @IBAction func requestVoiceCode(_ sender: UIButton) {
-        if checkoutText(){
-            
-            AppAPIHelper.login().voiceCode(phone: phoneText.text!, complete: { [weak self](result) -> ()? in
-                if let strongSelf = self{
-                    strongSelf.codeBtn.isEnabled = false
-                    strongSelf.timer = Timer.scheduledTimer(timeInterval: 1, target: strongSelf, selector: #selector(strongSelf.updateBtnTitle), userInfo: nil, repeats: true)
-                }
-                return nil
-                }, error: errorBlockFunc())
-        }
-    }
     func updateBtnTitle() {
         if codeTime == 0 {
             codeBtn.isEnabled = true
@@ -59,15 +45,6 @@ class BingPhoneVC: BaseTableViewController {
         if checkoutText(){
             if checkTextFieldEmpty([phoneText,codeText]){
                 SVProgressHUD.showProgressMessage(ProgressMessage: "绑定中...")
-                AppAPIHelper.login().register(phone: phoneText.text!, code: codeText.text!, pwd: codeText.text!, complete: { [weak self](result) -> ()? in
-                    SVProgressHUD.dismiss()
-                    if result != nil {
-                        self?.performSegue(withIdentifier: AppConst.NotifyDefine.BingPhoneVCToPwdVC, sender: nil)
-                    }else{
-                        SVProgressHUD.showErrorMessage(ErrorMessage: "登录失败，请稍后再试", ForDuration: 1, completion: nil)
-                    }
-                    return nil
-                    }, error: errorBlockFunc())
             }
         }
     }

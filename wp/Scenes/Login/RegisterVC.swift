@@ -113,15 +113,6 @@ class RegisterVC: BaseTableViewController {
         //注册
         SVProgressHUD.showProgressMessage(ProgressMessage: "注册中...")
         let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
-//        AppAPIHelper.login().register(phone: UserModel.share().phone!, code: UserModel.share().code!, pwd: password, complete: { [weak self](result) -> ()? in
-//            SVProgressHUD.dismiss()
-//            if result != nil {
-//                UserModel.share().fetchUserInfo(phone: self?.phoneText.text ?? "", pwd: self?.pwdText.text ?? "")
-//            }else{
-//                SVProgressHUD.showErrorMessage(ErrorMessage: "注册失败，请稍后再试", ForDuration: 1, completion: nil)
-//            }
-//            return nil
-//        }, error: errorBlockFunc())
         let param = RegisterParam()
         param.phone = phoneText.text!
         param.pwd = password
