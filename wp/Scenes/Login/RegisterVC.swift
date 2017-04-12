@@ -1,4 +1,3 @@
-
 //
 //  RegisterVC.swift
 //  wp
@@ -16,16 +15,17 @@ class RegisterVC: BaseTableViewController {
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var codeText: UITextField!
     @IBOutlet weak var codeBtn: UIButton!
-    @IBOutlet weak var voiceCodeText: UITextField!
-    @IBOutlet weak var voiceCodeBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var pwdText: UITextField!
     @IBOutlet weak var thindLoginView: UIView!
     @IBOutlet weak var qqBtn: UIButton!
     @IBOutlet weak var sinaBtn: UIButton!
     @IBOutlet weak var wechatBtn: UIButton!
-    private var timer: Timer?
+    @IBOutlet weak var memberText: UITextField!
+    @IBOutlet weak var agentText: UITextField!
+    @IBOutlet weak var recommendText: UITextField!
     
+    private var timer: Timer?
     private var codeTime = 60
     private var voiceCodeTime = 60
     
@@ -84,29 +84,6 @@ class RegisterVC: BaseTableViewController {
         codeBtn.setTitle(title, for: .normal)
         codeBtn.backgroundColor = UIColor.init(rgbHex: 0xCCCCCC)
     }
-    //获取声音验证码
-    
-    @IBAction func requestVoiceCode(_ sender: UIButton) {
-        if checkoutText(){
-
-        }
-    }
-    func updateVoiceBtnTitle() {
-        if voiceCodeTime == 0 {
-            voiceCodeBtn.isEnabled = true
-            voiceCodeBtn.setTitle("重新发送", for: .normal)
-            voiceCodeTime = 60
-            timer?.invalidate()
-            voiceCodeBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
-            return
-        }
-        voiceCodeBtn.isEnabled = false
-        voiceCodeTime = voiceCodeTime - 1
-        let title: String = "\(voiceCodeTime)秒后重新发送"
-        voiceCodeBtn.setTitle(title, for: .normal)
-        voiceCodeBtn.backgroundColor = UIColor.init(rgbHex: 0xCCCCCC)
-    }
-    
     //注册
     @IBAction func registerBtnTapped(_ sender: Any) {
         if checkoutText(){
@@ -136,7 +113,25 @@ class RegisterVC: BaseTableViewController {
         //注册
         SVProgressHUD.showProgressMessage(ProgressMessage: "注册中...")
         let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
-        AppAPIHelper.login().register(phone: UserModel.share().phone!, code: UserModel.share().code!, pwd: password, complete: { [weak self](result) -> ()? in
+//        AppAPIHelper.login().register(phone: UserModel.share().phone!, code: UserModel.share().code!, pwd: password, complete: { [weak self](result) -> ()? in
+//            SVProgressHUD.dismiss()
+//            if result != nil {
+//                UserModel.share().fetchUserInfo(phone: self?.phoneText.text ?? "", pwd: self?.pwdText.text ?? "")
+//            }else{
+//                SVProgressHUD.showErrorMessage(ErrorMessage: "注册失败，请稍后再试", ForDuration: 1, completion: nil)
+//            }
+//            return nil
+//        }, error: errorBlockFunc())
+        let param = RegisterParam()
+        param.phone = phoneText.text!
+        param.pwd = password
+        param.vCode = Int(UserModel.share().code!)!
+        if memberText.text!.length() > 0 {
+            param.memberId = Int(memberText.text!)!
+        }
+        param.agentId = agentText.text!
+        param.recommend = recommendText.text!
+        AppAPIHelper.login().register(model: param, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
             if result != nil {
                 UserModel.share().fetchUserInfo(phone: self?.phoneText.text ?? "", pwd: self?.pwdText.text ?? "")
@@ -144,7 +139,7 @@ class RegisterVC: BaseTableViewController {
                 SVProgressHUD.showErrorMessage(ErrorMessage: "注册失败，请稍后再试", ForDuration: 1, completion: nil)
             }
             return nil
-            }, error: errorBlockFunc())
+        }, error: errorBlockFunc())
 
     }
 

@@ -31,3 +31,9 @@ class BaseDBModel: BaseModel {
     }
     
 }
+
+
+class BaseParam: BaseModel{
+    var id: Int = UserModel.share().currentUserId
+    var token: String = UserModel.share().token
+}

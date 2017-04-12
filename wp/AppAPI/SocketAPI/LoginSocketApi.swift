@@ -18,15 +18,6 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .login, dict: param as [String : AnyObject])
         startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
     }
-    //测试登录
-    func testlogin(phone: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?){
-        
-        let param: [String: Any] = [SocketConst.Key.phone: phone,
-                                    SocketConst.Key.pwd: pwd,
-                                    SocketConst.Key.source: 1]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .login, dict: param as [String : AnyObject])
-        startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
-    }
     //token登录
     func tokenLogin(uid: Int, token: String, complete: CompleteBlock?, error: ErrorBlock?){
         let param: [String: Any] = [SocketConst.Key.uid: uid,
@@ -46,6 +37,11 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
                                      "timeStamp" : UserModel.share().timestamp,
                                      SocketConst.Key.vToken: UserModel.share().codeToken]
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .register, dict: param as [String : AnyObject])
+        startRequest(packet, complete: complete, error: error)
+    }
+    //注册（模型）
+    func register(model:RegisterParam, complete: CompleteBlock?, error: ErrorBlock?){
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .register, model: model)
         startRequest(packet, complete: complete, error: error)
     }
     //重置密码

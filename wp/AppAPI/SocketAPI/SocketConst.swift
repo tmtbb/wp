@@ -49,7 +49,7 @@ class SocketConst: NSObject {
         //获取银行卡名称
         case getbankname = 8009
         //获取验证码
-        case verifycode = 1029
+        case verifycode = 3011
         //提现详情
         case withdrawDetail = 101
         // 我的晒单
