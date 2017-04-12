@@ -125,7 +125,9 @@ class RegisterVC: BaseTableViewController {
         let param = RegisterParam()
         param.phone = phoneText.text!
         param.pwd = password
-        param.vCode = Int(UserModel.share().code!)!
+        param.vCode = UserModel.share().code!
+        param.vToken = UserModel.share().codeToken
+        param.timeStamp = UserModel.share().timestamp
         if memberText.text!.length() > 0 {
             param.memberId = Int(memberText.text!)!
         }

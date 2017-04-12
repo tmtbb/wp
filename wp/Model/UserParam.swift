@@ -13,11 +13,13 @@ class UserParam: BaseModel {
 }
 
 
-class RegisterParam: BaseParam{
+class RegisterParam: BaseModel{
     var phone = ""
     var pwd = ""
-    var vCode = 0
+    var vCode = ""
     var memberId = 0
     var agentId = ""
     var recommend = ""
+    var timeStamp = 0
+    var vToken = ""
 }
