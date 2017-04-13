@@ -59,7 +59,10 @@ class UserModel: BaseModel  {
     //从服务端拉取用户信息
     func fetchUserInfo(phone: String, pwd: String) {
         let password = ((pwd + AppConst.sha256Key).sha256()+phone).sha256()
-        AppAPIHelper.login().login(phone: phone, pwd: password, complete: { [weak self]( result) -> ()? in
+        let param = LoginParam()
+        param.pwd = password
+        param.phone = phone
+        AppAPIHelper.login().login(param: param, complete: { [weak self]( result) -> ()? in
             //存储用户信息
             if result != nil{
                 self?.upateUserInfo(userObject: result!)

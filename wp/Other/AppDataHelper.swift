@@ -17,8 +17,8 @@ class AppDataHelper: NSObject {
     
     private var productTimer: Timer?
     func initData() {
-//        productTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
-//        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
+        productTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
 //        initErrorCode()
 //        checkTokenLogin()
         initProductData()
@@ -208,26 +208,29 @@ class AppDataHelper: NSObject {
         //token是否存在
         if let token = UserDefaults.standard.value(forKey: SocketConst.Key.token){
             if let id = UserDefaults.standard.value(forKey: SocketConst.Key.uid){
-                AppAPIHelper.login().tokenLogin(uid: id as! Int , token: token as! String, complete: { [weak self]( result) -> ()? in
+                let param = ChecktokenParam()
+                param.token = token as! String
+                param.id = id as! Int
+                AppAPIHelper.login().tokenLogin(param: param,  complete: { [weak self]( result) -> ()? in
                     //存储用户信息
                     if let model = result as? UserInfoModel {
-                        if let token = model.token{
-                            //更新token
-                            UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
-                        }
-                        if let user = model.userinfo {
-                            UserDefaults.standard.setValue(user.id, forKey: SocketConst.Key.id)
-                        }
-                        UserModel.share().upateUserInfo(userObject: model as AnyObject)
-                        DealModel.share().isFirstGetPrice = true
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
+                    if let token = model.token{
+                    //更新token
+                    UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
+                    }
+                    if let user = model.userinfo {
+                    UserDefaults.standard.setValue(user.id, forKey: SocketConst.Key.id)
+                    }
+                    UserModel.share().upateUserInfo(userObject: model as AnyObject)
+                    DealModel.share().isFirstGetPrice = true
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
                     }else{
-                       self?.clearUserInfo()
+                    self?.clearUserInfo()
                     }
                     return nil
-                }, error: {[weak self] (error) ->()? in
-                    self?.clearUserInfo()
-                    return nil
+                    }, error: {[weak self] (error) ->()? in
+                        self?.clearUserInfo()
+                        return nil
                 })
             }
         }else{
