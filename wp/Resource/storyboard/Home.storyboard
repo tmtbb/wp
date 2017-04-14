@@ -787,42 +787,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="EQH-WO-Xad">
-                                        <rect key="frame" x="0.0" y="176" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EQH-WO-Xad" id="gkZ-tI-e5u">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="定金比例" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PPI-ex-vLB">
-                                                    <rect key="frame" x="15" y="15" width="65.5" height="16"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="16" id="SLL-ug-sFv"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W9L-H9-B2T">
-                                                    <rect key="frame" x="334" y="15" width="29" height="16"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="16" id="OpC-KZ-XTY"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="PPI-ex-vLB" firstAttribute="leading" secondItem="gkZ-tI-e5u" secondAttribute="leading" constant="15" id="0Xu-7L-PEd"/>
-                                                <constraint firstItem="W9L-H9-B2T" firstAttribute="top" secondItem="gkZ-tI-e5u" secondAttribute="top" constant="15" id="9MW-kL-f7M"/>
-                                                <constraint firstItem="PPI-ex-vLB" firstAttribute="top" secondItem="gkZ-tI-e5u" secondAttribute="top" constant="15" id="DHb-dl-c0g"/>
-                                                <constraint firstAttribute="trailing" secondItem="W9L-H9-B2T" secondAttribute="trailing" constant="12" id="liv-Rr-Ppn"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="IPv-ri-K9P">
-                                        <rect key="frame" x="0.0" y="220" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="176" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IPv-ri-K9P" id="H02-V8-hVp">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
@@ -865,7 +831,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="kVM-Kj-qly"/>
                     <connections>
-                        <outlet property="cashDeposit" destination="W9L-H9-B2T" id="0hc-Jb-oJR"/>
                         <outlet property="dealMoney" destination="O9e-va-R3P" id="iU7-pQ-Xre"/>
                         <outlet property="dealProduct" destination="Gco-vx-BZQ" id="HCX-rX-Sn3"/>
                         <outlet property="dealTime" destination="fdE-d1-uek" id="uoX-uX-GRA"/>

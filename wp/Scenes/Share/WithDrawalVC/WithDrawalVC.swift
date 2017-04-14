@@ -57,9 +57,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         submited.layer.cornerRadius = 5
         submited.clipsToBounds = true
         withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
-        //
         initData()
-        //
         bankTd.isUserInteractionEnabled = true
         
     }
@@ -72,24 +70,24 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             accountmoney = (UserModel.share().getCurrentUser()?.balance)!
         }
         
-        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
-            if let resultDic = result as? [String: AnyObject] {
-                if let moneyTd = resultDic["balance"] as? Double{
-                    
-                    self?.accountmoney = moneyTd
-                    
-                    let str : String =  String.init(format:  "%.2f", moneyTd)
-                    self?.moneyTd.placeholder = "最多可提现" + "\(str)" + "元"
-                    
-                    UserModel.updateUser(info: { (result) -> ()? in
-                        UserModel.share().getCurrentUser()?.balance = Double(moneyTd)
-                        return nil
-                    })
-                    
-                }
-            }
-            return nil
-            }, error: errorBlockFunc())
+//        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
+//            if let resultDic = result as? [String: AnyObject] {
+//                if let moneyTd = resultDic["balance"] as? Double{
+//                    
+//                    self?.accountmoney = moneyTd
+//                    
+//                    let str : String =  String.init(format:  "%.2f", moneyTd)
+//                    self?.moneyTd.placeholder = "最多可提现" + "\(str)" + "元"
+//                    
+//                    UserModel.updateUser(info: { (result) -> ()? in
+//                        UserModel.share().getCurrentUser()?.balance = Double(moneyTd)
+//                        return nil
+//                    })
+//                    
+//                }
+//            }
+//            return nil
+//            }, error: errorBlockFunc())
     }
     //MARK: - 界面销毁删除监听
     deinit {

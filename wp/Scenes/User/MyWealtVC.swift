@@ -128,23 +128,23 @@ class MyWealtVC: BaseCustomPageListTableViewController {
             self.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
             
         }
-        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
-            if let resultDic = result as? [String: AnyObject] {
-                if let money = resultDic["balance"] as? Double{
-                    
-                    UserModel.updateUser(info: { (result) -> ()? in
-                        UserModel.share().getCurrentUser()?.balance = Double(money)
-                        return nil
-                    })
-                    let format = NumberFormatter()
-                    format.numberStyle = .currency
-                    let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
-                    self?.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)!
-                    self?.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)!
-                }
-            }
-            return nil
-            }, error: errorBlockFunc())
+//        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
+//            if let resultDic = result as? [String: AnyObject] {
+//                if let money = resultDic["balance"] as? Double{
+//                    
+//                    UserModel.updateUser(info: { (result) -> ()? in
+//                        UserModel.share().getCurrentUser()?.balance = Double(money)
+//                        return nil
+//                    })
+//                    let format = NumberFormatter()
+//                    format.numberStyle = .currency
+//                    let account : String = format.string(from: NSNumber(value: (UserModel.share().getCurrentUser()?.balance)!))!
+//                    self?.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "$").last)!
+//                    self?.account.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)!
+//                }
+//            }
+//            return nil
+//            }, error: errorBlockFunc())
     }
     //MARK: --界面销毁删除监听机制
     deinit {

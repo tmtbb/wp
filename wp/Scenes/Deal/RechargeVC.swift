@@ -212,22 +212,22 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
 //            self.moneyText.placeholder = "最多可提现" + "\(int)" + "元"
         }
          //请求金额
-        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
-            if let resultDic = result as? [String: AnyObject] {
-                if let money = resultDic["balance"] as? Double{
-                    
-                    UserModel.updateUser(info: { (result) -> ()? in
-                        UserModel.share().getCurrentUser()?.balance = Double(money)
-                        return nil
-                    })
-                    let format = NumberFormatter()
-                    format.numberStyle = .currency
-                    let account : String =   format.string(from: NSNumber(value: money))!
-                    self?.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
-                }
-            }
-            return nil
-            }, error: errorBlockFunc())
+//        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
+//            if let resultDic = result as? [String: AnyObject] {
+//                if let money = resultDic["balance"] as? Double{
+//                    
+//                    UserModel.updateUser(info: { (result) -> ()? in
+//                        UserModel.share().getCurrentUser()?.balance = Double(money)
+//                        return nil
+//                    })
+//                    let format = NumberFormatter()
+//                    format.numberStyle = .currency
+//                    let account : String =   format.string(from: NSNumber(value: money))!
+//                    self?.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
+//                }
+//            }
+//            return nil
+//            }, error: errorBlockFunc())
       
     }
     // MARK: - 属性的变化 后台返回余额变化进入充值列表

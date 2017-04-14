@@ -40,7 +40,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     let klineTitles = ["分时图","5分K","15分K","30分K","1小时K"]
     //MARK: --Test
     @IBAction func testItemTapped(_ sender: Any) {
-        refreshUserCash()
+        
     }
     //MARK: --LIFECYCLE
     
@@ -73,7 +73,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     func initData() {
         //初始化持仓数据
         initDealTableData()
-        refreshUserCash()
         //初始化下商品数据
         titleView.objects = DealModel.share().productKinds
         if let selectProduct = DealModel.share().selectProduct{
@@ -96,8 +95,8 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     
     func initKVOAndNotice(){
         DealModel.share().addObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue, options: .new, context: nil)
+        UserModel.share().addObserver(self, forKeyPath: AppConst.KVOKey.balance.rawValue, options: .new, context: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTitleView), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.SelectKind), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshUserCash), name: Notification.Name(rawValue:AppConst.NotifyDefine.UpdateUserInfo), object: nil)
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
@@ -105,22 +104,10 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             let allProducets: [ProductModel] = DealModel.share().productKinds
             titleView.objects = allProducets
         }
-    }
-    //用户余额数据请求
-    func refreshUserCash() {
         
-        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
-            if let resultDic = result as? [String: AnyObject] {
-                if let money = resultDic["balance"] as? Double{
-                    self?.myMoneyLabel.text = String.init(format: "%.2f", money)
-                    UserModel.updateUser(info: { (resultDic) -> ()? in
-                        UserModel.share().currentUser?.balance = money
-                    })
-                }
-            }
-            return nil
-        }, error: errorBlockFunc())
-
+        if keyPath == AppConst.KVOKey.balance.rawValue{
+            myMoneyLabel.text = String.init(format: "%.2f", UserModel.share().balance)
+        }
     }
     //我的资产
     @IBAction func jumpToMyWallet(_ sender: AnyObject) {
@@ -236,23 +223,22 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             controller.resultBlock = { [weak self](result) in
                 if let status: BuyProductVC.BuyResultType = result as! BuyProductVC.BuyResultType? {
                     switch status {
-                    case .lessMoney:
-                        controller.dismissController()
-                        let moneyAlter = UIAlertController.init(title: "余额不足", message: "余额不足，请前往充值", preferredStyle: .alert)
-                        let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
-                        let sureAction = UIAlertAction.init(title: "确认", style: .default, handler: { [weak self](alter) in
-                             let controller = UIStoryboard.init(name: "Share", bundle: nil).instantiateViewController(withIdentifier: RechargeVC.className()) as! RechargeVC
-                            self?.navigationController?.pushViewController(controller, animated: true)
-                        })
-                        moneyAlter.addAction(cancelAction)
-                        moneyAlter.addAction(sureAction)
-                        self?.present(moneyAlter, animated: true, completion: nil)
-                        break
-                    case .success:
-                        self?.refreshUserCash()
-                        break
-                    default:
-                        break
+                        case .lessMoney:
+                            controller.dismissController()
+                            let moneyAlter = UIAlertController.init(title: "余额不足", message: "余额不足，请前往充值", preferredStyle: .alert)
+                            let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+                            let sureAction = UIAlertAction.init(title: "确认", style: .default, handler: { [weak self](alter) in
+                                 let controller = UIStoryboard.init(name: "Share", bundle: nil).instantiateViewController(withIdentifier: RechargeVC.className()) as! RechargeVC
+                                self?.navigationController?.pushViewController(controller, animated: true)
+                            })
+                            moneyAlter.addAction(cancelAction)
+                            moneyAlter.addAction(sureAction)
+                            self?.present(moneyAlter, animated: true, completion: nil)
+                            break
+                        case .success:
+                            break
+                        default:
+                            break
                     }
                 }
                 self?.initDealTableData()

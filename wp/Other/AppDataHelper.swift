@@ -137,6 +137,7 @@ class AppDataHelper: NSObject {
     
     //根据商品请求K线数据
     func initAllKlineChartData() {
+        userCash()
         initLineChartData()
         initKLineChartData(type: .miu5)
         initKLineChartData(type: .miu15)
@@ -253,6 +254,21 @@ class AppDataHelper: NSObject {
                 let path = Bundle.main.path(forResource: "errorcode.plist", ofType:nil)
                 let success = errorDic.write(toFile: path!, atomically: true)
                 print(success ? "错误码写入成功" : "错误码写入失败")
+            }
+            return nil
+        }, error: nil)
+    }
+    
+    //获取用户余额
+    func userCash() {
+        AppAPIHelper.user().accinfo(complete: { (result) -> ()? in
+            if let resultDic = result as? [String: AnyObject] {
+                if let money = resultDic["balance"] as? Double{
+                    UserModel.share().balance = money
+                    UserModel.updateUser(info: { (resultDic) -> ()? in
+                        UserModel.share().currentUser?.balance = money
+                    })
+                }
             }
             return nil
         }, error: nil)
