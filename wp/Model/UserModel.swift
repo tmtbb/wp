@@ -29,7 +29,7 @@ class UserModel: BaseModel  {
     var forgetType:Movement?
     var token: String = UserDefaults.standard.value(forKey: SocketConst.Key.token) == nil ?  "" : UserDefaults.standard.value(forKey: SocketConst.Key.token) as! String
     var currentUserId: Int = 0
-    
+    var uuid = ""
     dynamic var balance: Double = 0
     
     // 获取某个用户信息

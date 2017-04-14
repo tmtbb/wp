@@ -22,6 +22,10 @@ class AppDataHelper: NSObject {
 //        initErrorCode()
 //        checkTokenLogin()
         initProductData()
+        
+        if let userUUID = UIDevice.current.identifierForVendor?.uuidString{
+            UserModel.share().uuid = userUUID
+        }
     }
     //请求商品数据 
     func initProductData() {

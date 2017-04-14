@@ -22,12 +22,14 @@ class RegisterParam: BaseModel{
     var recommend = ""
     var timeStamp = 0
     var vToken = ""
+    var deviceId = UserModel.share().uuid
 }
 
 class LoginParam: BaseModel {
     var phone = ""
     var pwd = ""
     var source = 1
+    var deviceId = UserModel.share().uuid
 }
 
 class ChecktokenParam: BaseParam{
