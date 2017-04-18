@@ -100,6 +100,11 @@ class UserTableViewController: BaseTableViewController {
     func updateUI()  {
         memberImageView.isHidden = UserModel.share().getCurrentUser()?.type == 0
     }
+    //退出登录
+    @IBAction func logout(_ sender: Any) {
+        AppDataHelper.instance().clearUserInfo()
+        sideMenuController?.toggle()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -113,7 +113,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBAction func jumpToMyWallet(_ sender: AnyObject) {
         if checkLogin(){
             let storyboard = UIStoryboard.init(name: "Share", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: MyWealtVC.className())
+            let controller = storyboard.instantiateViewController(withIdentifier: RechargeVC.className())
             navigationController?.pushViewController(controller, animated: true)
         }
     }
@@ -206,9 +206,14 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         
         if DealModel.checkIfSuspended() {
             SVProgressHUD.showWainningMessage(WainningMessage: "已停盘", ForDuration: 1.5, completion: nil)
-
             return
         }
+        
+        if DealModel.getAllPositionModel().count >= 5{
+            SVProgressHUD.showWainningMessage(WainningMessage: "每人最多持仓数为5", ForDuration: 1.5, completion: nil)
+            return
+        }
+        
         tableView.scrollToRow(at: IndexPath.init(row: 3, section: 0), at: .top, animated: false)
         if checkLogin(){
             if DealModel.share().buyProduct == nil {

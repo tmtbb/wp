@@ -25,7 +25,7 @@ class AppConst {
     static let isMock = false
     static let sha256Key = "t1@s#df!"
     static let pid = 1002
-    static let klineCount: Double = 30
+    static let klineCount: Double = 40
     static let bundleId = "com.newxfin.goods"
     static let JapanMoney = "fx_sjpycnh"
     
@@ -72,7 +72,7 @@ class AppConst {
     class Network {
         #if true //是否测试环境
         static let TcpServerIP:String = "139.224.34.22";
-        static let TcpServerPort:UInt16 = 16105
+        static let TcpServerPort:UInt16 = 16205
         static let TttpHostUrl:String = "http://139.224.34.22";
         #else
         static let TcpServerIP:String = "192.168.8.131";
