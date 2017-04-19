@@ -52,7 +52,6 @@ class AppConst {
         //wp
         static let CMain = UIColor(rgbHex: 0x268dcf)
         static let CGreen = UIColor(rgbHex: 0x009944)
-
         static let main = "main"
         static let background = "background"
         static let buyUp = "buyUp"
@@ -108,10 +107,11 @@ class AppConst {
     class WechatKey {
         static let Scope = "snsapi_userinfo"
         static let State = "wpstate"
-        static let AccessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code"
-        static let Appid = "wx9dc39aec13ee3158"
-        static let Secret = "Secret"
-        static let ErrorCode = "ErrorCode" 
+        static let AccessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token"
+        static let Appid = "wx9dc39aec13ee3158" //wx54be5296e7826e5a
+        static let Secret =  "1e372a173a248fb1b5c88d24236ef3b3"//"49961b15569b08556d9ef5815a89c0b4"
+        static let ErrorCode = "ErrorCode"
+        static let wechetUserInfo = "https://api.weixin.qq.com/sns/userinfo"
     }
     
     class WechatPay {
@@ -123,7 +123,6 @@ class AppConst {
     }
     
     class NotifyDefine {
-        
         static let jumpToMyMessage = "jumpToMyMessage"
         static let jumpToMyAttention = "jumpToMyAttention"
         static let jumpToMyPush = "jumpToMyPush"
@@ -151,6 +150,7 @@ class AppConst {
     
     enum SegueIndentifier:String{
         case drawCashToBankListSegue = "DrawCashToBankListSegue"
+        case wechatToBingPhone = "wechatToBingPhone"
     }
   
 }

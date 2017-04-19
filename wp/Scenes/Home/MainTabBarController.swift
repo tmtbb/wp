@@ -30,13 +30,8 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate {
             controller?.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.init(rgbHex: 0x666666)], for: .normal)
             controller?.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName: AppConst.Color.CMain], for: .selected)
             addChildViewController(controller!)
-            
             delegate = self
-        
-
-        
         }
-
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController){

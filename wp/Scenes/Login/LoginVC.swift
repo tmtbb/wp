@@ -81,19 +81,6 @@ class LoginVC: BaseTableViewController {
                 }
                 return nil
             }, error: errorBlockFunc())
-//            AppAPIHelper.login().login(phone: phoneText.text!, pwd: password, complete: { [weak self]( result) -> ()? in
-//                SVProgressHUD.dismiss()
-//                DealModel.share().isFirstGetPrice = true
-//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
-//                //存储用户信息
-//                if result != nil{
-//                    UserDefaults.standard.set(self?.phoneText.text!, forKey: SocketConst.Key.phone)
-//                    UserModel.share().upateUserInfo(userObject: result!)
-//                }else{
-//                    SVProgressHUD.showErrorMessage(ErrorMessage: "登录失败，请稍后再试", ForDuration: 1, completion: nil)
-//                }
-//                return nil
-//            }, error: errorBlockFunc())
         }
         
     }
@@ -110,30 +97,20 @@ class LoginVC: BaseTableViewController {
         WXApi.send(req)
     }
     func errorCode(_ notice: NSNotification) {
-        
-        if let errorCode: Int = notice.object as? Int{
-            if errorCode == -4{
-                
-                return
-            }
-            if errorCode == -2{
-                
-                return
-            }
-            //第三方登录成功
-            performSegue(withIdentifier: AppConst.NotifyDefine.LoginToBingPhoneVC, sender: nil)
-        }
+        //
+        UserModel.share().registerType = .wechatPass
+        //第三方登录成功
+        performSegue(withIdentifier: RegisterVC.className(), sender: nil)
         
     }
     
     //MARK: --忘记密码
     @IBAction func forgetPwdBtnTapped(_ sender: UIButton) {
-        UserModel.share().forgetPwd = true
+        UserModel.share().registerType = .forgetPass
     }
     //MARK: --快速注册
     @IBAction func registerBtnTapped(_ sender: UIButton) {
-        UserModel.share().forgetPwd = false
-        UserModel.share().forgetType = .loginPass
+        UserModel.share().registerType = .loginPass
     }
     //MARK: --新浪登录
     @IBAction func sinaBtnTapped(_ sender: UIButton) {

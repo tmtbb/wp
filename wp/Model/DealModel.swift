@@ -33,6 +33,9 @@ class DealModel: BaseModel {
     //买涨买跌
     var dealUp: Bool = true
     var buyModel: PositionModel = PositionModel()
+    
+    //是否停止K线刷新
+    var haveStopKline: Bool = false
     //是否是持仓详情
     var isDealDetail: Bool = false
     //数据库是否已经有数据

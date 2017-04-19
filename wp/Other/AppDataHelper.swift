@@ -142,6 +142,9 @@ class AppDataHelper: NSObject {
     //根据商品请求K线数据
     func initAllKlineChartData() {
         userCash()
+        if DealModel.share().haveStopKline {
+            return
+        }
         initLineChartData()
         initKLineChartData(type: .miu5)
         initKLineChartData(type: .miu15)

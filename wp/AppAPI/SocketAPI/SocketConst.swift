@@ -199,6 +199,10 @@ class SocketConst: NSObject {
         static let cardNO = "cardNO"
         static let verCode = "verCode"
         static let bankCardId = "bankCardId"
+        static let accessToken = "access_token"
+        static let openid = "openid"
+        static let nickname = "nickname"
+        static let headimgurl = "headimgurl"
     }
     
     

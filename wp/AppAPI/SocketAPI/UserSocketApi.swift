@@ -213,7 +213,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
     
     
     func everyday(start: Int32,count: Int32, complete: CompleteBlock?, error: ErrorBlock?){
-        let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
+        _ = [SocketConst.Key.uid: UserModel.share().currentUserId,
                      SocketConst.Key.token: UserModel.share().token ,
                      SocketConst.Key.start: start,
                      SocketConst.Key.countNuber: count,] as [String : Any]

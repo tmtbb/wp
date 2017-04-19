@@ -144,6 +144,10 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
     
     //MARK: --刷新K线
     func refreshKLine() {
+        if DealModel.share().haveStopKline {
+            return
+        }
+        
         switch selectIndex {
         case 0:
             initMiuLChartsData()

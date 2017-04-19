@@ -173,15 +173,7 @@ extension HomeVC{
     //MARK: --通知
     func registerNotify() {
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(jumpToMyMessageController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyMessage), object: nil)
-        notificationCenter.addObserver(self, selector: #selector(jumpToMyAttentionController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyAttention), object: nil)
-        notificationCenter.addObserver(self, selector: #selector(jumpToMyPushController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyPush), object: nil)
-        notificationCenter.addObserver(self, selector: #selector(jumpToMyBaskController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyBask), object: nil)
-        notificationCenter.addObserver(self, selector: #selector(jumpToDealController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToDeal), object: nil)
-        notificationCenter.addObserver(self, selector: #selector(jumpToFeedbackController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToFeedback), object: nil)
-        notificationCenter.addObserver(self, selector: #selector(jumpToProductGradeController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToProductGrade), object: nil)
-        notificationCenter.addObserver(self, selector: #selector(jumpToAttentionUsController), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToAttentionUs), object: nil)
-        notificationCenter.addObserver(self, selector: #selector(jumpToMyWealtVC), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToMyWealtVC), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(jumpToDealList), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToDeal), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToRecharge), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToRecharge), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToWithdraw), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToWithdraw), object: nil)
         notificationCenter.addObserver(self, selector: #selector(checkLogin), name: NSNotification.Name(rawValue: AppConst.NoticeKey.logoutNotice.rawValue), object: nil)
@@ -189,7 +181,6 @@ extension HomeVC{
         notificationCenter.addObserver(self, selector: #selector(initRequestPrice), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
     }
     func initRequestPrice() {
-        
         if priceTimer != nil {
             priceTimer?.invalidate()
             priceTimer = nil
@@ -197,59 +188,26 @@ extension HomeVC{
         //每隔3秒请求商品报价
         priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
     }
-    //我的消息
-    func jumpToMyMessageController() {
-        
-        performSegue(withIdentifier: MyMessageController.className(), sender: nil)
-    }
-    
     func sideHide() {
         if (sideMenuController?.sidePanelVisible)! {
-            
             sideMenuController?.toggle()
         }
     }
     func jumpToRecharge() {
-        
         if checkLogin() {
-            
-            let stroyBoard = UIStoryboard(name: "Share", bundle: nil)
-            let vc = stroyBoard.instantiateViewController(withIdentifier: "RechargeVC")
-            _ = navigationController?.pushViewController(vc, animated: true)
-            
+            performSegue(withIdentifier: RechargeVC.className(), sender: nil)
         }
     }
     func jumpToWithdraw() {
         if checkLogin() {
-            let stroyBoard = UIStoryboard(name: "Share", bundle: nil)
-            let vc = stroyBoard.instantiateViewController(withIdentifier: "WithDrawalVC")
-            _ = navigationController?.pushViewController(vc, animated: true)
+            performSegue(withIdentifier: WithDrawalVC.className(), sender: nil)
         }
     }
-    //我的关注
-    func jumpToMyAttentionController() {
-        if checkLogin(){
-            performSegue(withIdentifier: MyAttentionController.className(), sender: nil)
-        }
+    //意见反馈
+    func jumpToDealList() {
+        performSegue(withIdentifier: DealController.className(), sender: nil)
     }
-    //我的推单
-    func jumpToMyPushController() {
-        if checkLogin(){
-            performSegue(withIdentifier: MyPushController.className(), sender: nil)
-        }
-    }
-    //我的晒单
-    func jumpToMyBaskController() {
-        if checkLogin(){
-            performSegue(withIdentifier: MyBaskController.className(), sender: nil)
-        }
-    }
-    //我的交易明细
-    func jumpToDealController() {
-        if checkLogin() {
-            self.performSegue(withIdentifier: DealController.className(), sender: nil)
-        }
-    }
+    
     //意见反馈
     func jumpToFeedbackController() {
         AppServerHelper.instance().feedbackKid?.makeFeedbackViewController(completionBlock: {[weak self] (controller, error) in
@@ -260,23 +218,6 @@ extension HomeVC{
             }
         })
     }
-    //产品评分
-    func jumpToProductGradeController() {
-        
-        let productGradeVC = ProductGradeController()
-        navigationController?.pushViewController(productGradeVC, animated: true)
-    }
-    //关于我们
-    func jumpToAttentionUsController() {
-        
-        performSegue(withIdentifier: AttentionUsController.className(), sender: nil)
-    }
-    //通知跳转到资金页面
-    func jumpToMyWealtVC() {
-        let story : UIStoryboard = UIStoryboard.init(name: "Share", bundle: nil)
-        let wealth  = story.instantiateViewController(withIdentifier: MyWealtVC.className())
-        navigationController?.pushViewController(wealth, animated: true)
-        
-    }
-    
+   
+ 
 }

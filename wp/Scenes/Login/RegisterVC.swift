@@ -49,7 +49,7 @@ class RegisterVC: BaseTableViewController {
     //获取验证码
     @IBAction func changeCodePicture(_ sender: UIButton) {
         if checkoutText(){
-            let type = UserModel.share().forgetPwd ? 1:0
+            let type = 0
             SVProgressHUD.showProgressMessage(ProgressMessage: "请稍候...")
             AppAPIHelper.commen().verifycode(verifyType: Int64(type), phone: phoneText.text!, complete: { [weak self](result) -> ()? in
                 SVProgressHUD.dismiss()
@@ -97,20 +97,8 @@ class RegisterVC: BaseTableViewController {
     
     func register() {
         //重置密码
-        if UserModel.share().forgetPwd {
-            SVProgressHUD.showProgressMessage(ProgressMessage: "重置中...")
-            let type = UserModel.share().forgetType == nil ? .loginPass : UserModel.share().forgetType
-            let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
-            let param = ResetPwdParam()
-            param.pwd = password
-            param.type = (type?.rawValue)!
-            param.timestamp = Int(Date.nowTimestemp())
-            param.vCode = UserModel.share().code!
-            AppAPIHelper.login().repwd(param:param, complete: { [weak self](result) -> ()? in
-                SVProgressHUD.showWainningMessage(WainningMessage: "重置成功", ForDuration: 1, completion: nil)
-                _ = self?.navigationController?.popToRootViewController(animated: true)
-                return nil
-            }, error: errorBlockFunc())
+        if UserModel.share().registerType == .wechatPass {
+            
             return
         }
         
@@ -152,13 +140,9 @@ class RegisterVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
-        title = UserModel.share().forgetPwd ? "重置密码":"注册"
-        thindLoginView.isHidden = UserModel.share().forgetPwd
+        title =  UserModel.share().registerType == .wechatPass ? "绑定手机号":"注册"
         phoneView.layer.borderWidth = 0.5
-        pwdText.placeholder = UserModel.share().forgetPwd ? "请输入支付密码":"请输入登录密码"
-        if UserModel.share().forgetType == .loginPass {
-            pwdText.placeholder = "请输入登录密码"
-        }
+        pwdText.placeholder = "请输入登录密码"
         phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
         
         codeBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
