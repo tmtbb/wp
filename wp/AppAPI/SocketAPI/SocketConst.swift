@@ -18,6 +18,10 @@ class SocketConst: NSObject {
         case errorCode = 0
         // 登录
         case login = 3003
+        // 微信登录
+        case wechatLogin = 3013
+        // 绑定手机号
+        case bingPhone = 3015
         // 注册
         case register = 3001
         // 重设密码

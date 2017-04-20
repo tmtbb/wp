@@ -96,14 +96,38 @@ class RegisterVC: BaseTableViewController {
     }
     
     func register() {
+        
         //重置密码
+        SVProgressHUD.showProgressMessage(ProgressMessage: "绑定中...")
         if UserModel.share().registerType == .wechatPass {
-            
+            let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
+            let param = BingPhoneParam()
+            param.phone = phoneText.text!
+            param.pwd = password
+            param.vCode = UserModel.share().code!
+            param.vToken = UserModel.share().codeToken
+            param.timeStamp = UserModel.share().timestamp
+            if memberText.text!.length() > 0 {
+                param.memberId = Int(memberText.text!)!
+            }
+            param.agentId = agentText.text!
+            param.recommend = recommendText.text!
+            param.headerUrl = UserModel.share().wechatUserInfo[SocketConst.Key.headimgurl] ?? ""
+            param.nickname = UserModel.share().wechatUserInfo[SocketConst.Key.nickname] ?? ""
+            param.openid = UserModel.share().wechatUserInfo[SocketConst.Key.openid] ?? ""
+            AppAPIHelper.login().bingPhone(param: param, complete: { [weak self](result) -> ()? in
+                SVProgressHUD.dismiss()
+                if result != nil {
+                    UserModel.share().fetchUserInfo(phone: self?.phoneText.text ?? "", pwd: self?.pwdText.text ?? "")
+                }else{
+                    SVProgressHUD.showErrorMessage(ErrorMessage: "绑定失败，请稍后再试", ForDuration: 1, completion: nil)
+                }
+                return nil
+            }, error: errorBlockFunc())
             return
         }
         
         //注册
-        SVProgressHUD.showProgressMessage(ProgressMessage: "注册中...")
         let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
         let param = RegisterParam()
         param.phone = phoneText.text!
@@ -116,6 +140,7 @@ class RegisterVC: BaseTableViewController {
         }
         param.agentId = agentText.text!
         param.recommend = recommendText.text!
+        SVProgressHUD.showProgressMessage(ProgressMessage: "注册中...")
         AppAPIHelper.login().register(model: param, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
             if result != nil {
@@ -141,6 +166,8 @@ class RegisterVC: BaseTableViewController {
     //MARK: --UI
     func initUI() {
         title =  UserModel.share().registerType == .wechatPass ? "绑定手机号":"注册"
+        let nextTitle =  UserModel.share().registerType == .wechatPass ? "绑定":"注册"
+        nextBtn.setTitle(nextTitle, for: .normal)
         phoneView.layer.borderWidth = 0.5
         pwdText.placeholder = "请输入登录密码"
         phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor

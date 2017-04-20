@@ -97,10 +97,27 @@ class LoginVC: BaseTableViewController {
         WXApi.send(req)
     }
     func errorCode(_ notice: NSNotification) {
-        //
-        UserModel.share().registerType = .wechatPass
-        //第三方登录成功
-        performSegue(withIdentifier: RegisterVC.className(), sender: nil)
+        let param = WechatLoginParam()
+        param.openId = UserModel.share().wechatUserInfo[SocketConst.Key.openid]!
+        //微信登录
+        AppAPIHelper.login().login(param: param, complete: { ( result) -> ()? in
+            SVProgressHUD.dismiss()
+            DealModel.share().isFirstGetPrice = true
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
+            //存储用户信息
+            if result != nil{
+                UserModel.share().upateUserInfo(userObject: result!)
+            }else{
+                SVProgressHUD.showErrorMessage(ErrorMessage: "登录失败，请稍后再试", ForDuration: 1, completion: nil)
+            }
+            return nil
+        }, error: { [weak self](error) -> ()?in
+            UserModel.share().registerType = .wechatPass
+            //第三方登录成功
+            self?.performSegue(withIdentifier: RegisterVC.className(), sender: nil)
+            return nil
+        })
+
         
     }
     

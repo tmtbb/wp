@@ -15,7 +15,20 @@ class LoginSocketApi: BaseSocketAPI, LoginApi {
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .login, model: param)
         startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
     }
- 
+    //微信登录(模型)
+    func login(param: WechatLoginParam, complete: CompleteBlock?, error: ErrorBlock?){
+    
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .wechatLogin, model: param)
+        startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
+    }
+    
+    //绑定手机号
+    func bingPhone(param: BingPhoneParam, complete: CompleteBlock?, error: ErrorBlock?){
+    
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .bingPhone, model: param)
+        startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
+    }
+    
     //token登录(模型)
     func tokenLogin(param: ChecktokenParam, complete: CompleteBlock?, error: ErrorBlock?){
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .tokenLogin, model: param, type:.user)

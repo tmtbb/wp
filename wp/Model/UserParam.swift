@@ -25,9 +25,21 @@ class RegisterParam: BaseModel{
     var deviceId = UserModel.share().uuid
 }
 
+class BingPhoneParam: RegisterParam {
+    var openid = ""
+    var nickname = ""
+    var headerUrl = ""
+}
+
 class LoginParam: BaseModel {
     var phone = ""
     var pwd = ""
+    var source = 1
+    var deviceId = UserModel.share().uuid
+}
+
+class WechatLoginParam: BaseModel {
+    var openId = ""
     var source = 1
     var deviceId = UserModel.share().uuid
 }
