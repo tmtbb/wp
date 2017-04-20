@@ -14,7 +14,6 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     @IBOutlet weak var submited: UIButton!        //提现提交按钮
 //    var bankId : Int64 = 0
     var bankId : Int64 = 49
-    var accountmoney : Double = 0                      // 提现金额
     @IBOutlet weak var voiceCodeBtn: UIButton!         // 发送验证码
     var timer: Timer?                                  // 定时器
     var codeTime = 60                                  // 时间
@@ -63,31 +62,9 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     }
     func initData(){
         if UserModel.share().getCurrentUser() != nil{
-            let str : String =  String.init(format:  "%.2f", (UserModel.share().getCurrentUser()?.balance)!)
-            let int : Double = Double(str)!
-            self.moneyTd.placeholder = "最多可提现" + "\(int)" + "元"
-            
-            accountmoney = (UserModel.share().getCurrentUser()?.balance)!
+            let str : String = String.init(format: "%.2f", UserModel.share().balance)
+            self.moneyTd.placeholder = "最多可提现" + "\(str)" + "元"
         }
-        
-//        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
-//            if let resultDic = result as? [String: AnyObject] {
-//                if let moneyTd = resultDic["balance"] as? Double{
-//                    
-//                    self?.accountmoney = moneyTd
-//                    
-//                    let str : String =  String.init(format:  "%.2f", moneyTd)
-//                    self?.moneyTd.placeholder = "最多可提现" + "\(str)" + "元"
-//                    
-//                    UserModel.updateUser(info: { (result) -> ()? in
-//                        UserModel.share().getCurrentUser()?.balance = Double(moneyTd)
-//                        return nil
-//                    })
-//                    
-//                }
-//            }
-//            return nil
-//            }, error: errorBlockFunc())
     }
     //MARK: - 界面销毁删除监听
     deinit {
@@ -123,7 +100,6 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         }
         
         // 校验 是否选择银行卡和提现最多金额
-        let account  = accountmoney
         let input : Double = Double(self.moneyTd.text!)!
         if self.moneyTd.text?.length()==0{
             SVProgressHUD.showError(withStatus: "请输入提现金额")
@@ -144,15 +120,13 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             SVProgressHUD.showError(withStatus: "请选择银行卡")
             return
         }
-        let str : String = NSString(format: "%f" , self.accountmoney) as String
-        let count : Double = Double.init(str)!
-        if count < input{
-            SVProgressHUD.showError(withStatus: "最多提现" + "\(account)" + "元")
+        let str : String = String.init(format: "%.2f", UserModel.share().balance)
+        if UserModel.share().balance < input{
+            SVProgressHUD.showError(withStatus: "最多提现" + "\(str)" + "元")
             return
         }
         
         AppAPIHelper.user().withdrawcash(money: input, bld: bankId, password: "", complete: { [weak self](result) -> ()? in
-            
             if let object = result{
                 let model : WithdrawResultModel = object as! WithdrawResultModel
                 ShareModel.share().detailModel.cardNo = ShareModel.share().selectBank.cardNo
@@ -175,9 +149,8 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     }
     //MARK: - 全部提现导航栏
     @IBAction func withDrawAll(_ sender: Any) {
-        //        self.moneyTd.text
-        let str : String = NSString(format: "%.2f" , self.accountmoney) as String
-        self.moneyTd.text = str
+        //self.moneyTd.text
+        self.moneyTd.text = String.init(format: "%.2f", UserModel.share().balance)
     }
      //MARK: - textField delegate
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

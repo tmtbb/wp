@@ -45,7 +45,8 @@ class BuyProductVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        countSlider.value = 3.0
+//        countSlider.value = 
+        countSlider.maximumValue = Float(DealModel.share().buyProduct!.maxLot)
         changeCount(countSlider)
     }
     
@@ -103,7 +104,7 @@ class BuyProductVC: UIViewController {
     @IBAction func changeCount(_ sender: UISlider) {
         let value = sender.value
         let sliderWidth = countSlider.frame.width
-        countConstraint.constant = sliderWidth * CGFloat(value) / 10.0 - 34
+        countConstraint.constant = (sliderWidth-38) * CGFloat(value)/CGFloat(sender.maximumValue)
         countBtn.setTitle("\(Int(value))", for: .normal)
         buyCountLabel.text = "当前选择手数 \(Int(value))"
         let dingjin = Double(Int(value))*DealModel.share().buyProduct!.price
