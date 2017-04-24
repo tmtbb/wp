@@ -307,8 +307,4 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             
         }
     
-   
-    
-
-    
 }

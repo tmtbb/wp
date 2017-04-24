@@ -58,4 +58,10 @@ class Model: BaseModel {
     
 }
 
+class RechargeResultModel: BaseModel{
+    var payUrl = "www.baidu.com"
+}
+
+
+
 

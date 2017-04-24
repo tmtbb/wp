@@ -28,11 +28,11 @@ class BankListModel: BaseModel {
     var uid: Int64 = 0
     // 银行名称
     var bank:  String = "bank"
-    // 入金时间
+    // 支行名称
     var branchBank: String = "branchBank"
-    // 入金方式 1.微信 2.银行卡
+    // 银行卡号
     var cardNo: String = "cardNo"
-    //  微信
+    //  开户名
     var name: String = "name"
 }
 

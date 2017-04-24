@@ -151,6 +151,7 @@ class AppConst {
     enum SegueIndentifier:String{
         case drawCashToBankListSegue = "DrawCashToBankListSegue"
         case wechatToBingPhone = "wechatToBingPhone"
+        case rechargeToBankListSegue = "RechargeToBankListSegue"
     }
   
 }

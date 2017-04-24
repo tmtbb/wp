@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 import DKNightVersion
+
 class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
   
     @IBOutlet weak var submited: UIButton!        //提现提交按钮
@@ -126,7 +127,15 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             return
         }
         
-        AppAPIHelper.user().withdrawcash(money: input, bld: bankId, password: "", complete: { [weak self](result) -> ()? in
+        let param = WithDrawalParam()
+        param.amount = input
+        param.receiverBankName = ShareModel.share().selectBank.bank
+        param.receiverBranchBankName = ShareModel.share().selectBank.branchBank
+        param.receiverCardNo = ShareModel.share().selectBank.cardNo
+        param.receiverAccountName = ShareModel.share().selectBank.name
+        SVProgressHUD.showProgressMessage(ProgressMessage: "提交提现申请...")
+        AppAPIHelper.user().easypayWithDraw(param: param, complete: { [weak self](result) -> ()? in
+            SVProgressHUD.dismiss()
             if let object = result{
                 let model : WithdrawResultModel = object as! WithdrawResultModel
                 ShareModel.share().detailModel.cardNo = ShareModel.share().selectBank.cardNo
@@ -141,12 +150,24 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             return nil
         }, error: errorBlockFunc())
         
+        
+//        AppAPIHelper.user().withdrawcash(money: input, bld: bankId, password: "", complete: { [weak self](result) -> ()? in
+//            if let object = result{
+//                let model : WithdrawResultModel = object as! WithdrawResultModel
+//                ShareModel.share().detailModel.cardNo = ShareModel.share().selectBank.cardNo
+//                ShareModel.share().detailModel.bank = ShareModel.share().selectBank.bank
+//                ShareModel.share().withdrawResultModel = model
+//                if model.result == 1{
+//                    self?.performSegue(withIdentifier: SuccessWithdrawVC.className(), sender: nil)
+//                }else{
+//                    SVProgressHUD.showWainningMessage(WainningMessage: "提现失败，请稍候再试", ForDuration: 1, completion: nil)
+//                }
+//            }
+//            return nil
+//        }, error: errorBlockFunc())
+        
     }
-    
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-
-    }
     //MARK: - 全部提现导航栏
     @IBAction func withDrawAll(_ sender: Any) {
         //self.moneyTd.text
@@ -161,35 +182,11 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         }
         return true
     }
+    
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        
-        if string == "" || string == "\n" {
-            if rangePoint != nil {
-                if range.location == rangePoint.location {
-                    isFirst = true
-                }
-            }
-            return true
-        }
-        let single : unichar =  (string as NSString).character(at: 0)
-        if ( single >= 48 && single <= 57 ) || string == "." {
-            if isFirst == true {
-                if string == "." {
-                    isFirst = false
-                    rangePoint = range
-                    return true
-                }
-            }else if isFirst == false {
-                if string == "." {
-                    return false
-                }else if range.location - rangePoint.location > 2 {
-                    return false
-                }
-            }
-        }else {return false}
-        return true
-        
+        let resultStr = textField.text?.replacingCharacters(in: (textField.text?.range(from: range))!, with: string)
+        return resultStr!.isMoneyString()
     }
 }
 

@@ -28,7 +28,6 @@ protocol UserApi {
     func bingcard(bank: Int64, branchBank: String, cardNo: String, name:String,bankName:String , complete: CompleteBlock?, error: ErrorBlock?)
     //解绑银行卡
     func unbindcard( vToken :String,bid: Int32,timestamp: Int64, phone :String,vCode:String, complete: CompleteBlock?, error: ErrorBlock?)
-    
     //充值列表
     func creditlist(status: Int32, pos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
     //充值详情
@@ -55,7 +54,10 @@ protocol UserApi {
     func revisePersonDetail(screenName:String, avatarLarge: String, gender:Int64, complete: CompleteBlock?, error: ErrorBlock?)
     //修改用户昵称
     func resetUserScreenName(screenName:String, complete: CompleteBlock?, error: ErrorBlock?)
-
     //交易总概况
     func getTotalHistoryData(complete: CompleteBlock?, error: ErrorBlock?)
+    // EasyPay充值
+    func easypayRecharge(param: RechargeParam, complete: CompleteBlock?, error: ErrorBlock?)
+    // EasyPay提现
+    func easypayWithDraw(param: WithDrawalParam, complete: CompleteBlock?, error: ErrorBlock?)
 }

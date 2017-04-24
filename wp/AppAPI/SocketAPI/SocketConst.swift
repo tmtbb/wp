@@ -104,7 +104,10 @@ class SocketConst: NSObject {
         case benifity = 6007
         //余额
         case balance = 7002
-        
+        //easyPay充值
+        case easypayRecharge = 7039
+        //easyPay提现
+        case easypayWithDraw = 7045
     }
     enum type:UInt8 {
         case error  = 0
@@ -114,6 +117,7 @@ class SocketConst: NSObject {
         case time   = 4
         case deal   = 5
         case operate = 6
+        case recharge = 7
         case drawcash = 8
     }
     
