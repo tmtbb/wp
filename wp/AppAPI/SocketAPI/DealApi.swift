@@ -11,20 +11,12 @@ import Foundation
 protocol DealApi{
     //当前仓位列表
     func currentDeals(complete: CompleteBlock?, error:ErrorBlock?)
-    //当前仓位详情
-    func currentDealDetail(positionId: Int, complete: CompleteBlock?, error:ErrorBlock?)
     //历史仓位列表
-    func historyDeals(start: Int,count: Int,complete: CompleteBlock?, error:ErrorBlock?)
-    //历史仓位详情
-    func historyDealDetail(positionId: Int, complete: CompleteBlock?, error:ErrorBlock?)
+    func historyDeals(param: UndealParam, complete: CompleteBlock?, error:ErrorBlock?)
     //建仓
-    func buildDeal(model: DealParam, complete: CompleteBlock?, error:ErrorBlock?)
-    //平仓
-    func sellOutDeal(complete: CompleteBlock?, error:ErrorBlock?)
-    //修改持仓
-    func changeDeal(model: PositionModel, complete: CompleteBlock?, error:ErrorBlock?)
+    func buildDeal(model: DealParam, complete: CompleteBlock?, error: ErrorBlock?)
     //商品列表
-    func products(pid:Int, complete: CompleteBlock?, error:ErrorBlock?)
+    func products(param: ProductParam, complete: CompleteBlock?, error:ErrorBlock?)
     //当时K线数据
     func kChartsData(param: KChartParam, complete: CompleteBlock?, error:ErrorBlock?)
     //当时分时数据

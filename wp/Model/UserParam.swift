@@ -56,3 +56,7 @@ class ResetPwdParam: BaseParam{
     var timestamp = 0
     var vToken = ""
 }
+
+
+
+

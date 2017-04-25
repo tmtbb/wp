@@ -32,19 +32,8 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
         super.viewDidLoad()
         hideTabBarWithAnimationDuration()
         initUserInfo()
-//        ShareModel.share().addObserver(self, forKeyPath: "selectBank", options: .new, context: nil)
     }
-    //MARK: - KVO
-    deinit {
-        ShareModel.share().removeObserver(self, forKeyPath: "selectBank", context: nil)
-    }
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "selectBank" {
-            if let _ = change? [NSKeyValueChangeKey.newKey] as? BankListModel {
-                
-            }
-        }
-    }
+   
     //userInfo
     func initUserInfo() {
         uidText.text = UserModel.share().currentUser?.phone
@@ -67,24 +56,19 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
             if let model = result as? RechargeResultModel{
                 self?.haveRecharge = true
                 sender.isEnabled = true
-                self?.openURL(urlStr: model.payUrl)
+                self?.openURL(urlStr: model.paymentInfo)
             }
             return nil
-        }, error: { [weak self](error) -> ()? in
-            sender.isEnabled = true
-            self?.haveRecharge = true
-            self?.openURL(urlStr: "http://www.baidu.com")
-            return nil
-        })
+        }, error: errorBlockFunc())
     }
     
     func openURL(urlStr: String) {
-//        let webController = WPWebViewController()
-//        webController.title = "充值"
-//        _ = navigationController?.pushViewController(webController, animated: true)
-//        let baseUrl = URL.init(string: urlStr)
-//        webController.webView.loadRequest(URLRequest.init(url: baseUrl!))
-        UIApplication.shared.openURL(URL(string: urlStr)!)
+        let webController = WPWebViewController()
+        webController.title = "充值"
+        _ = navigationController?.pushViewController(webController, animated: true)
+        let baseUrl = URL.init(string: urlStr)
+        webController.webView.loadRequest(URLRequest.init(url: baseUrl!))
+//        UIApplication.shared.openURL(URL(string: urlStr)!)
     }
     
     func showRechargeResultAlter() {

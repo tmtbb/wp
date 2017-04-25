@@ -50,17 +50,13 @@ class FullBankInfomationVC: BaseTableViewController {
     }
     //MARK: 网络请求
     override func didRequest() {
-//        ShareModel.share().shareData["cardNo"] = bankNumber.text!
-//        ShareModel.share().shareData["branchBank"] = branceAddress.text!
-//        ShareModel.share().shareData["name"] = name.text!
-//        ShareModel.share().shareData["bankName"] = "农业银行-借记卡"
-//        ShareModel.share().shareData["bankId"] = "1001"
-//        performSegue(withIdentifier: pushInputPhone, sender: nil)
-//        return
-        AppAPIHelper.user().getBankName(withbankld:bankNumber.text!, complete: { [weak self](result) -> ()? in
+        
+        let param = BankNameParam()
+        param.cardNo = bankNumber.text!
+        AppAPIHelper.user().getBankName(param: param, complete: { [weak self](result) -> ()? in
             
             if let object = result{
-              let  bankId : Int = object["bankId"] as! Int
+                let  bankId : Int = object["bankId"] as! Int
                 ShareModel.share().shareData["cardNo"] = (self?.bankNumber.text!)!
                 ShareModel.share().shareData["branchBank"] = (self?.branceAddress.text!)!
                 ShareModel.share().shareData["name"] = (self?.name.text!)!
@@ -71,6 +67,19 @@ class FullBankInfomationVC: BaseTableViewController {
             return nil
         }, error: errorBlockFunc())
         
+        
+//        AppAPIHelper.user().getBankName(withbankld:bankNumber.text!, complete: { [weak self](result) -> ()? in
+//            if let object = result{
+//              let  bankId : Int = object["bankId"] as! Int
+//                ShareModel.share().shareData["cardNo"] = (self?.bankNumber.text!)!
+//                ShareModel.share().shareData["branchBank"] = (self?.branceAddress.text!)!
+//                ShareModel.share().shareData["name"] = (self?.name.text!)!
+//                ShareModel.share().shareData["bankName"] = object["bankName"] as? String
+//                ShareModel.share().shareData["bankId"] = "\(bankId)"
+//                self?.performSegue(withIdentifier: pushInputPhone, sender: nil)
+//            }
+//            return nil
+//        }, error: errorBlockFunc())
     }
     func onlyInputTheNumber(_ string: String) -> Bool {
         let numString = "[0-9]*"

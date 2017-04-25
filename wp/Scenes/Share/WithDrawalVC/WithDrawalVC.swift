@@ -150,22 +150,6 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             return nil
         }, error: errorBlockFunc())
         
-        
-//        AppAPIHelper.user().withdrawcash(money: input, bld: bankId, password: "", complete: { [weak self](result) -> ()? in
-//            if let object = result{
-//                let model : WithdrawResultModel = object as! WithdrawResultModel
-//                ShareModel.share().detailModel.cardNo = ShareModel.share().selectBank.cardNo
-//                ShareModel.share().detailModel.bank = ShareModel.share().selectBank.bank
-//                ShareModel.share().withdrawResultModel = model
-//                if model.result == 1{
-//                    self?.performSegue(withIdentifier: SuccessWithdrawVC.className(), sender: nil)
-//                }else{
-//                    SVProgressHUD.showWainningMessage(WainningMessage: "提现失败，请稍候再试", ForDuration: 1, completion: nil)
-//                }
-//            }
-//            return nil
-//        }, error: errorBlockFunc())
-        
     }
 
     //MARK: - 全部提现导航栏

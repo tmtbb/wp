@@ -61,9 +61,9 @@ class SuccessWithdrawVC: BaseTableViewController {
     }
     // 请求接口
     override func didRequest() {
-        
-        AppAPIHelper.user().creditdetail(rid:1111000011, complete: { (result) -> ()? in
-            //              self?.didRequestComplete(result)
+        let param = RechargeDetailParam()
+        AppAPIHelper.user().creditdetail(param: param, complete: { (result) -> ()? in
+            
             return nil
         }, error: errorBlockFunc())
         

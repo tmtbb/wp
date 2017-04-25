@@ -60,15 +60,11 @@ class SelectBankVC: BaseListTableViewController {
         AppAPIHelper.user().bankcardList(complete: { [weak self](result) -> ()? in
             
             if let object = result {
-                
                 let Model : BankModel = object as! BankModel
                 self?.didRequestComplete(Model.cardList as AnyObject)
                 self?.dataArry = Model.cardList!
-                
                 self?.tableView.reloadData()
-                
             }else {
-                
                 self?.didRequestComplete(nil)
             }
             
@@ -125,12 +121,21 @@ class SelectBankVC: BaseListTableViewController {
     func UnbindCard ( number: Int) {
         let index = Int(ShareModel.share().shareData["number"]!)
         let  model :BankListModel = self.dataArry[index!]
-        AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) ,phone: (UserModel.share().getCurrentUser()?.phone)!, vCode:"", complete: { [weak self](result) -> ()? in
+        let param = UnBingCardParam()
+        param.bankCardId = Int(model.bid)
+        AppAPIHelper.user().unbindcard(param: param, complete: { [weak self](result) -> ()? in
             if result != nil{
                 self?.didRequest()
             }
             return nil
         }, error: self.errorBlockFunc())
+        
+//        AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) ,phone: (UserModel.share().getCurrentUser()?.phone)!, vCode:"", complete: { [weak self](result) -> ()? in
+//            if result != nil{
+//                self?.didRequest()
+//            }
+//            return nil
+//        }, error: self.errorBlockFunc())
     }
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true

@@ -14,7 +14,7 @@ class RechargeParam: BaseParam{
     var currency = "CNY"
     var amount: Double = 0
     var content = ""
-    var payType = "H5"
+    var payType = "H5_ONLINE_BANK_PAY"
 }
 
 class WithDrawalParam: BaseParam{
@@ -26,4 +26,35 @@ class WithDrawalParam: BaseParam{
     var receiverBranchBankCode = ""
     var receiverCardNo = ""
     var receiverAccountName = ""
+}
+
+class BingCardParam: BaseParam{
+    var bankId = 0
+    var branchBank = ""
+    var bankName = ""
+    var cardNo = ""
+    var name = ""
+}
+
+class UnBingCardParam: BaseParam{
+    var bankCardId = 0
+    var verCode = ""
+}
+
+class BankNameParam: BaseParam{
+    var cardNo = ""
+}
+
+class BalanceListParam: BaseParam {
+    var status = 0
+    var pos = 0
+    var countNuber = 0
+}
+
+class RechargeDetailParam: BaseParam{
+    var rid = 0
+}
+
+class WithDrawDetailParam: BaseParam{
+    var wid = ""
 }

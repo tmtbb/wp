@@ -19,8 +19,6 @@ class AppDataHelper: NSObject {
     func initData() {
         productTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
-//        initErrorCode()
-//        checkTokenLogin()
         initProductData()
         
         if let userUUID = UIDevice.current.identifierForVendor?.uuidString{
@@ -33,7 +31,8 @@ class AppDataHelper: NSObject {
             return
         }
         var allProducets: [ProductModel] = []
-        AppAPIHelper.deal().products(pid: 0, complete: {[weak self](result) -> ()? in
+        let param = ProductParam()
+        AppAPIHelper.deal().products(param: param, complete: {[weak self](result) -> ()? in
             self?.productTimer?.invalidate()
             if let products: [ProductModel] = result as! [ProductModel]?{
                 //拼接所有商品
