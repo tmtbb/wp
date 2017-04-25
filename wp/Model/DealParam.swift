@@ -45,7 +45,7 @@ class PositionParam: DealParam{
 }
 
 class ProductParam: DealParam{
-    var pid = 0
+    var pid = AppConst.pid
 }
 
 class BenifityParam: DealParam{
