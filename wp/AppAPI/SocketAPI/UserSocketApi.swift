@@ -17,34 +17,10 @@ class UserSocketApi: BaseSocketAPI, UserApi {
         startRequest(packet, complete: complete, error: error)
     }
     
-    //流水列表
-    func flowList(flowType: String, startPos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?){
-        
-        let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
-                     SocketConst.Key.token: UserModel.share().token ,
-                     SocketConst.Key.flowType: flowType,
-                     SocketConst.Key.startPos: startPos,
-                     SocketConst.Key.countNuber: count] as [String : Any]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .flowList, dict: param as [String : AnyObject])
-        startModelsRequest(packet, listName: "orders", modelClass: FlowOrdersList.self, complete: complete, error: error)
-    }
-    //流水详情
-    func flowDetails(flowld: Int64, flowType: Int8, complete: CompleteBlock?, error: ErrorBlock?){
-         
-        let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
-                     SocketConst.Key.token: UserModel.share().token ,
-                     SocketConst.Key.flowld: flowld,
-                     SocketConst.Key.flowType: flowType] as [String : Any]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .flowDetails, dict: param as [String : AnyObject])
-        startModelRequest(packet, modelClass: FlowDetails.self, complete: complete, error: error)
-        
-    }
     // 用户信息
     func accinfo(complete: CompleteBlock?, error: ErrorBlock?){
-        let param = [SocketConst.Key.uid: UserModel.share().currentUserId,
-                     SocketConst.Key.token: UserModel.share().token ] as [String : Any]
-        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .accinfo, dict: param as [String : AnyObject], type: SocketConst.type.wp)
-        
+        let param = BaseParam()
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .accinfo, model: param, type: SocketConst.type.wp)
         startRequest(packet, complete: complete, error: error)
     }
     //银行卡列表

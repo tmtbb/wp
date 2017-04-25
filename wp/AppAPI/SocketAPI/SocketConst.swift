@@ -40,10 +40,6 @@ class SocketConst: NSObject {
 //        case everyday = 6011
         case accinfo = 3007
         case tokenLogin = 3009
-        //流水列表
-        case flowList = 1077
-        //流水详情
-        case flowDetails = 1010
         //银行卡列表
         case bankcardList = 8003
         //银行卡详情

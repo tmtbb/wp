@@ -10,14 +10,7 @@ import Foundation
 
 protocol UserApi {
     //设置用户信息
-    func userInfo(user: UserInfo, complete: CompleteBlock?, error: ErrorBlock?)
-    //流水列表
-    func flowList(flowType: String, startPos: Int32, count: Int32, complete: CompleteBlock?, error: ErrorBlock?)
-    //流水详情
-    func flowDetails(flowld: Int64, flowType: Int8, complete: CompleteBlock?, error: ErrorBlock?)
-//    //用户信息
-//    func accinfo(user: UserInfo, complete: CompleteBlock?, error: ErrorBlock?)
-    
+    func userInfo(user: UserInfo, complete: CompleteBlock?, error: ErrorBlock?)    //流水详情
     //账户信息
     func accinfo(complete: CompleteBlock?, error: ErrorBlock?)
      //每天的数据
