@@ -56,7 +56,7 @@ class HomeVC: BaseTableViewController {
         noticeView.isHidden = true
         
         //每隔3秒请求商品报价
-//        priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
+        priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
         DealModel.share().addObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue, options: .new, context: nil)
         
         
@@ -186,7 +186,7 @@ extension HomeVC{
             priceTimer = nil
         }
         //每隔3秒请求商品报价
-//        priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
+        priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
     }
     func sideHide() {
         if (sideMenuController?.sidePanelVisible)! {

@@ -1,4 +1,4 @@
- //
+//
 //  AppDelegate.swift
 //  viossvc
 //
@@ -102,7 +102,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         self.window?.endEditing(true)
     }
     
