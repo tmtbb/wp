@@ -96,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBar.setBackgroundImage(UIImage.init(named: "nav_main"), for: .any, barMetrics: .default)
         UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(0, -60), for:.default);
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent;
-        UITableView.appearance().backgroundColor = AppConst.Color.C6;
+        UITableView.appearance().backgroundColor = AppConst.Color.line;
         SVProgressHUD.setDefaultStyle(SVProgressHUDStyle.dark)
         SVProgressHUD.setMinimumDismissTimeInterval(2)
     }

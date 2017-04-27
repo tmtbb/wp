@@ -28,6 +28,7 @@ class AppConst {
     static let klineCount: Double = 40
     static let bundleId = "com.newxfin.goods"
     static let JapanMoney = "fx_sjpycnh"
+    static let ErrorDomain = "com.newxfin.goods"
     
     enum KVOKey: String {
         case selectProduct = "selectProduct"
@@ -41,15 +42,7 @@ class AppConst {
     }
     
     class Color {
-        static let C0 = UIColor(rgbHex:0x131f32)
-        static let CR = UIColor(rgbHex:0xb82525)
-        static let C1 = UIColor.black
-        static let C2 = UIColor(rgbHex:0x666666)
-        static let C3 = UIColor(rgbHex:0x999999)
-        static let C4 = UIColor(rgbHex:0xaaaaaa)
-        static let C5 = UIColor(rgbHex:0xe2e2e2)
-        static let C6 = UIColor(rgbHex:0xf2f2f2)
-        //wp
+        static let line = UIColor(rgbHex:0xf2f2f2)
         static let CMain = UIColor(rgbHex: 0x268dcf)
         static let CGreen = UIColor(rgbHex: 0x009944)
         static let main = "main"
@@ -59,14 +52,7 @@ class AppConst {
         static let auxiliary = "auxiliary"
         static let lightBlue = "lightBlue"
     };
-     class SystemFont {
-        static let S1 = UIFont.systemFont(ofSize: 18)
-        static let S2 = UIFont.systemFont(ofSize: 15)
-        static let S3 = UIFont.systemFont(ofSize: 13)
-        static let S4 = UIFont.systemFont(ofSize: 12)
-        static let S5 = UIFont.systemFont(ofSize: 10)
-        static let S14 = UIFont.systemFont(ofSize: 14)
-    };
+   
     
     class Network {
         #if true //是否测试环境
@@ -81,18 +67,8 @@ class AppConst {
         static let TimeoutSec:UInt16 = 10
         static let qiniuHost = "http://ofr5nvpm7.bkt.clouddn.com/"
     }
-    class Text {
-        static let PhoneFormatErr = "请输入正确的手机号"
-        static let VerifyCodeErr  = "请输入正确的验证码"
-        static let SMSVerifyCodeErr  = "获取验证码失败"
-        static let PasswordTwoErr = "两次密码不一致"
-        static let ReSMSVerifyCode = "重新获取"
-        static let ErrorDomain = "com.newxfin.goods"
-        static let PhoneFormat = "^1[3|4|5|7|8][0-9]\\d{8}$"
-        static let RegisterPhoneError = "输入的手机号已注册"
-    }
-    
-    
+
+
     enum Action:UInt {
         case callPhone = 10001
         case handleOrder = 11001

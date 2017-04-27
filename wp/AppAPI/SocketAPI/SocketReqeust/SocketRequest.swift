@@ -59,7 +59,7 @@ class SocketRequest {
     
     func onError(_ errorCode:Int!) {
         let errorStr:String = SocketRequest.errorString(errorCode)
-        let error = NSError(domain: AppConst.Text.ErrorDomain, code: errorCode
+        let error = NSError(domain: AppConst.ErrorDomain, code: errorCode
             , userInfo: [NSLocalizedDescriptionKey:errorStr]);
         onError(error)
     }
