@@ -42,12 +42,14 @@ class PwdVC: BaseTableViewController {
                 //设定交易密码
                 SVProgressHUD.showProgressMessage(ProgressMessage: "设定中...")
                 let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
-                AppAPIHelper.login().repwd(phone: UserModel.share().phone!, type: 1,  pwd: password, code: UserModel.share().code!, complete: { [weak self](result) -> ()? in
-                    SVProgressHUD.showWainningMessage(WainningMessage: "设定成功", ForDuration: 1, completion: {
-                        //                            self?.navigationController?.popToRootViewController(animated: true)
-                        self?.performSegue(withIdentifier: NickNameVC.className(), sender: nil)
-                        self?.fetchUserInfo(phone: UserModel.share().phone!, pwd: password)
-                    })
+                let param = ResetPwdParam()
+                param.pwd = password
+                param.type = 1
+                param.timestamp = Int(Date.nowTimestemp())
+                param.vCode = UserModel.share().code!
+                AppAPIHelper.login().repwd(param:param, complete: { [weak self](result) -> ()? in
+                    SVProgressHUD.showWainningMessage(WainningMessage: "重置成功", ForDuration: 1, completion: nil)
+                    _ = self?.navigationController?.popToRootViewController(animated: true)
                     return nil
                 }, error: errorBlockFunc())
             }
@@ -60,16 +62,6 @@ class PwdVC: BaseTableViewController {
     
     
     func fetchUserInfo(phone: String, pwd: String) {
-        AppAPIHelper.login().login(phone: phone, pwd: pwd, complete: { ( result) -> ()? in
-            SVProgressHUD.dismiss()
-            //存储用户信息
-            if result != nil{
-                UserModel.share().upateUserInfo(userObject: result!)
-            }else{
-                SVProgressHUD.showErrorMessage(ErrorMessage: "更新用户信息失败", ForDuration: 1, completion: nil)
-            }
-            return nil
-        }, error: errorBlockFunc())
     }
 
 }

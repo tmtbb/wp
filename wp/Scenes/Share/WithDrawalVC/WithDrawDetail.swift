@@ -36,18 +36,13 @@ class WithDrawDetail: BaseTableViewController {
     // 请求接口
     override func didRequest() {
         //Int(string99)
-        
-        let wid : String = ShareModel.share().shareData["wid"]! as String
-        
-        AppAPIHelper.user().withdrawdetail(withdrawld: Int64(wid)!, complete: { [weak self](result) -> ()? in
-            //                         self?.didRequestComplete(result)
+        let param = WithDrawDetailParam()
+        param.wid = ShareModel.share().shareData["wid"]!
+        AppAPIHelper.user().withdrawdetail( param: param, complete: { [weak self](result) -> ()? in
             let model : WithdrawModel = result as! WithdrawModel
-            
             self?.bankName.text = model.bank
-            
             return nil
-            }, error: errorBlockFunc())
-        
-    }
+        }, error: errorBlockFunc())
+     }
     
 }

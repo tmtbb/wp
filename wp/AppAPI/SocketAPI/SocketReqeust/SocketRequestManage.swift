@@ -23,9 +23,6 @@ class SocketRequestManage: NSObject {
     fileprivate var productsRequest:  SocketRequest?
     fileprivate var kchartRequest: SocketRequest?
     fileprivate var priceRequest: SocketRequest?
-    fileprivate var balanceRequest: SocketRequest?
-    var receiveChatMsgBlock:CompleteBlock?
-    var receiveBalanceBlock:CompleteBlock?
     var operate_code = 0
     func start() {
         _lastHeardBeatTime = timeNow()
@@ -67,10 +64,6 @@ class SocketRequestManage: NSObject {
         
         objc_sync_enter(self)
         var socketReqeust = socketRequests[packet.session_id]
-
-        if packet.operate_code == SocketConst.OPCode.verifycode.rawValue + 1{
-            print("================")
-        }
         if packet.operate_code ==  SocketConst.OPCode.timeline.rawValue + 1{
             socketReqeust = timelineRequest
         }else if packet.operate_code == SocketConst.OPCode.products.rawValue + 1{
@@ -79,9 +72,6 @@ class SocketRequestManage: NSObject {
             socketReqeust = kchartRequest
         }else if packet.operate_code == SocketConst.OPCode.realtime.rawValue{
             socketReqeust = priceRequest
-        }else if packet.operate_code == SocketConst.OPCode.balance.rawValue{
-            let response:SocketJsonResponse = SocketJsonResponse(packet:packet)
-            receiveBalanceBlock?(response)
         }else{
             socketRequests.removeValue(forKey: packet.session_id)
         }
@@ -147,13 +137,11 @@ class SocketRequestManage: NSObject {
             kchartRequest = socketReqeust
         }else if packet.operate_code == SocketConst.OPCode.realtime.rawValue{
             priceRequest = socketReqeust
-        }else if packet.operate_code == SocketConst.OPCode.balance.rawValue{
-            balanceRequest = socketReqeust
         }else{
             socketRequests[packet.session_id] = socketReqeust
         }
         objc_sync_exit(self)
-//        print("\(packet.session_id)=================================\(packet.operate_code)")
+        print("\(packet.session_id)=================================\(packet.operate_code)")
         sendRequest(packet)
     }
   

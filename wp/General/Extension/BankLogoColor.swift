@@ -37,12 +37,9 @@ class BankLogoColor: NSObject {
        
         return UIColor.init(hexString: "1D6AAF")
         
-       
-    
-       
     }
-     //  判断是否是本地的五大银行
     
+    //  判断是否是本地的五大银行
     func checkLocalBank(string : String) -> Bool {
         
         if banklogo[string] != nil{
@@ -56,23 +53,25 @@ class BankLogoColor: NSObject {
     func checkLocalBankImg(string : String) -> String {
         
             
-            if string == "中国工商银行" {
+            if string.range(of:"工商银行") != nil {
                 return "gongshang"
             }
-            if string == "中国交通银行" {
+            if string.range(of:"交通银行") != nil{
                 return "jiaotong"
             }
-            if string == "中国农业银行" {
+            if string.range(of:"农业银行") != nil {
                 return "nongye"
             }
-            if string == "中国建设银行" {
+            if string.range(of:"建设银行") != nil {
                 return "jianshe"
             }
-            if string == "中国银行" {
+            if string.range(of:"中国银行") != nil {
                 return "zhongguo"
             }
-            
-            return "ccbc"
+            if string.range(of:"招商银行") != nil {
+                return "zhaoshang"
+            }
+            return ""
         }
     
 

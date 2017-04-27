@@ -51,8 +51,10 @@ class RechargeListVC: BasePageListTableViewController {
     deinit {
         ShareModel.share().removeObserver(self, forKeyPath: "selectMonth", context: nil)
     }
+
     //MARK: 监听键值对
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
         super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         if keyPath == "selectMonth" {
             
@@ -67,58 +69,27 @@ class RechargeListVC: BasePageListTableViewController {
     }
     //MARK: 网络请求列表
     override func didRequest(_ pageIndex : Int) {
-        AppAPIHelper.user().creditlist(status: 0, pos: Int32((pageIndex - 1) * 10) , count: 10, complete: {[weak self] (result) -> ()? in
+        
+        let param = BalanceListParam()
+        param.startPos = pageIndex == 1 ? 0 : dataSource == nil ? 0 : dataSource!.count+1
+        param.count = 10
+        AppAPIHelper.user().creditlist(param: param, complete: {[weak self] (result) -> ()? in
             
             if let object = result {
                 let Model : RechargeListModel = object as! RechargeListModel
+                if pageIndex == 1{
+                    self?.dataModel =  Model.depositsinfo!
+                }else{
+                    self?.dataModel  =   (self?.dataModel)! + Model.depositsinfo!
+                }
+
                 self?.didRequestComplete(Model.depositsinfo as AnyObject)
             }else{
                 self?.didRequestComplete(nil)
             }
             return nil
-            }, error: errorBlockFunc())
-        
+        }, error: errorBlockFunc())
     }
-    //    override  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    //
-    //        let  headerView  = UIView ()
-    //        if section == 0 {
-    //            let  headerView  : UIView = UIView.init(frame:CGRect.init(x: 0, y: 0, width:self.view.frame.size.width, height: 40))
-    //            headerView.backgroundColor = UIColor.groupTableViewBackground
-    //            monthLb = UILabel.init(frame: CGRect.init(x: 17, y: 0, width: self.view.frame.size.width, height: 40))
-    //            monthLb.text = "2017年 1月"
-    //            monthLb.textColor = UIColor.init(hexString: "333333")
-    //            monthLb.font = UIFont.systemFont(ofSize: 16)
-    //
-    //            headerView.addSubview(monthLb)
-    //
-    //            let dateBtn :UIButton  = UIButton.init(type: UIButtonType.custom)
-    //
-    //            dateBtn.frame = CGRect.init(x: self.view.frame.size.width-60, y: 8, width: 23, height: 23)
-    //
-    //            dateBtn.setBackgroundImage(UIImage.init(named: "calendar"), for: UIControlState.normal)
-    //            dateBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-    //
-    //            dateBtn.addTarget(self, action: #selector(selectDate), for: UIControlEvents.touchUpInside)
-    //
-    //            headerView.addSubview(dateBtn)
-    //            return headerView
-    //
-    //        }
-    //
-    //
-    //        return headerView
-    //    }
-    //
-    //    override   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-    //
-    //        return 40
-    //    }
-    //    override  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat{
-    //
-    //        return 0.1
-    //
-    //    }
     
     //MARK: ---视图添加
     func selectDate(){
@@ -130,7 +101,6 @@ class RechargeListVC: BasePageListTableViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView){
         
         contentoffset   = scrollView.contentOffset.y
-        
     }
     
 }

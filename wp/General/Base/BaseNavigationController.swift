@@ -19,6 +19,7 @@ class BaseNavigationController: UINavigationController,UINavigationControllerDel
         return true
     }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationBar.shadowImage = UIImage.init(named: "nav_clear")
         self.navigationBar.setBackgroundImage(UIImage.init(named: "nav_main"), for: .any, barMetrics: .default)
     }

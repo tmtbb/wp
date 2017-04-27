@@ -58,4 +58,10 @@ class Model: BaseModel {
     
 }
 
+class RechargeResultModel: BaseModel{
+    var paymentInfo = "www.baidu.com"
+}
+
+
+
 

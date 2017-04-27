@@ -91,61 +91,7 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
     }
     //MARK: - 提交
     @IBAction func submitBtnTapped(_ sender: UIButton) {
-        //kURL_TN_Normal
-        if selectType == 0 {
-            if checkTextFieldEmpty([self.rechargeMoneyTF]) {
-                
-                SVProgressHUD.show(withStatus: "加载中")
-                var money : String
-                if ((self.rechargeMoneyTF.text?.range(of: ".")) != nil) {
-                    money = self.rechargeMoneyTF.text!
-                }else{
-                    money = "\(self.rechargeMoneyTF.text!)" + ".00001"
-                }
-                AppAPIHelper.user().unionpay(title: "余额充值", price: Double.init(money)!, complete: { (result) -> ()? in
-                    
-                    SVProgressHUD.dismiss()
-                    if let object = result {
-                        //ShareModel.share().shareData["rid"] =  object["rid"] as! String!
-                        self.rid = object["rid"] as! Int64
-                        UPPaymentControl.default().startPay(object["tn"]  as! String!, fromScheme: "com.newxfin.goods", mode: "00", viewController: self)
-                    }
-                    return nil
-                }, error: errorBlockFunc())
-                
-            }
-        }else{
-            if checkTextFieldEmpty([self.rechargeMoneyTF]) {
-                
-                let account : Double = Double.init(self.rechargeMoneyTF.text!)!
-                if account <= 0 {
-                     return
-                }
-                var money : String
-                SVProgressHUD.show(withStatus: "加载中")
-                if ((self.rechargeMoneyTF.text?.range(of: ".")) != nil) {
-                    money = self.rechargeMoneyTF.text!
-                }else{
-                    money = "\(self.rechargeMoneyTF.text!)" + ".00001"
-                }
-                AppAPIHelper.user().weixinpay(title: "余额充值", price: Double.init(money)! , complete: { (result) -> ()? in
-                    SVProgressHUD.dismiss()
-                    if let object = result {
-                        let request : PayReq = PayReq()
-                        let str : String = object["timestamp"] as! String!
-                        ShareModel.share().shareData["rid"] =  object["rid"] as! String!
-                        request.timeStamp = UInt32(str)!
-                        request.sign = object["sign"] as! String!
-                        request.package = object["package"] as! String!
-                        request.nonceStr = object["noncestr"] as! String!
-                        request.partnerId = object["partnerid"] as! String!
-                        request.prepayId = object["prepayid"] as! String!
-                        WXApi.send(request)
-                    }
-                    return nil
-                }, error: errorBlockFunc())
-            }
-        }
+        
     }
 
     //MARK: - 监听银联返回结果
@@ -161,20 +107,6 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
                 SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
                     _ = self.navigationController?.popViewController(animated: true)
                 })
-                //                AppAPIHelper.user().unionpayResult(rid: self.rid, payResult: 1, complete: { (result) -> ()? in
-                //                    SVProgressHUD.showSuccessMessage(SuccessMessage: "支付成功", ForDuration: 1, completion: {
-                //                        self.navigationController?.popViewController(animated: true)
-                //                        })
-                //                    if let object = result{
-                //                        let  returnCode : Int = object["returnCode"] as! Int
-                //                        if returnCode == 0{//                                self.navigationController?.popViewController(animated: true)
-                //                            })
-                //                        }else{
-                //                            SVProgressHUD.showError(withStatus: "支付失败")
-                //                        }
-                //                    }
-                //                    return nil
-                //                }, error: errorBlockFunc())
             }
         }
     }
@@ -207,22 +139,22 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             self.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
         }
          //请求金额
-        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
-            if let resultDic = result as? [String: AnyObject] {
-                if let money = resultDic["balance"] as? Double{
-                    
-                    UserModel.updateUser(info: { (result) -> ()? in
-                        UserModel.share().getCurrentUser()?.balance = Double(money)
-                        return nil
-                    })
-                    let format = NumberFormatter()
-                    format.numberStyle = .currency
-                    let account : String =   format.string(from: NSNumber(value: money))!
-                    self?.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
-                }
-            }
-            return nil
-            }, error: errorBlockFunc())
+//        AppAPIHelper.user().accinfo(complete: {[weak self] (result) -> ()? in
+//            if let resultDic = result as? [String: AnyObject] {
+//                if let money = resultDic["balance"] as? Double{
+//                    
+//                    UserModel.updateUser(info: { (result) -> ()? in
+//                        UserModel.share().getCurrentUser()?.balance = Double(money)
+//                        return nil
+//                    })
+//                    let format = NumberFormatter()
+//                    format.numberStyle = .currency
+//                    let account : String =   format.string(from: NSNumber(value: money))!
+//                    self?.moneyText.text =  (account.components(separatedBy: "¥").last?.components(separatedBy: "￥").last?.components(separatedBy: "$").last)! + "元"
+//                }
+//            }
+//            return nil
+//            }, error: errorBlockFunc())
       
     }
     // MARK: - 属性的变化 后台返回余额变化进入充值列表
@@ -301,9 +233,5 @@ class RechargeVC: BaseTableViewController ,WXApiDelegate,NSURLConnectionDataDele
             return true
             
         }
-    
-   
-    
-
     
 }

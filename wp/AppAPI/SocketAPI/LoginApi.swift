@@ -9,16 +9,16 @@
 import Foundation
 
 protocol LoginApi {
-    //登录
-    func login(phone: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?)
-    //测试登录
-    func testlogin(phone: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?)
-    //token登录
-    func tokenLogin(uid: Int, token: String, complete: CompleteBlock?, error: ErrorBlock?)
-    //注册
-    func register(phone: String, code: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?)
-    //重置密码
-    func repwd(phone: String, type: Int, pwd: String, code: String, complete: CompleteBlock?, error: ErrorBlock?)
-    //获取声音验证码
-    func voiceCode(phone: String, complete: CompleteBlock?, error: ErrorBlock?)
+    //登录(模型)
+    func login(param: LoginParam, complete: CompleteBlock?, error: ErrorBlock?)
+    //token登录(模型)
+    func tokenLogin(param: ChecktokenParam, complete: CompleteBlock?, error: ErrorBlock?)
+    //微信登录(模型)
+    func login(param: WechatLoginParam, complete: CompleteBlock?, error: ErrorBlock?)
+    //微信登录(模型)
+    func bingPhone(param: BingPhoneParam, complete: CompleteBlock?, error: ErrorBlock?)
+    //注册（模型）
+    func register(model:RegisterParam, complete: CompleteBlock?, error: ErrorBlock?)
+    //重置密码(模型)
+    func repwd(param: ResetPwdParam, complete: CompleteBlock?, error: ErrorBlock?)
 }

@@ -1,4 +1,3 @@
-
 //
 //  RegisterVC.swift
 //  wp
@@ -16,16 +15,17 @@ class RegisterVC: BaseTableViewController {
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var codeText: UITextField!
     @IBOutlet weak var codeBtn: UIButton!
-    @IBOutlet weak var voiceCodeText: UITextField!
-    @IBOutlet weak var voiceCodeBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var pwdText: UITextField!
     @IBOutlet weak var thindLoginView: UIView!
     @IBOutlet weak var qqBtn: UIButton!
     @IBOutlet weak var sinaBtn: UIButton!
     @IBOutlet weak var wechatBtn: UIButton!
-    private var timer: Timer?
+    @IBOutlet weak var memberText: UITextField!
+    @IBOutlet weak var agentText: UITextField!
+    @IBOutlet weak var recommendText: UITextField!
     
+    private var timer: Timer?
     private var codeTime = 60
     private var voiceCodeTime = 60
     
@@ -49,7 +49,7 @@ class RegisterVC: BaseTableViewController {
     //获取验证码
     @IBAction func changeCodePicture(_ sender: UIButton) {
         if checkoutText(){
-            let type = UserModel.share().forgetPwd ? 1:0
+            let type = 0
             SVProgressHUD.showProgressMessage(ProgressMessage: "请稍候...")
             AppAPIHelper.commen().verifycode(verifyType: Int64(type), phone: phoneText.text!, complete: { [weak self](result) -> ()? in
                 SVProgressHUD.dismiss()
@@ -84,29 +84,6 @@ class RegisterVC: BaseTableViewController {
         codeBtn.setTitle(title, for: .normal)
         codeBtn.backgroundColor = UIColor.init(rgbHex: 0xCCCCCC)
     }
-    //获取声音验证码
-    
-    @IBAction func requestVoiceCode(_ sender: UIButton) {
-        if checkoutText(){
-
-        }
-    }
-    func updateVoiceBtnTitle() {
-        if voiceCodeTime == 0 {
-            voiceCodeBtn.isEnabled = true
-            voiceCodeBtn.setTitle("重新发送", for: .normal)
-            voiceCodeTime = 60
-            timer?.invalidate()
-            voiceCodeBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
-            return
-        }
-        voiceCodeBtn.isEnabled = false
-        voiceCodeTime = voiceCodeTime - 1
-        let title: String = "\(voiceCodeTime)秒后重新发送"
-        voiceCodeBtn.setTitle(title, for: .normal)
-        voiceCodeBtn.backgroundColor = UIColor.init(rgbHex: 0xCCCCCC)
-    }
-    
     //注册
     @IBAction func registerBtnTapped(_ sender: Any) {
         if checkoutText(){
@@ -119,24 +96,52 @@ class RegisterVC: BaseTableViewController {
     }
     
     func register() {
+        
         //重置密码
-        if UserModel.share().forgetPwd {
-            SVProgressHUD.showProgressMessage(ProgressMessage: "重置中...")
-            let type = UserModel.share().forgetType == nil ? .loginPass : UserModel.share().forgetType
+        SVProgressHUD.showProgressMessage(ProgressMessage: "绑定中...")
+        if UserModel.share().registerType == .wechatPass {
             let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
-            AppAPIHelper.login().repwd(phone: UserModel.share().phone!, type: (type?.rawValue)!,  pwd: password, code: UserModel.share().code!, complete: { [weak self](result) -> ()? in
-                
-                SVProgressHUD.showWainningMessage(WainningMessage: "重置成功", ForDuration: 1, completion: nil)
-                _ = self?.navigationController?.popToRootViewController(animated: true)
+            let param = BingPhoneParam()
+            param.phone = phoneText.text!
+            param.pwd = password
+            param.vCode = UserModel.share().code!
+            param.vToken = UserModel.share().codeToken
+            param.timeStamp = UserModel.share().timestamp
+            if memberText.text!.length() > 0 {
+                param.memberId = Int(memberText.text!)!
+            }
+            param.agentId = agentText.text!
+            param.recommend = recommendText.text!
+            param.headerUrl = UserModel.share().wechatUserInfo[SocketConst.Key.headimgurl] ?? ""
+            param.nickname = UserModel.share().wechatUserInfo[SocketConst.Key.nickname] ?? ""
+            param.openid = UserModel.share().wechatUserInfo[SocketConst.Key.openid] ?? ""
+            AppAPIHelper.login().bingPhone(param: param, complete: { [weak self](result) -> ()? in
+                SVProgressHUD.dismiss()
+                if result != nil {
+                    UserModel.share().fetchUserInfo(phone: self?.phoneText.text ?? "", pwd: self?.pwdText.text ?? "")
+                }else{
+                    SVProgressHUD.showErrorMessage(ErrorMessage: "绑定失败，请稍后再试", ForDuration: 1, completion: nil)
+                }
                 return nil
-                }, error: errorBlockFunc())
+            }, error: errorBlockFunc())
             return
         }
         
         //注册
-        SVProgressHUD.showProgressMessage(ProgressMessage: "注册中...")
         let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
-        AppAPIHelper.login().register(phone: UserModel.share().phone!, code: UserModel.share().code!, pwd: password, complete: { [weak self](result) -> ()? in
+        let param = RegisterParam()
+        param.phone = phoneText.text!
+        param.pwd = password
+        param.vCode = UserModel.share().code!
+        param.vToken = UserModel.share().codeToken
+        param.timeStamp = UserModel.share().timestamp
+        if memberText.text!.length() > 0 {
+            param.memberId = Int(memberText.text!)!
+        }
+        param.agentId = agentText.text!
+        param.recommend = recommendText.text!
+        SVProgressHUD.showProgressMessage(ProgressMessage: "注册中...")
+        AppAPIHelper.login().register(model: param, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
             if result != nil {
                 UserModel.share().fetchUserInfo(phone: self?.phoneText.text ?? "", pwd: self?.pwdText.text ?? "")
@@ -144,7 +149,7 @@ class RegisterVC: BaseTableViewController {
                 SVProgressHUD.showErrorMessage(ErrorMessage: "注册失败，请稍后再试", ForDuration: 1, completion: nil)
             }
             return nil
-            }, error: errorBlockFunc())
+        }, error: errorBlockFunc())
 
     }
 
@@ -160,13 +165,11 @@ class RegisterVC: BaseTableViewController {
     }
     //MARK: --UI
     func initUI() {
-        title = UserModel.share().forgetPwd ? "重置密码":"注册"
-        thindLoginView.isHidden = UserModel.share().forgetPwd
+        title =  UserModel.share().registerType == .wechatPass ? "绑定手机号":"注册"
+        let nextTitle =  UserModel.share().registerType == .wechatPass ? "绑定":"注册"
+        nextBtn.setTitle(nextTitle, for: .normal)
         phoneView.layer.borderWidth = 0.5
-        pwdText.placeholder = UserModel.share().forgetPwd ? "请输入支付密码":"请输入登录密码"
-        if UserModel.share().forgetType == .loginPass {
-            pwdText.placeholder = "请输入登录密码"
-        }
+        pwdText.placeholder = "请输入登录密码"
         phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
         
         codeBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)

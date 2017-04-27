@@ -19,9 +19,11 @@ class AppDataHelper: NSObject {
     func initData() {
         productTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
-        initErrorCode()
-//        checkTokenLogin()
         initProductData()
+        
+        if let userUUID = UIDevice.current.identifierForVendor?.uuidString{
+            UserModel.share().uuid = userUUID
+        }
     }
     //请求商品数据 
     func initProductData() {
@@ -29,7 +31,8 @@ class AppDataHelper: NSObject {
             return
         }
         var allProducets: [ProductModel] = []
-        AppAPIHelper.deal().products(pid: 0, complete: {[weak self](result) -> ()? in
+        let param = ProductParam()
+        AppAPIHelper.deal().products(param: param, complete: {[weak self](result) -> ()? in
             self?.productTimer?.invalidate()
             if let products: [ProductModel] = result as! [ProductModel]?{
                 //拼接所有商品
@@ -109,10 +112,24 @@ class AppDataHelper: NSObject {
         param.platformName = product.platformName
         param.aType = 4
         param.startTime = Int64(fromTime)
-//        param.endTime = Int64(endTime)
+//        param.endTime = Int64(endTime)Ø
         AppAPIHelper.deal().timeline(param: param, complete: {(result) -> ()? in
             if let models: [KChartModel] = result as? [KChartModel]{
-                KLineModel.cacheTimelineModels(models: models)
+                if param.symbol == AppConst.JapanMoney{
+                    var japanModels:[KChartModel] = []
+                    for model in models{
+                        for index in 0...4{
+                            let janpanModel: KChartModel = KChartModel()
+                            model.convertToTargetObject(janpanModel)
+                            janpanModel.priceTime = model.priceTime - index*60
+                            japanModels.append(janpanModel)
+                        }
+                    }
+                     
+                    KLineModel.cacheTimelineModels(models: japanModels)
+                }else{
+                    KLineModel.cacheTimelineModels(models: models)
+                }
             }
             return nil
         }, error: { (error) ->()? in
@@ -123,6 +140,10 @@ class AppDataHelper: NSObject {
     
     //根据商品请求K线数据
     func initAllKlineChartData() {
+        userCash()
+        if DealModel.share().haveStopKline {
+            return
+        }
         initLineChartData()
         initKLineChartData(type: .miu5)
         initKLineChartData(type: .miu15)
@@ -194,26 +215,29 @@ class AppDataHelper: NSObject {
         //token是否存在
         if let token = UserDefaults.standard.value(forKey: SocketConst.Key.token){
             if let id = UserDefaults.standard.value(forKey: SocketConst.Key.uid){
-                AppAPIHelper.login().tokenLogin(uid: id as! Int , token: token as! String, complete: { [weak self]( result) -> ()? in
+                let param = ChecktokenParam()
+                param.token = token as! String
+                param.id = id as! Int
+                AppAPIHelper.login().tokenLogin(param: param,  complete: { [weak self]( result) -> ()? in
                     //存储用户信息
                     if let model = result as? UserInfoModel {
-                        if let token = model.token{
-                            //更新token
-                            UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
-                        }
-                        if let user = model.userinfo {
-                            UserDefaults.standard.setValue(user.id, forKey: SocketConst.Key.id)
-                        }
-                        UserModel.share().upateUserInfo(userObject: model as AnyObject)
-                        DealModel.share().isFirstGetPrice = true
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
+                    if let token = model.token{
+                    //更新token
+                    UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
+                    }
+                    if let user = model.userinfo {
+                    UserDefaults.standard.setValue(user.id, forKey: SocketConst.Key.id)
+                    }
+                    UserModel.share().upateUserInfo(userObject: model as AnyObject)
+                    DealModel.share().isFirstGetPrice = true
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
                     }else{
-                       self?.clearUserInfo()
+                    self?.clearUserInfo()
                     }
                     return nil
-                }, error: {[weak self] (error) ->()? in
-                    self?.clearUserInfo()
-                    return nil
+                    }, error: {[weak self] (error) ->()? in
+                        self?.clearUserInfo()
+                        return nil
                 })
             }
         }else{
@@ -236,6 +260,21 @@ class AppDataHelper: NSObject {
                 let path = Bundle.main.path(forResource: "errorcode.plist", ofType:nil)
                 let success = errorDic.write(toFile: path!, atomically: true)
                 print(success ? "错误码写入成功" : "错误码写入失败")
+            }
+            return nil
+        }, error: nil)
+    }
+    
+    //获取用户余额
+    func userCash() {
+        AppAPIHelper.user().accinfo(complete: { (result) -> ()? in
+            if let resultDic = result as? [String: AnyObject] {
+                if let money = resultDic["balance"] as? Double{
+                    UserModel.share().balance = money
+                    UserModel.updateUser(info: { (resultDic) -> ()? in
+                        UserModel.share().currentUser?.balance = money
+                    })
+                }
             }
             return nil
         }, error: nil)

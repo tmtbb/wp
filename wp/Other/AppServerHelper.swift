@@ -73,15 +73,8 @@ class AppServerHelper: NSObject , WXApiDelegate{
         //微信登录返回
         if resp.isKind(of: SendAuthResp.classForCoder()) {
             let authResp:SendAuthResp = resp as! SendAuthResp
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: NSNumber.init(value: resp.errCode), userInfo:nil)
             if authResp.errCode == 0{
-                let param = [SocketConst.Key.appid : AppConst.WechatKey.Appid,
-                             SocketConst.Key.code : authResp.code,
-                             SocketConst.Key.secret : AppConst.WechatKey.Secret,
-                             SocketConst.Key.grant_type : "authorization_code"]
-                Alamofire.request(AppConst.WechatKey.AccessTokenUrl, method: .get, parameters: param, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (result) in
-                })
+                accessToken(code: authResp.code)
             }
             return
         }
@@ -94,6 +87,46 @@ class AppServerHelper: NSObject , WXApiDelegate{
             
             return
         }
-        
+    }
+    
+    func accessToken(code: String) {
+        let param = [SocketConst.Key.appid : AppConst.WechatKey.Appid,
+                     "code" : code,
+                     SocketConst.Key.secret : AppConst.WechatKey.Secret,
+                     SocketConst.Key.grant_type : "authorization_code"]
+    
+        Alamofire.request(AppConst.WechatKey.AccessTokenUrl, method: .get, parameters: param).responseJSON { [weak self](result) in
+            if let resultJson = result.result.value as? [String: AnyObject] {
+                if let errCode = resultJson["errcode"] as? Int{
+                    print(errCode)
+                }
+                if let access_token = resultJson[SocketConst.Key.accessToken] as? String {
+                    if let openid = resultJson[SocketConst.Key.openid] as? String{
+                        self?.wechatUserInfo(token: access_token, openid: openid)
+                    }
+                }
+            }
+        }
+    }
+    
+    func wechatUserInfo(token: String, openid: String){
+        let param = [SocketConst.Key.accessToken : token,
+                     SocketConst.Key.openid : openid]
+        Alamofire.request(AppConst.WechatKey.wechetUserInfo, method: .get, parameters: param).responseJSON {(result) in
+            guard let resultJson = result.result.value as? [String: AnyObject] else{return}
+            if let errCode = resultJson["errcode"] as? Int{
+                print(errCode)
+            }
+            if let nickname = resultJson[SocketConst.Key.nickname] as? String {
+                UserModel.share().wechatUserInfo[SocketConst.Key.nickname] = nickname
+            }
+            if let openid = resultJson[SocketConst.Key.openid] as? String{
+                UserModel.share().wechatUserInfo[SocketConst.Key.openid] = openid
+            }
+            if let headimgurl = resultJson[SocketConst.Key.headimgurl] as? String{
+                UserModel.share().wechatUserInfo[SocketConst.Key.headimgurl] = headimgurl
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: nil, userInfo:nil)
+        }
     }
 }

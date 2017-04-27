@@ -27,9 +27,7 @@ class DealPriceParam: DealModel {
     }
 }
 
-class DealParam: BaseModel {
-    var id: Int = UserModel.share().currentUserId
-    var token: String = UserModel.share().token
+class DealParam: BaseParam {
 }
 
 class BuildDealParam: DealParam {
@@ -42,9 +40,12 @@ class BuildDealParam: DealParam {
     var isDeferred: Int = 0
 }
 
-//航班接口信息
 class PositionParam: DealParam{
     var gid = 0
+}
+
+class ProductParam: DealParam{
+    var pid = AppConst.pid
 }
 
 class BenifityParam: DealParam{
@@ -53,9 +54,14 @@ class BenifityParam: DealParam{
 }
 
 class UndealParam: DealParam {
-    var htype = 0
+    var htype = 1
     var start = 0
     var count = 10
+}
+
+class HistoryDealParam: BaseParam{
+    var start = 0
+    var count = 0
 }
 
 class DealHistoryDetailParam: DealParam {

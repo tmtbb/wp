@@ -59,7 +59,10 @@ class HistoryDealVC: BasePageListTableViewController {
     override func didRequest(_ pageIndex: Int) {
         historyModels = dataSource == nil ? [] : dataSource as! [PositionModel]
         let index =  pageIndex == 1 ? 0: historyModels.count
-        AppAPIHelper.deal().historyDeals(start: index, count: 10, complete: { [weak self](result) -> ()? in
+        let param = UndealParam()
+        param.start = index
+        param.count = 10
+        AppAPIHelper.deal().historyDeals(param: param, complete: { [weak self](result) -> ()? in
             if let models: [PositionModel] = result as! [PositionModel]?{
                 if pageIndex == 1 {
                     self?.didRequestComplete(models as AnyObject?)

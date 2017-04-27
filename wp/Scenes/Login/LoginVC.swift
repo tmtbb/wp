@@ -64,9 +64,11 @@ class LoginVC: BaseTableViewController {
             }
             //登录
             let password = ((pwdText.text! + AppConst.sha256Key).sha256()+phoneText.text!).sha256()
-        
             SVProgressHUD.showProgressMessage(ProgressMessage: "登录中...")
-            AppAPIHelper.login().login(phone: phoneText.text!, pwd: password, complete: { [weak self]( result) -> ()? in
+            let param = LoginParam()
+            param.pwd = password
+            param.phone = phoneText.text!
+            AppAPIHelper.login().login(param: param, complete: { [weak self]( result) -> ()? in
                 SVProgressHUD.dismiss()
                 DealModel.share().isFirstGetPrice = true
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
@@ -78,7 +80,7 @@ class LoginVC: BaseTableViewController {
                     SVProgressHUD.showErrorMessage(ErrorMessage: "登录失败，请稍后再试", ForDuration: 1, completion: nil)
                 }
                 return nil
-                }, error: errorBlockFunc())
+            }, error: errorBlockFunc())
         }
         
     }
@@ -95,30 +97,37 @@ class LoginVC: BaseTableViewController {
         WXApi.send(req)
     }
     func errorCode(_ notice: NSNotification) {
-        
-        if let errorCode: Int = notice.object as? Int{
-            if errorCode == -4{
-                
-                return
+        let param = WechatLoginParam()
+        param.openId = UserModel.share().wechatUserInfo[SocketConst.Key.openid]!
+        //微信登录
+        AppAPIHelper.login().login(param: param, complete: { ( result) -> ()? in
+            SVProgressHUD.dismiss()
+            DealModel.share().isFirstGetPrice = true
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
+            //存储用户信息
+            if result != nil{
+                UserModel.share().upateUserInfo(userObject: result!)
+            }else{
+                SVProgressHUD.showErrorMessage(ErrorMessage: "登录失败，请稍后再试", ForDuration: 1, completion: nil)
             }
-            if errorCode == -2{
-                
-                return
-            }
+            return nil
+        }, error: { [weak self](error) -> ()?in
+            UserModel.share().registerType = .wechatPass
             //第三方登录成功
-            performSegue(withIdentifier: AppConst.NotifyDefine.LoginToBingPhoneVC, sender: nil)
-        }
+            self?.performSegue(withIdentifier: RegisterVC.className(), sender: nil)
+            return nil
+        })
+
         
     }
     
     //MARK: --忘记密码
     @IBAction func forgetPwdBtnTapped(_ sender: UIButton) {
-        UserModel.share().forgetPwd = true
+        UserModel.share().registerType = .forgetPass
     }
     //MARK: --快速注册
     @IBAction func registerBtnTapped(_ sender: UIButton) {
-        UserModel.share().forgetPwd = false
-        UserModel.share().forgetType = .loginPass
+        UserModel.share().registerType = .loginPass
     }
     //MARK: --新浪登录
     @IBAction func sinaBtnTapped(_ sender: UIButton) {

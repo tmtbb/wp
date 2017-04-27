@@ -18,8 +18,6 @@ class DealDetailTableVC: BaseTableViewController{
     @IBOutlet weak var dealTime: UILabel!
     //交易金额
     @IBOutlet weak var dealMoney: UILabel!
-    //最底履约保证金
-    @IBOutlet weak var cashDeposit: UILabel!
     //手续费率
     @IBOutlet weak var poundage: UILabel!
     

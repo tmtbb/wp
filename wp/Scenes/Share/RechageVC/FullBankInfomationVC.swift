@@ -43,10 +43,12 @@ class FullBankInfomationVC: BaseTableViewController {
     }
     //MARK: 网络请求
     override func didRequest() {
-         AppAPIHelper.user().getBankName(withbankld:bankNumber.text!, complete: { [weak self](result) -> ()? in
+        let param = BankNameParam()
+        param.cardNo = bankNumber.text!
+        AppAPIHelper.user().getBankName(param: param, complete: { [weak self](result) -> ()? in
             
             if let object = result{
-              let  bankId : Int = object["bankId"] as! Int
+                let  bankId : Int = object["bankId"] as! Int
                 ShareModel.share().shareData["cardNo"] = (self?.bankNumber.text!)!
                 ShareModel.share().shareData["branchBank"] = (self?.branceAddress.text!)!
                 ShareModel.share().shareData["name"] = (self?.name.text!)!
@@ -55,7 +57,8 @@ class FullBankInfomationVC: BaseTableViewController {
                 self?.performSegue(withIdentifier: pushInputPhone, sender: nil)
             }
             return nil
-            }, error: errorBlockFunc())
+
+        }, error: errorBlockFunc())
     }
     func onlyInputTheNumber(_ string: String) -> Bool {
         let numString = "[0-9]*"

@@ -18,6 +18,10 @@ class SocketConst: NSObject {
         case errorCode = 0
         // 登录
         case login = 3003
+        // 微信登录
+        case wechatLogin = 3013
+        // 绑定手机号
+        case bingPhone = 3015
         // 注册
         case register = 3001
         // 重设密码
@@ -30,60 +34,36 @@ class SocketConst: NSObject {
         case accountNews = 1007
         //获取个人信息
         case getUserinfo = 1001
-        //修改个人信息
-        case changeUserInfo = 1031
         //每天的数据
 //        case everyday = 6011
         case accinfo = 3007
         case tokenLogin = 3009
-        //流水列表
-        case flowList = 1077
-        //流水详情
-        case flowDetails = 1010
         //银行卡列表
-        case bankcardList = 1009
+        case bankcardList = 8003
         //银行卡详情
-        case bingcard = 1029
+        case bingcard = 8005
         //解绑银行卡
-        case unbindcard = 1013
+        case unbindcard = 8007
         //获取银行卡名称
-        case getbankname = 1017
+        case getbankname = 8009
         //获取验证码
-        case verifycode = 1011
+        case verifycode = 3011
         //提现详情
         case withdrawDetail = 101
         // 我的晒单
         case userShare = 1020
         // 充值列表
         case rechageList = 6003
-        // 微信充值
-        case weixinpay = 7033
-        // 银联充值
-        case unionpay = 1033
-        // 充值结果
-        case unionpayResult = 1041
-        // 充值结果
-        case payResult = 7035
         // 充值详情
         case recharge = 10012
         // 提现列表
         case withdrawList = 6005
-        // 提现
-        case withdrawCash = 6011
         //仓位列表
         case currentDeals = 5005
-        //仓位详情
-        case currentDealDetail = 2001
         //历史仓位列表
         case historyDeals = 6001
-        //历史仓位详情
-        case historyDealDetail = 2003
         //建仓
         case buildDeal = 5003
-        //平仓
-        case sellOutDeal = 2005
-        //修改持仓
-        case changeDeal = 2006
         //商品列表
         case products = 5001
         //当前K线数据
@@ -94,15 +74,16 @@ class SocketConst: NSObject {
         case realtime = 4001
         //交易总概况
         case totalHistroy = 6010
-        
-
         //航运仓位
         case position = 5007
         //收益选择
         case benifity = 6007
-        
+        //余额
         case balance = 7002
-        
+        //easyPay充值
+        case easypayRecharge = 7039
+        //easyPay提现
+        case easypayWithDraw = 7045
     }
     enum type:UInt8 {
         case error  = 0
@@ -112,6 +93,8 @@ class SocketConst: NSObject {
         case time   = 4
         case deal   = 5
         case operate = 6
+        case recharge = 7
+        case drawcash = 8
     }
     
     enum aType:UInt8 {
@@ -152,6 +135,7 @@ class SocketConst: NSObject {
         static let cardNo = "cardNo"
         static let name = "name"
         static let bankId = "bankId"
+        static let cardId = "cardId"
         static let source = "source"
         static let memberId = "memberId"
         static let agentId = "agentId"
@@ -194,5 +178,16 @@ class SocketConst: NSObject {
         static let timestamp = "timestamp"
         static let aType = "aType"
         static let startTime = "startTime"
+        static let bankCardID = "bankCardID"
+        static let bankName = "bankName"
+        static let cardNO = "cardNO"
+        static let verCode = "verCode"
+        static let bankCardId = "bankCardId"
+        static let accessToken = "access_token"
+        static let openid = "openid"
+        static let nickname = "nickname"
+        static let headimgurl = "headimgurl"
     }
+    
+    
 }

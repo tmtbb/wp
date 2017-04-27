@@ -16,6 +16,7 @@ class WPWebViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(webView)
         hideTabBarWithAnimationDuration()
+        webView.scalesPageToFit = true
         webView.snp.makeConstraints { (make) in
             make.top.equalTo(0)
             make.left.equalTo(0)

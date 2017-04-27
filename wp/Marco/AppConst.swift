@@ -25,8 +25,9 @@ class AppConst {
     static let isMock = false
     static let sha256Key = "t1@s#df!"
     static let pid = 1002
-    static let klineCount: Double = 30
+    static let klineCount: Double = 40
     static let bundleId = "com.newxfin.goods"
+    static let JapanMoney = "fx_sjpycnh"
     
     enum KVOKey: String {
         case selectProduct = "selectProduct"
@@ -51,7 +52,6 @@ class AppConst {
         //wp
         static let CMain = UIColor(rgbHex: 0x268dcf)
         static let CGreen = UIColor(rgbHex: 0x009944)
-
         static let main = "main"
         static let background = "background"
         static let buyUp = "buyUp"
@@ -70,16 +70,13 @@ class AppConst {
     
     class Network {
         #if true //是否测试环境
-        static let TcpServerIP:String = "61.147.114.87";
-
-        static let TcpServerPort:UInt16 = 16008
-
-        static let TttpHostUrl:String = "http://61.147.114.87";
+        static let TcpServerIP:String = "139.224.34.22";
+        static let TcpServerPort:UInt16 = 16205
+        static let TttpHostUrl:String = "http://139.224.34.22";
         #else
         static let TcpServerIP:String = "192.168.8.131";
-        static let TcpServerPort:UInt16 = 30001;
+        static let TcpServerPort:UInt16 = 30001;	
         static let HttpHostUrl:String = "http://192.168.8.131";
-
         #endif
         static let TimeoutSec:UInt16 = 10
         static let qiniuHost = "http://ofr5nvpm7.bkt.clouddn.com/"
@@ -110,10 +107,11 @@ class AppConst {
     class WechatKey {
         static let Scope = "snsapi_userinfo"
         static let State = "wpstate"
-        static let AccessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code"
-        static let Appid = "wx9dc39aec13ee3158"
-        static let Secret = "Secret"
-        static let ErrorCode = "ErrorCode" 
+        static let AccessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token"
+        static let Appid = "wx9dc39aec13ee3158" //wx54be5296e7826e5a
+        static let Secret =  "1e372a173a248fb1b5c88d24236ef3b3"//"49961b15569b08556d9ef5815a89c0b4"
+        static let ErrorCode = "ErrorCode"
+        static let wechetUserInfo = "https://api.weixin.qq.com/sns/userinfo"
     }
     
     class WechatPay {
@@ -125,7 +123,6 @@ class AppConst {
     }
     
     class NotifyDefine {
-        
         static let jumpToMyMessage = "jumpToMyMessage"
         static let jumpToMyAttention = "jumpToMyAttention"
         static let jumpToMyPush = "jumpToMyPush"
@@ -151,6 +148,10 @@ class AppConst {
         static let RequestPrice = "RequestPrice"
     }
     
-    
+    enum SegueIndentifier:String{
+        case drawCashToBankListSegue = "DrawCashToBankListSegue"
+        case wechatToBingPhone = "wechatToBingPhone"
+        case rechargeToBankListSegue = "RechargeToBankListSegue"
+    }
   
 }

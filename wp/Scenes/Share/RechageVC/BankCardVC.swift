@@ -20,19 +20,14 @@ class BindingBankVCCell: UITableViewCell {
     // 刷新cell
     func update(_ data: Any!) {
         
-        let model:BankListModel? = data as? BankListModel
-        
-       bankBg.backgroundColor =    BankLogoColor.share().readfilefromlocal(string: (model?.bank)!)
-        banklogo.image = UIImage.init(named: (model?.bank)!)
-        bankName.text = model!.bank
-        //"\((model!.cardNo as NSString).substring(to: 4))" + "  ****   ****   *** " + "\((model!.cardNo as NSString).substring(from: model!.cardNo.length()-3))"
-        
-         let index = model!.cardNo.index(model!.cardNo.startIndex,  offsetBy: 4)
-         let index1 = model!.cardNo.index(model!.cardNo.startIndex,  offsetBy: model!.cardNo.length()-3)
-        
-         cardNum.text =  model!.cardNo.substring(to: index) + "  ****   ****   *** " + model!.cardNo.substring(from: index1)
-         banklogo.image = BankLogoColor.share().checkLocalBank(string: (model?.bank)!) ? UIImage.init(named: (model?.bank)!) : UIImage.init(named: "unionPay")
-        
+        if let model = data as? BankListModel{
+            bankBg.backgroundColor =    BankLogoColor.share().readfilefromlocal(string: model.bank)
+            bankName.text = model.bank
+            let index = model.cardNo.index(model.cardNo.startIndex,  offsetBy: 4)
+            let index1 = model.cardNo.index(model.cardNo.startIndex,  offsetBy: model.cardNo.length()-3)
+            cardNum.text =  model.cardNo.substring(to: index) + "  ****   ****   *** " + model.cardNo.substring(from: index1)
+            banklogo.image = BankLogoColor.share().checkLocalBank(string: model.bank) ? UIImage.init(named: BankLogoColor.share().checkLocalBankImg(string: model.bank)) : UIImage.init(named: "unionPay")
+        }
     }
 }
 class BankCardVC: BaseListTableViewController {
@@ -55,8 +50,8 @@ class BankCardVC: BaseListTableViewController {
             
             if let object = result {
                 let Model : BankModel = object as! BankModel
-                self?.didRequestComplete(Model.cardlist as AnyObject)
-                self?.dataArry = Model.cardlist!
+                self?.didRequestComplete(Model.cardList as AnyObject)
+                self?.dataArry = Model.cardList!
                 self?.tableView.reloadData()
             }else {
                 self?.didRequestComplete(nil)
@@ -109,80 +104,16 @@ class BankCardVC: BaseListTableViewController {
     {
         let cell : BindingBankVCCell = tableView.dequeueReusableCell(withIdentifier: "BankCardVCCell") as! BindingBankVCCell
         
-        
         let  Model : BankListModel = self.dataArry[indexPath.section]
         
         cell.update(Model.self)
         return cell
         
     }
+   
     //MARK: 解绑逻辑
     func UnbindCard ( number: Int) {
         
-        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.share().getCurrentUser()?.phone)!, complete: {(result) -> ()? in
-        
-//        AppAPIHelper.commen().verifycode(verifyType: Int64(1), phone: (UserModel.share().getCurrentUser()?.phone)!, complete: {(result) -> ()? in
-//            
-//            if let resultDic: [String: AnyObject] = result as? [String : AnyObject]{
-//                if let token = resultDic[SocketConst.Key.vToken]{
-//                    UserModel.share().codeToken = token as! String
-//                }
-//                if let timestamp = resultDic[SocketConst.Key.timestamp]{
-//                    UserModel.share().timestamp = timestamp as! Int
-//                }
-//            }
-//            return nil
-//        }, error: errorBlockFunc())
-//        
-//        let alertView = UIAlertView.init()
-//        alertView.alertViewStyle = UIAlertViewStyle.plainTextInput // 密文
-//          let str : String = NSString(format: "%@" , (UserModel.share().getCurrentUser()?.phone)!) as String
-//        alertView.title = "验证码发送到"  + " " + "\(str)"  + " " + "手机上\n" + " " + "请输入验证码"
-//        alertView.addButton(withTitle: "确定")
-//        alertView.addButton(withTitle: "取消")
-//        alertView.delegate = self
-//        alertView.show()
-        
-        let  model :BankListModel = self.dataArry[Int(ShareModel.share().shareData["number"]!)!] as BankListModel
-        //  func unbindcard( vToken :String,bid: Int32,timestamp: Int64, phone :String, complete: CompleteBlock?, error: ErrorBlock?)
-        //func unbindcard( vToken :String,bid: Int32,timestamp: Int64, phone :String,vCode:String, complete: CompleteBlock?, error: ErrorBlock?)
-        AppAPIHelper.user().unbindcard(vToken: UserModel.share().codeToken, bid: Int32(model.bid), timestamp:  Int64(UserModel.share().timestamp) ,phone: (UserModel.share().getCurrentUser()?.phone)!, vCode:"", complete: { [weak self](result) -> ()? in
-            
-            
-            //
-            //                                                self?.tableView.reloadData()
-            if result != nil{
-                
-                let dic : NSDictionary = result as! NSDictionary
-                if (dic.object(forKey: "error") != nil){
-                    let error : Int = dic.object(forKey: "error") as! Int
-                    if error == -113{
-                        
-                        SVProgressHUD.showError(withStatus: "验证码错误")
-                        self?.tableView.reloadData()
-                        return nil
-                    }
-                }
-                self?.didRequest()
-                self?.dataArry.remove(at: Int(ShareModel.share().shareData["number"]!)!)
-                self?.tableView.reloadData()
-            }else{
-                
-            }
-            
-            return nil
-        }, error: self.errorBlockFunc())
-        
-//        let alertView = UIAlertView.init()
-//        alertView.alertViewStyle = UIAlertViewStyle.plainTextInput // 密文
-//          let str : String = NSString(format: "%@" , (UserModel.share().getCurrentUser()?.phone)!) as String
-//        alertView.title = "验证码发送到"  + " " + "\(str)"  + " " + "手机上\n" + " " + "请输入验证码"
-//        alertView.addButton(withTitle: "确定")
-//        alertView.addButton(withTitle: "取消")
-//        alertView.delegate = self
-//        alertView.show()
-            return nil
-            }, error: self.errorBlockFunc())
     }
     deinit {
         ShareModel.share().shareData.removeAll()
