@@ -123,15 +123,7 @@ class AppConst {
     }
     
     class NotifyDefine {
-        static let jumpToMyMessage = "jumpToMyMessage"
-        static let jumpToMyAttention = "jumpToMyAttention"
-        static let jumpToMyPush = "jumpToMyPush"
-        static let jumpToMyBask = "jumpToMyBask"
-        static let jumpToDeal = "jumpToDeal"
-        static let jumpToFeedback = "jumpToFeedback"
-        static let jumpToProductGrade = "jumpToProductGrade"
-        static let jumpToAttentionUs = "jumpToAttentionUs"
-        static let jumpToMyWealtVC = "jumpToMyWealtVC"
+        static let jumpToDealList = "jumpToDealList"
         static let jumpToWithdraw = "jumoToWithdraw"
         static let jumpToRecharge = "jumpToRecharge"
         static let UpdateUserInfo = "UpdateUserInfo"

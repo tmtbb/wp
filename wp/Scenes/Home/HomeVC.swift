@@ -173,7 +173,7 @@ extension HomeVC{
     //MARK: --通知
     func registerNotify() {
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(jumpToDealList), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToDeal), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(jumpToDealList), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToDealList), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToRecharge), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToRecharge), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToWithdraw), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToWithdraw), object: nil)
         notificationCenter.addObserver(self, selector: #selector(checkLogin), name: NSNotification.Name(rawValue: AppConst.NoticeKey.logoutNotice.rawValue), object: nil)

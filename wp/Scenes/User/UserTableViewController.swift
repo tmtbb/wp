@@ -34,14 +34,9 @@ class UserTableViewController: BaseTableViewController {
         return formatter
     }()
     
-    let jumpNotifyDict = [1 : AppConst.NotifyDefine.jumpToDeal,
+    let jumpNotifyDict = [1 : AppConst.NotifyDefine.jumpToDealList,
                           2 : AppConst.NotifyDefine.jumpToWithdraw,
-                          3 : AppConst.NotifyDefine.jumpToRecharge,
-                          4 : AppConst.NotifyDefine.jumpToFeedback,
-                          5 : AppConst.NotifyDefine.jumpToMyMessage,
-                          6 : AppConst.NotifyDefine.jumpToMyAttention,
-                          7 : AppConst.NotifyDefine.jumpToMyWealtVC,
-                          8 : AppConst.NotifyDefine.jumpToAttentionUs]
+                          3 : AppConst.NotifyDefine.jumpToRecharge,]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +57,7 @@ class UserTableViewController: BaseTableViewController {
         logoutButton.layer.borderWidth = 0.7
         logoutButton.layer.borderColor = UIColor(hexString: "#cccccc").cgColor
     }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == AppConst.KVOKey.balance.rawValue {
@@ -77,7 +73,6 @@ class UserTableViewController: BaseTableViewController {
     }
     
     func requstTotalHistroy() {
-        
         AppAPIHelper.user().getTotalHistoryData(complete: { [weak self](result) -> ()? in
             if let model = result as? TotalHistoryModel {
                 self?.propertyNumber.text = "\(model.amount)"
@@ -105,27 +100,9 @@ class UserTableViewController: BaseTableViewController {
         AppDataHelper.instance().clearUserInfo()
         sideMenuController?.toggle()
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 5 {
-            
-            return 10
-        }
-        return 0
-    }
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
-    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            return
-        }
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: jumpNotifyDict[indexPath.section]!), object: nil, userInfo: nil)
+      
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: jumpNotifyDict[indexPath.row]!), object: nil, userInfo: nil)
         sideMenuController?.toggle()
         tableView.deselectRow(at: indexPath, animated: true)
     }

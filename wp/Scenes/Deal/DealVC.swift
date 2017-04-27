@@ -14,7 +14,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     
     @IBOutlet weak var myMoneyLabel: UILabel!
     @IBOutlet weak var myMoneyView: UIView!
-    @IBOutlet weak var myQuanLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var highLabel: UILabel!
     @IBOutlet weak var lowLabel: UILabel!

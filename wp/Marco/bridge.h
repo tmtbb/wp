@@ -28,7 +28,6 @@ struct SocketPacketHead {
 #import <GTSDK/GeTuiSdk.h>
 #import "UPPaymentControl.h"
 #import <UMMobClick/MobClick.h>
-#import "RBStoryboardLink.h"
 #import "WechatAuthSDK.h"
 #import "WXApi.h"
 #import "WXApiObject.h"
