@@ -13,11 +13,7 @@ import DKNightVersion
 class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
   
     @IBOutlet weak var submited: UIButton!        //提现提交按钮
-//    var bankId : Int64 = 0
-    var bankId : Int64 = 49
     @IBOutlet weak var voiceCodeBtn: UIButton!         // 发送验证码
-    var timer: Timer?                                  // 定时器
-    var codeTime = 60                                  // 时间
     @IBOutlet weak var bankTd: UITextField!            // 银行名
     @IBOutlet weak var branceTd: UITextField!          // 支行名称
     @IBOutlet weak var nameTd: UITextField!            //  姓名
@@ -25,8 +21,10 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     @IBOutlet weak var withDrawAll: UIButton!          //  全部提现
     @IBOutlet weak var codeTd: UITextField!
     @IBOutlet weak var moneyTd: UITextField!              // 金额
-    var rangePoint:NSRange!
-    var isFirst = true
+    @IBOutlet weak var feeLabel: UILabel!
+   
+    var bankId : Int64 = 49
+    
     //MARK: - initUI()
     override func viewDidLoad() {
         
@@ -59,6 +57,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
         initData()
         bankTd.isUserInteractionEnabled = true
+        feeLabel.text = "手续费：每单第三方支付平台将收取2元手续费，限额5万元"
         
     }
     func initData(){
@@ -133,18 +132,18 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         param.receiverBranchBankName = ShareModel.share().selectBank.branchBank
         param.receiverCardNo = ShareModel.share().selectBank.cardNo
         param.receiverAccountName = ShareModel.share().selectBank.name
+        param.bid = Int(ShareModel.share().selectBank.bid)
         SVProgressHUD.showProgressMessage(ProgressMessage: "提交提现申请...")
         AppAPIHelper.user().easypayWithDraw(param: param, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
-            if let object = result{
-                let model : WithdrawResultModel = object as! WithdrawResultModel
+            if let model : WithdrawResultModel = result as? WithdrawResultModel{
                 ShareModel.share().detailModel.cardNo = ShareModel.share().selectBank.cardNo
                 ShareModel.share().detailModel.bank = ShareModel.share().selectBank.bank
                 ShareModel.share().withdrawResultModel = model
-                if model.result == 1{
+                if model.errorMsg.length() == 0{
                     self?.performSegue(withIdentifier: SuccessWithdrawVC.className(), sender: nil)
                 }else{
-                    SVProgressHUD.showWainningMessage(WainningMessage: "提现失败，请稍候再试", ForDuration: 1, completion: nil)
+                    SVProgressHUD.showWainningMessage(WainningMessage: model.errorMsg, ForDuration: 1, completion: nil)
                 }
             }
             return nil

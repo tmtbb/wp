@@ -32,7 +32,7 @@ class InputBankPhone: UITableViewController {
             let param = BingCardParam()
             param.bankId = Int(ShareModel.share().shareData["bankId"]!)!
             param.branchBank = ShareModel.share().shareData["branchBank"]!
-            param.cardNo = ShareModel.share().shareData["cardNo"]!
+            param.cardNO = ShareModel.share().shareData["cardNo"]!
             param.name = ShareModel.share().shareData["name"]!
             param.bankName = typeBank.text!
             AppAPIHelper.user().bingcard(param: param, complete: { (result) -> ()? in

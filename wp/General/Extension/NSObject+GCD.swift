@@ -12,11 +12,7 @@ typealias Task = (_ cancel: Bool) -> Void
 extension NSObject{
     
     func delay(_ time: TimeInterval, task: @escaping()->()) -> Task? {
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+time) {
-            task()
-        }
-        return nil
+    
         func dispatch_late(block: @escaping ()->()){
             let t = DispatchTime.now() + time
             DispatchQueue.main.asyncAfter(deadline: t, execute: block)

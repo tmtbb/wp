@@ -40,6 +40,13 @@ class BankListModel: BaseModel {
 class WithdrawResultModel: BaseModel{
     
     //余额
-    var balance: Double = 0
-    var result: Int = 0
+    var merchantNo = ""
+    var outPayNo = ""
+    var amount: Double = 0
+    var transferAmount: Double = 0
+    var fee: Double = 0
+    var payNo = ""
+    var status = ""
+    var errorCode = ""
+    var errorMsg = ""
 }

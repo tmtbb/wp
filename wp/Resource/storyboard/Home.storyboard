@@ -40,12 +40,20 @@
                                         <action selector="withDraw:" destination="QQ6-J8-8Ma" eventType="touchUpInside" id="CVr-4O-sK1"/>
                                     </connections>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMT-cG-kWW">
+                                    <rect key="frame" x="15" y="38.5" width="31" height="14.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="HrM-ED-NSO" secondAttribute="trailing" constant="15" id="B9X-Vl-1aI"/>
+                                <constraint firstItem="HrM-ED-NSO" firstAttribute="top" secondItem="PMT-cG-kWW" secondAttribute="bottom" constant="8" id="Hxc-bB-chg"/>
                                 <constraint firstItem="HrM-ED-NSO" firstAttribute="leading" secondItem="FVb-dQ-vU7" secondAttribute="leading" constant="15" id="c8P-V5-dNj"/>
                                 <constraint firstItem="HrM-ED-NSO" firstAttribute="top" secondItem="FVb-dQ-vU7" secondAttribute="top" constant="61" id="o5h-uC-gBQ"/>
+                                <constraint firstItem="HrM-ED-NSO" firstAttribute="leading" secondItem="PMT-cG-kWW" secondAttribute="leading" id="zmz-Tw-21H"/>
                             </constraints>
                         </view>
                         <sections>
@@ -302,6 +310,7 @@
                         <outlet property="bankTd" destination="cDa-2f-Jkz" id="Fw2-pQ-5Hb"/>
                         <outlet property="branceTd" destination="4WB-kC-N9q" id="W2P-Is-uG5"/>
                         <outlet property="codeTd" destination="0qQ-ee-THd" id="X74-5A-5hC"/>
+                        <outlet property="feeLabel" destination="PMT-cG-kWW" id="AbD-FT-ZU7"/>
                         <outlet property="moneyTd" destination="FqW-1z-ijO" id="1w0-Mb-Cgm"/>
                         <outlet property="nameTd" destination="Xun-5m-XHH" id="1s7-C5-dC4"/>
                         <outlet property="submited" destination="HrM-ED-NSO" id="54c-VW-8mH"/>
@@ -3069,11 +3078,13 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYs-iI-sqj">
                                     <rect key="frame" x="17" y="0.0" width="341" height="45"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.08235294118" green="0.49803921569999998" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="bmF-OU-qi9"/>
                                     </constraints>
-                                    <state key="normal" title="确认提交"/>
+                                    <state key="normal" title="确认提交">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
                                     <connections>
                                         <action selector="rechargeBtnTapped:" destination="xl4-08-sBY" eventType="touchUpInside" id="xFz-7P-nrG"/>
                                     </connections>
@@ -3286,8 +3297,8 @@
         <image name="userID.png" width="15" height="12"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="We8-H6-IND"/>
         <segue reference="8ff-vB-YUR"/>
-        <segue reference="4a3-2m-7U8"/>
         <segue reference="y1g-lR-Kez"/>
     </inferredMetricsTieBreakers>
 </document>

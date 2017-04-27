@@ -74,8 +74,8 @@ class RechargeListVC: BasePageListTableViewController {
     override func didRequest(_ pageIndex : Int) {
         
         let param = BalanceListParam()
-        param.pos = Int((pageIndex - 1) * 10)
-        param.countNuber = 10
+        param.startPos = pageIndex == 1 ? 0 : dataSource == nil ? 0 : dataSource!.count+1
+        param.count = 10
         AppAPIHelper.user().creditlist(param: param, complete: {[weak self] (result) -> ()? in
             
             if let object = result {

@@ -16,13 +16,13 @@ class DealSocketApi: BaseSocketAPI, DealApi {
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .currentDeals, model: param, type:.time)
         startModelsRequest(packet, listName: "positioninfo", modelClass: PositionModel.self, complete: complete, error: error)
     }
-    
   
     //历史仓位列表
     func historyDeals(param: UndealParam, complete: CompleteBlock?, error:ErrorBlock?){
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .historyDeals, model: param, type:.time)
         startModelsRequest(packet, listName: "positioninfo", modelClass: PositionModel.self, complete: complete, error: error)
     }
+    
     //建仓
     func buildDeal(model: DealParam, complete: CompleteBlock?, error: ErrorBlock?) {
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .buildDeal, model: model, type: .deal)
@@ -52,16 +52,19 @@ class DealSocketApi: BaseSocketAPI, DealApi {
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .realtime, dict: param as [String : AnyObject], type: .time)
         startModelsRequest(packet, listName: "priceinfo", modelClass: KChartModel.self, complete: complete, error: error)
     }
+    
     //仓位信息
     func position(param: PositionParam, complete: CompleteBlock?, error:ErrorBlock?){
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .position, model: param, type: .deal)
         startModelRequest(packet, modelClass: ProductPositionModel.self, complete: complete, error: error)
     }
+    
     //收益选择
     func benifity(param: BenifityParam, complete: CompleteBlock?, error:ErrorBlock?){
         let packet: SocketDataPacket = SocketDataPacket.init(opcode: .benifity, model: param, type: .operate)
         startRequest(packet, complete: complete, error: error)
     }
+    
     //明细列表
     func requestDealDetailList(pram:DealHistoryDetailParam, complete: CompleteBlock?, error:ErrorBlock?) {
         let packet = SocketDataPacket(opcode: .historyDeals, model: pram, type: .time)

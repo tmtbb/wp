@@ -20,6 +20,7 @@ class RechargeParam: BaseParam{
 class WithDrawalParam: BaseParam{
     var merchantNo = ""
     var amount: Double = 0
+    var bid = 0
     var content = ""
     var receiverBankName = ""
     var receiverBranchBankName = ""
@@ -32,7 +33,7 @@ class BingCardParam: BaseParam{
     var bankId = 0
     var branchBank = ""
     var bankName = ""
-    var cardNo = ""
+    var cardNO = ""
     var name = ""
 }
 
@@ -47,8 +48,9 @@ class BankNameParam: BaseParam{
 
 class BalanceListParam: BaseParam {
     var status = 0
-    var pos = 0
-    var countNuber = 0
+    var start = 0
+    var count = 0
+    var startPos = 0
 }
 
 class RechargeDetailParam: BaseParam{

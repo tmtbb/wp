@@ -71,7 +71,7 @@ class UserSocketApi: BaseSocketAPI, UserApi {
     func withdrawlist( param: BalanceListParam, complete: CompleteBlock?, error: ErrorBlock?){
         
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .withdrawList, model: param, type: SocketConst.type.wp)
-        startModelRequest(packet, modelClass: RechargeListModel.self, complete: complete, error: error)
+        startModelRequest(packet, modelClass: WithdrawListModel.self, complete: complete, error: error)
     }
     
 

@@ -38,8 +38,7 @@ class WithDrawaListVCCell: OEZTableViewCell {
         timeLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timesp, format: "yyyy-MM-dd")
         minuteLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timesp, format: "HH:mm:ss")
         
-//        status = model.status == 1 ? "处理中" :  (model.status == 2 ? "提现成功" : "提现失败")
-        status = model.status == 1 ? "提现失败":"提现成功"
+        status = model.status == 0 ? "提现成功" :  (model.status == 1 ? "处理中" : "提现失败")
         bankLogo.image = BankLogoColor.share().checkLocalBank(string: model.bank) ? UIImage.init(named: BankLogoColor.share().checkLocalBankImg(string: model.bank)) : UIImage.init(named: "unionPay")
 
         statusBtn.setTitle(status, for: UIControlState.normal)
@@ -54,9 +53,9 @@ class WithDrawaListVC: BasePageListTableViewController {
     //  请求接口刷新数据
     override func didRequest(_ pageIndex : Int) {
         let param = BalanceListParam()
-        param.pos = Int((pageIndex - 1) * 10 )
-        param.countNuber = 10
-        
+        param.startPos = pageIndex == 1 ? 0 : dataSource == nil ? 0 : dataSource!.count+1
+        param.count = 10
+        print(param)
         AppAPIHelper.user().withdrawlist(param: param, complete: { [weak self](result) -> ()? in
             if let object = result {
                 let Model : WithdrawListModel = object as! WithdrawListModel
@@ -74,7 +73,5 @@ class WithDrawaListVC: BasePageListTableViewController {
         ShareModel.share().shareData["wid"] = "\(model.wid)"
         ShareModel.share().detailModel = model
         self.performSegue(withIdentifier: "PushWithDrawDetail", sender: nil)
-        
-        
     }
 }
