@@ -20,7 +20,6 @@ class InputBankPhone: UITableViewController {
         title = "输入手机号"
     }
     
-    
     @IBAction func addBank(_ sender: Any) {
         if checkTextFieldEmpty([typeBank,phone]){
             if isTelNumber(num: phone.text!) == false{
@@ -28,7 +27,7 @@ class InputBankPhone: UITableViewController {
                 SVProgressHUD.showErrorMessage(ErrorMessage: "手机号格式错误", ForDuration: 1, completion: nil)
                 return
             }
-             ShareModel.share().shareData["phone"] =  phone.text!
+            ShareModel.share().shareData["phone"] =  phone.text!
             let param = BingCardParam()
             param.bankId = Int(ShareModel.share().shareData["bankId"]!)!
             param.branchBank = ShareModel.share().shareData["branchBank"]!
@@ -38,6 +37,7 @@ class InputBankPhone: UITableViewController {
             AppAPIHelper.user().bingcard(param: param, complete: { (result) -> ()? in
                 if result != nil {
                     //let  bankId : Int = object["bankId"] as! Int
+
                     SVProgressHUD.showSuccessMessage(SuccessMessage: "绑定成功", ForDuration: 1, completion: {
                         [weak self] in
                         for  nav : UIViewController in (self?.navigationController?.viewControllers)! {

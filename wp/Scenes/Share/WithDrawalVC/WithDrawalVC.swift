@@ -54,6 +54,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         submited.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: "main")
         submited.layer.cornerRadius = 5
         submited.clipsToBounds = true
+
         withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
         initData()
         bankTd.isUserInteractionEnabled = true

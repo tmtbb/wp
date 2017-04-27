@@ -52,15 +52,10 @@ class SuccessWithdrawVC: BaseTableViewController {
     }
     
      func navLeftBtn(){
-    
         let btn : UIButton = UIButton.init(type: UIButtonType.custom)
-        
         btn.setTitle("", for: UIControlState.normal)
-        
         btn.setBackgroundImage(UIImage.init(named: "back"), for: UIControlState.normal )
-        
         btn.addTarget(self, action: #selector(popself), for: UIControlEvents.touchUpInside)
-        
         btn.frame = CGRect.init(x: 0, y: 0, width: 20, height: 20)
         let barItem : UIBarButtonItem = UIBarButtonItem.init(customView: btn)
         self.navigationItem.leftBarButtonItem = barItem

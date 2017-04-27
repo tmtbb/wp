@@ -84,10 +84,6 @@ class BankCardVC: BaseListTableViewController {
         return [share]
     }
     
-    
-    
-    
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         return dataArry.count

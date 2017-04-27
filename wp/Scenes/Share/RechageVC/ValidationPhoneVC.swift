@@ -45,8 +45,6 @@ class ValidationPhoneVC: BaseTableViewController {
     }
     //MARK: --点击发送验证码
     @IBAction func requestVoiceCode(_ sender: UIButton) {
-        
-        
 //        AppAPIHelper.commen().
         AppAPIHelper.commen().verifycode(verifyType: 1, phone:  ShareModel.share().shareData["phone"]!, complete: { (result) -> ()? in
             
