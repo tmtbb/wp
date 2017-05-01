@@ -31,7 +31,8 @@ class UserModel: BaseModel  {
     var uuid = ""
     dynamic var balance: Double = 0
     var wechatUserInfo: [String: String] = [:]
-    
+    var qrcodeStr = ""
+    var qrcodeTitle = ""
     
     // 获取某个用户信息
     class func userInfo(userId: Int) -> UserInfo? {

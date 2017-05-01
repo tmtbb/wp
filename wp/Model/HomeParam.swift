@@ -14,7 +14,9 @@ class RechargeParam: BaseParam{
     var currency = "CNY"
     var amount: Double = 0
     var content = ""
-    var payType = "H5_ONLINE_BANK_PAY"
+    var payType = "WECHAT_JSAPI_PAY"//"H5_ONLINE_BANK_PAY"
+    var wechatOpenId = ""
+    var wechatAppId = "wx9dc39aec13ee3158"
 }
 
 class WithDrawalParam: BaseParam{

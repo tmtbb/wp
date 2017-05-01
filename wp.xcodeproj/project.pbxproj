@@ -24,6 +24,9 @@
 		8E0720931E52DE7600D2E839 /* NoticeICarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0720921E52DE7600D2E839 /* NoticeICarousel.swift */; };
 		8E3008031E4C159700B32717 /* ProductsiCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3008021E4C159700B32717 /* ProductsiCarousel.swift */; };
 		8E53E0F71EB09BDC00D9D43A /* ResetLoginPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53E0F61EB09BDC00D9D43A /* ResetLoginPasswordVC.swift */; };
+		8E729A351EB30F9F0080611A /* QRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E729A341EB30F9F0080611A /* QRCodeVC.swift */; };
+		8E729A381EB3296E0080611A /* alipay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E729A361EB3296E0080611A /* alipay@2x.png */; };
+		8E729A391EB3296E0080611A /* alipay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E729A371EB3296E0080611A /* alipay@3x.png */; };
 		8E79F8CD1E9E1F8500333AA2 /* UserParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E79F8CC1E9E1F8500333AA2 /* UserParam.swift */; };
 		8EC879521E77F1B2004A42E8 /* shouye-jiazaishibai@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EC8794E1E77F1B2004A42E8 /* shouye-jiazaishibai@2x.png */; };
 		8EC879531E77F1B2004A42E8 /* shouye-jiazaishibai@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EC8794F1E77F1B2004A42E8 /* shouye-jiazaishibai@3x.png */; };
@@ -341,6 +344,9 @@
 		8E0720921E52DE7600D2E839 /* NoticeICarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoticeICarousel.swift; path = CustomView/NoticeICarousel.swift; sourceTree = "<group>"; };
 		8E3008021E4C159700B32717 /* ProductsiCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsiCarousel.swift; sourceTree = "<group>"; };
 		8E53E0F61EB09BDC00D9D43A /* ResetLoginPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetLoginPasswordVC.swift; sourceTree = "<group>"; };
+		8E729A341EB30F9F0080611A /* QRCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QRCodeVC.swift; path = ../../Home/QRCodeVC.swift; sourceTree = "<group>"; };
+		8E729A361EB3296E0080611A /* alipay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alipay@2x.png"; sourceTree = "<group>"; };
+		8E729A371EB3296E0080611A /* alipay@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alipay@3x.png"; sourceTree = "<group>"; };
 		8E79F8CC1E9E1F8500333AA2 /* UserParam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserParam.swift; sourceTree = "<group>"; };
 		8EC8794E1E77F1B2004A42E8 /* shouye-jiazaishibai@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shouye-jiazaishibai@2x.png"; sourceTree = "<group>"; };
 		8EC8794F1E77F1B2004A42E8 /* shouye-jiazaishibai@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shouye-jiazaishibai@3x.png"; sourceTree = "<group>"; };
@@ -801,6 +807,8 @@
 		8EF59D3A1E571D8200BABBD0 /* homeAndUser */ = {
 			isa = PBXGroup;
 			children = (
+				8E729A361EB3296E0080611A /* alipay@2x.png */,
+				8E729A371EB3296E0080611A /* alipay@3x.png */,
 				8EC8794E1E77F1B2004A42E8 /* shouye-jiazaishibai@2x.png */,
 				8EC8794F1E77F1B2004A42E8 /* shouye-jiazaishibai@3x.png */,
 				8EC879501E77F1B2004A42E8 /* shouye-shujujiazai@2x.png */,
@@ -972,6 +980,7 @@
 		A046BF731E1CDEF30035A4FA /* RechageVC */ = {
 			isa = PBXGroup;
 			children = (
+				8E729A341EB30F9F0080611A /* QRCodeVC.swift */,
 				BF04793C1E0FBF5000C511E7 /* RechargeVC.swift */,
 				A08CB39A1E1E1A8A004BE44B /* RechargeListVC.swift */,
 				A0C2840A1E1FB24400A97707 /* ValidationPhoneVC.swift */,
@@ -1573,6 +1582,7 @@
 				8EF59E281E571D8200BABBD0 /* ccbc@2x.png in Resources */,
 				8EF59DDF1E571D8200BABBD0 /* icon-09@3x.png in Resources */,
 				BFF019E51E23B113008631D6 /* testsocket.plist in Resources */,
+				8E729A381EB3296E0080611A /* alipay@2x.png in Resources */,
 				A02722AD1E49C23000801A44 /* DKColorTable.txt in Resources */,
 				8EF59DB51E571D8200BABBD0 /* gongshang@2x.png in Resources */,
 				8EF59DBE1E571D8200BABBD0 /* buyBg@3x.png in Resources */,
@@ -1698,6 +1708,7 @@
 				8EF59E371E571D8200BABBD0 /* submited@3x.png in Resources */,
 				8EF59DCE1E571D8200BABBD0 /* indirector@2x.png in Resources */,
 				8EF59DC21E571D8200BABBD0 /* buyPoint@3x.png in Resources */,
+				8E729A391EB3296E0080611A /* alipay@3x.png in Resources */,
 				8EF59E2B1E571D8200BABBD0 /* default-head@3x.png in Resources */,
 				8EFD7D6D1E7155FE00C75D46 /* fly.html in Resources */,
 				8EF59DB61E571D8200BABBD0 /* gongshang@3x.png in Resources */,
@@ -1875,6 +1886,7 @@
 				BF43EAD51E1D17FA0014B0EE /* HistoryDealVC.swift in Sources */,
 				BF2F642C1E038DFE00917FA1 /* BaseCustomTableViewController.swift in Sources */,
 				8E0679E51E4C7088007EF765 /* BuyProductVC.swift in Sources */,
+				8E729A351EB30F9F0080611A /* QRCodeVC.swift in Sources */,
 				A0BC07361E233DC7003EA7BC /* InputBankPhone.swift in Sources */,
 				BF062B4F1E04E01100618B1B /* LoginNav.swift in Sources */,
 				B058E36E1E1D40DA0046720D /* SocketHelper.swift in Sources */,

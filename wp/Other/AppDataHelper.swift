@@ -17,10 +17,9 @@ class AppDataHelper: NSObject {
     
     private var productTimer: Timer?
     func initData() {
-        productTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: true)
+        productTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: AppConst.isRepeate)
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: AppConst.isRepeate)
         initProductData()
-        
         if let userUUID = UIDevice.current.identifierForVendor?.uuidString{
             UserModel.share().uuid = userUUID
         }

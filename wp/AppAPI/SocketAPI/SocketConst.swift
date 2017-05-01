@@ -35,7 +35,6 @@ class SocketConst: NSObject {
         //获取个人信息
         case getUserinfo = 1001
         //每天的数据
-//        case everyday = 6011
         case accinfo = 3007
         case tokenLogin = 3009
         //银行卡列表
