@@ -23,7 +23,7 @@ class AppConst {
     static let DefaultPageSize = 15
     static let UMAppkey = "584a3eb345297d271600127e"
     static let isMock = false
-    static let isRepeate = false
+    static let isRepeate = true
     static let sha256Key = "t1@s#df!"
     static let pid = 1002
     static let klineCount: Double = 40
