@@ -69,3 +69,4 @@ class DealHistoryDetailParam: DealParam {
     var start = 0
     var count = 10
 }
+

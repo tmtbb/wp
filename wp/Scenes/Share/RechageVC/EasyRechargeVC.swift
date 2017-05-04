@@ -16,9 +16,17 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
     @IBOutlet weak var balanceText: UITextField!
     @IBOutlet weak var countText: UITextField!
     @IBOutlet weak var submitText: UIButton!
+    @IBOutlet weak var rechargeTypeText: UITextField!
     
     //变量属性
     var haveRecharge = false
+    enum EasyPayType: String {
+        case none = ""
+        case alipay = "ALIPAY_QRCODE_PAY"
+        case wechat = "WECHAT_QRCODE_PAY"
+        case H5 = "H5_ONLINE_BANK_PAY"
+    }
+    var rechargeType: EasyPayType = .none
     
     //lifeCycle
     override func viewWillAppear(_ animated: Bool) {
@@ -48,11 +56,12 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
     }
     
     @IBAction func rechargeBtnTapped(_ sender: UIButton) {
-        sender.isEnabled = false
         SVProgressHUD.showProgressMessage(ProgressMessage: "正在提交订单...")
         let param = RechargeParam()
+        param.payType = rechargeType.rawValue
         param.amount = Double(countText.text!)!
         AppAPIHelper.user().easypayRecharge(param: param, complete: { [weak self](result) -> ()? in
+            SVProgressHUD.dismiss()
             if let model = result as? RechargeResultModel{
                 self?.haveRecharge = true
                 sender.isEnabled = true
@@ -63,12 +72,16 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
     }
     
     func openURL(urlStr: String) {
-        let webController = WPWebViewController()
-        webController.title = "充值"
-        _ = navigationController?.pushViewController(webController, animated: true)
-        let baseUrl = URL.init(string: urlStr)
-        webController.webView.loadRequest(URLRequest.init(url: baseUrl!))
-//        UIApplication.shared.openURL(URL(string: urlStr)!)
+//        let webController = WPWebViewController()
+//        webController.title = "充值"
+//        _ = navigationController?.pushViewController(webController, animated: true)
+//        let baseUrl = URL.init(string: urlStr)
+//        webController.webView.loadRequest(URLRequest.init(url: baseUrl!))
+//      
+        UserModel.share().qrcodeStr = urlStr
+        let platform = rechargeType == .alipay ? "支付宝":"微信"
+        UserModel.share().qrcodeTitle  = "请截图到相册,然后打开\(platform)进行充值"
+        navigationController?.pushViewController(withIdentifier: QRCodeVC.className(), completion: nil, animated: true)
     }
     
     func showRechargeResultAlter() {
@@ -87,8 +100,31 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
     
     //MARK: - textField delegate
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == rechargeTypeText {
+            return false
+        }
         let resultStr = textField.text?.replacingCharacters(in: (textField.text?.range(from: range))!, with: string)
         return resultStr!.isMoneyString()
     }
-
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField == rechargeTypeText {
+            let actionController = UIAlertController.init(title: "充值", message: "请选择支付方式", preferredStyle: .actionSheet)
+            let alipyAction = UIAlertAction.init(title: "支付宝支付", style: .default, handler: { [weak self](result) in
+                self?.rechargeType = .alipay
+                self?.rechargeTypeText.text = "支付宝支付"
+            })
+            actionController.addAction(alipyAction)
+            let wechatAction = UIAlertAction.init(title: "微信支付", style: .default, handler: { [weak self](result) in
+                self?.rechargeType = .wechat
+                self?.rechargeTypeText.text = "微信支付"
+            })
+            actionController.addAction(wechatAction)
+            present(actionController, animated: true, completion: nil)
+            return false
+        }
+        return true
+    }
+    
+   
 }

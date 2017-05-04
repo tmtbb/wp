@@ -56,7 +56,7 @@ class HomeVC: BaseTableViewController {
         noticeView.isHidden = true
         
         //每隔3秒请求商品报价
-        priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
+        priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: AppConst.isRepeate)
         DealModel.share().addObserver(self, forKeyPath: AppConst.KVOKey.allProduct.rawValue, options: .new, context: nil)
         
         
@@ -173,7 +173,7 @@ extension HomeVC{
     //MARK: --通知
     func registerNotify() {
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(jumpToDealList), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToDeal), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(jumpToDealList), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToDealList), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToRecharge), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToRecharge), object: nil)
         notificationCenter.addObserver(self, selector: #selector(jumpToWithdraw), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.jumpToWithdraw), object: nil)
         notificationCenter.addObserver(self, selector: #selector(checkLogin), name: NSNotification.Name(rawValue: AppConst.NoticeKey.logoutNotice.rawValue), object: nil)
@@ -186,7 +186,7 @@ extension HomeVC{
             priceTimer = nil
         }
         //每隔3秒请求商品报价
-        priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
+        priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: AppConst.isRepeate)
     }
     func sideHide() {
         if (sideMenuController?.sidePanelVisible)! {

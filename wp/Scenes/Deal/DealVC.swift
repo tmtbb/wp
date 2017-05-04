@@ -14,7 +14,6 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     
     @IBOutlet weak var myMoneyLabel: UILabel!
     @IBOutlet weak var myMoneyView: UIView!
-    @IBOutlet weak var myQuanLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var highLabel: UILabel!
     @IBOutlet weak var lowLabel: UILabel!
@@ -81,18 +80,12 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             didSelectedObject(titleView, object: selectProduct)
         }
         //每隔3秒请求商品报价
-        priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: true)
+        priceTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(initRealTimeData), userInfo: nil, repeats: AppConst.isRepeate)
         //k线选择器
         klineTitleView.objects = klineTitles as [AnyObject]?
         if let flowLayout: UICollectionViewFlowLayout = klineTitleView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.itemSize = CGSize.init(width: UIScreen.width()/CGFloat(klineTitles.count), height: 40)
         }
-        kLineView.selectModelBlock = { (result) -> () in
-            if let _: KChartModel = result as? KChartModel{
-                
-            }
-        }
-        
     }
     
     func initKVOAndNotice(){
@@ -115,7 +108,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
     @IBAction func jumpToMyWallet(_ sender: AnyObject) {
         if checkLogin(){
             let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: RechargeVC.className())
+            let controller = storyboard.instantiateViewController(withIdentifier: EasyRechargeVC.className())
             navigationController?.pushViewController(controller, animated: true)
         }
     }

@@ -20,14 +20,15 @@ class RechargeListVCCell: OEZTableViewCell {
     //MARK:--- 刷新cell
     override func update(_ data: Any!) {
         let model = data as! Model
+        print(model)
         self.moneyCountLb.text = "+" + " "  + String.init(format: "%.2f", model.amount)
         let timestr : Int = Date.stringToTimeStamp(stringTime: model.depositTime)
-        self.withDrawto.text = model.depositType == 1 ? "微信支付" :"银行卡"
+        self.withDrawto.text = model.depositType == 1 ? "微信支付" : model.depositType == 2 ? "银行卡" : "支付宝支付"
         self.weekLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "yyyy")
         self.statusLb.text = model.status == 1 ? "处理中" : (model.status == 2 ?  "充值成功":  "充值失败")
         self.timeLb.text =  Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "MM-dd")
         self.minuteLb.text =  Date.yt_convertDateStrWithTimestempWithSecond(timestr, format: "HH:mm:ss")
-        self.bankLogo.image = model.depositType == 1 ? UIImage.init(named: "weixinpay") : (UIImage.init(named: "unionPay"))
+        self.bankLogo.image = model.depositType == 1 ? UIImage.init(named: "weixinpay") : model.depositType == 2 ? UIImage.init(named: "unionPay") : UIImage.init(named: "alipay")
         // 设置失败的cell的背景alpha  根据status 来判断 状态view
         self.alpha = model.status == 2 ? 1 :  (model.status == 1 ? 1 : 0.6)
     }
