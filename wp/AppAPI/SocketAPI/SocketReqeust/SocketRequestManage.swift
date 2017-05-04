@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import XCGLogger
+import Alamofire
 
 class SocketRequestManage: NSObject {
     
@@ -92,7 +92,9 @@ class SocketRequestManage: NSObject {
         for (key,reqeust) in socketRequests {
             if reqeust.isReqeustTimeout() {
                 socketRequests.removeValue(forKey: key)
-                reqeust.onError(-11011)
+                if NetworkReachabilityManager()?.isReachable == false{
+                    reqeust.onError(-11011)
+                }
                 print(">>>>>>>>>>>>>>>>>>>>>>>>>>\(key)")
                 break
             }
