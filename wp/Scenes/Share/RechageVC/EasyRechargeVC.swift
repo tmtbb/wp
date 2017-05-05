@@ -56,19 +56,35 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
     }
     
     @IBAction func rechargeBtnTapped(_ sender: UIButton) {
-        SVProgressHUD.showProgressMessage(ProgressMessage: "正在提交订单...")
-        let param = RechargeParam()
-        param.payType = rechargeType.rawValue
-        param.amount = Double(countText.text!)!
-        AppAPIHelper.user().easypayRecharge(param: param, complete: { [weak self](result) -> ()? in
-            SVProgressHUD.dismiss()
-            if let model = result as? RechargeResultModel{
-                self?.haveRecharge = true
-                sender.isEnabled = true
-                self?.openURL(urlStr: model.paymentInfo)
+        
+        if rechargeType == .none{
+            SVProgressHUD.showErrorMessage(ErrorMessage: "请选择支付方式", ForDuration: AppConst.progressDuration, completion: nil)
+            return
+        }
+        
+        if checkTextFieldEmpty([countText]){
+            
+            if Double(countText.text!)! < 100{
+                SVProgressHUD.showErrorMessage(ErrorMessage: "最低充值金额为100", ForDuration: AppConst.progressDuration, completion: nil)
+                return
             }
-            return nil
-        }, error: errorBlockFunc())
+            
+            SVProgressHUD.showProgressMessage(ProgressMessage: "正在提交订单...")
+            let param = RechargeParam()
+            param.payType = rechargeType.rawValue
+            param.amount = Double(countText.text!)!
+            AppAPIHelper.user().easypayRecharge(param: param, complete: { [weak self](result) -> ()? in
+                SVProgressHUD.dismiss()
+                if let model = result as? RechargeResultModel{
+                    self?.haveRecharge = true
+                    sender.isEnabled = true
+                    self?.openURL(urlStr: model.paymentInfo)
+                }
+                return nil
+                }, error: errorBlockFunc())
+        }else{
+            SVProgressHUD.showErrorMessage(ErrorMessage: "请输入充值金额", ForDuration: AppConst.progressDuration, completion: nil)
+        }
     }
     
     func openURL(urlStr: String) {
@@ -80,8 +96,10 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
 //      
         UserModel.share().qrcodeStr = urlStr
         let platform = rechargeType == .alipay ? "支付宝":"微信"
-        UserModel.share().qrcodeTitle  = "请截图到相册,然后打开\(platform)进行充值"
-        navigationController?.pushViewController(withIdentifier: QRCodeVC.className(), completion: nil, animated: true)
+        UserModel.share().qrcodeTitle  = "长按二维码保存到相册,然后打开\(platform)进行充值"
+        let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: QRCodeVC.className())
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     func showRechargeResultAlter() {

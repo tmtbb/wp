@@ -319,7 +319,6 @@
                         <segue destination="CkC-xe-QwJ" kind="push" identifier="PushTolist" id="QAV-sQ-lMW"/>
                         <segue destination="heO-pP-5LS" kind="push" identifier="SuccessWithdrawVC" id="v4x-Y9-lef"/>
                         <segue destination="17Y-T9-0gJ" kind="push" identifier="DrawCashToBankListSegue" id="We8-H6-IND"/>
-                        <segue destination="u6P-5k-Tlw" kind="push" id="UYX-S0-EL5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CyS-Qa-yRC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3098,7 +3097,7 @@
                             <rect key="frame" x="0.0" y="64" width="375" height="180"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rechargebanner.png" translatesAutoresizingMaskIntoConstraints="NO" id="M60-ZW-J3P">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rechargeBanner.png" translatesAutoresizingMaskIntoConstraints="NO" id="M60-ZW-J3P">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
                                 </imageView>
                             </subviews>
@@ -3114,8 +3113,17 @@
                             <rect key="frame" x="0.0" y="478" width="375" height="150"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手续费：充值手续费由第三方支付平台按照千分之六来收取" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bxm-SE-aqP">
+                                    <rect key="frame" x="18" y="0.0" width="339" height="14"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="14" id="Bvo-Lh-B2W"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYs-iI-sqj">
-                                    <rect key="frame" x="17" y="0.0" width="341" height="45"/>
+                                    <rect key="frame" x="17" y="18" width="341" height="45"/>
                                     <color key="backgroundColor" red="0.08235294118" green="0.49803921569999998" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="bmF-OU-qi9"/>
@@ -3130,7 +3138,10 @@
                             </subviews>
                             <color key="backgroundColor" red="0.93653303384780884" green="0.93861126899719238" blue="0.95611840486526489" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstItem="WYs-iI-sqj" firstAttribute="top" secondItem="ckQ-P5-e3j" secondAttribute="top" id="kGM-jE-xXS"/>
+                                <constraint firstAttribute="trailing" secondItem="Bxm-SE-aqP" secondAttribute="trailing" constant="18" id="BmH-ZH-AbB"/>
+                                <constraint firstItem="Bxm-SE-aqP" firstAttribute="leading" secondItem="ckQ-P5-e3j" secondAttribute="leading" constant="18" id="Vo9-lC-jof"/>
+                                <constraint firstItem="WYs-iI-sqj" firstAttribute="top" secondItem="Bxm-SE-aqP" secondAttribute="bottom" constant="4" id="dh2-jW-wv1"/>
+                                <constraint firstItem="Bxm-SE-aqP" firstAttribute="top" secondItem="ckQ-P5-e3j" secondAttribute="top" id="nc7-eo-M1d"/>
                                 <constraint firstAttribute="trailing" secondItem="WYs-iI-sqj" secondAttribute="trailing" constant="17" id="sYU-OW-tWp"/>
                                 <constraint firstItem="WYs-iI-sqj" firstAttribute="leading" secondItem="ckQ-P5-e3j" secondAttribute="leading" constant="17" id="v88-lZ-ZR7"/>
                             </constraints>
@@ -3294,7 +3305,7 @@
                                         <rect key="frame" x="0.0" y="351" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FND-cS-A16" id="xEI-2a-Mgx">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="45"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Account.png" translatesAutoresizingMaskIntoConstraints="NO" id="uvG-fS-D06">
@@ -3716,6 +3727,7 @@
         <image name="personal_chongzhi.png" width="16" height="16"/>
         <image name="personal_mingxi.png" width="16" height="16"/>
         <image name="personal_tixian.png" width="16" height="16"/>
+        <image name="rechargeBanner.png" width="750" height="360"/>
         <image name="rechargebanner.png" width="650" height="247"/>
         <image name="shouye-shujujiazai.png" width="158" height="110"/>
         <image name="submited.png" width="351" height="49"/>
@@ -3723,7 +3735,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="8ff-vB-YUR"/>
-        <segue reference="We8-H6-IND"/>
+        <segue reference="4a3-2m-7U8"/>
         <segue reference="y1g-lR-Kez"/>
     </inferredMetricsTieBreakers>
 </document>

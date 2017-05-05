@@ -23,6 +23,7 @@
 		8E0720911E52D3AE00D2E839 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0720901E52D3AE00D2E839 /* BannerView.swift */; };
 		8E0720931E52DE7600D2E839 /* NoticeICarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0720921E52DE7600D2E839 /* NoticeICarousel.swift */; };
 		8E3008031E4C159700B32717 /* ProductsiCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3008021E4C159700B32717 /* ProductsiCarousel.swift */; };
+		8E38092B1EBB508E00FA78DA /* rechargeBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E38092A1EBB508E00FA78DA /* rechargeBanner.png */; };
 		8E53E0F71EB09BDC00D9D43A /* ResetLoginPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53E0F61EB09BDC00D9D43A /* ResetLoginPasswordVC.swift */; };
 		8E729A351EB30F9F0080611A /* QRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E729A341EB30F9F0080611A /* QRCodeVC.swift */; };
 		8E729A381EB3296E0080611A /* alipay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E729A361EB3296E0080611A /* alipay@2x.png */; };
@@ -343,6 +344,7 @@
 		8E0720901E52D3AE00D2E839 /* BannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannerView.swift; path = CustomView/BannerView.swift; sourceTree = "<group>"; };
 		8E0720921E52DE7600D2E839 /* NoticeICarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoticeICarousel.swift; path = CustomView/NoticeICarousel.swift; sourceTree = "<group>"; };
 		8E3008021E4C159700B32717 /* ProductsiCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsiCarousel.swift; sourceTree = "<group>"; };
+		8E38092A1EBB508E00FA78DA /* rechargeBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rechargeBanner.png; sourceTree = "<group>"; };
 		8E53E0F61EB09BDC00D9D43A /* ResetLoginPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetLoginPasswordVC.swift; sourceTree = "<group>"; };
 		8E729A341EB30F9F0080611A /* QRCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QRCodeVC.swift; path = ../../Home/QRCodeVC.swift; sourceTree = "<group>"; };
 		8E729A361EB3296E0080611A /* alipay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alipay@2x.png"; sourceTree = "<group>"; };
@@ -807,6 +809,7 @@
 		8EF59D3A1E571D8200BABBD0 /* homeAndUser */ = {
 			isa = PBXGroup;
 			children = (
+				8E38092A1EBB508E00FA78DA /* rechargeBanner.png */,
 				8E729A361EB3296E0080611A /* alipay@2x.png */,
 				8E729A371EB3296E0080611A /* alipay@3x.png */,
 				8EC8794E1E77F1B2004A42E8 /* shouye-jiazaishibai@2x.png */,
@@ -1540,8 +1543,11 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.InterAppAudio = {
+								enabled = 0;
+							};
 							com.apple.Maps.iOS = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Push = {
 								enabled = 0;
@@ -1658,6 +1664,7 @@
 				BFF019E61E23B113008631D6 /* Deal.storyboard in Resources */,
 				8EF59DE11E571D8200BABBD0 /* icon-10@3x.png in Resources */,
 				8EF59E361E571D8200BABBD0 /* submited@2x.png in Resources */,
+				8E38092B1EBB508E00FA78DA /* rechargeBanner.png in Resources */,
 				BF2F64381E038DFE00917FA1 /* MJRefresh.bundle in Resources */,
 				8EF59DC31E571D8200BABBD0 /* buyUnSelcter@2x.png in Resources */,
 				8EF59DF61E571D8200BABBD0 /* eye_open@2x.png in Resources */,
@@ -2166,8 +2173,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.inf.aviation.cn;
 				PRODUCT_NAME = wp;
-				PROVISIONING_PROFILE = "e6508726-1e50-4ca6-90bb-2e4356886368";
-				PROVISIONING_PROFILE_SPECIFIER = "ewtys085@21cn.com_distribution";
+				PROVISIONING_PROFILE = "c5a73f0a-b619-4270-8204-50b18568090f";
+				PROVISIONING_PROFILE_SPECIFIER = 201705050116distribution;
 				SWIFT_OBJC_BRIDGING_HEADER = wp/Marco/bridge.h;
 				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "arm64 armv7s armv7";

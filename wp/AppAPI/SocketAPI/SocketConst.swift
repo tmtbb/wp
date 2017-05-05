@@ -104,7 +104,7 @@ class SocketConst: NSObject {
     }
     
     class Key {
-        static let timestamp = "timestamp"
+        static let timeStamp = "timeStamp"
         static let token = "token"
         static let vToken = "vToken"
         static let uid = "uid"

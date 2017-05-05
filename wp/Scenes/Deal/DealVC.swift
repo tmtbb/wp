@@ -228,8 +228,12 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                             let moneyAlter = UIAlertController.init(title: "余额不足", message: "余额不足，请前往充值", preferredStyle: .alert)
                             let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
                             let sureAction = UIAlertAction.init(title: "确认", style: .default, handler: { [weak self](alter) in
-                                 let controller = UIStoryboard.init(name: "Home", bundle: nil).instantiateViewController(withIdentifier: RechargeVC.className()) as! RechargeVC
+//                                 let controller = UIStoryboard.init(name: "Home", bundle: nil).instantiateViewController(withIdentifier: EasyRechargeVC.className()) as! EasyRechargeVC
+//                                self?.navigationController?.pushViewController(controller, animated: true)
+                                let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
+                                let controller = storyboard.instantiateViewController(withIdentifier: EasyRechargeVC.className())
                                 self?.navigationController?.pushViewController(controller, animated: true)
+
                             })
                             moneyAlter.addAction(cancelAction)
                             moneyAlter.addAction(sureAction)

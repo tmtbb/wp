@@ -101,7 +101,9 @@ class UserTableViewController: BaseTableViewController {
         sideMenuController?.toggle()
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      
+        if indexPath.row == 0 || indexPath.row > 3{
+            return
+        }
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: jumpNotifyDict[indexPath.row]!), object: nil, userInfo: nil)
         sideMenuController?.toggle()
         tableView.deselectRow(at: indexPath, animated: true)

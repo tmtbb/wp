@@ -47,7 +47,7 @@ class ResetLoginPasswordVC: BaseTableViewController {
                         if let token = resultDic[SocketConst.Key.vToken]{
                             UserModel.share().codeToken = token as! String
                         }
-                        if let timestamp = resultDic[SocketConst.Key.timestamp]{
+                        if let timestamp = resultDic[SocketConst.Key.timeStamp]{
                             UserModel.share().timestamp = timestamp as! Int
                         }
                     }

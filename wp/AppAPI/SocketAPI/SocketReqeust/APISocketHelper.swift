@@ -66,7 +66,7 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
             SocketRequestManage.shared.notifyResponsePacket(packet)
         }
         else {
-            debugPrint("onPacketData error packet_length:\(packetHead.packet_length) packet_length:\(packetHead.data_length) data:\(data.count)");
+//            debugPrint("onPacketData error packet_length:\(packetHead.packet_length) packet_length:\(packetHead.data_length) data:\(data.count)");
         }
        
 //        XCGLogger.debug("onPacketData:\(packet.packetHead.type) \(packet.packetHead.packet_length) \(packet.packetHead.operate_code)")
