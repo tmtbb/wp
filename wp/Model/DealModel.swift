@@ -69,15 +69,28 @@ class DealModel: BaseModel {
     }
     
     class func checkIfSuspended() -> Bool {
-        
-        let realm = try! Realm()
-        
-        let model = realm.objects(KChartModel.self).sorted(byProperty: "priceTime", ascending: false).first
-        
-        guard model != nil else {
+        //周六6点以后
+        if Date().yt_weekday() == 7 && Date().yt_hour() > 5{
             return true
         }
-        return model!.systemTime - model!.priceTime > 60
+        //周日
+        if Date().yt_weekday() == 1{
+            return true
+        }
+        //周一3点前
+        if Date().yt_weekday() == 2 && Date().yt_weekday() < 3{
+            return true
+        }
+        return false
+        
+//        let realm = try! Realm()
+//        
+//        let model = realm.objects(KChartModel.self).sorted(byProperty: "priceTime", ascending: false).first
+//        
+//        guard model != nil else {
+//            return true
+//        }
+//        return model!.systemTime - model!.priceTime > 60
         
         
     }

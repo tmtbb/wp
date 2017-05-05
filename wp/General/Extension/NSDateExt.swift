@@ -22,7 +22,6 @@ extension Date{
         
         let dateStamp:TimeInterval = date!.timeIntervalSince1970
         let dateSt:Int = Int(dateStamp)
-        print(dateSt)
         return dateSt
     }
     
@@ -128,5 +127,21 @@ extension Date{
         let compents: DateComponents = (Calendar.current as NSCalendar).components(.day, from: self)
         return compents.day!
     }
+    
+    /**
+     *  获取当前周几
+     */
+    func yt_weekday() -> Int {
+        let compents: DateComponents = (Calendar.current as NSCalendar).components(.weekday, from: self)
+        return compents.weekday!
+    }
 
+    
+    /**
+     *  获取当前几点
+     */
+    func yt_hour() -> Int {
+        let compents: DateComponents = (Calendar.current as NSCalendar).components(.hour, from: self)
+        return compents.hour!
+    }
 }
