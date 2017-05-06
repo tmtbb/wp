@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 import DKNightVersion
+import Kingfisher
 class RegisterVC: BaseTableViewController {
     
     @IBOutlet weak var phoneView: UIView!
@@ -58,7 +59,7 @@ class RegisterVC: BaseTableViewController {
                         if let token = resultDic[SocketConst.Key.vToken]{
                             UserModel.share().codeToken = token as! String
                         }
-                        if let timestamp = resultDic[SocketConst.Key.timestamp]{
+                        if let timestamp = resultDic[SocketConst.Key.timeStamp]{
                             UserModel.share().timestamp = timestamp as! Int 
                         }
                     }
@@ -97,9 +98,16 @@ class RegisterVC: BaseTableViewController {
     
     func register() {
         
+        let codeStr = AppConst.md5Key + "\(UserModel.share().timestamp)" + UserModel.share().code!
+        let codeMd5Str = codeStr.md5()
+        if codeMd5Str != UserModel.share().codeToken{
+            SVProgressHUD.showErrorMessage(ErrorMessage: "验证码错误", ForDuration: AppConst.progressDuration, completion: nil)
+            return
+        }
+        
         //重置密码
-        SVProgressHUD.showProgressMessage(ProgressMessage: "绑定中...")
         if UserModel.share().registerType == .wechatPass {
+            SVProgressHUD.showProgressMessage(ProgressMessage: "绑定中...")
             let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
             let param = BingPhoneParam()
             param.phone = phoneText.text!
@@ -126,6 +134,7 @@ class RegisterVC: BaseTableViewController {
             }, error: errorBlockFunc())
             return
         }
+        
         
         //注册
         let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()

@@ -5,18 +5,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>zh_CN</string>
 	<key>CFBundleDisplayName</key>
-	<string>航空运费定盘</string>
+	<string>航投宝</string>
 	<key>CFBundleDocumentTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeName</key>
-			<string>MKDirectionsRequest</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>com.apple.maps.directionsrequest</string>
-			</array>
-		</dict>
-	</array>
+	<array/>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -28,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.02</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -55,7 +46,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>201703132143</string>
+	<string>201705050124</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -80,10 +71,6 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>MKDirectionsApplicationSupportedModes</key>
-	<array>
-		<string>MKDirectionsModeOther</string>
-	</array>
 	<key>NSAllowsArbitraryLoads</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -91,12 +78,28 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>需要用到您的蓝牙</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>需要用到您的日历</string>
 	<key>NSCameraUsageDescription</key>
-	<string>1</string>
+	<string>需要用到您的相机</string>
+	<key>NSContactsUsageDescription</key>
+	<string>需要用到您的通讯录</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>需要用到您的健康数据</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>需要用到您的健康数据</string>
+	<key>NSHomeKitUsageDescription</key>
+	<string>需要用到您的健康数据</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>需要用到您的位置信息</string>
+	<key>NSLocationUsageDescription</key>
+	<string>需要用到您的位置信息</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>获取您的服务位置方便游客查看到您的服务</string>
+	<string>需要用到您的位置信息</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>1</string>
+	<string>需要用到您的相册</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>

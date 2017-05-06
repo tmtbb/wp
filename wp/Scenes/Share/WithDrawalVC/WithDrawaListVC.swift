@@ -39,7 +39,7 @@ class WithDrawaListVCCell: OEZTableViewCell {
         timeLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timesp, format: "yyyy-MM-dd")
         minuteLb.text = Date.yt_convertDateStrWithTimestempWithSecond(timesp, format: "HH:mm:ss")
         
-        status = model.status == 1 ? "处理中" :  (model.status == 2 ? "提现成功" : model.status == 3 ? "提现失败": "已退款")
+        status = model.status == 1 || model.status == 0 ? "处理中" :  (model.status == 2 ? "提现成功" : model.status == 3 ? "提现失败": "已退款")
         bankLogo.image = BankLogoColor.share().checkLocalBank(string: model.bank) ? UIImage.init(named: BankLogoColor.share().checkLocalBankImg(string: model.bank)) : UIImage.init(named: "unionPay")
 
         statusBtn.setTitle(status, for: UIControlState.normal)

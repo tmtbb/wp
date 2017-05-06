@@ -132,17 +132,16 @@ class BuyProductVC: UIViewController {
 //            dismissController()
             return
         }
-        view.isUserInteractionEnabled = false
         SVProgressHUD.showProgressMessage(ProgressMessage: "交易中...")
         let buyModel: BuildDealParam = BuildDealParam()
         buyModel.codeId = DealModel.share().buyProduct!.id
         buyModel.buySell = DealModel.share().dealUp ? 1 : -1
         buyModel.amount = Int(countSlider.value)
         buyModel.isDeferred = DealModel.share().buyModel.isDeferred
-
+        sender.isEnabled = false
         AppAPIHelper.deal().buildDeal(model: buyModel, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
-            self?.view.isUserInteractionEnabled = true
+            sender.isEnabled = true
             if let product: PositionModel = result as? PositionModel{
                 self?.dismissController()
                 if self?.resultBlock != nil{
@@ -154,7 +153,6 @@ class BuyProductVC: UIViewController {
             return nil
         }) { (error) -> ()? in
             self.didRequestError(error)
-            self.view.isUserInteractionEnabled = true
             return nil
         }
         

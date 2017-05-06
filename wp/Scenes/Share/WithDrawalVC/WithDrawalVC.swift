@@ -58,7 +58,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
         initData()
         bankTd.isUserInteractionEnabled = true
-        feeLabel.text = "手续费：每单第三方支付平台将收取2元手续费，限额5万元"
+        feeLabel.text = "手续费：每单第三方支付平台将收取1元手续费，限额5万元"
         
     }
     func initData(){
