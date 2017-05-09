@@ -38,30 +38,5 @@ class SideVC: SideMenuController, SideMenuControllerDelegate {
 }
 
 extension SideVC{
-    public override static func initialize() {
-        //tabbar的隐藏
-        let originalSelector = #selector(SideMenuController.toggle)
-        let swizzledSelector = #selector(SideVC.wpToggle)
-        
-        let originalMethod = class_getInstanceMethod(self, originalSelector)
-        let swizzledMethod = class_getInstanceMethod(self, swizzledSelector)
-        
-        
-        let didsMethod = class_addMethod(self, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))
-        
-        if didsMethod {
-            class_replaceMethod(self, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod))
-        } else {
-            method_exchangeImplementations(originalMethod, swizzledMethod);
-        }
-        
-    }
-    
-    func wpToggle() {
-//        if checkLogin() {
-            self.wpToggle()
-            super.toggle()
-            tabBarController?.tabBar.isHidden = true
-//        }
-    }
+
 }
