@@ -78,7 +78,7 @@ class DealModel: BaseModel {
             return true
         }
         //周一3点前
-        if Date().yt_weekday() == 2 && Date().yt_weekday() < 3{
+        if Date().yt_weekday() == 2 && Date().yt_hour() < 3{
             return true
         }
         return false

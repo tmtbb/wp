@@ -46,7 +46,7 @@ class AppConst {
     
     class Color {
         static let line = UIColor(rgbHex:0xf2f2f2)
-        static let CMain = UIColor(rgbHex: 0x268dcf)
+        static let CMain = UIColor(rgbHex: 0x268dcf)		
         static let CGreen = UIColor(rgbHex: 0x009944)
         static let main = "main"
         static let background = "background"
@@ -60,7 +60,7 @@ class AppConst {
     class Network {
         #if false //是否测试环境
         static let TcpServerIP:String = "139.224.34.22";
-        static let TcpServerPort:UInt16 = 12001
+        static let TcpServerPort:UInt16 = 16205
         static let TttpHostUrl:String = "http://139.224.34.22";
         #else
         static let TcpServerIP:String = "122.144.169.217";
