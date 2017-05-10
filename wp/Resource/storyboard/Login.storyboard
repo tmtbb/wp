@@ -289,7 +289,7 @@
                                                         <segue destination="JUo-86-sd7" kind="push" id="Gp8-yp-m1D"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRZ-qV-Rjc">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRZ-qV-Rjc">
                                                     <rect key="frame" x="292" y="33" width="62" height="12"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="12" id="Kfu-gr-w4X"/>
@@ -1047,6 +1047,9 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="changeCodePicture:" destination="ch5-8R-ezx" eventType="touchUpInside" id="beh-Qr-93J"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1119,6 +1122,9 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="nextBtnTapped:" destination="ch5-8R-ezx" eventType="touchUpInside" id="t41-79-1bV"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

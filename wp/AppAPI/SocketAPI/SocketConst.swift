@@ -114,6 +114,8 @@ class SocketConst: NSObject {
         static let nickname = "nickname"
         static let openid = "openid"
         static let aType = "aType"
+        static let type = "type"
+        static let verifyType = "verifyType"
         static let pwd = "pwd"
         static let headimgurl = "headimgurl"
         static let symbolInfos = "symbolInfos"

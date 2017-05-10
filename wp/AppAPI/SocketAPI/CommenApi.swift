@@ -13,6 +13,7 @@ protocol CommenApi {
     func imageToken(complete: CompleteBlock?, error:ErrorBlock?)
     func errorCode(complete: CompleteBlock?, error:ErrorBlock?)
     func verifycode(verifyType: Int64, phone: String, complete: CompleteBlock?, error: ErrorBlock?)
-    func test(phone: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?)
+    //发送验证码(模型)
+    func verifycode(param: CheckPhoneParam, complete: CompleteBlock?, error: ErrorBlock?)
 }
 
