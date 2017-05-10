@@ -46,20 +46,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-   
-    
 
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        var token = deviceToken.description
-        token = token.replacingOccurrences(of: " ", with: "")
-        token = token.replacingOccurrences(of: "<", with: "")
-        token = token.replacingOccurrences(of: ">", with: "")
-#if true
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: { () in
-            GeTuiSdk.registerDeviceToken(token)
-        })
-#endif
+      
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -75,10 +65,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         let urlString = url.absoluteString
         if urlString.hasPrefix(AppConst.bundleId) {
-           UPPaymentControl.default().handlePaymentResult(url, complete: { (code, data) in
-                 let str : String = "\(code!)"
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: str, userInfo:nil)
-            })
+//           UPPaymentControl.default().handlePaymentResult(url, complete: { (code, data) in
+//                 let str : String = "\(code!)"
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.UnionPay.UnionErrorCode), object: str, userInfo:nil)
+//            })
         }else{
              WXApi.handleOpen(url, delegate: AppServerHelper.instance())
         }

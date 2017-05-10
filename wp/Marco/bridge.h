@@ -25,16 +25,12 @@ struct SocketPacketHead {
 #import <DKNightVersion/DKNightVersion.h>
 #import <Qiniu/QiniuSDK.h>
 #import <FMDB/FMDB.h>
-#import <GTSDK/GeTuiSdk.h>
 #import "UPPaymentControl.h"
-#import <UMMobClick/MobClick.h>
 #import "WechatAuthSDK.h"
 #import "WXApi.h"
 #import "WXApiObject.h"
 #import <CommonCrypto/CommonDigest.h>
 #import <sys/utsname.h>
-#import <YWFeedbackFMWK/YWFeedbackKit.h>
-#import <YWFeedbackFMWK/YWFeedbackViewController.h>
 #import <DKNightVersion/DKNightVersion.h>
 //#import <CommonCrypto/CommonCrytor.h>
 /* nineSister_Bridging_Header_h */

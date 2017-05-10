@@ -13,11 +13,11 @@ target 'wp' do
     pod 'Kingfisher', '~> 3.2.2'
     pod 'Qiniu', '~> 7.1'
     pod 'FMDB', '~> 2.6.2'
-    pod 'GTSDK', '~> 1.4.3'
+    #pod 'GTSDK', '~> 1.4.3'
     pod 'SideMenuController'
     pod 'Fabric'
     pod 'Crashlytics'
-    pod 'UMengAnalytics-NO-IDFA'
+    #pod 'UMengAnalytics-NO-IDFA'
     pod 'Charts'
     #pod 'XCGLogger'
     pod 'SnapKit'
@@ -25,4 +25,5 @@ target 'wp' do
     pod "DKNightVersion"
     #pod 'ReactiveCocoa'
     pod 'iCarousel'
+    #pod 'WechatOpenSDK'
 end
