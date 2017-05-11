@@ -9,6 +9,7 @@
 import UIKit
 
 class CommenSocketApi: BaseSocketAPI, CommenApi {
+
     func imageToken(complete: CompleteBlock?, error: ErrorBlock?) {
         startRequest(SocketDataPacket.init(opcode: .imageToken, type:SocketConst.type.error), complete: complete, error: error)
     }
@@ -28,7 +29,12 @@ class CommenSocketApi: BaseSocketAPI, CommenApi {
     
     //发送验证码(模型)
     func verifycode(param: CheckPhoneParam, complete: CompleteBlock?, error: ErrorBlock?){
-        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .verifycode, model: param , type: SocketConst.type.user)
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .verifycode, model: param , type: .user)
+        startRequest(packet, complete: complete, error: error)
+    }
+    
+    func update(type: Int, complete: CompleteBlock?, error: ErrorBlock?){
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .update, dict: [SocketConst.Key.type: type as AnyObject], type: .user)
         startRequest(packet, complete: complete, error: error)
     }
   

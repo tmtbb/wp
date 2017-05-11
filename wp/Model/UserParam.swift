@@ -51,7 +51,6 @@ class ChecktokenParam: BaseParam{
 class CheckPhoneParam: BaseParam{
     var type = 0
     var phone = ""
-    
 }
 
 class ResetPwdParam: BaseParam{

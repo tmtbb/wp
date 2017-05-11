@@ -37,6 +37,3 @@ class SideVC: SideMenuController, SideMenuControllerDelegate {
 
 }
 
-extension SideVC{
-
-}

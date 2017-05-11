@@ -19,6 +19,7 @@ class AppServerHelper: NSObject , WXApiDelegate{
     }
     
     func initServer() {
+        checkUpdate()
         initFabric()
         wechat()
     }
@@ -26,6 +27,18 @@ class AppServerHelper: NSObject , WXApiDelegate{
     //Fabric
     func initFabric() {
         Fabric.with([Crashlytics.self])
+    }
+    
+    //查询是否有新版本更新
+    func checkUpdate() {
+        print(UIDevice.current.systemVersion)
+        AppAPIHelper.commen().update(type: 0, complete: { result in
+            if let param = result as? UpdateParam{
+                param.haveUpate = Double(param.newAppVersionName)! > Double(UIDevice.current.systemVersion)!
+                UserModel.share().updateParam = param
+            }
+            return nil
+        }, error: nil)
     }
     
     

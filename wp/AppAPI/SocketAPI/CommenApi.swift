@@ -15,5 +15,6 @@ protocol CommenApi {
     func verifycode(verifyType: Int64, phone: String, complete: CompleteBlock?, error: ErrorBlock?)
     //发送验证码(模型)
     func verifycode(param: CheckPhoneParam, complete: CompleteBlock?, error: ErrorBlock?)
+    func update(type: Int, complete: CompleteBlock?, error: ErrorBlock?)
 }
 

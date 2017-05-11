@@ -69,6 +69,7 @@ class DealModel: BaseModel {
     }
     
     class func checkIfSuspended() -> Bool {
+        
         //周六6点以后
         if Date().yt_weekday() == 7 && Date().yt_hour() > 5{
             return true
@@ -82,17 +83,6 @@ class DealModel: BaseModel {
             return true
         }
         return false
-        
-//        let realm = try! Realm()
-//        
-//        let model = realm.objects(KChartModel.self).sorted(byProperty: "priceTime", ascending: false).first
-//        
-//        guard model != nil else {
-//            return true
-//        }
-//        return model!.systemTime - model!.priceTime > 60
-        
-        
     }
     
     // 缓存建仓数据
@@ -114,12 +104,11 @@ class DealModel: BaseModel {
     }
     class func cachePositionWithArray(positionArray:Array<PositionModel>) {
         let realm = try! Realm()
-        
-            try! realm.write {
-                for positionModel in positionArray {
-                    realm.add(positionModel, update: true)
-               
-                }
+        try! realm.write {
+            for positionModel in positionArray {
+                realm.add(positionModel, update: true)
+           
+            }
         }
     }
     
