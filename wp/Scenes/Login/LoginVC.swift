@@ -40,6 +40,7 @@ class LoginVC: BaseTableViewController {
     //MARK: --DATA
     func initData() {
         NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(checkUpdateVC), name: NSNotification.Name(rawValue: AppConst.NoticeKey.updateSoftware.rawValue), object: nil)
     }
     //MARK: --UI
     func initUI() {

@@ -34,8 +34,8 @@ class CommenSocketApi: BaseSocketAPI, CommenApi {
     }
     
     func update(type: Int, complete: CompleteBlock?, error: ErrorBlock?){
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .update, dict: [SocketConst.Key.type: type as AnyObject], type: .user)
-        startRequest(packet, complete: complete, error: error)
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .update, dict: ["ttype": type as AnyObject], type: .user)
+        startModelRequest(packet, modelClass: UpdateParam.self, complete: complete, error: error)
     }
   
 }

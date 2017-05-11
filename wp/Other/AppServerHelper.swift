@@ -31,11 +31,13 @@ class AppServerHelper: NSObject , WXApiDelegate{
     
     //查询是否有新版本更新
     func checkUpdate() {
-        print(UIDevice.current.systemVersion)
+        let versionCode = Bundle.main.infoDictionary![AppConst.BundleInfo.CFBundleShortVersionString.rawValue] as! String
+        
         AppAPIHelper.commen().update(type: 0, complete: { result in
             if let param = result as? UpdateParam{
-                param.haveUpate = Double(param.newAppVersionName)! > Double(UIDevice.current.systemVersion)!
+                param.haveUpate = param.newAppVersionCode > Double(versionCode)!
                 UserModel.share().updateParam = param
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NoticeKey.updateSoftware.rawValue), object: nil)
             }
             return nil
         }, error: nil)

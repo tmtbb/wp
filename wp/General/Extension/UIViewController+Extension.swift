@@ -43,14 +43,6 @@ extension UIViewController {
     //检查是否已登录
     func checkLogin() -> Bool {
         if  UserModel.share().token.length() == 0{
-            if UserModel.share().updateParam.haveUpate{
-                let homeStoryboard = UIStoryboard.init(name: "Home", bundle: nil)
-                let controller = homeStoryboard.instantiateViewController(withIdentifier: UpdateVC.className()) as! UpdateVC
-                controller.modalPresentationStyle = .custom
-                present(controller, animated: true, completion: nil)
-                return false
-            }
-            
             let homeStoryboard = UIStoryboard.init(name: "Login", bundle: nil)
             present(homeStoryboard.instantiateInitialViewController()!, animated: true, completion: nil)
             return false
@@ -58,6 +50,19 @@ extension UIViewController {
             return true
         }
     }
+    
+    func checkUpdateVC() {
+        if UserModel.share().updateParam.haveUpate{
+            let homeStoryboard = UIStoryboard.init(name: "Home", bundle: nil)
+            let controller = homeStoryboard.instantiateViewController(withIdentifier: UpdateVC.className()) as! UpdateVC
+            controller.modalPresentationStyle = .custom
+            controller.modalTransitionStyle = .crossDissolve
+            present(controller, animated: true, completion: {
+                AppDataHelper.instance().clearUserInfo()
+            })
+        }
+    }
+    
     //退出登录
     func userLogout() {
         UserDefaults.standard.removeObject(forKey: SocketConst.Key.uid)

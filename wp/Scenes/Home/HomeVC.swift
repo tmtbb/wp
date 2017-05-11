@@ -179,6 +179,7 @@ extension HomeVC{
         notificationCenter.addObserver(self, selector: #selector(checkLogin), name: NSNotification.Name(rawValue: AppConst.NoticeKey.logoutNotice.rawValue), object: nil)
         notificationCenter.addObserver(self, selector: #selector(sideHide), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.EnterBackground), object: nil)
         notificationCenter.addObserver(self, selector: #selector(initRequestPrice), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(checkUpdateVC), name: NSNotification.Name(rawValue: AppConst.NoticeKey.updateSoftware.rawValue), object: nil)
     }
     func initRequestPrice() {
         if priceTimer != nil {

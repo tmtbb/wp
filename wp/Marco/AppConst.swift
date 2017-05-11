@@ -42,6 +42,7 @@ class AppConst {
     
     enum NoticeKey: String {
         case logoutNotice = "LogoutNotice"
+        case updateSoftware = "updateSoftware"
     }
     
     class Color {
