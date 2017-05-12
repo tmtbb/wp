@@ -22,11 +22,9 @@ class BaseTableViewController: UITableViewController , TableViewHelperProtocol {
     //友盟页面统计
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        MobClick.beginLogPageView(NSStringFromClass(self.classForCoder))
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        MobClick.beginLogPageView(NSStringFromClass(self.classForCoder))
         SVProgressHUD.dismiss()
     }
     //MARK:TableViewHelperProtocol

@@ -83,6 +83,8 @@ class SocketConst: NSObject {
         case easypayRecharge = 7039
         //easyPay提现
         case easypayWithDraw = 7045
+        //更新版本
+        case update = 3017
     }
     enum type:UInt8 {
         case error  = 0
@@ -114,6 +116,8 @@ class SocketConst: NSObject {
         static let nickname = "nickname"
         static let openid = "openid"
         static let aType = "aType"
+        static let type = "type"
+        static let verifyType = "verifyType"
         static let pwd = "pwd"
         static let headimgurl = "headimgurl"
         static let symbolInfos = "symbolInfos"

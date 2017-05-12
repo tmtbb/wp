@@ -16,8 +16,6 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad();
         view.backgroundColor = UIColor.white
-        //友盟的帐号统计
-        MobClick.profileSignIn(withPUID: "")
         select = 0
         let storyboardNames = ["Home","Deal","Share"]
         let titles = ["首页","交易","晒单"]
@@ -66,10 +64,8 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate {
     //友盟页面统计
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        MobClick.beginLogPageView(MainTabBarController.className())
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        MobClick.endLogPageView(MainTabBarController.className())
     }
 }

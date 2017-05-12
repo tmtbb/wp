@@ -203,21 +203,10 @@ extension HomeVC{
             performSegue(withIdentifier: WithDrawalVC.className(), sender: nil)
         }
     }
-    //意见反馈
     func jumpToDealList() {
         performSegue(withIdentifier: DealController.className(), sender: nil)
     }
     
-    //意见反馈
-    func jumpToFeedbackController() {
-        AppServerHelper.instance().feedbackKid?.makeFeedbackViewController(completionBlock: {[weak self] (controller, error) in
-            if let feedbackController = controller{
-                let nav = BaseNavigationController.init(rootViewController: feedbackController)
-                feedbackController.title = "意见反馈"
-                self?.present(nav, animated: true, completion: nil)
-            }
-        })
-    }
    
  
 }

@@ -22,9 +22,11 @@
 		8E0679E51E4C7088007EF765 /* BuyProductVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0679E41E4C7088007EF765 /* BuyProductVC.swift */; };
 		8E0720911E52D3AE00D2E839 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0720901E52D3AE00D2E839 /* BannerView.swift */; };
 		8E0720931E52DE7600D2E839 /* NoticeICarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0720921E52DE7600D2E839 /* NoticeICarousel.swift */; };
+		8E12A7431EC1BE3200D68822 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0629D91E04DC7E00618B1B /* libWeChatSDK.a */; };
 		8E3008031E4C159700B32717 /* ProductsiCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3008021E4C159700B32717 /* ProductsiCarousel.swift */; };
 		8E38092B1EBB508E00FA78DA /* rechargeBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E38092A1EBB508E00FA78DA /* rechargeBanner.png */; };
 		8E53E0F71EB09BDC00D9D43A /* ResetLoginPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53E0F61EB09BDC00D9D43A /* ResetLoginPasswordVC.swift */; };
+		8E58C8E21EC414BD000F2791 /* UpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58C8E11EC414BD000F2791 /* UpdateVC.swift */; };
 		8E729A351EB30F9F0080611A /* QRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E729A341EB30F9F0080611A /* QRCodeVC.swift */; };
 		8E729A381EB3296E0080611A /* alipay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E729A361EB3296E0080611A /* alipay@2x.png */; };
 		8E729A391EB3296E0080611A /* alipay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E729A371EB3296E0080611A /* alipay@3x.png */; };
@@ -195,7 +197,6 @@
 		A07F165F1E2CD13A00F94736 /* ShareFriendTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07F165E1E2CD13A00F94736 /* ShareFriendTableView.swift */; };
 		A08CB39B1E1E1A8A004BE44B /* RechargeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08CB39A1E1E1A8A004BE44B /* RechargeListVC.swift */; };
 		A08CB3A11E1E5387004BE44B /* WithDrawaListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08CB3A01E1E5387004BE44B /* WithDrawaListVC.swift */; };
-		A096ED461E681D2000479B47 /* rechargebanner.png in Resources */ = {isa = PBXBuildFile; fileRef = A096ED451E681D2000479B47 /* rechargebanner.png */; };
 		A0B5D45A1E1DDCC60029C7BA /* RechargeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */; };
 		A0B5D45C1E1DE14B0029C7BA /* SortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */; };
 		A0B9DA651E2732900076BCF4 /* SelectBankVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B9DA641E2732900076BCF4 /* SelectBankVC.swift */; };
@@ -212,7 +213,6 @@
 		A0C31A531E2F39670034D58D /* FriendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C31A521E2F39670034D58D /* FriendVC.swift */; };
 		A0E9F5761E6FA2BB0077E669 /* weixinpay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0E9F5741E6FA2BB0077E669 /* weixinpay@2x.png */; };
 		A0E9F5771E6FA2BB0077E669 /* weixinpay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0E9F5751E6FA2BB0077E669 /* weixinpay@3x.png */; };
-		A0EA2D4F1E481BA200DD3158 /* libPaymentControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EA2D4D1E481BA200DD3158 /* libPaymentControl.a */; };
 		A0EA2D511E481BC300DD3158 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EA2D501E481BC300DD3158 /* CFNetwork.framework */; };
 		A0EA2D531E481BD600DD3158 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EA2D521E481BD600DD3158 /* SystemConfiguration.framework */; };
 		A0EA2D551E481BF900DD3158 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EA2D541E481BF900DD3158 /* libz.tbd */; };
@@ -223,15 +223,6 @@
 		BF0479331E0FBDD400C511E7 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0479321E0FBDD400C511E7 /* RegisterVC.swift */; };
 		BF0479391E0FBEC300C511E7 /* DealVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0479381E0FBEC300C511E7 /* DealVC.swift */; };
 		BF04793D1E0FBF5000C511E7 /* RechargeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04793C1E0FBF5000C511E7 /* RechargeVC.swift */; };
-		BF0629E01E04DC7E00618B1B /* AmrCodecFMWK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0629D01E04DC7E00618B1B /* AmrCodecFMWK.framework */; };
-		BF0629E11E04DC7E00618B1B /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0629D11E04DC7E00618B1B /* UTDID.framework */; };
-		BF0629E21E04DC7E00618B1B /* UTMini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0629D21E04DC7E00618B1B /* UTMini.framework */; };
-		BF0629E31E04DC7E00618B1B /* WQConnectorBundle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0629D31E04DC7E00618B1B /* WQConnectorBundle.framework */; };
-		BF0629E41E04DC7E00618B1B /* yw_1222.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF0629D41E04DC7E00618B1B /* yw_1222.jpg */; };
-		BF0629E51E04DC7E00618B1B /* YWFeedbackAudioExtentionFMWK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0629D51E04DC7E00618B1B /* YWFeedbackAudioExtentionFMWK.framework */; };
-		BF0629E61E04DC7E00618B1B /* YWFeedbackFMWK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0629D61E04DC7E00618B1B /* YWFeedbackFMWK.framework */; };
-		BF0629E71E04DC7E00618B1B /* YWHybridWebViewFMWK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0629D71E04DC7E00618B1B /* YWHybridWebViewFMWK.framework */; };
-		BF0629E81E04DC7E00618B1B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0629D91E04DC7E00618B1B /* libWeChatSDK.a */; };
 		BF0629E91E04DC7E00618B1B /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = BF0629DA1E04DC7E00618B1B /* README.txt */; };
 		BF062B471E04DEC900618B1B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF062B431E04DEC900618B1B /* MainTabBarController.swift */; };
 		BF062B491E04DF0A00618B1B /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF062B481E04DF0A00618B1B /* LoginVC.swift */; };
@@ -276,7 +267,6 @@
 		BF52104C1E27A94E00A6365E /* DealParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52104B1E27A94D00A6365E /* DealParam.swift */; };
 		BF5E24801E10B00700B5C07A /* MyDealTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5E247F1E10B00700B5C07A /* MyDealTableView.swift */; };
 		BF5E24821E10BE1E00B5C07A /* KLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5E24811E10BE1E00B5C07A /* KLineView.swift */; };
-		BF8648D51E023AA600D9EFB4 /* libGeTuiSdk-1.4.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8648D21E023A6900D9EFB4 /* libGeTuiSdk-1.4.3.a */; };
 		BF87C3741E023A180074D696 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF87C3731E023A180074D696 /* CoreTelephony.framework */; };
 		BF9BE4A21E1FA10800DB5F1A /* BaseMode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9BE4A11E1FA10800DB5F1A /* BaseMode+Extension.swift */; };
 		BF9CD7441E0A546D00194A32 /* HomeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9CD7431E0A546D00194A32 /* HomeApi.swift */; };
@@ -301,7 +291,6 @@
 		BFAC330A1E129128008EF3D3 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAC33091E129128008EF3D3 /* UserInfo.swift */; };
 		BFAC331F1E135FC1008EF3D3 /* DealInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAC331E1E135FC1008EF3D3 /* DealInfo.swift */; };
 		BFC1E5BD1E0D1820004A2AFC /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC1E5BC1E0D1820004A2AFC /* UIView+Extension.swift */; };
-		BFC81E9E1DFA9E6600ADC291 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFC81E9D1DFA9E6600ADC291 /* UMMobClick.framework */; };
 		BFD70D711E2F3B12001F6CD4 /* AppDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD70D701E2F3B12001F6CD4 /* AppDataHelper.swift */; };
 		BFD70D731E2F3B2F001F6CD4 /* AppServerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD70D721E2F3B2F001F6CD4 /* AppServerHelper.swift */; };
 		BFD70FDD1E10F5B700930E8C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD70FDC1E10F5B700930E8C /* UserModel.swift */; };
@@ -346,6 +335,7 @@
 		8E3008021E4C159700B32717 /* ProductsiCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsiCarousel.swift; sourceTree = "<group>"; };
 		8E38092A1EBB508E00FA78DA /* rechargeBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rechargeBanner.png; sourceTree = "<group>"; };
 		8E53E0F61EB09BDC00D9D43A /* ResetLoginPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetLoginPasswordVC.swift; sourceTree = "<group>"; };
+		8E58C8E11EC414BD000F2791 /* UpdateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateVC.swift; sourceTree = "<group>"; };
 		8E729A341EB30F9F0080611A /* QRCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QRCodeVC.swift; path = ../../Home/QRCodeVC.swift; sourceTree = "<group>"; };
 		8E729A361EB3296E0080611A /* alipay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alipay@2x.png"; sourceTree = "<group>"; };
 		8E729A371EB3296E0080611A /* alipay@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alipay@3x.png"; sourceTree = "<group>"; };
@@ -517,7 +507,6 @@
 		A07F165E1E2CD13A00F94736 /* ShareFriendTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareFriendTableView.swift; sourceTree = "<group>"; };
 		A08CB39A1E1E1A8A004BE44B /* RechargeListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RechargeListVC.swift; sourceTree = "<group>"; };
 		A08CB3A01E1E5387004BE44B /* WithDrawaListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawaListVC.swift; sourceTree = "<group>"; };
-		A096ED451E681D2000479B47 /* rechargebanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rechargebanner.png; sourceTree = "<group>"; };
 		A0B5D4591E1DDCC60029C7BA /* RechargeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RechargeModel.swift; sourceTree = "<group>"; };
 		A0B5D45B1E1DE14B0029C7BA /* SortModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortModel.swift; sourceTree = "<group>"; };
 		A0B9DA641E2732900076BCF4 /* SelectBankVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectBankVC.swift; sourceTree = "<group>"; };
@@ -550,14 +539,6 @@
 		BF0479321E0FBDD400C511E7 /* RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		BF0479381E0FBEC300C511E7 /* DealVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealVC.swift; sourceTree = "<group>"; };
 		BF04793C1E0FBF5000C511E7 /* RechargeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RechargeVC.swift; path = ../../Deal/RechargeVC.swift; sourceTree = "<group>"; };
-		BF0629D01E04DC7E00618B1B /* AmrCodecFMWK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmrCodecFMWK.framework; sourceTree = "<group>"; };
-		BF0629D11E04DC7E00618B1B /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
-		BF0629D21E04DC7E00618B1B /* UTMini.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTMini.framework; sourceTree = "<group>"; };
-		BF0629D31E04DC7E00618B1B /* WQConnectorBundle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WQConnectorBundle.framework; sourceTree = "<group>"; };
-		BF0629D41E04DC7E00618B1B /* yw_1222.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yw_1222.jpg; sourceTree = "<group>"; };
-		BF0629D51E04DC7E00618B1B /* YWFeedbackAudioExtentionFMWK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YWFeedbackAudioExtentionFMWK.framework; sourceTree = "<group>"; };
-		BF0629D61E04DC7E00618B1B /* YWFeedbackFMWK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YWFeedbackFMWK.framework; sourceTree = "<group>"; };
-		BF0629D71E04DC7E00618B1B /* YWHybridWebViewFMWK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YWHybridWebViewFMWK.framework; sourceTree = "<group>"; };
 		BF0629D91E04DC7E00618B1B /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		BF0629DA1E04DC7E00618B1B /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		BF0629DB1E04DC7E00618B1B /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
@@ -667,25 +648,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E12A7431EC1BE3200D68822 /* libWeChatSDK.a in Frameworks */,
 				B02DB25C1DF985B70044F910 /* libsqlite3.tbd in Frameworks */,
 				A0EA2D551E481BF900DD3158 /* libz.tbd in Frameworks */,
 				A0EA2D531E481BD600DD3158 /* SystemConfiguration.framework in Frameworks */,
 				A0EA2D511E481BC300DD3158 /* CFNetwork.framework in Frameworks */,
-				BF8648D51E023AA600D9EFB4 /* libGeTuiSdk-1.4.3.a in Frameworks */,
 				BF87C3741E023A180074D696 /* CoreTelephony.framework in Frameworks */,
-				BF0629E21E04DC7E00618B1B /* UTMini.framework in Frameworks */,
-				BFC81E9E1DFA9E6600ADC291 /* UMMobClick.framework in Frameworks */,
-				A0EA2D4F1E481BA200DD3158 /* libPaymentControl.a in Frameworks */,
-				BF0629E31E04DC7E00618B1B /* WQConnectorBundle.framework in Frameworks */,
-				BF0629E11E04DC7E00618B1B /* UTDID.framework in Frameworks */,
-				BF0629E61E04DC7E00618B1B /* YWFeedbackFMWK.framework in Frameworks */,
 				BFA9FAB31DF6AEBF00E2A67C /* Crashlytics.framework in Frameworks */,
-				BF0629E01E04DC7E00618B1B /* AmrCodecFMWK.framework in Frameworks */,
 				BFA9FAB11DF6AEAE00E2A67C /* Fabric.framework in Frameworks */,
-				BF0629E71E04DC7E00618B1B /* YWHybridWebViewFMWK.framework in Frameworks */,
-				BF0629E81E04DC7E00618B1B /* libWeChatSDK.a in Frameworks */,
 				B08673461DE5C4C0008DD8A1 /* libstdc++.tbd in Frameworks */,
-				BF0629E51E04DC7E00618B1B /* YWFeedbackAudioExtentionFMWK.framework in Frameworks */,
 				2FFBC4EC1DF8EF190039A0E6 /* MapKit.framework in Frameworks */,
 				BF2F64391E038DFE00917FA1 /* OEZCommSDK.framework in Frameworks */,
 				67563DCFE7C11C493D5E3BE0 /* Pods_wp.framework in Frameworks */,
@@ -921,7 +892,6 @@
 		8EF59D831E571D8200BABBD0 /* share */ = {
 			isa = PBXGroup;
 			children = (
-				A096ED451E681D2000479B47 /* rechargebanner.png */,
 				8EF59D861E571D8200BABBD0 /* Account@2x.png */,
 				8EF59D871E571D8200BABBD0 /* Account@3x.png */,
 				8EF59D881E571D8200BABBD0 /* addbank@2x.png */,
@@ -1058,21 +1028,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BF0629CF1E04DC7E00618B1B /* BCFeedback */ = {
-			isa = PBXGroup;
-			children = (
-				BF0629D01E04DC7E00618B1B /* AmrCodecFMWK.framework */,
-				BF0629D11E04DC7E00618B1B /* UTDID.framework */,
-				BF0629D21E04DC7E00618B1B /* UTMini.framework */,
-				BF0629D31E04DC7E00618B1B /* WQConnectorBundle.framework */,
-				BF0629D41E04DC7E00618B1B /* yw_1222.jpg */,
-				BF0629D51E04DC7E00618B1B /* YWFeedbackAudioExtentionFMWK.framework */,
-				BF0629D61E04DC7E00618B1B /* YWFeedbackFMWK.framework */,
-				BF0629D71E04DC7E00618B1B /* YWHybridWebViewFMWK.framework */,
-			);
-			path = BCFeedback;
-			sourceTree = "<group>";
-		};
 		BF0629D81E04DC7E00618B1B /* WeChatSDK1.7.4 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1106,6 +1061,7 @@
 				BF062B4A1E04DF5200618B1B /* HomeVC.swift */,
 				BFA73BA91E0B9D070079934F /* SideVC.swift */,
 				8ED4ADE81E56EF0B00E4BB7B /* WPWebViewController.swift */,
+				8E58C8E11EC414BD000F2791 /* UpdateVC.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1248,7 +1204,6 @@
 		BF2F63F01E038DFE00917FA1 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				BF0629CF1E04DC7E00618B1B /* BCFeedback */,
 				BF0629D81E04DC7E00618B1B /* WeChatSDK1.7.4 */,
 				BF2F63F11E038DFE00917FA1 /* MJRefresh */,
 				BF2F63F31E038DFE00917FA1 /* OEZCommSDK.framework */,
@@ -1536,7 +1491,7 @@
 				TargetAttributes = {
 					B0CF59DC1DE5BEC300C40C9C = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 29FPYRHCKA;
+						DevelopmentTeam = MV9QZQW9DJ;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -1636,7 +1591,6 @@
 				8EF59E2C1E571D8200BABBD0 /* mybank@2x.png in Resources */,
 				8EF59E1B1E571D8200BABBD0 /* addbank@2x.png in Resources */,
 				8EF59E121E571D8200BABBD0 /* nav_main@2x.png in Resources */,
-				BF0629E41E04DC7E00618B1B /* yw_1222.jpg in Resources */,
 				8EF59E0A1E571D8200BABBD0 /* DealSelect@2x.png in Resources */,
 				8EF59E221E571D8200BABBD0 /* banner@2x.png in Resources */,
 				BFF019791E23B113008631D6 /* LaunchScreen.storyboard in Resources */,
@@ -1723,7 +1677,6 @@
 				8EF59E0C1E571D8200BABBD0 /* DealUnSelect@2x.png in Resources */,
 				8EF59DE51E571D8200BABBD0 /* icon-12@2x.png in Resources */,
 				8EC879531E77F1B2004A42E8 /* shouye-jiazaishibai@3x.png in Resources */,
-				A096ED461E681D2000479B47 /* rechargebanner.png in Resources */,
 				8EF59E271E571D8200BABBD0 /* caname@3x.png in Resources */,
 				8EF59DF91E571D8200BABBD0 /* high_btn@3x.png in Resources */,
 				8EF59DDD1E571D8200BABBD0 /* horn.png in Resources */,
@@ -1852,6 +1805,7 @@
 				BF2F64411E038DFE00917FA1 /* BaseModel.swift in Sources */,
 				D0FA4EB71E25CD0D0015C012 /* ProductCollectionCell.swift in Sources */,
 				BF2F64351E038DFE00917FA1 /* UIViewController+Extension.swift in Sources */,
+				8E58C8E21EC414BD000F2791 /* UpdateVC.swift in Sources */,
 				BF0C4E1E1E24BC6600FA4B4A /* KChartModel.swift in Sources */,
 				BF2F64421E038DFE00917FA1 /* AppDelegate.swift in Sources */,
 				BF2F64361E038DFE00917FA1 /* EmojiFaceHelper.swift in Sources */,
@@ -2066,28 +2020,23 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: yong ming lu (FD5S65ADL4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 29FPYRHCKA;
+				DEVELOPMENT_TEAM = MV9QZQW9DJ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Fabric",
 					"$(PROJECT_DIR)/Pods/Crashlytics",
-					"$(PROJECT_DIR)/Pods/UMengAnalytics-NO-IDFA/umsdk_IOS_analyics_no-idfa_v4.1.5",
-					"$(PROJECT_DIR)/nineSister/Library",
 					"$(PROJECT_DIR)/wp/Library",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/HappyTravel/Other/Alipay",
-					"$(PROJECT_DIR)/wp/Library/master/tvlios/HappyTravel/Other/BCFeedback",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/AMap2DMap",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/AMapFoundation",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/Crashlytics",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/Crashlytics/iOS",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/Fabric",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/Fabric/iOS",
-					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/MOBFoundation_IDFA",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/SMSSDK/SMS_SDK",
 					"$(PROJECT_DIR)/wp/Library/Alipay",
-					"$(PROJECT_DIR)/wp/Library/BCFeedback",
 					"$(PROJECT_DIR)/Pods/iCarousel",
 					"$(PROJECT_DIR)",
 				);
@@ -2096,9 +2045,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/GTSDK",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/HappyTravel/Other/WeChatSDK1.7.4",
-					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/GTSDK",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/Realm/core",
 					"$(PROJECT_DIR)/wp/Library/WeChatSDK1.7.4",
 					"$(PROJECT_DIR)",
@@ -2110,10 +2057,10 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR/Alamofire/Alamofire.framework/Headers\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.inf.aviation.cn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inf.aviation;
 				PRODUCT_NAME = wp;
-				PROVISIONING_PROFILE = "a2983d3a-bff8-4c49-8d18-6bd4c3e2f0be";
-				PROVISIONING_PROFILE_SPECIFIER = 20170503a;
+				PROVISIONING_PROFILE = "c771f699-e35a-4369-b2dd-1888369e1cd5";
+				PROVISIONING_PROFILE_SPECIFIER = developCompany;
 				SWIFT_OBJC_BRIDGING_HEADER = wp/Marco/bridge.h;
 				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "arm64 armv7s armv7";
@@ -2127,28 +2074,23 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: yong ming lu (FD5S65ADL4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 29FPYRHCKA;
+				DEVELOPMENT_TEAM = MV9QZQW9DJ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Fabric",
 					"$(PROJECT_DIR)/Pods/Crashlytics",
-					"$(PROJECT_DIR)/Pods/UMengAnalytics-NO-IDFA/umsdk_IOS_analyics_no-idfa_v4.1.5",
-					"$(PROJECT_DIR)/nineSister/Library",
 					"$(PROJECT_DIR)/wp/Library",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/HappyTravel/Other/Alipay",
-					"$(PROJECT_DIR)/wp/Library/master/tvlios/HappyTravel/Other/BCFeedback",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/AMap2DMap",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/AMapFoundation",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/Crashlytics",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/Crashlytics/iOS",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/Fabric",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/Fabric/iOS",
-					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/MOBFoundation_IDFA",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/SMSSDK/SMS_SDK",
 					"$(PROJECT_DIR)/wp/Library/Alipay",
-					"$(PROJECT_DIR)/wp/Library/BCFeedback",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Pods/iCarousel",
 				);
@@ -2157,9 +2099,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/GTSDK",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/HappyTravel/Other/WeChatSDK1.7.4",
-					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/GTSDK",
 					"$(PROJECT_DIR)/wp/Library/master/tvlios/Pods/Realm/core",
 					"$(PROJECT_DIR)/wp/Library/WeChatSDK1.7.4",
 					"$(PROJECT_DIR)",
@@ -2171,10 +2111,10 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR/Alamofire/Alamofire.framework/Headers\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.inf.aviation.cn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inf.aviation;
 				PRODUCT_NAME = wp;
-				PROVISIONING_PROFILE = "c5a73f0a-b619-4270-8204-50b18568090f";
-				PROVISIONING_PROFILE_SPECIFIER = 201705050116distribution;
+				PROVISIONING_PROFILE = "4adf0194-1cff-4c7c-ad3e-c268e9191f19";
+				PROVISIONING_PROFILE_SPECIFIER = distributionCompany;
 				SWIFT_OBJC_BRIDGING_HEADER = wp/Marco/bridge.h;
 				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "arm64 armv7s armv7";

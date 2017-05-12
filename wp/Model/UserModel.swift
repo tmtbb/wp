@@ -33,13 +33,13 @@ class UserModel: BaseModel  {
     var wechatUserInfo: [String: String] = [:]
     var qrcodeStr = ""
     var qrcodeTitle = ""
+    var updateParam = UpdateParam()
     
     // 获取某个用户信息
     class func userInfo(userId: Int) -> UserInfo? {
         if userId == 0 {
             return nil
         }
-        
         let realm = try! Realm()
         let filterStr = "id = \(userId)"
         let user = realm.objects(UserInfo.self).filter(filterStr).first

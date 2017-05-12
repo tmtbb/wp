@@ -9,6 +9,7 @@
 import UIKit
 
 class CommenSocketApi: BaseSocketAPI, CommenApi {
+
     func imageToken(complete: CompleteBlock?, error: ErrorBlock?) {
         startRequest(SocketDataPacket.init(opcode: .imageToken, type:SocketConst.type.error), complete: complete, error: error)
     }
@@ -19,15 +20,22 @@ class CommenSocketApi: BaseSocketAPI, CommenApi {
     
     //发送验证码
     func verifycode(verifyType: Int64, phone: String, complete: CompleteBlock?, error: ErrorBlock?){
-        let param = [SocketConst.Key.phone: phone]
+        let param = [SocketConst.Key.phone: phone,
+                     SocketConst.Key.type: verifyType,
+                     SocketConst.Key.verifyType: verifyType] as [String : Any]
         let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .verifycode, dict: param as [String : AnyObject] , type: SocketConst.type.user)
         startRequest(packet, complete: complete, error: error)
     }
-    func test(phone: String, pwd: String, complete: CompleteBlock?, error: ErrorBlock?){
-        let param: [String: Any] = [SocketConst.Key.phone: phone,
-                                    SocketConst.Key.pwd: pwd,
-                                    SocketConst.Key.source: 1]
-        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .login, dict: param as [String : AnyObject])
-        startModelRequest(packet, modelClass: UserInfoModel.self, complete: complete, error: error)
+    
+    //发送验证码(模型)
+    func verifycode(param: CheckPhoneParam, complete: CompleteBlock?, error: ErrorBlock?){
+        let packet: SocketDataPacket =  SocketDataPacket.init(opcode: .verifycode, model: param , type: .user)
+        startRequest(packet, complete: complete, error: error)
     }
+    
+    func update(type: Int, complete: CompleteBlock?, error: ErrorBlock?){
+        let packet: SocketDataPacket = SocketDataPacket.init(opcode: .update, dict: [SocketConst.Key.type: type as AnyObject], type: .user)
+        startRequest(packet, complete: complete, error: error)
+    }
+  
 }

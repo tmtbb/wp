@@ -13,21 +13,15 @@ import Alamofire
 
 class AppServerHelper: NSObject , WXApiDelegate{
     fileprivate static var helper = AppServerHelper()
-    var feedbackKid: YWFeedbackKit?
     
     class func instance() -> AppServerHelper{
         return helper
     }
     
     func initServer() {
-        initFeedback()
+        checkUpdate()
         initFabric()
         wechat()
-    }
-    
-    //阿里百川
-    func initFeedback() {
-        feedbackKid = YWFeedbackKit.init(appKey: "23519848")
     }
     
     //Fabric
@@ -35,35 +29,18 @@ class AppServerHelper: NSObject , WXApiDelegate{
         Fabric.with([Crashlytics.self])
     }
     
-    //友盟
-    fileprivate func umapp() {
-        UMAnalyticsConfig.sharedInstance().appKey = AppConst.UMAppkey
-        UMAnalyticsConfig.sharedInstance().channelId = ""
-        MobClick.start(withConfigure: UMAnalyticsConfig.sharedInstance())
-        //version标识
-        let version: String? = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
-        MobClick.setAppVersion(version)
-        //日志加密设置
-        MobClick.setEncryptEnabled(true)
-        //使用集成测试服务
-        MobClick.setLogEnabled(true)
+    //查询是否有新版本更新
+    func checkUpdate() {
+        print(UIDevice.current.systemVersion)
+        AppAPIHelper.commen().update(type: 0, complete: { result in
+            if let param = result as? UpdateParam{
+                param.haveUpate = Double(param.newAppVersionName)! > Double(UIDevice.current.systemVersion)!
+                UserModel.share().updateParam = param
+            }
+            return nil
+        }, error: nil)
     }
     
-    //个推
-    func pushMessageRegister() {
-        //注册消息推送
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: { () in
-            
-            #if true
-                GeTuiSdk.start(withAppId: "d2YVUlrbRU6yF0PFQJfPkA", appKey: "yEIPB4YFxw64Ag9yJpaXT9", appSecret: "TMQWRB2KrG7QAipcBKGEyA", delegate: nil)
-            #endif
-            
-            let notifySettings = UIUserNotificationSettings.init(types: [.alert, .badge, .sound], categories: nil)
-            UIApplication.shared.registerUserNotificationSettings(notifySettings)
-            UIApplication.shared.registerForRemoteNotifications()
-            
-        })
-    }
     
     //MARK: --Wechat
     fileprivate func wechat() {

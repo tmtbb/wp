@@ -62,3 +62,15 @@ class RechargeDetailParam: BaseParam{
 class WithDrawDetailParam: BaseParam{
     var wid = ""
 }
+
+class UpdateParam: BaseParam{
+    var appName = ""
+    var newAppSize = 0
+    var newAppVersionCode: Double = 0
+    var newAppVersionName = ""
+    var newAppUpdateDesc = ""
+    var newAppReleaseTime = ""
+    var newAppUrl = ""
+    var isForceUpdate = 0
+    var haveUpate = false
+}

@@ -38,7 +38,7 @@ class ResetLoginPasswordVC: BaseTableViewController {
     //获取验证码
     @IBAction func changeCodePicture(_ sender: UIButton) {
         if checkoutText(){
-            let type = 0
+            let type = 1
             SVProgressHUD.showProgressMessage(ProgressMessage: "请稍候...")
             AppAPIHelper.commen().verifycode(verifyType: Int64(type), phone: phoneText.text!, complete: { [weak self](result) -> ()? in
                 SVProgressHUD.dismiss()
@@ -74,7 +74,7 @@ class ResetLoginPasswordVC: BaseTableViewController {
         codeBtn.backgroundColor = UIColor.init(rgbHex: 0xCCCCCC)
     }
     //注册
-    @IBAction func registerBtnTapped(_ sender: Any) {
+    @IBAction func nextBtnTapped(_ sender: UIButton) {
         if checkoutText(){
             if checkTextFieldEmpty([phoneText,pwdText,codeText]){
                 UserModel.share().code = codeText.text
@@ -85,8 +85,28 @@ class ResetLoginPasswordVC: BaseTableViewController {
     }
     
     func resetpwd() {
-        
        
+        let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
+        let param = ResetPwdParam()
+        param.phone = phoneText.text!
+        param.pwd = password
+        param.vCode = UserModel.share().code!
+        param.vToken = UserModel.share().codeToken
+        param.timestamp = UserModel.share().timestamp
+        SVProgressHUD.showProgressMessage(ProgressMessage: "重置中...")
+        AppAPIHelper.login().repwd(param: param, complete: { [weak self](result) -> ()?in
+            SVProgressHUD.dismiss()
+            if let status: Int = result?["status"] as? Int{
+                if status == 0{
+                    SVProgressHUD.showSuccessMessage(SuccessMessage: "重置成功", ForDuration: 2, completion: nil)
+                    _ = self?.navigationController?.popToRootViewController(animated: true)
+                }else{
+                    SVProgressHUD.showErrorMessage(ErrorMessage: "重置失败", ForDuration: 2, completion: nil)
+                }
+            }
+            return nil
+        }, error: errorBlockFunc())
+        
         
     }
     

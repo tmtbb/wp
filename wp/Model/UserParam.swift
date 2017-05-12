@@ -48,6 +48,11 @@ class ChecktokenParam: BaseParam{
     var source  = 1
 }
 
+class CheckPhoneParam: BaseParam{
+    var type = 0
+    var phone = ""
+}
+
 class ResetPwdParam: BaseParam{
     var phone = UserModel.share().phone!
     var pwd = ""
