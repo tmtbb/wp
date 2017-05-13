@@ -25,6 +25,7 @@
 		8E12A7431EC1BE3200D68822 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0629D91E04DC7E00618B1B /* libWeChatSDK.a */; };
 		8E3008031E4C159700B32717 /* ProductsiCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3008021E4C159700B32717 /* ProductsiCarousel.swift */; };
 		8E38092B1EBB508E00FA78DA /* rechargeBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E38092A1EBB508E00FA78DA /* rechargeBanner.png */; };
+		8E3DD1451EC6C7A1006915C4 /* IPManager.c in Sources */ = {isa = PBXBuildFile; fileRef = 8E3DD1431EC6C7A1006915C4 /* IPManager.c */; };
 		8E53E0F71EB09BDC00D9D43A /* ResetLoginPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53E0F61EB09BDC00D9D43A /* ResetLoginPasswordVC.swift */; };
 		8E58C8E21EC414BD000F2791 /* UpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58C8E11EC414BD000F2791 /* UpdateVC.swift */; };
 		8E729A351EB30F9F0080611A /* QRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E729A341EB30F9F0080611A /* QRCodeVC.swift */; };
@@ -333,6 +334,8 @@
 		8E0720921E52DE7600D2E839 /* NoticeICarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoticeICarousel.swift; path = CustomView/NoticeICarousel.swift; sourceTree = "<group>"; };
 		8E3008021E4C159700B32717 /* ProductsiCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsiCarousel.swift; sourceTree = "<group>"; };
 		8E38092A1EBB508E00FA78DA /* rechargeBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rechargeBanner.png; sourceTree = "<group>"; };
+		8E3DD1431EC6C7A1006915C4 /* IPManager.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IPManager.c; sourceTree = "<group>"; };
+		8E3DD1441EC6C7A1006915C4 /* IPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPManager.h; sourceTree = "<group>"; };
 		8E53E0F61EB09BDC00D9D43A /* ResetLoginPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetLoginPasswordVC.swift; sourceTree = "<group>"; };
 		8E58C8E11EC414BD000F2791 /* UpdateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateVC.swift; sourceTree = "<group>"; };
 		8E729A341EB30F9F0080611A /* QRCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QRCodeVC.swift; path = ../../Home/QRCodeVC.swift; sourceTree = "<group>"; };
@@ -702,6 +705,15 @@
 				BF2F64061E038DFE00917FA1 /* BaseModel.swift */,
 			);
 			name = Commen;
+			sourceTree = "<group>";
+		};
+		8E3DD1421EC6C758006915C4 /* OCFileManager */ = {
+			isa = PBXGroup;
+			children = (
+				8E3DD1431EC6C7A1006915C4 /* IPManager.c */,
+				8E3DD1441EC6C7A1006915C4 /* IPManager.h */,
+			);
+			path = OCFileManager;
 			sourceTree = "<group>";
 		};
 		8ED4ADE51E56E03000E4BB7B /* html */ = {
@@ -1201,6 +1213,7 @@
 		BF2F63F01E038DFE00917FA1 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				8E3DD1421EC6C758006915C4 /* OCFileManager */,
 				BF0629D81E04DC7E00618B1B /* WeChatSDK1.7.4 */,
 				BF2F63F11E038DFE00917FA1 /* MJRefresh */,
 				BF2F63F31E038DFE00917FA1 /* OEZCommSDK.framework */,
@@ -1821,6 +1834,7 @@
 				BF2F64261E038DFE00917FA1 /* SocketConst.swift in Sources */,
 				BF9CD7521E0A573400194A32 /* DealSocketApi.swift in Sources */,
 				BF2F642D1E038DFE00917FA1 /* BaseTableViewController.swift in Sources */,
+				8E3DD1451EC6C7A1006915C4 /* IPManager.c in Sources */,
 				BF0479331E0FBDD400C511E7 /* RegisterVC.swift in Sources */,
 				A0639A7E1E25C73B0071F62A /* RechargeDetailVC.swift in Sources */,
 				D0302B7A1E1C94DE007D3F2B /* WithdrawModel.swift in Sources */,

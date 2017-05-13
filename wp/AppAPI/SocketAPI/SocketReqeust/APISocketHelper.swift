@@ -32,8 +32,8 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
                 var host = ""
                 var port: UInt16 = 0
                
-                host = AppConst.Network.TcpServerIP
-                port = AppConst.Network.TcpServerPort
+                host = UserModel.share().ipStr.length() > 0 ? UserModel.share().ipStr : AppConst.Network.TcpServerIP
+                port = UserModel.share().portStr.length() > 0 ? UInt16(UserModel.share().portStr)! : AppConst.Network.TcpServerPort
                 try socket?.connect(toHost: host, onPort: port, withTimeout: 5)
             }
         } catch GCDAsyncSocketError.closedError {

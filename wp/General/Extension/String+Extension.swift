@@ -112,4 +112,18 @@ extension String {
         result.deinitialize()
         return String(format: hash as String)
     }
+    
+    func dnsToIP() -> String? {
+//        var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+//       	
+//        let result = getDNSToIP(&hostname, &self.cString(using: .utf8))
+//        let ipAddress = String.init(cString: result!)
+//        if !ipAddress.isEmpty {
+//            return ipAddress
+//        } else {
+//            print("解析失败")
+//            return nil
+//        }
+        return ""
+    }
 }

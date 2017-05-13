@@ -64,10 +64,10 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
         
         if checkTextFieldEmpty([countText]){
             
-            if Double(countText.text!)! < 100{
-                SVProgressHUD.showErrorMessage(ErrorMessage: "最低充值金额为100", ForDuration: AppConst.progressDuration, completion: nil)
-                return
-            }
+//            if Double(countText.text!)! < 100{
+//                SVProgressHUD.showErrorMessage(ErrorMessage: "最低充值金额为100", ForDuration: AppConst.progressDuration, completion: nil)
+//                return
+//            }
             
             SVProgressHUD.showProgressMessage(ProgressMessage: "正在提交订单...")
             let param = RechargeParam()
@@ -88,12 +88,7 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
     }
     
     func openURL(urlStr: String) {
-//        let webController = WPWebViewController()
-//        webController.title = "充值"
-//        _ = navigationController?.pushViewController(webController, animated: true)
-//        let baseUrl = URL.init(string: urlStr)
-//        webController.webView.loadRequest(URLRequest.init(url: baseUrl!))
-//      
+      
         UserModel.share().qrcodeStr = urlStr
         let platform = rechargeType == .alipay ? "支付宝":"微信"
         UserModel.share().qrcodeTitle  = "长按二维码保存到相册,然后打开\(platform)进行充值"

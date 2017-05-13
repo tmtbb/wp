@@ -33,6 +33,8 @@ class UserModel: BaseModel  {
     var wechatUserInfo: [String: String] = [:]
     var qrcodeStr = ""
     var qrcodeTitle = ""
+    var ipStr = ""
+    var portStr = ""
     var updateParam = UpdateParam()
     
     // 获取某个用户信息
