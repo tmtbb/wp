@@ -68,8 +68,6 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
         else {
 //            debugPrint("onPacketData error packet_length:\(packetHead.packet_length) packet_length:\(packetHead.data_length) data:\(data.count)");
         }
-       
-//        XCGLogger.debug("onPacketData:\(packet.packetHead.type) \(packet.packetHead.packet_length) \(packet.packetHead.operate_code)")
     }
 
     //MARK: GCDAsyncSocketDelegate
