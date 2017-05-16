@@ -17,6 +17,17 @@ extension SVProgressHUD{
         dismissWithDuration(Duration: duration,completion:completion)
     }
     
+    public class func showErrorMessage(error: NSError, duration: Double, complete:(() -> Void)?){
+        if error.code > 0{
+            return
+        }
+        let errorPath = Bundle.main.path(forResource: "errorcode", ofType: "plist")
+        let errorDic = NSDictionary.init(contentsOfFile: errorPath!)
+        if let errorMsg  = errorDic!["\(error.code)"] as? String{
+            showErrorMessage(ErrorMessage: errorMsg, ForDuration: duration, completion: complete)
+        }
+    }
+    
     public class func showSuccessMessage(SuccessMessage message: String, ForDuration duration: Double, completion: (() -> Void)?){
         initStyle()
         SVProgressHUD.showSuccess(withStatus: message)

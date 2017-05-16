@@ -135,8 +135,10 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         param.receiverAccountName = ShareModel.share().selectBank.name
         param.bid = Int(ShareModel.share().selectBank.bid)
         SVProgressHUD.showProgressMessage(ProgressMessage: "提交提现申请...")
+        submited.isEnabled = false
         AppAPIHelper.user().easypayWithDraw(param: param, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
+            self?.submited.isEnabled = true
             if let model : WithdrawResultModel = result as? WithdrawResultModel{
                 ShareModel.share().detailModel.cardNo = ShareModel.share().selectBank.cardNo
                 ShareModel.share().detailModel.bank = ShareModel.share().selectBank.bank
@@ -148,7 +150,11 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
                 }
             }
             return nil
-        }, error: errorBlockFunc())
+            }, error:{ [weak self](error) in
+            SVProgressHUD.showErrorMessage(error: error, duration: 3, complete: nil)
+            self?.submited.isEnabled = true
+            return nil
+        })
         
     }
 
