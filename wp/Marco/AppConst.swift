@@ -59,7 +59,7 @@ class AppConst {
    
     
     class Network {
-        #if false //是否测试环境
+        #if true //是否测试环境
         static let TcpServerIP:String = "139.224.34.22";
         static let TcpServerPort:UInt16 = 16205
         static let TttpHostUrl:String = "http://139.224.34.22";
@@ -89,8 +89,8 @@ class AppConst {
         static let Scope = "snsapi_userinfo"
         static let State = "wpstate"
         static let AccessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token"
-        static let Appid = "wx9dc39aec13ee3158" //wx54be5296e7826e5a
-        static let Secret =  "1e372a173a248fb1b5c88d24236ef3b3"//"49961b15569b08556d9ef5815a89c0b4"
+        static let Appid = "wx50f63126dc726c9c" //wx54be5296e7826e5a
+        static let Secret =  "d91879868310ac957183956d92d95237"//"49961b15569b08556d9ef5815a89c0b4"
         static let ErrorCode = "ErrorCode"
         static let wechetUserInfo = "https://api.weixin.qq.com/sns/userinfo"
     }

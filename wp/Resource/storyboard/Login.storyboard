@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="aJr-KO-sqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="aJr-KO-sqX">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -233,8 +233,40 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="60" id="Jsz-4H-YOQ">
+                                        <rect key="frame" x="0.0" y="220" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jsz-4H-YOQ" id="xAU-VD-vRa">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3b-a3-Up2">
+                                                    <rect key="frame" x="13" y="16" width="349" height="44"/>
+                                                    <color key="backgroundColor" red="0.082352941176470587" green="0.49803921568627452" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="YPy-y7-ek7"/>
+                                                    </constraints>
+                                                    <state key="normal" title="微信登录"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="wechatBtnTapped:" destination="IdH-9P-vUT" eventType="touchUpInside" id="uaU-5D-UJM"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="L3b-a3-Up2" secondAttribute="trailing" constant="13" id="MJt-ht-FJq"/>
+                                                <constraint firstAttribute="bottom" secondItem="L3b-a3-Up2" secondAttribute="bottom" id="QQN-KE-2qp"/>
+                                                <constraint firstItem="L3b-a3-Up2" firstAttribute="leading" secondItem="xAU-VD-vRa" secondAttribute="leading" constant="13" id="YQE-VM-RvH"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="220" id="Y2Q-jJ-bYE">
-                                        <rect key="frame" x="0.0" y="220" width="375" height="220"/>
+                                        <rect key="frame" x="0.0" y="280" width="375" height="220"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y2Q-jJ-bYE" id="oDE-29-eRL">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="220"/>
@@ -388,38 +420,6 @@
                                                 <constraint firstItem="zB2-7o-VXz" firstAttribute="leading" secondItem="ohy-O0-XNw" secondAttribute="trailing" constant="4" id="rro-Df-tQa"/>
                                                 <constraint firstItem="H9v-pi-2dg" firstAttribute="top" secondItem="iGR-HD-kTx" secondAttribute="bottom" constant="8" id="wRg-df-5k5"/>
                                                 <constraint firstItem="7cT-Ug-njN" firstAttribute="bottom" secondItem="oDE-29-eRL" secondAttribute="bottomMargin" constant="-22" id="xRU-iP-6E6"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="60" id="Jsz-4H-YOQ">
-                                        <rect key="frame" x="0.0" y="440" width="375" height="60"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" tableViewCell="Jsz-4H-YOQ" id="xAU-VD-vRa">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3b-a3-Up2">
-                                                    <rect key="frame" x="13" y="16" width="349" height="44"/>
-                                                    <color key="backgroundColor" red="0.082352941176470587" green="0.49803921568627452" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="44" id="YPy-y7-ek7"/>
-                                                    </constraints>
-                                                    <state key="normal" title="微信登录"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="wechatBtnTapped:" destination="IdH-9P-vUT" eventType="touchUpInside" id="uaU-5D-UJM"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="L3b-a3-Up2" secondAttribute="trailing" constant="13" id="MJt-ht-FJq"/>
-                                                <constraint firstAttribute="bottom" secondItem="L3b-a3-Up2" secondAttribute="bottom" id="QQN-KE-2qp"/>
-                                                <constraint firstItem="L3b-a3-Up2" firstAttribute="leading" secondItem="xAU-VD-vRa" secondAttribute="leading" constant="13" id="YQE-VM-RvH"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

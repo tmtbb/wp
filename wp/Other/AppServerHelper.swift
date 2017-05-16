@@ -48,7 +48,7 @@ class AppServerHelper: NSObject , WXApiDelegate{
     
     //MARK: --Wechat
     fileprivate func wechat() {
-        WXApi.registerApp("wx9dc39aec13ee3158")
+        WXApi.registerApp(AppConst.WechatKey.Appid)
     }
     func onResp(_ resp: BaseResp!) {
         //微信登录返回
