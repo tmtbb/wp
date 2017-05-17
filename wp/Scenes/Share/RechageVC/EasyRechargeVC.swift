@@ -45,7 +45,7 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
     //userInfo
     func initUserInfo() {
         uidText.text = UserModel.share().currentUser?.phone
-        balanceText.text = "\(UserModel.share().balance)元"
+        balanceText.text = "\(String.moneyString(money: UserModel.share().balance))元"
         submitText.layer.cornerRadius = 5
         submitText.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         let closeKeyboard = UITapGestureRecognizer.init(target: self, action: #selector(tableCloseKeyboard))

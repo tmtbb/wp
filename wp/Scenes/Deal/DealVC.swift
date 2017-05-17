@@ -101,7 +101,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
         
         if keyPath == AppConst.KVOKey.balance.rawValue{
-            myMoneyLabel.text = String.init(format: "%.2f", UserModel.share().balance)
+            myMoneyLabel.text = String.moneyString(money: UserModel.share().balance)
         }
     }
     //充值

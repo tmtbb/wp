@@ -63,7 +63,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     }
     func initData(){
         if UserModel.share().getCurrentUser() != nil{
-            let str : String = String.init(format: "%.2f", UserModel.share().balance)
+            let str : String = String.moneyString(money: UserModel.share().balance)
             self.moneyTd.placeholder = "最多可提现" + "\(str)" + "元"
         }
     }
@@ -96,7 +96,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     }
     //MARK: - 提现
     @IBAction func withDraw(_ sender: Any) {
-        if !checkTextFieldEmpty([bankTd,branceTd,nameTd,bankNumberTd]){
+        if !checkTextFieldEmpty([bankTd,branceTd,nameTd,bankNumberTd,moneyTd]){
             return
         }
         
@@ -124,7 +124,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         
         
         
-        let str : String = String.init(format: "%.2f", UserModel.share().balance)
+        let str : String = String.moneyString(money: UserModel.share().balance)
         if UserModel.share().balance < input{
             SVProgressHUD.showError(withStatus: "最多提现" + "\(str)" + "元")
             return
@@ -174,8 +174,10 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     //MARK: - 全部提现导航栏
     @IBAction func withDrawAll(_ sender: Any) {
         //self.moneyTd.text
-        self.moneyTd.text = String.init(format: "%.2f", UserModel.share().balance)
+
+        self.moneyTd.text = String.moneyString(money: UserModel.share().balance)
     }
+    
      //MARK: - textField delegate
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == bankTd{

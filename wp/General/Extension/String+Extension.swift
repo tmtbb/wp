@@ -113,6 +113,13 @@ extension String {
         return String(format: hash as String)
     }
     
+    static  func moneyString(money: Double) -> String {
+        let balanceStr = NSString.init(string: "\(money)")
+        let pointLocation = balanceStr.range(of: ".").location
+        let resultStr = balanceStr.substring(to: pointLocation+3)
+        return resultStr
+    }
+    
     func dnsToIP() -> String? {
 //        var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
 //       	
