@@ -50,8 +50,11 @@ class RegisterVC: BaseTableViewController {
     //获取验证码
     @IBAction func changeCodePicture(_ sender: UIButton) {
         if checkoutText(){
-            let type = 0
+            var type = 0
             SVProgressHUD.showProgressMessage(ProgressMessage: "请稍候...")
+            if UserModel.share().registerType == .wechatPass {
+                type = 1
+            }
             AppAPIHelper.commen().verifycode(verifyType: Int64(type), phone: phoneText.text!, complete: { [weak self](result) -> ()? in
                 SVProgressHUD.dismiss()
                 if let strongSelf = self{

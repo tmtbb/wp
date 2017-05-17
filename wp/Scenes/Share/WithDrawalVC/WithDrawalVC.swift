@@ -58,7 +58,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
         initData()
         bankTd.isUserInteractionEnabled = true
-        feeLabel.text = "手续费：每单第三方支付平台将收取1元手续费，限额5万元"
+        feeLabel.text = "手续费：每单第三方支付平台将收取1元手续费，单笔限额5万元"
         
     }
     func initData(){
@@ -121,9 +121,17 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             SVProgressHUD.showError(withStatus: "请选择银行卡")
             return
         }
+        
+        
+        
         let str : String = String.init(format: "%.2f", UserModel.share().balance)
         if UserModel.share().balance < input{
             SVProgressHUD.showError(withStatus: "最多提现" + "\(str)" + "元")
+            return
+        }
+        
+        if input > 50000{
+            SVProgressHUD.showError(withStatus: "单笔提现金额最多5000元")
             return
         }
         
