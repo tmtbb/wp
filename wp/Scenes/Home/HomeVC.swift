@@ -205,6 +205,7 @@ extension HomeVC{
         }
     }
     func jumpToDealList() {
+        return 
         performSegue(withIdentifier: DealController.className(), sender: nil)
     }
     

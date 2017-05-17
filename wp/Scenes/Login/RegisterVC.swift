@@ -91,7 +91,7 @@ class RegisterVC: BaseTableViewController {
     //注册
     @IBAction func registerBtnTapped(_ sender: Any) {
         if checkoutText(){
-            if checkTextFieldEmpty([phoneText,pwdText,codeText]){
+            if checkTextFieldEmpty([phoneText,pwdText,codeText,memberText,agentText]){
                 UserModel.share().code = codeText.text
                 UserModel.share().phone = phoneText.text
                 register()

@@ -34,9 +34,9 @@ class UserTableViewController: BaseTableViewController {
         return formatter
     }()
     
-    let jumpNotifyDict = [1 : AppConst.NotifyDefine.jumpToDealList,
-                          2 : AppConst.NotifyDefine.jumpToWithdraw,
-                          3 : AppConst.NotifyDefine.jumpToRecharge,]
+    let jumpNotifyDict = [3 : AppConst.NotifyDefine.jumpToDealList,
+                          1 : AppConst.NotifyDefine.jumpToWithdraw,
+                          2 : AppConst.NotifyDefine.jumpToRecharge,]
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -130,8 +130,13 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             return
         }
         
+        if input < 2{
+            SVProgressHUD.showError(withStatus: "单笔提现金额最低为2元")
+            return
+        }
+        
         if input > 50000{
-            SVProgressHUD.showError(withStatus: "单笔提现金额最多5000元")
+            SVProgressHUD.showError(withStatus: "单笔提现金额最多5万元")
             return
         }
         

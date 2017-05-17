@@ -14,15 +14,20 @@ class DealDetailTableVC: BaseTableViewController{
     @IBOutlet weak var dealType: UILabel!
     //交易品种
     @IBOutlet weak var dealProduct: UILabel!
-    //交易时间
+    //建仓时间
     @IBOutlet weak var dealTime: UILabel!
+    //建仓价格
+    @IBOutlet weak var buildPriceLabel: UILabel!
+    //平仓时间
+    @IBOutlet weak var closeTimeLabel: UILabel!
+    //平仓价格
+    @IBOutlet weak var closePriceLabel: UILabel!
     //交易金额
     @IBOutlet weak var dealMoney: UILabel!
     //手续费率
     @IBOutlet weak var poundage: UILabel!
     
     lazy var dateFormatter:DateFormatter = {
-       
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
         return dateFormatter
@@ -40,6 +45,9 @@ class DealDetailTableVC: BaseTableViewController{
         let string = isUp ? "买入" : "卖出"
         dealType.text = string
         dealTime.text = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval((positionModel!.positionTime))))
+        buildPriceLabel.text = "\(positionModel!.openPrice)元"
+        closeTimeLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval((positionModel!.closeTime))))
+        closePriceLabel.text = "\(positionModel!.closePrice)元"
         dealProduct.text = positionModel!.name
         dealMoney.text = String(format: "%.2f", positionModel!.openCost)
         
