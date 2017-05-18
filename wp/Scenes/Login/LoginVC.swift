@@ -59,6 +59,11 @@ class LoginVC: BaseTableViewController {
         
     }
     //MARK: --手机号登录
+    @IBAction func closeOrOpenEyes(_ sender: UIButton){
+        sender.isSelected = !sender.isSelected
+        pwdText.isSecureTextEntry = !sender.isSelected
+    }
+    
     @IBAction func loginBtnTapped(_ sender: UIButton) {
         
         if checkTextFieldEmpty([phoneText,pwdText]){

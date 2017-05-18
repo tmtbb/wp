@@ -11,7 +11,7 @@ target 'wp' do
     pod 'CocoaAsyncSocket', '~> 7.5.0'
     pod 'SVProgressHUD', '~> 2.0.3'
     pod 'Kingfisher', '~> 3.2.2'
-    #pod 'Qiniu', '~> 7.1'
+    pod 'Qiniu', '~> 7.1'
     pod 'FMDB', '~> 2.6.2'
     #pod 'GTSDK', '~> 1.4.3'
     pod 'SideMenuController'

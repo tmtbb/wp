@@ -114,8 +114,15 @@ extension String {
     }
     
     static  func moneyString(money: Double) -> String {
+        if money == 0 {
+            return "0"
+        }
         let balanceStr = NSString.init(string: "\(money)")
         let pointLocation = balanceStr.range(of: ".").location
+        if balanceStr.length - pointLocation < 3{
+            return balanceStr as String
+        }
+            
         let resultStr = balanceStr.substring(to: pointLocation+3)
         return resultStr
     }

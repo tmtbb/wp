@@ -64,10 +64,10 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
         
         if checkTextFieldEmpty([countText]){
             
-//            if Double(countText.text!)! < 100{
-//                SVProgressHUD.showErrorMessage(ErrorMessage: "最低充值金额为100", ForDuration: AppConst.progressDuration, completion: nil)
-//                return
-//            }
+            if Double(countText.text!)! < 100{
+                SVProgressHUD.showErrorMessage(ErrorMessage: "最低充值金额为100", ForDuration: AppConst.progressDuration, completion: nil)
+                return
+            }
             
             SVProgressHUD.showProgressMessage(ProgressMessage: "正在提交订单...")
             let param = RechargeParam()

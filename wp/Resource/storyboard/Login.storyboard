@@ -76,7 +76,7 @@
                                                                 <constraint firstAttribute="width" constant="0.5" id="azN-mc-Pgk"/>
                                                             </constraints>
                                                         </view>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lod-JS-up9">
+                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的手机号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Lod-JS-up9">
                                                             <rect key="frame" x="95" y="0.0" width="254" height="40"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -164,17 +164,27 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                         </textField>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MYb-Cl-GpV">
+                                                            <rect key="frame" x="311" y="9" width="28" height="22"/>
+                                                            <state key="normal" image="eye_close.png"/>
+                                                            <state key="selected" image="eye_open.png"/>
+                                                            <connections>
+                                                                <action selector="closeOrOpenEyes:" destination="IdH-9P-vUT" eventType="touchUpInside" id="AhV-gY-S4F"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="fFs-b4-yKw" firstAttribute="leading" secondItem="VMd-IG-QUa" secondAttribute="trailing" constant="22" id="92e-d4-8VM"/>
                                                         <constraint firstItem="VMd-IG-QUa" firstAttribute="leading" secondItem="NO0-Kb-w1V" secondAttribute="leading" constant="72" id="Gzb-IJ-J1A"/>
+                                                        <constraint firstItem="MYb-Cl-GpV" firstAttribute="centerY" secondItem="NO0-Kb-w1V" secondAttribute="centerY" id="HPT-nv-0NJ"/>
                                                         <constraint firstItem="aK8-bb-Y7R" firstAttribute="leading" secondItem="NO0-Kb-w1V" secondAttribute="leading" constant="9" id="OOc-N3-feI"/>
                                                         <constraint firstItem="fFs-b4-yKw" firstAttribute="top" secondItem="NO0-Kb-w1V" secondAttribute="top" id="Qk7-OH-pZh"/>
                                                         <constraint firstItem="frb-oG-20L" firstAttribute="centerY" secondItem="NO0-Kb-w1V" secondAttribute="centerY" id="Zr5-1f-CwU"/>
                                                         <constraint firstItem="VMd-IG-QUa" firstAttribute="top" secondItem="NO0-Kb-w1V" secondAttribute="top" constant="9" id="cd5-pk-hYY"/>
                                                         <constraint firstItem="aK8-bb-Y7R" firstAttribute="centerY" secondItem="NO0-Kb-w1V" secondAttribute="centerY" id="edD-0C-UvY"/>
                                                         <constraint firstAttribute="trailing" secondItem="fFs-b4-yKw" secondAttribute="trailing" id="fh7-cc-iaW"/>
+                                                        <constraint firstAttribute="trailing" secondItem="MYb-Cl-GpV" secondAttribute="trailing" constant="10" id="ieZ-Db-XQe"/>
                                                         <constraint firstAttribute="bottom" secondItem="fFs-b4-yKw" secondAttribute="bottom" id="qLS-2D-8Ao"/>
                                                         <constraint firstItem="frb-oG-20L" firstAttribute="leading" secondItem="aK8-bb-Y7R" secondAttribute="trailing" constant="8" id="qUq-9R-afh"/>
                                                         <constraint firstAttribute="bottom" secondItem="VMd-IG-QUa" secondAttribute="bottom" constant="9" id="yfs-wb-zeC"/>
@@ -1161,6 +1171,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="eye_close.png" width="28" height="20"/>
+        <image name="eye_open.png" width="26" height="16"/>
         <image name="login_phone.png" width="9" height="14"/>
         <image name="pwd.png" width="12" height="14"/>
         <image name="qq.png" width="50" height="50"/>
