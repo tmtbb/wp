@@ -23,10 +23,19 @@ class UpdateVC: UIViewController {
         super.viewDidLoad()
         contentView.layer.masksToBounds = true
         sureBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        timeLabel.text = "发布时间:\(UserModel.share().updateParam.newAppReleaseTime)"
+        versionLabel.text = "版本:\(UserModel.share().updateParam.newAppVersionName)"
+        mLabel.text = "大小:\(UserModel.share().updateParam.newAppSize)M"
+        contentLabel.text = UserModel.share().updateParam.newAppUpdateDesc
     }
 
     //确认
     @IBAction func sureBtnTapped(_ sender: Any) {
+        if UserModel.share().updateParam.isForceUpdate == 0 {
+            
+            UIApplication.shared.openURL(URL.init(string: "itms://itunes.apple.com")!)
+            return
+        }
         dismissController()
     }
 }

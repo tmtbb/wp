@@ -11,7 +11,7 @@ import Foundation
 class SocketConst: NSObject {
     enum OPCode:UInt16 {
         // 心跳包
-        case heart = 1000
+        case heart = 3019
         // 获取图片上传token
         case imageToken = 1047
         // 错误码
@@ -123,7 +123,7 @@ class SocketConst: NSObject {
         static let symbolInfos = "symbolInfos"
         static let source = "source"
         static let appid = "appid"
-        static let accessToken = "accessToken"
+        static let accessToken = "access_token"
         static let exchangeName = "exchangeName"
         static let secret = "secret"
         static let grant_type = "grant_type"

@@ -19,12 +19,12 @@ class BaseTableViewController: UITableViewController , TableViewHelperProtocol {
             tableView.tableFooterView = UIView(frame:CGRect(x: 0,y: 0,width: 0,height: 0.5));
         }
     }
-    //友盟页面统计
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        checkUpdateVC()
         SVProgressHUD.dismiss()
     }
     //MARK:TableViewHelperProtocol

@@ -40,6 +40,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         hideTabBarWithAnimationDuration()
         
         self.moneyTd.delegate = self
+        self.moneyTd.becomeFirstResponder()
         
     }
     func initUI(){
@@ -58,12 +59,12 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
         initData()
         bankTd.isUserInteractionEnabled = true
-        feeLabel.text = "手续费：每单第三方支付平台将收取1元手续费，限额5万元"
+//        feeLabel.text = "温馨提示：每单第三方支付平台将收取1元手续费，单笔限额5万元"
         
     }
     func initData(){
         if UserModel.share().getCurrentUser() != nil{
-            let str : String = String.init(format: "%.2f", UserModel.share().balance)
+            let str : String = String.moneyString(money: UserModel.share().balance)
             self.moneyTd.placeholder = "最多可提现" + "\(str)" + "元"
         }
     }
@@ -96,7 +97,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     }
     //MARK: - 提现
     @IBAction func withDraw(_ sender: Any) {
-        if !checkTextFieldEmpty([bankTd,branceTd,nameTd,bankNumberTd]){
+        if !checkTextFieldEmpty([bankTd,branceTd,nameTd,bankNumberTd,moneyTd]){
             return
         }
         
@@ -107,23 +108,26 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             return
         }
         
-        if input < 0.01{
-            SVProgressHUD.showError(withStatus: "提现金额大于0.01")
-            return
-        }
-        
-        if Double.init(self.moneyTd.text!) == 0{
-            SVProgressHUD.showError(withStatus: "提现金额大于0")
-            return
-        }
-       
         if  bankId == 0{
             SVProgressHUD.showError(withStatus: "请选择银行卡")
             return
         }
-        let str : String = String.init(format: "%.2f", UserModel.share().balance)
+        
+        
+        
+        let str : String = String.moneyString(money: UserModel.share().balance)
         if UserModel.share().balance < input{
             SVProgressHUD.showError(withStatus: "最多提现" + "\(str)" + "元")
+            return
+        }
+        
+        if input < 2{
+            SVProgressHUD.showError(withStatus: "单笔提现金额最低为2元")
+            return
+        }
+        
+        if input > 50000{
+            SVProgressHUD.showError(withStatus: "单笔提现金额最多5万元")
             return
         }
         
@@ -135,8 +139,10 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         param.receiverAccountName = ShareModel.share().selectBank.name
         param.bid = Int(ShareModel.share().selectBank.bid)
         SVProgressHUD.showProgressMessage(ProgressMessage: "提交提现申请...")
+        submited.isEnabled = false
         AppAPIHelper.user().easypayWithDraw(param: param, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
+            self?.submited.isEnabled = true
             if let model : WithdrawResultModel = result as? WithdrawResultModel{
                 ShareModel.share().detailModel.cardNo = ShareModel.share().selectBank.cardNo
                 ShareModel.share().detailModel.bank = ShareModel.share().selectBank.bank
@@ -148,20 +154,31 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
                 }
             }
             return nil
-        }, error: errorBlockFunc())
+            }, error:{ [weak self](error) in
+            SVProgressHUD.showErrorMessage(error: error, duration: 3, complete: nil)
+            self?.submited.isEnabled = true
+            return nil
+        })
         
     }
 
     //MARK: - 全部提现导航栏
     @IBAction func withDrawAll(_ sender: Any) {
         //self.moneyTd.text
-        self.moneyTd.text = String.init(format: "%.2f", UserModel.share().balance)
+
+        self.moneyTd.text = String.moneyString(money: UserModel.share().balance)
     }
+    
      //MARK: - textField delegate
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
         if textField == bankTd{
             let segue = AppConst.SegueIndentifier.drawCashToBankListSegue.rawValue
             performSegue(withIdentifier: segue, sender: nil)
+            return false
+        }
+        
+        if textField == bankNumberTd || textField == branceTd || textField == nameTd{
             return false
         }
         return true

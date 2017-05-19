@@ -40,6 +40,7 @@ class LoginVC: BaseTableViewController {
     //MARK: --DATA
     func initData() {
         NotificationCenter.default.addObserver(self, selector: #selector(errorCode(_:)), name: NSNotification.Name(rawValue: AppConst.WechatKey.ErrorCode), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(checkUpdateVC), name: NSNotification.Name(rawValue: AppConst.NoticeKey.updateSoftware.rawValue), object: nil)
     }
     //MARK: --UI
     func initUI() {
@@ -52,9 +53,17 @@ class LoginVC: BaseTableViewController {
         qqBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         wechatBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         sinaBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        if let phone = UserDefaults.standard.value(forKey: SocketConst.Key.phone) as? String{
+            phoneText.text = phone
+        }
         
     }
     //MARK: --手机号登录
+    @IBAction func closeOrOpenEyes(_ sender: UIButton){
+        sender.isSelected = !sender.isSelected
+        pwdText.isSecureTextEntry = !sender.isSelected
+    }
+    
     @IBAction func loginBtnTapped(_ sender: UIButton) {
         
         if checkTextFieldEmpty([phoneText,pwdText]){

@@ -32,5 +32,6 @@ struct SocketPacketHead {
 #import <CommonCrypto/CommonDigest.h>
 #import <sys/utsname.h>
 #import <DKNightVersion/DKNightVersion.h>
+#import "IPManager.h"
 //#import <CommonCrypto/CommonCrytor.h>
 /* nineSister_Bridging_Header_h */

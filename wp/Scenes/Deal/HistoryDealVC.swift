@@ -13,8 +13,8 @@ class HistoryDealCell: OEZTableViewCell{
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var winLabel: UILabel!
-    @IBOutlet weak var failLabel: UILabel!
+    @IBOutlet weak var openLabel: UILabel!
+    @IBOutlet weak var closeLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var handleLabel: UILabel!
     // 盈亏
@@ -31,11 +31,14 @@ class HistoryDealCell: OEZTableViewCell{
             statuslb.backgroundColor = model.result   ? UIColor.init(hexString: "E9573F") : UIColor.init(hexString: "0EAF56")
             statuslb.text =  model.result   ?  "盈" :   "亏"
             titleLabel.text = model.buySell == 1 ? "买入" : "卖出"
-            let handleText = [" 未操作 "," 双倍返还 "," 货运 "," 退舱 "]
-
-            if model.handle < handleText.count{
-                handleLabel.text = handleText[model.handle]
-            }
+            openLabel.text = "\(model.openPrice)"
+            closeLabel.text = "\(model.closePrice)"
+            handleLabel.text = ""
+//            let handleText =  [" 未操作 "," 双倍返还 "," 货运 "," 退舱 "]
+//
+//            if model.handle < handleText.count{
+//                handleLabel.text = handleText[model.handle]
+//            }
             
             if model.buySell == -1 && UserModel.share().currentUser?.type == 0 && model.result == false{
                 handleLabel.backgroundColor = UIColor.clear
@@ -82,9 +85,17 @@ class HistoryDealVC: BasePageListTableViewController {
     }
     
    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 128
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let model = self.dataSource?[indexPath.row] as? PositionModel{
+            if let controller = storyboard?.instantiateViewController(withIdentifier: DealDetailTableVC.className()) as? DealDetailTableVC{
+                controller.positionModel = model
+                _ = navigationController?.pushViewController(controller, animated: true)
+            }
+            return
             print(model.handle)
             if model.handle != 0{
                 return

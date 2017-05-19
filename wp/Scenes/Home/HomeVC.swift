@@ -179,6 +179,7 @@ extension HomeVC{
         notificationCenter.addObserver(self, selector: #selector(checkLogin), name: NSNotification.Name(rawValue: AppConst.NoticeKey.logoutNotice.rawValue), object: nil)
         notificationCenter.addObserver(self, selector: #selector(sideHide), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.EnterBackground), object: nil)
         notificationCenter.addObserver(self, selector: #selector(initRequestPrice), name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(checkUpdateVC), name: NSNotification.Name(rawValue: AppConst.NoticeKey.updateSoftware.rawValue), object: nil)
     }
     func initRequestPrice() {
         if priceTimer != nil {
@@ -204,7 +205,9 @@ extension HomeVC{
         }
     }
     func jumpToDealList() {
-        performSegue(withIdentifier: DealController.className(), sender: nil)
+        if let controller = UIStoryboard.init(name: "Deal", bundle: nil).instantiateViewController(withIdentifier: DealController.className()) as? DealController{
+            _ = navigationController?.pushViewController(controller, animated: true)
+        }
     }
     
    

@@ -41,9 +41,7 @@ class InputBankPhone: UITableViewController {
                     SVProgressHUD.showSuccessMessage(SuccessMessage: "绑定成功", ForDuration: 1, completion: {
                         [weak self] in
                         for  nav : UIViewController in (self?.navigationController?.viewControllers)! {
-                            if nav.isKind(of: BankCardVC.self){
-                                _ = self?.navigationController?.popToViewController(nav, animated: true)
-                            }
+                    
                             if nav.isKind(of: WithDrawalVC.self){
                                 _ = self?.navigationController?.popToViewController(nav, animated: true)
                             }

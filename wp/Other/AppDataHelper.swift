@@ -9,6 +9,8 @@
 
 import UIKit
 import SVProgressHUD
+import Alamofire
+
 class AppDataHelper: NSObject {
     fileprivate static var helper = AppDataHelper()
     class func instance() -> AppDataHelper{
@@ -23,7 +25,7 @@ class AppDataHelper: NSObject {
         if let userUUID = UIDevice.current.identifierForVendor?.uuidString{
             UserModel.share().uuid = userUUID
         }
-        checkTokenLogin()
+//        checkTokenLogin()
     }
     //请求商品数据 
     func initProductData() {
@@ -144,6 +146,9 @@ class AppDataHelper: NSObject {
         if DealModel.share().haveStopKline {
             return
         }
+        if UserModel.share().currentUserId > 0{
+            heartBeat()
+        }
         initLineChartData()
         initKLineChartData(type: .miu5)
         initKLineChartData(type: .miu15)
@@ -205,7 +210,6 @@ class AppDataHelper: NSObject {
             }
             return nil
         }, error:{ (error) ->()? in
-//            SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
             return nil
         })
     }
@@ -278,5 +282,29 @@ class AppDataHelper: NSObject {
             }
             return nil
         }, error: nil)
+    }
+    //心跳包
+    func heartBeat() {
+        AppAPIHelper.commen().heartBeat(complete: { (result) -> ()? in
+            return nil
+        }, error: nil)
+    }
+    //获取IP和Port
+    func ipAndPort() {
+        Alamofire.request(AppConst.WechatKey.AccessTokenUrl, method: .get).responseJSON { (result) in
+            if let resultJson = result.result.value as? [String: AnyObject] {
+                if let status = resultJson["result"] as? Int{
+                    if status == 0{
+                        return
+                    }
+                }
+                if let ipStr = resultJson["ip"] as? String {
+                    UserModel.share().ipStr = ipStr
+                }
+                if let portStr = resultJson["port"] as? String {
+                    UserModel.share().portStr = portStr
+                }
+            }
+        }
     }
 }

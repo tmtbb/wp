@@ -34,9 +34,9 @@ class UserTableViewController: BaseTableViewController {
         return formatter
     }()
     
-    let jumpNotifyDict = [1 : AppConst.NotifyDefine.jumpToDealList,
-                          2 : AppConst.NotifyDefine.jumpToWithdraw,
-                          3 : AppConst.NotifyDefine.jumpToRecharge,]
+    let jumpNotifyDict = [3 : AppConst.NotifyDefine.jumpToDealList,
+                          1 : AppConst.NotifyDefine.jumpToWithdraw,
+                          2 : AppConst.NotifyDefine.jumpToRecharge,]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +48,7 @@ class UserTableViewController: BaseTableViewController {
         requstTotalHistroy()
         initUI()
     }
+    
     func initUI() {
         tableView.contentSize = CGSize(width: 0, height: 600.0)
         tableView.backgroundColor = UIColor(hexString: "#F5F5F5")
@@ -62,7 +63,7 @@ class UserTableViewController: BaseTableViewController {
         
         if keyPath == AppConst.KVOKey.balance.rawValue {
             guard UserModel.share().currentUser != nil else { return }
-            nameLabel.text = formatMoneyString(balance: (UserModel.share().currentUser?.balance)! )
+            nameLabel.text = String.moneyString(money: UserModel.share().balance)// formatMoneyString(balance: (UserModel.share().currentUser?.balance)! )
             nameLabel.adjustsFontSizeToFitWidth = true
         }
     }
@@ -97,8 +98,15 @@ class UserTableViewController: BaseTableViewController {
     }
     //退出登录
     @IBAction func logout(_ sender: Any) {
-        AppDataHelper.instance().clearUserInfo()
-        sideMenuController?.toggle()
+        let logoutController = UIAlertController.init(title: "退出登录", message: "确认退出当前账号", preferredStyle: .alert)
+        let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+        let sureAction = UIAlertAction.init(title: "确认", style: .default, handler: { [weak self]btn in
+            AppDataHelper.instance().clearUserInfo()
+            self?.sideMenuController?.toggle()
+        })
+        logoutController.addAction(cancelAction)
+        logoutController.addAction(sureAction)
+        present(logoutController, animated: true, completion: nil)
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 || indexPath.row > 3{

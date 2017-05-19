@@ -112,4 +112,32 @@ extension String {
         result.deinitialize()
         return String(format: hash as String)
     }
+    
+    static  func moneyString(money: Double) -> String {
+        if money == 0 {
+            return "0"
+        }
+        let balanceStr = NSString.init(string: "\(money)")
+        let pointLocation = balanceStr.range(of: ".").location
+        if balanceStr.length - pointLocation < 3{
+            return balanceStr as String
+        }
+            
+        let resultStr = balanceStr.substring(to: pointLocation+3)
+        return resultStr
+    }
+    
+    func dnsToIP() -> String? {
+//        var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+//       	
+//        let result = getDNSToIP(&hostname, &self.cString(using: .utf8))
+//        let ipAddress = String.init(cString: result!)
+//        if !ipAddress.isEmpty {
+//            return ipAddress
+//        } else {
+//            print("解析失败")
+//            return nil
+//        }
+        return ""
+    }
 }

@@ -101,7 +101,7 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
         }
         
         if keyPath == AppConst.KVOKey.balance.rawValue{
-            myMoneyLabel.text = String.init(format: "%.2f", UserModel.share().balance)
+            myMoneyLabel.text = String.moneyString(money: UserModel.share().balance)
         }
     }
     //充值
@@ -280,6 +280,9 @@ extension DealVC{
     }
     
     func updateNewPrice(model: KChartModel) {
+        DealModel.share().realTimeModel = model
+        kLineView.initMiuLChartsData()
+        
         priceLabel.text = String.init(format: "%.4f", model.currentPrice)
         highLabel.text = String.init(format: "%.4f", model.highPrice)
         lowLabel.text = String.init(format: "%.4f", model.lowPrice)

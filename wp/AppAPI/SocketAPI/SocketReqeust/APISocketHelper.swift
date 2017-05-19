@@ -32,8 +32,8 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
                 var host = ""
                 var port: UInt16 = 0
                
-                host = AppConst.Network.TcpServerIP
-                port = AppConst.Network.TcpServerPort
+                host = UserModel.share().ipStr.length() > 0 ? UserModel.share().ipStr : AppConst.Network.TcpServerIP
+                port = UserModel.share().portStr.length() > 0 ? UInt16(UserModel.share().portStr)! : AppConst.Network.TcpServerPort
                 try socket?.connect(toHost: host, onPort: port, withTimeout: 5)
             }
         } catch GCDAsyncSocketError.closedError {
@@ -68,8 +68,6 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
         else {
 //            debugPrint("onPacketData error packet_length:\(packetHead.packet_length) packet_length:\(packetHead.data_length) data:\(data.count)");
         }
-       
-//        XCGLogger.debug("onPacketData:\(packet.packetHead.type) \(packet.packetHead.packet_length) \(packet.packetHead.operate_code)")
     }
 
     //MARK: GCDAsyncSocketDelegate
@@ -111,7 +109,9 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
     }
 
     @objc func socketDidDisconnect(_ sock: GCDAsyncSocket, withError err: Error?) {
-
+        _ =  delay(15, task: {
+            
+        })
     }
 
     deinit {
