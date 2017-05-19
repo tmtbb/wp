@@ -280,6 +280,9 @@ extension DealVC{
     }
     
     func updateNewPrice(model: KChartModel) {
+        DealModel.share().realTimeModel = model
+        kLineView.initMiuLChartsData()
+        
         priceLabel.text = String.init(format: "%.4f", model.currentPrice)
         highLabel.text = String.init(format: "%.4f", model.highPrice)
         lowLabel.text = String.init(format: "%.4f", model.lowPrice)

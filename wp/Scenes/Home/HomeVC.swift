@@ -205,8 +205,9 @@ extension HomeVC{
         }
     }
     func jumpToDealList() {
-        return 
-        performSegue(withIdentifier: DealController.className(), sender: nil)
+        if let controller = UIStoryboard.init(name: "Deal", bundle: nil).instantiateViewController(withIdentifier: DealController.className()) as? DealController{
+            _ = navigationController?.pushViewController(controller, animated: true)
+        }
     }
     
    

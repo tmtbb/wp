@@ -143,8 +143,8 @@ class DealController: BasePageListTableViewController, TitleCollectionviewDelega
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        tabBarController?.tabBar.isHidden = true
-//        hideTabBarWithAnimationDuration()
+        tabBarController?.tabBar.isHidden = true
+        hideTabBarWithAnimationDuration()
         translucent(clear: false)
         
     }

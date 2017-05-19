@@ -150,7 +150,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         
         switch selectIndex {
         case 0:
-            initMiuLChartsData()
+//            initMiuLChartsData()
             break
         case 1:
             initKChartsData(type: .miu5)
@@ -178,9 +178,11 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         let toTime: Int = Int(KLineModel.maxTime(type: .miu, symbol: type))// Int(Date.nowTimestemp())
         let fromTime: Int = toTime - 60*Int(AppConst.klineCount)
         KLineModel.queryTimelineModels(fromTime: fromTime, toTime: toTime, goodType: type){[weak self](result) -> ()? in
-            if let models: [KChartModel] = result as? [KChartModel] {
-               self?.refreshLineChartData(models: models)
+            if var models: [KChartModel] = result as? [KChartModel] {
+                models.append(DealModel.share().realTimeModel)
                 self?.currentModels = models
+                self?.refreshLineChartData(models: models)
+               
             }
             return nil
         }
