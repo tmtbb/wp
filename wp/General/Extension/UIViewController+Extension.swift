@@ -113,6 +113,7 @@ extension UIViewController {
     
     //MARK: -- 隐藏tabBar导航栏
     func hideTabBarWithAnimationDuration() {
+        
         let tabBar = self.tabBarController?.tabBar
         let parent = tabBar?.superview
         let content = parent?.subviews[0]
@@ -123,10 +124,10 @@ extension UIViewController {
             tabBar?.frame = tabFrame!
             content?.frame = (window?.bounds)!
         }
-        
     }
     
     func showTabBarWithAnimationDuration() {
+        
         let tabBar = self.tabBarController?.tabBar
         let parent = tabBar?.superview
         let content = parent?.subviews[0]

@@ -8,6 +8,29 @@
 
 import SVProgressHUD
 
+class BindingBankVCCell: UITableViewCell {
+    // 银行名称
+    @IBOutlet weak var bankName: UILabel!
+    // 银行名称
+    @IBOutlet weak var cardNum: UILabel!
+    
+    @IBOutlet weak var banklogo: UIImageView!
+    //银行背景
+    @IBOutlet weak var bankBg: UIImageView!
+    // 刷新cell
+    func update(_ data: Any!) {
+        
+        if let model = data as? BankListModel{
+            bankBg.backgroundColor =    BankLogoColor.share().readfilefromlocal(string: model.bank)
+            bankName.text = model.bank
+            let index = model.cardNo.index(model.cardNo.startIndex,  offsetBy: 4)
+            let index1 = model.cardNo.index(model.cardNo.startIndex,  offsetBy: model.cardNo.length()-3)
+            cardNum.text =  model.cardNo.substring(to: index) + "  ****   ****   *** " + model.cardNo.substring(from: index1)
+            banklogo.image = BankLogoColor.share().checkLocalBank(string: model.bank) ? UIImage.init(named: BankLogoColor.share().checkLocalBankImg(string: model.bank)) : UIImage.init(named: "unionPay")
+        }
+    }
+}
+
 class SelectBankVC: BaseListTableViewController {
     //定义选择的行数
     var selectNumber = Int()

@@ -40,6 +40,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         hideTabBarWithAnimationDuration()
         
         self.moneyTd.delegate = self
+        self.moneyTd.becomeFirstResponder()
         
     }
     func initUI(){
@@ -58,7 +59,7 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
         withDrawAll.dk_setTitleColorPicker(DKColorTable.shared().picker(withKey: "auxiliary"), for: .normal)
         initData()
         bankTd.isUserInteractionEnabled = true
-        feeLabel.text = "手续费：每单第三方支付平台将收取1元手续费，单笔限额5万元"
+//        feeLabel.text = "温馨提示：每单第三方支付平台将收取1元手续费，单笔限额5万元"
         
     }
     func initData(){
@@ -107,16 +108,6 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
             return
         }
         
-        if input < 0.01{
-            SVProgressHUD.showError(withStatus: "提现金额大于0.01")
-            return
-        }
-        
-        if Double.init(self.moneyTd.text!) == 0{
-            SVProgressHUD.showError(withStatus: "提现金额大于0")
-            return
-        }
-       
         if  bankId == 0{
             SVProgressHUD.showError(withStatus: "请选择银行卡")
             return
@@ -180,9 +171,14 @@ class WithDrawalVC: BaseTableViewController ,UITextFieldDelegate {
     
      //MARK: - textField delegate
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
         if textField == bankTd{
             let segue = AppConst.SegueIndentifier.drawCashToBankListSegue.rawValue
             performSegue(withIdentifier: segue, sender: nil)
+            return false
+        }
+        
+        if textField == bankNumberTd || textField == branceTd || textField == nameTd{
             return false
         }
         return true

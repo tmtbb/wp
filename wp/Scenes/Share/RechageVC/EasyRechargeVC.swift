@@ -33,7 +33,14 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         if haveRecharge{
             showRechargeResultAlter()
+        }else{
+            countText.becomeFirstResponder()
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        view.endEditing(false)
     }
     
     override func viewDidLoad() {
@@ -113,7 +120,7 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
     
     //MARK: - textField delegate
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == rechargeTypeText {
+        if textField == rechargeTypeText || textField == uidText{
             return false
         }
         let resultStr = textField.text?.replacingCharacters(in: (textField.text?.range(from: range))!, with: string)
@@ -134,6 +141,9 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
             })
             actionController.addAction(wechatAction)
             present(actionController, animated: true, completion: nil)
+            return false
+        }
+        if textField == uidText{
             return false
         }
         return true

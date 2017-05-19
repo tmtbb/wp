@@ -109,7 +109,9 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
     }
 
     @objc func socketDidDisconnect(_ sock: GCDAsyncSocket, withError err: Error?) {
-
+        _ =  delay(15, task: {
+            
+        })
     }
 
     deinit {

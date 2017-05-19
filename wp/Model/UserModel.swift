@@ -85,6 +85,7 @@ class UserModel: BaseModel  {
     
     //更新realm
     func updateRealm(){
+    
         let buildNumber = Bundle.main.infoDictionary?[AppConst.BundleInfo.CFBundleVersion.rawValue]
         var config = Realm.Configuration()
         config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("\(UserModel.share().currentUserId).realm")
