@@ -96,76 +96,7 @@ class HistoryDealVC: BasePageListTableViewController {
                 _ = navigationController?.pushViewController(controller, animated: true)
             }
             return
-            print(model.handle)
-            if model.handle != 0{
-                return
-            }
-            if model.buySell == -1 && UserModel.share().currentUser?.type == 0 && model.result == false{
-                return
-            }
-            
-            let param = BenifityParam()
-            param.tid = model.positionId
-            let alterController = UIAlertController.init(title: "恭喜盈利", message: "请选择盈利方式", preferredStyle: .alert)
-            let productAction = UIAlertAction.init(title: "货运", style: .default, handler: {[weak self] (resultDic) in
-                param.handle = 2
-                AppAPIHelper.deal().benifity(param: param, complete: {(result) -> ()? in
-                    if let resultDic: [String: AnyObject] = result as? [String: AnyObject]{
-                        if let id = resultDic[SocketConst.Key.id] as? Int{
-                            if id != UserModel.share().currentUserId{
-                                return nil
-                            }
-                        }
-                        if let handle = resultDic[SocketConst.Key.handle] as? Int{
-                            if let selectModel = self?.dataSource?[indexPath.row] as? PositionModel{
-                                UserModel.updateUser(info: { (info) -> ()? in
-                                    selectModel.handle = handle
-                                    tableView.reloadData()
-                                    return nil
-                                })
-                            }
-                        }
-                    }
-                    return nil
-                }, error: self?.errorBlockFunc())
-            })
-            let moneyAction = UIAlertAction.init(title: "双倍返还", style: .default, handler: { [weak self](resultDic) in
-                param.handle = 1
-                AppAPIHelper.deal().benifity(param: param, complete: {(result) -> ()? in
-                    if let resultDic: [String: AnyObject] = result as? [String: AnyObject]{
-                        if let id = resultDic[SocketConst.Key.id] as? Int{
-                            if id != UserModel.share().currentUserId{
-                                return nil
-                            }
-                        }
-                        if let handle = resultDic[SocketConst.Key.handle] as? Int{
-                            if let selectModel = self?.dataSource?[indexPath.row] as? PositionModel{
-                                UserModel.updateUser(info: { (info) -> ()? in
-                                    selectModel.handle = handle
-                                    tableView.reloadData()
-                                    return nil
-                                })
-                            }
-                        }
-                    }
-                    return nil
-                }, error: self?.errorBlockFunc())
-            })
-            
-            if model.buySell == 1{
-                if model.result{
-                    alterController.addAction(moneyAction)
-                }
-                alterController.addAction(productAction)
-                present(alterController, animated: true, completion: nil)
-            }else{
-                if UserModel.share().currentUser?.type == 0 && model.result{
-                    alterController.addAction(moneyAction)
-                }else{
-                    alterController.addAction(productAction)
-                }
-                present(alterController, animated: true, completion: nil)
-            }
+           
         }
     }
 }

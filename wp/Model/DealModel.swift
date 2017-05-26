@@ -14,7 +14,6 @@ class DealModel: BaseModel {
         case timeLine = 1
     }
     
-    var isFirstGetPrice = false
     var difftime = 0
     
     private static var model: DealModel = DealModel()

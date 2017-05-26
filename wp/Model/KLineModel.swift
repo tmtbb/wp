@@ -34,7 +34,7 @@ class KLineModel: NSObject {
                 let goodMaxTime: Int = result.max(ofProperty: "priceTime") ?? 0
                 let goodMinTime: Int = result.min(ofProperty: "priceTime") ?? 0
                 for (_, model) in models.enumerated() {
-                    if model.priceTime > goodMaxTime || model.priceTime < goodMinTime{
+                    if model.priceTime > goodMaxTime || model.priceTime < goodMinTime || firstModel?.symbol == AppConst.JapanMoney{
                         model.onlyKey = "\(model.symbol)\(model.priceTime)"
                         //缓存分时线
                         try! realm.write {

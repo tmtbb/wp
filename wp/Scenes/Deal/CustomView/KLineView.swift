@@ -51,6 +51,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
     @IBOutlet weak var klineCharts: CombinedChartView!
     private var currentCharts: BarLineChartViewBase?
     private var currentModels: [KChartModel] = []
+    private var currentMiuModels: [KChartModel] = []
     private var currentType: String = ""
     private var currentKlineType: KLineModel.KLineType = .miu
     private var marker: MarkerImage = MarkerImage()
@@ -109,15 +110,32 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         klineCharts.animate(yAxisDuration: 1)
     }
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        let index = chartView == miuCharts ? Int(entry.x) : Int(entry.x-1)
+        if chartView == miuCharts{
+            let index = Int(entry.x)
+            if index >= 0 && index < currentMiuModels.count {
+                if let model: KChartModel = currentMiuModels[index]{
+                    if selectModelBlock != nil{
+                        selectModelBlock!(model)
+                    }
+                    let markerView = WPMarkerLineView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 33))
+                    markerView.titleLabel.text =  markerLineText(model: model)
+                    marker.chartView = chartView
+                    marker.image = UIImage.imageFromUIView(markerView)
+                    chartView.marker = marker
+                }
+            }
+            return
+        }
+        
+        let index =  Int(entry.x-1)
         if index >= 0 && index < currentModels.count {
             if let model: KChartModel = currentModels[index]{
                 if selectModelBlock != nil{
                     selectModelBlock!(model)
                 }
-                let markerHeight = chartView == self.miuCharts ? 33 : 100
-                let markerView = WPMarkerLineView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: markerHeight))
-                markerView.titleLabel.text = chartView == self.miuCharts ? markerLineText(model: model): markerKLineText(model: model)
+                let markerView = WPMarkerLineView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 100))
+                
+                markerView.titleLabel.text = markerKLineText(model: model)
                 let marker = MarkerImage.init()
                 marker.chartView = chartView
                 marker.image = UIImage.imageFromUIView(markerView)
@@ -180,7 +198,7 @@ class KLineView: UIView, ChartViewDelegate, UIScrollViewDelegate {
         KLineModel.queryTimelineModels(fromTime: fromTime, toTime: toTime, goodType: type){[weak self](result) -> ()? in
             if var models: [KChartModel] = result as? [KChartModel] {
                 models.append(DealModel.share().realTimeModel)
-                self?.currentModels = models
+                self?.currentMiuModels = models
                 self?.refreshLineChartData(models: models)
                
             }

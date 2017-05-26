@@ -44,7 +44,9 @@ class WechatLoginParam: BaseModel {
     var deviceId = UserModel.share().uuid
 }
 
-class ChecktokenParam: BaseParam{
+class ChecktokenParam: BaseModel{
+    var token = ""
+    var id = 0
     var source  = 1
 }
 

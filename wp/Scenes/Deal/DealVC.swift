@@ -289,7 +289,7 @@ extension DealVC{
         openLabel.text = String.init(format: "%.4f", model.openingTodayPrice)
         closeLabel.text = String.init(format: "%.4f", model.closedYesterdayPrice)
         changePerLabel.text = String.init(format: "%.4f", model.change)
-        changeLabel.text = String.init(format: "%.2f%%", model.change/model.currentPrice)
+        changeLabel.text = String.init(format: "%.2f%%", model.pchg)
         timeLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.priceTime)), format: "HH:mm")
         dateLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.priceTime)), format: "MM-dd")
         let colorKey = model.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
@@ -306,6 +306,7 @@ extension DealVC{
         for product in DealModel.share().allProduct {
             if product.symbol == DealModel.share().selectProduct!.symbol {
                 product.price = price * product.depositFee
+                product.openPrice = price
             }
         }
         productsView.reloadData()

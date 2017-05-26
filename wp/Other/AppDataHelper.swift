@@ -1,4 +1,5 @@
 
+
 //
 //  AppDataHelper.swift
 //  wp
@@ -20,12 +21,13 @@ class AppDataHelper: NSObject {
     private var productTimer: Timer?
     func initData() {
         productTimer = Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(initProductData), userInfo: nil, repeats: AppConst.isRepeate)
-        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: AppConst.isRepeate)
+        Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(initAllKlineChartData), userInfo: nil, repeats: AppConst.isRepeate)
         initProductData()
         if let userUUID = UIDevice.current.identifierForVendor?.uuidString{
             UserModel.share().uuid = userUUID
         }
-//        checkTokenLogin()
+        checkTokenLogin()
+//        ipAndPort()
     }
     //请求商品数据 
     func initProductData() {
@@ -47,8 +49,6 @@ class AppDataHelper: NSObject {
                     DealModel.share().selectProduct = allProducets[0]
                 }
                 self?.initAllKlineChartData()
-
-            }else{
             }
             return nil
         }) {(error) -> ()? in
@@ -76,10 +76,7 @@ class AppDataHelper: NSObject {
             }
         }
     }
-    func moreChartData() {
-        moreLineChartData()
-        moreSelectKlineChartData()
-    }
+    
     //根据商品分时数据
     func initLineChartData(){
         for product in DealModel.share().productKinds {
@@ -88,8 +85,7 @@ class AppDataHelper: NSObject {
             if last < Date.startTimestemp(){
                 last = Date.startTimestemp()
             }
-            let future = last + 60
-            if future > now{
+            if now - last < 60{
                 return
             }
             let end = now - 60*AppConst.klineCount
@@ -135,19 +131,19 @@ class AppDataHelper: NSObject {
             }
             return nil
         }, error: { (error) ->()? in
-            SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
+//            SVProgressHUD.showErrorMessage(ErrorMessage: error.description, ForDuration: 1, completion: nil)
             return nil
         })
     }
     
     //根据商品请求K线数据
     func initAllKlineChartData() {
-        userCash()
+//        checkTokenLogin()
+//        if UserModel.share().currentUserId > 0{
+//            heartBeat()
+//        }
         if DealModel.share().haveStopKline {
             return
-        }
-        if UserModel.share().currentUserId > 0{
-            heartBeat()
         }
         initLineChartData()
         initKLineChartData(type: .miu5)
@@ -161,9 +157,6 @@ class AppDataHelper: NSObject {
     }
     
     func initKLineChartData(type: KLineModel.KLineType) {
-//        if type == .miu{
-//            return
-//        }
         for product in DealModel.share().productKinds{
             let now = Date.nowTimestemp()
             var last = KLineModel.maxTime(type: type, symbol:product.symbol)
@@ -203,7 +196,6 @@ class AppDataHelper: NSObject {
         param.platformName = product.platformName
         param.chartType = type.rawValue
         param.startTime = Int64(fromTime)
-//        param.endTime = Int64(endTime)
         AppAPIHelper.deal().kChartsData(param: param, complete: { (result) -> ()? in
             if let chart: ChartModel = result as? ChartModel{
                 KLineModel.cacheKChartModels(chart: chart)
@@ -225,21 +217,20 @@ class AppDataHelper: NSObject {
                 AppAPIHelper.login().tokenLogin(param: param,  complete: { [weak self]( result) -> ()? in
                     //存储用户信息
                     if let model = result as? UserInfoModel {
-                    if let token = model.token{
-                    //更新token
-                    UserDefaults.standard.setValue(token, forKey: SocketConst.Key.token)
-                    }
-                    if let user = model.userinfo {
-                    UserDefaults.standard.setValue(user.id, forKey: SocketConst.Key.id)
-                    }
-                    UserModel.share().upateUserInfo(userObject: model as AnyObject)
-                    DealModel.share().isFirstGetPrice = true
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
-                    }else{
-                    self?.clearUserInfo()
-                    }
+                        if let modelToken = model.token{
+                            //更新token
+                            UserDefaults.standard.setValue(modelToken, forKey: SocketConst.Key.token)
+                        }
+                        if let user = model.userinfo {
+                            UserDefaults.standard.setValue(user.id, forKey: SocketConst.Key.id)
+                        }
+                        UserModel.share().upateUserInfo(userObject: model as AnyObject)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
+                        }else{
+                            self?.clearUserInfo()
+                        }
                     return nil
-                    }, error: {[weak self] (error) ->()? in
+                }, error: {[weak self] (error) ->()? in
                         self?.clearUserInfo()
                         return nil
                 })
@@ -291,7 +282,7 @@ class AppDataHelper: NSObject {
     }
     //获取IP和Port
     func ipAndPort() {
-        Alamofire.request(AppConst.WechatKey.AccessTokenUrl, method: .get).responseJSON { (result) in
+        Alamofire.request(AppConst.ipLocation, method: .post).responseJSON { (result) in
             if let resultJson = result.result.value as? [String: AnyObject] {
                 if let status = resultJson["result"] as? Int{
                     if status == 0{

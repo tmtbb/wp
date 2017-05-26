@@ -22,7 +22,6 @@ class SocketRequestManage: NSObject {
     fileprivate var timelineRequest: SocketRequest?
     fileprivate var productsRequest:  SocketRequest?
     fileprivate var kchartRequest: SocketRequest?
-    fileprivate var priceRequest: SocketRequest?
     var operate_code = 0
     func start() {
         _lastHeardBeatTime = timeNow()
@@ -70,8 +69,6 @@ class SocketRequestManage: NSObject {
             socketReqeust = productsRequest
         }else if packet.operate_code == SocketConst.OPCode.kChart.rawValue + 1{
             socketReqeust = kchartRequest
-        }else if packet.operate_code == SocketConst.OPCode.realtime.rawValue{
-            socketReqeust = priceRequest
         }else{
             socketRequests.removeValue(forKey: packet.session_id)
         }
@@ -137,8 +134,6 @@ class SocketRequestManage: NSObject {
             productsRequest = socketReqeust
         }else if packet.operate_code == SocketConst.OPCode.kChart.rawValue{
             kchartRequest = socketReqeust
-        }else if packet.operate_code == SocketConst.OPCode.realtime.rawValue{
-            priceRequest = socketReqeust
         }else{
             socketRequests[packet.session_id] = socketReqeust
         }

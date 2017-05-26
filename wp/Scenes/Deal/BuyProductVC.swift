@@ -29,6 +29,7 @@ class BuyProductVC: UIViewController {
     @IBOutlet weak var cangWeiLabel: UILabel!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     var resultBlock: CompleteBlock?
+    var cangweiText = ""
     
     enum BuyResultType: Int {
         case success = 0
@@ -50,6 +51,13 @@ class BuyProductVC: UIViewController {
         changeCount(countSlider)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        changeCount(countSlider)
+        UIView.animate(withDuration: 0.25, animations: { [weak self] in
+            self?.countBtn.alpha = 1
+        })
+    }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         SVProgressHUD.dismiss()
@@ -61,7 +69,7 @@ class BuyProductVC: UIViewController {
         positionParm.gid = DealModel.share().buyProduct!.id
         AppAPIHelper.deal().position(param: positionParm, complete: { [weak self](result) -> ()? in
             if let model = result as? ProductPositionModel {
-                self?.cangWeiLabel.text = "当前舱位航班: \(model.name)"
+                self?.cangweiText = "当前舱位航班: \(model.name)"
             }
             return nil
         }, error: errorBlockFunc())
@@ -84,7 +92,7 @@ class BuyProductVC: UIViewController {
         dingjinLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
         dingjinPLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
         moneyLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
-        feeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+//        feeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
         buyBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: colorKey)
         
         let selectBtnName = DealModel.share().dealUp ? "upSelect" : "downSelect"
@@ -109,8 +117,9 @@ class BuyProductVC: UIViewController {
         buyCountLabel.text = "当前选择手数 \(Int(value))"
         let dingjin = Double(Int(value))*DealModel.share().buyProduct!.price
         dingjinLabel.text = String.init(format: "%.2f", dingjin)
-        moneyLabel.text = String.init(format: "%.2f", Double(dingjin*(1 - DealModel.share().buyProduct!.openChargeFee)))
+        moneyLabel.text = String.init(format: "￥%.2f", Double(dingjin*(1 - DealModel.share().buyProduct!.openChargeFee)))
         feeLabel.text = "\(DealModel.share().buyProduct!.openChargeFee*100)%"
+        cangWeiLabel.text = cangweiText + "  当前点位: \(DealModel.share().buyProduct!.openPrice)"
     }
     
     @IBAction func selectTypeBtnTapped(_ sender: UIButton) {

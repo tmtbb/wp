@@ -33,7 +33,16 @@ class BaseDBModel: BaseModel {
 }
 
 class BaseParam: BaseModel{
-    var id: Int = UserModel.share().currentUser == nil ? 0 : UserModel.share().currentUser!.id
-    var token: String = UserModel.share().token
+    var id: Int {
+        get{
+            return UserModel.share().currentUser == nil ? 0 : UserModel.share().currentUser!.id
+        }
+        
+    }
+    var token: String {
+        get{
+            return UserModel.share().token
+        }
+    }
 }
 

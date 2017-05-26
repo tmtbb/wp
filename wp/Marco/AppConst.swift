@@ -30,8 +30,9 @@ class AppConst {
     static let klineCount: Double = 40
     static let progressDuration: Double = 1.5
     static let bundleId = "com.newxfin.goods"
-    static let JapanMoney = "fx_sjpycnh"
+    static let JapanMoney = "fx_sjpycnh" 
     static let ErrorDomain = "com.newxfin.goods"
+    static let ipLocation = "http://139.224.34.22/cgi-bin/flight/router/v1/get_server.fcgi"
     
     enum KVOKey: String {
         case selectProduct = "selectProduct"
@@ -59,14 +60,14 @@ class AppConst {
    
     
     class Network {
-        #if true //是否是开发环境
+        #if false //是否是开发环境
         static let TcpServerIP:String = "139.224.34.22";
         static let TcpServerPort:UInt16 = 16205
         static let TttpHostUrl:String = "http://139.224.34.22";
         #else
-        static let TcpServerIP:String = "122.144.169.217";
+        static let TcpServerIP:String = "i.flight.dlgrme.com";
         static let TcpServerPort:UInt16 = 16205;
-        static let HttpHostUrl:String = "http://122.144.169.217";
+        static let HttpHostUrl:String = "http://i.flight.dlgrme.com";
         #endif
         static let TimeoutSec:UInt16 = 10
         static let qiniuHost = "http://ofr5nvpm7.bkt.clouddn.com/"

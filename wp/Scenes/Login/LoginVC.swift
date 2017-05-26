@@ -79,7 +79,6 @@ class LoginVC: BaseTableViewController {
             param.phone = phoneText.text!
             AppAPIHelper.login().login(param: param, complete: { [weak self]( result) -> ()? in
                 SVProgressHUD.dismiss()
-                DealModel.share().isFirstGetPrice = true
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
                 //存储用户信息
                 if result != nil{
@@ -111,7 +110,6 @@ class LoginVC: BaseTableViewController {
         //微信登录
         AppAPIHelper.login().login(param: param, complete: { ( result) -> ()? in
             SVProgressHUD.dismiss()
-            DealModel.share().isFirstGetPrice = true
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: AppConst.NotifyDefine.RequestPrice), object: nil)
             //存储用户信息
             if result != nil{

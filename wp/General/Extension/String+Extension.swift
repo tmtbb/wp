@@ -115,7 +115,7 @@ extension String {
     
     static  func moneyString(money: Double) -> String {
         if money == 0 {
-            return "0"
+            return "0.00"
         }
         let balanceStr = NSString.init(string: "\(money)")
         let pointLocation = balanceStr.range(of: ".").location

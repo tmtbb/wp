@@ -30,6 +30,6 @@ class ProductModel: BaseModel {
      var symbol: String = ""
      var unit: String = ""
      var price: Double = 0
-    
+     var openPrice: Double = 0
 
 }

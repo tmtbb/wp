@@ -29,11 +29,10 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
         mutableData = NSMutableData()
         do {
             if !socket!.isConnected {
-                var host = ""
-                var port: UInt16 = 0
-               
-                host = UserModel.share().ipStr.length() > 0 ? UserModel.share().ipStr : AppConst.Network.TcpServerIP
-                port = UserModel.share().portStr.length() > 0 ? UInt16(UserModel.share().portStr)! : AppConst.Network.TcpServerPort
+                let host = AppConst.Network.TcpServerIP
+                let port: UInt16 = AppConst.Network.TcpServerPort
+//                host = UserModel.share().ipStr.length() > 0 ? UserModel.share().ipStr : AppConst.Network.TcpServerIP
+//                port = UserModel.share().portStr.length() > 0 ? UInt16(UserModel.share().portStr)! : AppConst.Network.TcpServerPort
                 try socket?.connect(toHost: host, onPort: port, withTimeout: 5)
             }
         } catch GCDAsyncSocketError.closedError {
@@ -109,9 +108,7 @@ class APISocketHelper:NSObject, GCDAsyncSocketDelegate,SocketHelper {
     }
 
     @objc func socketDidDisconnect(_ sock: GCDAsyncSocket, withError err: Error?) {
-        _ =  delay(15, task: {
-            
-        })
+        SocketRequestManage.shared.start()
     }
 
     deinit {

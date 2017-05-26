@@ -71,10 +71,6 @@ class HomeVC: BaseTableViewController {
         if DealModel.share().productKinds.count == 0 {
             return
         }
-        if DealModel.share().isFirstGetPrice {
-            SVProgressHUD.showProgressMessage(ProgressMessage: "加载中...")
-            DealModel.share().isFirstGetPrice = false
-        }
         var goods: [AnyObject] = []
         for  product in DealModel.share().productKinds {
             let good = [SocketConst.Key.aType: SocketConst.aType.currency.rawValue,
@@ -116,7 +112,7 @@ class HomeVC: BaseTableViewController {
     //MARK: --UI
     func initUI() {
         bannerView.bannerDelegate = self
-        title = "航空运费定盘"
+        title = "航投宝"
         navigationController?.addSideMenuButton()
         tableView.tableHeaderView?.layer.shadowColor = UIColor.black.cgColor
         tableView.tableHeaderView?.layer.shadowOpacity = 0.1
