@@ -28,7 +28,6 @@ class WithDrawaListVCCell: OEZTableViewCell {
     // 刷新cell
     override func update(_ data: Any!) {
         let model : WithdrawModel = data as! WithdrawModel
-        print(model)
         // 银行名称
         let bankName : String = model.bank as String
         // 提现至
@@ -69,7 +68,7 @@ class WithDrawaListVC: BasePageListTableViewController {
         
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        
+        return
         let model = self.dataSource?[indexPath.row] as! WithdrawModel
         ShareModel.share().shareData["wid"] = "\(model.wid)"
         ShareModel.share().detailModel = model

@@ -158,14 +158,18 @@
                                                                 <constraint firstAttribute="width" constant="0.5" id="dv5-ZL-lPB"/>
                                                             </constraints>
                                                         </view>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的登录密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fFs-b4-yKw">
-                                                            <rect key="frame" x="95" y="0.0" width="254" height="40"/>
+                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的登录密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fFs-b4-yKw">
+                                                            <rect key="frame" x="95" y="0.0" width="201" height="40"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                         </textField>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MYb-Cl-GpV">
                                                             <rect key="frame" x="311" y="9" width="28" height="22"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="22" id="Qfl-7L-eUR"/>
+                                                                <constraint firstAttribute="width" constant="28" id="bIC-BW-Q97"/>
+                                                            </constraints>
                                                             <state key="normal" image="eye_close.png"/>
                                                             <state key="selected" image="eye_open.png"/>
                                                             <connections>
@@ -178,12 +182,12 @@
                                                         <constraint firstItem="fFs-b4-yKw" firstAttribute="leading" secondItem="VMd-IG-QUa" secondAttribute="trailing" constant="22" id="92e-d4-8VM"/>
                                                         <constraint firstItem="VMd-IG-QUa" firstAttribute="leading" secondItem="NO0-Kb-w1V" secondAttribute="leading" constant="72" id="Gzb-IJ-J1A"/>
                                                         <constraint firstItem="MYb-Cl-GpV" firstAttribute="centerY" secondItem="NO0-Kb-w1V" secondAttribute="centerY" id="HPT-nv-0NJ"/>
+                                                        <constraint firstItem="MYb-Cl-GpV" firstAttribute="leading" secondItem="fFs-b4-yKw" secondAttribute="trailing" constant="15" id="N6l-PR-ky6"/>
                                                         <constraint firstItem="aK8-bb-Y7R" firstAttribute="leading" secondItem="NO0-Kb-w1V" secondAttribute="leading" constant="9" id="OOc-N3-feI"/>
                                                         <constraint firstItem="fFs-b4-yKw" firstAttribute="top" secondItem="NO0-Kb-w1V" secondAttribute="top" id="Qk7-OH-pZh"/>
                                                         <constraint firstItem="frb-oG-20L" firstAttribute="centerY" secondItem="NO0-Kb-w1V" secondAttribute="centerY" id="Zr5-1f-CwU"/>
                                                         <constraint firstItem="VMd-IG-QUa" firstAttribute="top" secondItem="NO0-Kb-w1V" secondAttribute="top" constant="9" id="cd5-pk-hYY"/>
                                                         <constraint firstItem="aK8-bb-Y7R" firstAttribute="centerY" secondItem="NO0-Kb-w1V" secondAttribute="centerY" id="edD-0C-UvY"/>
-                                                        <constraint firstAttribute="trailing" secondItem="fFs-b4-yKw" secondAttribute="trailing" id="fh7-cc-iaW"/>
                                                         <constraint firstAttribute="trailing" secondItem="MYb-Cl-GpV" secondAttribute="trailing" constant="10" id="ieZ-Db-XQe"/>
                                                         <constraint firstAttribute="bottom" secondItem="fFs-b4-yKw" secondAttribute="bottom" id="qLS-2D-8Ao"/>
                                                         <constraint firstItem="frb-oG-20L" firstAttribute="leading" secondItem="aK8-bb-Y7R" secondAttribute="trailing" constant="8" id="qUq-9R-afh"/>
@@ -463,7 +467,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hjg-A2-9Ci" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-214" y="107"/>
+            <point key="canvasLocation" x="-215.19999999999999" y="106.59670164917542"/>
         </scene>
         <!--注册-->
         <scene sceneID="XcL-mC-ytd">
@@ -587,7 +591,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="140" id="bpL-sv-y8d"/>
                                                     </constraints>
-                                                    <state key="normal" title="验证码"/>
+                                                    <state key="normal" title="发送验证码"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="5"/>
@@ -692,7 +696,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入经济人ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RC2-ZQ-tc6">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入经纪人ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RC2-ZQ-tc6">
                                                     <rect key="frame" x="10" y="0.0" width="355" height="45"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <nil key="textColor"/>
@@ -1051,7 +1055,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="140" id="h5L-0l-aC3"/>
                                                     </constraints>
-                                                    <state key="normal" title="验证码"/>
+                                                    <state key="normal" title="发送验证码"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="5"/>

@@ -72,7 +72,12 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
         if checkTextFieldEmpty([countText]){
             
             if Double(countText.text!)! < 100{
-                SVProgressHUD.showErrorMessage(ErrorMessage: "最低充值金额为100", ForDuration: AppConst.progressDuration, completion: nil)
+                SVProgressHUD.showErrorMessage(ErrorMessage: "最低充值金额为100元", ForDuration: AppConst.progressDuration, completion: nil)
+                return
+            }
+            
+            if Double(countText.text!)! > 50000{
+                SVProgressHUD.showErrorMessage(ErrorMessage: "单笔最大充值金额为5万元", ForDuration: AppConst.progressDuration, completion: nil)
                 return
             }
             

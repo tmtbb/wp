@@ -30,8 +30,9 @@ class AppConst {
     static let klineCount: Double = 40
     static let progressDuration: Double = 1.5
     static let bundleId = "com.newxfin.goods"
-    static let JapanMoney = "fx_sjpycnh"
+    static let JapanMoney = "fx_sjpycnh" 
     static let ErrorDomain = "com.newxfin.goods"
+    static let ipLocation = "http://139.224.34.22/cgi-bin/flight/router/v1/get_server.fcgi"
     
     enum KVOKey: String {
         case selectProduct = "selectProduct"
