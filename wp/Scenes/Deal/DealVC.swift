@@ -220,7 +220,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
             
             let controller = UIStoryboard.init(name: "Deal", bundle: nil).instantiateViewController(withIdentifier: BuyProductVC.className()) as! BuyProductVC
             controller.modalPresentationStyle = .custom
+            sender.isEnabled = false
             controller.resultBlock = { [weak self](result) in
+                sender.isEnabled = true
                 if let status: BuyProductVC.BuyResultType = result as! BuyProductVC.BuyResultType? {
                     switch status {
                         case .lessMoney:
@@ -248,7 +250,9 @@ class DealVC: BaseTableViewController, TitleCollectionviewDelegate {
                 self?.initDealTableData()
                 return nil
             }
-            present(controller, animated: true, completion: nil)
+            present(controller, animated: true, completion: {
+                sender.isEnabled = true
+            })
             
         }
     }
@@ -289,10 +293,15 @@ extension DealVC{
         openLabel.text = String.init(format: "%.4f", model.openingTodayPrice)
         closeLabel.text = String.init(format: "%.4f", model.closedYesterdayPrice)
         changePerLabel.text = String.init(format: "%.4f", model.change)
-        changeLabel.text = String.init(format: "%.2f%%", model.pchg)
+        changeLabel.text = String.init(format: "%.4f%%", model.pchg)
         timeLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.priceTime)), format: "HH:mm")
         dateLabel.text = Date.yt_convertDateToStr(Date.init(timeIntervalSince1970: TimeInterval(model.priceTime)), format: "MM-dd")
-        let colorKey = model.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
+        var colorKey = model.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
+        if DealModel.checkIfSuspended(){
+            colorKey = AppConst.Color.stopBusiness
+            highLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+            lowLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+        }
         changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
         changePerLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
         priceLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)

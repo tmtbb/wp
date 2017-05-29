@@ -10,7 +10,7 @@ import UIKit
 import SVProgressHUD
 import DKNightVersion
 import Kingfisher
-class RegisterVC: BaseTableViewController {
+class RegisterVC: BaseTableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var phoneView: UIView!
     @IBOutlet weak var phoneText: UITextField!
@@ -93,9 +93,10 @@ class RegisterVC: BaseTableViewController {
         codeBtn.backgroundColor = UIColor.init(rgbHex: 0xCCCCCC)
     }
     //注册
-    @IBAction func registerBtnTapped(_ sender: Any) {
+    @IBAction func registerBtnTapped(_ sender: UIButton) {
         if checkoutText(){
             if checkTextFieldEmpty([phoneText,pwdText,codeText,memberText,agentText]){
+                sender.isEnabled = false
                 UserModel.share().code = codeText.text
                 UserModel.share().phone = phoneText.text
                 register()
@@ -108,11 +109,18 @@ class RegisterVC: BaseTableViewController {
         let codeStr = AppConst.md5Key + "\(UserModel.share().timestamp)" + UserModel.share().code!
         let codeMd5Str = codeStr.md5()
         if codeMd5Str != UserModel.share().codeToken{
+            nextBtn.isEnabled = true
             SVProgressHUD.showErrorMessage(ErrorMessage: "验证码错误", ForDuration: AppConst.progressDuration, completion: nil)
             return
         }
         
-        //重置密码
+        if pwdText!.text!.length() < 6 {
+            nextBtn.isEnabled = true
+            SVProgressHUD.showErrorMessage(ErrorMessage: "密码最少六位数", ForDuration: 2, completion: nil)
+            return
+        }
+        
+        //绑定手机号
         if UserModel.share().registerType == .wechatPass {
             SVProgressHUD.showProgressMessage(ProgressMessage: "绑定中...")
             let password = ((pwdText.text! + AppConst.sha256Key).sha256()+UserModel.share().phone!).sha256()
@@ -132,13 +140,19 @@ class RegisterVC: BaseTableViewController {
             param.openid = UserModel.share().wechatUserInfo[SocketConst.Key.openid] ?? ""
             AppAPIHelper.login().bingPhone(param: param, complete: { [weak self](result) -> ()? in
                 SVProgressHUD.dismiss()
+                self?.nextBtn.isEnabled = true
                 if result != nil {
                     UserModel.share().fetchUserInfo(phone: self?.phoneText.text ?? "", pwd: self?.pwdText.text ?? "")
                 }else{
                     SVProgressHUD.showErrorMessage(ErrorMessage: "绑定失败，请稍后再试", ForDuration: 1, completion: nil)
                 }
                 return nil
-            }, error: errorBlockFunc())
+                }, error: { [weak self](error) in
+                    SVProgressHUD.showErrorMessage(error: error, duration: 2, complete: { 
+                        self?.nextBtn.isEnabled = true
+                    })
+                    return nil
+            })
             return
         }
         
@@ -160,6 +174,7 @@ class RegisterVC: BaseTableViewController {
         AppAPIHelper.login().register(model: param, complete: { [weak self](result) -> ()? in
             SVProgressHUD.dismiss()
             if result != nil {
+                SVProgressHUD.showSuccessMessage(SuccessMessage: "注册成功!", ForDuration: 2, completion: nil)
                 UserModel.share().fetchUserInfo(phone: self?.phoneText.text ?? "", pwd: self?.pwdText.text ?? "")
             }else{
                 SVProgressHUD.showErrorMessage(ErrorMessage: "注册失败，请稍后再试", ForDuration: 1, completion: nil)
@@ -194,7 +209,31 @@ class RegisterVC: BaseTableViewController {
         wechatBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         sinaBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
 
+        let eyeBtn: UIButton = UIButton.init(type: .custom)
+        eyeBtn.setImage(UIImage.init(named: "eye_close"), for: .normal)
+        eyeBtn.setImage(UIImage.init(named: "eye_open"), for: .selected)
+        eyeBtn.addTarget(self, action: #selector(eyeBtnTapped(_ :)), for: .touchUpInside)
+        pwdText.rightView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 40, height: 40))
+        pwdText.rightView?.addSubview(eyeBtn)
+        pwdText.rightViewMode = .always
+        eyeBtn.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: 22, height: 22))
+        }
+    }
+    
+    func eyeBtnTapped(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        pwdText.isSecureTextEntry = !sender.isSelected
     }
 
+    //MARK: --TextFeild密码处理
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == pwdText{
+            let text: String = textField.text ?? ""
+            return string == "" || text.length() < 16
+        }
+        return true
+    }
     
 }

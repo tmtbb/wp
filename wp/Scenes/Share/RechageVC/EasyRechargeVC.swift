@@ -85,15 +85,20 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
             let param = RechargeParam()
             param.payType = rechargeType.rawValue
             param.amount = Double(countText.text!)!
+            sender.isEnabled = false
             AppAPIHelper.user().easypayRecharge(param: param, complete: { [weak self](result) -> ()? in
                 SVProgressHUD.dismiss()
+                sender.isEnabled = true
                 if let model = result as? RechargeResultModel{
                     self?.haveRecharge = true
-                    sender.isEnabled = true
                     self?.openURL(urlStr: model.paymentInfo)
                 }
                 return nil
-                }, error: errorBlockFunc())
+                }, error: { (error) in
+                    SVProgressHUD.showErrorMessage(error: error, duration: 2, complete: nil)
+                    sender.isEnabled = true
+                    return nil
+            })
         }else{
             SVProgressHUD.showErrorMessage(ErrorMessage: "请输入充值金额", ForDuration: AppConst.progressDuration, completion: nil)
         }

@@ -56,6 +56,7 @@ class AppConst {
         static let buyDown = "buyDown"
         static let auxiliary = "auxiliary"
         static let lightBlue = "lightBlue"
+        static let stopBusiness = "stopBusiness"
     };
    
     
