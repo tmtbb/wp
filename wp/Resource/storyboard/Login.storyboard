@@ -411,8 +411,15 @@
                                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="v1.11" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pH6-BT-Ls6">
+                                                    <rect key="frame" x="159" y="169" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="tuf-GO-gbK" firstAttribute="top" secondItem="pH6-BT-Ls6" secondAttribute="bottom" constant="8" id="0DF-XV-eTM"/>
                                                 <constraint firstItem="QXg-za-u70" firstAttribute="leading" secondItem="zB2-7o-VXz" secondAttribute="trailing" constant="4" id="0Gn-sg-dCf"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="bRZ-qV-Rjc" secondAttribute="trailing" constant="13" id="0cp-qq-9LX"/>
                                                 <constraint firstItem="ohy-O0-XNw" firstAttribute="leading" secondItem="oDE-29-eRL" secondAttribute="leadingMargin" constant="44" id="3dR-j6-WFp"/>
@@ -429,6 +436,7 @@
                                                 <constraint firstItem="zB2-7o-VXz" firstAttribute="centerX" secondItem="oDE-29-eRL" secondAttribute="centerX" id="ZxW-ys-cGW"/>
                                                 <constraint firstItem="QXg-za-u70" firstAttribute="centerY" secondItem="zB2-7o-VXz" secondAttribute="centerY" id="dFw-6n-94B"/>
                                                 <constraint firstItem="6ZP-2g-ZFz" firstAttribute="top" secondItem="oDE-29-eRL" secondAttribute="topMargin" constant="25" id="dsF-qC-lh9"/>
+                                                <constraint firstItem="pH6-BT-Ls6" firstAttribute="centerX" secondItem="oDE-29-eRL" secondAttribute="centerX" id="ie1-Jv-WUc"/>
                                                 <constraint firstItem="bRZ-qV-Rjc" firstAttribute="top" secondItem="oDE-29-eRL" secondAttribute="topMargin" constant="25" id="kCx-aM-epD"/>
                                                 <constraint firstItem="7cT-Ug-njN" firstAttribute="centerY" secondItem="nTS-WN-BJK" secondAttribute="centerY" id="luw-wz-qBQ"/>
                                                 <constraint firstItem="7cT-Ug-njN" firstAttribute="top" secondItem="zB2-7o-VXz" secondAttribute="bottom" constant="48" id="nyP-mM-H1d"/>

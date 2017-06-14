@@ -149,7 +149,7 @@ class EasyRechargeVC: BaseTableViewController, UITextFieldDelegate {
                 self?.rechargeType = .wechat
                 self?.rechargeTypeText.text = "微信支付"
             })
-            actionController.addAction(wechatAction)
+//            actionController.addAction(wechatAction)
             present(actionController, animated: true, completion: nil)
             return false
         }
