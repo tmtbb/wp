@@ -9,7 +9,7 @@
 import UIKit
 import SVProgressHUD
 import DKNightVersion
-class LoginVC: BaseTableViewController {
+class LoginVC: BaseTableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var qqBtn: UIButton!
     @IBOutlet weak var wechatBtn: UIButton!
@@ -95,6 +95,12 @@ class LoginVC: BaseTableViewController {
     
     func loginSuccess() {
         dismissController()
+    }
+    //MARK: --TextFeild密码处理
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let text: String = textField.text ?? ""
+        return string == "" || text.length() < 16
+    
     }
     
     //MARK: --微信登录

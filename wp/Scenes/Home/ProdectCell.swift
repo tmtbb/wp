@@ -63,14 +63,20 @@ class ProdectCell: UITableViewCell {
             changeLabel.text = String.init(format: "%.4f", kChartModel!.change)
             changePer.text = String.init(format: "%.2f%%", kChartModel!.pchg)
             lowPrice.dk_textColorPicker =  DKColorTable.shared().picker(withKey: AppConst.Color.buyDown)
-            
-            let colorKey = kChartModel!.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
+            iconImage.alpha = 1
+            var colorKey = kChartModel!.change > 0 ? AppConst.Color.buyUp : AppConst.Color.buyDown
+            if DealModel.checkIfSuspended(){
+                colorKey = AppConst.Color.stopBusiness
+                hightPrice.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+                lowPrice.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
+                iconImage.alpha = 0
+            }
             changeLabel.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
             changePer.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
             nowPrice.dk_textColorPicker = DKColorTable.shared().picker(withKey: colorKey)
             let iconName =  kChartModel!.change > 0 ? "upPrice" : "downPrice"
             iconImage.image = UIImage.init(named: iconName)
-            iconImage.alpha = 1
+            
             UIView.animate(withDuration: 2) { [weak self] in
                 self?.iconImage.alpha = 0
             }

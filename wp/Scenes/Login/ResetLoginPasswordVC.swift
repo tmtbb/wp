@@ -127,6 +127,22 @@ class ResetLoginPasswordVC: BaseTableViewController {
         phoneView.layer.borderColor = UIColor.init(rgbHex: 0xcccccc).cgColor
         codeBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
         nextBtn.dk_backgroundColorPicker = DKColorTable.shared().picker(withKey: AppConst.Color.main)
+        let eyeBtn: UIButton = UIButton.init(type: .custom)
+        eyeBtn.setImage(UIImage.init(named: "eye_close"), for: .normal)
+        eyeBtn.setImage(UIImage.init(named: "eye_open"), for: .selected)
+        eyeBtn.addTarget(self, action: #selector(eyeBtnTapped(_ :)), for: .touchUpInside)
+        pwdText.rightView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 40, height: 40))
+        pwdText.rightView?.addSubview(eyeBtn)
+        pwdText.rightViewMode = .always
+        eyeBtn.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: 22, height: 22))
+        }
+    }
+    
+    func eyeBtnTapped(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        pwdText.isSecureTextEntry = !sender.isSelected
     }
 
 
